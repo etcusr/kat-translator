@@ -1,6 +1,8 @@
-# Лицензия Kat translator
+# Kat translator license
 
-Исходный код Kat опубликован на GitHub под **GNU GPL version 3 or later — `GPL-3.0-or-later`**. Полный неизменённый текст GPL v3 — [LICENSE](../LICENSE). Предыдущие коммиты и датированные отчёты могут содержать историческое описание закрытого режима; настоящее решение относится к текущему выпуску исходников.
+**English** | [Русский](LICENSING.ru.md)
+
+Kat's source code is published on GitHub under the **GNU GPL version 3 or later — `GPL-3.0-or-later`**. The full unmodified GPL v3 text is in [LICENSE](../LICENSE). Earlier commits and dated reports may still describe the former closed mode; this decision applies to the current source release.
 
 Copyright (c) 2026 the respective copyright holders of Kat translator.
 
@@ -8,30 +10,30 @@ Kat translator is free software: you can redistribute it and/or modify it under 
 
 Kat translator is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-## Область действия
+## Scope
 
-GPL-3.0-or-later применяется к оригинальному коду Kat и принадлежащим его правообладателям сопутствующим материалам, если файл не содержит иной применимой оговорки. Авторские права не передаются. Это решение разрешает также коммерческое использование в рамках GPL; план автора распространять приложение бесплатно не добавляет запрет коммерческого использования для получателей.
+GPL-3.0-or-later applies to Kat's original code and to accompanying material owned by its copyright holders, unless a file carries a different applicable notice. Copyright is not transferred. The license also permits commercial use under the GPL; the author's plan to distribute the app for free does not add a non-commercial restriction for recipients.
 
-Лицензия Kat **не перелицензирует** сторонние библиотеки, словари, шрифты, графику, аудио, модели, датасеты и веса голосов. Их notices и условия сохраняются. Сведения об источниках находятся в каталогах `assets/catalogs`, dependency lock-файлах и [аудите компонентов](licensing/2026-10-12/README.md). Скачиваемые большие веса моделей, установщики, локальные подписи и пользовательские данные не входят в публикуемый Git. Встроенные ресурсы, включая компактную модель определения языка и голосовые превью, сохраняют собственные условия и notices.
+The Kat license **does not relicense** third-party libraries, dictionaries, fonts, graphics, audio, models, datasets or voice weights. Their notices and terms are preserved. Sources are recorded in `assets/catalogs`, the dependency lock files and the [component audit](licensing/2026-10-12/README.md). Large downloadable model weights, installers, local signing material and user data are not part of the published Git repository. Bundled resources, including the compact language identification model and voice previews, keep their own terms and notices.
 
-## eSpeak и распространение бинарников
+## eSpeak and binary distribution
 
-Выбран путь GPL для собственного кода, поэтому исследование замены eSpeak на VoiceGarden остановлено пользователем. eSpeak пока остаётся в основном runtime. Открытый репозиторий — часть выполнения обязательств, а не доказательство готовности любого IPA/APK/DMG к распространению.
+The GPL path was chosen for Kat's own code, so the owner stopped the study of replacing eSpeak with VoiceGarden. eSpeak remains in the main runtime for now. The public repository is part of meeting the obligations; it does not by itself prove that any IPA/APK/DMG/PKG is ready for distribution.
 
-Для конкретного бинарного выпуска нужно обеспечить полный соответствующий исходный код, включая необходимые изменения и инструкции сборки зависимостей, сохранить уведомления и выполнить применимые условия GPL. Ссылки на чужие репозитории сами по себе не являются универсальным выполнением всех обязательств. Перед App Store отдельно проверяются условия магазина, подписи/доставки и отсутствие недопустимых дополнительных ограничений. Это ещё не закрыто.
+A specific binary release must provide the complete corresponding source, including required modifications and dependency build instructions, preserve the notices and meet the applicable GPL conditions. Links to other people's repositories are not a universal fulfilment of every obligation. Store terms, signing/delivery and the absence of impermissible additional restrictions are checked separately before an App Store release. This is not closed yet.
 
-Локальная разработка не требует немедленно выкладывать весь рабочий репозиторий. Решение открыть GitHub принято пользователем отдельно и прямо. Публичная публикация исходников не включает разрешение отправлять приложение в магазины или распространять сторонние веса с неясными правами.
+Local development does not require publishing the whole working repository immediately. Opening the GitHub repository was a separate, explicit decision of the owner. Publishing the source does not include permission to submit the app to stores or to redistribute third-party weights with unclear rights.
 
-## Голоса и очередь публикации
+## Voices and publication queue
 
- **Denis и остальные текущие голоса остаются**. Ранее обсуждавшееся исключение отменено: прямой запрет не установлен, Kat скачивает веса со стороннего сервера, а не хранит их в своём Git. Неопределённость прав и условия сторонних лицензий сохраняются в [первичных подтверждениях](licensing/2026-10-14/denis-lessac.md) и [проверке всех Piper-пакетов](licensing/2026-10-14/voice-alternatives.md). При явном ограничении или обоснованной претензии выбор пересматривается.
+**Denis and all other current voices stay.** The previously discussed removal was cancelled: no explicit prohibition was found, and Kat downloads the weights from a third-party server instead of storing them in its own Git. The rights uncertainty and third-party license terms are documented in the [primary confirmations](licensing/2026-10-14/denis-lessac.md) and the [review of all Piper packages](licensing/2026-10-14/voice-alternatives.md). The choice is revisited if an explicit restriction or a substantiated claim appears.
 
-Открытие кода Kat не меняет эти права и не отменяет NC/OpenRAIL/атрибуции остальных пакетов. Поэтапная очередь — [OPEN_QUESTIONS](publication/OPEN_QUESTIONS.md). Публичный контакт — katlabs.dev@gmail.com; [privacy](https://etcusr.github.io/kat-translator/privacy/) и support-страница подготовлены отдельно. Юридический издатель и пользовательские условия согласуются перед магазинным выпуском; имя GitHub не подставляется вместо юридического имени.
+Opening Kat's code does not change those rights and does not lift the NC/OpenRAIL/attribution terms of other packages. The staged queue is in [OPEN_QUESTIONS](publication/OPEN_QUESTIONS.md). Public contact: katlabs.dev@gmail.com; the [privacy policy](https://etcusr.github.io/kat-translator/privacy/) and the support page are published separately. The legal publisher and user terms are agreed before a store release; the GitHub account name is not used in place of a legal name.
 
-Проверка публикуемой истории и её границы — [REPOSITORY_PRIVACY](REPOSITORY_PRIVACY.md).
+The review of the published history and its limits: [REPOSITORY_PRIVACY](REPOSITORY_PRIVACY.md).
 
-Текущая проверка лицензионного комплекта: [состав конечных пакетов, исправления и конкретные открытые вопросы](licensing/2026-10-14/release-package-review.md). В исходниках46 документов; последние store IPA50/PKG69 содержат42. Новые лицензии и исправление звука войдут в следующий выпуск.
+Current review of the license kit: [contents of the final packages, fixes and specific open questions](licensing/2026-10-14/release-package-review.md). The sources contain 46 documents; the latest store packages IPA50/PKG69 contain 42. The new license documents and the audio fix will ship in the next release.
 
-## Комплект исходников зависимостей
+## Dependency source kit
 
-[Локально собраны и проверены](licensing/2026-10-14/source-kit.md) 605 архивов и 9 frontend-файлов; URL/SHA-256, подмодули, патчи и воспроизводимые notices включены в репозиторий. Архивы хранятся отдельно от Git; [публичная доставка, подписи SDK и оставшиеся вопросы](licensing/2026-10-14/publication-and-sdk.md). Их наличие не заменяет независимую проверку полного corresponding source для фактически поставляемых бинарников и условий канала распространения.
+605 archives and 9 frontend files were [collected and verified locally](licensing/2026-10-14/source-kit.md); URLs/SHA-256, submodules, patches and reproducible notices are included in the repository. The archives are stored outside Git; see [public delivery, SDK signatures and remaining questions](licensing/2026-10-14/publication-and-sdk.md). Having them does not replace an independent check of the complete corresponding source for the binaries actually shipped and of the distribution channel terms.

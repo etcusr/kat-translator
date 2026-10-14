@@ -28,6 +28,7 @@ dist/
 # Shared multi-platform model cache, never bundled or committed.
 model-store/*
 !model-store/README.md
+!model-store/README.ru.md
 shared/packages/*/.build/
 apps/ios/Config/Signing.local.xcconfig
 apps/ios/build/

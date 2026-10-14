@@ -1,9 +1,11 @@
-# Публичный состав репозитория
+# Public repository contents
 
-В Git входят исходники, каталоги моделей, зависимости, лицензии, синтетические тестовые данные и техническая документация. Собственный код — GPL-3.0-or-later; сторонние материалы сохраняют свои условия.
+**English** | [Русский](REPOSITORY_PRIVACY.ru.md)
 
-Не включать секреты, локальные пути и идентификаторы устройств, signing material, личные тексты/изображения/аудио, контейнеры приложений, сборки и скачанные веса. Служебные инструкции, журналы ассистентов, внутренние планы и архивы обсуждений остаются локально и исключены из Git.
+Git contains source code, model catalogs, dependency manifests, licenses, synthetic test data and technical documentation. Kat's own code is GPL-3.0-or-later; third-party material keeps its own terms.
 
-Перед коммитом проверять содержимое, размеры и staged diff. Сообщение коммита кратко описывает изменение. Для отчётов и тестов использовать синтетические данные. Обязательные имена и notices авторов сторонних компонентов сохраняются. Публичный контакт проекта: katlabs.dev@gmail.com.
+Do not commit secrets, local paths or device identifiers, signing material, personal text/images/audio, app containers, build outputs or downloaded weights. Internal instructions, assistant journals, internal plans and discussion archives stay local and are excluded from Git.
 
-Не отправлять локальные архивы и служебные refs; не использовать `push --mirror`. Обновлять только проверенную ветку main. Переписывание ветки не гарантирует удаления старых объектов и кэшей с хостинга.
+Before committing, check the contents, file sizes and the staged diff. A commit message briefly describes the change. Use synthetic data in reports and tests. Required author names and notices of third-party components are preserved. Public project contact: katlabs.dev@gmail.com.
+
+Do not push local archives or internal refs, and do not use `push --mirror`. Only the reviewed `main` branch is updated. Rewriting a branch does not guarantee that old objects and caches are removed from the hosting service.

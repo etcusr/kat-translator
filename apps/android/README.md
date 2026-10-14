@@ -1,11 +1,13 @@
 # Android app
 
-Текущая сборка: **0.4.5 / versionCode20**, Debug, ARM64/API31+. Проверенная платформа — Pixel9Pro/Mali-G715. [Общий текущий статус](../../docs/CURRENT_STATE.md).
+**English** | [Русский](README.ru.md)
 
-Kotlin/Compose: Voice/Text/Camera, языки, история, настройки, модели, загрузки, аудио и общие анимации. Начальный выбор — «Авто»: установленный Index 9B → 2B на мощном устройстве, поддержанный OPUS → 2B → 9B на остальных. Доступны OPUS Big CTranslate2 CPU INT8 (EN-пакет и отдельные направления), Index 2B Q4_K_M Vulkan без MTP и Index 9B Q4_K_M Vulkan/MTP. Сохранённый выбор не сбрасывается.
+Current build: **0.4.6 / versionCode 21**, Debug, ARM64 / API 31+. Verified platform: Pixel 9 Pro / Mali-G715. [Overall current state](../../docs/CURRENT_STATE.md).
 
-ASR Auto: RU → GigaAMv3, остальные поддержанные Parakeet языки → ParakeetTDTv3; обязательный пакет предлагается скачать. Ручной выбор имеет приоритет. Голос/камера требуют явного исходного языка, текстовое Auto сохраняется. OCR: bundled ML Kit для поддержанных письменностей, русский PP-OCR.
+Kotlin/Compose: Voice/Text/Camera, languages, history, settings, models, downloads, audio and the shared animations. The initial choice is "Auto": installed Index 9B → 2B on a powerful device, a supported OPUS direction → 2B → 9B on the others. Available engines: OPUS Big via CTranslate2 CPU INT8 (the EN package and separate directions), Index 2B Q4_K_M on Vulkan without MTP and Index 9B Q4_K_M on Vulkan with MTP. A saved manual choice is kept.
 
-Каталоги: `../../assets/catalogs`; модели/голоса: `../../model-store`. Веса не входят в APK. Native C ABI: `../../shared/native`. Mali Q6 и другие Android-only patches применяются к build-копии, без изменения общего vendor/Apple Metal.
+ASR Auto: Russian → GigaAM v3, the other Parakeet-supported languages → Parakeet TDT v3; a missing required package is offered for download. A manual choice takes priority. Voice and camera need an explicit source language; text Auto stays available. OCR: bundled ML Kit for supported scripts, Russian via PP-OCR.
 
-[Установка и сборка](../../docs/android/INSTALL.md) · [Архитектура и история переноса](../../docs/android/README.md) · [Историческая проверка Q6](../../docs/android/benchmarks/2026-10-12-mali-q6-kernels/README.md) · [ASR routing](../../docs/android/benchmarks/2026-10-12-asr-routing/README.md).
+Catalogs: `../../assets/catalogs`; models/voices: `../../model-store`. Weights are not part of the APK. Native C ABI: `../../shared/native`. Mali Q6 and other Android-only patches are applied to a build copy without changing the shared vendor/Apple Metal code.
+
+[Install and build](../../docs/android/INSTALL.md) · [Architecture and porting history](../../docs/android/README.md) · [Historical Q6 check](../../docs/android/benchmarks/2026-10-12-mali-q6-kernels/README.md) · [ASR routing](../../docs/android/benchmarks/2026-10-12-asr-routing/README.md).

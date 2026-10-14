@@ -1,26 +1,8 @@
 # Kat translator
 
-Рабочее название / Working title: **Kat translator**.
+**English** | [Русский](PROJECT_DESCRIPTION.ru.md)
 
-## Русский
-
-**Короткое описание:** Офлайн-переводчик с ИИ.
-
-Kat translator переводит речь, набранный текст и текст на изображениях на iPhone, Mac с Apple Silicon и Android ARM64. Выберите нужные языки, скачайте модели и пользуйтесь переводчиком без подключения к интернету.
-
-- Голосовой ввод, импорт аудио, текстовый перевод; камера на телефонах, изображения из файлов/галереи и буфера по возможностям платформы.
-- Локальное распознавание речи, перевод и озвучивание для поддерживаемых языков.
-- Поиск языков, избранные и быстрая смена направления.
-- Копирование текста, история переводов и отправка готовой озвучки.
-- Выбор моделей и голосов с предварительным прослушиванием.
-- Загрузка пакетов с прогрессом, паузой и возможностью докачки.
-- Интерфейс на русском, английском, испанском и турецком.
-
-Речь, тексты, фотографии и переводы обрабатываются на устройстве и не отправляются разработчику. Интернет нужен для скачивания моделей и голосов; серверы загрузки получают технические данные соединения. История хранится локально и может быть отключена или очищена.
-
-Доступность распознавания, перевода, озвучивания и камеры зависит от языка, выбранной модели и устройства. Модели могут занимать несколько гигабайт. Возможны ошибки перевода, в том числе в числах, именах и времени: важные сведения следует проверять.
-
-## English
+Working title: **Kat translator**.
 
 **Short description:** Offline AI translator.
 
@@ -42,10 +24,10 @@ Recognition, translation, speech output and camera support depend on the languag
 
 Current releases, platform differences and verification limits: [CURRENT_STATE](docs/CURRENT_STATE.md). This product description is not a claim of complete feature or language parity across platforms.
 
-This document is included in the Xcode navigator under **Kat translator — Project Info**. Store listing copy is a draft for later entry into App Store Connect; no store listing was created or submitted.
+This document is included in the Xcode navigator under **Kat translator — Project Info**. The App Store Connect record exists for iOS and macOS; localized store copy lives in `docs/publication/2026-10-14/`. Nothing has been submitted for App Review yet.
 
 - Display name: `Kat translator` (same in RU and EN).
 - iOS project/scheme: `OfflineTranslator`; macOS: `KatTranslatorMac`; Android: Gradle `app`/`inference`.
-- iOS bundle identifier: `app.kattranslator` (selected on 2026-10-14; extension `app.kattranslator.downloads`; the installed legacy app still uses `org.openoffline.translator.prototype` and requires a separate data migration); Android application ID: `org.openoffline.translator.android`.
+- iOS bundle identifier: `app.kattranslator` (selected on 2026-10-14; extension `app.kattranslator.downloads`; the installed legacy app still uses `org.openoffline.translator.prototype` and requires a separate data migration). The Mac App Store build uses the same `app.kattranslator`; the direct Mac build uses `org.openoffline.translator.mac`. Android application ID: `org.openoffline.translator.android`.
 - Visual direction and logo candidates: [Brand notes](docs/branding/README.md).
-- Current implementation, download dependencies and verification: [текущее состояние](docs/CURRENT_STATE.md), [download notes](docs/IMPLEMENTATION-language-downloads.md).
+- Current implementation, download dependencies and verification: [current state](docs/CURRENT_STATE.md), [download notes](docs/IMPLEMENTATION-language-downloads.md).
