@@ -14,3 +14,7 @@
 Создано встроенным **image_gen**, с реальной иконкой Kat как референсом. Исходные результаты сохранены в `sources/`: Header 1915×821, Search Results 1536×1024. Затем выполнен обычный экспорт с масштабированием до размеров Apple и профилем sRGB; это не нативная генерация 4K. Промпты и решения — [prompts.md](prompts.md), контрольные суммы — [manifest.json](manifest.json).
 
 Требования сверены 14.10.2026 по официальной [спецификации Apple](https://developer.apple.com/help/app-store-connect/reference/app-information/creative-assets-specifications/) и [рекомендациям к композиции](https://developer.apple.com/app-store/asset-best-practices/). Наличие правильных размеров не означает одобрения изображения Apple.
+
+## Каталоги для загрузки
+
+Готовые копии лежат рядом с остальными материалами в `dist/store/ios-1.0-build47-ru/` и `dist/store/macos-1.0-build65-ru/`: в каждом каталоге есть `header/kat-header-3840x1646.png` и `search-results/kat-search-results-3840x2560.png`. Их SHA-256 совпадают с исходниками выше. `dist` остаётся локальным; исходники и manifest хранятся в Git.

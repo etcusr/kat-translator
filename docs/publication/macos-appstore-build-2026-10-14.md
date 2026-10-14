@@ -13,7 +13,7 @@
 | Подпись | Archive — Apple Development (automatic), экспорт `app-store-connect` — Apple Distribution и 3rd Party Mac Developer Installer, профиль «Mac Team Store Provisioning Profile: app.kattranslator» (Xcode managed) |
 | Info.plist | Копия исходного с версией 1.0/61 и `KatBuildProfile=mac-app-store`, создаётся в ignored `.build/macos-appstore/<версия>-<build>/` |
 
-Команда: `KAT_MAC_STORE_BUILD=61 scripts/archive-macos-appstore.sh export|upload`. Team ID берётся из ignored `apps/ios/Config/Signing.local.xcconfig` или `KAT_APPLE_TEAM_ID`.
+Команда: `KAT_MAC_STORE_BUILD=<новый_числовой_номер> scripts/archive-macos-appstore.sh export|upload`. Каждый запуск требует свободный каталог версии/сборки; занятый каталог не перезаписывается даже после неудачной попытки. Ошибка архивирования или записи журнала останавливает выполнение до экспорта. Team ID берётся из ignored `apps/ios/Config/Signing.local.xcconfig` или `KAT_APPLE_TEAM_ID`.
 
 ## Изменения кода
 

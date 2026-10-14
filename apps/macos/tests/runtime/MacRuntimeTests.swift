@@ -89,7 +89,8 @@ final class MacRuntimeTests: XCTestCase {
     func testSandboxSeedModels() throws {
         guard let source = ProcessInfo.processInfo.environment["KAT_SANDBOX_SEED_FROM"] else { throw XCTSkip("Opt-in sandbox seeding") }
         let root = ModelDownloader.root
-        guard root.path.contains("/Library/Containers/") else { throw XCTSkip("Only inside a sandbox container") }
+        try SandboxTestStorage.validate(root: root, home: URL(fileURLWithPath: NSHomeDirectory()),
+            bundleID: Bundle.main.bundleIdentifier, containerID: ProcessInfo.processInfo.environment["APP_SANDBOX_CONTAINER_ID"])
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
         // Downloads/<id>/transfer.json records which archives are installed; merge it per item.
         var items = ["Models", "RecognitionPackages", "TranslationPackages", "VoicePackages", "transfer.json"]
@@ -112,10 +113,62 @@ final class MacRuntimeTests: XCTestCase {
     func testSandboxResetContainerData() throws {
         guard ProcessInfo.processInfo.environment["KAT_SANDBOX_RESET"] == "1" else { throw XCTSkip("Opt-in sandbox reset") }
         let root = ModelDownloader.root
-        guard root.path.contains("/Library/Containers/") else { throw XCTSkip("Never reset outside a sandbox container") }
-        try? FileManager.default.removeItem(at: root)
-        if let id = Bundle.main.bundleIdentifier { UserDefaults.standard.removePersistentDomain(forName: id) }
-        print("SANDBOX_RESET", FileManager.default.fileExists(atPath: root.path))
+        try SandboxTestStorage.reset(root: root, home: URL(fileURLWithPath: NSHomeDirectory()),
+            bundleID: Bundle.main.bundleIdentifier, containerID: ProcessInfo.processInfo.environment["APP_SANDBOX_CONTAINER_ID"],
+            clearDefaults: { UserDefaults.standard.removePersistentDomain(forName: SandboxTestStorage.bundleID) })
+        XCTAssertFalse(FileManager.default.fileExists(atPath: root.path))
+        XCTAssertTrue(UserDefaults.standard.persistentDomain(forName: SandboxTestStorage.bundleID)?.isEmpty ?? true)
+        print("SANDBOX_RESET_OK")
+    }
+
+    func testSandboxResetRejectsWrongContainerAndSymlink() throws {
+        let fixture = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: fixture) }
+        let home = fixture.appendingPathComponent("Library/Containers/app.kattranslator/Data")
+        let root = home.appendingPathComponent("Library/Application Support/OfflineTranslator")
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let marker = root.appendingPathComponent("keep.txt")
+        try Data("keep".utf8).write(to: marker)
+        var cleared = false
+        for id in [nil, "org.openoffline.translator.mac", "app.kattranslator.extra"] as [String?] {
+            XCTAssertThrowsError(try SandboxTestStorage.reset(root: root, home: home, bundleID: id,
+                containerID: "app.kattranslator", clearDefaults: { cleared = true }))
+        }
+        XCTAssertThrowsError(try SandboxTestStorage.reset(root: root, home: home, bundleID: "app.kattranslator",
+            containerID: nil, clearDefaults: { cleared = true }))
+        XCTAssertThrowsError(try SandboxTestStorage.reset(root: root.deletingLastPathComponent(), home: home,
+            bundleID: "app.kattranslator", containerID: "app.kattranslator", clearDefaults: { cleared = true }))
+        let outside = fixture.appendingPathComponent("outside")
+        try FileManager.default.moveItem(at: root, to: outside)
+        try FileManager.default.createSymbolicLink(at: root, withDestinationURL: outside)
+        XCTAssertThrowsError(try SandboxTestStorage.reset(root: root, home: home, bundleID: "app.kattranslator",
+            containerID: "app.kattranslator", clearDefaults: { cleared = true }))
+        XCTAssertEqual(try Data(contentsOf: outside.appendingPathComponent("keep.txt")), Data("keep".utf8))
+        XCTAssertFalse(cleared)
+    }
+
+    func testSandboxResetPropagatesRemovalFailureAndChecksResult() throws {
+        let fixture = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: fixture) }
+        let home = fixture.appendingPathComponent("Library/Containers/app.kattranslator/Data")
+        let root = home.appendingPathComponent("Library/Application Support/OfflineTranslator")
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        var cleared = false
+        XCTAssertThrowsError(try SandboxTestStorage.reset(root: root, home: home, bundleID: "app.kattranslator",
+            containerID: "app.kattranslator", remove: { _ in throw CocoaError(.fileWriteNoPermission) },
+            clearDefaults: { cleared = true })) { error in
+                XCTAssertEqual((error as NSError).code, CocoaError.fileWriteNoPermission.rawValue)
+            }
+        XCTAssertThrowsError(try SandboxTestStorage.reset(root: root, home: home, bundleID: "app.kattranslator",
+            containerID: "app.kattranslator", remove: { _ in }, clearDefaults: { cleared = true }))
+        XCTAssertFalse(cleared)
+        try SandboxTestStorage.reset(root: root, home: home, bundleID: "app.kattranslator",
+            containerID: "app.kattranslator", clearDefaults: { cleared = true })
+        XCTAssertTrue(cleared)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: root.path))
+        // An already empty test container is a successful, idempotent reset.
+        try SandboxTestStorage.reset(root: root, home: home, bundleID: "app.kattranslator",
+            containerID: "app.kattranslator", clearDefaults: {})
     }
     @MainActor func testDownloadOfflineAndUnmeteredPaths() async throws {
         let suite = "download-network-tests-" + UUID().uuidString
@@ -151,7 +204,7 @@ final class MacRuntimeTests: XCTestCase {
         host.layoutSubtreeIfNeeded()
         let bitmap = try XCTUnwrap(host.bitmapImageRepForCachingDisplay(in: host.bounds))
         host.cacheDisplay(in: host.bounds, to: bitmap)
-        try XCTUnwrap(bitmap.representation(using: .png, properties: [:])).write(to: root.appendingPathComponent(".build/cellular-download/mac-warning.png"))
+        try XCTUnwrap(bitmap.representation(using: .png, properties: [:])).write(to: artifactURL("cellular-download/mac-warning.png"))
         let recognition = VNRecognizeTextRequest()
         recognition.recognitionLevel = .accurate; recognition.recognitionLanguages = ["en-US", "ru-RU"]
         try VNImageRequestHandler(cgImage: try XCTUnwrap(bitmap.cgImage)).perform([recognition])
@@ -186,7 +239,7 @@ final class MacRuntimeTests: XCTestCase {
             let bitmap = try XCTUnwrap(host.bitmapImageRepForCachingDisplay(in: host.bounds))
             host.cacheDisplay(in: host.bounds, to: bitmap)
             let image = try XCTUnwrap(bitmap.cgImage)
-            try XCTUnwrap(bitmap.representation(using: .png, properties: [:])).write(to: root.appendingPathComponent(".build/voice-playback-results/mac-\(name).png"))
+            try XCTUnwrap(bitmap.representation(using: .png, properties: [:])).write(to: artifactURL("voice-playback-results/mac-\(name).png"))
             let request = VNRecognizeTextRequest()
             request.recognitionLevel = .accurate
             request.recognitionLanguages = ["en-US", "ru-RU"]
@@ -253,7 +306,7 @@ final class MacRuntimeTests: XCTestCase {
             let renderer = ImageRenderer(content: content); renderer.scale = 1
             let bitmap = NSBitmapImageRep(cgImage: try XCTUnwrap(renderer.cgImage))
             let data = try XCTUnwrap(bitmap.representation(using: .png, properties: [:]))
-            try data.write(to: root.appendingPathComponent(".build/responsive-preparation/render-\(Int(size.width)).png"))
+            try data.write(to: artifactURL("responsive-preparation/render-\(Int(size.width)).png"))
             return bitmap
         }
         func greenBounds(_ image: NSBitmapImageRep) -> (width: Int, height: Int, count: Int) {
@@ -311,7 +364,17 @@ final class MacRuntimeTests: XCTestCase {
         catch is CancellationError {} catch { throw error }
         XCTAssertTrue(FileManager.default.fileExists(atPath: file.path))
     }
-    private var root: URL { URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent() }
+    private var root: URL {
+        // Source is apps/macos/tests/runtime/MacRuntimeTests.swift.
+        (0..<5).reduce(URL(fileURLWithPath: #filePath)) { url, _ in url.deletingLastPathComponent() }
+    }
+    private func artifactURL(_ relativePath: String) throws -> URL {
+        let directory = ProcessInfo.processInfo.environment["KAT_RUNTIME_REPORT_DIR"].map { URL(fileURLWithPath: $0) }
+            ?? FileManager.default.temporaryDirectory.appendingPathComponent("kat-runtime-tests")
+        let file = directory.appendingPathComponent(relativePath)
+        try FileManager.default.createDirectory(at: file.deletingLastPathComponent(), withIntermediateDirectories: true)
+        return file
+    }
     @MainActor func testAutomaticDetectedTextSwitchesRealOpusAndIndexModels() async throws {
         guard ProcessInfo.processInfo.environment["KAT_AUTO_ROUTING_INTEGRATION"] == "1" else { throw XCTSkip("Opt-in installed OPUS and Index models") }
         let packages = PackageDownloadCoordinator.shared
@@ -345,9 +408,8 @@ final class MacRuntimeTests: XCTestCase {
         var report: [String: Any] = [:]
         let packages = PackageDownloadCoordinator.shared
         await packages.restore()
-        XCTAssertTrue(packages.setupReady(LanguageSetup(primaryID: "ru", targetIDs: ["en"]), model: .index9B))
-        let mt = LlamaTranslationBackend()
-        try await mt.load(modelURL: try XCTUnwrap(packages.indexTranslation.installedURL), model: .index9B)
+        let mt = RoutedTranslationBackend()
+        try await mt.load(modelURL: try XCTUnwrap(packages.translationURL(for: .index9B), "Installed Mac MLX package required"), model: .index9B)
         let phrase = "Я приеду 15 октября в 23:30. Нужен номер на двоих на две ночи."
         let start = Date()
         let translation = try await mt.translate(text: phrase, source: .russian, target: .english)
@@ -357,8 +419,8 @@ final class MacRuntimeTests: XCTestCase {
         XCTAssertTrue(translation.text.contains("23:30") || translation.text.contains("11:30"), translation.text)
         await mt.unload()
 
-        let asr = WhisperBackend()
-        try await asr.load(modelURL: try XCTUnwrap(packages.whisper.installedURL))
+        let asr = RoutedASRBackend()
+        try await asr.load(modelURL: try XCTUnwrap(packages.recognition.ultra ?? packages.omnilingualDirectory ?? packages.whisper.installedURL))
         // Sandboxed store-build checks pass locations the container may read and write.
         let environment = ProcessInfo.processInfo.environment
         let fixtures = environment["KAT_ASR_FIXTURES"].map { URL(fileURLWithPath: $0) } ?? root.appendingPathComponent(".build/apple-asr/fixtures")
@@ -373,7 +435,7 @@ final class MacRuntimeTests: XCTestCase {
         await asr.unload()
 
         let tts = SherpaSpeechBackend()
-        try await tts.load(directory: try XCTUnwrap(packages.voiceDirectories[ModelCatalog.englishVoice.id]), language: .english)
+        try await tts.load(directory: try XCTUnwrap(packages.voiceDirectories[ModelCatalog.englishVoice.id] ?? packages.voiceDirectories.first { $0.key.contains("en_US") }?.value), language: .english)
         let pcm = try await tts.synthesize(text: "Your room is ready. Check in at eleven thirty.")
         report["speechSamples"] = pcm.samples.count; report["speechRate"] = pcm.sampleRate
         XCTAssertGreaterThan(pcm.samples.count, pcm.sampleRate)
@@ -386,7 +448,7 @@ final class MacRuntimeTests: XCTestCase {
         let count = ot_wayu_frontend_tokens("สวัสดีครับ", &tokens, 512)
         XCTAssertGreaterThan(count, 2)
         report["thaiTokenCount"] = count
-        try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]).write(to: (environment["KAT_RUNTIME_REPORT_DIR"].map { URL(fileURLWithPath: $0) } ?? root.appendingPathComponent(".build/macos")).appendingPathComponent("runtime-report.json"))
+        try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]).write(to: artifactURL("runtime-report.json"))
     }
     /// Opt-in (KAT_SPEECH_INTEGRATION=1): installed Whisper ASR, English TTS and the embedded Thai
     /// frontend, without translation models. Used for sandboxed store-build checks.
@@ -483,7 +545,7 @@ final class MacRuntimeTests: XCTestCase {
         host.layoutSubtreeIfNeeded()
         let bitmap = try XCTUnwrap(host.bitmapImageRepForCachingDisplay(in: host.bounds))
         host.cacheDisplay(in: host.bounds, to: bitmap)
-        try XCTUnwrap(bitmap.representation(using: .png, properties: [:])).write(to: root.appendingPathComponent(".build/voice-playback-results/image-history-mac.png"))
+        try XCTUnwrap(bitmap.representation(using: .png, properties: [:])).write(to: artifactURL("voice-playback-results/image-history-mac.png"))
         await model.open(modelURL: directory)
         await model.clear()
         XCTAssertNil(model.image); XCTAssertFalse(model.translation.complete); XCTAssertTrue(model.translation.translated.isEmpty)
@@ -496,7 +558,15 @@ final class MacRuntimeTests: XCTestCase {
         await packages.restore()
         let model = CameraModel(packages: packages)
         model.source = .english; model.target = .russian
-        await model.open(modelURL: try XCTUnwrap(packages.indexTranslation.installedURL))
+        let previousModel = packages.selectedTranslation
+        let previousPreference = UserDefaults.standard.object(forKey: "selectedTranslationModel")
+        packages.selectTranslation(.index9B)
+        defer {
+            packages.selectTranslation(previousModel)
+            if let previousPreference { UserDefaults.standard.set(previousPreference, forKey: "selectedTranslationModel") }
+            else { UserDefaults.standard.removeObject(forKey: "selectedTranslationModel") }
+        }
+        await model.open(modelURL: try XCTUnwrap(packages.translationURL(for: .index9B)))
         XCTAssertFalse(model.translation.ready, "An empty image tab must not load Index")
         XCTAssertFalse(model.opening)
         let image = NSImage(size: NSSize(width: 1000, height: 240), flipped: false) { rect in
@@ -579,7 +649,7 @@ final class MacRuntimeTests: XCTestCase {
         host.layoutSubtreeIfNeeded()
         let bitmap = try XCTUnwrap(host.bitmapImageRepForCachingDisplay(in: host.bounds))
         host.cacheDisplay(in: host.bounds, to: bitmap)
-        try XCTUnwrap(bitmap.representation(using: .png, properties: [:])).write(to: root.appendingPathComponent(".build/voice-playback-results/history-audio-row-mac.png"))
+        try XCTUnwrap(bitmap.representation(using: .png, properties: [:])).write(to: artifactURL("voice-playback-results/history-audio-row-mac.png"))
         let request = VNRecognizeTextRequest(); request.recognitionLevel = .accurate; request.recognitionLanguages = ["en-US", "ru-RU"]
         try VNImageRequestHandler(cgImage: XCTUnwrap(bitmap.cgImage)).perform([request])
         func box(_ words: String) throws -> CGRect {
@@ -648,6 +718,34 @@ final class MacRuntimeTests: XCTestCase {
         XCTAssertFalse(model.recorder.isRecording)
     }
 
+}
+
+// Only the explicit store test container can be seeded/reset. Never infer permission
+// from a substring in a path; resolve links before performing recursive deletion.
+private enum SandboxTestStorage {
+    static let bundleID = "app.kattranslator"
+    enum Failure: Error { case invalidContainer, dataStillExists }
+
+    static func validate(root: URL, home: URL, bundleID: String?, containerID: String?) throws {
+        let suffix = ["Library", "Containers", Self.bundleID, "Data"]
+        let expected = home.appendingPathComponent("Library/Application Support/OfflineTranslator")
+        let resolvedExpected = home.resolvingSymlinksInPath().appendingPathComponent("Library/Application Support/OfflineTranslator")
+        guard bundleID == Self.bundleID, containerID == Self.bundleID,
+              Array(home.standardizedFileURL.pathComponents.suffix(4)) == suffix,
+              root.standardizedFileURL.path == expected.standardizedFileURL.path,
+              root.resolvingSymlinksInPath().path == resolvedExpected.path else {
+            throw Failure.invalidContainer
+        }
+    }
+
+    static func reset(root: URL, home: URL, bundleID: String?, containerID: String?,
+                      remove: (URL) throws -> Void = { try FileManager.default.removeItem(at: $0) },
+                      clearDefaults: () -> Void) throws {
+        try validate(root: root, home: home, bundleID: bundleID, containerID: containerID)
+        if FileManager.default.fileExists(atPath: root.path) { try remove(root) }
+        guard !FileManager.default.fileExists(atPath: root.path) else { throw Failure.dataStillExists }
+        clearDefaults()
+    }
 }
 
 // Deterministic, silent UI fixture: no model inference, microphone or history writes.

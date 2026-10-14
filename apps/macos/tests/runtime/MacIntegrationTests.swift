@@ -232,6 +232,15 @@ import SwiftUI
         let model = AppModel(session: pipeline)
         let oldLanguages = model.languages
         defer { model.languages = oldLanguages; model.integration.cancel() }
+        // Fix both sides of the pair; saved equal languages bypass translation entirely.
+        model.languages = LanguageSelection(sourceID: "en", targetID: "ru", automaticRequested: false)
+        let defaults = UserDefaults.standard
+        let oldQuick = defaults.object(forKey: QuickTranslationLanguage.preferenceKey)
+        defaults.set("ru", forKey: QuickTranslationLanguage.preferenceKey)
+        defer {
+            if let oldQuick { defaults.set(oldQuick, forKey: QuickTranslationLanguage.preferenceKey) }
+            else { defaults.removeObject(forKey: QuickTranslationLanguage.preferenceKey) }
+        }
         await model.packages.restore()
         model.camera = CameraModel(packages: model.packages, backend: IntegrationMT())
         await model.openCamera()

@@ -8,12 +8,15 @@ DESTINATION="${1:-export}"
 case "$DESTINATION" in export|upload) ;; *) echo "Destination must be export or upload" >&2; exit 1 ;; esac
 VERSION="${KAT_MAC_STORE_VERSION:-1.0}"
 BUILD="${KAT_MAC_STORE_BUILD:?Set KAT_MAC_STORE_BUILD to a build number not yet uploaded}"
+[[ "$VERSION" =~ ^[0-9]+(\.[0-9]+){0,2}$ && "$BUILD" =~ ^[0-9]+$ ]] || { echo "Version must be numeric (up to three components); build must be numeric" >&2; exit 1; }
 BUNDLE_ID="${KAT_MAC_STORE_BUNDLE_ID:-app.kattranslator}"
 TEAM="${KAT_APPLE_TEAM_ID:-$(sed -n 's/^DEVELOPMENT_TEAM *= *//p' "$ROOT/apps/ios/Config/Signing.local.xcconfig" 2>/dev/null)}"
 [ -n "$TEAM" ] || { echo "Set KAT_APPLE_TEAM_ID or apps/ios/Config/Signing.local.xcconfig" >&2; exit 1; }
 OUT="$ROOT/.build/macos-appstore/$VERSION-$BUILD"
 ARCHIVE="$OUT/Kat-translator-mas.xcarchive"
-mkdir -p "$OUT"
+mkdir -p "$(dirname "$OUT")"
+# Reserve this attempt atomically. Never overwrite evidence or reuse a stale archive.
+mkdir "$OUT" || { echo "Output already exists or cannot be created: $OUT. Use a fresh build number." >&2; exit 1; }
 
 # Store Info.plist: same content, store version/build.
 python3 - "$ROOT/apps/macos/Info.plist" "$OUT/Info.plist" "$VERSION" "$BUILD" <<'EOF'
@@ -27,7 +30,7 @@ data['ITSAppUsesNonExemptEncryption'] = False
 open(sys.argv[2], 'wb').write(plistlib.dumps(data, sort_keys=False))
 EOF
 
-xcodebuild -project "$ROOT/apps/macos/KatTranslatorMac.xcodeproj" -scheme KatTranslatorMac \
+if xcodebuild -project "$ROOT/apps/macos/KatTranslatorMac.xcodeproj" -scheme KatTranslatorMac \
   -configuration Release -destination 'generic/platform=macOS' \
   -derivedDataPath "$ROOT/.build/MacStoreDerivedData" -archivePath "$ARCHIVE" \
   -allowProvisioningUpdates -allowProvisioningDeviceRegistration \
@@ -36,7 +39,13 @@ xcodebuild -project "$ROOT/apps/macos/KatTranslatorMac.xcodeproj" -scheme KatTra
   CODE_SIGN_STYLE=Automatic CODE_SIGN_IDENTITY="Apple Development" \
   CODE_SIGN_ENTITLEMENTS="$ROOT/apps/macos/KatMacStore.entitlements" \
   ENABLE_APP_SANDBOX=YES INFOPLIST_FILE="$OUT/Info.plist" ENABLE_TESTABILITY=NO \
-  2>&1 | tee "$OUT/archive.log" | grep -E "error:|warning: .*sign|ARCHIVE (SUCCEEDED|FAILED)" || true
+  2>&1 | tee "$OUT/archive.log" | awk '/error:|warning: .*sign|ARCHIVE (SUCCEEDED|FAILED)/ { print }'; then
+  :
+else
+  status=$?
+  echo "Archive pipeline failed (status $status), see $OUT/archive.log" >&2
+  exit "$status"
+fi
 [ -d "$ARCHIVE/Products/Applications/Kat translator.app" ] || { echo "Archive failed, see $OUT/archive.log" >&2; exit 1; }
 
 APP="$ARCHIVE/Products/Applications/Kat translator.app"
