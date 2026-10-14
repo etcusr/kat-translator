@@ -149,6 +149,10 @@
 
 По снимку пользователя сборка **1.0 (66)** выбрана в поле Build страницы macOS 1.0 (Included Assets: App Icon). На ревью не отправлялась.
 
+## Карточка (14.10, со слов пользователя)
+
+Основной язык приложения в App Store Connect — **English (U.S.)**; английские скриншоты iOS и macOS из `dist/store/localized-2026-10-14/` загружены. Английский подзаголовок: «Translate voice & text offline». App Privacy — Data Not Collected; цена — бесплатно.
+
 ## Открыто
 
 - Функциональная приёмка sandbox-сборки (лучше через TestFlight для macOS).
