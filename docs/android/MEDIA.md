@@ -1,5 +1,7 @@
 # Android offline media runtime
 
+**English** | [Русский](MEDIA.ru.md)
+
 Android now has native adapters for the existing shared Whisper F16 model,
 Piper/MMS and Supertonic voices, Meta Omnilingual, Silero VAD, and PP-OCR ONNX
 recognizers plus a new shared PP-OCR detector package. All inference uses local
