@@ -5,12 +5,14 @@
   },
   "sherpa": {
     "tag": "v1.13.8",
-    "commit": "11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf",
-    "iosSHA256": "6b8e769cb153343270fdccbe92e3b3db0d1c421d67fa0989ab01fdf5b2fcf2de"
+    "commit": "793c2405ada0e9ee55a55037fa2d56111b8e7206",
+    "iosSHA256": "6b8e769cb153343270fdccbe92e3b3db0d1c421d67fa0989ab01fdf5b2fcf2de",
+    "macosEmbeddedOnnxruntimeVersion": "1.28.2"
   },
   "onnxruntime": {
     "version": "1.28.1",
-    "iosSHA256": "992d8a0cc6014cccc3a7815c36bbff5e5a06833ea2c4d47dd43ef071f639cf9d"
+    "iosSHA256": "992d8a0cc6014cccc3a7815c36bbff5e5a06833ea2c4d47dd43ef071f639cf9d",
+    "commit": "5181af9bef60f46194ec30506855d74b6e6a96ff"
   },
   "sileroVAD": {
     "bytes": 643854,

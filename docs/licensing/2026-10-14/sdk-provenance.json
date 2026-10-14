@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "date": "2026-10-14",
-  "scope": "Local extracted SDK bytes versus pinned upstream binary archives; not a rebuild or supplier attestation",
+  "scope": "Pinned official upstream payload integrity, Kat distributor SDK signatures, and embedded version/commit to source archive mapping; no independent byte-identical rebuild claim",
   "sdks": [
     {
       "archive": "Dependencies/downloads/sherpa-ios.zip",
@@ -10,10 +10,14 @@
       "matchedFiles": 9,
       "differentFiles": [],
       "unmappedFiles": [],
-      "sdkPackageSignatureValid": false,
-      "signatureResult": "unsigned",
+      "sdkPackageSignatureValid": true,
+      "signatureResult": "Kat distributor Apple Development signature with trusted timestamp; original upstream payload unchanged",
       "upstreamReleaseDigestMatches": true,
-      "upstreamRelease": "https://github.com/k2-fsa/sherpa-onnx/releases/tag/xcframework"
+      "upstreamRelease": "https://github.com/k2-fsa/sherpa-onnx/releases/tag/xcframework",
+      "upstreamSupplierSigned": false,
+      "sourceCommit": "793c2405ada0e9ee55a55037fa2d56111b8e7206",
+      "sourceArchive": "sherpa-onnx-release-1.13.8.tar.gz",
+      "correspondenceEvidence": "Embedded build commit and release version match pinned upstream source; official release SHA256 and all original SDK files verified"
     },
     {
       "archive": "Dependencies/downloads/onnx-ios.zip",
@@ -22,10 +26,14 @@
       "matchedFiles": 37,
       "differentFiles": [],
       "unmappedFiles": [],
-      "sdkPackageSignatureValid": false,
-      "signatureResult": "unsigned",
+      "sdkPackageSignatureValid": true,
+      "signatureResult": "Kat distributor Apple Development signature with trusted timestamp; original upstream payload unchanged",
       "upstreamReleaseDigestMatches": true,
-      "upstreamRelease": "https://github.com/csukuangfj/onnxruntime-libs/releases/tag/v1.28.1"
+      "upstreamRelease": "https://github.com/csukuangfj/onnxruntime-libs/releases/tag/v1.28.1",
+      "upstreamSupplierSigned": false,
+      "sourceCommit": "5181af9bef60f46194ec30506855d74b6e6a96ff",
+      "sourceArchive": "onnxruntime-1.28.1.tar.gz",
+      "correspondenceEvidence": "Embedded build commit and release version match pinned upstream source; official release SHA256 and all original SDK files verified"
     },
     {
       "archive": "Dependencies/downloads/sherpa-macos.zip",
@@ -34,10 +42,19 @@
       "matchedFiles": 5,
       "differentFiles": [],
       "unmappedFiles": [],
-      "sdkPackageSignatureValid": false,
-      "signatureResult": "unsigned",
+      "sdkPackageSignatureValid": true,
+      "signatureResult": "Kat distributor Apple Development signature with trusted timestamp; original upstream payload unchanged",
       "upstreamReleaseDigestMatches": true,
-      "upstreamRelease": "https://github.com/k2-fsa/sherpa-onnx/releases/tag/xcframework"
+      "upstreamRelease": "https://github.com/k2-fsa/sherpa-onnx/releases/tag/xcframework",
+      "upstreamSupplierSigned": false,
+      "sourceCommit": "793c2405ada0e9ee55a55037fa2d56111b8e7206",
+      "sourceArchive": "sherpa-onnx-release-1.13.8.tar.gz",
+      "correspondenceEvidence": "Embedded build commit and release version match pinned upstream source; official release SHA256 and all original SDK files verified",
+      "embeddedOnnxruntime": {
+        "version": "1.28.2",
+        "commit": "33ca9628233dc8f002435e868d4c2e9f82766ca1",
+        "sourceArchive": "onnxruntime-1.28.2.tar.gz"
+      }
     }
   ],
   "ownOpusRebuild": {

@@ -1,0 +1,16 @@
+[
+  {
+    "name": "sherpa-onnx-release-1.13.8.tar.gz",
+    "bytes": 11644960,
+    "sha256": "9ae60db34f862ceac657796a80d69718e9404128d7924433f09c619f2e09ea77",
+    "url": "https://github.com/etcusr/kat-translator/releases/download/dependency-sources-2026-10-14/sherpa-onnx-release-1.13.8.tar.gz",
+    "serverDigestVerified": true
+  },
+  {
+    "name": "release-source-supplement.json",
+    "bytes": 3762,
+    "sha256": "991f955dc04278791dceb64af00034ec997804686aa59e38170b2482d223aa66",
+    "url": "https://github.com/etcusr/kat-translator/releases/download/dependency-sources-2026-10-14/release-source-supplement.json",
+    "serverDigestVerified": true
+  }
+]

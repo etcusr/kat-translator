@@ -139,3 +139,5 @@ SpeechPlayer and AudioRecorder deactivate the iOS session only after their own s
 ### Source kit and SDK reproducibility
 
 `scripts/package-dependency-sources.py` creates verified allowlisted source TAR parts. `scripts/rebuild-opus-source-kit.py` rebuilds an isolated Opus XCFramework from the checked archives and patch, includes per-platform manifests and optionally signs the SDK. It does not replace existing vendor outputs. [Provenance and limitations](licensing/2026-10-14/publication-and-sdk.md). The shared notice resource now contains46 documents, including Wayu, Supertonic3 and CC BY-NC model terms.
+
+Подпись входных speech SDK: `scripts/sign-verified-speech-sdks.py` сверяет архивы и все исходные файлы, создаёт отдельные копии и подписывает их сертификатом дистрибьютора Kat. Подпись не называется подписью upstream; полезная нагрузка не меняется. Точные source commits и embedded ONNX описаны в `docs/licensing/2026-10-14/sdk-provenance.json`.

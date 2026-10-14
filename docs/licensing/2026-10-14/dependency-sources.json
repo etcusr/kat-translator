@@ -4968,6 +4968,14 @@
       "sha256": "29666d0abbfad1e3dc4dcf6144730dd3a3ab225bbbdac83319345b1b44ccfc1b",
       "bytes": 28612,
       "scope": "tokenizers Cargo.lock 0.23.3; superset includes build/test/platform dependencies"
+    },
+    {
+      "name": "sherpa-onnx-release-1.13.8",
+      "file": "sherpa-onnx-release-1.13.8.tar.gz",
+      "url": "https://codeload.github.com/k2-fsa/sherpa-onnx/tar.gz/793c2405ada0e9ee55a55037fa2d56111b8e7206",
+      "sha256": "9ae60db34f862ceac657796a80d69718e9404128d7924433f09c619f2e09ea77",
+      "bytes": 11644960,
+      "scope": "Exact Sherpa release commit reported by shipped iOS and macOS binaries; dependency CMake recipes identical to previously collected source"
     }
   ]
 }

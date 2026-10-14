@@ -44,6 +44,20 @@ class PrivacyPackagingTests(unittest.TestCase):
         self.assertEqual(first, {p: p.read_bytes() for p in first})
         runner.assert_not_called()
 
+    def test_own_framework_minimum_ios_is_set_before_signing(self):
+        def sign(command, **kwargs):
+            bundle = Path(command[-1])
+            if bundle.stem in ('OpusRuntime', 'OmniVoiceRuntime'):
+                info = plistlib.loads((bundle / 'Info.plist').read_bytes())
+                self.assertEqual(info['MinimumOSVersion'], '18.0')
+        self.module.install(self.app, identity='test-identity', runner=sign)
+
+    def test_existing_higher_framework_minimum_is_preserved(self):
+        p = self.app / 'Frameworks/OpusRuntime.framework/Info.plist'
+        p.write_bytes(plistlib.dumps({'CFBundleExecutable': 'OpusRuntime', 'MinimumOSVersion': '19.0'}))
+        self.module.install(self.app, identity=None)
+        self.assertEqual(plistlib.loads(p.read_bytes())['MinimumOSVersion'], '19.0')
+
     def test_missing_framework_fails_before_mutation(self):
         (self.app / 'Frameworks/OmniVoiceRuntime.framework/OmniVoiceRuntime').unlink()
         with self.assertRaises(RuntimeError):

@@ -14,6 +14,9 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_ROOT = ROOT / 'Dependencies/privacy/ios'
 FRAMEWORKS = ('Python', 'TranslationRuntime', 'OmniVoiceRuntime', 'OpusRuntime')
+# These Kat-built CMake frameworks target iOS18 in their Mach-O load commands,
+# but CMake's default framework plist omits the App Store-required metadata.
+OWN_MINIMUM_IOS = {'OmniVoiceRuntime': '18.0', 'OpusRuntime': '18.0'}
 
 
 def install(app, *, identity, runner=subprocess.run):
@@ -34,8 +37,17 @@ def install(app, *, identity, runner=subprocess.run):
         target = bundle / 'PrivacyInfo.xcprivacy'
         if target.exists() and plistlib.loads(target.read_bytes()) != declaration:
             raise RuntimeError(f'Upstream privacy declaration changed: {name}; review before replacing')
-        pending.append((bundle, target, data))
-    for bundle, target, data in pending:
+        info_path = bundle / 'Info.plist'
+        info = plistlib.loads(info_path.read_bytes())
+        if name in OWN_MINIMUM_IOS and not info.get('MinimumOSVersion'):
+            info['MinimumOSVersion'] = OWN_MINIMUM_IOS[name]
+            updated_info = plistlib.dumps(info, sort_keys=False)
+        else:
+            updated_info = None
+        pending.append((bundle, target, data, info_path, updated_info))
+    for bundle, target, data, info_path, updated_info in pending:
+        if updated_info is not None:
+            info_path.write_bytes(updated_info)
         target.write_bytes(data)
         if identity is not None:
             runner(['/usr/bin/codesign', '--force', '--sign', identity,

@@ -8,9 +8,9 @@ An offline voice, text and image-text translator for **iPhone, Apple Silicon Mac
 
 **Start here:** [current status](docs/CURRENT_STATE.md) · [RU/EN product description](PROJECT_DESCRIPTION.md). This overview was checked against the working tree on October 14, 2026. Dated reports describe the build tested at that time, not necessarily today's code. Most technical documentation is currently in Russian.
 
-Local App Store packages iOS **1.0 (50)** and Mac **1.0 (69)** include current download-host privacy disclosures, nine manifests and 42 license documents each. Final package signatures, profiles and contents were checked; 132 validation tests passed. App Privacy answers and the updated policy are published. Package upload, final device/TestFlight acceptance and the remaining licensing/provenance checks are still open. [Release verification and remaining work](docs/publication/hosting-manifests-release-2026-10-14.md).
+iOS **1.0 (51)** and Mac **1.0 (70)** passed package verification and were uploaded to App Store Connect, with the playback fix, signed SDK distributions, nine manifests and46 license documents.138 validation tests passed. Build selection, TestFlight and review submission remain with the owner. [Verification and remaining work](docs/publication/signed-sdks-release-2026-10-14.md).
 
-The iPhone playback fix passed six device regressions and two repeated voice cases; the shared Mac player also passed. Existing IPA50/PKG69 do not yet include it. [Evidence and limits](docs/publication/ios-playback-fix-2026-10-14.md).
+The iPhone playback fix passed six device regressions and two repeated voice cases; the shared Mac player also passed. Release51/70 includes this fix. [Evidence and limits](docs/publication/ios-playback-fix-2026-10-14.md).
 
 Local runtime checks now include sandboxed Mac inference with network access denied. iPhone downloads and final voice repeats passed, but intermittent playback failures and a Thai pipeline timeout remain unresolved. [Runtime results and limits](docs/publication/runtime-acceptance-2026-10-14.md).
 
@@ -93,3 +93,5 @@ Hardware tests are separate from unit tests and compilation. Do not run instrume
 - [Previous README](docs/history/README-before-2026-10-12-sync.md) — archived details of earlier iterations.
 
 Dependency source delivery and SDK provenance are documented [here](docs/licensing/2026-10-14/publication-and-sdk.md). The source tree now includes46 notice documents; the newly rebuilt/signed Opus SDK is a separate candidate for the next release.
+
+Release51/70: three verified upstream speech SDK distributions now carry Kat signatures, with unchanged payloads and corrected embedded-commit/source mapping. The release includes the audio-session fix and46 notices. [Build, validation and upload status](docs/publication/signed-sdks-release-2026-10-14.md).

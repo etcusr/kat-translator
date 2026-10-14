@@ -1,0 +1,152 @@
+{
+  "date": "2026-10-14",
+  "validationTests": 138,
+  "sdkSignatures": 3,
+  "unchangedUpstreamFiles": 51,
+  "sourceInputs": 615,
+  "packages": [
+    {
+      "platform": "ios",
+      "version": "1.0",
+      "build": "51",
+      "artifact_name": "Kat-translator-1.0-build51.ipa",
+      "artifact_bytes": 68601076,
+      "artifact_sha256": "61885e25623f6e07cccc037da4460f3bf9b2c19fd340768b2b712a468d242ddf",
+      "notice_documents": 46,
+      "notice_sha256": "d180b89902959618c22a5b47c0b822a529fc33e6da9ba1c385198455eeb9a3e5",
+      "privacy_manifests": [
+        "FluidAudio_FluidAudio.bundle/PrivacyInfo.xcprivacy",
+        "Frameworks/OmniVoiceRuntime.framework/PrivacyInfo.xcprivacy",
+        "Frameworks/OpusRuntime.framework/PrivacyInfo.xcprivacy",
+        "Frameworks/Python.framework/PrivacyInfo.xcprivacy",
+        "Frameworks/TranslationRuntime.framework/PrivacyInfo.xcprivacy",
+        "ONNXRuntimePrivacy.bundle/PrivacyInfo.xcprivacy",
+        "OfflineCore_OfflineCore.bundle/PrivacyInfo.xcprivacy",
+        "PrivacyInfo.xcprivacy",
+        "SherpaOnnxPrivacy.bundle/PrivacyInfo.xcprivacy"
+      ],
+      "signature": "PASS",
+      "all_binary_signers_match_app": true,
+      "distribution_profiles": 2,
+      "export_encryption_flag": false,
+      "loading_animations": 14,
+      "loading_source_bytes_match": true,
+      "no_xctest": true,
+      "no_one_beer": true,
+      "resource_bundles": [],
+      "binary_checks": {
+        "macho_images_checked": 72,
+        "openssl_markers": 0,
+        "openssl_library_dependencies": 0,
+        "hash_fallbacks": [
+          "_md5",
+          "_sha1",
+          "_sha2",
+          "_sha3",
+          "_blake2"
+        ]
+      },
+      "build_identity": {
+        "configuration": "Release",
+        "identifier": "ios-8df8772cded0eebb",
+        "platform": "iphoneos",
+        "schema": 1,
+        "sha256": "8df8772cded0eebbc6c54d165a86b175d7dfefe4c3add037d5cac0b24413a797",
+        "sourceFileCount": 795
+      },
+      "device_test": "not performed",
+      "uploaded": true,
+      "frameworkDeploymentMetadataChecked": 70,
+      "uploadResult": "Xcode Upload succeeded and EXPORT SUCCEEDED",
+      "appStoreProcessing": "Not independently checked; owner will select builds",
+      "uploadSource": "Same verified xcarchive; Xcode generates the upload distribution signature separately from the local export"
+    },
+    {
+      "platform": "macos",
+      "version": "1.0",
+      "build": "70",
+      "artifact_name": "Kat-translator-1.0-build70.pkg",
+      "artifact_bytes": 349361828,
+      "artifact_sha256": "1b0d4617cc53c03afdc475a83d168a24494e63e5b77f5e0e66c9c63bc3d0c430",
+      "notice_documents": 46,
+      "notice_sha256": "d180b89902959618c22a5b47c0b822a529fc33e6da9ba1c385198455eeb9a3e5",
+      "privacy_manifests": [
+        "Contents/Frameworks/OpusRuntime.framework/Versions/A/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/FluidAudio_FluidAudio.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/ONNXRuntimePrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/OfflineCore_OfflineCore.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/ProtobufPrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/PyTorchPrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/SentencePiecePrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/SherpaOnnxPrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy"
+      ],
+      "signature": "PASS",
+      "all_binary_signers_match_app": true,
+      "distribution_profiles": 1,
+      "export_encryption_flag": false,
+      "loading_animations": 14,
+      "loading_source_bytes_match": true,
+      "no_xctest": true,
+      "no_one_beer": true,
+      "resource_bundles": [
+        {
+          "path": "Contents/Resources/ONNXRuntimePrivacy.bundle",
+          "bundle_id": "app.kattranslator.privacy.ONNXRuntimePrivacy",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/PyTorchPrivacy.bundle",
+          "bundle_id": "app.kattranslator.privacy.PyTorchPrivacy",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/OfflineCore_OfflineCore.bundle",
+          "bundle_id": "offlinecore.OfflineCore.resources",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/ProtobufPrivacy.bundle",
+          "bundle_id": "app.kattranslator.privacy.ProtobufPrivacy",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/FluidAudio_FluidAudio.bundle",
+          "bundle_id": "fluidaudio.FluidAudio.resources",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/SentencePiecePrivacy.bundle",
+          "bundle_id": "app.kattranslator.privacy.SentencePiecePrivacy",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/SherpaOnnxPrivacy.bundle",
+          "bundle_id": "app.kattranslator.privacy.SherpaOnnxPrivacy",
+          "codeless_unsigned": true
+        }
+      ],
+      "binary_checks": {
+        "machOFiles": 154,
+        "minimumMacOS": "27.0",
+        "externalNonSystemDependencies": [],
+        "externalNonSystemRPaths": [],
+        "librariesExceedingMinimumMacOS": []
+      },
+      "build_identity": {
+        "configuration": "Release",
+        "identifier": "mac-dc8b067d5a945274",
+        "platform": "macosx",
+        "schema": 1,
+        "sha256": "dc8b067d5a9452742cceb3551d29f14e13fa980efe1a1ddaa4623b721a128589",
+        "sourceFileCount": 793
+      },
+      "device_test": "not performed",
+      "uploaded": true,
+      "uploadResult": "Xcode Upload succeeded and EXPORT SUCCEEDED",
+      "appStoreProcessing": "Not independently checked; owner will select builds",
+      "uploadSource": "Same verified xcarchive; Xcode generates the upload distribution signature separately from the local export"
+    }
+  ],
+  "initialIosUploadRejection": "Missing MinimumOSVersion in OmniVoiceRuntime and OpusRuntime; fixed and accepted on retry"
+}

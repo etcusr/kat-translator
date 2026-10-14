@@ -6,7 +6,7 @@ Native SwiftUI/AppKit application for Apple Silicon. There are two distribution 
 
 | Channel | Version | Bundle ID | Signing | Status |
 |---|---|---|---|---|
-| **Mac App Store** | **1.0** (latest uploaded and accepted: build 66; packages 67–69 exported locally) | `app.kattranslator` (shared with iOS) | Apple Distribution, App Sandbox | Build 66 is selected for version 1.0 in App Store Connect; not submitted for review |
+| **Mac App Store** | **1.0 / build70** (uploaded; Apple processing started) | `app.kattranslator` (shared with iOS) | Apple Distribution, App Sandbox | Build70 uploaded; owner will select the build and submit for review |
 | Direct download (DMG/ZIP) | **0.6.7 / build 60**, plus the separate **macos15-26** compatibility build 0.6.0 / 53 | `org.openoffline.translator.mac` | Apple Development, no sandbox | Not Developer ID signed or notarized |
 
 The direct build requires macOS 27+ (the compatibility download declares macOS 15). Index 9B uses MLX + MTP2; Index 2B uses a separate llama.cpp/Metal backend. The legacy OPUS EN↔RU/UK/BE package uses a PyTorch Metal FP16 worker; catalog directions use CTranslate2 CPU INT8. The initial translation selection is Auto: installed 9B, then 2B on a strong device; otherwise a supported OPUS direction, then 2B and 9B. Saved manual choices persist. Recognition Auto is separate: Parakeet (Core ML) or classic Whisper for supported languages, Meta Omnilingual for additional recognition. See [current state](../CURRENT_STATE.md), [store build report](../publication/macos-appstore-build-2026-10-14.md) and [latest runtime acceptance](../publication/runtime-acceptance-2026-10-14.md).
@@ -161,3 +161,5 @@ On the two user articles combined (4966 characters), Index RU→EN takes49.662s 
 
 Mac22 is installed and normally launched; installed executable/runtime match the staged package. Deep signature, dependency audit and DMG verification pass (`.build/translation-preflight/mac-installed.json`).
 
+
+[Release51/70 package checks and upload evidence](../publication/signed-sdks-release-2026-10-14.md).
