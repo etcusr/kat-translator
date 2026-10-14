@@ -1,85 +1,87 @@
 # Kat translator
 
-**GPL-3.0-or-later.** Copyright (c) 2026 the respective copyright holders of Kat translator. Собственный код Kat можно использовать, изменять и распространять по GNU GPL версии 3 или любой последующей версии. Программа предоставляется без гарантий. Чужие компоненты и модели сохраняют свои лицензии. [Текст GPL](LICENSE) · [Область лицензии и условия распространения](docs/LICENSING.md).
+**English** | [Русский](README.ru.md)
 
-Офлайн-переводчик речи, текста и текста на изображениях для **iPhone, Mac с Apple Silicon и Android ARM64**. Обработка выполняется на устройстве после загрузки нужных моделей. Распознавание, перевод и озвучка — отдельные этапы; доступность и качество зависят от языка, модели и устройства.
+**GPL-3.0-or-later.** Copyright (c) 2026 the respective copyright holders of Kat translator. Kat's own code may be used, modified and redistributed under GNU GPL version 3 or any later version, without warranty. Third-party components and models retain their own licenses. [GPL text](LICENSE) · [License scope and distribution terms](docs/LICENSING.md).
 
-**Начать знакомство:** [текущее состояние](docs/CURRENT_STATE.md) · [описание RU/EN](PROJECT_DESCRIPTION.md). Сводка сверена с рабочим деревом 13 октября 2026. Датированные отчёты описывают проверенную тогда сборку, а не автоматически сегодняшний код.
+An offline voice, text and image-text translator for **iPhone, Apple Silicon Mac and ARM64 Android**. Processing runs on the device after the required models have been downloaded. Speech recognition, translation and speech synthesis are separate stages; availability and quality depend on the language, model and device.
 
-**Privacy-sanitized history:** личные записи, расшифровки и диагностические медиа исключены из всех публикуемых коммитов. [Границы очистки и дальнейшая работа](docs/REPOSITORY_PRIVACY.md).
+**Start here:** [current status](docs/CURRENT_STATE.md) · [RU/EN product description](PROJECT_DESCRIPTION.md). This overview was checked against the working tree on October 14, 2026. Dated reports describe the build tested at that time, not necessarily today's code. Most technical documentation is currently in Russian.
 
-## Возможности
+**Repository privacy:** personal recordings, transcripts and diagnostic media are excluded from the published history. [Scope and handling of local data](docs/REPOSITORY_PRIVACY.md).
 
-- Голосовой ввод, импорт аудио, текстовый перевод, камера на телефонах и изображения на Mac.
-- Локальные ASR → MT → TTS, выбор модели и голосов, загрузка и проверка пакетов.
-- Языковые списки, поиск и избранное, отдельные состояния рабочих режимов.
-- История текста, оригинальной записи, озвучки и изображений; сохранение зависит от настроек.
-- Воспроизведение оригинала и перевода, пауза/скорость, копирование и системное меню отправки.
-- Русский, английский, испанский и турецкий интерфейс. Mac дополнительно поддерживает горячие клавиши, перевод выделения/буфера/области экрана.
+## Features
 
-Основной завершённый голосовой сценарий обрабатывает запись после остановки. Наличие предварительного распознавания не означает подтверждённый синхронный перевод разговора. Нет обещания одинаковой скорости, качества или полного совпадения функций на трёх платформах.
+- Voice input, audio import, text translation, phone cameras and images on Mac.
+- Local ASR → MT → TTS, model and voice selection, package downloads and verification.
+- Language lists, search and favorites, with separate state for each working mode.
+- History of text, original recordings, synthesized speech and images, depending on settings.
+- Original and translated audio playback, pause/speed controls, copying and system sharing.
+- Russian, English, Spanish and Turkish interfaces. Mac also supports keyboard shortcuts and translation of selected text, clipboard contents and screen regions.
 
-## Модели и различия платформ
+The main voice workflow processes a recording after it stops. Recognition previews do not imply verified simultaneous conversation translation. Speed, quality and features are not guaranteed to be identical across all three platforms.
 
-| Этап | iPhone | Mac, современный выпуск | Android |
+## Models and platform differences
+
+| Stage | iPhone | Mac, modern release | Android |
 |---|---|---|---|
-| Index-Translate 9B | llama.cpp / Metal, Q4_K_M, MTP2 | MLX 4bit + MTP2 | llama.cpp / Vulkan, Q4_K_M, MTP; профиль Mali-G715 |
-| Index-Translate 2B | llama.cpp / Metal, Q4_K_M | отдельный llama.cpp / Metal, Q4_K_M | llama.cpp / Vulkan, Q4_K_M, без MTP |
-| OPUS Big, EN↔RU/UK/BE | CTranslate2 CPU INT8 | отдельный Python / PyTorch Metal FP16 worker, beam5 | CTranslate2 CPU INT8 |
-| OPUS-направления из каталога | CTranslate2 CPU INT8 | CTranslate2 CPU INT8 | CTranslate2 CPU INT8 |
-| ASR «Авто» | классический Whisper; Meta для дополнительных языков | классический Whisper; Meta для дополнительных языков | RU → GigaAM v3; остальные поддержанные Parakeet языки → Parakeet TDT v3; для прочих — отдельные существующие пути |
-| OCR | Apple Vision + локальный OCR по маршрутизации | Apple Vision + локальный OCR по маршрутизации | bundled ML Kit для поддержанных письменностей; русский PP-OCR |
-| Начальный выбор MT | Авто | Авто | Авто |
+| Index-Translate 9B | llama.cpp / Metal, Q4_K_M, MTP2 | MLX 4bit + MTP2 | llama.cpp / Vulkan, Q4_K_M, MTP; Mali-G715 profile |
+| Index-Translate 2B | llama.cpp / Metal, Q4_K_M | separate llama.cpp / Metal, Q4_K_M | llama.cpp / Vulkan, Q4_K_M, no MTP |
+| OPUS Big, EN↔RU/UK/BE | CTranslate2 CPU INT8 | separate Python / PyTorch Metal FP16 worker, beam5 | CTranslate2 CPU INT8 |
+| OPUS directions from the catalog | CTranslate2 CPU INT8 | CTranslate2 CPU INT8 | CTranslate2 CPU INT8 |
+| Auto ASR | classic Whisper; Meta for additional languages | classic Whisper; Meta for additional languages | RU → GigaAM v3; other Parakeet-supported languages → Parakeet TDT v3; separate existing paths for others |
+| OCR | Apple Vision + local OCR routing | Apple Vision + local OCR routing | bundled ML Kit for supported scripts; PP-OCR for Russian |
+| Initial MT selection | Auto | Auto | Auto |
 
-Сохранённый выбор модели при обновлении сохраняется. «Авто» выбирает установленную модель для пары с учётом теста устройства: на мощном — 9B, затем 2B; на остальных — поддержанный OPUS, затем 2B и 9B. Старый OPUS EN-пакет переводит **EN↔RU/UK/BE**; отдельный каталог направлений добавляет прямые пары, включая пары без EN. Скрытого перевода через промежуточный язык нет. Из 54 пакетов направлений 10 доступны для сетевой загрузки, 44 требуют ручной установки до появления хостинга. Index имеет широкий текстовый каталог; это не подтверждение качества каждого направления и не одинаковое покрытие ASR/TTS/OCR. Источники моделей и лицензий — [assets/catalogs](assets/catalogs), [реестр пакетов для публикации](docs/publication/2026-10-12/evidence/model-inventory.csv).
+Updates preserve the saved model selection. Auto chooses an installed model for the language pair based on the device test: 9B, then 2B on powerful devices; supported OPUS, then 2B and 9B on others. The older OPUS EN package translates **EN↔RU/UK/BE**; the direction catalog adds direct pairs, including pairs without English. There is no hidden pivot translation. Of 54 direction packages, 10 are available for download and 44 require manual installation until hosting is available. Index has broad text-language coverage; this does not establish quality for every pair or equivalent ASR/TTS/OCR coverage. Model and license sources: [assets/catalogs](assets/catalogs), [publication package inventory](docs/publication/2026-10-12/evidence/model-inventory.csv).
 
-Mac `macos15-26` — отдельный сохранённый выпуск: Index MLX+MTP2, прежний OPUS CPU. Он не получил OPUS GPU, Index 2B, новые направления, режим «Авто» перевода и последующие правки интерфейса современного выпуска. [Версии, ОС и границы проверки](docs/CURRENT_STATE.md).
+Mac `macos15-26` is a separate retained release with Index MLX+MTP2 and the earlier CPU OPUS implementation. It has not received GPU OPUS, Index 2B, the new directions, Auto translation or later interface changes from the modern release. [Versions, operating systems and verification limits](docs/CURRENT_STATE.md).
 
-Index: фиксированное окно 2048 токенов, вход до 1536; ответ использует оставшееся место. Предварительная оценка бюджета и разбиение защищают от переполнения. Экспериментальная память контекста и выбор окна удалены. OPUS имеет отдельные лимиты и разбиение. [Preflight](docs/benchmarks/translation-preflight/README.md) · [OPUS](docs/IMPLEMENTATION-opus-big.md).
+Index uses a fixed 2048-token context window with up to 1536 input tokens; the response uses the remaining space. Budget estimation and splitting guard against overflow. Experimental context memory and window selection have been removed. OPUS has separate limits and splitting. [Preflight](docs/benchmarks/translation-preflight/README.md) · [OPUS](docs/IMPLEMENTATION-opus-big.md).
 
-## Структура
+## Repository layout
 
-| Путь | Назначение |
+| Path | Purpose |
 |---|---|
-| `apps/ios`, `apps/macos`, `apps/android` | Платформенные приложения, проекты и тесты |
-| `shared/apple` | Общие SwiftUI-экраны, AppModel, Apple-адаптеры |
-| `shared/packages/OfflineCore` | Swift-модели данных, конвейер, хранение, политики и тесты |
-| `shared/native` | C/C++ runtimes и Python workers |
-| `assets/catalogs`, `assets/bundled` | Каталоги пакетов и общие небольшие ресурсы |
-| `model-store` | Общий локальный кэш моделей, исключён из Git |
-| `Dependencies` | Закреплённые версии, vendor sources и сборочные зависимости |
-| `scripts`, `tests`, `Tools` | Сборка, диагностика, общие fixtures, локальный импорт |
-| `docs`, `.build`, `dist` | Документация; локальные результаты; установщики |
+| `apps/ios`, `apps/macos`, `apps/android` | Platform apps, projects and tests |
+| `shared/apple` | Shared SwiftUI screens, AppModel and Apple adapters |
+| `shared/packages/OfflineCore` | Swift data models, pipeline, storage, policies and tests |
+| `shared/native` | C/C++ runtimes and Python workers |
+| `assets/catalogs`, `assets/bundled` | Package catalogs and small shared resources |
+| `model-store` | Shared local model cache, excluded from Git |
+| `Dependencies` | Pinned versions, vendor sources and build dependencies |
+| `scripts`, `tests`, `Tools` | Builds, diagnostics, shared fixtures and local import |
+| `docs`, `.build`, `dist` | Documentation; local outputs; installers |
 
-[Подробная карта](docs/android/PLATFORM_LAYOUT.md). Старые пути `App/`, `Packages/`, `Native/` в ранних документах предшествуют миграции. Исходники сохранены в Git; веса моделей, установщики и локальные данные хранятся отдельно. Перед работой проверяйте состояние дерева и актуальные версии.
+[Detailed layout](docs/android/PLATFORM_LAYOUT.md). The old `App/`, `Packages/` and `Native/` paths in earlier documents predate the migration. Source code is in Git; model weights, installers and local data are stored separately. Check the working tree and current versions before making changes.
 
-## Сборка и проверка
+## Build and validation
 
-Сборочная машина — Mac с Apple Silicon, Xcode, CMake/Python и подготовленными pinned dependencies. Это не требования к конечному пользователю. Весов моделей и полного окружения нет в Git. Команды ниже выполняются из корня; сборка не означает установку.
+The build host is an Apple Silicon Mac with Xcode, CMake/Python and prepared pinned dependencies. These are not end-user requirements. Model weights and the complete environment are not included in Git. Run the commands below from the repository root; building does not install the app.
 
 ```sh
-# Общие Swift-политики
+# Shared Swift policies
 swift test --package-path shared/packages/OfflineCore --scratch-path .build/core
-# Согласованность каталога
+# Catalog consistency
 python3 scripts/generate-model-catalog.py --check
-# iPhone: с уже подготовленными native dependencies
+# iPhone: native dependencies must already be prepared
 python3 scripts/generate-project.py
 xcodebuild -project apps/ios/OfflineTranslator.xcodeproj -scheme OfflineTranslator \
   -configuration Release -destination 'generic/platform=iOS' \
-  -derivedDataPath.build/DerivedData CODE_SIGNING_ALLOWED=NO build
+  -derivedDataPath .build/DerivedData CODE_SIGNING_ALLOWED=NO build
 ```
 
-Подготовка Apple-зависимостей: `scripts/build-whisper.sh`, `scripts/build-translation.sh`, `scripts/fetch-speech-runtime.py`, `scripts/prepare-speech-recognition.py`; дополнительные runtime зависят от выбранного набора. Полные платформенные инструкции: [Mac](docs/macos/README.md), [Android](docs/android/INSTALL.md), [текущее состояние](docs/CURRENT_STATE.md).
+Apple dependency preparation: `scripts/build-whisper.sh`, `scripts/build-translation.sh`, `scripts/fetch-speech-runtime.py`, `scripts/prepare-speech-recognition.py`; additional runtimes depend on the selected configuration. Full platform instructions: [Mac](docs/macos/README.md), [Android](docs/android/INSTALL.md), [current status](docs/CURRENT_STATE.md).
 
-Генераторы Xcode — источник состава проектов. Локальная подпись iOS: `apps/ios/Config/Signing.local.xcconfig` (ignored). С 14.10 iOS Bundle ID — `app.kattranslator`, расширение — `app.kattranslator.downloads`. Новая команда подписала development-кандидат, но установленная iPhone-версия пока с прежним ID; перед переходом требуется отдельный перенос моделей, истории и настроек. [Подпись и ограничения](docs/maintenance/apple-signing-2026-10-14.md). При обычных обновлениях сохраняйте bundle ID, идентичность подписи, модели и данные. Номера сборок увеличиваются независимо; версии меняются при подготовке выпуска. После изменения iOS-версии генератор синхронизирует widget.
+Xcode generators define project membership. Local iOS signing settings live in `apps/ios/Config/Signing.local.xcconfig` (ignored). Since October 14, the iOS Bundle ID is `app.kattranslator`, with `app.kattranslator.downloads` for the extension. Build46 with the new ID is installed; models, history and settings have been migrated and verified. The old app is retained separately. [Results and limitations](docs/maintenance/ios-kat-migration-2026-10-14.md). Preserve bundle IDs, signing identity, models and data during ordinary updates. Build numbers increase independently; versions change during release preparation. After an iOS version change, the generator synchronizes the widget version.
 
-Аппаратные тесты выполняются отдельно от unit tests и компиляции. Не запускать instrumentation одновременно с ручным переводом или другим тяжёлым опытом на том же устройстве. [Актуальные результаты и оставшиеся проверки](docs/CURRENT_STATE.md).
+Hardware tests are separate from unit tests and compilation. Do not run instrumentation alongside manual translation or another intensive experiment on the same device. [Current results and remaining checks](docs/CURRENT_STATE.md).
 
-## Документы
+## Documentation
 
-- [CURRENT_STATE](docs/CURRENT_STATE.md) — текущие версии, внедрённые изменения, ограничения и ссылки на доказательства.
-- [Архитектура](docs/ARCHITECTURE.md) — компоненты, ключевые файлы и сборка.
+- [CURRENT_STATE](docs/CURRENT_STATE.md) — current versions, implemented changes, limitations and evidence.
+- [Architecture](docs/ARCHITECTURE.md) — components, key files and builds.
 - [Android](docs/android/README.md), [Mac](docs/macos/README.md), [iPhone testing](DEVICE_TESTING.md).
-- [Публикационный комплект](docs/publication/2026-10-12/README.md) — датированный снимок материалов, не опубликованное приложение.
-- [Анимации](docs/branding/loading-animations/README.md), [брендинг](docs/branding/README.md).
-- [Предыдущий README](docs/history/README-before-2026-10-12-sync.md) — архив деталей ранних итераций.
+- [Publication preparation](docs/publication/2026-10-14/README.md) — dated preparation materials, not a published app.
+- [Animations](docs/branding/loading-animations/README.md), [branding](docs/branding/README.md).
+- [Previous README](docs/history/README-before-2026-10-12-sync.md) — archived details of earlier iterations.
