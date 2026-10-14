@@ -57,6 +57,7 @@ final class MacUITests: XCTestCase {
             "tr": ("tr", "en", "İzmir treni yarın saat 07:45'te üçüncü perondan kalkacak. Lütfen pasaportunuzu ve biletinizi yanınızda getirin.", "train")]
         let (source, target, sample, expected) = try XCTUnwrap(samples[language])
         app.launchArguments = ["-languageSetupCompleted", "YES", "-appInterfaceLanguage", language, "-ApplePersistenceIgnoreState", "YES",
+                               "-automaticModelLoad", "NO", "-AppleLanguages", "(en)", "-AppleLocale", "en_US",
                                "-translationSource", source, "-translationTarget", target, "-automaticLanguage", "NO", "-automaticSpeechText", "NO",
                                "-showTechnicalInfo", "NO"]   // store shots without the diagnostics toolbar, model line and timings
         let board = NSPasteboard.general
@@ -68,29 +69,49 @@ final class MacUITests: XCTestCase {
         defer { app.terminate(); if board.string(forType: .string) == sample { board.clearContents(); board.writeObjects(saved) } }
         app.launch()
         XCTAssertTrue(app.buttons["mode.text"].waitForExistence(timeout: 60))
-        func textHistory(_ enabled: Bool?) -> Bool {
+        var historyBeforeCapture: Bool?
+        func switchState(_ control: XCUIElement) -> Bool? {
+            if let number = control.value as? NSNumber { return number.boolValue }
+            if let string = control.value as? String {
+                switch string.lowercased() {
+                case "1", "true", "on": return true
+                case "0", "false", "off": return false
+                default: return nil
+                }
+            }
+            return nil
+        }
+        func textHistory(_ enabled: Bool) throws {
             let settings = app.buttons[labels.settings].firstMatch
             XCTAssertTrue(settings.waitForExistence(timeout: 60)); settings.click()
+            XCTAssertTrue(app.buttons["settings.close"].waitForExistence(timeout: 30))
             let control = app.switches["history.recordText"]
             for _ in 0..<12 where !control.isHittable {
                 app.sheets.scrollViews.firstMatch.scroll(byDeltaX: 0, deltaY: -650)
             }
             XCTAssertTrue(control.isHittable)
-            let previous = control.value as? String == "1"
-            if let enabled, previous != enabled {
+            let previous = try XCTUnwrap(switchState(control), "Unrecognized history Switch value; refusing to enter sample text")
+            if historyBeforeCapture == nil { historyBeforeCapture = previous }
+            if previous != enabled {
                 control.coordinate(withNormalizedOffset: CGVector(dx: 0.97, dy: 0.5)).click()
-                let changed = XCTNSPredicateExpectation(predicate: NSPredicate(format: "value == %@", enabled ? "1" : "0"), object: control)
-                XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 5), .completed)
             }
+            let changed = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in switchState(control) == enabled }, object: control)
+            guard XCTWaiter.wait(for: [changed], timeout: 5) == .completed else {
+                throw NSError(domain: "StoreScreenshot", code: 1, userInfo: [NSLocalizedDescriptionKey: "History switch did not reach the required state"])
+            }
+            XCTAssertEqual(try XCTUnwrap(switchState(control)), enabled)
             app.buttons["settings.close"].click()
-            return previous
         }
-        let originalHistory = textHistory(false)
+        // Install restoration before the first toggle, including its failing assertion path.
         defer {
-            app.terminate(); app.launch()
-            _ = textHistory(originalHistory)
-            app.terminate()
+            if let originalHistory = historyBeforeCapture {
+                app.terminate(); app.launch()
+                do { try textHistory(originalHistory) }
+                catch { XCTFail("Could not restore history recording: \(error)") }
+                app.terminate()
+            }
         }
+        try textHistory(false)
         // 1440×900 pt: an accepted Mac App Store size (2880×1800 on a Retina screen). XCUITest
         // could not capture a window moved to a second display, so the window stays where it opens.
         let window = app.windows.firstMatch
@@ -103,17 +124,38 @@ final class MacUITests: XCTestCase {
         app.buttons["mode.text"].click()
         let editor = app.textViews.firstMatch
         XCTAssertTrue(editor.waitForExistence(timeout: 10))
-        editor.click(); board.clearContents(); board.setString(sample, forType: .string)
+        XCTAssertTrue(editor.frame.minX.isFinite && editor.frame.minY.isFinite && editor.frame.width.isFinite && editor.frame.height.isFinite && !editor.frame.isEmpty)
+        editor.click(); board.clearContents(); XCTAssertTrue(board.setString(sample, forType: .string))
         app.typeKey("v", modifierFlags: .command)
-        // The first press may only prepare the model; press again whenever the button is back.
+        let inserted = NSPredicate(format: "value == %@", sample)
+        if !inserted.evaluate(with: editor) {
+            // A keyboard-layout mismatch can drop Cmd-V. Use the app's real Paste action.
+            app.menuBars.menuBarItems["Edit"].click()
+            let paste = app.menuItems["Paste"].firstMatch
+            XCTAssertTrue(paste.waitForExistence(timeout: 5)); XCTAssertTrue(paste.isEnabled)
+            paste.click()
+        }
+        let hasInput = XCTNSPredicateExpectation(predicate: inserted, object: editor)
+        guard XCTWaiter.wait(for: [hasInput], timeout: 5) == .completed else {
+            shot("diagnostic-input")
+            XCTFail("Sample text did not reach the editor; translation was not started")
+            return
+        }
+        // The first press may only prepare the model; never press a temporary Cancel action.
         let translate = app.buttons["text.translate"]
         let output = app.staticTexts["text.translation.text"]
-        func done() -> Bool { output.exists && (output.value as? String ?? output.label).lowercased().contains(expected) }
+        func done() -> Bool { output.exists && ((output.value as? String ?? "") + " " + output.label).lowercased().contains(expected) }
+        let allowedActions = try XCTUnwrap([
+            "ru": ["Подготовить перевод", "Перевести"],
+            "en": ["Prepare translation", "Translate"],
+            "es": ["Preparar traducción", "Traducir"],
+            "tr": ["Çeviriyi hazırla", "Çevir"]][language])
         let deadline = Date().addingTimeInterval(240)
         while !done() && Date() < deadline {
-            if translate.exists && translate.isEnabled && translate.isHittable { translate.click() }
+            if translate.exists && translate.isEnabled && translate.isHittable && allowedActions.contains(translate.label) { translate.click() }
             Thread.sleep(forTimeInterval: 3)
         }
+        if !done() { shot("diagnostic-translation") }
         XCTAssertTrue(done(), "translation did not appear")
         shot("1-text")
         app.buttons["mode.voice"].click()

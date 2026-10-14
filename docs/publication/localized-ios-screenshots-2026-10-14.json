@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "date": "2026-10-14",
   "platform": "ios",
   "version": "1.0",
@@ -25,14 +25,19 @@
     "ui_test_duration_seconds": 284.654,
     "all_images_decoded": true,
     "all_images_visually_reviewed": true,
-    "native_dimensions": true,
     "no_alpha": true,
-    "export_bytes_equal_attachments": true,
+    "export_bytes_equal_attachments": false,
     "system_modals_absent": true,
     "personal_content_absent": true,
     "preferences_restored": true,
     "history_bytes_unchanged": true,
-    "normal_app_relaunched": true
+    "normal_app_relaunched": true,
+    "canvas_dimensions_equal_native": true,
+    "preserved_source_bytes_equal_attachments": true,
+    "retained_rgb_pixels_equal_source": true,
+    "system_status_strip_removed": true,
+    "all_processed_images_visually_reviewed": true,
+    "no_scaling_or_ui_redraw": true
   },
   "limitations": [
     "Only iPhone 1206x2622 screenshots are included.",
@@ -40,7 +45,8 @@
     "Voice screenshots show recording readiness; no new microphone recording was made.",
     "This is not TestFlight or complete device acceptance, accessibility testing, or native-speaker language review.",
     "App Store Connect upload and Preview are pending.",
-    "Mac screenshots and validation are handled separately."
+    "Mac screenshots and validation are handled separately.",
+    "Ready screenshots have the top 168-pixel system status strip removed and 168 black rows appended at the bottom. Preserved source captures are kept separately; output PNG bytes differ from the original attachments."
   ],
   "screenshots": [
     {
@@ -55,9 +61,12 @@
       "height": 2622,
       "format": "PNG",
       "alpha": false,
-      "sha256": "1b20af037452375620409230dc7a630b12e752267acb65efff0eba9a8ed44d01",
-      "bytes": 210551,
-      "review_status": "ready_for_app_store_connect_preview"
+      "sha256": "ab4f5dfda8d4faa41c17af465eb7327e7c4ef7aad10fd76f9388b5b7bfd53429",
+      "bytes": 126048,
+      "review_status": "ready_for_app_store_connect_preview",
+      "source_path": "dist/store/source-captures-2026-10-14/ios/ru/store-ios-ru-1-text.png",
+      "source_sha256": "1b20af037452375620409230dc7a630b12e752267acb65efff0eba9a8ed44d01",
+      "retained_rgb_pixels_equal_source": true
     },
     {
       "path": "dist/store/localized-2026-10-14/ios/ru/screenshots/store-ios-ru-2-voice.png",
@@ -71,9 +80,12 @@
       "height": 2622,
       "format": "PNG",
       "alpha": false,
-      "sha256": "7f8e0e8e1cd239734ca51c4bc3530f5fe071a5c206b1ac34a5f987b033536b2b",
-      "bytes": 161933,
-      "review_status": "ready_for_app_store_connect_preview"
+      "sha256": "46300dafe264123512c5287411e25548938d73a9625d1d9210168df43d11879a",
+      "bytes": 88811,
+      "review_status": "ready_for_app_store_connect_preview",
+      "source_path": "dist/store/source-captures-2026-10-14/ios/ru/store-ios-ru-2-voice.png",
+      "source_sha256": "7f8e0e8e1cd239734ca51c4bc3530f5fe071a5c206b1ac34a5f987b033536b2b",
+      "retained_rgb_pixels_equal_source": true
     },
     {
       "path": "dist/store/localized-2026-10-14/ios/ru/screenshots/store-ios-ru-3-models.png",
@@ -87,9 +99,12 @@
       "height": 2622,
       "format": "PNG",
       "alpha": false,
-      "sha256": "f9baf69ad240f6bf0922c3e34b5b5d6dab4ee95b97a497de52af61f19c153f80",
-      "bytes": 285385,
-      "review_status": "ready_for_app_store_connect_preview"
+      "sha256": "8d05f636455eb7c7348016f1bdbdac5dbce1629f3252ca499f67bbd65d890fd5",
+      "bytes": 174944,
+      "review_status": "ready_for_app_store_connect_preview",
+      "source_path": "dist/store/source-captures-2026-10-14/ios/ru/store-ios-ru-3-models.png",
+      "source_sha256": "f9baf69ad240f6bf0922c3e34b5b5d6dab4ee95b97a497de52af61f19c153f80",
+      "retained_rgb_pixels_equal_source": true
     },
     {
       "path": "dist/store/localized-2026-10-14/ios/ru/screenshots/store-ios-ru-4-languages.png",
@@ -103,9 +118,12 @@
       "height": 2622,
       "format": "PNG",
       "alpha": false,
-      "sha256": "874034ae701737e007a6468ff01ce1ec68cc414c88248b29f99bd19423226b7b",
-      "bytes": 228611,
-      "review_status": "ready_for_app_store_connect_preview"
+      "sha256": "daaf2b3c02be5c1a1e9b264b3f247a87892ef064ac866ddfb87feb1334087d32",
+      "bytes": 134243,
+      "review_status": "ready_for_app_store_connect_preview",
+      "source_path": "dist/store/source-captures-2026-10-14/ios/ru/store-ios-ru-4-languages.png",
+      "source_sha256": "874034ae701737e007a6468ff01ce1ec68cc414c88248b29f99bd19423226b7b",
+      "retained_rgb_pixels_equal_source": true
     },
     {
       "path": "dist/store/localized-2026-10-14/ios/en/screenshots/store-ios-en-1-text.png",
@@ -119,9 +137,12 @@
       "height": 2622,
       "format": "PNG",
       "alpha": false,
-      "sha256": "5efb1998702cfbe7037a2173e77f05910bddef9c202d9a9e637133320c95780c",
-      "bytes": 206571,
-      "review_status": "ready_for_app_store_connect_preview"
+      "sha256": "359dba2ba1ab3bf6584c67b10043c09485127e7fa4eb311807d3cdaa962f5489",
+      "bytes": 123404,
+      "review_status": "ready_for_app_store_connect_preview",
+      "source_path": "dist/store/source-captures-2026-10-14/ios/en/store-ios-en-1-text.png",
+      "source_sha256": "5efb1998702cfbe7037a2173e77f05910bddef9c202d9a9e637133320c95780c",
+      "retained_rgb_pixels_equal_source": true
     },
     {
       "path": "dist/store/localized-2026-10-14/ios/en/screenshots/store-ios-en-2-voice.png",
@@ -135,9 +156,12 @@
       "height": 2622,
       "format": "PNG",
       "alpha": false,
-      "sha256": "ec1b534f480e3c1472496a4ebdaf935685a93b41709cffebf937695a417fc396",
-      "bytes": 156471,
-      "review_status": "ready_for_app_store_connect_preview"
+      "sha256": "42c868affe902638b9b6f203dc0c126f5eb13c81df72de9597dd922103b86db6",
+      "bytes": 85791,
+      "review_status": "ready_for_app_store_connect_preview",
+      "source_path": "dist/store/source-captures-2026-10-14/ios/en/store-ios-en-2-voice.png",
+      "source_sha256": "ec1b534f480e3c1472496a4ebdaf935685a93b41709cffebf937695a417fc396",
+      "retained_rgb_pixels_equal_source": true
     },
     {
       "path": "dist/store/localized-2026-10-14/ios/en/screenshots/store-ios-en-3-models.png",
@@ -151,9 +175,12 @@
       "height": 2622,
       "format": "PNG",
       "alpha": false,
-      "sha256": "76ea8fce74550aa98ca1b5152b3b697e5070abd63606b0d10a92b031856f405b",
-      "bytes": 283183,
-      "review_status": "ready_for_app_store_connect_preview"
+      "sha256": "0a0ae6cae98ce2b61511d422c02872306a13dede5f6accdb37796d5d50b2d709",
+      "bytes": 174488,
+      "review_status": "ready_for_app_store_connect_preview",
+      "source_path": "dist/store/source-captures-2026-10-14/ios/en/store-ios-en-3-models.png",
+      "source_sha256": "76ea8fce74550aa98ca1b5152b3b697e5070abd63606b0d10a92b031856f405b",
+      "retained_rgb_pixels_equal_source": true
     },
     {
       "path": "dist/store/localized-2026-10-14/ios/en/screenshots/store-ios-en-4-languages.png",
@@ -167,9 +194,12 @@
       "height": 2622,
       "format": "PNG",
       "alpha": false,
-      "sha256": "dcfb73a64ac21f8b0d87ef8d895b2ed72fb0a20ae6807796df342ef52a72fd5b",
-      "bytes": 214763,
-      "review_status": "ready_for_app_store_connect_preview"
+      "sha256": "8b50a90775ed42e8d71ba9341dd6a8c1bfff5952d051f4d1facede72d22d7a14",
+      "bytes": 126132,
+      "review_status": "ready_for_app_store_connect_preview",
+      "source_path": "dist/store/source-captures-2026-10-14/ios/en/store-ios-en-4-languages.png",
+      "source_sha256": "dcfb73a64ac21f8b0d87ef8d895b2ed72fb0a20ae6807796df342ef52a72fd5b",
+      "retained_rgb_pixels_equal_source": true
     },
     {
       "path": "dist/store/localized-2026-10-14/ios/es/screenshots/store-ios-es-1-text.png",
@@ -183,9 +213,12 @@
       "height": 2622,
       "format": "PNG",
       "alpha": false,
-      "sha256": "42ec4c0d59cb2869ca1d9dc79d91ae49e75cc4b88eef21f00e5c921df347f863",
-      "bytes": 204793,
-      "review_status": "ready_for_app_store_connect_preview"
+      "sha256": "9efa5044b4823cedcc3d6dd8003c73fc494baf3d62732f02afa6c82d2c49b6b4",
+      "bytes": 121556,
+      "review_status": "ready_for_app_store_connect_preview",
+      "source_path": "dist/store/source-captures-2026-10-14/ios/es/store-ios-es-1-text.png",
+      "source_sha256": "42ec4c0d59cb2869ca1d9dc79d91ae49e75cc4b88eef21f00e5c921df347f863",
+      "retained_rgb_pixels_equal_source": true
     },
     {
       "path": "dist/store/localized-2026-10-14/ios/es/screenshots/store-ios-es-2-voice.png",
@@ -199,9 +232,12 @@
       "height": 2622,
       "format": "PNG",
       "alpha": false,
-      "sha256": "ce771bd2eb59bbe60ef347b6654ac37feed7b60acd2c9b354112cc1eee031d45",
-      "bytes": 155025,
-      "review_status": "ready_for_app_store_connect_preview"
+      "sha256": "b4d4201a1d6673537caa1d7c506f70a78f9935c5fa06ae7827ec7630c5f30507",
+      "bytes": 84193,
+      "review_status": "ready_for_app_store_connect_preview",
+      "source_path": "dist/store/source-captures-2026-10-14/ios/es/store-ios-es-2-voice.png",
+      "source_sha256": "ce771bd2eb59bbe60ef347b6654ac37feed7b60acd2c9b354112cc1eee031d45",
+      "retained_rgb_pixels_equal_source": true
     },
     {
       "path": "dist/store/localized-2026-10-14/ios/es/screenshots/store-ios-es-3-models.png",
@@ -215,9 +251,12 @@
       "height": 2622,
       "format": "PNG",
       "alpha": false,
-      "sha256": "f5f6de184dbc89fe24300877b17da90e494f5dcaa8969bf4775d76db6bb3ed9f",
-      "bytes": 279519,
-      "review_status": "ready_for_app_store_connect_preview"
+      "sha256": "776ca9805c2ac85a6afa89a4355a075ec293f62066001645f7fab7d627f506a9",
+      "bytes": 171422,
+      "review_status": "ready_for_app_store_connect_preview",
+      "source_path": "dist/store/source-captures-2026-10-14/ios/es/store-ios-es-3-models.png",
+      "source_sha256": "f5f6de184dbc89fe24300877b17da90e494f5dcaa8969bf4775d76db6bb3ed9f",
+      "retained_rgb_pixels_equal_source": true
     },
     {
       "path": "dist/store/localized-2026-10-14/ios/es/screenshots/store-ios-es-4-languages.png",
@@ -231,9 +270,12 @@
       "height": 2622,
       "format": "PNG",
       "alpha": false,
-      "sha256": "64617c5d35051d7095384ef0fc9f18d93b9f09b876f7ed8e3e8bf308cfdcbfa2",
-      "bytes": 230820,
-      "review_status": "ready_for_app_store_connect_preview"
+      "sha256": "2dd0e78640fce581580b2e179568645bc12a1911847fffca255448fa7ac947ab",
+      "bytes": 138674,
+      "review_status": "ready_for_app_store_connect_preview",
+      "source_path": "dist/store/source-captures-2026-10-14/ios/es/store-ios-es-4-languages.png",
+      "source_sha256": "64617c5d35051d7095384ef0fc9f18d93b9f09b876f7ed8e3e8bf308cfdcbfa2",
+      "retained_rgb_pixels_equal_source": true
     },
     {
       "path": "dist/store/localized-2026-10-14/ios/tr/screenshots/store-ios-tr-1-text.png",
@@ -247,9 +289,12 @@
       "height": 2622,
       "format": "PNG",
       "alpha": false,
-      "sha256": "06774117faea5df8263fed16c5e33f042baf65bbdfde9875c4fa87927f99d3cd",
-      "bytes": 208576,
-      "review_status": "ready_for_app_store_connect_preview"
+      "sha256": "597b220ca479a27b907396827713e0841ff8fd06291c16bc95b8cb2d3ff63f9e",
+      "bytes": 124013,
+      "review_status": "ready_for_app_store_connect_preview",
+      "source_path": "dist/store/source-captures-2026-10-14/ios/tr/store-ios-tr-1-text.png",
+      "source_sha256": "06774117faea5df8263fed16c5e33f042baf65bbdfde9875c4fa87927f99d3cd",
+      "retained_rgb_pixels_equal_source": true
     },
     {
       "path": "dist/store/localized-2026-10-14/ios/tr/screenshots/store-ios-tr-2-voice.png",
@@ -263,9 +308,12 @@
       "height": 2622,
       "format": "PNG",
       "alpha": false,
-      "sha256": "118b9c11a8a79eee291922749b73f97b88d81eda5bfbdce6eba2f2cd2590bdb5",
-      "bytes": 161421,
-      "review_status": "ready_for_app_store_connect_preview"
+      "sha256": "8056c2d2bfa79b08f98d5056f594e9cf6a1cc6a42fb2c444b6d57d44ce968124",
+      "bytes": 88102,
+      "review_status": "ready_for_app_store_connect_preview",
+      "source_path": "dist/store/source-captures-2026-10-14/ios/tr/store-ios-tr-2-voice.png",
+      "source_sha256": "118b9c11a8a79eee291922749b73f97b88d81eda5bfbdce6eba2f2cd2590bdb5",
+      "retained_rgb_pixels_equal_source": true
     },
     {
       "path": "dist/store/localized-2026-10-14/ios/tr/screenshots/store-ios-tr-3-models.png",
@@ -279,9 +327,12 @@
       "height": 2622,
       "format": "PNG",
       "alpha": false,
-      "sha256": "783be33e6adec7cfe3d7f07f3f51175ad9fedde805ba7f44997d79522cc0d81a",
-      "bytes": 270071,
-      "review_status": "ready_for_app_store_connect_preview"
+      "sha256": "f1f4a527d0090db53035f942f1489e058afb36c9729267e6307dc759de4f828b",
+      "bytes": 164718,
+      "review_status": "ready_for_app_store_connect_preview",
+      "source_path": "dist/store/source-captures-2026-10-14/ios/tr/store-ios-tr-3-models.png",
+      "source_sha256": "783be33e6adec7cfe3d7f07f3f51175ad9fedde805ba7f44997d79522cc0d81a",
+      "retained_rgb_pixels_equal_source": true
     },
     {
       "path": "dist/store/localized-2026-10-14/ios/tr/screenshots/store-ios-tr-4-languages.png",
@@ -295,9 +346,47 @@
       "height": 2622,
       "format": "PNG",
       "alpha": false,
-      "sha256": "289c9e884555c444340f361547b1ae3dc6280327c574a39510b1caa73aa2a662",
-      "bytes": 208306,
-      "review_status": "ready_for_app_store_connect_preview"
+      "sha256": "927e3430197e4e1b9e492d081e57a50003c27254c4082b85c4b7158dc71b79dc",
+      "bytes": 122059,
+      "review_status": "ready_for_app_store_connect_preview",
+      "source_path": "dist/store/source-captures-2026-10-14/ios/tr/store-ios-tr-4-languages.png",
+      "source_sha256": "289c9e884555c444340f361547b1ae3dc6280327c574a39510b1caa73aa2a662",
+      "retained_rgb_pixels_equal_source": true
     }
-  ]
+  ],
+  "image_processing": {
+    "operation": "Remove the system status strip by cropping and padding; no scaling or UI redraw",
+    "source_dimensions": [
+      1206,
+      2622
+    ],
+    "crop_rectangle": {
+      "x": 0,
+      "y": 168,
+      "width": 1206,
+      "height": 2454
+    },
+    "output_content_origin": {
+      "x": 0,
+      "y": 0
+    },
+    "output_dimensions": [
+      1206,
+      2622
+    ],
+    "padding": {
+      "top": 0,
+      "left": 0,
+      "right": 0,
+      "bottom": 168,
+      "rgb": [
+        0,
+        0,
+        0
+      ]
+    },
+    "pixel_comparison": "Every retained RGB pixel equals its original source pixel; padding is exactly RGB(0,0,0).",
+    "source_png_metadata_preserved": true,
+    "source_originals_excluded_from_ready_screenshot_directories": true
+  }
 }

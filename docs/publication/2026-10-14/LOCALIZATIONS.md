@@ -48,3 +48,7 @@ python3 scripts/validation/check_store_metadata.py --report docs/publication/202
 ```
 
 [Результат и SHA-256 каждого поля](metadata-validation.json): 8 локализаций, 72 поля, две инструкции для App Review. Проверяются полнота, соответствие языкам интерфейса, одинаковые общие поля, длины, keywords и синтаксис HTTPS-ссылок. Доступность URL и факт сохранения в кабинете этой проверкой не устанавливаются.
+
+## Готовые скриншоты
+
+[Съёмка iPhone](../localized-screenshots-2026-10-14.md) и [съёмка Mac](../localized-macos-screenshots-2026-10-14.md): по четыре экрана на RU/EN/ES/TR, всего 32 PNG. Файлы находятся рядом с текстами в `dist/store/localized-2026-10-14/<платформа>/<язык>/screenshots/`; общая локальная галерея — `dist/store/localized-2026-10-14/index.html`. Это материалы для **App Previews and Screenshots**; Header/Search Results подготовлены отдельно. Проверка App Store Connect Preview ещё требуется.
