@@ -345,7 +345,12 @@ import OfflineCore
             if audioImportID == request { importingAudio = false; audioFileTask = nil; audioImportID = nil }
         }
         do {
-            let task = Task.detached(priority: .userInitiated) { try AudioFileImport.read(url) }
+            // Sandboxed store builds receive a security-scoped URL from the file importer.
+            let task = Task.detached(priority: .userInitiated) {
+                let accessing = url.startAccessingSecurityScopedResource()
+                defer { if accessing { url.stopAccessingSecurityScopedResource() } }
+                return try AudioFileImport.read(url)
+            }
             audioFileTask = task
             let audio = try await withTaskCancellationHandler { try await task.value } onCancel: { task.cancel() }
             guard id == interactionID, !isShuttingDown, !Task.isCancelled else { return }
