@@ -102,16 +102,6 @@
     "height": 288
   },
   {
-    "id": "film-drink",
-    "resource": "loading-film-drink",
-    "duration": 11.041667,
-    "source": "giphy.mp4",
-    "sourceSHA256": "fd55c1d5f7e397b126d02a114f505553f1687bac92c6c6994178cd6d5874660c",
-    "bytes": 261437,
-    "width": 384,
-    "height": 288
-  },
-  {
     "id": "pigeon",
     "resource": "loading-pigeon",
     "duration": 4.1,

@@ -12,7 +12,7 @@ The current gallery and ZIP are updated; a separate GIF preview: `dist/share/loa
 
 ## Persistent gallery — 11 October 2026
 
-Current set: 10 drawn-cat motions and 14 clips. On 14 October `one-beer` was removed from the resources of all platforms and from the generator; old signed packages remain historical artifacts. A puddle trick with a jump over it was added; "Pile" now ends with burying using the hind paws. Both scenarios are part of sequential playback. The bounce starts early and includes the push-off, tucking the paws and a soft landing. Three short body contractions are visible before the puddle; the burying is kept.
+Current set: 10 drawn-cat motions and 13 clips. On 14 October `one-beer` was removed from the resources of all platforms and from the generator; old signed packages remain historical artifacts. A puddle trick with a jump over it was added; "Pile" now ends with burying using the hind paws. Both scenarios are part of sequential playback. The bounce starts early and includes the push-off, tucking the paws and a soft landing. Three short body contractions are visible before the puddle; the burying is kept. One more clip was later removed from all platform resources and the generator.
 
 [Open the gallery](gallery/index.html). It contains **only the current** drawn-cat motions and app clips. The **"Play all"** button plays them in turn, shows the current number and stops on a second press. Individual cards can also be played and downloaded. The HTML works after unpacking the whole folder, without a server or internet.
 
@@ -34,12 +34,12 @@ Current archive for friends: `dist/share/Kat-loading-animations-current.zip`. It
 
 ## Processing clips — initial integration
 
-The user supplied Telegram MP4 clips (15 originally, 14 after `one-beer` was removed on 14 October). Together with the existing wizard cat they form a shared local playlist for **only the former CatWizardView locations** in Voice/Text processing. Model-preparation and download-progress cats remain unchanged.
+The user supplied Telegram MP4 clips (15 originally, 13 after two clips were removed on 14 October). Together with the existing wizard cat they form a shared local playlist for **only the former CatWizardView locations** in Voice/Text processing. Model-preparation and download-progress cats remain unchanged.
 
 - Clips are shuffled without replacement; no consecutive repeat across shuffle cycles or separate waits in one app process.
 - Clip selection survives SwiftUI body updates. From Mac 29 / iPhone 18, each clip plays once, then the playlist advances at its end. Short clips no longer repeat to fill 8 seconds. Completion/cancellation dismisses the animation immediately.
 - One muted AVPlayer and one current item per visible surface; no audio-session changes. Playback pauses when the app is inactive or Reduce Motion is on; a poster remains visible. Dismantling removes the observer and player item.
-- Bundled H.264, 384×288, aspect-fit with black padding, frame rate capped at 24 fps, all audio removed. Original source identities are kept in the manifest; raw source files are not distributed in the repository. Only the persistent letterbox on `giphy.mp4` is cropped, not subjects or captions.
+- Bundled H.264, 384×288, aspect-fit with black padding, frame rate capped at 24 fps, all audio removed. Original source identities are kept in the manifest; raw source files are not distributed in the repository.
 - `scripts/prepare-loading-animations.py` reproduces the assets with ffmpeg/ffprobe. `assets/bundled/LoadingAnimations/loading-animations.json` records original names, SHA-256 hashes, output sizes and durations. Total video size at integration time: 1,628,520 bytes; JPEG posters are additional.
 
 ## Central processing overlay (Mac 29 / iPhone 18)

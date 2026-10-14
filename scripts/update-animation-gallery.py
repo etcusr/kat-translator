@@ -25,8 +25,8 @@ CAT_SOURCES = [ROOT / name for name in (
 # Stable identities preserve approved previews across repository relocation.
 CAT_SOURCE_IDENTITIES = ['Shared/CatProgressDrawing.swift', 'Packages/OfflineCore/Sources/OfflineCore/CatProgressMotion.swift', 'Packages/OfflineCore/Sources/OfflineCore/CatLoadingPlay.swift', 'App/Models/CatDownloadProgressView.swift', 'scripts/validation/render-loading-gallery.swift']
 TITLES = dict(zip(
-    ['wizard', 'monkey-work', 'cat-break', 'swing', 'cat-dance', 'cat-magic', 'cat-stalk', 'cat-paw', 'porpoise', 'cat-vibe', 'film-drink', 'pigeon', 'cat-stretch', 'work-sleep'],
-    ['Кот-волшебник', 'За работой', 'Кот на перерыве', 'Качели', 'Танцующий кот', 'Кот и магия', 'Кот крадётся', 'Кошачья лапка', 'Дельфин', 'Кот ловит вайб', 'Кино и напиток', 'Голубь', 'Кот потягивается', 'Работа и сон']))
+    ['wizard', 'monkey-work', 'cat-break', 'swing', 'cat-dance', 'cat-magic', 'cat-stalk', 'cat-paw', 'porpoise', 'cat-vibe', 'pigeon', 'cat-stretch', 'work-sleep'],
+    ['Кот-волшебник', 'За работой', 'Кот на перерыве', 'Качели', 'Танцующий кот', 'Кот и магия', 'Кот крадётся', 'Кошачья лапка', 'Дельфин', 'Кот ловит вайб', 'Голубь', 'Кот потягивается', 'Работа и сон']))
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()

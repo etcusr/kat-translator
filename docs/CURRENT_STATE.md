@@ -2,6 +2,8 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+One loading clip has been removed from the shared iOS/macOS/Android resources, playlist, preparation script and gallery. The source catalog now contains 13 clips. Existing uploaded iOS 51 / Mac 70 packages still contain the removed clip; replacement builds and uploads are deferred. [Verification](publication/loading-clip-removal-2026-10-14.md).
+
 Working tree reconciled on **14 October 2026, Europe/Moscow**. After fixing seven Auto/OPUS regressions, local Android/OfflineCore tests, Mac runtime/UI tests and an iOS build were run. Details and limits: [fix report](benchmarks/auto-routing-fixes-2026-10-13/README.md). After the backup finished, **iPhone build 45 and Pixel code 21 were installed and verified**: [phone tests](benchmarks/auto-routing-devices-2026-10-13/README.md). Then real ASR→Auto MT→TTS and the microphones of both phones were checked: [voice run](benchmarks/voice-auto-devices-2026-10-13/README.md). Routing passed; a single iPhone audio output error and an extra Whisper word in one recording remain observations with an unknown cause.
 
 ## Signed SDKs and the new release (14.10)

@@ -14,6 +14,7 @@ class GallerySyncTests(unittest.TestCase):
         rows = json.loads((assets / 'loading-animations.json').read_text())
         ids = {row['id'] for row in rows}
         self.assertNotIn('one-beer', ids)
+        self.assertNotIn('film-drink', ids)
         self.assertEqual(len(ids), len(rows))
         tree = ast.parse((root / 'scripts/prepare-loading-animations.py').read_text())
         sources = next(ast.literal_eval(node.value) for node in tree.body

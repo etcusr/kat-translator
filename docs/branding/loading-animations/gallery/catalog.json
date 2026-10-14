@@ -163,14 +163,6 @@
       "video": "clips/cat-vibe.mp4"
     },
     {
-      "duration": 11.041667,
-      "id": "film-drink",
-      "poster": "clips/film-drink.jpg",
-      "sha256": "422155dc02fe8f9d76dfb6849ef50fb81fb2bd8a4e168480226c4330ec3dd70e",
-      "title": "Кино и напиток",
-      "video": "clips/film-drink.mp4"
-    },
-    {
       "duration": 4.1,
       "id": "pigeon",
       "poster": "clips/pigeon.jpg",

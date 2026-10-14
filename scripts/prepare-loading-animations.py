@@ -19,8 +19,6 @@ SOURCES = [
     ("cat-paw", "doc_2025-09-15_21-44-19.mp4", None),
     ("porpoise", "dumb-porpoise-i'm-stupid.mp4", None),
     ("cat-vibe", "giphy.gif.mp4", None),
-    # Remove only the persistent black letterbox measured across the whole clip.
-    ("film-drink", "giphy.mp4", "crop=476:308:2:36"),
     ("pigeon", "mp4.mp4", None),
     ("cat-stretch", "redditsave.com_morning_stretch-njmis5p0sze91.mp4", None),
     ("work-sleep", "work-and-sleep-work-sleep.mp4", None),

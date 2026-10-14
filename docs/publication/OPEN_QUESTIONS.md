@@ -2,6 +2,8 @@
 
 **English** | [Русский](OPEN_QUESTIONS.ru.md)
 
+**Next package update:** one loading clip has been removed from all platform sources (13 remain). The uploaded iOS 51 / Mac 70 still contain it. Build and upload replacements later; no replacement was uploaded in this change.
+
 Updated 14 October 2026. Current release: **iOS 1.0 (51), Mac 1.0 (70)**. It includes the playback fix, current privacy manifests and 46 license documents. [Build, checks and upload result](signed-sdks-release-2026-10-14.md).
 
 ## Done
