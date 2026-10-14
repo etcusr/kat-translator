@@ -67,23 +67,91 @@ final class MacRuntimeTests: XCTestCase {
     /// (the sandbox container in the Mac App Store configuration).
     @MainActor func testRealDownloadInstallsIntoAppStorage() async throws {
         guard ProcessInfo.processInfo.environment["KAT_REAL_DOWNLOAD_TEST"] == "1" else { throw XCTSkip("Opt-in network download") }
-        let part = try XCTUnwrap(RecognitionPackages.definitions.first { $0.id == RecognitionCatalog.ultraID }?.parts.first { $0.path == "JointDecisionv3.mlmodelc/weights/weight.bin" })
-        let item = ModelDownloader(model: ModelDescriptor(id: "sandbox-download-check", title: "Sandbox download check", remoteURL: part.remoteURL, byteCount: part.byteCount, sha256: part.sha256))
-        await item.restore(); await item.cancel()
-        if item.installedURL != nil { await item.remove() }
-        item.start()
-        let deadline = Date().addingTimeInterval(300)
-        while item.installedURL == nil && Date() < deadline {
-            XCTAssertFalse([.failed, .restartRequired].contains(item.state.phase), item.state.error ?? "transfer failed")
-            if [.failed, .restartRequired].contains(item.state.phase) { break }
-            try await Task.sleep(for: .milliseconds(200))
+        let defaults = UserDefaults.standard
+        let previousLiveIDs = defaults.object(forKey: "liveDownloadIDs")
+        defer {
+            if let previousLiveIDs { defaults.set(previousLiveIDs, forKey: "liveDownloadIDs") }
+            else { defaults.removeObject(forKey: "liveDownloadIDs") }
         }
-        let installed = try XCTUnwrap(item.installedURL, "not installed: \(item.state.phase.rawValue)")
-        XCTAssertTrue(installed.path.hasPrefix(ModelDownloader.root.path))
-        print("SANDBOX_DOWNLOAD_OK bytes=\(part.byteCount) sandboxed=\(ProcessInfo.processInfo.environment["APP_SANDBOX_CONTAINER_ID"] != nil) root=\(ModelDownloader.root.path.contains("/Containers/"))")
-        await item.remove()
-        try? FileManager.default.removeItem(at: item.transferRoot)
+        let part = try XCTUnwrap(RecognitionPackages.definitions.first { $0.id == RecognitionCatalog.ultraID }?.parts.first { $0.path == "JointDecisionv3.mlmodelc/weights/weight.bin" })
+        let item = ModelDownloader(model: ModelDescriptor(id: "sandbox-download-check-" + UUID().uuidString.lowercased(), title: "Sandbox download check", remoteURL: part.remoteURL, byteCount: part.byteCount, sha256: part.sha256))
+        func cleanup() async throws {
+            if item.installedURL != nil { await item.remove() } else { await item.cancel() }
+            if FileManager.default.fileExists(atPath: item.transferRoot.path) {
+                try FileManager.default.removeItem(at: item.transferRoot)
+            }
+        }
+        do {
+            await item.restore()
+            XCTAssertNil(item.installedURL)
+            item.start()
+            let deadline = Date().addingTimeInterval(300)
+            while item.installedURL == nil && Date() < deadline {
+                XCTAssertFalse([.failed, .restartRequired].contains(item.state.phase), item.state.error ?? "transfer failed")
+                if [.failed, .restartRequired].contains(item.state.phase) { break }
+                try await Task.sleep(for: .milliseconds(200))
+            }
+            let installed = try XCTUnwrap(item.installedURL, "not installed: \(item.state.phase.rawValue)")
+            XCTAssertTrue(installed.path.hasPrefix(ModelDownloader.root.path))
+            print("SANDBOX_DOWNLOAD_OK bytes=\(part.byteCount) sandboxed=\(ProcessInfo.processInfo.environment["APP_SANDBOX_CONTAINER_ID"] != nil) root=\(ModelDownloader.root.path.contains("/Containers/"))")
+        } catch {
+            try await cleanup()
+            throw error
+        }
+        try await cleanup()
     }
+    /// Pair an online control with a test copy signed without network-client access.
+    @MainActor func testNetworkAccessControl() async throws {
+        let expectation = ProcessInfo.processInfo.environment["KAT_NETWORK_EXPECTATION"]
+        guard expectation == "allowed" || expectation == "denied" else {
+            throw XCTSkip("Opt-in sandbox network control")
+        }
+        let part = try XCTUnwrap(RecognitionPackages.definitions.first { $0.id == RecognitionCatalog.ultraID }?.parts.first { $0.path == "JointDecisionv3.mlmodelc/weights/weight.bin" })
+        var request = URLRequest(url: part.remoteURL)
+        request.httpMethod = "HEAD"
+        request.timeoutInterval = 15
+        let session = URLSession(configuration: .ephemeral)
+        defer { session.invalidateAndCancel() }
+        do {
+            let (_, rawResponse) = try await session.data(for: request)
+            let response = try XCTUnwrap(rawResponse as? HTTPURLResponse)
+            XCTAssertEqual(expectation, "allowed", "Network must be denied for the offline test copy")
+            XCTAssertTrue((200..<400).contains(response.statusCode))
+            print("KAT_NETWORK_CONTROL allowed status=\(response.statusCode) host=\(response.url?.host ?? "unknown")")
+        } catch let error as URLError {
+            XCTAssertEqual(expectation, "denied", "Online control failed: \(error)")
+            XCTAssertTrue([.notConnectedToInternet, .cannotConnectToHost, .cannotFindHost].contains(error.code), "Unexpected failure: \(error)")
+            print("KAT_NETWORK_CONTROL denied code=\(error.code.rawValue)")
+        }
+    }
+
+    @MainActor func testInstalledThaiSynthesis() async throws {
+        guard ProcessInfo.processInfo.environment["KAT_SPEECH_INTEGRATION"] == "1" else {
+            throw XCTSkip("Opt-in installed Thai voice")
+        }
+        let packages = PackageDownloadCoordinator.shared
+        await packages.restore()
+        let directory = try XCTUnwrap(packages.voiceDirectories[ModelCatalog.wayuVoice.id])
+        var components = try XCTUnwrap(URLComponents(url: directory, resolvingAgainstBaseURL: false))
+        components.fragment = "wayu:" + WayuVoice.defaultVoice.rawValue
+        let speech = SherpaSpeechBackend()
+        do {
+            try await speech.load(directory: try XCTUnwrap(components.url), language: .thai)
+            for text in ["สวัสดีค่ะ สบายดีไหมคะ?", "ราคา 250 บาท", "เรียก Grab"] {
+                let pcm = try await speech.synthesize(text: text)
+                XCTAssertEqual(pcm.sampleRate, 24000)
+                XCTAssertGreaterThan(pcm.samples.count, 2400)
+                XCTAssertTrue(pcm.samples.allSatisfy { $0.isFinite })
+                XCTAssertGreaterThan(pcm.samples.map(abs).max() ?? 0, 0.001)
+                print("KAT_MAC_WAYU samples=\(pcm.samples.count)")
+            }
+        } catch {
+            await speech.unload()
+            throw error
+        }
+        await speech.unload()
+    }
+
     /// Opt-in for store-build checks: copy installed model folders (never History) from a direct
     /// build's data folder into this sandboxed app's container. APFS clones, so no extra space.
     func testSandboxSeedModels() throws {

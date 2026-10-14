@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-14",
+  "source_commit": "000e178",
+  "store_artifacts_unchanged": true,
+  "ios": {
+    "version": "1.0 (50)",
+    "tested_signing": "development Release with XCTest, not distribution IPA",
+    "initial": {
+      "tests": 5,
+      "passed": 3,
+      "failed": 2
+    },
+    "download_files_bytes": [
+      6294562,
+      33721740
+    ],
+    "repeat_auto_audio_control": {
+      "tests": 2,
+      "passed": 2,
+      "auto_seconds": 49.453,
+      "six_playback_cycles_seconds": 2.88
+    },
+    "thai_isolated_timeout_seconds": 120,
+    "thai_final_repeat": {
+      "passed": true,
+      "seconds": 32.0
+    },
+    "audio_error": 1852797029,
+    "audio_issue_resolved": false,
+    "physical_microphone_tested": false,
+    "radios_disabled": false,
+    "network_capture": {
+      "template": "Instruments Network",
+      "duration_seconds": 0,
+      "reason": "Cancelled device-wide HTTP prompt; no usable traffic evidence"
+    },
+    "preservation": {
+      "preferences": 40,
+      "preferences_equal": true,
+      "history_files": 1,
+      "history_semantically_equal": true,
+      "stable_model_document_files": 8604,
+      "stable_model_document_bytes": 29074827437,
+      "verification_receipts_changed": 10,
+      "test_download_leftovers": 0,
+      "restored_normal_build": "1.0 (50)",
+      "restored_app_contains_xctest": false
+    }
+  },
+  "macos": {
+    "version": "1.0 (69)",
+    "tested_identity": "app.kattranslator.runtimecheck",
+    "online_runtime_tests": {
+      "passed": 4,
+      "failed": 0
+    },
+    "online_thai_network_controls": {
+      "passed": 2,
+      "failed": 0,
+      "head_http_status": 200,
+      "final_host": "us.aws.cdn.hf.co"
+    },
+    "offline_tests": {
+      "passed": 5,
+      "failed": 0,
+      "network_client_entitlement": false,
+      "app_sandbox": true,
+      "control_error": -1003
+    },
+    "wayu_samples": [
+      43800,
+      42000,
+      21000
+    ],
+    "test_container_data_removed": true,
+    "installed_app_replaced": false,
+    "original_store_container_modified": false,
+    "physical_microphone_tested": false
+  },
+  "validation": {
+    "privacy_regression_tests": 13
+  },
+  "remaining": [
+    "Intermittent iOS playback failure and Thai pipeline timeout; successful repeats do not establish a fix",
+    "Controlled app-scoped iOS network observation and radio-off acceptance",
+    "TestFlight acceptance of exact store artifacts, permissions and physical microphones",
+    "Full catalog and interrupted/background download coverage",
+    "Existing SDK, source/license and store metadata queue"
+  ]
+}

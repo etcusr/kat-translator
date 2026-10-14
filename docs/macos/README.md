@@ -134,3 +134,7 @@ Before generation, count the full prompt and source separately with the selected
 On the two user articles combined (4966 characters), Index RU→EN takes49.662s versus90.295s in Mac21, with identical final output. The discarded40.624s call is eliminated and progress starts with two parts. Both single articles stay one part and retain their prior output. Four native tests and220 core tests (2 optional voice skips) pass. [Evidence and limits](../benchmarks/translation-preflight/README.md). Mac22 DMG/ZIP is the new sharing package; signing remains ad-hoc. Previous distributions are retained.
 
 Mac22 is installed and normally launched; installed executable/runtime match the staged package. Deep signature, dependency audit and DMG verification pass (`.build/translation-preflight/mac-installed.json`).
+
+## Проверка магазинной конфигурации69
+
+[Свежий runtime-прогон](../publication/runtime-acceptance-2026-10-14.md): отдельная sandbox-копия 69 прошла загрузку, MT/ASR/TTS/OCR и пять проверок без network-client entitlement. Исходное установленное приложение не заменялось, данные тестового контейнера удалены. Это не запуск неизменённого PKG69 через TestFlight; микрофон и системные разрешения остаются в очереди.

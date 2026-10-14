@@ -121,14 +121,34 @@ final class VoiceAutoRoutingIntegrationTests: XCTestCase {
         XCTAssertNil(pipeline.voiceFields.lastHistoryID)
         print("KAT_VOICE_RESULT", language.rawValue, model.rawValue, pipeline.voiceFields.sourceText, "=>", pipeline.voiceFields.translatedText)
     }
+    @MainActor private func logAudioState(_ stage: String) {
+        let session = AVAudioSession.sharedInstance()
+        // Port types only: device names and identifiers do not belong in test diagnostics.
+        print("KAT_AUDIO_STATE", stage, "category", session.category.rawValue,
+            "rate", session.sampleRate, "otherAudio", session.isOtherAudioPlaying,
+            "outputs", session.currentRoute.outputs.map { $0.portType.rawValue })
+    }
+    @MainActor func testRepeatedSpeechPlayback() async throws {
+        let player = SpeechPlayer()
+        defer { player.stop() }
+        let pcm = SpeechPCM(samples: (0..<4800).map { Float(sin(Double($0) * 2 * .pi * 440 / 24000)) * 0.02 }, sampleRate: 24000)
+        for index in 0..<6 {
+            logAudioState("playback-\(index)-before")
+            try await player.play(pcm)
+            player.stop()
+            logAudioState("playback-\(index)-after")
+        }
+    }
     @MainActor func testAfterStopDetectsLanguageAndSwitchesAutoModels() async throws {
         let pipeline = try await prepare()
         for (language, model) in [(SpeechLanguage.russian, TranslationModel.opusBig), (.german, .index9B), (.russian, .opusBig)] {
             print("KAT_HOST_STATE", UIApplication.shared.applicationState.rawValue, "autoload", UserDefaults.standard.bool(forKey: "automaticModelLoad"))
             let audio = try fixture(language.rawValue)
+            logAudioState("auto-\(language.rawValue)-before")
             await pipeline.runRecording(audio: audio, speechEnd: audio.samples.count, source: nil, target: .english,
                 speakResult: true, inputMode: "synthetic-recording", thermal: "nominal", stoppedAt: ProcessInfo.processInfo.systemUptime,
                 requestedPreview: false, fallbackReason: nil)
+            logAudioState("auto-\(language.rawValue)-after")
             check(pipeline, language, model)
             XCTAssertTrue(pipeline.hasVoiceTranslationSpeech, pipeline.voiceFields.speechNotice ?? "Missing TTS")
             let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
@@ -215,9 +235,11 @@ final class VoiceAutoRoutingIntegrationTests: XCTestCase {
         packages.selectVoice(packages.wayuVoice, language: .thai)
         let pipeline = try await prepare()
         let audio = try fixture("ru")
+        logAudioState("thai-pipeline-before")
         await pipeline.runRecording(audio: audio, speechEnd: audio.samples.count, source: nil, target: .thai,
             speakResult: true, inputMode: "synthetic-recording", thermal: "nominal", stoppedAt: ProcessInfo.processInfo.systemUptime,
             requestedPreview: false, fallbackReason: nil)
+        logAudioState("thai-pipeline-after")
         XCTAssertNil(pipeline.voiceFields.error)
         XCTAssertEqual(pipeline.voiceFields.resolvedSource, .russian)
         XCTAssertEqual(pipeline.voiceFields.resolvedTarget, .thai)
