@@ -12,7 +12,7 @@
 
 Каталоги, подстановки и формы чисел проверены; сборки iOS/macOS и unit-тесты Android/OfflineCore прошли. Позже основные экраны ES/TR проверены на iPhone 1.0 (47); проверка носителями языка и полный проход разрешений/accessibility остаются. Сам локализационный прогон не заменял установленные приложения. Позже локализованный iPhone build46 установлен при приёмке переноса; Mac/Android этим переносом не обновлялись. [Отчёт](benchmarks/localization-2026-10-14/README.md).
 
-Тексты App Store для iOS/Mac подготовлены на всех четырёх языках: [72 поля и инструкции для ревью](publication/2026-10-14/LOCALIZATIONS.md). Новая съёмка блокируется системными разрешениями автоматизации/захвата; [статус и ограничения](publication/localized-screenshots-2026-10-14.md).
+Тексты App Store для iOS/Mac подготовлены на всех четырёх языках: [72 поля и инструкции для ревью](publication/2026-10-14/LOCALIZATIONS.md). Для iPhone готовы 16 новых кадров build49 (по четыре RU/EN/ES/TR), сценарий прошёл, настройки и история сохранены. Mac-съёмка проверяется отдельно; [результаты и ограничения](publication/localized-screenshots-2026-10-14.md).
 
 ## Лицензия и подготовка публикации (14.10)
 
@@ -59,7 +59,7 @@ Mac-сборка **1.0 (64) отклонена при серверной обр�
 | Платформа | Версия | Требование сборки | Подтверждение |
 |---|---|---|---|
 | Android | **0.4.6 / code21**, Debug | API31+, arm64-v8a (ARMv8.2 dotprod/FP16 для Index); compile/target36 | Установлен на Pixel 9 Pro 13.10; native Auto OPUS→2B→OPUS, EN→EN, ручные RU↔DE; голос RU/DE через импорт/микрофон с GigaAM/Parakeet и TTS проверен |
-| iPhone | **1.0 / build49** | iOS18+, iPhone ARM64 | IPA: 9 manifests, 42 notices, 72 подписи проверены; не загружен. Проверочная build49 установлена для съёмки, сценарий ждёт подтверждения XCTest на устройстве. [Аудит](publication/apple-privacy-sdk-2026-10-14.md) |
+| iPhone | **1.0 / build49** | iOS18+, iPhone ARM64 | IPA: 9 manifests, 42 notices, 72 подписи проверены; не загружен. Проверочная build49 установлена; четырёхъязычная съёмка прошла, 16 кадров и сохранность настроек/истории проверены. [Аудит](publication/apple-privacy-sdk-2026-10-14.md) |
 | Mac современный | **0.6.7 / build60** | macOS27+, Apple Silicon | Info.plist исходников и `/Applications/Kat translator.app`; DMG/ZIP |
 | Mac App Store | **1.0 / build68** | macOS27+, Apple Silicon, sandbox | PKG: 9 manifests, 42 notices, 154 подписи и sandbox/helpers проверены; не установлен/не загружен. Последняя подтверждённая обработка Apple — 66. [Аудит](publication/apple-privacy-sdk-2026-10-14.md) |
 | Mac совместимый | **0.6.0 / build53 / macos15-26** | бинарный минимум macOS15, Apple Silicon | сохранённые DMG/ZIP и аудит; запуск проверен на macOS27, физическая macOS15–26 не проверена |

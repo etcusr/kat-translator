@@ -47,7 +47,7 @@ SDK manifests описывают отключённую телеметрию и 
 
 ## Конечные артефакты
 
-Пакеты с SHA-256 sidecar лежат в `dist/ios/store/Kat-translator-1.0-build49.ipa` и `dist/macos/store/Kat-translator-1.0-build68.pkg`. Машиночитаемый [результат](apple-privacy-sdk-2026-10-14.json) содержит хэши, состав manifests и границы проверки. Store-пакеты не загружались и не устанавливались. Проверочная development49 установлена для съёмки; системное подтверждение XCTest блокирует сценарии. [Скриншоты](localized-screenshots-2026-10-14.md) и [готовые тексты](2026-10-14/LOCALIZATIONS.md) учитываются отдельно.
+Пакеты с SHA-256 sidecar лежат в `dist/ios/store/Kat-translator-1.0-build49.ipa` и `dist/macos/store/Kat-translator-1.0-build68.pkg`. Машиночитаемый [результат](apple-privacy-sdk-2026-10-14.json) содержит хэши, состав manifests и границы проверки. Store-пакеты не загружались и не устанавливались. Проверочная development49 установлена для съёмки; после системного подтверждения XCTest четырёхъязычный сценарий прошёл, 16 кадров готовы. [Скриншоты](localized-screenshots-2026-10-14.md) и [готовые тексты](2026-10-14/LOCALIZATIONS.md) учитываются отдельно.
 
 ## Официальные основания
 
