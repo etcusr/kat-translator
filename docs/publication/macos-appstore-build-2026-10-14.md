@@ -147,6 +147,8 @@
 
 В App Store Connect → TestFlight → macOS Builds сборки **1.0 (65) и 1.0 (66) — Complete, «Ready to Submit»** (срок 90 дней). Сборки 61–64 — Failed, остаются в истории Build Uploads; удалить их нельзя. Для страницы версии 1.0 выбирать **66**: в 65 ресурсные бандлы повторяют Info.plist и Bundle ID приложения. Apple её приняла, но 66 корректнее. 65 можно пометить Expire в TestFlight.
 
+По снимку пользователя сборка **1.0 (66)** выбрана в поле Build страницы macOS 1.0 (Included Assets: App Icon). На ревью не отправлялась.
+
 ## Открыто
 
 - Функциональная приёмка sandbox-сборки (лучше через TestFlight для macOS).
