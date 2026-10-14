@@ -13,7 +13,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 CATALOGS = ROOT / "assets/catalogs"
 ANDROID = ROOT / "apps/android/app/src/main/java"
-DOCS = [ROOT / "docs/CURRENT_STATE.md", ROOT / "docs/ARCHITECTURE.md"]
+# English is the default documentation language; Russian lives in *.ru.md with the same facts.
+DOCS_EN = [ROOT / "docs/CURRENT_STATE.md", ROOT / "docs/ARCHITECTURE.md"]
+DOCS_RU = [ROOT / "docs/CURRENT_STATE.ru.md", ROOT / "docs/ARCHITECTURE.ru.md"]
 
 
 def facts():
@@ -50,7 +52,7 @@ def app_code():
                                     ANDROID / "org/openoffline/translator/android/ProductModels.kt"]]
 
 
-# (fact, pattern, where): where is "app" (strings), "code" or "docs".
+# (fact, pattern, where): where is "app" (strings), "code", "docs" (Russian) or "docs_en".
 CLAIMS = [
     ("opus languages", r"(\d+) языков через направления OPUS", "app"),
     ("opus english partners", r"английский ↔ ~(\d+) язык", "app"),
@@ -59,6 +61,11 @@ CLAIMS = [
     ("opus directions", r"OPUS-MT Big — (\d+) направлени", "docs"),
     ("opus hosted", r"скачиваются (\d+) направлени", "docs"),
     ("opus manual", r"остальные (\d+) — ручная установка", "docs"),
+    ("opus english partners", r"EN ↔ ~(\d+) languages", "docs_en"),
+    ("opus directions", r"(\d+) OPUS directions", "docs_en"),
+    ("opus directions", r"OPUS-MT Big — (\d+) directions", "docs_en"),
+    ("opus hosted", r"(\d+) directions are downloadable", "docs_en"),
+    ("opus manual", r"the remaining (\d+) require manual installation", "docs_en"),
     ("index languages", r"Index[^.\n\"]{0,30}?(\d+) язык", "app"),
     ("index languages", r"^(\d+) языков(?: ·|\.)", "app"),
     ("index languages", r'case \.index9B, \.index2B: return L10n\.text\("(\d+) языков"\)', "code"),
@@ -74,7 +81,8 @@ class DocsAppParityTests(unittest.TestCase):
     def test_numeric_claims_match_catalogs(self):
         values = facts()
         sources = {"app": app_strings(), "code": app_code(),
-                   "docs": [p.read_text() for p in DOCS]}
+                   "docs": [p.read_text() for p in DOCS_RU],
+                   "docs_en": [p.read_text() for p in DOCS_EN]}
         for fact, pattern, where in CLAIMS:
             found = [int(n) for text in sources[where] for n in re.findall(pattern, text, re.M)]
             with self.subTest(fact=fact, pattern=pattern):
@@ -82,14 +90,16 @@ class DocsAppParityTests(unittest.TestCase):
                 self.assertEqual(set(found), {values[fact]}, f"{fact}: catalog has {values[fact]}")
 
     def test_current_state_versions_match_builds(self):
-        state = (ROOT / "docs/CURRENT_STATE.md").read_text()
         gradle = (ROOT / "apps/android/app/build.gradle.kts").read_text()
         code, name = re.search(r'versionCode = (\d+); versionName = "([\d.]+)"', gradle).groups()
-        self.assertRegex(state, rf"\| Android \| \*\*{re.escape(name)} / code{code}\*\*")
-        for platform, row in [("ios", "iPhone"), ("macos", "Mac современный")]:
-            info = plistlib.loads((ROOT / f"apps/{platform}/Info.plist").read_bytes())
-            expected = f"| {row} | **{info['CFBundleShortVersionString']} / build{info['CFBundleVersion']}**"
-            self.assertIn(expected, state)
+        for path, mac_row in [("docs/CURRENT_STATE.md", "Mac modern"), ("docs/CURRENT_STATE.ru.md", "Mac современный")]:
+            state = (ROOT / path).read_text()
+            with self.subTest(document=path):
+                self.assertRegex(state, rf"\| Android \| \*\*{re.escape(name)} / code{code}\*\*")
+                for platform, row in [("ios", "iPhone"), ("macos", mac_row)]:
+                    info = plistlib.loads((ROOT / f"apps/{platform}/Info.plist").read_bytes())
+                    expected = f"| {row} | **{info['CFBundleShortVersionString']} / build{info['CFBundleVersion']}**"
+                    self.assertIn(expected, state)
 
 
 if __name__ == "__main__":

@@ -1,136 +1,142 @@
-# Архитектура Kat translator
+# Kat translator architecture
 
-Общая карта компонентов. Текущие версии и ограничения — [CURRENT_STATE](CURRENT_STATE.md).
+**English** | [Русский](ARCHITECTURE.ru.md)
 
-## Архитектура и ключевые точки входа
+Overall component map. Current versions and limitations: [CURRENT_STATE](CURRENT_STATE.md).
 
-| Область | Файлы/каталоги от корня | Назначение |
+## Architecture and key entry points
+
+| Area | Files/directories from the root | Purpose |
 |---|---|---|
-| iPhone entrypoint | `apps/ios/OfflineTranslatorApp.swift` | Запуск, платформенная оболочка |
-| Mac entrypoint | `apps/macos/KatMacApp.swift`, `MacPlatform.swift` | Жизненный цикл, меню/окна/горячие клавиши |
-| Общая Apple orchestration | `shared/apple/Conversation/AppModel.swift` | Состояние приложения, подготовка, загрузки и взаимодействие с конвейером |
-| Конвейер | `shared/packages/OfflineCore/Sources/OfflineCore/ConversationPipeline.swift` | Голос/текст, поля, этапы, отмена, результаты, playback/history |
-| Политики ядра | тот же каталог: `SessionController.swift`, `TranslationModel.swift`, `TranslationPrompt.swift`, `TranslationPreflight.swift` | Сессии, доступные модели, промпт, бюджет/разбиение |
-| Apple MT router | `shared/apple/Translation/RoutedTranslationBackend.swift` | Выбор реального backend для модели/платформы |
-| Apple MT adapters | `LlamaTranslationBackend.swift`, `OpusTranslationBackend.swift` рядом с router | Мосты в native |
-| Mac GPU adapters | `apps/macos/MLXTranslationBackend.swift`, `OpusGPUTranslationBackend.swift` | Index MLX и отдельный OPUS GPU worker |
+| iPhone entry point | `apps/ios/OfflineTranslatorApp.swift` | Launch, platform shell |
+| Mac entry point | `apps/macos/KatMacApp.swift`, `MacPlatform.swift` | Lifecycle, menus/windows/hotkeys |
+| Shared Apple orchestration | `shared/apple/Conversation/AppModel.swift` | App state, preparation, downloads and interaction with the pipeline |
+| Pipeline | `shared/packages/OfflineCore/Sources/OfflineCore/ConversationPipeline.swift` | Voice/text, fields, stages, cancellation, results, playback/history |
+| Core policies | same directory: `SessionController.swift`, `TranslationModel.swift`, `TranslationPrompt.swift`, `TranslationPreflight.swift` | Sessions, available models, prompt, budget/splitting |
+| Apple MT router | `shared/apple/Translation/RoutedTranslationBackend.swift` | Chooses the real backend for the model/platform |
+| Apple MT adapters | `LlamaTranslationBackend.swift`, `OpusTranslationBackend.swift` next to the router | Bridges to native code |
+| Mac GPU adapters | `apps/macos/MLXTranslationBackend.swift`, `OpusGPUTranslationBackend.swift` | Index MLX and the separate OPUS GPU worker |
 | Native Index | `shared/native/TranslationRuntime/TranslationRuntime.cpp`, `IndexMTP.cpp` | C ABI, GGUF/llama.cpp, MTP |
-| Native OPUS | `shared/native/OpusRuntime` | CTranslate2, токенизация, направление и отмена |
-| Mac Python workers | `shared/native/IndexMLX/index_mlx.py`, `shared/native/OpusGPU/opus_gpu.py` | Раздельные MLX/PyTorch окружения |
-| Apple ASR | `shared/apple/ASR`, `shared/packages/OfflineCore/Sources/OfflineCore/RecognitionCatalog.swift` | Whisper/Meta/Ultra и политика выбора |
-| Apple TTS/OCR | `shared/apple/Speech`, `shared/apple/Camera`, `shared/native/app` | Локальные голоса, платформенные/OCR adapters |
-| Apple история/настройки | `shared/apple/History`, `shared/apple/Settings` | Общие экраны и сохранение |
-| Mac интеграция | `apps/macos/MacGlobalHotkeys.swift`, `ScreenRegionCapture.swift`, `MacShortcuts.swift` | Выделение, буфер, область экрана |
+| Native OPUS | `shared/native/OpusRuntime` | CTranslate2, tokenization, direction and cancellation |
+| Mac Python workers | `shared/native/IndexMLX/index_mlx.py`, `shared/native/OpusGPU/opus_gpu.py` | Separate MLX/PyTorch environments |
+| Apple ASR | `shared/apple/ASR`, `shared/packages/OfflineCore/Sources/OfflineCore/RecognitionCatalog.swift` | Whisper/Meta/Ultra and selection policy |
+| Apple TTS/OCR | `shared/apple/Speech`, `shared/apple/Camera`, `shared/native/app` | Local voices, platform/OCR adapters |
+| Apple history/settings | `shared/apple/History`, `shared/apple/Settings` | Shared screens and persistence |
+| Mac integration | `apps/macos/MacGlobalHotkeys.swift`, `ScreenRegionCapture.swift`, `MacShortcuts.swift` | Selection, clipboard, screen region |
 | Android UI | `apps/android/app/src/main/java/org/openoffline/translator/android/KatApp.kt`, `MainActivity.kt` | Compose/workspaces/lifecycle |
-| Android speech/OCR | там же `SystemSpeechRecognizer.kt`, `OcrRouting.kt`, `MlKitOcr.kt`, `packages/RecognitionRouting.kt` | Выбор engine и явного source language |
-| Android пакеты | там же `packages/PackageRepository.kt`, `PackageDownloads.kt`, `PackageDownloadService.kt` | Integrity, lifecycle и загрузки |
+| Android speech/OCR | same place: `SystemSpeechRecognizer.kt`, `OcrRouting.kt`, `MlKitOcr.kt`, `packages/RecognitionRouting.kt` | Engine choice and explicit source language |
+| Android packages | same place: `packages/PackageRepository.kt`, `PackageDownloads.kt`, `PackageDownloadService.kt` | Integrity, lifecycle and downloads |
 | Android engines | `apps/android/inference/src/main/java/org/openoffline/translator/inference` | IndexEngine, OpusEngine, OfflineMedia, audio |
 | Android native | `apps/android/inference/src/main/cpp` | JNI, CMake, scoped Mali optimizations |
-| Общий каталог | `assets/catalogs` | URL/revision/размер/SHA, manifests, notices и platform capabilities |
+| Shared catalog | `assets/catalogs` | URL/revision/size/SHA, manifests, notices and platform capabilities |
 
 
-## Контракты, которые важно сохранить
+## Contracts that must be preserved
 
-- В `TranslationModel` остаются retired enum IDs для чтения старой истории; selectable содержит `.opusBig`, `.opusDirections`, `.index2B`, `.index9B`. Наличие enum case не значит доступную модель в UI.
-- У Index окно2048/input1536; preflight оставляет место ответу. Не возвращать отменённые эксперименты с соседним контекстом/настройками окна. Дробление всего текста по предложениям может ухудшать скорость и смысл.
-- Старый OPUS EN-пакет поддерживает EN↔RU/UK/BE. Каталог `opus-direction-packages.json` добавляет прямые направления, включая пары без EN; маршрут и целевой маркер берутся из каталога. Не делать скрытый pivot. На современном Mac только старый EN-пакет использует PyTorch Metal FP16; новые направления используют CTranslate2 CPU INT8, как на iOS/Android.
-- Отмена должна доходить до native, не публиковать устаревший результат; новый запрос после отмены должен работать. Unload не должен гоняться с inference. Отдельно проверять лимит ответа и сохранность полного исходного аудио.
-- Подготовка MT и память управляются настройками autoload/memory-saving. Не путать время загрузки, ASR, перевода, TTS, записи и воспроизведения.
-- Завершённый перевод должен сохраняться независимо от наличия TTS. Повтор playback не требует повторного MT; оригинальная запись и синтезированная речь — разные сущности.
-- Настройки retention сохраняются сразу; pruning откладывается до закрытия, чтобы промежуточное редактирование числа не удаляло историю.
-- Android voice/camera используют явный язык. Apple и text-auto имеют свою политику. Нельзя распространить поведение одной платформы на все без чтения кода.
-- Android translation backends: `opus` (OPUS EN-пакет и направления), `index2b` (Index 2B, рекомендуемая многоязычная, receipt-пакет `packages/index-translate-2b-q4km.bin`, без MTP), `index` (Index 9B, «максимальное качество», прежний файл `Index-Translate-9B.Q4_K_M.gguf`, MTP). В `PackageCatalog` остаются `DEFAULT_TRANSLATION_BACKEND="opus"`, `MULTILINGUAL_BACKEND`, `INDEX_MODELS`; начальный выбор пользовательской настройки задаёт `TranslatorState` как `AUTO_TRANSLATION="auto"`, а не эта legacy-константа. 2B есть на всех платформах (`platforms: [ios, macos, android]`).
-- Android перевод по умолчанию `auto`: `TranslatorState.resolveModel(from,to)` выбирает установленную модель для пары по классу устройства (`deviceClass` из теста первого запуска: `memory_probe.cpp` + `gpu_probe_matvec.cpp`, оценка 9B с запасом на нагрев 0,7; мощное → 9B/2B, среднее → OPUS/2B/9B; тест идёт до выбора языков). Настройка языков использует `PackageLanguageSetup.AUTO_STRONG`/`AUTO_COMPACT`; явный выбор модели пользователя сохраняется.
-- Apple: `TranslationModel.index2B`/`.opusDirections`, `OpusDirectionRoutes` + `AutoTranslation.resolve` (OfflineCore), `OpusDirectionPackages` и `PackageDownloadCoordinator.resolvedTranslation/autoPlan` (shared/apple), `DeviceProbe.swift` (CPU + Metal, запас 0,7 только на iOS), `RoutedTranslationBackend` (Mac: MLX 9B + отдельный Llama для 2B; OPUS EN↔RU/UK/BE на GPU, направления — CT2 CPU). OpusRuntime экспортирует `ot_opus_*_direction` (`exports.txt`). На Apple «Авто» включено по умолчанию при отсутствии сохранённой модели. На мощном устройстве приоритет 9B → 2B; иначе установленный поддержанный EN-пакет → установленное направление → 2B → 9B. `ConversationPipeline` разрешает Auto-модель после определения источника, включая preview, выгружает прежнюю и сохраняет фактический ID в метриках. `refreshVoiceFiles` синхронизирует режим, а обновления голосов/ASR сохраняют resolver. Picker Auto не ограничен активной моделью. OPUS ищет первый установленный маршрут, а setup учитывает ручные пакеты; `OpusDirectionsView` скачивает через общий `DownloadButton`. Android `TranslationResources` освобождает неактивный движок и lease; EN→EN обходит inference. Экран языков Apple использует один свой язык; Android поддерживает несколько. Не считать интерфейсы и план загрузок полностью одинаковыми.
-- Android OPUS: модель-направление = пакет. Маршрут (папка направления + маркер `>>xxx<<`) выбирает `PackageCatalog.opusRoute` по `opus-direction-packages.json` (генератор `scripts/android/generate-opus-pairs-catalog.py`); EN-пакет описан в коде. Общий `OpusRuntime` имеет `*_direction` API; старый API с языковой парой нужен Apple — не удалять.
-- Android `kat_index` собирает CPU-часть ggml с `GGML_CPU_ARM_ARCH=armv8.2-a+dotprod+fp16`. i8mm не включать без замены на рантайм-выбор вариантов (нет на Tensor G1/G2, Snapdragon 865/888). `index_jni.cpp` отказывает через HWCAP до запуска ggml. Перевод идёт через Vulkan; CPU-флаги на него не влияют.
-- Кэш установленного пакета не заменяет SHA/integrity path: changed files должны перепроверяться. Сетевые ошибки, отсутствие пакета и отсутствие поддержки показываются явно.
+- `TranslationModel` keeps retired enum IDs to read old history; the selectable ones are `.opusBig`, `.opusDirections`, `.index2B`, `.index9B`. Having an enum case does not mean the model is available in the UI.
+- Index uses a 2048 window / 1536 input; the preflight reserves room for the answer. Do not bring back the cancelled experiments with neighbouring context/window settings. Splitting the whole text into sentences can hurt both speed and meaning.
+- The legacy OPUS EN package supports EN↔RU/UK/BE. The `opus-direction-packages.json` catalog adds direct directions, including pairs without English; the route and the target marker come from the catalog. No hidden pivot. On modern Mac only the legacy EN package uses PyTorch Metal FP16; the new directions use CTranslate2 CPU INT8, as on iOS/Android.
+- Cancellation must reach native code and must not publish a stale result; a new request after cancellation must work. Unloading must not race with inference. Check the answer limit and the preservation of the full source audio separately.
+- MT preparation and memory are controlled by the autoload/memory-saving settings. Do not confuse load time, ASR, translation, TTS, recording and playback.
+- A finished translation must be saved regardless of TTS. Replaying audio does not require another MT pass; the original recording and synthesized speech are different entities.
+- Retention settings are saved immediately; pruning is postponed until closing, so that intermediate editing of a number does not delete history.
+- Android voice/camera use an explicit language. Apple and text auto have their own policy. Do not extend one platform's behavior to all without reading the code.
+- Android translation backends: `opus` (the OPUS EN package and directions), `index2b` (Index 2B, the recommended multilingual one, receipt package `packages/index-translate-2b-q4km.bin`, no MTP), `index` (Index 9B, "maximum quality", the earlier file `Index-Translate-9B.Q4_K_M.gguf`, MTP). `PackageCatalog` keeps `DEFAULT_TRANSLATION_BACKEND="opus"`, `MULTILINGUAL_BACKEND`, `INDEX_MODELS`; the initial user setting is set by `TranslatorState` as `AUTO_TRANSLATION="auto"`, not by that legacy constant. 2B exists on all platforms (`platforms: [ios, macos, android]`).
+- Android translation defaults to `auto`: `TranslatorState.resolveModel(from,to)` chooses an installed model for the pair by device class (`deviceClass` from the first-launch check: `memory_probe.cpp` + `gpu_probe_matvec.cpp`, a 9B estimate with a 0.7 thermal headroom; powerful → 9B/2B, medium → OPUS/2B/9B; the check runs before language selection). Language setup uses `PackageLanguageSetup.AUTO_STRONG`/`AUTO_COMPACT`; an explicit user model choice is kept.
+- Apple: `TranslationModel.index2B`/`.opusDirections`, `OpusDirectionRoutes` + `AutoTranslation.resolve` (OfflineCore), `OpusDirectionPackages` and `PackageDownloadCoordinator.resolvedTranslation/autoPlan` (shared/apple), `DeviceProbe.swift` (CPU + Metal, 0.7 headroom only on iOS), `RoutedTranslationBackend` (Mac: MLX 9B + a separate Llama for 2B; OPUS EN↔RU/UK/BE on GPU, directions on CT2 CPU). OpusRuntime exports `ot_opus_*_direction` (`exports.txt`). On Apple, "Auto" is the default when no model is saved. On a powerful device the priority is 9B → 2B; otherwise an installed supported EN package → an installed direction → 2B → 9B. `ConversationPipeline` resolves the Auto model after detecting the source, including preview, unloads the previous one and records the actual ID in the metrics. `refreshVoiceFiles` synchronizes the mode, and voice/ASR updates keep the resolver. The Auto picker is not limited by the active model. OPUS looks for the first installed route, and setup takes manual packages into account; `OpusDirectionsView` downloads through the shared `DownloadButton`. Android `TranslationResources` releases the inactive engine and lease; EN→EN bypasses inference. The Apple language screen uses one own language; Android supports several. Do not assume the interfaces and download plans are identical.
+- Android OPUS: a direction model = a package. The route (direction folder + `>>xxx<<` marker) is chosen by `PackageCatalog.opusRoute` from `opus-direction-packages.json` (generator `scripts/android/generate-opus-pairs-catalog.py`); the EN package is described in code. The shared `OpusRuntime` has a `*_direction` API; the old language-pair API is needed by Apple — do not remove it.
+- Android `kat_index` builds the CPU part of ggml with `GGML_CPU_ARM_ARCH=armv8.2-a+dotprod+fp16`. Do not enable i8mm without switching to runtime variant selection (absent on Tensor G1/G2, Snapdragon 865/888). `index_jni.cpp` refuses via HWCAP before starting ggml. Translation runs on Vulkan; CPU flags do not affect it.
+- An installed-package cache does not replace the SHA/integrity path: changed files must be re-verified. Network errors, a missing package and missing support are shown explicitly.
 
-## Модели, окружение и сборочные зависимости
+## Models, environment and build dependencies
 
-`model-store/downloads` — общий кэш; `blobs/sha256` хранит некоторые файлы по digest; `research` — отдельные кандидаты. `Dependencies/downloads` — совместимая ссылка для старых скриптов. Модели не включаются в APK и не дублируются по каталогам платформ. Копии в sandbox телефонов нужны отдельно.
+`model-store/downloads` is the shared cache; `blobs/sha256` stores some files by digest; `research` holds separate candidates. `Dependencies/downloads` is a compatibility link for older scripts. Models are not included in the APK and are not duplicated across platform directories. Copies in phone sandboxes are needed separately.
 
-Каталоги: `models.json`, `voice-manifests.json`, `additional-voices.json`, `recognition-packages.json`, `android-asr.json`, `android-ocr.json`, `android-capabilities.json`, `index-mlx-package.json`, `opus-package.json`, `opus-gpu-package.json`, `opus-direction-packages.json`, notices. `scripts/generate-model-catalog.py` генерирует Apple adapter; Android подключает общий каталог через Gradle. Не редактировать generated adapter вместо canonical JSON.
+Catalogs: `models.json`, `voice-manifests.json`, `additional-voices.json`, `recognition-packages.json`, `android-asr.json`, `android-ocr.json`, `android-capabilities.json`, `index-mlx-package.json`, `opus-package.json`, `opus-gpu-package.json`, `opus-direction-packages.json`, notices. `scripts/generate-model-catalog.py` generates the Apple adapter; Android uses the shared catalog through Gradle. Do not edit the generated adapter instead of the canonical JSON.
 
-Pinned inputs: `Dependencies/runtime.lock.json`, `whisper.lock.json`, `android-runtime.lock.json`, `android-media.lock.json`, `index-mlx.lock.json`; Wayu имеет собственный `shared/native/Wayu/dependencies.lock.json`. Current llama commit `d81235049384534c167caea52b85a694f6103d14`. У Index и Whisper разные GGML ABI, hidden symbols/раздельные библиотеки существенны. Android patches применяются к build-копии, не к общему vendor.
+Pinned inputs: `Dependencies/runtime.lock.json`, `whisper.lock.json`, `android-runtime.lock.json`, `android-media.lock.json`, `index-mlx.lock.json`; Wayu has its own `shared/native/Wayu/dependencies.lock.json`. Current llama commit `d81235049384534c167caea52b85a694f6103d14`. Index and Whisper have different GGML ABIs; hidden symbols/separate libraries matter. Android patches are applied to a build copy, not to the shared vendor tree.
 
-Mac runtime data — `~/Library/Application Support/OfflineTranslator`, вне заменяемого `.app`. Экспорт не содержит пользовательскую историю, записи, ключи подписи или окружение. Личные sign settings — ignored `apps/ios/Config/Signing.local.xcconfig`; Android SDK/toolchain задаёт `scripts/android/env.sh`; optional `local.properties` исключён из Git.
+Mac runtime data of the direct build — `~/Library/Application Support/OfflineTranslator`, outside the replaceable `.app`; the sandboxed store build keeps its data in its own container. The export does not contain user history, recordings, signing keys or the environment. Personal signing settings live in the ignored `apps/ios/Config/Signing.local.xcconfig`; the Android SDK/toolchain is set by `scripts/android/env.sh`; the optional `local.properties` is excluded from Git.
 
-## Практические команды
+## Practical commands
 
-Из корня проекта, при подготовленных зависимостях. Они приведены для продолжения, **не выполнялись при экспорте**.
+From the project root, with dependencies prepared. They are listed for continuing the work and **were not run as part of this documentation**.
 
 ```sh
-# Проверка исходников каталогов
+# Check catalog sources
 python3 scripts/generate-model-catalog.py --check
 python3 scripts/android/generate-ui-catalog.py --check
 # Swift unit tests
 swift test --package-path shared/packages/OfflineCore --scratch-path .build/core
-# iOS project и unsigned build
+# iOS project and unsigned build
 python3 scripts/generate-project.py
 xcodebuild -project apps/ios/OfflineTranslator.xcodeproj -scheme OfflineTranslator \
   -configuration Release -destination 'generic/platform=iOS' \
-  -derivedDataPath.build/DerivedData CODE_SIGNING_ALLOWED=NO build
-# Mac — подготовка runtime, project и build
+  -derivedDataPath .build/DerivedData CODE_SIGNING_ALLOWED=NO build
+# Mac — prepare runtime, project and build
 bash scripts/build-macos-runtimes.sh
 python3 scripts/generate-macos-project.py
 xcodebuild -project apps/macos/KatTranslatorMac.xcodeproj -scheme KatTranslatorMac \
   -configuration Release -destination 'platform=macOS,arch=arm64' \
-  -derivedDataPath.build/MacDerivedData ARCHS=arm64 ONLY_ACTIVE_ARCH=YES build
-# Упаковка; не устанавливает приложение
+  -derivedDataPath .build/MacDerivedData ARCHS=arm64 ONLY_ACTIVE_ARCH=YES build
+# Packaging; does not install the app
 bash scripts/package-macos.sh
-# Отдельный совместимый пакет; сохраняет современный проект
+# Separate compatibility package; keeps the modern project
 bash scripts/build-macos15-26.sh
+# Mac App Store: separate store project in .build/macos-store-project, archive and export/upload
+KAT_MAC_STORE_BUILD=<n> bash scripts/archive-macos-appstore.sh export
 # Android — testDebugUnitTest, lintDebug, assembleDebug/AndroidTest
 bash scripts/android/build.sh
 ```
 
-Android toolchain: JDK17, NDK28.2.13676358, SDK36, Gradle9.4.1; конкретные SHA в lock. Подготовка: `setup-tools.py`, `setup-vulkan-tools.py`, `setup-media.sh`, `setup-opus.sh`, `setup-omnivoice.sh`, `setup-wayu.py` в `scripts/android`. Они могут скачивать/собирать зависимости; прочитать скрипт перед запуском. SDK/tools локально в `.build/android-tools`, среду задаёт `scripts/android/env.sh`.
+Android toolchain: JDK 17, NDK 28.2.13676358, SDK 36, Gradle 9.4.1; exact SHA values are in the lock files. Preparation: `setup-tools.py`, `setup-vulkan-tools.py`, `setup-media.sh`, `setup-opus.sh`, `setup-omnivoice.sh`, `setup-wayu.py` in `scripts/android`. They may download/build dependencies; read a script before running it. SDK/tools are local in `.build/android-tools`; the environment is set by `scripts/android/env.sh`.
 
-Device suites: `scripts/android/test-parity.sh ui|contracts|media|opus|downloads|transfers|camera|voice|cancel|recording|default|photo`; требуют предварительной установки app/test APK и fixtures. Они управляют процессом Kat, сохраняют/восстанавливают prefs; не запускать параллельно с другим опытом. Функциональные проверки по пользовательскому решению идут без температурных пауз. Для сравнения скорости нужен контролируемый нагрев/одинаковые входы, beam, runtime и модель; GPU timestamps сами добавляют overhead.
+Device suites: `scripts/android/test-parity.sh ui|contracts|media|opus|downloads|transfers|camera|voice|cancel|recording|default|photo`; they require the app/test APKs and fixtures to be installed first. They control the Kat process and save/restore prefs; do not run them in parallel with another experiment. Functional checks run without thermal pauses, per the user's decision. Speed comparisons need controlled heating and identical inputs, beam, runtime and model; GPU timestamps themselves add overhead.
 
-Автотесты интерфейса (проверяют экраны и выбор, без запуска скачивания моделей):
+UI automated tests (check screens and choices, without starting model downloads):
 - Android — `UiLayoutAuditTest` (androidTest);
 - iOS — `testPanelScreensAlignLineStarts`, `testOpusDirectionsSelectionShowsTotal`;
 - Mac — `testLanguageSetupAlignsLineStartsAndActions`.
 
-Статические проверки — `scripts/validation/test_ui_typography.py`, `test_docs_app_parity.py`. Mac UI-тестам нужны Xcode в «Универсальном доступе» и учётная запись Apple ID в Xcode → Settings → Accounts; iOS UI-тест-раннеру нужна та же учётная запись. Тесты на Pixel, iPhone и Mac можно запускать параллельно.
+Static checks: `scripts/validation/test_ui_typography.py`, `test_docs_app_parity.py`. Mac UI tests need Xcode in Accessibility and an Apple ID account in Xcode → Settings → Accounts; the iOS UI test runner needs the same account. Tests on Pixel, iPhone and Mac can run in parallel. Run Mac test builds from a DerivedData directory outside `~/Downloads` (see the [Mac README](macos/README.md#testing-notes)).
 
-Установка на iPhone: `xcrun devicectl device install app --device <UDID> <.app>`; работает и по Wi-Fi. Использованный 13.10 development-профиль истекает 20.10 по результатам проверки установленной сборки; в том случае «no longer available» было вызвано истечением прежнего профиля. Новый development-кандидат с другим ID подписан профилем до14.10.2027; старый контейнер автоматически не переносится. Срок проверять у конкретной установленной версии. Перед сменой ID сохранить и проверить перенос данных; старую app не удалять до проверки. Служебные ASR/voice-transfer скрипты по умолчанию адресуют новый ID; для прежнего передавать `--bundle-id org.openoffline.translator.prototype`. Mac: `package-macos.sh` только упаковывает уже собранный `.build/MacDerivedData/.../Release` — сначала собрать.
+Installing on iPhone: `xcrun devicectl device install app --device <UDID> <.app>`; works over Wi-Fi too. The development profile used on 13.10 expires on 20.10 according to the check of the installed build; in that case "no longer available" was caused by the earlier profile expiring. The new development candidate with a different ID is signed with a profile valid until 14.10.2027; the old container is not migrated automatically. Check the expiry of each installed version. Before changing the ID, save and verify the data migration; do not delete the old app until verified. Service ASR/voice-transfer scripts address the new ID by default; pass `--bundle-id org.openoffline.translator.prototype` for the old one. Mac: `package-macos.sh` only packages an already built `.build/MacDerivedData/.../Release` — build first.
 
-iOS privacy manifests зависимостей: `Dependencies/privacy/ios/`. После встраивания frameworks генератор запускает `scripts/install-ios-privacy-manifests.py`: установка четырёх framework-деклараций и повторная подпись, до подписи app. Чужие vendor XCFrameworks не меняются. [Основания деклараций](../Dependencies/privacy/ios/README.md). Python используется для локального Wayu: перед упаковкой исключаются `_ssl` и `_hashlib`, содержащие OpenSSL; встроенные хеш-функции сохранены, загрузки и проверка моделей работают через URLSession/CryptoKit. [Проверка удаления и ограничения](publication/ios-openssl-removal-2026-10-14.md). [Приёмка на iPhone](publication/ios-openssl-device-2026-10-14.md): реальные HTTPS-загрузки с SHA-256, ASR→Auto→TTS и тайский Wayu без этих модулей прошли. Экспортная декларация iOS задаётся в `apps/ios/Info.plist`: `ITSAppUsesNonExemptEncryption` — Boolean false. [Основание и проверка](publication/ios-export-compliance-2026-10-14.md).
+iOS privacy manifests of dependencies: `Dependencies/privacy/ios/`. After embedding the frameworks, the generator runs `scripts/install-ios-privacy-manifests.py`: it installs the framework declarations and re-signs, before the app is signed. Third-party vendor XCFrameworks are not changed. [Basis of the declarations](../Dependencies/privacy/ios/README.md). Python is used for the local Wayu: before packaging, `_ssl` and `_hashlib` containing OpenSSL are excluded; built-in hash functions are kept, model downloads and verification work through URLSession/CryptoKit. [Removal check and limits](publication/ios-openssl-removal-2026-10-14.md). [iPhone acceptance](publication/ios-openssl-device-2026-10-14.md): real HTTPS downloads with SHA-256, ASR→Auto→TTS and Thai Wayu without these modules passed. The iOS export declaration is set in `apps/ios/Info.plist`: `ITSAppUsesNonExemptEncryption` — Boolean false. [Basis and check](publication/ios-export-compliance-2026-10-14.md).
 
-iOS tests: `apps/ios/tests/ui`. Mac: `apps/macos/tests/runtime`, UI tests внутри Mac дерева. Swift tests: `shared/packages/OfflineCore/Tests/OfflineCoreTests`. Python diagnostics: `scripts/validation/test_*.py`. Большие стресс-тесты требуют отдельного включения. Сначала выбрать проверки по области изменения, не запускать всё дерево без необходимости.
+iOS tests: `apps/ios/tests/ui`. Mac: `apps/macos/tests/runtime`, UI tests inside the Mac tree. Swift tests: `shared/packages/OfflineCore/Tests/OfflineCoreTests`. Python diagnostics: `scripts/validation/test_*.py`. Large stress tests need to be enabled separately. Choose checks by the area of change first; do not run the whole tree without need.
 
-## Локализация интерфейса
+## Interface localization
 
-Apple использует `assets/bundled/Localizable.xcstrings` и `OfflineCore/L10n.swift`; строки разрешений iOS — `apps/ios/Resources/InfoPlist.xcstrings`, macOS — `apps/macos/*.lproj/InfoPlist.strings`. Поддержаны RU/EN/ES/TR, явный выбор в настройках и первый поддержанный язык системы; при отсутствии совпадения — EN.
+Apple uses `assets/bundled/Localizable.xcstrings` and `OfflineCore/L10n.swift`; iOS permission strings are in `apps/ios/Resources/InfoPlist.xcstrings`, macOS ones in `apps/macos/*.lproj/InfoPlist.strings`. RU/EN/ES/TR are supported, with an explicit choice in settings and the first supported system language; without a match — EN.
 
-Android использует тот же каталог и дополнительные строки `assets/localization/android-ui.json`. `scripts/generate-android-ui-strings.py` создаёт `UiStringsEn.kt`, `UiStringsEs.kt`, `UiStringsTr.kt`; `--check` проверяет синхронизацию. `UiStrings.kt` выбирает словарь и подставляет параметры за один проход, сохраняя проценты в пользовательском тексте. Уведомления загрузок учитывают сохранённый язык интерфейса. Тексты пользователя и промпты моделей через эти словари не проходят.
+Android uses the same catalog plus extra strings in `assets/localization/android-ui.json`. `scripts/generate-android-ui-strings.py` creates `UiStringsEn.kt`, `UiStringsEs.kt`, `UiStringsTr.kt`; `--check` verifies synchronization. `UiStrings.kt` chooses the dictionary and substitutes parameters in a single pass, preserving percent signs in user text. Download notifications follow the saved interface language. User texts and model prompts do not pass through these dictionaries.
 
-## Ресурсы выпуска — 14 октября 2026
+## Release resources — 14 October 2026
 
-Новые локальные App Store пакеты iOS 1.0 (50) / Mac 1.0 (69) содержат 42 документа лицензий и по девять privacy manifests. `scripts/install-sdk-privacy-manifests.py` добавляет отдельные resource bundles для статических/repackaged SDK и декларации Mac; OfflineCore поставляет свой SwiftPM-ресурс. Оба installers завершаются до подписи приложения; ошибки не скрываются shell-фазой.
+The new local App Store packages iOS 1.0 (50) / Mac 1.0 (69) contain 42 license documents and nine privacy manifests each. `scripts/install-sdk-privacy-manifests.py` adds separate resource bundles for static/repackaged SDKs and the Mac declarations; OfflineCore ships its own SwiftPM resource. Both installers finish before the app is signed; errors are not hidden by a shell phase.
 
-`shared/native/app/Privacy/InferencePrivacy.c` задаёт `ORT_DISABLE_TELEMETRY=1` через `pthread_once` до первого вызова ONNX/Sherpa во всех шести точках создания OCR/Wayu/TTS/VAD/Omnilingual. При ошибке переменной SDK не запускается. Прежнего API opt-out после CreateEnv недостаточно для ONNX1.30 ProcessInfo. Проверены экспортированные IPA/PKG и состояние реального provider. App Privacy для сторонних хостингов классифицирован отдельно: iOS app manifest и Mac `Dependencies/privacy/macos/App.xcprivacy` отражают четыре категории технических данных загрузок. Декларации runtime SDK остаются отдельными и не получают эти категории. Новые app manifests включены в проверенные IPA50/PKG69, заменяющие прежние49/68; [основания и ответы](publication/model-download-privacy-2026-10-14.md). App Privacy опубликован по снимку кабинета; [пакеты50/69](publication/hosting-manifests-release-2026-10-14.md) ещё не загружены. Upstream SDK signatures и серверная обработка Apple остаются: [аудит](publication/apple-privacy-sdk-2026-10-14.md).
+`shared/native/app/Privacy/InferencePrivacy.c` sets `ORT_DISABLE_TELEMETRY=1` through `pthread_once` before the first ONNX/Sherpa call at all six OCR/Wayu/TTS/VAD/Omnilingual creation points. If setting the variable fails, the SDK is not started. The earlier API opt-out after CreateEnv is not enough for ONNX 1.30 ProcessInfo. The exported IPA/PKG and the state of the real provider were checked. App Privacy for third-party hosting is classified separately: the iOS app manifest and the Mac `Dependencies/privacy/macos/App.xcprivacy` reflect four categories of technical download data. Runtime SDK declarations stay separate and do not get these categories. The new app manifests are included in the verified IPA 50 / PKG 69, which replaced the earlier 49/68; [basis and answers](publication/model-download-privacy-2026-10-14.md). App Privacy was published according to the App Store Connect screenshot; at the time of that note [packages 50/69](publication/hosting-manifests-release-2026-10-14.md) were not uploaded yet. Upstream SDK signatures and Apple's server processing remain: [audit](publication/apple-privacy-sdk-2026-10-14.md).
 
-Общие loading-ролики поставляются из `assets/bundled/LoadingAnimations` на все три платформы. Каталог содержит 14 клипов: `one-beer` удалён; `cat-break` имеет английскую подпись CAT BREAK независимо от языка UI. Генератор сохраняет замену подписи при повторной подготовке. [Ресурсы и галерея](branding/loading-animations/README.md).
+The shared loading clips ship from `assets/bundled/LoadingAnimations` to all three platforms. The catalog contains 14 clips: `one-beer` is removed; `cat-break` has the English caption CAT BREAK regardless of the UI language. The generator keeps the caption replacement when preparing again. [Resources and gallery](branding/loading-animations/README.md).
 
-Генераторы Apple-проектов включают `assets/bundled/ThirdPartyNotices.txt`, собираемый с проверкой SHA-256 через `scripts/assemble-ios-notices.py`. Это начальный набор атрибуций iOS; полнота прав и соответствующих исходников проверяется отдельно. [Состав и ограничения](publication/ios-release-preflight-2026-10-14.md).
+The Apple project generators include `assets/bundled/ThirdPartyNotices.txt`, assembled with SHA-256 checks by `scripts/assemble-ios-notices.py`. This was the initial set of iOS attributions; completeness of rights and corresponding sources is checked separately. [Contents and limits](publication/ios-release-preflight-2026-10-14.md).
 
-## Проверки магазинной сборки Mac (14.10)
+## Mac store build checks (14.10)
 
-`archive-macos-appstore.sh` резервирует отдельный каталог попытки и прекращает выполнение при ошибке архивирования/журнала; существующий архив не переиспользуется. Регрессии проверяет `scripts/validation/test_macos_store_archive.py`. В `MacRuntimeTests` opt-in засев/сброс защищён точным адресом store-контейнера и проверкой результата удаления; обычные тесты используют временные фикстуры. Результаты UI пишутся в `KAT_RUNTIME_REPORT_DIR` или временный каталог приложения. [Проверка и ограничения](publication/release-check-fixes-2026-10-14.md).
+The Mac App Store variant is built by `scripts/archive-macos-appstore.sh`: `generate-macos-project.py` with `KAT_MAC_STORE_PROJECT` creates the ignored project `.build/macos-store-project`, where the bundle ID `app.kattranslator`, the store Info.plist, `KatMacStore.entitlements` and the sandbox are set only on the app target. With `ENABLE_APP_SANDBOX=YES`, `bundle-macos-runtimes.py` signs the helpers with inherit, excludes `protoc` and OpenSSL/rustls, and removes separate signatures from SwiftPM resource bundles. [Mac README](macos/README.md) · [history of builds 61–66](publication/macos-appstore-build-2026-10-14.md).
 
-## Лицензионные ресурсы
+`archive-macos-appstore.sh` reserves a separate directory for each attempt and stops on archive/log errors; an existing archive is never reused. Regressions are checked by `scripts/validation/test_macos_store_archive.py`. In `MacRuntimeTests`, the opt-in seeding/reset is guarded by the exact address of the store container and a check of the deletion result; ordinary tests use temporary fixtures. UI results are written to `KAT_RUNTIME_REPORT_DIR` or the app's temporary directory. [Check and limits](publication/release-check-fixes-2026-10-14.md).
 
-`scripts/assemble-ios-notices.py` собирает проверяемые по SHA-256 исходные тексты из `docs/licensing/2026-10-14/ios-notices` в общий `assets/bundled/ThirdPartyNotices.txt`. Имя скрипта историческое: ресурс упаковывается в iOS, macOS и Android; Mac-дополнения помечены отдельно. Общий Apple `PrivacyView` открывает список документов офлайн. `scripts/validation/check_release_notices.py` сверяет фактический ресурс после сборки/экспорта в `.app`, IPA или APK. Наличие файла не сертифицирует полное покрытие зависимостей; границы — в [проверке комплекта](licensing/2026-10-14/release-package-review.md).
+## License resources
 
-Комплект исходников: `scripts/collect-dependency-sources.py` скачивает 614 закреплённых входов по `docs/licensing/2026-10-14/dependency-sources.json` с проверкой SHA-256; `--check` работает офлайн. Большие архивы находятся в ignored `dist/licensing`. `scripts/assemble-source-notices.py` воспроизводит дополнения из проверенных архивов, не извлекая и не исполняя код. Пути подмодулей, патчи и оставшиеся границы соответствия бинарникам — в [описании комплекта](licensing/2026-10-14/source-kit.md).
+`scripts/assemble-ios-notices.py` assembles the SHA-256-verified source texts from `docs/licensing/2026-10-14/ios-notices` into the shared `assets/bundled/ThirdPartyNotices.txt`. The script name is historical: the resource is packaged into iOS, macOS and Android; Mac additions are marked separately. The shared Apple `PrivacyView` opens the list of documents offline. `scripts/validation/check_release_notices.py` compares the actual resource after build/export in an `.app`, IPA or APK. Having the file does not certify full dependency coverage; the limits are in the [kit review](licensing/2026-10-14/release-package-review.md).
 
-## Проверки runtime и сети
+Source kit: `scripts/collect-dependency-sources.py` downloads 614 pinned inputs per `docs/licensing/2026-10-14/dependency-sources.json` with SHA-256 checks; `--check` works offline. Large archives live in the ignored `dist/licensing`. `scripts/assemble-source-notices.py` reproduces the additions from the verified archives without extracting or executing code. Submodule paths, patches and the remaining limits of binary correspondence are in the [kit description](licensing/2026-10-14/source-kit.md).
 
-`MacRuntimeTests` содержит opt-in `KAT_NETWORK_EXPECTATION=allowed|denied`: HEAD к каталожному файлу сравнивается в обычной sandbox-копии и копии без network-client entitlement. `KAT_SPEECH_INTEGRATION=1` включает полный Thai Wayu, а не только frontend. Загрузочный тест использует уникальный ID и восстанавливает liveDownloadIDs при любом исходе. `VoiceAutoRoutingIntegrationTests` проверяет повторный playback и пишет только тип выхода, частоту и состояние аудиосессии. [Прогон50/69](publication/runtime-acceptance-2026-10-14.md) выявил непостоянный iPhone-аудиосбой; эти проверки не означают TestFlight-приёмку или полную трассировку сети.
+## Runtime and network checks
+
+`MacRuntimeTests` has the opt-in `KAT_NETWORK_EXPECTATION=allowed|denied`: a HEAD request to a catalog file is compared in an ordinary sandbox copy and in a copy without the network-client entitlement. `KAT_SPEECH_INTEGRATION=1` enables the full Thai Wayu, not only the frontend. The download test uses a unique ID and restores liveDownloadIDs on any outcome. `VoiceAutoRoutingIntegrationTests` checks repeated playback and records only the output type, sample rate and audio session state. The [run 50/69](publication/runtime-acceptance-2026-10-14.md) revealed an intermittent iPhone audio failure; these checks do not mean TestFlight acceptance or a full network trace.
 
 ### Audio session cleanup (14 October 2026)
 
@@ -138,6 +144,6 @@ SpeechPlayer and AudioRecorder deactivate the iOS session only after their own s
 
 ### Source kit and SDK reproducibility
 
-`scripts/package-dependency-sources.py` creates verified allowlisted source TAR parts. `scripts/rebuild-opus-source-kit.py` rebuilds an isolated Opus XCFramework from the checked archives and patch, includes per-platform manifests and optionally signs the SDK. It does not replace existing vendor outputs. [Provenance and limitations](licensing/2026-10-14/publication-and-sdk.md). The shared notice resource now contains46 documents, including Wayu, Supertonic3 and CC BY-NC model terms.
+`scripts/package-dependency-sources.py` creates verified allowlisted source TAR parts. `scripts/rebuild-opus-source-kit.py` rebuilds an isolated Opus XCFramework from the checked archives and patch, includes per-platform manifests and optionally signs the SDK. It does not replace existing vendor outputs. [Provenance and limitations](licensing/2026-10-14/publication-and-sdk.md). The shared notice resource now contains 46 documents, including Wayu, Supertonic 3 and CC BY-NC model terms.
 
-Подпись входных speech SDK: `scripts/sign-verified-speech-sdks.py` сверяет архивы и все исходные файлы, создаёт отдельные копии и подписывает их сертификатом дистрибьютора Kat. Подпись не называется подписью upstream; полезная нагрузка не меняется. Точные source commits и embedded ONNX описаны в `docs/licensing/2026-10-14/sdk-provenance.json`.
+Signing the input speech SDKs: `scripts/sign-verified-speech-sdks.py` verifies the archives and all source files, creates separate copies and signs them with Kat's distributor certificate. The signature is not presented as an upstream signature; the payload is not changed. Exact source commits and the embedded ONNX are described in `docs/licensing/2026-10-14/sdk-provenance.json`.
