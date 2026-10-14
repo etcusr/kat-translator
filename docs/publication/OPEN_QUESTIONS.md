@@ -1,29 +1,31 @@
-# Подготовка Kat к App Store
+# Preparing Kat for the App Store
 
-Обновлено14октября2026. Текущий выпуск: **iOS1.0(51), Mac1.0(70)**. В него входят исправление воспроизведения, актуальные privacy manifests и46 документов лицензий. [Результат сборки, проверок и загрузки](signed-sdks-release-2026-10-14.md).
+**English** | [Русский](OPEN_QUESTIONS.ru.md)
 
-## Завершено
+Updated 14 October 2026. Current release: **iOS 1.0 (51), Mac 1.0 (70)**. It includes the playback fix, current privacy manifests and 46 license documents. [Build, checks and upload result](signed-sdks-release-2026-10-14.md).
 
-- App Privacy и RU/EN политика опубликованы; подтверждение анкеты — снимок пользователя.
-- Три speech XCFramework подписаны сертификатом Kat, подписи проверены.51 исходный файл совпал с официальными архивами до и после подписи. Это подпись дистрибьютора, а не upstream-поставщика.
-- Проверена привязка встроенных идентификаторов Sherpa/ONNX к релизным исходникам. Исправлен неверный Sherpa commit; добавлен точный архив.615 исходных входов проверены. Независимая побайтовая пересборка всех зависимостей не является отдельным обязательным этапом этой очереди и не заявлена выполненной.
-- Исправление аудиосессии проверено на iPhone:6 тестов и2 повторных сценария PASS; Mac player PASS. [Подробности](ios-playback-fix-2026-10-14.md).
-- Материалы RU/EN/ES/TR готовы; карточки и скриншоты заполнены по сообщению владельца. Повторное заполнение не требуется.
-- Бесплатный выпуск, соглашение Free Apps и DSA non-trader ранее подтверждены владельцем.
+## Done
 
-## Осталось для выпуска
+- App Privacy and the RU/EN policy are published; the questionnaire is confirmed by the owner's screenshot.
+- Three speech XCFrameworks are signed with Kat's certificate and the signatures are verified. 51 source files matched the official archives before and after signing. This is a distributor signature, not the upstream vendor's.
+- The mapping of the embedded Sherpa/ONNX identifiers to release sources was checked. A wrong Sherpa commit was corrected and the exact archive added. 615 source inputs are verified. An independent byte-for-byte rebuild of all dependencies is not a required stage of this queue and is not claimed as done.
+- The audio session fix was verified on iPhone: 6 tests and 2 repeated scenarios PASS; Mac player PASS. [Details](ios-playback-fix-2026-10-14.md).
+- RU/EN/ES/TR materials are ready; listings and screenshots were filled in according to the owner's message, and the primary listing language is English (U.S.). No need to fill them in again. For macOS 1.0, build 66 was selected earlier; it needs to be replaced with 70.
+- The free release, the Free Apps agreement and DSA non-trader status were confirmed by the owner earlier.
 
-1. **iOS51 и Mac70 успешно загружены.** Дождаться обработки Apple; доступность для выбора не проверялась в кабинете.
-2. **Владелец сам выбирает новые сборки** в карточках iOS/Mac, проверяет Preview и оставшиеся обязательные поля.
-3. Проверить через TestFlight микрофон/разрешения iPhone и системные функции Mac; локальная проверка не заменяет это.
-4. **Владелец отправляет приложения на App Review.** Пока отправки на ревью и одобрения Apple нет.
+## Remaining for the release
 
-Отдельные radio-off, фоновые загрузки и наблюдение сети сняты с очереди по решению владельца; они не считаются пройденными.
+1. **iOS 51 and Mac 70 were uploaded successfully.** Wait for Apple's processing; their availability for selection was not checked in App Store Connect.
+2. **The owner selects the new builds** on the iOS/Mac pages, checks Preview and the remaining required fields.
+3. Check the iPhone microphone/permissions and the Mac system features through TestFlight; local checks do not replace this.
+4. **The owner submits the apps for App Review.** Nothing has been submitted or approved by Apple yet.
 
-## Сохранённые замечания по лицензиям
+Separate radio-off, background download and network observation checks were dropped from the queue by the owner's decision; they do not count as passed.
 
-[Перечень](../licensing/2026-10-14/publication-and-sdk.md) сохраняет вопросы по условиям моделей, голосам/медиа и GPL/App Store. Подписание SDK не закрывает эти вопросы, но они не превращены в бесконечную техническую пересборку. Голоса, модели и медиа самостоятельно не удалялись. Отдельный пересобранный Opus остаётся экспериментальным кандидатом; выпуск51/70 использует прежний проверенный runtime.
+## Kept licensing remarks
 
-## Следующее улучшение совместимости
+The [list](../licensing/2026-10-14/publication-and-sdk.md) keeps the questions about model terms, voices/media and GPL/App Store. Signing the SDKs does not close these questions, but they are not turned into an endless technical rebuild. Voices, models and media were not removed unilaterally. The separately rebuilt Opus remains an experimental candidate; release 51/70 uses the previously verified runtime.
 
-Обсудить и проверить нижнюю границу iPhone13Pro для лёгкого режима OPUS; это предварительный ориентир, а не подтверждённая приёмка этой модели. Отдельно ограничить тяжёлые модели по доступной памяти, сохранив понятное объяснение. Точная граница и реализация ещё не утверждены; текущая загрузка51/70 продолжается.
+## Next compatibility improvement
+
+Discuss and verify iPhone 13 Pro as the lower bound for the light OPUS mode; this is a preliminary guideline, not a confirmed acceptance of that model. Separately, limit heavy models by available memory with a clear explanation. The exact bound and implementation are not approved yet; the current 51/70 upload continues.
