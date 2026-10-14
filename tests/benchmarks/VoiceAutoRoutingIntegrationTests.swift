@@ -11,9 +11,11 @@ final class VoiceAutoRoutingIntegrationTests: XCTestCase {
     private var oldIdleTimer = false
     private var savedPreferences: [String: Any] = [:]
     private var savedArguments: [String: Any] = [:]
-    private let preferenceKeys = [AutoTranslation.preferenceKey, "selectedTranslationModel"]
+    private let preferenceKeys = [AutoTranslation.preferenceKey, "selectedTranslationModel", "voice.th", "liveDownloadIDs"]
     private var pipelineToUnload: ConversationPipeline?
     private var recorderToCancel: AudioRecorder?
+    private var speechToUnload: SherpaSpeechBackend?
+    private var downloadProbes: [ModelDownloader] = []
     @MainActor override func setUp() async throws {
         let defaults = UserDefaults.standard
         for key in preferenceKeys { savedPreferences[key] = defaults.object(forKey: key) }
@@ -24,6 +26,12 @@ final class VoiceAutoRoutingIntegrationTests: XCTestCase {
     @MainActor override func tearDown() async throws {
         recorderToCancel?.cancel()
         await pipelineToUnload?.unload(); pipelineToUnload?.clearTemporarySpeech()
+        await speechToUnload?.unload()
+        for downloader in downloadProbes {
+            if downloader.installedURL != nil { await downloader.remove() }
+            else { await downloader.cancel() }
+            try? FileManager.default.removeItem(at: downloader.transferRoot)
+        }
         let defaults = UserDefaults.standard
         let packages = PackageDownloadCoordinator.shared
         packages.selectTranslation(TranslationModel.restoredSelection(savedPreferences["selectedTranslationModel"] as? String))
@@ -143,6 +151,82 @@ final class VoiceAutoRoutingIntegrationTests: XCTestCase {
         check(pipeline, .russian, .opusBig)
         XCTAssertGreaterThan(pipeline.samples.last?.previewBlocks ?? 0, 0)
         XCTAssertEqual(pipeline.samples.last?.processingMode, "during-recording")
+        await pipeline.unload(); pipeline.clearTemporarySpeech()
+    }
+    /// Real HTTPS downloads through the production background URLSession and
+    /// SHA-256 installation path. Unique IDs keep existing model files intact.
+    @MainActor func testModelDownloadsWithoutOpenSSL() async throws {
+        executionTimeAllowance = 600
+        for source in [ModelCatalog.wayuStyles, ModelCatalog.wayuCurves] {
+            let model = ModelDescriptor(id: "kat-openssl-probe-" + UUID().uuidString.lowercased(),
+                title: "Download verification", remoteURL: source.remoteURL,
+                byteCount: source.byteCount, sha256: source.sha256)
+            let downloader = ModelDownloader(model: model)
+            downloadProbes.append(downloader)
+            await downloader.restore()
+            XCTAssertNil(downloader.installedURL)
+            let started = Date()
+            downloader.start()
+            while downloader.installedURL == nil, downloader.state.phase != .failed,
+                  Date().timeIntervalSince(started) < 240 {
+                try await Task.sleep(for: .milliseconds(250))
+            }
+            XCTAssertEqual(downloader.state.phase, .installed, downloader.state.error ?? "Download timed out")
+            let installed = try XCTUnwrap(downloader.installedURL)
+            let data = try Data(contentsOf: installed)
+            XCTAssertEqual(Int64(data.count), source.byteCount)
+            XCTAssertEqual(SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined(), source.sha256)
+            print("KAT_HTTPS_MODEL_PASS", source.id, data.count, "seconds", Date().timeIntervalSince(started))
+        }
+    }
+    @MainActor func testThaiWayuSynthesisWithoutOpenSSL() async throws {
+        let packages = PackageDownloadCoordinator.shared
+        await packages.restore()
+        packages.selectVoice(packages.wayuVoice, language: .thai)
+        let directory = try XCTUnwrap(packages.selectedVoiceDirectories[.thai])
+        XCTAssertTrue(directory.fragment?.hasPrefix("wayu:") == true)
+        for name in ["_ssl", "_hashlib"] {
+            XCTAssertFalse(FileManager.default.fileExists(atPath:
+                Bundle.main.bundleURL.appendingPathComponent("Frameworks/\(name).framework").path))
+        }
+        let speech = SherpaSpeechBackend(); speechToUnload = speech
+        try await speech.load(directory: directory, language: .thai)
+        let player = SpeechPlayer()
+        defer { player.stop() }
+        for text in ["สวัสดีค่ะ สบายดีไหมคะ?", "ราคา 250 บาท", "เรียก Grab"] {
+            let start = Date()
+            let pcm = try await speech.synthesize(text: text)
+            XCTAssertEqual(pcm.sampleRate, 24000)
+            XCTAssertGreaterThan(pcm.samples.count, 2400)
+            XCTAssertTrue(pcm.samples.allSatisfy { $0.isFinite })
+            XCTAssertGreaterThan(pcm.samples.map(abs).max() ?? 0, 0.001)
+            print("KAT_WAYU_PASS", text, "samples", pcm.samples.count, "seconds", Date().timeIntervalSince(start))
+            try await player.play(pcm)
+        }
+        do {
+            _ = try await speech.synthesize(text: "สวัสดี xyzqqzz")
+            XCTFail("Unknown English word must be rejected")
+        } catch { print("KAT_WAYU_UNKNOWN_WORD_REJECTED") }
+        await speech.unload()
+    }
+    @MainActor func testRecognizedRussianTranslatesAndSpeaksThai() async throws {
+        let packages = PackageDownloadCoordinator.shared
+        await packages.restore()
+        packages.selectVoice(packages.wayuVoice, language: .thai)
+        let pipeline = try await prepare()
+        let audio = try fixture("ru")
+        await pipeline.runRecording(audio: audio, speechEnd: audio.samples.count, source: nil, target: .thai,
+            speakResult: true, inputMode: "synthetic-recording", thermal: "nominal", stoppedAt: ProcessInfo.processInfo.systemUptime,
+            requestedPreview: false, fallbackReason: nil)
+        XCTAssertNil(pipeline.voiceFields.error)
+        XCTAssertEqual(pipeline.voiceFields.resolvedSource, .russian)
+        XCTAssertEqual(pipeline.voiceFields.resolvedTarget, .thai)
+        XCTAssertEqual(pipeline.samples.last?.translationModelID, TranslationModel.index9B.rawValue)
+        XCTAssertTrue(pipeline.voiceFields.sourceText.localizedCaseInsensitiveContains("поезд"))
+        XCTAssertTrue(pipeline.voiceFields.translatedText.unicodeScalars.contains { (0x0E00...0x0E7F).contains($0.value) })
+        XCTAssertTrue(pipeline.hasVoiceTranslationSpeech, pipeline.voiceFields.speechNotice ?? "Missing Thai TTS")
+        XCTAssertNil(pipeline.voiceFields.lastHistoryID)
+        print("KAT_THAI_PIPELINE_PASS", pipeline.voiceFields.translatedText)
         await pipeline.unload(); pipeline.clearTemporarySpeech()
     }
     @MainActor func testMicrophoneDetectsPeerSpeechAndSwitchesAutoModels() async throws {
