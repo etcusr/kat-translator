@@ -15,7 +15,7 @@ The working title was approved by the user on 7 October 2026: **Kat translator**
 
 On 7 October 2026 the **first option of the ninth round — the stamp** was chosen: an elongated black `kat`, a yellow accent and the caption `translator`. The neon icon replaced it on the same day; the stamp is kept in `stamp-icon/replaced-app-icon.png`.
 
-Stamp file: kat-primary-stamp-v1.png (`kat-primary-stamp-v1.png`). Original: round-9/stamp.png (`round-9/stamp.png`); the exact prompt is in `round-9/prompts.json` (built-in image_gen). The previously chosen pixel cat and drawn cat are kept as historical candidates.
+Stamp file: `kat-primary-stamp-v1.png`. Original: `round-9/stamp.png`; the exact prompt is in `round-9/prompts.json` (built-in image_gen). The previously chosen pixel cat and drawn cat are kept as historical candidates.
 
 In-app downloads gained an animated cat silhouette: sits → stands up → walks/runs → sits down. The pace follows the smoothed fill speed of the bar, taking the package size into account. [Preview and check](cat-progress/README.md).
 
