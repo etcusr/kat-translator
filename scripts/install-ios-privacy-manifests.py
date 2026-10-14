@@ -13,7 +13,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_ROOT = ROOT / 'Dependencies/privacy/ios'
-FRAMEWORKS = ('Python', 'TranslationRuntime', 'OmniVoiceRuntime')
+FRAMEWORKS = ('Python', 'TranslationRuntime', 'OmniVoiceRuntime', 'OpusRuntime')
 
 
 def install(app, *, identity, runner=subprocess.run):

@@ -1,6 +1,6 @@
 # Kat translator for Mac
 
-Mac App Store **1.0 (67)** has been archived and exported locally with updated licenses; final PKG signature, 154 binaries, sandbox/helpers and resource bundles verified. It has not been uploaded or installed. [Current package report and limits](../publication/store-license-rebuild-2026-10-14.md). Direct-release versions below are separate.
+Mac App Store **1.0 (68)** has been archived and exported locally with updated licenses and nine privacy manifests. ONNX telemetry is disabled before initialization; the packaged provider was checked with network access denied. Final PKG signatures, 154 binaries, sandbox/helpers and resource bundles passed. This package has not been uploaded or installed. [Audit and remaining work](../publication/apple-privacy-sdk-2026-10-14.md). Direct-release versions below are separate.
 
 > Current: **0.6.7/build60**, macOS27+, Apple Silicon; documentation checked against source on 13 October 2026. Index 9B uses MLX+MTP2; Index 2B uses a separate llama.cpp/Metal backend. The legacy OPUS EN↔RU/UK/BE package uses a PyTorch Metal FP16 worker; catalog directions use CTranslate2 CPU INT8. Initial translation selection is Auto; saved manual choices persist. See [current state](../CURRENT_STATE.md) and [latest UI evidence](../benchmarks/ui-layout-audit-2026-10-13/README.md). Build-number sections below describe historical releases and tests.
 

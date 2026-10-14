@@ -1,6 +1,7 @@
 """Packaging must fail closed and sign frameworks after copying manifests."""
 import importlib.util
 import json
+import os
 import subprocess
 from pathlib import Path
 import plistlib
@@ -33,7 +34,7 @@ class PrivacyPackagingTests(unittest.TestCase):
             self.assertIn('test-identity', command)
         runner = Mock(side_effect=sign)
         self.module.install(self.app, identity='test-identity', runner=runner)
-        self.assertEqual(runner.call_count, 3)
+        self.assertEqual(runner.call_count, 4)
 
     def test_unsigned_and_repeat_install(self):
         runner = Mock()
@@ -64,7 +65,7 @@ class PrivacyPackagingTests(unittest.TestCase):
             self.assertFalse(data['NSPrivacyTracking'])
             self.assertEqual(data['NSPrivacyCollectedDataTypes'], [])
             reasons = {entry['NSPrivacyAccessedAPIType']: entry['NSPrivacyAccessedAPITypeReasons'] for entry in data['NSPrivacyAccessedAPITypes']}
-            expected = {'NSPrivacyAccessedAPICategoryFileTimestamp': ['C617.1']}
+            expected = {} if name == 'OpusRuntime' else {'NSPrivacyAccessedAPICategoryFileTimestamp': ['C617.1']}
             if name == 'Python':
                 expected['NSPrivacyAccessedAPICategorySystemBootTime'] = ['35F9.1']
             self.assertEqual(reasons, expected)
@@ -79,6 +80,20 @@ class PrivacyPackagingTests(unittest.TestCase):
         self.assertGreater(privacy, names.index('Embed Frameworks'))
         self.assertGreater(privacy, names.index('Bundle offline Thai frontend'))
         self.assertIn('install-ios-privacy-manifests.py', phases[privacy]['shellScript'])
+
+    def test_first_installer_failure_stops_shell_phase(self):
+        project = ROOT / 'apps/ios/OfflineTranslator.xcodeproj/project.pbxproj'
+        objects = json.loads(subprocess.check_output(['plutil', '-convert', 'json', '-o', '-', str(project)]))['objects']
+        script = next(x['shellScript'] for x in objects.values() if x.get('name') == 'Install framework privacy manifests')
+        executable = Path(self.temp.name) / 'python3'
+        marker = Path(self.temp.name) / 'second-installer'
+        executable.write_text('#!/bin/bash\ncase "$1" in *install-ios-privacy-manifests.py) exit 42;; esac\ntouch "$MARKER"\n')
+        executable.chmod(0o755)
+        result = subprocess.run(['/bin/bash', '-c', script], env=dict(os.environ,
+            PATH=str(executable.parent) + ':' + os.environ['PATH'], MARKER=str(marker),
+            KAT_REPO_ROOT=str(ROOT), TARGET_BUILD_DIR=str(self.app.parent), WRAPPER_NAME=self.app.name))
+        self.assertEqual(result.returncode, 42)
+        self.assertFalse(marker.exists())
 
     def test_signing_failure_stops_build(self):
         with self.assertRaises(RuntimeError):

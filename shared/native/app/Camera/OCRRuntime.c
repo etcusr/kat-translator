@@ -1,3 +1,4 @@
+#include "../Privacy/InferencePrivacy.h"
 #include "OCRRuntime.h"
 #include <onnxruntime/onnxruntime_c_api.h>
 #include <stdlib.h>
@@ -13,6 +14,7 @@ void ot_ocr_free(void *handle) {
     if (c->env) c->api->ReleaseEnv(c->env); free(c);
 }
 void *ot_ocr_load(const char *path) {
+    if (!ot_prepare_inference_privacy()) return NULL;
     OCR *c = calloc(1, sizeof(OCR)); if (!c) return NULL;
     c->api = OrtGetApiBase()->GetApi(17); if (!c->api) { free(c); return NULL; }
     OrtSessionOptions *options = NULL; OrtTypeInfo *type = NULL;

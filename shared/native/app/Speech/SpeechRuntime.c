@@ -1,8 +1,10 @@
+#include "../Privacy/InferencePrivacy.h"
 #include "SpeechRuntime.h"
 #include <string.h>
 #include <stdio.h>
 #include <limits.h>
 const SherpaOnnxOfflineTts *ot_supertonic_create(const char *directory) {
+    if (!ot_prepare_inference_privacy()) return NULL;
     const char *names[] = {"duration_predictor.int8.onnx", "text_encoder.int8.onnx", "vector_estimator.int8.onnx", "vocoder.int8.onnx", "tts.json", "unicode_indexer.bin", "voice.bin"};
     char paths[7][PATH_MAX];
     for (int i = 0; i < 7; i++) {
@@ -36,6 +38,7 @@ const SherpaOnnxGeneratedAudio *ot_supertonic_generate(const SherpaOnnxOfflineTt
     return SherpaOnnxOfflineTtsGenerateWithConfig(tts, text, &config, supertonic_generated, flag);
 }
 const SherpaOnnxOfflineTts *ot_tts_create(const char *model, const char *tokens, const char *data) {
+    if (!ot_prepare_inference_privacy()) return NULL;
     SherpaOnnxOfflineTtsConfig config; memset(&config, 0, sizeof(config));
     config.model.vits.model = model; config.model.vits.tokens = tokens; config.model.vits.data_dir = data;
     config.model.vits.noise_scale = 0.667f; config.model.vits.noise_scale_w = 0.8f; config.model.vits.length_scale = 1;
@@ -48,6 +51,7 @@ const SherpaOnnxGeneratedAudio *ot_tts_generate(const SherpaOnnxOfflineTts *tts,
     return SherpaOnnxOfflineTtsGenerateWithCallbackWithArg(tts, text, 0, 1, generated, flag);
 }
 const SherpaOnnxVoiceActivityDetector *ot_vad_create(const char *model) {
+    if (!ot_prepare_inference_privacy()) return NULL;
     SherpaOnnxVadModelConfig config; memset(&config, 0, sizeof(config));
     config.silero_vad.model = model; config.silero_vad.threshold = 0.5f;
     config.silero_vad.min_silence_duration = 0.032f; config.silero_vad.min_speech_duration = 0.064f;
@@ -57,6 +61,7 @@ const SherpaOnnxVoiceActivityDetector *ot_vad_create(const char *model) {
 }
 
 const SherpaOnnxOfflineRecognizer *ot_omni_create(const char *model, const char *tokens) {
+    if (!ot_prepare_inference_privacy()) return NULL;
     SherpaOnnxOfflineRecognizerConfig config = {0};
     config.feat_config.sample_rate = 16000;
     config.feat_config.feature_dim = 80;

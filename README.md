@@ -8,7 +8,7 @@ An offline voice, text and image-text translator for **iPhone, Apple Silicon Mac
 
 **Start here:** [current status](docs/CURRENT_STATE.md) · [RU/EN product description](PROJECT_DESCRIPTION.md). This overview was checked against the working tree on October 14, 2026. Dated reports describe the build tested at that time, not necessarily today's code. Most technical documentation is currently in Russian.
 
-Local App Store packages iOS **1.0 (48)** and Mac **1.0 (67)** now include the updated license bundle. Archive/export, packaged notices and signatures have been checked; these packages have not been uploaded or installed. [Results and remaining work](docs/publication/store-license-rebuild-2026-10-14.md).
+Local App Store packages iOS **1.0 (49)** and Mac **1.0 (68)** include updated licenses and nine privacy manifests each. ONNX telemetry is disabled before SDK initialization. Final package signatures and contents have been checked; upload, App Privacy hosting disclosures and final device acceptance remain open. [Audit and remaining work](docs/publication/apple-privacy-sdk-2026-10-14.md).
 
 **Repository privacy:** personal recordings, transcripts and diagnostic media are excluded from the published history. [Scope and handling of local data](docs/REPOSITORY_PRIVACY.md).
 

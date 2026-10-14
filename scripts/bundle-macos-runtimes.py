@@ -129,3 +129,7 @@ while queue:
  subprocess.run(['codesign','--force','--sign',os.environ.get('EXPANDED_CODE_SIGN_IDENTITY') or '-',*helper_entitlements,str(dst)],check=True,capture_output=True)
 subprocess.run(['codesign','--force','--sign',os.environ.get('EXPANDED_CODE_SIGN_IDENTITY') or '-',str(fw/'OmniVoiceRuntime.framework')],check=True,capture_output=True)
 subprocess.run(['codesign','--force','--sign',os.environ.get('EXPANDED_CODE_SIGN_IDENTITY') or '-',str(fw/'OpusRuntime.framework')],check=True,capture_output=True)
+
+# Declare repackaged SDKs after all runtime copies, before the app is signed.
+subprocess.run([sys.executable, str(root/"scripts/install-sdk-privacy-manifests.py"),
+                "--platform", "macos", "--app", str(contents.parent)], check=True)

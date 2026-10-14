@@ -1,5 +1,7 @@
 # Dependency source kit — 14 October 2026
 
+Последние проверенные Apple-пакеты — iOS49/Mac68: 42 уведомления побайтово совпадают с этим комплектом; [privacy/SDK-аудит](../../publication/apple-privacy-sdk-2026-10-14.md). Полнота соответствующих исходников, публичная доставка и правовые вопросы ниже этим не закрыты.
+
 The local kit contains **605 complete upstream archives and 9 pinned Wayu source files**, 2,709,554,635 bytes (2.52 GiB). Location: `dist/licensing/dependency-sources-2026-10-14/`. Large source archives stay outside Git. The checked-in [lock](dependency-sources.json) records exact HTTPS URLs, sizes and SHA-256; it allows the same files to be fetched again. Nothing was uploaded or published by this task.
 
 This closes source acquisition for the enumerated inputs. It does **not** certify complete corresponding source for every release binary: a source archive, source JAR or matching version label alone does not establish its complete build inputs, flags or binary provenance.

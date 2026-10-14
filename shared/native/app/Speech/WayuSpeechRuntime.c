@@ -1,3 +1,4 @@
+#include "../Privacy/InferencePrivacy.h"
 #include "WayuSpeechRuntime.h"
 #include "../ASR/WhisperCancellation.h"
 #include <onnxruntime/onnxruntime_c_api.h>
@@ -20,6 +21,7 @@ void ot_wayu_free(void *handle) {
     if(c->env)c->api->ReleaseEnv(c->env);free(c);
 }
 void *ot_wayu_load(const char *prosody,const char *curves,const char *decoder) {
+    if (!ot_prepare_inference_privacy()) return NULL;
     Wayu *c=calloc(1,sizeof(*c));if(!c)return NULL;
     c->api=OrtGetApiBase()->GetApi(17);if(!c->api){free(c);return NULL;}
     OrtSessionOptions *opt=NULL;

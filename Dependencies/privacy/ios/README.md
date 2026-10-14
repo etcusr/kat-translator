@@ -4,11 +4,12 @@ These manifests describe Kat's pinned iOS runtime configuration. They are instal
 
 | Framework | Declaration | Evidence and scope |
 |---|---|---|
+| OpusRuntime | No required-reason API entries | Repackages SentencePiece with Abseil/Protobuf-lite; no matching API imports in the shipped framework. |
 | Python 3.13.14 (Python-Apple-support 3.13-b14) | FileTimestamp `C617.1`; SystemBootTime `35F9.1` | CPython file metadata/imports inside the app container; monotonic clock for runtime timers and elapsed intervals. Kat initializes an isolated interpreter with bundled module paths in `shared/native/app/Speech/WayuFrontend.c`, and calls the packaged Wayu frontend. |
 | TranslationRuntime | FileTimestamp `C617.1` | The linked cpp-httplib object contains `FileStat`/mmap and server file helpers using `stat`/`fstat`. Disassembly identifies those callers; this does **not** show a running HTTP server. Kat uses local model files through its translation adapter. The declaration restricts file metadata use to the app container. |
 | OmniVoiceRuntime | FileTimestamp `C617.1` | `gguf-weights.h::gf_load` calls `fstat` to get model size before mmap. Disassembly confirms calls from codec/TTS loading. Models are in the app container. |
 
-All three declare no tracking, no tracking domains and no collected data types. These are library declarations for this integration, not a substitute for App Privacy answers, traffic testing or third-party download-service disclosures.
+All four declare no tracking, no tracking domains and no collected data types. These are library declarations for this integration, not a substitute for App Privacy answers, traffic testing or third-party download-service disclosures.
 
 ## Offline Python packaging
 
@@ -27,3 +28,7 @@ Monotonic timing implementation: [CPython pytime.c](https://github.com/python/cp
 Review these declarations when dependencies or call paths change. An unexpected existing manifest causes a build failure rather than overwriting upstream disclosures. Missing frameworks or signing failures also fail the build. Do not use these files for a different Python integration without reviewing its actual behavior.
 
 Validation: `python3 -m unittest discover -s scripts/validation -p 'test_ios_*.py'`. After archiving, verify manifest contents and strict signatures in the archive and exported IPA. [Dated verification](../../../docs/publication/privacy-frameworks-2026-10-14.md).
+
+## Static SDKs and Swift packages
+
+ONNX Runtime, Sherpa and FluidAudio declarations are installed separately by `install-sdk-privacy-manifests.py`; OfflineCore carries its own SwiftPM resource. See the [cross-platform SDK map and telemetry guard](../README.md). The latest iOS package has nine manifests, including the app.

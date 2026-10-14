@@ -1,0 +1,161 @@
+{
+  "date": "2026-10-14",
+  "scope": "Local exported packages; no upload or distribution-package device acceptance",
+  "packages": [
+    {
+      "platform": "ios",
+      "version": "1.0",
+      "build": "49",
+      "artifact_name": "Kat-translator-1.0-build49.ipa",
+      "artifact_bytes": 68578679,
+      "artifact_sha256": "525da45699aecce92369f3dbe1526e0be3710c9c1cd225765731f885057fb568",
+      "notice_documents": 42,
+      "notice_sha256": "1c57c983384507806fd75d77057a75865da4ea65d6fb032bf3878c77018f1cae",
+      "privacy_manifests": [
+        "FluidAudio_FluidAudio.bundle/PrivacyInfo.xcprivacy",
+        "Frameworks/OmniVoiceRuntime.framework/PrivacyInfo.xcprivacy",
+        "Frameworks/OpusRuntime.framework/PrivacyInfo.xcprivacy",
+        "Frameworks/Python.framework/PrivacyInfo.xcprivacy",
+        "Frameworks/TranslationRuntime.framework/PrivacyInfo.xcprivacy",
+        "ONNXRuntimePrivacy.bundle/PrivacyInfo.xcprivacy",
+        "OfflineCore_OfflineCore.bundle/PrivacyInfo.xcprivacy",
+        "PrivacyInfo.xcprivacy",
+        "SherpaOnnxPrivacy.bundle/PrivacyInfo.xcprivacy"
+      ],
+      "signature": "PASS",
+      "all_binary_signers_match_app": true,
+      "distribution_profiles": 2,
+      "export_encryption_flag": false,
+      "loading_animations": 14,
+      "loading_source_bytes_match": true,
+      "no_xctest": true,
+      "no_one_beer": true,
+      "resource_bundles": [],
+      "binary_checks": {
+        "macho_images_checked": 72,
+        "openssl_markers": 0,
+        "openssl_library_dependencies": 0,
+        "hash_fallbacks": [
+          "_md5",
+          "_sha1",
+          "_sha2",
+          "_sha3",
+          "_blake2"
+        ]
+      },
+      "build_identity": {
+        "configuration": "Release",
+        "identifier": "ios-2cb1c7a3c4ee841e",
+        "platform": "iphoneos",
+        "schema": 1,
+        "sha256": "2cb1c7a3c4ee841eb3e7bc140127c70ab389de469a1975b711396d1f168b738a",
+        "sourceFileCount": 792
+      },
+      "device_test": "not performed",
+      "uploaded": false,
+      "artifact_path": "dist/ios/store/Kat-translator-1.0-build49.ipa"
+    },
+    {
+      "platform": "macos",
+      "version": "1.0",
+      "build": "68",
+      "artifact_name": "Kat-translator-1.0-build68.pkg",
+      "artifact_bytes": 349370594,
+      "artifact_sha256": "6465985902925d5b83277e1ac021f4ca517822fb65fffa64e148ea2c0942b6aa",
+      "notice_documents": 42,
+      "notice_sha256": "1c57c983384507806fd75d77057a75865da4ea65d6fb032bf3878c77018f1cae",
+      "privacy_manifests": [
+        "Contents/Frameworks/OpusRuntime.framework/Versions/A/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/FluidAudio_FluidAudio.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/ONNXRuntimePrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/OfflineCore_OfflineCore.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/ProtobufPrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/PyTorchPrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/SentencePiecePrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/SherpaOnnxPrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy"
+      ],
+      "signature": "PASS",
+      "all_binary_signers_match_app": true,
+      "distribution_profiles": 1,
+      "export_encryption_flag": false,
+      "loading_animations": 14,
+      "loading_source_bytes_match": true,
+      "no_xctest": true,
+      "no_one_beer": true,
+      "resource_bundles": [
+        {
+          "path": "Contents/Resources/ONNXRuntimePrivacy.bundle",
+          "bundle_id": "app.kattranslator.privacy.ONNXRuntimePrivacy",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/PyTorchPrivacy.bundle",
+          "bundle_id": "app.kattranslator.privacy.PyTorchPrivacy",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/OfflineCore_OfflineCore.bundle",
+          "bundle_id": "offlinecore.OfflineCore.resources",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/ProtobufPrivacy.bundle",
+          "bundle_id": "app.kattranslator.privacy.ProtobufPrivacy",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/FluidAudio_FluidAudio.bundle",
+          "bundle_id": "fluidaudio.FluidAudio.resources",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/SentencePiecePrivacy.bundle",
+          "bundle_id": "app.kattranslator.privacy.SentencePiecePrivacy",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/SherpaOnnxPrivacy.bundle",
+          "bundle_id": "app.kattranslator.privacy.SherpaOnnxPrivacy",
+          "codeless_unsigned": true
+        }
+      ],
+      "binary_checks": {
+        "machOFiles": 154,
+        "minimumMacOS": "27.0",
+        "externalNonSystemDependencies": [],
+        "externalNonSystemRPaths": [],
+        "librariesExceedingMinimumMacOS": []
+      },
+      "build_identity": {
+        "configuration": "Release",
+        "identifier": "mac-448cee3bbcce5c47",
+        "platform": "macosx",
+        "schema": 1,
+        "sha256": "448cee3bbcce5c47c098cc3c0dbb57a0b5580bd98e8bf81377c9743b6cc56277",
+        "sourceFileCount": 790
+      },
+      "device_test": "not performed",
+      "uploaded": false,
+      "artifact_path": "dist/macos/store/Kat-translator-1.0-build68.pkg"
+    }
+  ],
+  "validation_tests": {
+    "python": 132,
+    "result": "PASS"
+  },
+  "onnx_packaged_provider": {
+    "version": "1.30.0",
+    "network_denied": true,
+    "disabled": true,
+    "logger_null": true,
+    "manager_null": true
+  },
+  "remaining": [
+    "External download-host App Privacy classification",
+    "SDK input signatures/provenance",
+    "Apple server processing including Python unused disk-space symbols",
+    "Final device and TestFlight acceptance",
+    "Licensing/source delivery items in OPEN_QUESTIONS.md"
+  ]
+}

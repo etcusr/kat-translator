@@ -1,5 +1,7 @@
 # Конфиденциальность: код, SDK и публичная страница
 
+Актуальное продолжение: [аудит App Privacy/SDK и пакеты iOS49/Mac68](apple-privacy-sdk-2026-10-14.md). Результаты ниже относятся к прежнему составу и не заменяют новую проверку.
+
 Сверено 14 октября 2026. Контакт **katlabs.dev@gmail.com** предоставлен пользователем специально для публичной политики. публикацию GitHub Pages по адресу `https://etcusr.github.io/kat-translator/privacy/`.
 
 Канонический RU/EN текст — [site/privacy/index.html](../../site/privacy/index.html). Главная/support — [site/index.html](../../site/index.html). Workflow публикует **только site/**, не рабочую папку или весь docs. На странице нет JavaScript, сторонних шрифтов, аналитики и форм; технические обращения к хостингу GitHub Pages описаны отдельно.
