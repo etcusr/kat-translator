@@ -2,3 +2,7 @@
 # Preserve shipped resources byte-for-byte (catalog hashes may depend on them).
 assets/bundled/** -text
 *.bat text eol=crlf
+
+# Preserve checksum-verified upstream legal texts, including original whitespace.
+docs/licensing/**/ios-notices/*.txt -text -whitespace
+assets/bundled/ThirdPartyNotices.txt -whitespace

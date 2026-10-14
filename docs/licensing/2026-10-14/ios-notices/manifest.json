@@ -1,0 +1,137 @@
+[
+  {
+    "file": "whisper.cpp-LICENSE",
+    "source": "Dependencies/vendor/whisper.cpp/LICENSE",
+    "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d"
+  },
+  {
+    "file": "llama.cpp-LICENSE",
+    "source": "Dependencies/vendor/llama.cpp/LICENSE",
+    "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d"
+  },
+  {
+    "file": "CTranslate2-LICENSE",
+    "source": "Dependencies/vendor/CTranslate2/LICENSE",
+    "sha256": "54aa79d9fe3c09e67a16dcd95b9e88676405a6ec174efda31036983cf7672ecb"
+  },
+  {
+    "file": "sentencepiece-LICENSE",
+    "source": "Dependencies/vendor/sentencepiece/LICENSE",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  {
+    "file": "FluidAudio-LICENSE",
+    "source": "Dependencies/vendor/FluidAudio/LICENSE",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  {
+    "file": "omnivoice-mobile-LICENSE",
+    "source": "Dependencies/vendor/omnivoice-mobile/LICENSE",
+    "sha256": "cddbecd5db98ec5bd44af3e7221b6d44c3e9fed1c92940a3be5b0080c9b86475"
+  },
+  {
+    "file": "omnivoice-mobile-ggml-LICENSE",
+    "source": "Dependencies/vendor/omnivoice-mobile/ggml/LICENSE",
+    "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d"
+  },
+  {
+    "file": "Python-LICENSE.txt",
+    "source": "Dependencies/build/wayu/Python.xcframework/lib/python3.13/LICENSE.txt",
+    "sha256": "78b12c3a81360b357002334f0e70ea0e92eebf7a9b358805c03c48484945f3bb"
+  },
+  {
+    "file": "TLTK-LICENSE.txt",
+    "source": "Dependencies/build/wayu/WayuPython/tltk/LICENSE.txt",
+    "sha256": "6091bffd58446a286a64cd7151b57a7a8519eaf20a7e214c2445f7f517159d55"
+  },
+  {
+    "file": "PaddleOCR-LICENSE.txt",
+    "source": "assets/bundled/OCR/LICENSE.txt",
+    "sha256": "3840c5c0c61c294264d2dd77b8777be6ddd90121ef4e0e64abcd22edea581d6e"
+  },
+  {
+    "file": "LanguageIdentification-LICENSE.txt",
+    "source": "shared/packages/OfflineCore/Sources/LanguageIdentificationRuntime/vendor/LICENSE",
+    "sha256": "d9cfdfdf548c48712f05c67eb76c79e7c9f45cba78db50794b780e3564b85ef7"
+  },
+  {
+    "file": "LanguageIdentification-NOTICE.txt",
+    "source": "shared/packages/OfflineCore/Sources/OfflineCore/Resources/LanguageIdentification-NOTICE.txt",
+    "sha256": "f0159eb4e4352703e8cb966505b32eac6878defd2e4f9ed91933881b542adb84"
+  },
+  {
+    "file": "ruy-LICENSE.txt",
+    "source": "Dependencies/vendor/CTranslate2/third_party/ruy/LICENSE",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  {
+    "file": "cpuinfo-LICENSE.txt",
+    "source": "Dependencies/vendor/CTranslate2/third_party/ruy/third_party/cpuinfo/LICENSE",
+    "sha256": "8e7e60636c3aa0cb03571a1a841ce5697f9551ff92b3c426c2561613d15ade70"
+  },
+  {
+    "file": "spdlog-LICENSE.txt",
+    "source": "Dependencies/vendor/CTranslate2/third_party/spdlog/LICENSE",
+    "sha256": "a7241a379cb98d37788f82c2fc2e484c3ae85dae881fd3406f0637644850926f"
+  },
+  {
+    "file": "protobuf-lite-LICENSE.txt",
+    "source": "Dependencies/vendor/sentencepiece/third_party/protobuf-lite/LICENSE",
+    "sha256": "6e5e117324afd944dcf67f36cf329843bc1a92229a8cd9bb573d7a83130fea7d"
+  },
+  {
+    "file": "absl-LICENSE.txt",
+    "source": "Dependencies/vendor/sentencepiece/third_party/absl/LICENSE",
+    "sha256": "d3e2f59e1d71176dfdb555ece6a41f7a5aa0f52ff21211010ace314f57695f6b"
+  },
+  {
+    "file": "darts-LICENSE.txt",
+    "source": "Dependencies/vendor/sentencepiece/third_party/darts_clone/LICENSE",
+    "sha256": "155f59997298ee336602c49f9c1110f268ac394ca2197eb02647a3555935ad52"
+  },
+  {
+    "file": "esaxx-LICENSE.txt",
+    "source": "Dependencies/vendor/sentencepiece/third_party/esaxx/LICENSE",
+    "sha256": "7c28553d1d3312d65fe309f76a22ebaf33a3d76c8c1e3b98a88ee4654ecb53db"
+  },
+  {
+    "file": "ONNXRuntime-LICENSE.txt",
+    "source": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.28.1/LICENSE",
+    "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c"
+  },
+  {
+    "file": "ONNXRuntime-ThirdPartyNotices.txt",
+    "source": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.28.1/ThirdPartyNotices.txt",
+    "sha256": "0e07b95f3a8d6230037707c5c4a2b554d12c4cb67369669ac255635528ffcee2"
+  },
+  {
+    "file": "sherpa-onnx-LICENSE.txt",
+    "source": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf/LICENSE",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  {
+    "file": "eSpeak-NG-COPYING.txt",
+    "source": "https://raw.githubusercontent.com/espeak-ng/espeak-ng/7251208ee427ef87e94f39d0e99b15d287224ed6/COPYING",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+  },
+  {
+    "file": "PyThaiNLP-LICENSE.txt",
+    "source": ".build/wayu-source/pythai/pythainlp-5.3.8.dist-info/licenses/LICENSE",
+    "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+  },
+  {
+    "file": "PyThaiNLP-corpus-licenses.md",
+    "source": ".build/wayu-source/pythai/pythainlp/corpus/corpus_license.md",
+    "sha256": "443978471ca3e75b7e39e233c9b7b86e871416fafeb7948fdc99b229adcc40ec"
+  },
+  {
+    "file": "Misaki-LICENSE.txt",
+    "source": ".build/wayu-source/misaki/misaki-0.9.4.dist-info/licenses/LICENSE",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  {
+    "file": "piper-phonemize-LICENSE.txt",
+    "source": "https://raw.githubusercontent.com/csukuangfj/piper-phonemize/f3ff95afc03640bc1399e113e83361192a2fafb4/LICENSE.md",
+    "sha256": "13746d509d74e55ea2265fbef204bb7cdbf84a8315b0207e988326cb54387028"
+  }
+]

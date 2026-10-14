@@ -13,7 +13,6 @@ SOURCES = [
     ("monkey-work", "4_6041982296330863639.mp4", None),
     ("cat-break", "CapCut_vdzQ5Zc8nt (online-video-cutter.com).mp4", None),
     ("swing", "IMG_6652.MP4", None),
-    ("one-beer", "beer-chug.mp4", None),
     ("cat-dance", "cat-dance-dancing-cat.mp4", None),
     ("cat-magic", "cat-magic.mp4", None),
     ("cat-stalk", "cat-stalk.mp4", None),
@@ -56,6 +55,11 @@ def prepare():
             "-c:v", "libx264", "-preset", "slow", "-crf", "24", "-pix_fmt", "yuv420p",
             "-movflags", "+faststart", str(video)
         ], check=True)
+        if identifier == "cat-break":
+            subprocess.run([
+                sys.executable, str(ROOT / 'scripts/localize-cat-break.py'),
+                str(video), str(video)
+            ], check=True)
         subprocess.run([
             "ffmpeg", "-v", "error", "-y", "-i", str(video), "-frames:v", "1",
             "-q:v", "2", str(poster)
@@ -66,6 +70,8 @@ def prepare():
             "source": source_name, "sourceSHA256": hashlib.sha256(source.read_bytes()).hexdigest(),
             "bytes": video.stat().st_size, "width": 384, "height": 288
         })
+        if identifier == "cat-break":
+            clips[-1].update(caption="CAT BREAK", captionLanguage="en")
         assert len(final["streams"]) == 1 and final["streams"][0]["codec_type"] == "video"
         print(f"{identifier}: {video.stat().st_size:,} bytes", flush=True)
     (DESTINATION / "loading-animations.json").write_text(json.dumps(clips, indent=2) + "\n")

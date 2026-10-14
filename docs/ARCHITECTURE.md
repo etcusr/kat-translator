@@ -107,3 +107,9 @@ iOS tests: `apps/ios/tests/ui`. Mac: `apps/macos/tests/runtime`, UI tests вну
 Apple использует `assets/bundled/Localizable.xcstrings` и `OfflineCore/L10n.swift`; строки разрешений iOS — `apps/ios/Resources/InfoPlist.xcstrings`, macOS — `apps/macos/*.lproj/InfoPlist.strings`. Поддержаны RU/EN/ES/TR, явный выбор в настройках и первый поддержанный язык системы; при отсутствии совпадения — EN.
 
 Android использует тот же каталог и дополнительные строки `assets/localization/android-ui.json`. `scripts/generate-android-ui-strings.py` создаёт `UiStringsEn.kt`, `UiStringsEs.kt`, `UiStringsTr.kt`; `--check` проверяет синхронизацию. `UiStrings.kt` выбирает словарь и подставляет параметры за один проход, сохраняя проценты в пользовательском тексте. Уведомления загрузок учитывают сохранённый язык интерфейса. Тексты пользователя и промпты моделей через эти словари не проходят.
+
+## Ресурсы выпуска — 14 октября 2026
+
+Общие loading-ролики поставляются из `assets/bundled/LoadingAnimations` на все три платформы. Каталог содержит 14 клипов: `one-beer` удалён; `cat-break` имеет английскую подпись CAT BREAK независимо от языка UI. Генератор сохраняет замену подписи при повторной подготовке. [Ресурсы и галерея](branding/loading-animations/README.md).
+
+Генераторы Apple-проектов включают `assets/bundled/ThirdPartyNotices.txt`, собираемый с проверкой SHA-256 через `scripts/assemble-ios-notices.py`. Это начальный набор атрибуций iOS; полнота прав и соответствующих исходников проверяется отдельно. [Состав и ограничения](publication/ios-release-preflight-2026-10-14.md).

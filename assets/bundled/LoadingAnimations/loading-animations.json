@@ -25,9 +25,11 @@
     "duration": 4.291667,
     "source": "CapCut_vdzQ5Zc8nt (online-video-cutter.com).mp4",
     "sourceSHA256": "22745734cfd65107516520aad958d941f586fa91d3df4b7115f7ecf71790aff7",
-    "bytes": 101616,
+    "bytes": 83100,
     "width": 384,
-    "height": 288
+    "height": 288,
+    "caption": "CAT BREAK",
+    "captionLanguage": "en"
   },
   {
     "id": "swing",
@@ -36,16 +38,6 @@
     "source": "IMG_6652.MP4",
     "sourceSHA256": "377c9b280100fe2223a4e3e4ac2e3e7bd9f4b4aa0ad1ca0ef0a5ccb2759f7019",
     "bytes": 212553,
-    "width": 384,
-    "height": 288
-  },
-  {
-    "id": "one-beer",
-    "resource": "loading-one-beer",
-    "duration": 5.9,
-    "source": "beer-chug.mp4",
-    "sourceSHA256": "98359e18613eaff5ddbe56c1f48af83625b18109d31c14dce8416f033c0a9c99",
-    "bytes": 109421,
     "width": 384,
     "height": 288
   },

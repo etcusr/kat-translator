@@ -1,0 +1,15 @@
+Kat translator traduce voz, texto y palabras en imágenes en tu iPhone. Elige los idiomas, descarga los modelos necesarios y traduce sin conexión a internet.
+
+Graba una frase o escribe un texto para obtener una traducción. Descarga una voz para escuchar el resultado en los idiomas compatibles. Copia y comparte las traducciones mediante las opciones del dispositivo.
+
+Usa la cámara o selecciona una imagen de tu fototeca. Kat reconoce el texto compatible y muestra la traducción sobre la imagen.
+
+El modo Auto selecciona un modelo instalado según el dispositivo y la dirección de traducción. Los paquetes OPUS son compactos y cubren direcciones concretas. Index 2B y 9B ofrecen más idiomas de texto y requieren distinta cantidad de memoria. La app indica qué paquetes se pueden descargar. Las voces se descargan por separado.
+
+Guarda las traducciones en el historial local y elige cuánto tiempo conservar textos, audios e imágenes. Puedes desactivar o borrar el historial desde los ajustes.
+
+Los modelos procesan las traducciones en el dispositivo. Necesitas internet para descargar los modelos iniciales y los paquetes adicionales.
+
+La entrada de voz, la reproducción de voz y el reconocimiento de imágenes dependen del idioma, el modelo y el dispositivo. Los paquetes pueden ocupar varios gigabytes. Las traducciones pueden contener errores: comprueba los números, nombres y datos importantes con el original.
+
+Interfaz en español, inglés, ruso y turco.

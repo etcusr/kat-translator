@@ -1,0 +1,414 @@
+{
+  "date": "2026-10-14",
+  "scope": "iOS local source inputs; not a complete corresponding-source or license compliance certification",
+  "components": [
+    {
+      "name": "whisper.cpp",
+      "checkout_revision": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+      "local_changes": false,
+      "license_files": [
+        {
+          "path": "Dependencies/vendor/whisper.cpp/LICENSE",
+          "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d"
+        }
+      ]
+    },
+    {
+      "name": "llama.cpp",
+      "checkout_revision": "d81235049384534c167caea52b85a694f6103d14",
+      "local_changes": false,
+      "license_files": [
+        {
+          "path": "Dependencies/vendor/llama.cpp/LICENSE",
+          "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d"
+        }
+      ]
+    },
+    {
+      "name": "CTranslate2",
+      "checkout_revision": "617405f4b050e994e829d527da6caa0e0030afe7",
+      "local_changes": true,
+      "license_files": [
+        {
+          "path": "Dependencies/vendor/CTranslate2/LICENSE",
+          "sha256": "54aa79d9fe3c09e67a16dcd95b9e88676405a6ec174efda31036983cf7672ecb"
+        }
+      ]
+    },
+    {
+      "name": "sentencepiece",
+      "checkout_revision": "31646a467d2051eb904e0b45de3a73e91fe1c1e3",
+      "local_changes": false,
+      "license_files": [
+        {
+          "path": "Dependencies/vendor/sentencepiece/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        }
+      ]
+    },
+    {
+      "name": "FluidAudio",
+      "checkout_revision": "ea63ac36fcadb8a6611d0f58a8e4a0e7dd4381e2",
+      "local_changes": true,
+      "license_files": [
+        {
+          "path": "Dependencies/vendor/FluidAudio/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        }
+      ]
+    },
+    {
+      "name": "omnivoice-mobile",
+      "checkout_revision": "53e6c2066150802ad3cd4b655b31c696e78e0019",
+      "local_changes": true,
+      "license_files": [
+        {
+          "path": "Dependencies/vendor/omnivoice-mobile/LICENSE",
+          "sha256": "cddbecd5db98ec5bd44af3e7221b6d44c3e9fed1c92940a3be5b0080c9b86475"
+        }
+      ]
+    },
+    {
+      "name": "omnivoice-mobile/ggml",
+      "checkout_revision": "40e16e4a814f7fe851a0c486fb9e8c722e957830",
+      "local_changes": false,
+      "license_files": [
+        {
+          "path": "Dependencies/vendor/omnivoice-mobile/ggml/LICENSE",
+          "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d"
+        }
+      ]
+    }
+  ],
+  "dependency_locks": {
+    "Dependencies/runtime.lock.json": {
+      "llama": {
+        "tag": "v0.6.0",
+        "commit": "d81235049384534c167caea52b85a694f6103d14"
+      },
+      "sherpa": {
+        "tag": "v1.13.8",
+        "commit": "11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf",
+        "iosSHA256": "6b8e769cb153343270fdccbe92e3b3db0d1c421d67fa0989ab01fdf5b2fcf2de"
+      },
+      "onnxruntime": {
+        "version": "1.28.1",
+        "iosSHA256": "992d8a0cc6014cccc3a7815c36bbff5e5a06833ea2c4d47dd43ef071f639cf9d"
+      },
+      "sileroVAD": {
+        "bytes": 643854,
+        "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6"
+      },
+      "modelsCatalog": "assets/catalogs/models.json",
+      "voiceFileManifests": "assets/catalogs/voice-manifests.json",
+      "ocr": {
+        "repository": "monkt/paddleocr-onnx",
+        "revision": "7b02d0a30a07ba2b92ad1ff5a8941ae2c633de65",
+        "recognizers": {
+          "eslav": {
+            "modelSHA256": "dc6bf0e855247decce214ba6dae5bc135fa0ad725a5918a7fcfb59fad6c9cdee",
+            "bundledDictionarySHA256": "63e3619f924e96d8341772bbf5a9507001919955d80e8b77ba2ca5436bb1f824",
+            "dictionaryTransform": "blank + source splitlines + space",
+            "input": "NCHW BGR normalized [-1, 1], height read from model (48), width padded >=320 <=4096"
+          },
+          "english": {
+            "modelSHA256": "4e16deb22c4da6468bdca539b2cd3c8687825538b67109177c47d359ab994cd7",
+            "bundledDictionarySHA256": "30068d4c87b2f94e4f3e8a4f962e41da42d5f29a750dd59a2a8fcac31ed8e70d",
+            "dictionaryTransform": "blank + source splitlines + space",
+            "input": "NCHW BGR normalized [-1, 1], height read from model (48), width padded >=320 <=4096"
+          }
+        }
+      }
+    },
+    "shared/native/Wayu/dependencies.lock.json": [
+      {
+        "url": "https://github.com/beeware/Python-Apple-support/releases/download/3.13-b14/Python-3.13-iOS-support.b14.tar.gz",
+        "path": "model-store/downloads/Python-3.13-iOS-support.b14.tar.gz",
+        "sha256": "8b5cb76ef8d8a2946052479358eeec9d54b4496cb60920e175ec1489b5cf7963"
+      },
+      {
+        "url": "https://files.pythonhosted.org/packages/f6/e9/9ed422db47a19186d76f72e4da5b2aa5ac49e12d790e5dd6ce83c8acc576/tltk-1.11-py3-none-any.whl",
+        "path": ".build/wayu-source/tltk-1.11-py3-none-any.whl",
+        "sha256": "76e1d88472da90ce0834ef05fe0eec900ee28b9f60811e41014f925bcdb26b4f"
+      },
+      {
+        "url": "https://files.pythonhosted.org/packages/c6/21/eec2b16a7e4f1ffb9577c62ef786e1eaad315ce2320c642835d11610b2de/pythainlp-5.3.8-py3-none-any.whl",
+        "path": ".build/wayu-source/pythainlp-5.3.8-py3-none-any.whl",
+        "sha256": "7f4367782d250afa936f65a1c151129fb80c316c3b3dbaa08923de04705b53b3"
+      },
+      {
+        "url": "https://files.pythonhosted.org/packages/82/ec/0ee4110ddb54278b8f21c40a140370ae8f687036c4edf578316602697c56/misaki-0.9.4-py3-none-any.whl",
+        "path": ".build/wayu-source/misaki-0.9.4-py3-none-any.whl",
+        "sha256": "90e2eeb169786c014c429e5058d2ea6bcd02d651f2a24450ba6c9ffc0f8da15a"
+      },
+      {
+        "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/kokoro_thai/__init__.py",
+        "path": ".build/wayu-source/reference/kokoro_thai/__init__.py",
+        "sha256": "bbf4488fa0cd0f3642916d059ff600a38df89ca478261eecc99a38009945d987"
+      },
+      {
+        "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/kokoro_thai/g2p.py",
+        "path": ".build/wayu-source/reference/kokoro_thai/g2p.py",
+        "sha256": "d3adfe54e6c875605dc5ecc0daf935940f811325619edfe904d835f5a5e4ec0c"
+      },
+      {
+        "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/kokoro_thai/normalize.py",
+        "path": ".build/wayu-source/reference/kokoro_thai/normalize.py",
+        "sha256": "9d7d24fd9717151b9be92c2ebf19935de604f9b50a902b63f7240335f1adbc9a"
+      },
+      {
+        "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/kokoro_thai/vocab.py",
+        "path": ".build/wayu-source/reference/kokoro_thai/vocab.py",
+        "sha256": "869edf3d4b05e28a9e05a5639b1e2f35ea79419087850fd2d6cf963d4b01f6c6"
+      },
+      {
+        "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/kokoro_thai/word_level.py",
+        "path": ".build/wayu-source/reference/kokoro_thai/word_level.py",
+        "sha256": "06bde07501930349d2e4970134face6ffa00cfe9f3925511ee455838b1d591fa"
+      },
+      {
+        "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/kokoro_thai/name_gate.py",
+        "path": ".build/wayu-source/reference/kokoro_thai/name_gate.py",
+        "sha256": "07d68c3dcdd0cafa09503d160e88e43f9624213511ce4c91239571e8e53cae84"
+      },
+      {
+        "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/kokoro_thai/data/name_respell.tsv",
+        "path": ".build/wayu-source/reference/kokoro_thai/data/name_respell.tsv",
+        "sha256": "f2a855e8cbc1abd0e9e51447f578a48f8622ab807b1b4e489b951715bf27702d"
+      },
+      {
+        "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/assets/kokoro_config.json",
+        "path": ".build/wayu-source/reference/assets/kokoro_config.json",
+        "sha256": "5abb01e2403b072bf03d04fde160443e209d7a0dad49a423be15196b9b43c17f"
+      },
+      {
+        "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/kokoro_thai/onnx_infer.py",
+        "path": ".build/wayu-source/onnx_infer.py",
+        "sha256": "911fd971d7ed92bbea0292056f2a0d5882bd5c180d23e8e13eabc7d395ffbfad",
+        "model": false
+      },
+      {
+        "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/onnx/source_params.npz",
+        "path": "model-store/downloads/wayu/source_params.npz",
+        "sha256": "9e820cc13e81d378c47e55e87382e7cd5579b50f5d9bbdf19663e721b5b1f1cc",
+        "model": true
+      },
+      {
+        "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/onnx/prosody_fp32.onnx",
+        "path": "model-store/downloads/wayu/prosody_fp32.onnx",
+        "sha256": "cab0963ab960a43e12cb2b2a232fd712bd5c0b369e86ad0c18090b81aa4eee35",
+        "model": true
+      },
+      {
+        "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/onnx/curves_fp32.onnx",
+        "path": "model-store/downloads/wayu/curves_fp32.onnx",
+        "sha256": "bc7c0a7c4e1a44c301143f9d1d34686b9a73dff7e577284a8781b0e428b17d1d",
+        "model": true
+      },
+      {
+        "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/onnx/decoder_fp32.onnx",
+        "path": "model-store/downloads/wayu/decoder_fp32.onnx",
+        "sha256": "e512c7e8cd05aefe1702b5f10581247a41b1c774a92c6a0d4538cad3a52d162b",
+        "model": true
+      },
+      {
+        "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/onnx/voicepacks.npz",
+        "path": "model-store/downloads/wayu/voicepacks.npz",
+        "sha256": "4a75ac3a5f25d2cffdd5272192e898ea2f23da6b3895650f19d95abd8fe32c5f",
+        "model": true
+      }
+    ]
+  },
+  "bundled_media_requiring_rights_evidence": [
+    {
+      "path": "assets/bundled/CatWizard/cat-wizard-poster.jpg",
+      "bytes": 7470,
+      "sha256": "06ab47a02e0d5cdc71fdecd0ef29ebc78625440985d928944eaab08cb910d579",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/CatWizard/cat-wizard.mp4",
+      "bytes": 87701,
+      "sha256": "aa17ba0b4baa56098c1d7bd357756e38e8ee415397700d46b9862a60efbf0396",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-break.jpg",
+      "bytes": 24211,
+      "sha256": "45d43fe065f52c8dbc87c2c947cf7bc37cab119099202c2eabc056ad00e04976",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-break.mp4",
+      "bytes": 83100,
+      "sha256": "80a47993645e4bce1510377768d726c13a9796efaa497c22186b8dce4799021b",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-dance.jpg",
+      "bytes": 10044,
+      "sha256": "6d47fb6b5b231771d1328f12e0d95b6e8446f0e3772feeb57319a527e3258221",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-dance.mp4",
+      "bytes": 70376,
+      "sha256": "39c512b1a182ea6512e40fb81212f5e6382fdc991865588c08dd320404ad630f",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-magic.jpg",
+      "bytes": 7502,
+      "sha256": "0604a7586f1691912a4d31493fda75924f0c2e1245ce5c0c89d6804d71738381",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-magic.mp4",
+      "bytes": 45196,
+      "sha256": "2304890ac5f64499a459b8280ec42d593bc0a2c3806621c9ee977b8fb18918f9",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-paw.jpg",
+      "bytes": 10814,
+      "sha256": "4a48d317a347e8f41661287cee91f3141759b51221e1d3971a85c11db9ec23d5",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-paw.mp4",
+      "bytes": 95857,
+      "sha256": "d067b8ea90b70c6c0a38795da0ef6f988bff799e5aef5d1869d881cb51afebe0",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-stalk.jpg",
+      "bytes": 16507,
+      "sha256": "865b2bcbcad7254aeec2df0e9170c4795a642cae48e3d7df15ee43cb334db394",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-stalk.mp4",
+      "bytes": 243473,
+      "sha256": "6553b1aa92fc7c64ef5b772a40e7378d6d5c735f5169854ff43cc95d757873a4",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-stretch.jpg",
+      "bytes": 11475,
+      "sha256": "2592cbb386c97ef1d789c1ee93fd59224218286b8cb5b5f8c1895ededd1c5849",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-stretch.mp4",
+      "bytes": 98493,
+      "sha256": "56742f6e4b4ce26071a63d4dc0dbed3770158c28ef67b68d69d11a977c3d0999",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-vibe.jpg",
+      "bytes": 6162,
+      "sha256": "93bffb1f18e0ddc07a74151b36fc91800fbf4a08fb41f4901dc3ba7d2f1d628f",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-vibe.mp4",
+      "bytes": 201438,
+      "sha256": "b04e0bda16cb41681a84f70b6591bc08d361ffc2de8910dcb659ccade32da400",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-film-drink.jpg",
+      "bytes": 19124,
+      "sha256": "cf85666a9b1b04ea3ba14d423c99c38769c6193f1369fc2febff12fdc37d5e7a",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-film-drink.mp4",
+      "bytes": 261437,
+      "sha256": "422155dc02fe8f9d76dfb6849ef50fb81fb2bd8a4e168480226c4330ec3dd70e",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-monkey-work.jpg",
+      "bytes": 13125,
+      "sha256": "65a885af6d5077a9b0090a251ad9cc841b8bf359a104dabb7bcd3679e2b27b02",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-monkey-work.mp4",
+      "bytes": 28418,
+      "sha256": "d3fac9982b2d572c608b0827d3d95a39eb45fb7a300f97238a5b4a384fb3b6ec",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-pigeon.jpg",
+      "bytes": 7891,
+      "sha256": "c999eb5437da27fe1cfaa0bf517ed07becbc306228c6ba7a6261b31afdb652aa",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-pigeon.mp4",
+      "bytes": 70077,
+      "sha256": "9e6c855077491781d17e5067442351c22ace30fc8dd4037a1ccbeb8a0ab7452f",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-porpoise.jpg",
+      "bytes": 6223,
+      "sha256": "f0da4e3e8dceeeadf2e09c7033ad9e947cc453cbbaa10d376aabb0033c3c3217",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-porpoise.mp4",
+      "bytes": 31521,
+      "sha256": "1b3c55476b560d783c89626aefa874bb0d3fe261eac2b4168e36dbcd3f5ed743",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-swing.jpg",
+      "bytes": 25971,
+      "sha256": "58c00e0ff253b3df0079bd1906c0a5299367d66b4ceb8fbf8c7810387a12ccc4",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-swing.mp4",
+      "bytes": 212553,
+      "sha256": "9d4066021621ae2e107d509ea129d053829fa265b76736b37271d4a6861e8e82",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-wizard.jpg",
+      "bytes": 14315,
+      "sha256": "fd8809b837345ba8ee1260321b2293dd0d704c781e489dd012a3050d70b1596f",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-wizard.mp4",
+      "bytes": 148279,
+      "sha256": "7497a461db150d2329aaaec234106e0fea0136fe992621c21f1c691cd27d7daa",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-work-sleep.jpg",
+      "bytes": 6148,
+      "sha256": "942a5364b180e3d5ae447eb5b5169257094d4bc13f90135f04b15aa1283ea85d",
+      "rights_evidence": "not located in repository"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-work-sleep.mp4",
+      "bytes": 19786,
+      "sha256": "11220bd890a33d2f527c0547195f11275061bb8fecd6a2d3c2e06a1695b465f5",
+      "rights_evidence": "not located in repository"
+    }
+  ],
+  "patches": [
+    {
+      "path": "shared/native/OmniVoice/mobile-cancel.patch",
+      "sha256": "ad5ac004f5e953cf4a3c37d8f023f3f1de5a4d56842b3eb5df864257808ddc4d"
+    },
+    {
+      "path": "shared/native/OpusRuntime/mobile-cancel.patch",
+      "sha256": "771922c9f474afa307f025eb46b2d20af8692458d0d5b46f164604b55b1e8e35"
+    }
+  ]
+}

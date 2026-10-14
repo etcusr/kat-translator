@@ -39,7 +39,7 @@ final class TranslatorUITests: XCTestCase {
         }
         func shot(_ name: String) {
             Thread.sleep(forTimeInterval: 1.5)
-            let attachment = XCTAttachment(screenshot: app.screenshot())
+            let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
             attachment.name = "store-ios-ru-" + name
             attachment.lifetime = .keepAlways
             add(attachment)
@@ -70,6 +70,50 @@ final class TranslatorUITests: XCTestCase {
         app.buttons["models.languageSetup"].tap()
         XCTAssertTrue(app.textFields["setup.search.targets"].waitForExistence(timeout: 20))
         shot("4-languages")
+    }
+
+    /// Read-only screen traversal; caller verifies persisted preferences and history.
+    @MainActor func testPublicationLocalizations() throws {
+        guard ProcessInfo.processInfo.environment["KAT_IOS_LOCALIZATION_CHECK"] == "1" else {
+            throw XCTSkip("Opt-in device localization acceptance")
+        }
+        continueAfterFailure = false
+        XCUIDevice.shared.orientation = .portrait
+        let app = XCUIApplication()
+        defer { app.terminate() }
+        for (language, text, voice, models, settings, done) in [
+            ("es", "Texto", "Voz", "Modelos", "Ajustes", "Hecho"),
+            ("tr", "Metin", "Ses", "Modeller", "Ayarlar", "Tamamlandı")
+        ] {
+            app.launchArguments = ["-languageSetupCompleted", "YES", "-appInterfaceLanguage", language,
+                "-AppleLanguages", "(\(language))", "-automaticModelLoad", "NO", "-showTechnicalInfo", "NO"]
+            app.launch()
+            func shot(_ screen: String) {
+                Thread.sleep(forTimeInterval: 1.5) // Let mode/sheet transitions finish before capture.
+                let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+                attachment.name = "acceptance-ios-\(language)-\(screen)"
+                attachment.lifetime = .keepAlways; add(attachment)
+            }
+            let textMode = app.segmentedControls.buttons[text]
+            XCTAssertTrue(textMode.waitForExistence(timeout: 60)); textMode.tap()
+            XCTAssertTrue(app.textViews.firstMatch.waitForExistence(timeout: 10))
+            XCTAssertTrue(app.buttons["text.translate"].exists)
+            shot("text")
+            app.segmentedControls.buttons[voice].tap()
+            shot("voice")
+            app.buttons[settings].tap()
+            XCTAssertTrue(app.buttons[done].waitForExistence(timeout: 10))
+            XCTAssertTrue(app.buttons[done].isHittable)
+            shot("settings")
+            app.buttons[done].tap()
+            app.buttons[models].firstMatch.tap()
+            let setup = app.buttons["models.languageSetup"]
+            XCTAssertTrue(setup.waitForExistence(timeout: 10)); shot("models")
+            setup.tap()
+            XCTAssertTrue(app.textFields["setup.search.targets"].waitForExistence(timeout: 15))
+            shot("languages")
+            app.terminate()
+        }
     }
 
     /// Exercise the compact-device Auto policy using installed OPUS and Index, without

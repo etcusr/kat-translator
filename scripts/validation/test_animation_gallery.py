@@ -1,4 +1,6 @@
 import importlib.util
+import ast
+import json
 from pathlib import Path
 import tempfile
 import unittest
@@ -6,6 +8,23 @@ import unittest
 SCRIPT = Path(__file__).resolve().parents[1] / 'update-animation-gallery.py'
 
 class GallerySyncTests(unittest.TestCase):
+    def test_playlist_matches_sources_and_has_no_retired_clip(self):
+        root = SCRIPT.parents[1]
+        assets = root / 'assets/bundled/LoadingAnimations'
+        rows = json.loads((assets / 'loading-animations.json').read_text())
+        ids = {row['id'] for row in rows}
+        self.assertNotIn('one-beer', ids)
+        self.assertEqual(len(ids), len(rows))
+        tree = ast.parse((root / 'scripts/prepare-loading-animations.py').read_text())
+        sources = next(ast.literal_eval(node.value) for node in tree.body
+                       if isinstance(node, ast.Assign) and any(
+                           isinstance(target, ast.Name) and target.id == 'SOURCES'
+                           for target in node.targets))
+        self.assertEqual(ids, {row[0] for row in sources})
+        expected = {row['resource'] for row in rows}
+        for suffix in ['mp4', 'jpg']:
+            self.assertEqual(expected, {p.stem for p in assets.glob('*.' + suffix)})
+
     def test_add_remove_and_keep_unmanaged_files(self):
         self.assertTrue(SCRIPT.exists(), 'Persistent gallery synchronizer is missing')
         spec = importlib.util.spec_from_file_location('gallery', SCRIPT)

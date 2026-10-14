@@ -28,7 +28,7 @@ for file in sorted(application_files()):
     kind = {'.swift':'sourcecode.swift','.c':'sourcecode.c.c','.h':'sourcecode.c.h','.plist':'text.plist.xml','.xcstrings':'text.json.xcstrings','.xcprivacy':'text.xml'}.get(file.suffix,'text')
     ref=obj(rel, isa='PBXFileReference', lastKnownFileType=kind, path=rel, sourceTree='<group>')
     source_refs.append(ref)
-    if file.suffix in ['.json', '.m4a', '.xcstrings', '.xcprivacy'] or rel in ['assets/bundled/OCR/LICENSE.txt', 'assets/bundled/CatWizard/cat-wizard.mp4', 'assets/bundled/CatWizard/cat-wizard-poster.jpg'] or (file.parent.name == 'LoadingAnimations' and file.suffix in ['.mp4', '.jpg']): resource_builds.append(obj('resource:'+rel, isa='PBXBuildFile', fileRef=ref))
+    if file.suffix in ['.json', '.m4a', '.xcstrings', '.xcprivacy'] or rel in ['assets/bundled/ThirdPartyNotices.txt', 'assets/bundled/OCR/LICENSE.txt', 'assets/bundled/CatWizard/cat-wizard.mp4', 'assets/bundled/CatWizard/cat-wizard-poster.jpg'] or (file.parent.name == 'LoadingAnimations' and file.suffix in ['.mp4', '.jpg']): resource_builds.append(obj('resource:'+rel, isa='PBXBuildFile', fileRef=ref))
     if file.suffix in ['.swift','.c']: source_builds.append(obj('build:'+rel, isa='PBXBuildFile', fileRef=ref))
 for catalog in sorted((root/'apps/ios/Resources').rglob('*.xcassets')):
     rel = catalog.relative_to(root).as_posix()

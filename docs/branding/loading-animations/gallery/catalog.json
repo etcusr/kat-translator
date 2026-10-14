@@ -102,7 +102,7 @@
       "duration": 4.291667,
       "id": "cat-break",
       "poster": "clips/cat-break.jpg",
-      "sha256": "55c907ae291cf314738cafd7e0734b1a0725b26409ba62b6ba9068e4d7acd59d",
+      "sha256": "80a47993645e4bce1510377768d726c13a9796efaa497c22186b8dce4799021b",
       "title": "Кот на перерыве",
       "video": "clips/cat-break.mp4"
     },
@@ -113,14 +113,6 @@
       "sha256": "9d4066021621ae2e107d509ea129d053829fa265b76736b37271d4a6861e8e82",
       "title": "Качели",
       "video": "clips/swing.mp4"
-    },
-    {
-      "duration": 5.9,
-      "id": "one-beer",
-      "poster": "clips/one-beer.jpg",
-      "sha256": "4a599dad309f751192089900b7403060be1774ee60d028860590d62b54856524",
-      "title": "Перерыв на пиво",
-      "video": "clips/one-beer.mp4"
     },
     {
       "duration": 4.9,

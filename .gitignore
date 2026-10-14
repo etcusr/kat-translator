@@ -102,3 +102,8 @@ docs/benchmarks/crypto-voice-2026-10-11/
 /HANDOVER.md
 /docs/claude-export/
 /docs/superpowers/
+
+# Generated review media; keep sources and gallery manifests only.
+/docs/branding/loading-animations/gallery/cat/
+/docs/branding/loading-animations/gallery/clips/
+/docs/branding/loading-animations/gallery/index.html

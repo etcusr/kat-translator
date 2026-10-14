@@ -1,8 +1,16 @@
 # Processing animations
 
+## Английская подпись cat-break — 14 октября 2026
+
+Ролик `cat-break` и его постер теперь содержат **CAT BREAK** вместо двух русских подписей. Он общий для всех языков iOS/macOS/Android; фильтра по языку нет. H.264 384×288, 24 fps, 103 кадра / 4,292 секунды, без звука. Чёрные полосы закрывают прежние подписи, центральная область сохраняет движение кота.
+
+`prepare-loading-animations.py` автоматически применяет `localize-cat-break.py` после нормализации этого ролика. Локализатор использует ffmpeg и macOS AppKit (`render-cat-break-caption.swift`) для воспроизводимого текстового слоя; исходник должен иметь размер 384×288. Постер снимается из нового видео. Исходные SHA в каталоге относятся к первоначальным роликам; преобразование отмечено полями `caption`/`captionLanguage`. Изменение надписи не меняет происхождение и права на исходный клип.
+
+Актуальные галерея и ZIP обновлены; отдельное GIF-превью: `dist/share/loading-cat-break-en.gif`. Установленные/ранее загруженные приложения получат замену после обновления сборки.
+
 ## Постоянная галерея — 11 октября 2026
 
-Текущий набор: 10 движений кота и 15 роликов. Добавлен трюк с лужицей и прыжком через неё; «Кучка» теперь заканчивается закапыванием задними лапами. Оба сценария входят в последовательное воспроизведение. Отскок начинается заранее и включает толчок, подбирание лап и мягкое приземление. Перед лужицей видны три коротких сокращения корпуса; закапывание сохранено.
+Текущий набор: 10 движений кота и 14 роликов. 14 октября `one-beer` удалён из ресурсов всех платформ и генератора; старые подписанные пакеты остаются историческими артефактами. Добавлен трюк с лужицей и прыжком через неё; «Кучка» теперь заканчивается закапыванием задними лапами. Оба сценария входят в последовательное воспроизведение. Отскок начинается заранее и включает толчок, подбирание лап и мягкое приземление. Перед лужицей видны три коротких сокращения корпуса; закапывание сохранено.
 
 [Открыть галерею](gallery/index.html). Здесь находятся **только актуальные** движения нарисованного кота и ролики приложения. Кнопка **«Воспроизвести всё»** запускает их по очереди, показывает текущий номер и останавливает просмотр при повторном нажатии. Отдельные карточки тоже можно воспроизводить и скачивать. HTML работает после распаковки всей папки без сервера и интернета.
 
@@ -14,7 +22,7 @@ python3 scripts/update-animation-gallery.py --zip    # также архив д�
 python3 scripts/update-animation-gallery.py --check  # только проверка актуальности
 ```
 
-Источник списка роликов — `App/Resources/LoadingAnimations/loading-animations.json`; новые элементы автоматически получают карточку, удалённые исчезают из HTML и управляемых файлов. Можно указать `title` в записи манифеста для подписи нового ролика. Экспорт кота использует текущие SwiftUI-рисунок, модели движения, `CatLoadingPlay.Trick.allCases` и форму из приложения. Новые случайные трюки автоматически попадают в экспорт; если для трюка нужен особый запуск, экспорт явно остановится до обновления сценария, а не пропустит его незаметно.
+Источник списка роликов — `assets/bundled/LoadingAnimations/loading-animations.json`; новые элементы автоматически получают карточку, удалённые исчезают из HTML и управляемых файлов. Можно указать `title` в записи манифеста для подписи нового ролика. Экспорт кота использует текущие SwiftUI-рисунок, модели движения, `CatLoadingPlay.Trick.allCases` и форму из приложения. Новые случайные трюки автоматически попадают в экспорт; если для трюка нужен особый запуск, экспорт явно остановится до обновления сценария, а не пропустит его незаметно.
 
 Изменение исходников кота инвалидирует экспорт: следующий запуск перерисует MP4/GIF/постеры через SwiftUI и ffmpeg. При неизменном коде тяжёлый экспорт повторно не выполняется. `--check` не требует ffmpeg или компиляции. HTML/CSS/JS генерируются из `scripts/update-animation-gallery.py` и `scripts/animation-gallery/`; вручную менять файлы в `gallery/` не нужно.
 
@@ -25,11 +33,11 @@ python3 scripts/update-animation-gallery.py --check  # только провер
 
 The user supplied fourteen Telegram MP4 clips. They join the existing wizard cat in a shared local playlist for **only the former CatWizardView locations** in Voice/Text processing. Model-preparation and download-progress cats remain unchanged.
 
-- 15 clips, shuffled without replacement; no consecutive repeat across shuffle cycles or separate waits in one app process.
+- 14 clips, shuffled without replacement; no consecutive repeat across shuffle cycles or separate waits in one app process.
 - Clip selection survives SwiftUI body updates. From Mac29 / iPhone18, each clip plays once, then the playlist advances at its end. Short clips no longer repeat to fill 8 seconds. Completion/cancellation dismisses the animation immediately.
 - One muted AVPlayer and one current item per visible surface; no audio-session changes. Playback pauses when the app is inactive or Reduce Motion is on; a poster remains visible. Dismantling removes the observer and player item.
-- Bundled H.264, 384×288, aspect-fit and black padding, frame rate capped at 24 fps, all audio removed. Originals are retained. Only the persistent letterbox on `giphy.mp4` is cropped, not subjects or captions.
-- `scripts/prepare-loading-animations.py` reproduces the assets with ffmpeg/ffprobe. `App/Resources/LoadingAnimations/loading-animations.json` records original names, SHA-256 hashes, output sizes and durations. Total video size: 1,737,941 bytes; JPEG posters are additional.
+- Bundled H.264, 384×288, aspect-fit and black padding, frame rate capped at 24 fps, all audio removed. Original source identities are retained in the manifest; raw source files are not distributed in the repository. Only the persistent letterbox on `giphy.mp4` is cropped, not subjects or captions.
+- `scripts/prepare-loading-animations.py` reproduces the assets with ffmpeg/ffprobe. `assets/bundled/LoadingAnimations/loading-animations.json` records original names, SHA-256 hashes, output sizes and durations. Total video size: 1,628,520 bytes; JPEG posters are additional.
 
 ## Central processing overlay (Mac29 / iPhone18)
 

@@ -23,3 +23,5 @@
 [Описание полей Apple](https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information). Контакты App Review не отображаются покупателям. Политика конфиденциальности указывается отдельно в App Privacy: https://etcusr.github.io/kat-translator/privacy/ (HTTP 200 проверен 14.10.2026).
 
 В разделе App Previews and Screenshots нужны реальные снимки iPhone. Header/Search Results — отдельные рекламные материалы; текущие снимки интерфейса не заменяют автоматически эти широкие изображения. Кнопка Save сохраняет черновик; Add for Review относится к отдельному этапу отправки.
+
+Обновление: исходники и локальный магазинный IPA теперь 1.0 (47). Новые русские снимки — `dist/store/ios-1.0-build47-ru/1206x2622/`; черновики ES/TR — соседние папки. [Проверки и открытые вопросы](../../ios-release-preflight-2026-10-14.md).
