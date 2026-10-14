@@ -42,9 +42,12 @@ APP="$ARCHIVE/Products/Applications/Kat translator.app"
 if find "$APP" -name '*.xctest' | grep -q .; then echo "xctest bundle in archive" >&2; exit 1; fi
 codesign --verify --deep --strict "$APP"
 codesign -d --entitlements - --xml "$APP" 2>/dev/null | grep -q app-sandbox || { echo "App is not sandboxed" >&2; exit 1; }
-codesign -d --entitlements - --xml "$APP/Contents/MacOS/OpusPython" 2>/dev/null | grep -q security.inherit || { echo "Helper lacks inherited sandbox" >&2; exit 1; }
-# Apple rejects any executable without the sandbox entitlement; only the app and its helper may remain.
-EXTRA=$(find "$APP" -type f -exec file {} + | grep 'Mach-O 64-bit executable' | cut -d: -f1 | grep -v -e '/Contents/MacOS/Kat translator$' -e '/Contents/MacOS/OpusPython$' || true)
+SHM="$APP/Contents/Resources/OpusPython/torch/bin/torch_shm_manager"
+for helper in "$APP/Contents/MacOS/OpusPython" "$SHM"; do
+  codesign -d --entitlements - --xml "$helper" 2>/dev/null | grep -q security.inherit || { echo "Helper lacks inherited sandbox: $helper" >&2; exit 1; }
+done
+# Apple rejects any executable without the sandbox entitlement; only the app and sandboxed helpers may remain.
+EXTRA=$(find "$APP" -type f -exec file {} + | grep 'Mach-O 64-bit executable' | cut -d: -f1 | grep -v -e '/Contents/MacOS/Kat translator$' -e '/Contents/MacOS/OpusPython$' -e '/torch/bin/torch_shm_manager$' || true)
 [ -z "$EXTRA" ] || { echo "Unexpected executables: $EXTRA" >&2; exit 1; }
 # Store build ships no TLS/crypto implementation (export compliance, as on iOS).
 CRYPTO=$(find "$APP" -type f \( -name '*.so' -o -name '*.dylib' -o -perm +111 \) -print0 | xargs -0 grep -l -a -E 'OpenSSL 3\.|_SSL_new|OPENSSL_init_crypto|rustls|BoringSSL' 2>/dev/null || true)

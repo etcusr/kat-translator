@@ -49,9 +49,12 @@ shutil.copy2(root/'shared/native/IndexMLX/index_mlx.py',res/'IndexPython/index_m
 opus_source=root/'Dependencies/build/opus-gpu/OpusPython'
 if not opus_source.is_dir(): raise RuntimeError('Prepare OPUS GPU runtime: python3 scripts/prepare-opus-gpu.py')
 copytree(opus_source,res/'OpusPython')
-# Store validation requires every executable to be sandboxed; the worker never runs
-# torch's standalone tools (protoc, torch_shm_manager), so the store build omits them.
-if store_sandbox and (res/'OpusPython/torch/bin').exists(): shutil.rmtree(res/'OpusPython/torch/bin')
+# Store validation requires every executable to be sandboxed. protoc is never run, so the
+# store build omits it; `import torch` requires torch_shm_manager to exist, so it stays and is
+# signed like the helper (sandbox + inherit).
+shm_manager=res/'OpusPython/torch/bin/torch_shm_manager'
+if store_sandbox:
+ for tool in (res/'OpusPython/torch/bin').glob('protoc*'): tool.unlink()
 shutil.copy2(root/'shared/native/OpusGPU/opus_gpu.py',res/'OpusPython/opus_gpu.py')
 helper_source=py/'bin/python3.11'
 framework_executable=py/'Resources/Python.app/Contents/MacOS/Python'
@@ -74,7 +77,7 @@ queue += [(fw/'OmniVoiceRuntime.framework/OmniVoiceRuntime',fw/'OmniVoiceRuntime
 queue += [(fw/'OpusRuntime.framework/OpusRuntime',fw/'OpusRuntime.framework/OpusRuntime')]
 queue.append((helper_source,helper))
 for source in opus_source.rglob('*'):
- if store_sandbox and source.relative_to(opus_source).parts[:2] == ('torch','bin'): continue
+ if store_sandbox and source.relative_to(opus_source).parts[:2] == ('torch','bin') and source.name.startswith('protoc'): continue
  if source.is_file():
   with source.open('rb') as stream: magic=stream.read(4)
   if magic in {bytes.fromhex(x) for x in ('cffaedfe','feedfacf','cafebabe','bebafeca')}:
@@ -115,8 +118,8 @@ while queue:
   subprocess.run(['install_name_tool','-change',dep,'@rpath/'+name,str(dst)],check=True)
  # Original ONNX install name is versioned; consumers and library use stable bundle name.
  if dst.name=='libonnxruntime.dylib': subprocess.run(['install_name_tool','-id','@rpath/libonnxruntime.dylib',str(dst)],check=True)
- # A sandboxed store app may only spawn helpers that inherit its sandbox.
- helper_entitlements=['--entitlements',str(root/'apps/macos/KatMacHelper.entitlements')] if dst == helper and store_sandbox else []
+ # A sandboxed store app may only contain executables that inherit its sandbox.
+ helper_entitlements=['--entitlements',str(root/'apps/macos/KatMacHelper.entitlements')] if dst in (helper,shm_manager) and store_sandbox else []
  subprocess.run(['codesign','--force','--sign',os.environ.get('EXPANDED_CODE_SIGN_IDENTITY') or '-',*helper_entitlements,str(dst)],check=True,capture_output=True)
 subprocess.run(['codesign','--force','--sign',os.environ.get('EXPANDED_CODE_SIGN_IDENTITY') or '-',str(fw/'OmniVoiceRuntime.framework')],check=True,capture_output=True)
 subprocess.run(['codesign','--force','--sign',os.environ.get('EXPANDED_CODE_SIGN_IDENTITY') or '-',str(fw/'OpusRuntime.framework')],check=True,capture_output=True)

@@ -63,6 +63,27 @@ final class MacRuntimeTests: XCTestCase {
             XCTAssertEqual(started, 1)
         }
     }
+    /// Opt-in: real network download, SHA-256 check and install inside the running app's storage
+    /// (the sandbox container in the Mac App Store configuration).
+    @MainActor func testRealDownloadInstallsIntoAppStorage() async throws {
+        guard ProcessInfo.processInfo.environment["KAT_REAL_DOWNLOAD_TEST"] == "1" else { throw XCTSkip("Opt-in network download") }
+        let part = try XCTUnwrap(RecognitionPackages.definitions.first { $0.id == RecognitionCatalog.ultraID }?.parts.first { $0.path == "JointDecisionv3.mlmodelc/weights/weight.bin" })
+        let item = ModelDownloader(model: ModelDescriptor(id: "sandbox-download-check", title: "Sandbox download check", remoteURL: part.remoteURL, byteCount: part.byteCount, sha256: part.sha256))
+        await item.restore(); await item.cancel()
+        if item.installedURL != nil { await item.remove() }
+        item.start()
+        let deadline = Date().addingTimeInterval(300)
+        while item.installedURL == nil && Date() < deadline {
+            XCTAssertFalse([.failed, .restartRequired].contains(item.state.phase), item.state.error ?? "transfer failed")
+            if [.failed, .restartRequired].contains(item.state.phase) { break }
+            try await Task.sleep(for: .milliseconds(200))
+        }
+        let installed = try XCTUnwrap(item.installedURL, "not installed: \(item.state.phase.rawValue)")
+        XCTAssertTrue(installed.path.hasPrefix(ModelDownloader.root.path))
+        print("SANDBOX_DOWNLOAD_OK bytes=\(part.byteCount) sandboxed=\(ProcessInfo.processInfo.environment["APP_SANDBOX_CONTAINER_ID"] != nil) root=\(ModelDownloader.root.path.contains("/Containers/"))")
+        await item.remove()
+        try? FileManager.default.removeItem(at: item.transferRoot)
+    }
     @MainActor func testDownloadOfflineAndUnmeteredPaths() async throws {
         let suite = "download-network-tests-" + UUID().uuidString
         let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))

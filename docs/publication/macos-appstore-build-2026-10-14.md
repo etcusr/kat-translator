@@ -1,4 +1,4 @@
-# Mac App Store: сборки 1.0 (61) и 1.0 (62) без OpenSSL — 14 октября 2026
+# Mac App Store: сборки 1.0 (61–63) — 14 октября 2026
 
 ## Решение
 
@@ -7,7 +7,7 @@
 | Параметр | Магазинная сборка |
 |---|---|
 | Bundle ID | `app.kattranslator` — общий с iOS: одна запись App Store Connect для iOS и macOS |
-| Версия / build | **1.0 / 62** (актуальная; 61 загружена раньше, содержит OpenSSL) — совпадает с версией macOS-страницы ASC «1.0», иначе сборка не появится в поле «Build». Номер build продолжает Mac-последовательность после 60 |
+| Версия / build | **1.0 / 63** (актуальная; 61 — с OpenSSL, 61 и 62 — с неработающим OPUS GPU) — совпадает с версией macOS-страницы ASC «1.0», иначе сборка не появится в поле «Build». Номер build продолжает Mac-последовательность после 60 |
 | Entitlements | `apps/macos/KatMacStore.entitlements`: app-sandbox, device.audio-input, files.user-selected.read-write, network.client |
 | Helper | `Contents/MacOS/OpusPython` (PyTorch Metal worker старого OPUS EN-пакета) подписывается `KatMacHelper.entitlements`: app-sandbox + inherit |
 | Подпись | Archive — Apple Development (automatic), экспорт `app-store-connect` — Apple Distribution и 3rd Party Mac Developer Installer, профиль «Mac Team Store Provisioning Profile: app.kattranslator» (Xcode managed) |
@@ -17,7 +17,7 @@
 
 ## Изменения кода
 
-- `scripts/bundle-macos-runtimes.py`: при `ENABLE_APP_SANDBOX=YES` helper подписывается с наследованием sandbox, а `OpusPython/torch/bin` (protoc, torch_shm_manager) не копируется. Worker их не вызывает. Для прямой сборки поведение прежнее.
+- `scripts/bundle-macos-runtimes.py`: при `ENABLE_APP_SANDBOX=YES` helper `OpusPython` и `torch/bin/torch_shm_manager` подписываются с наследованием sandbox, `protoc` не копируется. Для прямой сборки поведение прежнее.
 - `shared/apple/Conversation/AppModel.swift`: импорт аудиофайла открывает security-scoped доступ на время чтения (в sandbox URL из file importer; вне sandbox вызов ничего не меняет).
 - Скрипт проверяет: нет `.xctest`, строгая подпись, sandbox у приложения, inherit у helper, нет других исполняемых Mach-O.
 
@@ -52,6 +52,25 @@
 Скрипт `archive-macos-appstore.sh` останавливает сборку при появлении этих маркеров. Перевод внутри самого sandbox-приложения на моделях не запускался: контейнер пуст.
 
 Ответ на вопрос о шифровании (export compliance) для macOS пользователь выбирает в ASC сам. Сетевые загрузки используют системный HTTPS (URLSession), он входит в исключение Apple для стандартного шифрования ОС.
+
+## 1.0 (63): исправление OPUS GPU и проверка внутри sandbox
+
+В 61 и 62 из `torch/bin` удалялся и `torch_shm_manager`. Однако `import torch` проверяет наличие этого файла (`torch/__init__.py`, `_manager_path`), поэтому OPUS GPU worker (старый пакет EN↔RU/UK/BE) падал с ошибкой `RuntimeError: Unable to find torch_shm_manager`. Ранняя проверка вне sandbox шла на окружении прямой сборки, где файл был, и ошибку не показала. Теперь файл сохраняется и подписывается app-sandbox + inherit; удаляется только `protoc`. Скрипт проверяет наличие inherit у обоих helper-файлов.
+
+Проверка внутри sandbox. Та же store-конфигурация (sandbox, без OpenSSL/rustls, ID `app.kattranslator`, development-подпись), тесты `MacRuntimeTests` выполняются в процессе sandbox-приложения. Защищённый контейнер нельзя заполнить снаружи, поэтому тестовая подпись (не магазинная) добавляла только read-only исключение для `~/Library/Application Support/OfflineTranslator/` и `model-store/research/` с уже скачанными моделями.
+
+| Тест | Результат |
+|---|---|
+| `MacMLXIntegrationTests` — Index 9B MLX MTP2 in-process | PASS: перевод, отмена до/во время, переполнение буфера, повторное использование, маршрутизация |
+| `OpusGPUIntegrationTests` — helper в sandbox, Metal FP16 | после исправления PASS: EN→RU/UK/BE, RU/UK/BE→EN, отмена, повторное использование, роутер. До исправления FAIL (см. выше) |
+| `CompactModelsIntegrationTests` | PASS: тест устройства CPU/Metal, Index 2B (llama.cpp Metal) RU→EN, OPUS CT2 RU→DE и DE→RU |
+| `testRealDownloadInstallsIntoAppStorage` (новый opt-in, `KAT_REAL_DOWNLOAD_TEST=1`) | PASS: настоящая фоновая загрузка URLSession 12,6 МБ, SHA-256, установка в контейнер, удаление |
+| `testImageOCRAndInvalidImport` | PASS |
+| `MacIntegrationTests` (16) и `testImageImportAndTranslation` | 13 + 1 FAIL: тесты рассчитаны на установленные модели и пройденную настройку, а контейнер пуст («Download a translation model from Models first»); не прошедшие 3 — без моделей. Запуск этих же тестов на прямой сборке для сравнения не удался: «test runner hung before establishing connection» (дважды) |
+
+**Upload 1.0 (63): `Upload succeeded`** (14.10); перед загрузкой скрипт подтвердил inherit у обоих helper-файлов и отсутствие OpenSSL/rustls.
+
+Не проверено в sandbox: микрофон и голосовой путь ASR/TTS, снимок области экрана, горячие клавиши, Accessibility-перевод выделения, NSOpen/SavePanel вживую, первичная настройка через UI.
 
 ## Открыто
 
