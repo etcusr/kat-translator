@@ -43,6 +43,12 @@ index_source=root/'Dependencies/build'/mac_profile['runtime']/'IndexPython'
 if not index_source.is_dir(): raise RuntimeError('Prepare Index runtime: python3 scripts/prepare-index-mlx.py')
 copytree(index_source,res/'IndexPython')
 if store_sandbox:
+ # SwiftPM resource bundles carry no executable but arrive development-signed; export does
+ # not re-sign inside Resources (ITMS-90284). The app signature seals them as resources.
+ for resource_bundle in res.glob('*.bundle'):
+  info=resource_bundle/'Contents/Info.plist'
+  if info.exists() and b'CFBundleExecutable' not in info.read_bytes() and (resource_bundle/'Contents/_CodeSignature').exists():
+   shutil.rmtree(resource_bundle/'Contents/_CodeSignature')
  for omitted in res.glob('IndexPython/*'):
   if omitted.name.split('-')[0] in STORE_OMIT_INDEX: shutil.rmtree(omitted)
 shutil.copy2(root/'shared/native/IndexMLX/index_mlx.py',res/'IndexPython/index_mlx.py')

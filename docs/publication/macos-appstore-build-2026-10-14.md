@@ -119,6 +119,8 @@
 - `ITSAppUsesNonExemptEncryption=false`;
 - копия archive запускается вне `~/Downloads`, AppSandbox активен, новых отчётов о падениях нет.
 
+**Upload 1.0 (65): `Upload succeeded`** (14.10, 14:23 MSK). Это передача сборки; серверная обработка и приём Apple на момент записи не подтверждены.
+
 ## Открыто
 
 - Функциональная приёмка sandbox-сборки (лучше через TestFlight для macOS).
