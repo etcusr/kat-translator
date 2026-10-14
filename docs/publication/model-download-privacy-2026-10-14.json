@@ -121,7 +121,7 @@
   ],
   "existing_store_artifacts_updated": false,
   "new_release_builds_required": true,
-  "policy_deployed": false,
+  "policy_deployed": true,
   "sources": [
     "https://developer.apple.com/app-store/app-privacy-details/",
     "https://huggingface.co/privacy",
@@ -152,5 +152,16 @@
     },
     "privacy_tests_passed": 13,
     "documentation_tests_passed": 2
+  },
+  "deployment_verification": {
+    "date": "2026-10-14",
+    "commit": "de5f079a9e7553cfcb3f7d0c362985e3fa4d7514",
+    "run_url": "https://github.com/etcusr/kat-translator/actions/runs/38603546358",
+    "conclusion": "success",
+    "url": "https://etcusr.github.io/kat-translator/privacy/",
+    "http_status": 200,
+    "bytes": 20832,
+    "matches_source": true,
+    "sha256": "84fb34e1a91b9c759f09a1d27c2adecc0afd7c84932cb18d7579d263e46f941b"
   }
 }
