@@ -1,0 +1,23 @@
+[
+  {
+    "component": "CTranslate2",
+    "archive": "CTranslate2.tar.gz",
+    "patch": "shared/native/OpusRuntime/mobile-cancel.patch",
+    "sha256": "771922c9f474afa307f025eb46b2d20af8692458d0d5b46f164604b55b1e8e35",
+    "recipe": "scripts/build-opus-runtime.sh"
+  },
+  {
+    "component": "omnivoice-mobile",
+    "archive": "omnivoice-mobile.tar.gz",
+    "patch": "shared/native/OmniVoice/mobile-cancel.patch",
+    "sha256": "ad5ac004f5e953cf4a3c37d8f023f3f1de5a4d56842b3eb5df864257808ddc4d",
+    "recipe": "scripts/build-omnivoice-runtime.sh"
+  },
+  {
+    "component": "FluidAudio",
+    "archive": "FluidAudio.tar.gz",
+    "patch": "docs/licensing/2026-10-14/patches/FluidAudio.patch",
+    "sha256": "336acb11223477dd0ed424771fc0ca93dc3bf523fd0ca3cba99ad3b08482ce02",
+    "recipe": "scripts/prepare-speech-recognition.py"
+  }
+]

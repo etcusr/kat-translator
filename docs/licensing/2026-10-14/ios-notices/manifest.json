@@ -199,5 +199,29 @@
     "source": "https://raw.githubusercontent.com/google/sentencepiece/v0.2.2/LICENSE",
     "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "scope": "macOS; retained as supplemental notices in the shared set"
+  },
+  {
+    "file": "Rust-Source-Notices.txt",
+    "source": "../source-notices.json (archive/member SHA-256 provenance)",
+    "scope": "macOS tokenizers; conservative build/source superset",
+    "sha256": "eadbf108069c4c0bfaf96b10e3aa5f5fb06ee5be187b3f7a0b99da3276bb4223"
+  },
+  {
+    "file": "Native-Source-Notices.txt",
+    "source": "../source-notices.json (archive/member SHA-256 provenance)",
+    "scope": "All platforms; native and Python source/build/optional dependencies",
+    "sha256": "35576cd8fc6bd87088d07367f1cf187937b7ae46c9bc4a91c74fe6cfd439d324"
+  },
+  {
+    "file": "Android-Source-Notices.txt",
+    "source": "../source-notices.json (archive/member SHA-256 provenance)",
+    "scope": "Android; exact source license comments and notice files",
+    "sha256": "af8297838aacfa292b485b116f26c0cbc2ef3e90707658ac002585da72bb8b84"
+  },
+  {
+    "file": "Android-Binary-Notices.txt",
+    "source": "../android-binary-notices.json (binary archive/member SHA-256 provenance)",
+    "scope": "Android; notices retained from resolved AAR/JAR payloads",
+    "sha256": "1496820eacd25a5086d73e275cf544cf906400eb3eb54fe19e160aaefb59a88f"
   }
 ]

@@ -121,3 +121,5 @@ Android использует тот же каталог и дополнител�
 ## Лицензионные ресурсы
 
 `scripts/assemble-ios-notices.py` собирает проверяемые по SHA-256 исходные тексты из `docs/licensing/2026-10-14/ios-notices` в общий `assets/bundled/ThirdPartyNotices.txt`. Имя скрипта историческое: ресурс упаковывается в iOS, macOS и Android; Mac-дополнения помечены отдельно. Общий Apple `PrivacyView` открывает список документов офлайн. `scripts/validation/check_release_notices.py` сверяет фактический ресурс после сборки/экспорта в `.app`, IPA или APK. Наличие файла не сертифицирует полное покрытие зависимостей; границы — в [проверке комплекта](licensing/2026-10-14/release-package-review.md).
+
+Комплект исходников: `scripts/collect-dependency-sources.py` скачивает 614 закреплённых входов по `docs/licensing/2026-10-14/dependency-sources.json` с проверкой SHA-256; `--check` работает офлайн. Большие архивы находятся в ignored `dist/licensing`. `scripts/assemble-source-notices.py` воспроизводит дополнения из проверенных архивов, не извлекая и не исполняя код. Пути подмодулей, патчи и оставшиеся границы соответствия бинарникам — в [описании комплекта](licensing/2026-10-14/source-kit.md).

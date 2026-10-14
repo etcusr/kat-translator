@@ -1,0 +1,674 @@
+[
+  {
+    "parent": "OpenNMT/CTranslate2",
+    "revision": "617405f4b050e994e829d527da6caa0e0030afe7",
+    "path": "third_party/cxxopts",
+    "repository": "jarro2783/cxxopts",
+    "commit": "c74846a891b3cc3bfa992d588b1295f528d43039",
+    "archive": "git-jarro2783-cxxopts-c74846a891b3cc3bfa992d588b1295f528d43039.tar.gz"
+  },
+  {
+    "parent": "OpenNMT/CTranslate2",
+    "revision": "617405f4b050e994e829d527da6caa0e0030afe7",
+    "path": "third_party/thrust",
+    "repository": "NVIDIA/thrust",
+    "commit": "d997cd37a95b0fa2f1a0cd4697fd1188a842fbc8",
+    "archive": "git-NVIDIA-thrust-d997cd37a95b0fa2f1a0cd4697fd1188a842fbc8.tar.gz"
+  },
+  {
+    "parent": "OpenNMT/CTranslate2",
+    "revision": "617405f4b050e994e829d527da6caa0e0030afe7",
+    "path": "third_party/googletest",
+    "repository": "google/googletest",
+    "commit": "f8d7d77c06936315286eb55f8de22cd23c188571",
+    "archive": "git-google-googletest-f8d7d77c06936315286eb55f8de22cd23c188571.tar.gz"
+  },
+  {
+    "parent": "OpenNMT/CTranslate2",
+    "revision": "617405f4b050e994e829d527da6caa0e0030afe7",
+    "path": "third_party/cpu_features",
+    "repository": "google/cpu_features",
+    "commit": "8a494eb1e158ec2050e5f699a504fbc9b896a43b",
+    "archive": "git-google-cpu_features-8a494eb1e158ec2050e5f699a504fbc9b896a43b.tar.gz"
+  },
+  {
+    "parent": "OpenNMT/CTranslate2",
+    "revision": "617405f4b050e994e829d527da6caa0e0030afe7",
+    "path": "third_party/spdlog",
+    "repository": "gabime/spdlog",
+    "commit": "76fb40d95455f249bd70824ecfcae7a8f0930fa3",
+    "archive": "git-gabime-spdlog-76fb40d95455f249bd70824ecfcae7a8f0930fa3.tar.gz"
+  },
+  {
+    "parent": "OpenNMT/CTranslate2",
+    "revision": "617405f4b050e994e829d527da6caa0e0030afe7",
+    "path": "third_party/ruy",
+    "repository": "google/ruy",
+    "commit": "363f252289fb7a1fba1703d99196524698cb884d",
+    "archive": "git-google-ruy-363f252289fb7a1fba1703d99196524698cb884d.tar.gz"
+  },
+  {
+    "parent": "google/ruy",
+    "revision": "363f252289fb7a1fba1703d99196524698cb884d",
+    "path": "third_party/googletest",
+    "repository": "google/googletest",
+    "commit": "6c58c11d5497b6ee1df3cb400ce30deb72fc28c0",
+    "archive": "git-google-googletest-6c58c11d5497b6ee1df3cb400ce30deb72fc28c0.tar.gz"
+  },
+  {
+    "parent": "google/ruy",
+    "revision": "363f252289fb7a1fba1703d99196524698cb884d",
+    "path": "third_party/cpuinfo",
+    "repository": "pytorch/cpuinfo",
+    "commit": "082deffc80ce517f81dc2f3aebe6ba671fcd09c9",
+    "archive": "git-pytorch-cpuinfo-082deffc80ce517f81dc2f3aebe6ba671fcd09c9.tar.gz"
+  },
+  {
+    "parent": "OpenNMT/CTranslate2",
+    "revision": "617405f4b050e994e829d527da6caa0e0030afe7",
+    "path": "third_party/cutlass",
+    "repository": "NVIDIA/cutlass",
+    "commit": "bbe579a9e3beb6ea6626d9227ec32d0dae119a49",
+    "archive": "git-NVIDIA-cutlass-bbe579a9e3beb6ea6626d9227ec32d0dae119a49.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/pybind11",
+    "repository": "pybind/pybind11",
+    "commit": "97bf890db679505a14dfe547a5e77bb2bd05dc90",
+    "archive": "git-pybind-pybind11-97bf890db679505a14dfe547a5e77bb2bd05dc90.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/googletest",
+    "repository": "google/googletest",
+    "commit": "52eb8108c5bdec04579160ae17225d66034bd723",
+    "archive": "git-google-googletest-52eb8108c5bdec04579160ae17225d66034bd723.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/benchmark",
+    "repository": "google/benchmark",
+    "commit": "299e5928955cc62af9968370293b916f5130916f",
+    "archive": "git-google-benchmark-299e5928955cc62af9968370293b916f5130916f.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/protobuf",
+    "repository": "protocolbuffers/protobuf",
+    "commit": "f0dc78d7e6e331b8c6bb2d5283e06aa26883ca7c",
+    "archive": "git-protocolbuffers-protobuf-f0dc78d7e6e331b8c6bb2d5283e06aa26883ca7c.tar.gz"
+  },
+  {
+    "parent": "protocolbuffers/protobuf",
+    "revision": "f0dc78d7e6e331b8c6bb2d5283e06aa26883ca7c",
+    "path": "third_party/benchmark",
+    "repository": "google/benchmark",
+    "commit": "5b7683f49e1e9223cf9927b24f6fd3d6bd82e3f8",
+    "archive": "git-google-benchmark-5b7683f49e1e9223cf9927b24f6fd3d6bd82e3f8.tar.gz"
+  },
+  {
+    "parent": "protocolbuffers/protobuf",
+    "revision": "f0dc78d7e6e331b8c6bb2d5283e06aa26883ca7c",
+    "path": "third_party/googletest",
+    "repository": "google/googletest",
+    "commit": "5ec7f0c4a113e2f18ac2c6cc7df51ad6afc24081",
+    "archive": "git-google-googletest-5ec7f0c4a113e2f18ac2c6cc7df51ad6afc24081.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/NNPACK",
+    "repository": "Maratyszcza/NNPACK",
+    "commit": "c07e3a0400713d546e0dea2d5466dd22ea389c73",
+    "archive": "git-Maratyszcza-NNPACK-c07e3a0400713d546e0dea2d5466dd22ea389c73.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/gloo",
+    "repository": "pytorch/gloo",
+    "commit": "74cc005ae13f69c11d8a41e50b42025b6730e796",
+    "archive": "git-pytorch-gloo-74cc005ae13f69c11d8a41e50b42025b6730e796.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/pthreadpool",
+    "repository": "google/pthreadpool",
+    "commit": "a56dcd79c699366e7ac6466792c3025883ff7704",
+    "archive": "git-google-pthreadpool-a56dcd79c699366e7ac6466792c3025883ff7704.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/FXdiv",
+    "repository": "Maratyszcza/FXdiv",
+    "commit": "b408327ac2a15ec3e43352421954f5b1967701d1",
+    "archive": "git-Maratyszcza-FXdiv-b408327ac2a15ec3e43352421954f5b1967701d1.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/FP16",
+    "repository": "Maratyszcza/FP16",
+    "commit": "4dfe081cf6bcd15db339cf2680b9281b8451eeb3",
+    "archive": "git-Maratyszcza-FP16-4dfe081cf6bcd15db339cf2680b9281b8451eeb3.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/psimd",
+    "repository": "Maratyszcza/psimd",
+    "commit": "072586a71b55b7f8c584153d223e95687148a900",
+    "archive": "git-Maratyszcza-psimd-072586a71b55b7f8c584153d223e95687148a900.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/cpuinfo",
+    "repository": "pytorch/cpuinfo",
+    "commit": "bc3c01e230c6974283e4b89421cfb0e232435589",
+    "archive": "git-pytorch-cpuinfo-bc3c01e230c6974283e4b89421cfb0e232435589.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/python-peachpy",
+    "repository": "malfet/PeachPy",
+    "commit": "f45429b087dd7d5bc78bb40dc7cf06425c252d67",
+    "archive": "git-malfet-PeachPy-f45429b087dd7d5bc78bb40dc7cf06425c252d67.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/onnx",
+    "repository": "onnx/onnx",
+    "commit": "e709452ef2bbc1d113faf678c24e6d3467696e83",
+    "archive": "git-onnx-onnx-e709452ef2bbc1d113faf678c24e6d3467696e83.tar.gz"
+  },
+  {
+    "parent": "onnx/onnx",
+    "revision": "e709452ef2bbc1d113faf678c24e6d3467696e83",
+    "path": "third_party/pybind11",
+    "repository": "pybind/pybind11",
+    "commit": "a2e59f0e7065404b44dfe92a28aca47ba1378dc4",
+    "archive": "git-pybind-pybind11-a2e59f0e7065404b44dfe92a28aca47ba1378dc4.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/sleef",
+    "repository": "shibatch/sleef",
+    "commit": "5a1d179df9cf652951b59010a2d2075372d67f68",
+    "archive": "git-shibatch-sleef-5a1d179df9cf652951b59010a2d2075372d67f68.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/ideep",
+    "repository": "intel/ideep",
+    "commit": "e087b6e4b32a7ba684db82231d1558123968ac1d",
+    "archive": "git-intel-ideep-e087b6e4b32a7ba684db82231d1558123968ac1d.tar.gz"
+  },
+  {
+    "parent": "intel/ideep",
+    "revision": "e087b6e4b32a7ba684db82231d1558123968ac1d",
+    "path": "mkl-dnn",
+    "repository": "intel/mkl-dnn",
+    "commit": "80afa71049cd69a3df32adcccb623b12cd7baa22",
+    "archive": "git-intel-mkl-dnn-80afa71049cd69a3df32adcccb623b12cd7baa22.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/gemmlowp/gemmlowp",
+    "repository": "google/gemmlowp",
+    "commit": "3fb5c176c17c765a3492cd2f0321b0dab712f350",
+    "archive": "git-google-gemmlowp-3fb5c176c17c765a3492cd2f0321b0dab712f350.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/fbgemm",
+    "repository": "pytorch/fbgemm",
+    "commit": "bf6dce360a4fe133bc779e2fd036277678509f95",
+    "archive": "git-pytorch-fbgemm-bf6dce360a4fe133bc779e2fd036277678509f95.tar.gz"
+  },
+  {
+    "parent": "pytorch/fbgemm",
+    "revision": "bf6dce360a4fe133bc779e2fd036277678509f95",
+    "path": "external/asmjit",
+    "repository": "asmjit/asmjit",
+    "commit": "a3199e8857792cd10b7589ff5d58343d2c9008ea",
+    "archive": "git-asmjit-asmjit-a3199e8857792cd10b7589ff5d58343d2c9008ea.tar.gz"
+  },
+  {
+    "parent": "pytorch/fbgemm",
+    "revision": "bf6dce360a4fe133bc779e2fd036277678509f95",
+    "path": "external/cpuinfo",
+    "repository": "pytorch/cpuinfo",
+    "commit": "161a9ec374884f4b3e85725cb22e05f9458fdc93",
+    "archive": "git-pytorch-cpuinfo-161a9ec374884f4b3e85725cb22e05f9458fdc93.tar.gz"
+  },
+  {
+    "parent": "pytorch/fbgemm",
+    "revision": "bf6dce360a4fe133bc779e2fd036277678509f95",
+    "path": "external/googletest",
+    "repository": "google/googletest",
+    "commit": "52eb8108c5bdec04579160ae17225d66034bd723",
+    "archive": "git-google-googletest-52eb8108c5bdec04579160ae17225d66034bd723.tar.gz"
+  },
+  {
+    "parent": "pytorch/fbgemm",
+    "revision": "bf6dce360a4fe133bc779e2fd036277678509f95",
+    "path": "external/hipify_torch",
+    "repository": "ROCmSoftwarePlatform/hipify_torch",
+    "commit": "63b6a7b541fa7f08f8475ca7d74054db36ff2691",
+    "archive": "git-ROCmSoftwarePlatform-hipify_torch-63b6a7b541fa7f08f8475ca7d74054db36ff2691.tar.gz"
+  },
+  {
+    "parent": "pytorch/fbgemm",
+    "revision": "bf6dce360a4fe133bc779e2fd036277678509f95",
+    "path": "external/cutlass",
+    "repository": "jwfromm/cutlass",
+    "commit": "571edeb2d0ac872a8392fc49285b156b07884b4e",
+    "archive": "git-jwfromm-cutlass-571edeb2d0ac872a8392fc49285b156b07884b4e.tar.gz"
+  },
+  {
+    "parent": "pytorch/fbgemm",
+    "revision": "bf6dce360a4fe133bc779e2fd036277678509f95",
+    "path": "external/composable_kernel",
+    "repository": "ROCm/composable_kernel",
+    "commit": "7fe50dc3da2069d6645d9deb8c017a876472a977",
+    "archive": "git-ROCm-composable_kernel-7fe50dc3da2069d6645d9deb8c017a876472a977.tar.gz"
+  },
+  {
+    "parent": "pytorch/fbgemm",
+    "revision": "bf6dce360a4fe133bc779e2fd036277678509f95",
+    "path": "external/json",
+    "repository": "nlohmann/json",
+    "commit": "55f93686c01528224f448c19128836e7df245f72",
+    "archive": "git-nlohmann-json-55f93686c01528224f448c19128836e7df245f72.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "android/libs/fbjni",
+    "repository": "facebookincubator/fbjni",
+    "commit": "7e1e1fe3858c63c251c637ae41a20de425dde96f",
+    "archive": "git-facebookincubator-fbjni-7e1e1fe3858c63c251c637ae41a20de425dde96f.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/XNNPACK",
+    "repository": "google/XNNPACK",
+    "commit": "51a0103656eff6fc9bfd39a4597923c4b542c883",
+    "archive": "git-google-XNNPACK-51a0103656eff6fc9bfd39a4597923c4b542c883.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/fmt",
+    "repository": "fmtlib/fmt",
+    "commit": "c0330b746600bfd91dbacb88837da5a16f947ba5",
+    "archive": "git-fmtlib-fmt-c0330b746600bfd91dbacb88837da5a16f947ba5.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/tensorpipe",
+    "repository": "pytorch/tensorpipe",
+    "commit": "2b4cd91092d335a697416b2a3cb398283246849d",
+    "archive": "git-pytorch-tensorpipe-2b4cd91092d335a697416b2a3cb398283246849d.tar.gz"
+  },
+  {
+    "parent": "pytorch/tensorpipe",
+    "revision": "2b4cd91092d335a697416b2a3cb398283246849d",
+    "path": "third_party/pybind11",
+    "repository": "pybind/pybind11",
+    "commit": "a23996fce38ff6ccfbcdc09f1e63f2c4be5ea2ef",
+    "archive": "git-pybind-pybind11-a23996fce38ff6ccfbcdc09f1e63f2c4be5ea2ef.tar.gz"
+  },
+  {
+    "parent": "pybind/pybind11",
+    "revision": "a23996fce38ff6ccfbcdc09f1e63f2c4be5ea2ef",
+    "path": "tools/clang",
+    "repository": "wjakob/clang-cindex-python3",
+    "commit": "6a00cbc4a9b8e68b71caf7f774b3f9c753ae84d5",
+    "archive": "git-wjakob-clang-cindex-python3-6a00cbc4a9b8e68b71caf7f774b3f9c753ae84d5.tar.gz"
+  },
+  {
+    "parent": "pytorch/tensorpipe",
+    "revision": "2b4cd91092d335a697416b2a3cb398283246849d",
+    "path": "third_party/libuv",
+    "repository": "libuv/libuv",
+    "commit": "5152db2cbfeb5582e9c27c5ea1dba2cd9e10759b",
+    "archive": "git-libuv-libuv-5152db2cbfeb5582e9c27c5ea1dba2cd9e10759b.tar.gz"
+  },
+  {
+    "parent": "pytorch/tensorpipe",
+    "revision": "2b4cd91092d335a697416b2a3cb398283246849d",
+    "path": "third_party/googletest",
+    "repository": "google/googletest",
+    "commit": "aee0f9d9b5b87796ee8a0ab26b7587ec30e8858e",
+    "archive": "git-google-googletest-aee0f9d9b5b87796ee8a0ab26b7587ec30e8858e.tar.gz"
+  },
+  {
+    "parent": "pytorch/tensorpipe",
+    "revision": "2b4cd91092d335a697416b2a3cb398283246849d",
+    "path": "third_party/libnop",
+    "repository": "google/libnop",
+    "commit": "910b55815be16109f04f4180e9adee14fb4ce281",
+    "archive": "git-google-libnop-910b55815be16109f04f4180e9adee14fb4ce281.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/cudnn_frontend",
+    "repository": "NVIDIA/cudnn-frontend",
+    "commit": "35fd7b0d0e1d4952b904c79341c5e84e3af0a328",
+    "archive": "git-NVIDIA-cudnn-frontend-35fd7b0d0e1d4952b904c79341c5e84e3af0a328.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/kineto",
+    "repository": "pytorch/kineto",
+    "commit": "15f4784a3471d4db8b31720d528f2f57cd2b1f40",
+    "archive": "git-pytorch-kineto-15f4784a3471d4db8b31720d528f2f57cd2b1f40.tar.gz"
+  },
+  {
+    "parent": "pytorch/kineto",
+    "revision": "15f4784a3471d4db8b31720d528f2f57cd2b1f40",
+    "path": "libkineto/third_party/googletest",
+    "repository": "google/googletest",
+    "commit": "52eb8108c5bdec04579160ae17225d66034bd723",
+    "archive": "git-google-googletest-52eb8108c5bdec04579160ae17225d66034bd723.tar.gz"
+  },
+  {
+    "parent": "pytorch/kineto",
+    "revision": "15f4784a3471d4db8b31720d528f2f57cd2b1f40",
+    "path": "libkineto/third_party/fmt",
+    "repository": "fmtlib/fmt",
+    "commit": "40626af88bd7df9a5fb80be7b25ac85b122d6c21",
+    "archive": "git-fmtlib-fmt-40626af88bd7df9a5fb80be7b25ac85b122d6c21.tar.gz"
+  },
+  {
+    "parent": "pytorch/kineto",
+    "revision": "15f4784a3471d4db8b31720d528f2f57cd2b1f40",
+    "path": "libkineto/third_party/json",
+    "repository": "nlohmann/json",
+    "commit": "55f93686c01528224f448c19128836e7df245f72",
+    "archive": "git-nlohmann-json-55f93686c01528224f448c19128836e7df245f72.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/pocketfft",
+    "repository": "mreineck/pocketfft",
+    "commit": "0fa0ef591e38c2758e3184c6c23e497b9f732ffa",
+    "archive": "git-mreineck-pocketfft-0fa0ef591e38c2758e3184c6c23e497b9f732ffa.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/ittapi",
+    "repository": "intel/ittapi",
+    "commit": "0c57540822deb5dae43bef6c1cc9b3be4772a033",
+    "archive": "git-intel-ittapi-0c57540822deb5dae43bef6c1cc9b3be4772a033.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/flatbuffers",
+    "repository": "google/flatbuffers",
+    "commit": "a2cd1ea3b6d3fee220106b5fed3f7ce8da9eb757",
+    "archive": "git-google-flatbuffers-a2cd1ea3b6d3fee220106b5fed3f7ce8da9eb757.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/nlohmann",
+    "repository": "nlohmann/json",
+    "commit": "55f93686c01528224f448c19128836e7df245f72",
+    "archive": "git-nlohmann-json-55f93686c01528224f448c19128836e7df245f72.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/VulkanMemoryAllocator",
+    "repository": "GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator",
+    "commit": "1d8f600fd424278486eade7ed3e877c99f0846b1",
+    "archive": "git-GPUOpen-LibrariesAndSDKs-VulkanMemoryAllocator-1d8f600fd424278486eade7ed3e877c99f0846b1.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/cutlass",
+    "repository": "NVIDIA/cutlass",
+    "commit": "e05f953a5b3d38adc240df2ff928e0421c2abba3",
+    "archive": "git-NVIDIA-cutlass-e05f953a5b3d38adc240df2ff928e0421c2abba3.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/mimalloc",
+    "repository": "microsoft/mimalloc",
+    "commit": "30ac9d56b8b9ea57ae84bc8ef17ef39000da08fe",
+    "archive": "git-microsoft-mimalloc-30ac9d56b8b9ea57ae84bc8ef17ef39000da08fe.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/cpp-httplib",
+    "repository": "yhirose/cpp-httplib",
+    "commit": "62d899feac3cf9215a55f2b43da250fdd98d2156",
+    "archive": "git-yhirose-cpp-httplib-62d899feac3cf9215a55f2b43da250fdd98d2156.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/NVTX",
+    "repository": "NVIDIA/NVTX",
+    "commit": "7d113f290f89eeeae9c957011c497101f3948d9e",
+    "archive": "git-NVIDIA-NVTX-7d113f290f89eeeae9c957011c497101f3948d9e.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/composable_kernel",
+    "repository": "ROCm/composable_kernel",
+    "commit": "5a74dec07a894484b9489d0c0e00cd3b52652d18",
+    "archive": "git-ROCm-composable_kernel-5a74dec07a894484b9489d0c0e00cd3b52652d18.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/kleidiai",
+    "repository": "ARM-software/kleidiai",
+    "commit": "d7770c89632329a9914ef1a90289917597639cbe",
+    "archive": "git-ARM-software-kleidiai-d7770c89632329a9914ef1a90289917597639cbe.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/flash-attention",
+    "repository": "Dao-AILab/flash-attention",
+    "commit": "14c377950125c70b7a9dabf9c561fca53715ac7d",
+    "archive": "git-Dao-AILab-flash-attention-14c377950125c70b7a9dabf9c561fca53715ac7d.tar.gz"
+  },
+  {
+    "parent": "Dao-AILab/flash-attention",
+    "revision": "14c377950125c70b7a9dabf9c561fca53715ac7d",
+    "path": "csrc/cutlass",
+    "repository": "NVIDIA/cutlass",
+    "commit": "7127592069c2fe01b041e174ba4345ef9b279671",
+    "archive": "git-NVIDIA-cutlass-7127592069c2fe01b041e174ba4345ef9b279671.tar.gz"
+  },
+  {
+    "parent": "Dao-AILab/flash-attention",
+    "revision": "14c377950125c70b7a9dabf9c561fca53715ac7d",
+    "path": "csrc/composable_kernel",
+    "repository": "ROCm/composable_kernel",
+    "commit": "c56c6750d0fc54ed771d532cc92c316423449614",
+    "archive": "git-ROCm-composable_kernel-c56c6750d0fc54ed771d532cc92c316423449614.tar.gz"
+  },
+  {
+    "parent": "Dao-AILab/flash-attention",
+    "revision": "14c377950125c70b7a9dabf9c561fca53715ac7d",
+    "path": "third_party/aiter",
+    "repository": "ROCm/aiter",
+    "commit": "9bab8388c35936814a659b4ebd245c491e1b940a",
+    "archive": "git-ROCm-aiter-9bab8388c35936814a659b4ebd245c491e1b940a.tar.gz"
+  },
+  {
+    "parent": "ROCm/aiter",
+    "revision": "9bab8388c35936814a659b4ebd245c491e1b940a",
+    "path": "3rdparty/composable_kernel",
+    "repository": "ROCm/composable_kernel",
+    "commit": "af7118e342580ecd3f71edce7b1d0ba465012ecf",
+    "archive": "git-ROCm-composable_kernel-af7118e342580ecd3f71edce7b1d0ba465012ecf.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/aiter",
+    "repository": "ROCm/aiter",
+    "commit": "971d98b8ed4003639486134a435df7e2ef9c0475",
+    "archive": "git-ROCm-aiter-971d98b8ed4003639486134a435df7e2ef9c0475.tar.gz"
+  },
+  {
+    "parent": "ROCm/aiter",
+    "revision": "971d98b8ed4003639486134a435df7e2ef9c0475",
+    "path": "3rdparty/composable_kernel",
+    "repository": "ROCm/composable_kernel",
+    "commit": "af7118e342580ecd3f71edce7b1d0ba465012ecf",
+    "archive": "git-ROCm-composable_kernel-af7118e342580ecd3f71edce7b1d0ba465012ecf.tar.gz"
+  },
+  {
+    "parent": "pytorch/pytorch",
+    "revision": "5c4886908584029761b579af026dcfb627c84070",
+    "path": "third_party/mslk",
+    "repository": "meta-pytorch/MSLK",
+    "commit": "3d332d1c0c0ac7765852c97b3979c9ef913e037f",
+    "archive": "git-meta-pytorch-MSLK-3d332d1c0c0ac7765852c97b3979c9ef913e037f.tar.gz"
+  },
+  {
+    "parent": "meta-pytorch/MSLK",
+    "revision": "3d332d1c0c0ac7765852c97b3979c9ef913e037f",
+    "path": "external/googletest",
+    "repository": "google/googletest",
+    "commit": "52eb8108c5bdec04579160ae17225d66034bd723",
+    "archive": "git-google-googletest-52eb8108c5bdec04579160ae17225d66034bd723.tar.gz"
+  },
+  {
+    "parent": "meta-pytorch/MSLK",
+    "revision": "3d332d1c0c0ac7765852c97b3979c9ef913e037f",
+    "path": "external/composable_kernel",
+    "repository": "ROCm/composable_kernel",
+    "commit": "7fe50dc3da2069d6645d9deb8c017a876472a977",
+    "archive": "git-ROCm-composable_kernel-7fe50dc3da2069d6645d9deb8c017a876472a977.tar.gz"
+  },
+  {
+    "parent": "meta-pytorch/MSLK",
+    "revision": "3d332d1c0c0ac7765852c97b3979c9ef913e037f",
+    "path": "external/cutlass",
+    "repository": "jwfromm/cutlass",
+    "commit": "571edeb2d0ac872a8392fc49285b156b07884b4e",
+    "archive": "git-jwfromm-cutlass-571edeb2d0ac872a8392fc49285b156b07884b4e.tar.gz"
+  },
+  {
+    "parent": "meta-pytorch/MSLK",
+    "revision": "3d332d1c0c0ac7765852c97b3979c9ef913e037f",
+    "path": "external/hipify_torch",
+    "repository": "ROCm/hipify_torch",
+    "commit": "63b6a7b541fa7f08f8475ca7d74054db36ff2691",
+    "archive": "git-ROCm-hipify_torch-63b6a7b541fa7f08f8475ca7d74054db36ff2691.tar.gz"
+  },
+  {
+    "parent": "microsoft/onnxruntime",
+    "revision": "v1.28.1",
+    "path": "cmake/external/onnx",
+    "repository": "onnx/onnx",
+    "commit": "2bb50465112feca9003e1ed654d77f01ff1415ca",
+    "archive": "git-onnx-onnx-2bb50465112feca9003e1ed654d77f01ff1415ca.tar.gz"
+  },
+  {
+    "parent": "microsoft/onnxruntime",
+    "revision": "v1.28.1",
+    "path": "cmake/external/libprotobuf-mutator",
+    "repository": "google/libprotobuf-mutator",
+    "commit": "7a2ed51a6b682a83e345ff49fc4cfd7ca47550db",
+    "archive": "git-google-libprotobuf-mutator-7a2ed51a6b682a83e345ff49fc4cfd7ca47550db.tar.gz"
+  },
+  {
+    "parent": "microsoft/onnxruntime",
+    "revision": "v1.28.1",
+    "path": "cmake/external/emsdk",
+    "repository": "emscripten-core/emsdk",
+    "commit": "c0bb220cb6e6f4e0fabb6f6db9efd53390ef5e56",
+    "archive": "git-emscripten-core-emsdk-c0bb220cb6e6f4e0fabb6f6db9efd53390ef5e56.tar.gz"
+  },
+  {
+    "parent": "microsoft/onnxruntime",
+    "revision": "v1.28.2",
+    "path": "cmake/external/onnx",
+    "repository": "onnx/onnx",
+    "commit": "2bb50465112feca9003e1ed654d77f01ff1415ca",
+    "archive": "git-onnx-onnx-2bb50465112feca9003e1ed654d77f01ff1415ca.tar.gz"
+  },
+  {
+    "parent": "microsoft/onnxruntime",
+    "revision": "v1.28.2",
+    "path": "cmake/external/libprotobuf-mutator",
+    "repository": "google/libprotobuf-mutator",
+    "commit": "7a2ed51a6b682a83e345ff49fc4cfd7ca47550db",
+    "archive": "git-google-libprotobuf-mutator-7a2ed51a6b682a83e345ff49fc4cfd7ca47550db.tar.gz"
+  },
+  {
+    "parent": "microsoft/onnxruntime",
+    "revision": "v1.28.2",
+    "path": "cmake/external/emsdk",
+    "repository": "emscripten-core/emsdk",
+    "commit": "c0bb220cb6e6f4e0fabb6f6db9efd53390ef5e56",
+    "archive": "git-emscripten-core-emsdk-c0bb220cb6e6f4e0fabb6f6db9efd53390ef5e56.tar.gz"
+  },
+  {
+    "parent": "microsoft/onnxruntime",
+    "revision": "v1.30.0",
+    "path": "cmake/external/onnx",
+    "repository": "onnx/onnx",
+    "commit": "2bb50465112feca9003e1ed654d77f01ff1415ca",
+    "archive": "git-onnx-onnx-2bb50465112feca9003e1ed654d77f01ff1415ca.tar.gz"
+  },
+  {
+    "parent": "microsoft/onnxruntime",
+    "revision": "v1.30.0",
+    "path": "cmake/external/libprotobuf-mutator",
+    "repository": "google/libprotobuf-mutator",
+    "commit": "7a2ed51a6b682a83e345ff49fc4cfd7ca47550db",
+    "archive": "git-google-libprotobuf-mutator-7a2ed51a6b682a83e345ff49fc4cfd7ca47550db.tar.gz"
+  },
+  {
+    "parent": "microsoft/onnxruntime",
+    "revision": "v1.30.0",
+    "path": "cmake/external/emsdk",
+    "repository": "emscripten-core/emsdk",
+    "commit": "c0bb220cb6e6f4e0fabb6f6db9efd53390ef5e56",
+    "archive": "git-emscripten-core-emsdk-c0bb220cb6e6f4e0fabb6f6db9efd53390ef5e56.tar.gz"
+  },
+  {
+    "parent": "NVIDIA/thrust",
+    "revision": "d997cd37a95b0fa2f1a0cd4697fd1188a842fbc8",
+    "path": "dependencies/cub",
+    "repository": "NVIDIA/cub",
+    "commit": "ed040d585c3237d706973d7ad290bfee40958270",
+    "archive": "git-NVIDIA-cub-ed040d585c3237d706973d7ad290bfee40958270.tar.gz"
+  }
+]

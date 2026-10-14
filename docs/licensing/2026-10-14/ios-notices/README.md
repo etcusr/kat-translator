@@ -1,10 +1,10 @@
 # Shared license texts collected for release preparation
 
-These are unmodified license/notice files from the local pinned source inputs or the upstream URLs recorded in `manifest.json`. SHA-256 verifies the copied text, not permission for every file in the finished app. ONNX Runtime's upstream aggregate notice includes optional dependencies; its presence does not imply that all listed components are linked into Kat.
+The original individual documents are byte-preserving copies from pinned inputs. Four supplemental aggregate documents preserve original license text with explicit source member attribution and deduplication; their reproduction specification is `../source-notices.json` and binary provenance is `../android-binary-notices.json`. SHA-256 verifies the copied text, not permission for every file in the finished app. ONNX Runtime's upstream aggregate notice includes optional dependencies; its presence does not imply that all listed components are linked into Kat.
 
 `python3 scripts/assemble-ios-notices.py` assembles these texts and Kat's GPL license into `assets/bundled/ThirdPartyNotices.txt`. The iOS project includes this resource. `--check` verifies original hashes and generated content. Line endings are normalized only in the assembled resource; the source files remain byte-for-byte copies. The macOS project has also been regenerated to include this shared resource; the iOS attribution set does not certify completeness for a Mac package.
 
-The current set contains 38 files, including macOS supplements labeled in the assembled resource. Android now packages the shared resource too. Apple apps expose it offline under component licenses. Fresh checks and precise remaining gaps: [release package review](../release-package-review.md). Existing IPA47/PKG66 still contain the older set.
+The current set contains 42 documents, including macOS supplements labeled in the assembled resource. Android now packages the shared resource too. Apple apps expose it offline under component licenses. 605 source archives and 9 frontend files are now collected and checksum-verified. Fresh checks and remaining gaps: [source kit](../source-kit.md). Existing IPA47/PKG66 still contain the older set.
 
 This is an attribution set, not a complete legal release sign-off. Remaining work:
 

@@ -1,0 +1,382 @@
+[
+  {
+    "name": "cxxopts",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-cxxopts-6c6ca7f8480b.zip"
+  },
+  {
+    "name": "date",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-date-2dac0c81dc54.zip"
+  },
+  {
+    "name": "abseil_cpp",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-abseil_cpp-a9eb1d648cbc.zip"
+  },
+  {
+    "name": "dlpack",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-dlpack-e499c86e4e5c.zip"
+  },
+  {
+    "name": "eigen",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-eigen-05b19b49e6fb.zip"
+  },
+  {
+    "name": "flatbuffers",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-flatbuffers-59422c3b5e57.zip"
+  },
+  {
+    "name": "fp16",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-fp16-b985f6985a05.zip"
+  },
+  {
+    "name": "coremltools",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-coremltools-f1bab0f30966.zip"
+  },
+  {
+    "name": "fxdiv",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-fxdiv-a5658f403640.zip"
+  },
+  {
+    "name": "google_benchmark",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-google_benchmark-cd47d3d272fa.zip"
+  },
+  {
+    "name": "googletest",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-googletest-f638fa0e7247.zip"
+  },
+  {
+    "name": "microsoft_gsl",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-microsoft_gsl-1094e3bb7a8a.zip"
+  },
+  {
+    "name": "microsoft_wil",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-microsoft_wil-826c8bd47c22.zip"
+  },
+  {
+    "name": "json",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-json-5e88795165cc.zip"
+  },
+  {
+    "name": "mp11",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-mp11-9bc9e01dffb6.zip"
+  },
+  {
+    "name": "mimalloc",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-mimalloc-d5ee7d34223d.zip"
+  },
+  {
+    "name": "googlexnnpack",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-googlexnnpack-6f6bbba62724.zip"
+  },
+  {
+    "name": "onnx_tensorrt",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-onnx_tensorrt-01114d3b6765.zip"
+  },
+  {
+    "name": "psimd",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-psimd-1f5454b01f06.zip"
+  },
+  {
+    "name": "protobuf",
+    "versions": [
+      "1.28.1",
+      "1.28.2"
+    ],
+    "archive": "onnx-dep-protobuf-7cf273394903.zip"
+  },
+  {
+    "name": "pthreadpool",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-pthreadpool-533a77943203.zip"
+  },
+  {
+    "name": "pybind11",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-pybind11-a064e663b4d7.zip"
+  },
+  {
+    "name": "onnx",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-onnx-2b2cd58ac7a2.zip"
+  },
+  {
+    "name": "re2",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-re2-646e1728269c.zip"
+  },
+  {
+    "name": "pytorch_cpuinfo",
+    "versions": [
+      "1.28.1",
+      "1.28.2"
+    ],
+    "archive": "onnx-dep-pytorch_cpuinfo-e58d4b47c16a.zip"
+  },
+  {
+    "name": "safeint",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-safeint-23f252040ff6.zip"
+  },
+  {
+    "name": "directx_headers",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-directx_headers-47653509a337.zip"
+  },
+  {
+    "name": "cudnn_frontend",
+    "versions": [
+      "1.28.1",
+      "1.28.2"
+    ],
+    "archive": "onnx-dep-cudnn_frontend-a55a1980bf5c.zip"
+  },
+  {
+    "name": "cutlass",
+    "versions": [
+      "1.28.1",
+      "1.28.2"
+    ],
+    "archive": "onnx-dep-cutlass-4b0bae4428b8.zip"
+  },
+  {
+    "name": "kleidiai",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-kleidiai-6895e72b3d5c.tar.gz"
+  },
+  {
+    "name": "tensorboard",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-tensorboard-67b833913605.zip"
+  },
+  {
+    "name": "kleidiai-qmx",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-kleidiai-qmx-5e855730a2d6.zip"
+  },
+  {
+    "name": "vulkan_headers",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-vulkan_headers-57bc528ef7c4.tar.gz"
+  },
+  {
+    "name": "protobuf",
+    "versions": [
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-protobuf-051fee744fcc.tar.gz"
+  },
+  {
+    "name": "pytorch_cpuinfo",
+    "versions": [
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-pytorch_cpuinfo-6e2be17c110e.zip"
+  },
+  {
+    "name": "extensions",
+    "versions": [
+      "1.28.1",
+      "1.28.2",
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-extensions-239063aee494.zip"
+  },
+  {
+    "name": "deep_gemm",
+    "versions": [
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-deep_gemm-76a007638699.tar.gz"
+  },
+  {
+    "name": "cudnn_frontend",
+    "versions": [
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-cudnn_frontend-1e4c9a464d34.zip"
+  },
+  {
+    "name": "dawn",
+    "versions": [
+      "1.28.1",
+      "1.28.2"
+    ],
+    "archive": "onnx-dep-dawn-d4d64d172910.zip"
+  },
+  {
+    "name": "cutlass",
+    "versions": [
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-cutlass-51d4f1ba4b99.zip"
+  },
+  {
+    "name": "cpp_client_telemetry",
+    "versions": [
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-cpp_client_telemetry-d35a0f059511.zip"
+  },
+  {
+    "name": "dawn_agility_sdk",
+    "versions": [
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-dawn_agility_sdk-fbeb58268d47.archive"
+  },
+  {
+    "name": "curl",
+    "versions": [
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-curl-c3b471217560.tar.xz"
+  },
+  {
+    "name": "mbedtls",
+    "versions": [
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-mbedtls-e892e98cff90.tar.bz2"
+  },
+  {
+    "name": "dawn",
+    "versions": [
+      "1.30.0"
+    ],
+    "archive": "onnx-dep-dawn-10e42c94f70f.zip"
+  }
+]
