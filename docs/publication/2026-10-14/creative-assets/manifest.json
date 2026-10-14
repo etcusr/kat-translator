@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-14",
+  "tool": "built-in image_gen",
+  "files": [
+    {
+      "file": "kat-header-3840x1646.png",
+      "width": 3840,
+      "height": 1646,
+      "color": "RGB, sRGB, no alpha",
+      "bytes": 3678377,
+      "sha256": "e70674bd323ea2c53501c2dfbaac1e9210359ae3caf4f3661fc583991b09acdb"
+    },
+    {
+      "file": "kat-search-results-3840x2560.png",
+      "width": 3840,
+      "height": 2560,
+      "color": "RGB, sRGB, no alpha",
+      "bytes": 5639767,
+      "sha256": "da324132895a913c645bc0bfae076ae4f7f68e6ae3604925a51bc7aea3636f7d"
+    }
+  ]
+}
