@@ -33,7 +33,7 @@ class PrivacyPackagingTests(unittest.TestCase):
             self.assertIn('test-identity', command)
         runner = Mock(side_effect=sign)
         self.module.install(self.app, identity='test-identity', runner=runner)
-        self.assertEqual(runner.call_count, 5)
+        self.assertEqual(runner.call_count, 3)
 
     def test_unsigned_and_repeat_install(self):
         runner = Mock()
@@ -44,13 +44,13 @@ class PrivacyPackagingTests(unittest.TestCase):
         runner.assert_not_called()
 
     def test_missing_framework_fails_before_mutation(self):
-        (self.app / 'Frameworks/_ssl.framework/_ssl').unlink()
+        (self.app / 'Frameworks/OmniVoiceRuntime.framework/OmniVoiceRuntime').unlink()
         with self.assertRaises(RuntimeError):
             self.module.install(self.app, identity=None)
         self.assertEqual(list(self.app.rglob('PrivacyInfo.xcprivacy')), [])
 
     def test_conflicting_upstream_manifest_is_not_overwritten(self):
-        p = self.app / 'Frameworks/_ssl.framework/PrivacyInfo.xcprivacy'
+        p = self.app / 'Frameworks/OmniVoiceRuntime.framework/PrivacyInfo.xcprivacy'
         p.write_bytes(plistlib.dumps({'NSPrivacyTracking': True}))
         with self.assertRaises(RuntimeError):
             self.module.install(self.app, identity=None)
