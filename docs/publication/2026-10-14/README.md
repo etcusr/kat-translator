@@ -34,6 +34,8 @@ IPA: 70739147 байт; SHA-256 `65cb06d640ee26519a848df089bf10d6c903c7f307ba384
 
 Декларации: tracking=false, tracking domains и collected data types пустые. Это декларация текущего приложения с локальной обработкой и без собственной аналитики; она не заменяет проверку условий хостингов загрузок, деклараций SDK и App Privacy в кабинете. Официальные причины проверены14.10 по [Apple required reason API](https://developer.apple.com/documentation/bundleresources/describing-use-of-required-reason-api) и [категориям API](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacyaccessedapitypes/nsprivacyaccessedapitype). Генератор теперь включает `.xcprivacy` в ресурсы iOS. Mac ресурс не добавлялся автоматически.
 
+**Обновление:** пять отдельных framework manifests добавлены и включены в свежий Release archive; шесть деклараций и подписи проверены. [Отчёт](../privacy-frameworks-2026-10-14.md). Ниже — исходные наблюдения старого IPA, не состояние нового архива.
+
 В проверенном историческом IPA только один privacy manifest. Сканирование импортируемых символов показывает **кандидатов для отдельной проверки** в пяти frameworks без собственных manifest:
 
 - `Python.framework`: fstat, fstatfs, lstat, mach_absolute_time, stat, statfs;

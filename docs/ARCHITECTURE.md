@@ -98,6 +98,8 @@ Device suites: `scripts/android/test-parity.sh ui|contracts|media|opus|downloads
 
 Установка на iPhone: `xcrun devicectl device install app --device <UDID> <.app>`; работает и по Wi-Fi. Использованный 13.10 development-профиль истекает 20.10 по результатам проверки установленной сборки; в том случае «no longer available» было вызвано истечением прежнего профиля. Новый development-кандидат с другим ID подписан профилем до14.10.2027; старый контейнер автоматически не переносится. Срок проверять у конкретной установленной версии. Перед сменой ID сохранить и проверить перенос данных; старую app не удалять до проверки. Служебные ASR/voice-transfer скрипты по умолчанию адресуют новый ID; для прежнего передавать `--bundle-id org.openoffline.translator.prototype`. Mac: `package-macos.sh` только упаковывает уже собранный `.build/MacDerivedData/.../Release` — сначала собрать.
 
+iOS privacy manifests зависимостей: `Dependencies/privacy/ios/`. После встраивания frameworks генератор запускает `scripts/install-ios-privacy-manifests.py`: установка пяти деклараций и повторная подпись, до подписи app. Чужие vendor XCFrameworks не меняются. [Основания и проверка](publication/privacy-frameworks-2026-10-14.md).
+
 iOS tests: `apps/ios/tests/ui`. Mac: `apps/macos/tests/runtime`, UI tests внутри Mac дерева. Swift tests: `shared/packages/OfflineCore/Tests/OfflineCoreTests`. Python diagnostics: `scripts/validation/test_*.py`. Большие стресс-тесты требуют отдельного включения. Сначала выбрать проверки по области изменения, не запускать всё дерево без необходимости.
 
 ## Локализация интерфейса
