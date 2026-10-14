@@ -1,23 +1,23 @@
 {
   "date": "2026-10-14",
   "tool": "built-in image_gen",
-  "revision": "black-background-loading-cat",
+  "revision": "black-background-loading-cat-centered-brand",
   "files": [
     {
       "file": "kat-header-3840x1646.png",
       "width": 3840,
       "height": 1646,
       "color": "RGB, sRGB, no alpha",
-      "bytes": 1339487,
-      "sha256": "94ad9be9a051078b159ebd2d8b328c3b12e22ca3389257f9528c6de3559def32"
+      "bytes": 1175982,
+      "sha256": "f51287b1300f4aea28831881177d5beb629e5a0fee0365c7f31aa6bf94e98b6e"
     },
     {
       "file": "kat-search-results-3840x2560.png",
       "width": 3840,
       "height": 2560,
       "color": "RGB, sRGB, no alpha",
-      "bytes": 1741964,
-      "sha256": "cf1c02c2ba1f274f7f77d51f20d068e1f58f2b905c32405eaf77d3af8e9f8a33"
+      "bytes": 1965246,
+      "sha256": "3f4abf345538a2753a85d549d9afb865fdc203c00f1d8f1a2f86965eba69e45a"
     }
   ]
 }

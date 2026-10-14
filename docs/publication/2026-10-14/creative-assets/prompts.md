@@ -13,3 +13,11 @@ Recompose the matching header as 3:2. Compact logo and one-line wordmark above; 
 ## Export
 
 Generated originals in sources/. Export to exact Apple dimensions with sRGB profile using sips; no alpha. Hashes and final sizes in manifest.json. App Store Connect Preview remains unverified.
+
+## Final alignment correction
+
+Two symmetrical front legs terminating in paired rounded paws on the same baseline, tucked hind legs and a clean curled tail. Equal-size horizontal speech bubbles with matching font size and padding, aligned baseline and centered straight opposite arrows. Preserve the approved flat style. Header approved; Search Results recomposed to the same geometry.
+
+## Final Header layout
+
+Brand icon and one-line wordmark centered in the upper band; translation bubbles, waveform and seated cat form one centered group below. Preserve approved character and aligned text. Search Results uses the corresponding two-tier layout.
