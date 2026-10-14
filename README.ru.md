@@ -43,7 +43,7 @@ iOS **1.0 (51)** и Mac **1.0 (70)** проверены и загружены в
 
 Mac `macos15-26` — отдельный сохранённый выпуск: Index MLX+MTP2, прежний OPUS CPU. Он не получил OPUS GPU, Index 2B, новые направления, режим «Авто» перевода и последующие правки интерфейса современного выпуска. [Версии, ОС и границы проверки](docs/CURRENT_STATE.ru.md).
 
-Index: фиксированное окно 2048 токенов, вход до 1536; ответ использует оставшееся место. Предварительная оценка бюджета и разбиение защищают от переполнения. Экспериментальная память контекста и выбор окна удалены. OPUS имеет отдельные лимиты и разбиение. [Preflight](docs/benchmarks/translation-preflight/README.md) · [OPUS](docs/IMPLEMENTATION-opus-big.md).
+Index: фиксированное окно 2048 токенов, вход до 1536; ответ использует оставшееся место. Предварительная оценка бюджета и разбиение защищают от переполнения. Экспериментальная память контекста и выбор окна удалены. OPUS имеет отдельные лимиты и разбиение. [Preflight](docs/benchmarks/translation-preflight/README.md) · [OPUS](docs/IMPLEMENTATION-opus-big.ru.md).
 
 ## Структура
 
@@ -59,7 +59,7 @@ Index: фиксированное окно 2048 токенов, вход до 15
 | `scripts`, `tests`, `Tools` | Сборка, диагностика, общие fixtures, локальный импорт |
 | `docs`, `.build`, `dist` | Документация; локальные результаты; установщики |
 
-[Подробная карта](docs/android/PLATFORM_LAYOUT.md). Старые пути `App/`, `Packages/`, `Native/` в ранних документах предшествуют миграции. Исходники сохранены в Git; веса моделей, установщики и локальные данные хранятся отдельно. Перед работой проверяйте состояние дерева и актуальные версии.
+[Подробная карта](docs/android/PLATFORM_LAYOUT.ru.md). Старые пути `App/`, `Packages/`, `Native/` в ранних документах предшествуют миграции. Исходники сохранены в Git; веса моделей, установщики и локальные данные хранятся отдельно. Перед работой проверяйте состояние дерева и актуальные версии.
 
 ## Сборка и проверка
 
@@ -77,7 +77,7 @@ xcodebuild -project apps/ios/OfflineTranslator.xcodeproj -scheme OfflineTranslat
   -derivedDataPath .build/DerivedData CODE_SIGNING_ALLOWED=NO build
 ```
 
-Подготовка Apple-зависимостей: `scripts/build-whisper.sh`, `scripts/build-translation.sh`, `scripts/fetch-speech-runtime.py`, `scripts/prepare-speech-recognition.py`; дополнительные runtime зависят от выбранного набора. Полные платформенные инструкции: [Mac](docs/macos/README.md), [Android](docs/android/INSTALL.md), [текущее состояние](docs/CURRENT_STATE.ru.md).
+Подготовка Apple-зависимостей: `scripts/build-whisper.sh`, `scripts/build-translation.sh`, `scripts/fetch-speech-runtime.py`, `scripts/prepare-speech-recognition.py`; дополнительные runtime зависят от выбранного набора. Полные платформенные инструкции: [Mac](docs/macos/README.ru.md), [Android](docs/android/INSTALL.ru.md), [текущее состояние](docs/CURRENT_STATE.ru.md).
 
 Генераторы Xcode — источник состава проектов. Локальная подпись iOS: `apps/ios/Config/Signing.local.xcconfig` (ignored). С 14.10 iOS Bundle ID — `app.kattranslator`, расширение — `app.kattranslator.downloads`. Build46 с новым ID установлен; модели, история и настройки перенесены и проверены. Старое приложение сохранено отдельно. [Результаты и ограничения](docs/maintenance/ios-kat-migration-2026-10-14.md). При обычных обновлениях сохраняйте bundle ID, идентичность подписи, модели и данные. Номера сборок увеличиваются независимо; версии меняются при подготовке выпуска. После изменения iOS-версии генератор синхронизирует widget.
 

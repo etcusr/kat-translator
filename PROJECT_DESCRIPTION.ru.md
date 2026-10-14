@@ -29,5 +29,5 @@ Kat translator переводит речь, набранный текст и т�
 - Отображаемое имя: `Kat translator` (одинаково в RU и EN).
 - Проект/схема iOS: `OfflineTranslator`; macOS: `KatTranslatorMac`; Android: Gradle `app`/`inference`.
 - Bundle ID iOS: `app.kattranslator` (выбран 14.10.2026; расширение `app.kattranslator.downloads`; установленное прежнее приложение использует `org.openoffline.translator.prototype` и требует отдельного переноса данных). Магазинная Mac-сборка использует тот же `app.kattranslator`, прямая Mac-сборка — `org.openoffline.translator.mac`. Android application ID: `org.openoffline.translator.android`.
-- Визуальное направление и варианты логотипа: [заметки о бренде](docs/branding/README.md).
+- Визуальное направление и варианты логотипа: [заметки о бренде](docs/branding/README.ru.md).
 - Текущая реализация, зависимости загрузок и проверки: [текущее состояние](docs/CURRENT_STATE.ru.md), [заметки о загрузках](docs/IMPLEMENTATION-language-downloads.md).
