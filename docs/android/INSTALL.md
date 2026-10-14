@@ -1,34 +1,36 @@
-# Android: установка Kat translator
+# Android: installing Kat translator
 
-Текущий выпуск — **0.4.6 / versionCode21**, Debug, ARM64/API31+. APK: `dist/android/kat-translator-0.4.6-debug.apk`; контрольная сумма — в `dist/android/SHA256SUMS`. Локальные артефакты не входят в Git. [Версии, результаты и ограничения](../CURRENT_STATE.md).
+**English** | [Русский](INSTALL.ru.md)
 
-Обновлять поверх прежнего приложения с тем же application ID и подписью, без удаления контейнера: это сохраняет модели и историю. Веса не включены в APK. Скачивание требует сети; перевод, распознавание и озвучка выполняются локально после установки нужных пакетов.
+Current release: **0.4.6 / versionCode 21**, Debug, ARM64 / API 31+. APK: `dist/android/kat-translator-0.4.6-debug.apk`; the checksum is in `dist/android/SHA256SUMS`. Local artifacts are not part of Git. [Versions, results and limitations](../CURRENT_STATE.md).
 
-## Первый запуск и выбор моделей
+Install over the previous app with the same application ID and signature, without deleting its data: this keeps models and history. Weights are not included in the APK. Downloading needs a network connection; translation, recognition and speech output run locally once the required packages are installed.
 
-1. При первом запуске пройти тест устройства (около 3–5 с, CPU/Vulkan GPU, без загрузки моделей), затем выбрать свои языки и языки перевода.
-2. Начальный режим перевода — «Авто». На мощном устройстве выбирается установленный Index 9B, затем 2B; на остальных — установленный OPUS для пары, затем 2B и 9B. Сохранённый явный выбор при обновлении не меняется.
-3. Проверить план пакетов и общий объём на экране «Ваши языки», скачать нужное. Если всё уже установлено, «Скачать» неактивна, «Готово» сохраняет выбор.
-4. В «Моделях» можно выбрать движок вручную. «Направления OPUS» позволяют искать языки и выбирать отдельные направления с общим объёмом загрузки. Из 54 пакетов 10 доступны по сети; 44 помечены для ручной установки до появления хостинга. Точные пары определяет `assets/catalogs/opus-direction-packages.json`.
-5. В «Тексте» выбрать пару и ввести текст; в «Голосе» доступны запись и импорт аудио; в «Камере» — снимок или изображение. Голос и камера требуют явного исходного языка, текстовое автоопределение сохраняется.
+## First launch and model choice
 
-OPUS использует CTranslate2 CPU INT8: старый EN↔RU/UK/BE пакет и новые прямые направления, включая пары без EN. Скрытого pivot нет. Index 2B (1 312 164 352 байта) и 9B (5 780 090 304 байта) используют GGUF Q4_K_M/Vulkan; MTP применяется только к 9B. Размеры, SHA и URL заданы общими каталогами. Выборочные испытания показали преимущество 2B по скорости и 9B по качеству; это не приёмка всех языков.
+1. On first launch, run the device check (about 3–5 s, CPU/Vulkan GPU, no model download), then choose your own languages and the translation languages.
+2. The initial translation mode is "Auto". On a powerful device the installed Index 9B is used, then 2B; on other devices the installed OPUS package for the pair, then 2B and 9B. An explicit saved choice is not changed by an update.
+3. Review the package plan and total size on the "Your languages" screen and download what is needed. If everything is already installed, "Download" is disabled and "Done" saves the selection.
+4. In "Models" you can choose an engine manually. "OPUS directions" lets you search languages and pick individual directions with a combined download size. Of the 54 packages, 10 are downloadable; 44 are marked for manual installation until hosting is available. Exact pairs are defined by `assets/catalogs/opus-direction-packages.json`.
+5. In "Text" choose a pair and enter text; "Voice" offers recording and audio import; "Camera" takes a photo or opens an image. Voice and camera need an explicit source language; text auto-detection stays available.
 
-Подготовка модели включает проверку файлов и загрузку весов. При выключенной автозагрузке доступна ручная подготовка; экономия памяти выгружает модель после работы. Отмена должна позволять следующий запрос. Исходная запись и TTS сохраняются/отправляются отдельно; нормализация воспроизведения до32× не меняет raw PCM распознавания.
+OPUS uses CTranslate2 CPU INT8: the legacy EN↔RU/UK/BE package and the new direct directions, including pairs without English. There is no hidden pivot. Index 2B (1 312 164 352 bytes) and 9B (5 780 090 304 bytes) use GGUF Q4_K_M on Vulkan; MTP is applied only to 9B. Sizes, SHA-256 and URLs come from the shared catalogs. Spot checks showed 2B ahead on speed and 9B ahead on quality; this is not an acceptance of every language.
 
-## Распознавание и изображения
+Model preparation includes file verification and weight loading. With automatic loading turned off, manual preparation is available; memory saving unloads the model after use. Cancelling must leave the app ready for the next request. The original recording and the TTS output are saved and shared separately; playback normalization of up to 32× does not change the raw PCM used for recognition.
 
-ASR «Авто» выбирает русский → GigaAM v3, остальные 24 языка из 25-язычного каталога Parakeet → Parakeet TDT v3. Если обязательного пакета нет, приложение предлагает загрузку. Ручной выбор модели имеет приоритет. Для остальных языков существуют отдельные Android on-device/Whisper/Meta пути; облачного fallback нет. «Авто» в настройках ASR выбирает движок, а не язык. Системный импорт PCM требует Android13+ и доступной on-device службы.
+## Recognition and images
 
-OCR: bundled ML Kit для поддержанных письменностей, русский PP-OCRv5 eslav с mobile detector; совместимость со старым установленным детектором сохранена. Указать язык до снимка. Apple CoreML/Vision не являются Android-бэкендами.
+ASR "Auto" routes Russian → GigaAM v3 and the other 24 languages of the 25-language Parakeet catalog → Parakeet TDT v3. If a required package is missing, the app offers to download it. A manual model choice takes priority. Other languages have separate Android on-device/Whisper/Meta paths; there is no cloud fallback. "Auto" in the ASR settings selects an engine, not a language. System PCM import needs Android 13+ and an available on-device service.
 
-## Проверенные устройства и ограничения
+OCR: bundled ML Kit for supported scripts, Russian via PP-OCRv5 eslav with the mobile detector; compatibility with the older installed detector is kept. Choose the language before taking the photo. Apple Core ML/Vision are not Android backends.
 
-Отчёты относятся к Pixel 9 Pro, Android17/API37, 16 ГБ RAM, страницам 4 КБ. Для Index CPU-часть runtime требует ARMv8.2 dotprod/FP16; неподдержанное устройство отклоняется проверкой HWCAP. Index использует Vulkan; поддержка реального устройства с 16-КБ страницами, минимальная RAM на слабых телефонах и другие GPU требуют проверки. Сетевое скачивание 2B внутри приложения ещё не подтверждено: при испытании использовался импорт.
+## Verified devices and limitations
 
-[Auto](benchmarks/2026-10-13-auto-translation/README.md) · [OPUS-направления](benchmarks/2026-10-13-opus-directions/README.md) · [Index 2B](benchmarks/2026-10-12-index2b-default/README.md) · [ASR](benchmarks/2026-10-12-asr-routing/README.md) · [историческая матрица функций](FEATURE_PARITY.md). Сборка и наличие реализации не доказывают качество всех языков или полное совпадение с iOS.
+Reports refer to a Pixel 9 Pro, Android 17 / API 37, 16 GB RAM, 4 KB pages. For Index, the CPU part of the runtime requires ARMv8.2 dotprod/FP16; unsupported devices are rejected by a HWCAP check. Index uses Vulkan; real devices with 16 KB pages, minimum RAM on weaker phones and other GPUs still need checking. In-app network download of 2B is not confirmed yet: the test used an import.
 
-## Воспроизведение на Apple Silicon
+[Auto](benchmarks/2026-10-13-auto-translation/README.md) · [OPUS directions](benchmarks/2026-10-13-opus-directions/README.md) · [Index 2B](benchmarks/2026-10-12-index2b-default/README.md) · [ASR](benchmarks/2026-10-12-asr-routing/README.md) · [historical feature matrix](FEATURE_PARITY.md). A successful build and the presence of an implementation do not prove quality for every language or full parity with iOS.
+
+## Building on Apple Silicon
 
 ```bash
 python3 scripts/android/setup-tools.py
@@ -44,23 +46,23 @@ scripts/android/test-parity.sh ui
 scripts/android/test-parity.sh opus
 ```
 
-Инструменты хранятся локально в `.build/android-tools`. Версии закреплены
-в `Dependencies/android-runtime.lock.json`; shaderc/headers проверяются по
-SHA-256 в setup-скрипте, Maven — в `gradle/verification-metadata.xml`.
-Vulkan собирается NDK с локальным современным host shader compiler.
-Патч применяется к копии исходника в build-каталоге; общий vendor не меняется.
+Tools are stored locally in `.build/android-tools`. Versions are pinned in
+`Dependencies/android-runtime.lock.json`; shaderc/headers are verified by
+SHA-256 in the setup script, Maven artifacts by `gradle/verification-metadata.xml`.
+Vulkan is built with the NDK and a modern local host shader compiler.
+The patch is applied to a copy of the source in the build directory; the shared vendor tree is not changed.
 
-Device-тесты требуют авторизованный телефон и реальную модель; отсутствие
-модели считается ошибкой. Они проверяют токенизатор/Unicode, направления,
-повторные GPU-запросы, лимиты, отмену с новым запросом, перезагрузку движка,
-экраны, поворот и сохранение истории. Не запускай одновременно с ручным
-переводом: instrumentation управляет процессом Kat.
+Device tests need an authorized phone and a real model; a missing model counts
+as a failure. They check the tokenizer/Unicode, directions, repeated GPU
+requests, limits, cancellation followed by a new request, engine reload,
+screens, rotation and history persistence. Do not run them while translating
+manually: instrumentation controls the Kat process.
 
-Профилировка: `bash scripts/android/profile-index.sh <новая-метка> -e profile gpu`.
-Для обычного замера времени убери `profile gpu`: GPU timestamps добавляют
-синхронизацию и искажают задержку. `-e corpus true` включает пять разных
-текстов. Для отдельного текста: `-e corpus true -e corpusOnly true -e corpusCase medium-en-ru`.
-`-e stockPrefill true` возвращает обработку входа0.2.1; `-e stockMmvq true` восстанавливает прежнее ядро для A/B-сравнения.
+Profiling: `bash scripts/android/profile-index.sh <new-label> -e profile gpu`.
+For plain timing, drop `profile gpu`: GPU timestamps add synchronization and
+distort latency. `-e corpus true` enables five different texts. For a single
+text: `-e corpus true -e corpusOnly true -e corpusCase medium-en-ru`.
+`-e stockPrefill true` restores the 0.2.1 input processing; `-e stockMmvq true` restores the previous kernel for A/B comparison.
 
-Это тестовая Debug-сборка. Публичный подписанный release ещё не подготовлен;
-Debug signing key не является ключом будущего выпуска.
+This is a test Debug build. A public signed release has not been prepared yet;
+the Debug signing key is not the key of a future release.
