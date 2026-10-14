@@ -1,0 +1,156 @@
+{
+  "date": "2026-10-14",
+  "scope": [
+    "ios",
+    "macos"
+  ],
+  "basis": "Conservative App Privacy mapping of published download-host practices; not provider-specific log access or Apple approval",
+  "developer_receives_translation_content": false,
+  "developer_receives_individual_host_logs": false,
+  "asc_data_collection_answer": "Yes",
+  "asc_answers_saved": false,
+  "categories": [
+    {
+      "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypeCoarseLocation",
+      "NSPrivacyCollectedDataTypeLinked": true,
+      "NSPrivacyCollectedDataTypeTracking": false,
+      "NSPrivacyCollectedDataTypePurposes": [
+        "NSPrivacyCollectedDataTypePurposeAnalytics"
+      ]
+    },
+    {
+      "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypeDeviceID",
+      "NSPrivacyCollectedDataTypeLinked": true,
+      "NSPrivacyCollectedDataTypeTracking": false,
+      "NSPrivacyCollectedDataTypePurposes": [
+        "NSPrivacyCollectedDataTypePurposeAppFunctionality",
+        "NSPrivacyCollectedDataTypePurposeAnalytics"
+      ]
+    },
+    {
+      "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypeProductInteraction",
+      "NSPrivacyCollectedDataTypeLinked": true,
+      "NSPrivacyCollectedDataTypeTracking": false,
+      "NSPrivacyCollectedDataTypePurposes": [
+        "NSPrivacyCollectedDataTypePurposeAppFunctionality",
+        "NSPrivacyCollectedDataTypePurposeAnalytics"
+      ]
+    },
+    {
+      "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypeOtherDiagnosticData",
+      "NSPrivacyCollectedDataTypeLinked": true,
+      "NSPrivacyCollectedDataTypeTracking": false,
+      "NSPrivacyCollectedDataTypePurposes": [
+        "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+      ]
+    }
+  ],
+  "tracking": false,
+  "fixed_host_retention_days": null,
+  "provider_repository_analytics_configuration_verified": false,
+  "full_app_network_capture_performed": false,
+  "host_head_probes": [
+    {
+      "source_symbol": "indexTranslation",
+      "origin_host": "huggingface.co",
+      "method": "HEAD",
+      "custom_audit_user_agent": true,
+      "redirects": [
+        {
+          "status": 302,
+          "from_host": "huggingface.co",
+          "to_host": "us.aws.cdn.hf.co",
+          "set_cookie": false
+        }
+      ],
+      "status": 200,
+      "final_host": "us.aws.cdn.hf.co",
+      "set_cookie": false
+    },
+    {
+      "source_symbol": "russianVoice",
+      "origin_host": "github.com",
+      "method": "HEAD",
+      "custom_audit_user_agent": true,
+      "redirects": [
+        {
+          "status": 302,
+          "from_host": "github.com",
+          "to_host": "release-assets.githubusercontent.com",
+          "set_cookie": false
+        }
+      ],
+      "status": 200,
+      "final_host": "release-assets.githubusercontent.com",
+      "set_cookie": false
+    },
+    {
+      "source_symbol": "balineseTokens",
+      "origin_host": "huggingface.co",
+      "method": "HEAD",
+      "custom_audit_user_agent": true,
+      "redirects": [
+        {
+          "status": 307,
+          "from_host": "huggingface.co",
+          "to_host": "huggingface.co",
+          "set_cookie": false
+        }
+      ],
+      "status": 200,
+      "final_host": "huggingface.co",
+      "set_cookie": false
+    },
+    {
+      "source_symbol": "ocrEnglish",
+      "origin_host": "huggingface.co",
+      "method": "HEAD",
+      "custom_audit_user_agent": true,
+      "redirects": [
+        {
+          "status": 302,
+          "from_host": "huggingface.co",
+          "to_host": "us.aws.cdn.hf.co",
+          "set_cookie": false
+        }
+      ],
+      "status": 200,
+      "final_host": "us.aws.cdn.hf.co",
+      "set_cookie": false
+    }
+  ],
+  "existing_store_artifacts_updated": false,
+  "new_release_builds_required": true,
+  "policy_deployed": false,
+  "sources": [
+    "https://developer.apple.com/app-store/app-privacy-details/",
+    "https://huggingface.co/privacy",
+    "https://huggingface.co/docs/hub/models-download-stats",
+    "https://huggingface.co/docs/hub/publisher-analytics",
+    "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
+  ],
+  "verification": {
+    "ios": {
+      "build_passed": true,
+      "manifest_count": 9,
+      "app_collection_matches_source": true,
+      "sdk_collection_unchanged": true,
+      "store_export_performed": false,
+      "installed": false,
+      "app_manifest_sha256": "72703f587e33281e2bae5909f2e6fb7dd8cb5148070a931879b9fb9fca8fe7a8",
+      "code_signing_enabled": false
+    },
+    "macos": {
+      "build_passed": true,
+      "manifest_count": 9,
+      "app_collection_matches_source": true,
+      "sdk_collection_unchanged": true,
+      "store_export_performed": false,
+      "installed": false,
+      "app_manifest_sha256": "694d83f77111ff6e1fe87df621b027799625377282a9c532c272d506d5cf4052",
+      "deep_strict_signature_verified": true
+    },
+    "privacy_tests_passed": 13,
+    "documentation_tests_passed": 2
+  }
+}

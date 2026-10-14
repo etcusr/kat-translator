@@ -1,6 +1,6 @@
 # Apple privacy declarations
 
-These files describe **Kat's pinned integration**, not every possible use of an upstream SDK. No collection or tracking is declared by these runtime components. Download-host request logs and the App Store privacy questionnaire require a separate assessment. Review this set whenever dependencies, call paths or data practices change.
+These files describe **Kat's pinned integration**, not every possible use of an upstream SDK. No collection or tracking is declared by these runtime components. The app manifests separately disclose download-host processing (coarse IP-derived location, network pseudonymous identifier, download interaction and technical diagnostics). See the [assessment and questionnaire mapping](../../docs/publication/model-download-privacy-2026-10-14.md); this is not collection by the local runtime SDKs. Review this set whenever dependencies, call paths or data practices change.
 
 ## Repackaged listed SDKs
 
@@ -23,7 +23,7 @@ Static archives and bare dylibs/extensions do not have their own resource locati
 - iOS OpusRuntime: no required-reason API imports found in this framework; it still needs a manifest for repackaged listed SDKs.
 - iOS FluidAudio: `FileTimestamp / C617.1` for `ModelCache.attributesIfPresent`, `FileDownloader` and temporary audio files. Kat uses `AsrModels.loadLocal`, not the SDK's network download convenience API. Its declaration is installed into the existing `FluidAudio_FluidAudio.bundle`.
 - OfflineCore: its SwiftPM resource manifest declares `SystemBootTime / 35F9.1` for elapsed synthesis/processing time and `UserDefaults / CA92.1` for Kat's own preferences. These values remain local. The package resources are included by SwiftPM on both platforms.
-- Native macOS has a separate data-collection declaration, with an empty required-reason list, for the app and the listed runtime wrappers. Apple scopes the required-reason requirement to iOS/iPadOS/tvOS/visionOS/watchOS; it does not exempt Mac SDK/data-collection declarations. OfflineCore's shared resource remains truthful on both platforms.
+- Native macOS has a separate data-collection declaration, with an empty required-reason list, for the app (`macos/App.xcprivacy`) and the listed runtime wrappers (`macos/NoCollection.xcprivacy`). Apple scopes the required-reason requirement to iOS/iPadOS/tvOS/visionOS/watchOS; it does not exempt Mac SDK/data-collection declarations. OfflineCore's shared resource remains truthful on both platforms.
 - Existing iOS Python/TranslationRuntime/OmniVoice declarations and the unused Python disk-space symbol caveat remain in [ios/README.md](ios/README.md).
 
 The widget contains no matching required-reason API or third-party runtime in this audit. Whisper, llama.cpp, OmniVoice, FluidAudio, MLX, NumPy, tokenizers and PyTorch are not themselves named on Apple's list; embedded listed dependencies are assessed separately. Loading-animation JSONs/MP4s do not imply a linked Lottie SDK.
@@ -38,7 +38,7 @@ Index sets HF offline and disable-telemetry before importing its dependencies. O
 
 - iOS dynamic framework installer runs after embedding and Python conversion; affected frameworks are signed after copying their manifests. The SDK-resource installer follows in the same build phase.
 - Mac installer runs at the end of runtime packaging, before the app signature. It re-signs the modified Opus framework. New codeless bundles remain unsigned, sealed by the app signature, with unique identifiers and no executable/NSServices keys.
-- Both installers validate all required inputs and conflicting existing manifests before modifying bundles. Future upstream disclosures are not silently replaced. A signing error fails the build.
+- Both installers validate all required inputs and conflicting existing SDK manifests before modifying bundles. Kat owns its Mac app manifest and replaces its previous declaration during incremental builds; its collection entries must match the iOS app declaration. Future upstream disclosures are not silently replaced. A signing error fails the build.
 - Vendor archives and XCFramework inputs are unchanged. App distribution signatures establish package integrity, **not** a supplier's original SDK signature. Upstream signature/provenance and App Store server processing remain separate acceptance steps.
 
 Run `PYTHONPATH=scripts/validation python3 -m unittest scripts.validation.test_inference_privacy scripts.validation.test_ios_privacy_manifests scripts.validation.test_sdk_privacy_manifests`. Inspect all manifests and strict signatures in the final exported IPA/PKG, not just sources. [Dated audit](../../docs/publication/apple-privacy-sdk-2026-10-14.md).

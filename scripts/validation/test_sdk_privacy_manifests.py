@@ -69,6 +69,9 @@ class SDKPrivacyTests(unittest.TestCase):
         signature = fluid / '_CodeSignature'
         signature.mkdir()
         (signature / 'CodeResources').write_bytes(b'stale seal from normal Mac build')
+        # An existing Kat app manifest is replaceable during incremental builds.
+        old_app_manifest = self.app / 'Contents/Resources/PrivacyInfo.xcprivacy'
+        old_app_manifest.write_bytes((ROOT / 'Dependencies/privacy/macos/NoCollection.xcprivacy').read_bytes())
         def sign(command, **kwargs):
             bundle = Path(command[-1])
             self.assertTrue((bundle / 'Versions/A/Resources/PrivacyInfo.xcprivacy').exists())
@@ -80,7 +83,16 @@ class SDKPrivacyTests(unittest.TestCase):
         for p in self.app.rglob('PrivacyInfo.xcprivacy'):
             data = plistlib.loads(p.read_bytes())
             self.assertEqual(data['NSPrivacyAccessedAPITypes'], [])
-            self.assertEqual(data['NSPrivacyCollectedDataTypes'], [])
+            if p == self.app / 'Contents/Resources/PrivacyInfo.xcprivacy':
+                ios = plistlib.loads((ROOT / 'apps/ios/Resources/PrivacyInfo.xcprivacy').read_bytes())
+                self.assertEqual(data['NSPrivacyCollectedDataTypes'], ios['NSPrivacyCollectedDataTypes'])
+                self.assertEqual({x['NSPrivacyCollectedDataType'] for x in data['NSPrivacyCollectedDataTypes']},
+                                 {'NSPrivacyCollectedDataType' + name for name in
+                                  ('CoarseLocation', 'DeviceID', 'ProductInteraction', 'OtherDiagnosticData')})
+                self.assertTrue(all(x['NSPrivacyCollectedDataTypeLinked'] and not x['NSPrivacyCollectedDataTypeTracking']
+                                    for x in data['NSPrivacyCollectedDataTypes']))
+            else:
+                self.assertEqual(data['NSPrivacyCollectedDataTypes'], [])
         runner.side_effect = RuntimeError('signing failed')
         with self.assertRaises(RuntimeError):
             self.module.install(self.app, 'macos', identity='test', runner=runner)

@@ -41,7 +41,7 @@ def plan(platform):
          'macos/NoCollection.xcprivacy', resources + name + 'Privacy.bundle')
         for name, inputs in sdks.items()
     ] + [
-        (['Contents/MacOS/Kat translator'], resources + 'PrivacyInfo.xcprivacy', 'macos/NoCollection.xcprivacy', None),
+        (['Contents/MacOS/Kat translator'], resources + 'PrivacyInfo.xcprivacy', 'macos/App.xcprivacy', None),
         ([frameworks + 'OpusRuntime.framework/Versions/A/OpusRuntime'],
          frameworks + 'OpusRuntime.framework/Versions/A/Resources/PrivacyInfo.xcprivacy', 'macos/NoCollection.xcprivacy', None),
         ([resources + 'FluidAudio_FluidAudio.bundle/Contents/Info.plist'],
@@ -59,16 +59,21 @@ def install(app, platform, *, identity, runner=subprocess.run):
                 raise RuntimeError(f'Missing SDK input: {pattern}')
         data = (PRIVACY / source).read_bytes()
         declaration = plistlib.loads(data)
+        own_app = platform == 'macos' and source == 'macos/App.xcprivacy'
+        expected_collection = (plistlib.loads((ROOT / 'apps/ios/Resources/PrivacyInfo.xcprivacy').read_bytes())['NSPrivacyCollectedDataTypes']
+                               if own_app else [])
         if (set(declaration) != {'NSPrivacyTracking', 'NSPrivacyTrackingDomains',
                                  'NSPrivacyCollectedDataTypes', 'NSPrivacyAccessedAPITypes'}
                 or declaration['NSPrivacyTracking'] is not False
                 or declaration['NSPrivacyTrackingDomains'] != []
-                or declaration['NSPrivacyCollectedDataTypes'] != []
+                or declaration['NSPrivacyCollectedDataTypes'] != expected_collection
                 or not isinstance(declaration['NSPrivacyAccessedAPITypes'], list)):
             raise RuntimeError(f'Review changed privacy declaration: {source}')
         target = app / destination
-        if target.exists() and plistlib.loads(target.read_bytes()) != declaration:
+        if target.exists() and not own_app and plistlib.loads(target.read_bytes()) != declaration:
             raise RuntimeError(f'Upstream privacy declaration changed: {destination}')
+        # Kat owns the app declaration; an incremental build replaces its prior
+        # disclosure. Vendor/SDK declarations still fail closed on conflicts.
         pending.append((target, data))
         if bundle:
             info = {'CFBundleIdentifier': 'app.kattranslator.privacy.' + Path(bundle).stem,
