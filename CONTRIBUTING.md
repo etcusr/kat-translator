@@ -1,5 +1,7 @@
 # Contributing
 
+**English** | [Русский](CONTRIBUTING.ru.md)
+
 Original Kat translator code is licensed under GPL-3.0-or-later. Contributions to that code must be offered under the same license, with provenance and third-party notices preserved. See LICENSE and docs/LICENSING.md. Model weights and third-party resources retain their separate terms.
 
 Before changing code, read docs/CURRENT_STATE.md, docs/ARCHITECTURE.md and docs/GIT_WORKFLOW.md. Use synthetic examples in tests and screenshots. Do not upload translation history, microphone recordings, user images, device inventories, personal paths, credentials, signing material, downloaded models or build outputs.

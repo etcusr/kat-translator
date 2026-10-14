@@ -1,95 +1,102 @@
-# Kat translator — визуальное направление
+# Kat translator — visual direction
 
-Рабочее название утверждено пользователем 7 октября 2026: **Kat translator**, строчными буквами, одинаково в RU/EN. Проверка доступности названия и товарных знаков в эту итерацию не входит.
+**English** | [Русский](README.ru.md)
 
-## Выбор пользователя
+The working title was approved by the user on 7 October 2026: **Kat translator**, the same in RU and EN. Name availability and trademark checks were not part of this iteration.
 
-7 октября 2026 **первый вариант девятого раунда — штамп**: вытянутый чёрный `kat`, жёлтый акцент, подпись `translator`.
+## Current design
 
-Основной файл: [kat-primary-stamp-v1.png](kat-primary-stamp-v1.png). Оригинал: [round-9/stamp.png](round-9/stamp.png); точный промпт — в `round-9/prompts.json` (встроенный image_gen).
+- **App icon — the neon cat** from the user-supplied `kat-icon.zip`: default, dark and tinted variants, 1024×1024, RGB without alpha. It replaced the previously chosen stamp on 7 October 2026. [Details](neon-icon.md).
+- **Neon theme:** lime action color `#C9FA33`, black background `#000000`, violet cards `#1B1729`; shared `KatTheme`. [Details](neon-theme/README.md).
+- **Waiting animations:** a drawn cat for downloads and 14 clips for voice/text processing. [Gallery and update rules](loading-animations/README.md).
+- Store artwork (Header / Search Results) lives in `docs/publication/2026-10-14/creative-assets/`.
 
-Это актуальное выбранное направление. Ранее выбранные пиксельный кот и рисованный кот сохранены как исторические кандидаты. Квадратная версия штампа без мелкой подписи подключена в AppIcon: 1024×1024, непрозрачный фон. Исходник и промпт сохранены в `stamp-icon/`.
+## The user's choice on 7 October — the stamp (replaced)
 
-В загрузках внутри приложения добавлен анимированный силуэт кота: сидит → встаёт → шагает/бежит → садится. Темп зависит от сглаженной скорости заполнения полосы, с учётом объёма пакета. [Предпросмотр и проверка](cat-progress/README.md).
+On 7 October 2026 the **first option of the ninth round — the stamp** was chosen: an elongated black `kat`, a yellow accent and the caption `translator`. The neon icon replaced it on the same day; the stamp is kept in `stamp-icon/replaced-app-icon.png`.
 
-## История поиска — прежние направления
+Stamp file: [kat-primary-stamp-v1.png](kat-primary-stamp-v1.png). Original: [round-9/stamp.png](round-9/stamp.png); the exact prompt is in `round-9/prompts.json` (built-in image_gen). The previously chosen pixel cat and drawn cat are kept as historical candidates.
 
-Следующие разделы описывают предыдущие итерации; они не заменяют выбор штампа выше.
+In-app downloads gained an animated cat silhouette: sits → stands up → walks/runs → sits down. The pace follows the smoothed fill speed of the bar, taking the package size into account. [Preview and check](cat-progress/README.md).
 
-## Характер
+## Search history — earlier directions
 
-Саркастичный, невозмутимый кот: слегка прищуренные глаза, асимметричная ухмылка, узнаваемые уши и чёрно-белая шерсть. Исходное фото — настроение и отправная точка, не изображение для копирования. У персонажа собственные пропорции, пятна и поза.
+The following sections describe earlier iterations; they do not replace the current design above.
 
-Кот может иронизировать над ситуацией, но не высмеивает пользователя. Его характер не влияет на текст перевода, точность сообщений об ошибках или описание конфиденциальности. Никаких добавленных моделью шуток в переводах.
+## Character
 
-## Три кандидата
+A sarcastic, unflappable cat: slightly squinting eyes, an asymmetric smirk, recognizable ears and black-and-white fur. The source photo sets the mood and is a starting point, not an image to copy. The character has its own proportions, markings and pose.
 
-1. **Flat / минимализм:** контрастный светлый силуэт, тёмный фон, мятные детали. Основной кандидат для маленькой иконки.
-2. **Ink / стикер:** живая рисованная линия, вытянутая шея и взгляд искоса. Ближе к юмору исходного изображения; подходит для иллюстраций первого запуска.
-3. **Clay / объём:** матовая фигурка с тем же невозмутимым характером. Более мягкая и фактурная подача.
+The cat may be ironic about the situation but never mocks the user. Its character does not affect the translation text, the accuracy of error messages or the privacy description. No model-added jokes in translations.
 
-![Минимализм](kat-flat.png)
+## Three candidates
 
-![Рисованный стикер](kat-ink.png)
+1. **Flat / minimal:** a high-contrast light silhouette, dark background, mint details. Main candidate for the small icon.
+2. **Ink / sticker:** a lively hand-drawn line, an elongated neck and a sideways look. Closer to the humor of the source image; suits first-launch illustrations.
+3. **Clay / 3D:** a matte figurine with the same unflappable character. A softer, more textured look.
 
-![Объёмная фигурка](kat-clay.png)
+![Minimal](kat-flat.png)
 
-Кандидаты сгенерированы отдельно встроенным image_gen. Промпты сохраняются в `prompts.json`. Финальный значок приложения ещё не выбран и не установлен.
+![Hand-drawn sticker](kat-ink.png)
 
-## Применение
+![3D figurine](kat-clay.png)
 
-Сохраняем тёмный фон и мятный акцент текущего интерфейса. Кота используем дозированно: значок, первый запуск, раздел «О приложении», пустая история. Поля перевода и основные кнопки остаются легко читаемыми. Редизайн экранов будет отдельной итерацией после выбора персонажа.
+The candidates were generated separately with the built-in image_gen. Prompts are kept in `prompts.json`. At that point the final app icon had not been chosen or installed.
 
-Не помещаем мелкую надпись в значок. Название располагается отдельно от эмблемы; сохраняем достаточный контраст и свободное место вокруг головы.
+## Usage
 
-## Второй раунд
+Keep the dark background and the mint accent of the interface at that time. Use the cat sparingly: icon, first launch, the About section, empty history. Translation fields and main buttons stay easy to read. A screen redesign would be a separate iteration after choosing the character.
 
-- [Ретро-комикс](round-2/kat-retro.png)
-- [Геометрический знак](round-2/kat-geometric.png)
-- [Пиксельный кот — основной](round-2/kat-pixel.png)
-- [Логотип с названием](round-2/kat-wordmark.png)
+Do not put small text into the icon. The name sits separately from the emblem; keep sufficient contrast and free space around the head.
 
-## Третий раунд — смешение новых референсов
+## Second round
 
-Основным остаётся первый выбранный пиксельный кот. Новые варианты для сравнения:
+- [Retro comic](round-2/kat-retro.png)
+- [Geometric mark](round-2/kat-geometric.png)
+- [Pixel cat — main](round-2/kat-pixel.png)
+- [Logo with name](round-2/kat-wordmark.png)
 
-1. [Хитро-наивный, с язычком](round-3/kat-pixel-blep.png).
-2. [Ехидный смех](round-3/kat-pixel-laugh.png).
-3. [Чёрный кот-заговорщик](round-3/kat-pixel-schemer.png).
-4. [Пиксельный логотип с названием](round-3/kat-pixel-wordmark.png).
+## Third round — mixing new references
 
-Все варианты созданы встроенным image_gen. Полные промпты: `round-3/prompts.json`. Это растровые концепты, а не готовая векторная графика.
+The first chosen pixel cat remained the main one. New options for comparison:
 
-## Четвёртый раунд — смена подхода
+1. [Sly-naive, with the tongue out](round-3/kat-pixel-blep.png).
+2. [Snide laugh](round-3/kat-pixel-laugh.png).
+3. [Black schemer cat](round-3/kat-pixel-schemer.png).
+4. [Pixel logo with name](round-3/kat-pixel-wordmark.png).
 
-Пользователю не понравились новые варианты третьего раунда; запрошена смена подхода и стилистики. Эти три изображения созданы с нуля, без картинок-референсов, чтобы избежать повторения одной морды. Пиксельный кандидат сохранён; нового окончательного выбора нет.
+All options were created with the built-in image_gen. Full prompts: `round-3/prompts.json`. These are raster concepts, not finished vector graphics.
 
-1. [Невозмутимый кот-дудл](round-4/kat-doodle.png): характер через позу и неряшливую линию.
-2. [Чёрно-белый знак](round-4/kat-deadpan-mark.png): силуэт и два прищуренных глаза.
-3. [Яркий странный персонаж](round-4/kat-acid-character.png): необычные пропорции, закатывание глаз, оранжевый/фиолетовый/жёлтый.
+## Fourth round — a change of approach
 
-Генератор: встроенный image_gen. Полные промпты: `round-4/prompts.json`.
+The user did not like the new third-round options and asked for a different approach and style. These three images were created from scratch, without reference images, to avoid repeating the same face. The pixel candidate was kept; no new final choice.
 
-## Пятый раунд — лаконичные логотипы без персонажа
+1. [Unflappable doodle cat](round-4/kat-doodle.png): character through pose and a messy line.
+2. [Black-and-white mark](round-4/kat-deadpan-mark.png): a silhouette and two squinting eyes.
+3. [Bright odd character](round-4/kat-acid-character.png): unusual proportions, eye-rolling, orange/violet/yellow.
 
-Пользователь отклонил четвёртый раунд и запросил простые графические логотипы, допускается полностью без кота. Прежний пиксельный вариант сохранён как исторический кандидат; актуальное направление теперь — простые знаки и типографика.
+Generator: built-in image_gen. Full prompts: `round-4/prompts.json`.
 
-1. [Монограмма kt](round-5/kt-monogram.png).
-2. [Абстрактный обмен / два языка](round-5/exchange-mark.png).
-3. [Шрифтовой Kat translator](round-5/kat-wordmark.png).
+## Fifth round — concise logos without a character
 
-Растровые концепты созданы встроенным image_gen без референсов. Промпты: `round-5/prompts.json`. Окончательный вариант не выбран.
+The user rejected the fourth round and asked for simple graphic logos, possibly without a cat at all. The earlier pixel option was kept as a historical candidate; the direction became simple marks and typography.
 
-## Шестой и седьмой раунды
+1. [kt monogram](round-5/kt-monogram.png).
+2. [Abstract exchange / two languages](round-5/exchange-mark.png).
+3. [Kat translator wordmark](round-5/kat-wordmark.png).
 
-Вариации монограмм сохранены в `round-6/` вместе с промптами. Пользователь отклонил направление и попросил исследовать другие стили в интернете.
+Raster concepts were created with the built-in image_gen without references. Prompts: `round-5/prompts.json`. No final option was chosen.
 
-[Седьмой раунд — шесть концептов](round-7/README.md): плакатная графика, модульная типографика и ретрофутуризм; по знаку и шрифтовому варианту для каждого направления. Источники и промпты в `round-7/prompts.json`. Выбора и установки нового значка пока нет.
+## Sixth and seventh rounds
 
-## Восьмой раунд — с навыками logo-design и brand-identity
+Monogram variations are kept in `round-6/` together with prompts. The user rejected the direction and asked to research other styles online.
 
-[Четыре концепции и примеры иконок](round-8/README.md). Навыки установлены в ~/.codex/skills. Промпты сохранены в round-8/prompts.json. Концепты не утверждены и в приложение не установлены.
+[Seventh round — six concepts](round-7/README.md): poster graphics, modular typography and retro-futurism; a mark and a wordmark for each direction. Sources and prompts in `round-7/prompts.json`. No new icon was chosen or installed at that point.
 
-## Девятый раунд — свободный перебор
+## Eighth round — with the logo-design and brand-identity skills
 
-Пользователь предпочёл случайные разные направления вместо сбора новых референсов. [Шесть вариантов](round-9/README.md): штамп, пиксели, каллиграфия, цветная абстракция, оптика, стекло. Финальный выбор не сделан.
+[Four concepts and icon examples](round-8/README.md). The skills were installed in ~/.codex/skills. Prompts are saved in round-8/prompts.json. The concepts were not approved or installed in the app.
+
+## Ninth round — free exploration
+
+The user preferred random, diverse directions instead of collecting new references. [Six options](round-9/README.md): stamp, pixels, calligraphy, colorful abstraction, optics, glass. The stamp from this round was chosen on 7 October and replaced by the neon icon the same day.
