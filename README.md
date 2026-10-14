@@ -6,11 +6,11 @@
 
 An offline voice, text and image-text translator for **iPhone, Apple Silicon Mac and ARM64 Android**. Processing runs on the device after the required models have been downloaded. Speech recognition, translation and speech synthesis are separate stages; availability and quality depend on the language, model and device.
 
-**Start here:** [current status](docs/CURRENT_STATE.md) · [RU/EN product description](PROJECT_DESCRIPTION.md). This overview was checked against the working tree on October 14, 2026. Dated reports describe the build tested at that time, not necessarily today's code. Most technical documentation is currently in Russian.
+**Start here:** [current status](docs/CURRENT_STATE.md) · [RU/EN product description](PROJECT_DESCRIPTION.md). This overview was checked against the working tree on October 14, 2026. Dated reports describe the build tested at that time, not necessarily today's code. Living documentation is in English with Russian versions (`*.ru.md`); dated reports stay in their original language. [Documentation index](docs/README.md).
 
-iOS **1.0 (51)** and Mac **1.0 (70)** passed package verification and were uploaded to App Store Connect, with the playback fix, signed SDK distributions, nine manifests and46 license documents.138 validation tests passed. Build selection, TestFlight and review submission remain with the owner. [Verification and remaining work](docs/publication/signed-sdks-release-2026-10-14.md).
+iOS **1.0 (51)** and Mac **1.0 (70)** passed package verification and were uploaded to App Store Connect, with the playback fix, signed SDK distributions, nine manifests and 46 license documents. 138 validation tests passed. Build selection, TestFlight and review submission remain with the owner. [Verification and remaining work](docs/publication/signed-sdks-release-2026-10-14.md).
 
-The iPhone playback fix passed six device regressions and two repeated voice cases; the shared Mac player also passed. Release51/70 includes this fix. [Evidence and limits](docs/publication/ios-playback-fix-2026-10-14.md).
+The iPhone playback fix passed six device regressions and two repeated voice cases; the shared Mac player also passed. Release 51/70 includes this fix. [Evidence and limits](docs/publication/ios-playback-fix-2026-10-14.md).
 
 Local runtime checks now include sandboxed Mac inference with network access denied. iPhone downloads and final voice repeats passed, but intermittent playback failures and a Thai pipeline timeout remain unresolved. [Runtime results and limits](docs/publication/runtime-acceptance-2026-10-14.md).
 
@@ -85,13 +85,15 @@ Hardware tests are separate from unit tests and compilation. Do not run instrume
 
 ## Documentation
 
+- [Documentation index](docs/README.md) — all living documents in English and Russian.
 - [CURRENT_STATE](docs/CURRENT_STATE.md) — current versions, implemented changes, limitations and evidence.
+- [Publication queue](docs/publication/OPEN_QUESTIONS.md) — what remains before App Store / Google Play publication.
 - [Architecture](docs/ARCHITECTURE.md) — components, key files and builds.
 - [Android](docs/android/README.md), [Mac](docs/macos/README.md), [iPhone testing](DEVICE_TESTING.md).
 - [Publication preparation](docs/publication/2026-10-14/README.md) — dated preparation materials, not a published app.
 - [Animations](docs/branding/loading-animations/README.md), [branding](docs/branding/README.md).
 - [Previous README](docs/history/README-before-2026-10-12-sync.md) — archived details of earlier iterations.
 
-Dependency source delivery and SDK provenance are documented [here](docs/licensing/2026-10-14/publication-and-sdk.md). The source tree now includes46 notice documents; the newly rebuilt/signed Opus SDK is a separate candidate for the next release.
+Dependency source delivery and SDK provenance are documented [here](docs/licensing/2026-10-14/publication-and-sdk.md). The source tree now includes 46 notice documents; the newly rebuilt/signed Opus SDK is a separate candidate for the next release.
 
-Release51/70: three verified upstream speech SDK distributions now carry Kat signatures, with unchanged payloads and corrected embedded-commit/source mapping. The release includes the audio-session fix and46 notices. [Build, validation and upload status](docs/publication/signed-sdks-release-2026-10-14.md).
+Release 51/70: three verified upstream speech SDK distributions now carry Kat signatures, with unchanged payloads and corrected embedded-commit/source mapping. The release includes the audio-session fix and 46 notices. [Build, validation and upload status](docs/publication/signed-sdks-release-2026-10-14.md).
