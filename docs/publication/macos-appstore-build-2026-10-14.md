@@ -1,4 +1,4 @@
-# Mac App Store: сборки 1.0 (61–63) — 14 октября 2026
+# Mac App Store: сборки 1.0 (61–64) — 14 октября 2026
 
 ## Решение
 
@@ -7,7 +7,7 @@
 | Параметр | Магазинная сборка |
 |---|---|
 | Bundle ID | `app.kattranslator` — общий с iOS: одна запись App Store Connect для iOS и macOS |
-| Версия / build | **1.0 / 63** (актуальная; 61 — с OpenSSL, 61 и 62 — с неработающим OPUS GPU) — совпадает с версией macOS-страницы ASC «1.0», иначе сборка не появится в поле «Build». Номер build продолжает Mac-последовательность после 60 |
+| Версия / build | **1.0 / 64** (актуальная; 61 — с OpenSSL, 61 и 62 — с неработающим OPUS GPU, 63 — без декларации шифрования) — совпадает с версией macOS-страницы ASC «1.0», иначе сборка не появится в поле «Build». Номер build продолжает Mac-последовательность после 60 |
 | Entitlements | `apps/macos/KatMacStore.entitlements`: app-sandbox, device.audio-input, files.user-selected.read-write, network.client |
 | Helper | `Contents/MacOS/OpusPython` (PyTorch Metal worker старого OPUS EN-пакета) подписывается `KatMacHelper.entitlements`: app-sandbox + inherit |
 | Подпись | Archive — Apple Development (automatic), экспорт `app-store-connect` — Apple Distribution и 3rd Party Mac Developer Installer, профиль «Mac Team Store Provisioning Profile: app.kattranslator» (Xcode managed) |
@@ -27,7 +27,7 @@
 - Первый upload отклонён серверной проверкой Apple: «App sandbox not enabled» для трёх файлов `Resources/OpusPython/torch/bin/*`. Исправлено исключением этих инструментов; build 61 не был принят сервером.
 - Локальный экспорт до исправления: pkg подписан installer-сертификатом команды; в приложении `codesign --verify --deep --strict` PASS, все 161 Mach-O подписаны Apple Distribution, xctest нет, версия 1.0/61, ID `app.kattranslator`.
 - Короткий запуск archive-копии (development-подпись, sandbox): процесс стартует, система включила AppSandbox, создан контейнер `~/Library/Containers/app.kattranslator`, падений нет. Это только запуск.
-- Не проверено в sandbox: скачивание моделей, Index MLX 9B/2B, OPUS GPU worker, CT2, ASR/микрофон, TTS, OCR области экрана, выбор/экспорт файлов, горячие клавиши и перевод выделенного текста через Accessibility. Магазинная сборка начинает с пустого контейнера: модели и настройки прямой сборки не переносятся.
+- На этом этапе (61) функции в sandbox ещё не проверялись; итог проверок — в разделах 63 и 64 ниже. Магазинная сборка начинает с пустого контейнера: модели и настройки прямой сборки не переносятся.
 
 ## 1.0 (62): без OpenSSL и других TLS-библиотек
 
@@ -70,7 +70,41 @@
 
 **Upload 1.0 (63): `Upload succeeded`** (14.10); перед загрузкой скрипт подтвердил inherit у обоих helper-файлов и отсутствие OpenSSL/rustls.
 
-Не проверено в sandbox: микрофон и голосовой путь ASR/TTS, снимок области экрана, горячие клавиши, Accessibility-перевод выделения, NSOpen/SavePanel вживую, первичная настройка через UI.
+Не проверено в sandbox (после 64): живой микрофон, снимок области экрана, горячие клавиши, Accessibility-перевод выделения, NSOpen/SavePanel вживую, первичная настройка через UI.
+
+## 1.0 (64): декларация шифрования и полный прогон в sandbox
+
+Магазинный Info.plist получает `ITSAppUsesNonExemptEncryption = NO`, как iOS 1.0 (47). В сборке нет OpenSSL/rustls; HTTPS идёт через системный стек (URLSession), хэши — через CryptoKit и встроенные модули Python. App Store Connect больше не должен спрашивать про шифрование при каждой сборке.
+
+### Как проверялось
+
+1. **Сборка вне `~/Downloads`.** При запуске приложения из `~/Downloads` (DerivedData в репозитории) dyld блокировался в `open()` в ожидании системного запроса доступа к папке «Загрузки». Без человека у экрана тест-раннер зависал («test runner hung before establishing connection»), и так было у обеих сборок. Поэтому для тестов DerivedData лежит во временном каталоге.
+2. **Засев контейнера.** Opt-in `testSandboxSeedModels` (`KAT_SANDBOX_SEED_FROM`, опционально `KAT_SANDBOX_SEED_DEFAULTS`) копирует установленные модели в контейнер — на APFS это клоны, место не тратится. Копируются также записи `Downloads/<id>/transfer.json` и, по желанию, снимок настроек прямой сборки. История не копируется.
+3. **Очистка.** `testSandboxResetContainerData` (`KAT_SANDBOX_RESET=1`) возвращает контейнер к первому запуску и работает только внутри `/Library/Containers/`. После проверок контейнер очищен.
+4. **Новый тест голоса.** Opt-in `testInstalledSpeechAndThaiFrontend` (`KAT_SPEECH_INTEGRATION=1`): маршрутизированный ASR, установленный английский голос, тайский Wayu.
+5. **Пути в старом тесте.** В `testNativeBackendsWithExistingModels` пути к аудио-фикстурам и отчёту можно задать через `KAT_ASR_FIXTURES` и `KAT_RUNTIME_REPORT_DIR`.
+
+### Полный `MacRuntimeTests` внутри sandbox, со всеми opt-in
+
+**Прошли:**
+- Index 9B MLX;
+- OPUS GPU (6 направлений);
+- Auto: реальные OPUS → Index;
+- Parakeet (Core ML) ASR — RU-фраза распознана целиком;
+- Piper TTS (en_US ljspeech, данные eSpeak);
+- Wayu (Python без OpenSSL);
+- реальная загрузка с SHA-256;
+- OCR;
+- запись и воспроизведение исходного аудио;
+- окна, история, разрешения и горячие клавиши в unit-тестах.
+
+**Падают** те же 9 тестов, что и у прямой сборки при том же прогоне вне `~/Downloads`. Значит, это проблемы тестов на текущем `main`, а не sandbox:
+- `LoadingAnimationTests` ждёт 15 клипов, их 14 после обновления анимаций;
+- `testNativeBackendsWithExistingModels` ждёт старый 9B GGUF-пакет;
+- рендер-тесты пишут в отсутствующие каталоги `.build/...` (Code=4);
+- остальные зависят от отсутствующих пакетов: `testImageImportAndTranslation`, `testVoiceCardsVisible…` (`downloadRequired`), `testMainTextRequestLeaves…`.
+
+`testScreenImageHandoff…` падал в sandbox только из-за пустых настроек контейнера. Со снимком настроек прямой сборки он прошёл.
 
 ## Открыто
 

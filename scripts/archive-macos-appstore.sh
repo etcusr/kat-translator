@@ -22,6 +22,8 @@ data = plistlib.loads(open(sys.argv[1], 'rb').read())
 data['CFBundleShortVersionString'] = sys.argv[3]
 data['CFBundleVersion'] = sys.argv[4]
 data['KatBuildProfile'] = 'mac-app-store'
+# Store build carries no TLS/crypto library; HTTPS is the OS stack (as iOS).
+data['ITSAppUsesNonExemptEncryption'] = False
 open(sys.argv[2], 'wb').write(plistlib.dumps(data, sort_keys=False))
 EOF
 

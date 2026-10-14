@@ -84,6 +84,39 @@ final class MacRuntimeTests: XCTestCase {
         await item.remove()
         try? FileManager.default.removeItem(at: item.transferRoot)
     }
+    /// Opt-in for store-build checks: copy installed model folders (never History) from a direct
+    /// build's data folder into this sandboxed app's container. APFS clones, so no extra space.
+    func testSandboxSeedModels() throws {
+        guard let source = ProcessInfo.processInfo.environment["KAT_SANDBOX_SEED_FROM"] else { throw XCTSkip("Opt-in sandbox seeding") }
+        let root = ModelDownloader.root
+        guard root.path.contains("/Library/Containers/") else { throw XCTSkip("Only inside a sandbox container") }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        // Downloads/<id>/transfer.json records which archives are installed; merge it per item.
+        var items = ["Models", "RecognitionPackages", "TranslationPackages", "VoicePackages", "transfer.json"]
+        let transfers = URL(fileURLWithPath: source).appendingPathComponent("Downloads")
+        items += ((try? FileManager.default.contentsOfDirectory(atPath: transfers.path)) ?? []).map { "Downloads/" + $0 }
+        try FileManager.default.createDirectory(at: root.appendingPathComponent("Downloads"), withIntermediateDirectories: true)
+        for name in items {
+            let from = URL(fileURLWithPath: source).appendingPathComponent(name), to = root.appendingPathComponent(name)
+            guard FileManager.default.fileExists(atPath: from.path), !FileManager.default.fileExists(atPath: to.path) else { continue }
+            try FileManager.default.copyItem(at: from, to: to)
+        }
+        // Optional settings snapshot (`defaults export <direct bundle id>`), so state matches the direct build.
+        if let plist = ProcessInfo.processInfo.environment["KAT_SANDBOX_SEED_DEFAULTS"],
+           let values = NSDictionary(contentsOfFile: plist) as? [String: Any] {
+            for (key, value) in values where !key.hasPrefix("NS") && !key.hasPrefix("Apple") { UserDefaults.standard.set(value, forKey: key) }
+        }
+        print("SANDBOX_SEEDED", (try? FileManager.default.contentsOfDirectory(atPath: root.path).sorted()) ?? [])
+    }
+    /// Opt-in: return the sandbox container to a first-launch state after store-build checks.
+    func testSandboxResetContainerData() throws {
+        guard ProcessInfo.processInfo.environment["KAT_SANDBOX_RESET"] == "1" else { throw XCTSkip("Opt-in sandbox reset") }
+        let root = ModelDownloader.root
+        guard root.path.contains("/Library/Containers/") else { throw XCTSkip("Never reset outside a sandbox container") }
+        try? FileManager.default.removeItem(at: root)
+        if let id = Bundle.main.bundleIdentifier { UserDefaults.standard.removePersistentDomain(forName: id) }
+        print("SANDBOX_RESET", FileManager.default.fileExists(atPath: root.path))
+    }
     @MainActor func testDownloadOfflineAndUnmeteredPaths() async throws {
         let suite = "download-network-tests-" + UUID().uuidString
         let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
@@ -326,7 +359,10 @@ final class MacRuntimeTests: XCTestCase {
 
         let asr = WhisperBackend()
         try await asr.load(modelURL: try XCTUnwrap(packages.whisper.installedURL))
-        let file = try AVAudioFile(forReading: root.appendingPathComponent(".build/apple-asr/fixtures/short.aiff"))
+        // Sandboxed store-build checks pass locations the container may read and write.
+        let environment = ProcessInfo.processInfo.environment
+        let fixtures = environment["KAT_ASR_FIXTURES"].map { URL(fileURLWithPath: $0) } ?? root.appendingPathComponent(".build/apple-asr/fixtures")
+        let file = try AVAudioFile(forReading: fixtures.appendingPathComponent("short.aiff"))
         let buffer = try XCTUnwrap(AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(file.length)))
         try file.read(into: buffer)
         let normalizer = AudioNormalizer()
@@ -350,7 +386,42 @@ final class MacRuntimeTests: XCTestCase {
         let count = ot_wayu_frontend_tokens("สวัสดีครับ", &tokens, 512)
         XCTAssertGreaterThan(count, 2)
         report["thaiTokenCount"] = count
-        try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]).write(to: root.appendingPathComponent(".build/macos/runtime-report.json"))
+        try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]).write(to: (environment["KAT_RUNTIME_REPORT_DIR"].map { URL(fileURLWithPath: $0) } ?? root.appendingPathComponent(".build/macos")).appendingPathComponent("runtime-report.json"))
+    }
+    /// Opt-in (KAT_SPEECH_INTEGRATION=1): installed Whisper ASR, English TTS and the embedded Thai
+    /// frontend, without translation models. Used for sandboxed store-build checks.
+    @MainActor func testInstalledSpeechAndThaiFrontend() async throws {
+        let environment = ProcessInfo.processInfo.environment
+        guard environment["KAT_SPEECH_INTEGRATION"] == "1" else { throw XCTSkip("Opt-in installed speech models") }
+        let packages = PackageDownloadCoordinator.shared
+        await packages.restore()
+        // Same routed ASR as the app: Parakeet (Core ML) when installed, else Omnilingual or Whisper.
+        let asr = RoutedASRBackend()
+        let asrURL = try XCTUnwrap(packages.recognition.ultra ?? packages.omnilingualDirectory ?? packages.whisper.installedURL)
+        try await asr.load(modelURL: asrURL)
+        let fixtures = environment["KAT_ASR_FIXTURES"].map { URL(fileURLWithPath: $0) } ?? root.appendingPathComponent(".build/apple-asr/fixtures")
+        let file = try AVAudioFile(forReading: fixtures.appendingPathComponent("short.aiff"))
+        let buffer = try XCTUnwrap(AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(file.length)))
+        try file.read(into: buffer)
+        let normalizer = AudioNormalizer()
+        let transcript = try await asr.transcribe(CapturedAudio(samples: try normalizer.convert(buffer) + normalizer.finish()), language: .russian)
+        XCTAssertTrue(transcript.text.lowercased().contains("сахар"), transcript.text)
+        await asr.unload()
+        let tts = SherpaSpeechBackend()
+        func installedVoice() -> URL? { packages.voiceDirectories[ModelCatalog.englishVoice.id] ?? packages.voiceDirectories.first { $0.key.contains("en_US") }?.value }
+        // Copied packages are re-verified once (new file identities); allow that to finish.
+        for _ in 0..<60 where installedVoice() == nil { try await Task.sleep(for: .seconds(1)); await packages.restore() }
+        let voice = try XCTUnwrap(installedVoice(), "voices=\(packages.voiceDirectories.keys.sorted()) errors=\(packages.errors) piper=\(packages.downloaders.filter { $0.model.id.contains("en_US") }.map { "\($0.model.id) installed=\($0.installedURL?.lastPathComponent ?? "nil") phase=\($0.state.phase.rawValue) error=\($0.state.error ?? "-")" })")
+        try await tts.load(directory: voice, language: .english)
+        let pcm = try await tts.synthesize(text: "Your room is ready. Check in at eleven thirty.")
+        XCTAssertGreaterThan(pcm.samples.count, pcm.sampleRate)
+        XCTAssertGreaterThan(pcm.samples.map { abs($0) }.max() ?? 0, 0.01)
+        await tts.unload()
+        XCTAssertNotEqual(ot_wayu_frontend_init(Bundle.main.resourcePath!), 0)
+        var tokens = [Int64](repeating: 0, count: 512)
+        let count = ot_wayu_frontend_tokens("สวัสดีครับ", &tokens, 512)
+        XCTAssertGreaterThan(count, 2)
+        print("SPEECH_INTEGRATION_OK model=\(asrURL.lastPathComponent) voice=\(voice.lastPathComponent) asr=\(transcript.text) ttsSamples=\(pcm.samples.count) thaiTokens=\(count)")
     }
     @MainActor func testImageOCRAndInvalidImport() async throws {
         let image = NSImage(size: NSSize(width: 1000, height: 240), flipped: false) { rect in
