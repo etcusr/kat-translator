@@ -1,0 +1,12 @@
+Kat translator performs speech recognition, translation and speech synthesis on the device. No account or sign-in is required.
+
+An internet connection is required to download the selected language models and voices before first use. Downloads may require several gigabytes of free storage.
+
+Suggested review steps:
+1. Select English and Russian and download the required translation, speech recognition and voice packages.
+2. Open Text, enter a short sentence and translate it.
+3. Open Voice, allow microphone access, record a short phrase and stop recording to translate it.
+4. Use Camera to translate clearly printed text.
+5. After the required packages are downloaded, disable the network and repeat text and voice translation.
+
+Language coverage differs between translation, speech recognition and voices. Larger translation models require more device memory.

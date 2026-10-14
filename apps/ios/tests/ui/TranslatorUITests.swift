@@ -1,6 +1,77 @@
 import XCTest
 
 final class TranslatorUITests: XCTestCase {
+    /// Opt-in capture of real iPhone UI. The caller backs up and verifies the device
+    /// preferences/history. Disable text history through its typed UI setting and restore it.
+    @MainActor func testStoreScreenshotsRussian() throws {
+        guard ProcessInfo.processInfo.environment["KAT_IOS_STORE_SHOTS"] == "1" else {
+            throw XCTSkip("Opt-in App Store screenshots")
+        }
+        continueAfterFailure = false
+        XCUIDevice.shared.orientation = .portrait
+        let app = XCUIApplication()
+        app.launchArguments = ["-languageSetupCompleted", "YES", "-appInterfaceLanguage", "ru",
+            "-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU", "-automaticModelLoad", "NO",
+            "-selectedTranslationModel", "index-translate-9b-q4km", "-translationSource", "ru", "-translationTarget", "en",
+            "-automaticLanguage", "NO", "-automaticSpeechText", "NO", "-automaticSpeechVoice", "NO",
+            "-showTechnicalInfo", "NO", "-memorySaving", "NO"]
+        app.launch()
+        func textHistory(_ enabled: Bool?) -> Bool {
+            XCTAssertTrue(app.buttons["Настройки"].waitForExistence(timeout: 90))
+            app.buttons["Настройки"].tap()
+            let control = app.switches["history.recordText"]
+            for _ in 0..<8 where !control.isHittable { app.swipeUp() }
+            XCTAssertTrue(control.isHittable)
+            let previous = control.value as? String == "1"
+            if let enabled, previous != enabled {
+                control.coordinate(withNormalizedOffset: CGVector(dx: 0.93, dy: 0.5)).tap()
+                let changed = XCTNSPredicateExpectation(predicate: NSPredicate(format: "value == %@", enabled ? "1" : "0"), object: control)
+                XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 5), .completed)
+            }
+            app.buttons["Готово"].tap()
+            return previous
+        }
+        let originalHistory = textHistory(false)
+        defer {
+            app.terminate(); app.launch()
+            _ = textHistory(originalHistory)
+            app.terminate()
+        }
+        func shot(_ name: String) {
+            Thread.sleep(forTimeInterval: 1.5)
+            let attachment = XCTAttachment(screenshot: app.screenshot())
+            attachment.name = "store-ios-ru-" + name
+            attachment.lifetime = .keepAlways
+            add(attachment)
+        }
+        let textMode = app.segmentedControls.buttons["Текст"]
+        XCTAssertTrue(textMode.waitForExistence(timeout: 90)); textMode.tap()
+        let editor = app.textViews["Текст оригинала"]
+        XCTAssertTrue(editor.waitForExistence(timeout: 15))
+        editor.tap(); editor.typeText("Подскажите, пожалуйста, как пройти к вокзалу?")
+        if app.buttons["Скрыть клавиатуру"].exists { app.buttons["Скрыть клавиатуру"].tap() }
+        let translate = app.buttons["text.translate"]
+        XCTAssertTrue(translate.isEnabled); translate.tap()
+        let result = app.staticTexts["text.translation.text"]
+        let completed = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            result.exists && result.label.lowercased().contains("station")
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [completed], timeout: 180), .completed)
+        shot("1-text")
+        app.segmentedControls.buttons["Голос"].tap()
+        let record = app.buttons["voice.record"]
+        let prepare = app.buttons["voice.prepare"]
+        if prepare.waitForExistence(timeout: 3) && prepare.isEnabled { prepare.tap() }
+        XCTAssertTrue(record.waitForExistence(timeout: 180))
+        shot("2-voice")
+        app.buttons["Модели"].firstMatch.tap()
+        XCTAssertTrue(app.buttons["models.languageSetup"].waitForExistence(timeout: 15))
+        shot("3-models")
+        app.buttons["models.languageSetup"].tap()
+        XCTAssertTrue(app.textFields["setup.search.targets"].waitForExistence(timeout: 20))
+        shot("4-languages")
+    }
+
     /// Exercise the compact-device Auto policy using installed OPUS and Index, without
     /// changing the saved device probe: the launch-domain value hides it for this process.
     @MainActor func testAutoOpusPickerAndDetectedTextSwitchingOnPhone() throws {
