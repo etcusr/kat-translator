@@ -151,7 +151,7 @@
 
 ## Карточка (14.10, со слов пользователя)
 
-Основной язык приложения в App Store Connect — **English (U.S.)**; английские скриншоты iOS и macOS из `dist/store/localized-2026-10-14/` загружены. Английский подзаголовок: «Translate voice & text offline». App Privacy — Data Not Collected; цена — бесплатно.
+Основной язык приложения в App Store Connect — **English (U.S.)**; английские скриншоты iOS и macOS из `dist/store/localized-2026-10-14/` загружены. Английский подзаголовок: «Translate voice & text offline». App Privacy опубликован по таблице Codex ([model-download-privacy](model-download-privacy-2026-10-14.md): четыре категории данных хостингов загрузки, без tracking); цена — бесплатно.
 
 ## Открыто
 
