@@ -1,4 +1,4 @@
-# Mac App Store: сборки 1.0 (61–65) — 14 октября 2026
+# Mac App Store: сборки 1.0 (61–66) — 14 октября 2026
 
 ## Решение
 
@@ -7,7 +7,7 @@
 | Параметр | Магазинная сборка |
 |---|---|
 | Bundle ID | `app.kattranslator` — общий с iOS: одна запись App Store Connect для iOS и macOS |
-| Версия / build | **1.0 / 65** (актуальная; 61 — с OpenSSL, 61 и 62 — с неработающим OPUS GPU, 63 — без декларации шифрования, 64 — отклонена ITMS-90284) — совпадает с версией macOS-страницы ASC «1.0», иначе сборка не появится в поле «Build». Номер build продолжает Mac-последовательность после 60 |
+| Версия / build | **1.0 / 66** (актуальная; 61 — с OpenSSL, 61 и 62 — с неработающим OPUS GPU, 63 — без декларации шифрования, 64 — отклонена ITMS-90284, 65 — ресурсные бандлы с Info.plist и ID приложения) — совпадает с версией macOS-страницы ASC «1.0», иначе сборка не появится в поле «Build». Номер build продолжает Mac-последовательность после 60 |
 | Entitlements | `apps/macos/KatMacStore.entitlements`: app-sandbox, device.audio-input, files.user-selected.read-write, network.client |
 | Helper | `Contents/MacOS/OpusPython` (PyTorch Metal worker старого OPUS EN-пакета) подписывается `KatMacHelper.entitlements`: app-sandbox + inherit |
 | Подпись | Archive — Apple Development (automatic), экспорт `app-store-connect` — Apple Distribution и 3rd Party Mac Developer Installer, профиль «Mac Team Store Provisioning Profile: app.kattranslator» (Xcode managed) |
@@ -120,6 +120,28 @@
 - копия archive запускается вне `~/Downloads`, AppSandbox активен, новых отчётов о падениях нет.
 
 **Upload 1.0 (65): `Upload succeeded`** (14.10, 14:23 MSK). Это передача сборки; серверная обработка и приём Apple на момент записи не подтверждены.
+
+## 1.0 (66): магазинные настройки только для target приложения
+
+В сверке Codex замечено, а затем проверено в архиве 65: переопределения `xcodebuild` (`PRODUCT_BUNDLE_IDENTIFIER`, `INFOPLIST_FILE`, `CODE_SIGN_ENTITLEMENTS`, sandbox, подпись) действуют глобально. Поэтому они достались и SwiftPM-целям. В 65 у `FluidAudio_FluidAudio.bundle` и `OfflineCore_OfflineCore.bundle` полный Info.plist приложения: `CFBundleIdentifier=app.kattranslator`, `NSServices`, usage-строки. Это коллизия Bundle ID внутри пакета и риск отказа Apple.
+
+Исправление:
+- `generate-macos-project.py` при `KAT_MAC_STORE_PROJECT` генерирует отдельный ignored-проект в `.build/macos-store-project/`. Bundle ID, store Info.plist, entitlements, sandbox и automatic signing задаются только в target приложения.
+- `archive-macos-appstore.sh` архивирует этот проект; из командной строки передаётся только `DEVELOPMENT_TEAM`.
+- Скрипт останавливает сборку, если ресурсный бандл повторяет ID приложения.
+- Обычный `apps/macos/KatTranslatorMac.xcodeproj` и прямая сборка не изменились.
+
+Проверено в PKG 66:
+- бандлы `fluidaudio.FluidAudio.resources` и `offlinecore.OfflineCore.resources` без `NSServices` и без отдельной подписи;
+- у приложения `app.kattranslator` 1.0/66, `ITSAppUsesNonExemptEncryption=false`, 4 sandbox-entitlements;
+- строгая подпись PASS; 3 подписанных бандла и 154 Mach-O — Apple Distribution;
+- оба helper — inherit;
+- копия archive запускается вне `~/Downloads`;
+- SHA-256 PKG `17a5030ab66aba20dd1571fcb8ebee3564e5c33e9071d51535153ca1a9275615`.
+
+**Upload 1.0 (66): `Upload succeeded`** (14.10, 14:45 MSK). Приём Apple на момент записи не подтверждён.
+
+Удаление в App Store Connect: Apple не даёт удалять загруженные сборки. Отклонённые при обработке сборки не появляются в выборе «Build»; принятые можно только не выбирать или пометить Expire в TestFlight. Локальные архивы 61–63 удалены; 64 сохранён как предмет сверки Codex, 65 — как предыдущая попытка.
 
 ## Открыто
 

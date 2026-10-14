@@ -57,6 +57,17 @@ for name in ['Debug','Release']:
 # Hosted runtime tests and native UI tests exercise the actual packaged application.
 for name in ['Debug','Release']:
  objects[uid('target'+name)]['buildSettings']['ENABLE_TESTABILITY']='YES'
+# Mac App Store variant: identity, sandbox and Info.plist apply to the app target only.
+# Command-line overrides would also reach SwiftPM resource bundles (duplicate bundle IDs).
+store_project=os.environ.get('KAT_MAC_STORE_PROJECT')
+if store_project:
+ for name in ['Debug','Release']:
+  objects[uid('target'+name)]['buildSettings'].update({
+   'PRODUCT_BUNDLE_IDENTIFIER':os.environ.get('KAT_MAC_STORE_BUNDLE_ID','app.kattranslator'),
+   'INFOPLIST_FILE':os.environ['KAT_MAC_STORE_INFOPLIST'],
+   'CODE_SIGN_ENTITLEMENTS':'$(KAT_REPO_ROOT)/apps/macos/KatMacStore.entitlements','ENABLE_APP_SANDBOX':'YES',
+   'CODE_SIGN_STYLE':'Automatic','CODE_SIGN_IDENTITY':'Apple Development','DEVELOPMENT_TEAM':os.environ['KAT_APPLE_TEAM_ID'],
+   'ENABLE_TESTABILITY':'NO'})
 test_targets=[]
 for name,folder,kind in [('MacRuntimeTests','runtime','unit-test'),('MacUITests','ui','ui-testing')]:
  refs=[]
@@ -90,7 +101,12 @@ for name,folder,kind in [('MacRuntimeTests','runtime','unit-test'),('MacUITests'
   phases.append(obj(name+'resources'+fixture,isa='PBXResourcesBuildPhase',buildActionMask='2147483647',files=[obj('build:'+rel,isa='PBXBuildFile',fileRef=ref)],runOnlyForDeploymentPostprocessing='0'))
  target=obj(name+'target',isa='PBXNativeTarget',buildConfigurationList=cl,buildPhases=phases,buildRules=[],dependencies=[obj(name+'dependency',isa='PBXTargetDependency',target=ns['target'])],name=name,productName=name,productReference=product,productType='com.apple.product-type.bundle.'+kind)
  objects[ns['project']]['targets'].append(target);test_targets.append((name,target))
-out=root/'apps/macos/KatTranslatorMac.xcodeproj';out.mkdir(exist_ok=True)
+out=root/'apps/macos/KatTranslatorMac.xcodeproj'
+if store_project:
+ # Relative references ('../..') require the same depth below the repository as apps/macos.
+ out=Path(store_project).resolve()/'KatTranslatorMac.xcodeproj'
+ if out.parent.parent.parent != root: raise RuntimeError('Store project must be two levels below the repository root')
+out.mkdir(parents=True,exist_ok=True)
 (out/'project.pbxproj').write_text('// !$*UTF8*$!\n{ archiveVersion = 1; classes = {}; objectVersion = 56; objects = {\n'+'\n'.join(f'{key} = {q(value)};' for key,value in objects.items())+'\n}; rootObject = '+ns['project']+'; }\n')
 scheme=out/'xcshareddata/xcschemes';scheme.mkdir(parents=True,exist_ok=True)
 ref=f'<BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="{ns["target"]}" BuildableName="Kat translator.app" BlueprintName="KatTranslatorMac" ReferencedContainer="container:KatTranslatorMac.xcodeproj"/>'

@@ -30,15 +30,18 @@ data['ITSAppUsesNonExemptEncryption'] = False
 open(sys.argv[2], 'wb').write(plistlib.dumps(data, sort_keys=False))
 EOF
 
-if xcodebuild -project "$ROOT/apps/macos/KatTranslatorMac.xcodeproj" -scheme KatTranslatorMac \
+# Store identity, sandbox and Info.plist apply to the app target only: command-line overrides
+# would also reach SwiftPM resource bundles (their Info.plist became the app's, same bundle ID).
+STORE_PROJECT="$ROOT/.build/macos-store-project"
+KAT_MAC_STORE_PROJECT="$STORE_PROJECT" KAT_MAC_STORE_INFOPLIST="$OUT/Info.plist" KAT_MAC_STORE_BUNDLE_ID="$BUNDLE_ID" \
+  KAT_APPLE_TEAM_ID="$TEAM" python3 "$ROOT/scripts/generate-macos-project.py" > /dev/null
+
+if xcodebuild -project "$STORE_PROJECT/KatTranslatorMac.xcodeproj" -scheme KatTranslatorMac \
   -configuration Release -destination 'generic/platform=macOS' \
   -derivedDataPath "$ROOT/.build/MacStoreDerivedData" -archivePath "$ARCHIVE" \
   -allowProvisioningUpdates -allowProvisioningDeviceRegistration \
   archive \
-  PRODUCT_BUNDLE_IDENTIFIER="$BUNDLE_ID" DEVELOPMENT_TEAM="$TEAM" \
-  CODE_SIGN_STYLE=Automatic CODE_SIGN_IDENTITY="Apple Development" \
-  CODE_SIGN_ENTITLEMENTS="$ROOT/apps/macos/KatMacStore.entitlements" \
-  ENABLE_APP_SANDBOX=YES INFOPLIST_FILE="$OUT/Info.plist" ENABLE_TESTABILITY=NO \
+  DEVELOPMENT_TEAM="$TEAM" \
   2>&1 | tee "$OUT/archive.log" | awk '/error:|warning: .*sign|ARCHIVE (SUCCEEDED|FAILED)/ { print }'; then
   :
 else
@@ -63,6 +66,8 @@ EXTRA=$(find "$APP" -type f -exec file {} + | grep 'Mach-O 64-bit executable' | 
 # Nested signatures outside standard locations keep the development certificate (ITMS-90284).
 SIGNED_RESOURCES=$(find "$APP/Contents/Resources" -path '*/_CodeSignature' -prune -print | grep -v '/Contents/Resources/OpusPython/' || true)
 [ -z "$SIGNED_RESOURCES" ] || { echo "Signed bundles in Resources: $SIGNED_RESOURCES" >&2; exit 1; }
+DUPLICATE_ID=$(for plist in "$APP"/Contents/Resources/*.bundle/Contents/Info.plist; do [ -f "$plist" ] && /usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$plist"; done | grep -Fx "$BUNDLE_ID" || true)
+[ -z "$DUPLICATE_ID" ] || { echo "A resource bundle reuses the app bundle ID $BUNDLE_ID" >&2; exit 1; }
 # Store build ships no TLS/crypto implementation (export compliance, as on iOS).
 CRYPTO=$(find "$APP" -type f \( -name '*.so' -o -name '*.dylib' -o -perm +111 \) -print0 | xargs -0 grep -l -a -E 'OpenSSL 3\.|_SSL_new|OPENSSL_init_crypto|rustls|BoringSSL' 2>/dev/null || true)
 [ -z "$CRYPTO" ] || { echo "Crypto library in store build: $CRYPTO" >&2; exit 1; }
