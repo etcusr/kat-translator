@@ -6,7 +6,8 @@ import AppKit
 final class LoadingAnimationTests: XCTestCase {
     func testBundledClipsAreSilentAndHaveMatchingPosters() async throws {
         let clips = LoadingAnimation.available
-        XCTAssertEqual(clips.count, 15)
+        XCTAssertEqual(clips.count, 14)
+        XCTAssertFalse(clips.contains { $0.id == "one-beer" })
         XCTAssertEqual(Set(clips.map(\.id)).count, clips.count)
         XCTAssertTrue(clips.contains { $0.id == "wizard" })
         for clip in clips {
