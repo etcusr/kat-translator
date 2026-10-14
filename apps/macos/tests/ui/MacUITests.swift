@@ -34,7 +34,8 @@ final class MacUITests: XCTestCase {
         let app = XCUIApplication(url: URL(fileURLWithPath: "/Applications/Kat translator.app"))
         app.launchArguments = ["-languageSetupCompleted", "YES", "-appInterfaceLanguage", "ru", "-ApplePersistenceIgnoreState", "YES",
                                "-translationSource", "ru", "-translationTarget", "en", "-automaticLanguage", "NO", "-automaticSpeechText", "NO",
-                               "-historyRecordText", "NO", "-historyRecordAudio", "NO", "-historyRecordImages", "NO"]
+                               "-historyRecordText", "NO", "-historyRecordAudio", "NO", "-historyRecordImages", "NO",
+                               "-showTechnicalInfo", "NO"]   // store shots without the diagnostics toolbar, model line and timings
         let board = NSPasteboard.general
         let saved = (board.pasteboardItems ?? []).map { item in
             let copy = NSPasteboardItem()
@@ -59,16 +60,16 @@ final class MacUITests: XCTestCase {
         XCTAssertTrue(editor.waitForExistence(timeout: 10))
         editor.click(); board.clearContents(); board.setString(sample, forType: .string)
         app.typeKey("v", modifierFlags: .command)
+        // The first press may only prepare the model; press again whenever the button is back.
         let translate = app.buttons["text.translate"]
-        for _ in 0..<2 {
-            let ready = XCTNSPredicateExpectation(predicate: NSPredicate(format: "enabled == true"), object: translate)
-            _ = XCTWaiter.wait(for: [ready], timeout: 120); translate.click()
-        }
         let output = app.staticTexts["text.translation.text"]
-        let translated = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
-            output.exists && (output.value as? String ?? output.label).lowercased().contains("train")
-        }, object: nil)
-        XCTAssertEqual(XCTWaiter.wait(for: [translated], timeout: 180), .completed)
+        func done() -> Bool { output.exists && (output.value as? String ?? output.label).lowercased().contains("train") }
+        let deadline = Date().addingTimeInterval(240)
+        while !done() && Date() < deadline {
+            if translate.exists && translate.isEnabled && translate.isHittable { translate.click() }
+            Thread.sleep(forTimeInterval: 3)
+        }
+        XCTAssertTrue(done(), "translation did not appear")
         shot("1-text")
         app.buttons["mode.voice"].click()
         shot("2-voice")
