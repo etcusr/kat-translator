@@ -6,6 +6,43 @@ os.environ['HF_HUB_OFFLINE'] = '1'
 os.environ['TRANSFORMERS_OFFLINE'] = '1'
 os.environ['HF_HUB_DISABLE_TELEMETRY'] = '1'
 
+
+def _install_offline_ssl():
+    """Store builds omit OpenSSL (_ssl). mlx_lm imports huggingface_hub/httpx, which
+    import ssl at module level although local loading never opens a connection.
+    Provide inert names for those imports; any real TLS use fails loudly."""
+    try:
+        import ssl  # noqa: F401
+        return
+    except ImportError:
+        pass
+    import sys
+    import types
+
+    class _Unavailable(type):
+        def __getattr__(cls, name):
+            if name.startswith('__'):
+                raise AttributeError(name)
+            return cls
+
+    class _Inert(metaclass=_Unavailable):
+        def __init__(self, *args, **kwargs):
+            raise RuntimeError('TLS is not available in the offline Index runtime')
+
+    def _missing(name):
+        if name.startswith('__'):
+            raise AttributeError(name)
+        return _Inert
+
+    module = types.ModuleType('ssl')
+    module.__getattr__ = _missing
+    module.HAS_SNI = module.HAS_ALPN = False
+    module.OPENSSL_VERSION = ''
+    sys.modules['ssl'] = module
+
+
+_install_offline_ssl()
+
 class Engine:
     def __init__(self, path):
         import mlx.core as mx

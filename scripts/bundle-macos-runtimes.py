@@ -6,6 +6,11 @@ root=Path(__file__).resolve().parent.parent
 mac_profile=runpy.run_path(str(root/'scripts/mac-build-profile.py'))['profile'](os.environ.get('KAT_MAC_PROFILE','modern'))
 contents=Path(sys.argv[1]); fw=contents/'Frameworks';res=contents/'Resources'
 fw.mkdir(parents=True,exist_ok=True);res.mkdir(parents=True,exist_ok=True)
+# Mac App Store build (sandboxed): ship no TLS/crypto libraries. Downloads use URLSession,
+# Index/OPUS workers load local files only (index_mlx.py stubs ssl for import-time use).
+store_sandbox=os.environ.get('ENABLE_APP_SANDBOX') == 'YES'
+STORE_OMIT_DYNLOAD=('_ssl','_hashlib')
+STORE_OMIT_INDEX=('hf_xet',)
 def copyfile(a,b):
  if b.exists(): b.chmod(b.stat().st_mode | 0o200)
  shutil.copy2(a,b)
@@ -28,17 +33,24 @@ for extension in (res/'python/lib/python3.11/lib-dynload').glob('_tkinter*.so'):
 # Build configuration archives contain host framework links, never needed by the frontend.
 for config in (res/'python/lib/python3.11').glob('config-*-darwin'):
  if config.is_dir(): shutil.rmtree(config)
+if store_sandbox:
+ for extension in (res/'python/lib/python3.11/lib-dynload').glob('*.so'):
+  if extension.name.split('.')[0] in STORE_OMIT_DYNLOAD: extension.unlink()
+ for stale in ('libssl.3.dylib','libcrypto.3.dylib'):
+  if (fw/stale).exists(): (fw/stale).unlink()
 copytree(root/'Dependencies/build/wayu/WayuPython',res/'WayuPython')
 index_source=root/'Dependencies/build'/mac_profile['runtime']/'IndexPython'
 if not index_source.is_dir(): raise RuntimeError('Prepare Index runtime: python3 scripts/prepare-index-mlx.py')
 copytree(index_source,res/'IndexPython')
+if store_sandbox:
+ for omitted in res.glob('IndexPython/*'):
+  if omitted.name.split('-')[0] in STORE_OMIT_INDEX: shutil.rmtree(omitted)
 shutil.copy2(root/'shared/native/IndexMLX/index_mlx.py',res/'IndexPython/index_mlx.py')
 opus_source=root/'Dependencies/build/opus-gpu/OpusPython'
 if not opus_source.is_dir(): raise RuntimeError('Prepare OPUS GPU runtime: python3 scripts/prepare-opus-gpu.py')
 copytree(opus_source,res/'OpusPython')
 # Store validation requires every executable to be sandboxed; the worker never runs
 # torch's standalone tools (protoc, torch_shm_manager), so the store build omits them.
-store_sandbox=os.environ.get('ENABLE_APP_SANDBOX') == 'YES'
 if store_sandbox and (res/'OpusPython/torch/bin').exists(): shutil.rmtree(res/'OpusPython/torch/bin')
 shutil.copy2(root/'shared/native/OpusGPU/opus_gpu.py',res/'OpusPython/opus_gpu.py')
 helper_source=py/'bin/python3.11'
@@ -55,6 +67,7 @@ for src,name in inputs:
 # Python extensions need their original absolute dependencies rewritten too.
 queue += [(py/'lib/python3.11/lib-dynload'/p.name,p) for p in (res/'python/lib/python3.11/lib-dynload').glob('*.so')]
 for source in index_source.rglob('*'):
+ if store_sandbox and source.relative_to(index_source).parts[0].split('-')[0] in STORE_OMIT_INDEX: continue
  if source.is_file() and source.suffix in {'.so','.dylib'}:
   queue.append((source,res/'IndexPython'/source.relative_to(index_source)))
 queue += [(fw/'OmniVoiceRuntime.framework/OmniVoiceRuntime',fw/'OmniVoiceRuntime.framework/OmniVoiceRuntime')]

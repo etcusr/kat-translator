@@ -46,6 +46,9 @@ codesign -d --entitlements - --xml "$APP/Contents/MacOS/OpusPython" 2>/dev/null 
 # Apple rejects any executable without the sandbox entitlement; only the app and its helper may remain.
 EXTRA=$(find "$APP" -type f -exec file {} + | grep 'Mach-O 64-bit executable' | cut -d: -f1 | grep -v -e '/Contents/MacOS/Kat translator$' -e '/Contents/MacOS/OpusPython$' || true)
 [ -z "$EXTRA" ] || { echo "Unexpected executables: $EXTRA" >&2; exit 1; }
+# Store build ships no TLS/crypto implementation (export compliance, as on iOS).
+CRYPTO=$(find "$APP" -type f \( -name '*.so' -o -name '*.dylib' -o -perm +111 \) -print0 | xargs -0 grep -l -a -E 'OpenSSL 3\.|_SSL_new|OPENSSL_init_crypto|rustls|BoringSSL' 2>/dev/null || true)
+[ -z "$CRYPTO" ] || { echo "Crypto library in store build: $CRYPTO" >&2; exit 1; }
 
 cat > "$OUT/ExportOptions.plist" <<EOF
 <?xml version="1.0" encoding="UTF-8"?>

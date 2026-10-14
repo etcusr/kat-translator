@@ -18,7 +18,7 @@ iOS 0.5.16/build46 с privacy manifest и новым ID установлен о�
 
 ## Mac App Store (14.10)
 
-Загружена первая магазинная Mac-сборка **1.0 / build61** (`app.kattranslator`, App Sandbox, Apple Distribution) — `Upload succeeded`. Отдельный скрипт `scripts/archive-macos-appstore.sh`; прямая сборка 0.6.7/60 и её ID не изменены. Проверены подписи, sandbox и запуск; функциональная приёмка в sandbox (модели, MLX, OPUS worker, голос, OCR, горячие клавиши) не выполнялась. На ревью не отправлялась. [Отчёт](publication/macos-appstore-build-2026-10-14.md).
+Загружены магазинные Mac-сборки 1.0 (`app.kattranslator`, App Sandbox, Apple Distribution): build61 и актуальная **build62 без OpenSSL/rustls** (как iOS; Index 9B и OPUS GPU проверены без них). Отдельный скрипт `scripts/archive-macos-appstore.sh`; прямая сборка 0.6.7/60 и её ID не изменены. Проверены подписи, sandbox и запуск; функциональная приёмка в sandbox (модели, MLX, OPUS worker, голос, OCR, горячие клавиши) не выполнялась. На ревью не отправлялась. [Отчёт](publication/macos-appstore-build-2026-10-14.md).
 
 Подготовлены [четыре реальных iPhone-скриншота 1206×2622 и русская карточка](publication/ios-store-screenshots-2026-10-14.md). Итоговый UI-сценарий прошёл; настройки и история сохранены. Это build46 с новым ключом шифрования, установленный при съёмке, не магазинная версия 1.0.
 
