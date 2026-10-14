@@ -1,5 +1,7 @@
 # Apple privacy declarations
 
+**English** | [Русский](README.ru.md)
+
 These files describe **Kat's pinned integration**, not every possible use of an upstream SDK. No collection or tracking is declared by these runtime components. The app manifests separately disclose download-host processing (coarse IP-derived location, network pseudonymous identifier, download interaction and technical diagnostics). See the [assessment and questionnaire mapping](../../docs/publication/model-download-privacy-2026-10-14.md); this is not collection by the local runtime SDKs. Review this set whenever dependencies, call paths or data practices change.
 
 ## Repackaged listed SDKs
@@ -45,4 +47,4 @@ Run `PYTHONPATH=scripts/validation python3 -m unittest scripts.validation.test_i
 
 ## Source-built SDK candidate
 
-A separate OpusRuntime candidate was rebuilt from hash-locked archives, includes three per-platform manifests and has a verified Apple Development package signature. It has not replaced the existing build input yet. The three downloaded Sherpa/ONNX XCFramework distributions now have Kat distributor signatures; their51 original files still match official ZIPs and release digests. This does not claim an upstream supplier signature or an independent source rebuild. Use `scripts/sign-verified-speech-sdks.py --output NEW_DIRECTORY --identity SIGNING_IDENTITY` after fetching SDKs, then explicitly promote the verified outputs. Fetching upstream archives again replaces this local signature. [Evidence and remaining work](../../docs/licensing/2026-10-14/publication-and-sdk.md).
+A separate OpusRuntime candidate was rebuilt from hash-locked archives, includes three per-platform manifests and has a verified Apple Development package signature. It has not replaced the existing build input yet. The three downloaded Sherpa/ONNX XCFramework distributions now have Kat distributor signatures; their 51 original files still match official ZIPs and release digests. This does not claim an upstream supplier signature or an independent source rebuild. Use `scripts/sign-verified-speech-sdks.py --output NEW_DIRECTORY --identity SIGNING_IDENTITY` after fetching SDKs, then explicitly promote the verified outputs. Fetching upstream archives again replaces this local signature. [Evidence and remaining work](../../docs/licensing/2026-10-14/publication-and-sdk.md).

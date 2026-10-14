@@ -1,5 +1,7 @@
 # iOS framework privacy declarations
 
+**English** | [Русский](README.ru.md)
+
 These manifests describe Kat's pinned iOS runtime configuration. They are installed into the **embedded app frameworks**, after Python extension conversion and Xcode framework embedding, by `scripts/install-ios-privacy-manifests.py`. Modified frameworks are re-signed before Xcode signs the app. Vendor XCFrameworks and their downloaded checksums remain unchanged. macOS packaging is separate.
 
 | Framework | Declaration | Evidence and scope |
@@ -33,4 +35,4 @@ Validation: `python3 -m unittest discover -s scripts/validation -p 'test_ios_*.p
 
 ONNX Runtime, Sherpa and FluidAudio declarations are installed separately by `install-sdk-privacy-manifests.py`; OfflineCore carries its own SwiftPM resource. See the [cross-platform SDK map and telemetry guard](../README.md). The latest iOS package has nine manifests, including the app.
 
-The packaging installer also fills missing `MinimumOSVersion=18.0` in Kat-built OmniVoiceRuntime and OpusRuntime before re-signing. Their actual Mach-O deployment targets were checked as18.0. Existing non-empty metadata is preserved. Before upload, run `python3 scripts/validation/check_ios_framework_metadata.py /path/to/exported.app` to compare all embedded frameworks with their binary targets and the app minimum.
+The packaging installer also fills missing `MinimumOSVersion=18.0` in Kat-built OmniVoiceRuntime and OpusRuntime before re-signing. Their actual Mach-O deployment targets were checked as 18.0. Existing non-empty metadata is preserved. Before upload, run `python3 scripts/validation/check_ios_framework_metadata.py /path/to/exported.app` to compare all embedded frameworks with their binary targets and the app minimum.
