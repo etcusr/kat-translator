@@ -8,6 +8,8 @@ An offline voice, text and image-text translator for **iPhone, Apple Silicon Mac
 
 **Start here:** [current status](docs/CURRENT_STATE.md) · [RU/EN product description](PROJECT_DESCRIPTION.md). This overview was checked against the working tree on October 14, 2026. Dated reports describe the build tested at that time, not necessarily today's code. Most technical documentation is currently in Russian.
 
+Local App Store packages iOS **1.0 (48)** and Mac **1.0 (67)** now include the updated license bundle. Archive/export, packaged notices and signatures have been checked; these packages have not been uploaded or installed. [Results and remaining work](docs/publication/store-license-rebuild-2026-10-14.md).
+
 **Repository privacy:** personal recordings, transcripts and diagnostic media are excluded from the published history. [Scope and handling of local data](docs/REPOSITORY_PRIVACY.md).
 
 ## Features

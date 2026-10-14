@@ -50,7 +50,7 @@ python3 scripts/assemble-ios-notices.py --check
 2. **Source delivery.** Publish/host the verified kit and provide the applicable recipient access mechanism alongside a release. A local ignored directory is not public delivery. No source hosting/upload was performed.
 3. **Google proprietary Android SDKs.** Source JAR 404 is not permission to omit SDK terms, nor evidence of a GPL violation. Verify current Google Play services/ML Kit terms and the exact final AAB. The 22 coordinates are explicit in the coverage JSON; no proprietary source was invented.
 4. **Distribution terms and assets.** GPL/App Store terms, downstream OpenRAIL/NC conditions, model/voice/dictionary provenance, 111 voice previews and rights for 30 media files remain as in the [release package review](release-package-review.md). Voices and media were not silently removed.
-5. **Final packages.** Produce and verify new IPA/PKG/AAB after the outstanding release decisions. Successful local builds below do not replace App Review or device/TestFlight acceptance.
+5. **Final packages.** New signed iOS 1.0 (48) IPA and Mac 1.0 (67) PKG now contain the 42-document resource and pass local package checks ([report](../../publication/store-license-rebuild-2026-10-14.md)). They have not been uploaded or installed. Final Android AAB, Apple processing, device/TestFlight acceptance and the other release decisions remain open.
 
 ## Validation
 

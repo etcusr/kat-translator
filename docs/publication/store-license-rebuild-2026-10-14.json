@@ -1,0 +1,1239 @@
+{
+  "date": "2026-10-14",
+  "source_base_commit": "e90f190",
+  "source_change": "iOS app and widget build47 to48; same reviewed42-document notice resource",
+  "packaging_tests": 18,
+  "localization_entries": 672,
+  "source_inputs_verified": 614,
+  "ios": {
+    "platform": "ios",
+    "version": "1.0",
+    "build": "48",
+    "artifact_name": "OfflineTranslator.ipa",
+    "artifact_bytes": 68572961,
+    "artifact_sha256": "ef0f6734a84bc5a32965e78f9400e39e65cbcfbd026a0b44a3c6ed2a87e2f141",
+    "notice_documents": 42,
+    "notice_sha256": "1c57c983384507806fd75d77057a75865da4ea65d6fb032bf3878c77018f1cae",
+    "privacy_manifests": [
+      "Frameworks/OmniVoiceRuntime.framework/PrivacyInfo.xcprivacy",
+      "Frameworks/Python.framework/PrivacyInfo.xcprivacy",
+      "Frameworks/TranslationRuntime.framework/PrivacyInfo.xcprivacy",
+      "PrivacyInfo.xcprivacy"
+    ],
+    "signature": "PASS",
+    "all_binary_signers_match_app": true,
+    "distribution_profiles": 2,
+    "export_encryption_flag": false,
+    "loading_animations": 14,
+    "loading_source_bytes_match": true,
+    "no_xctest": true,
+    "no_one_beer": true,
+    "resource_bundles": [],
+    "binary_checks": {
+      "macho_images_checked": 72,
+      "openssl_markers": 0,
+      "openssl_library_dependencies": 0,
+      "hash_fallbacks": [
+        "_md5",
+        "_sha1",
+        "_sha2",
+        "_sha3",
+        "_blake2"
+      ]
+    },
+    "binaries": [
+      {
+        "path": "Frameworks/OmniVoiceRuntime.framework/OmniVoiceRuntime",
+        "bytes": 3957904,
+        "sha256": "d8414283276ebb843d5a76fcaa7dd84a9bdbd4cf024f034eec091eda367afe2b"
+      },
+      {
+        "path": "Frameworks/OpusRuntime.framework/OpusRuntime",
+        "bytes": 3499296,
+        "sha256": "5bafb9dc3415d5c76f3c9f2b001b49b5c3029a3707a57fd4974c4fd83e503130"
+      },
+      {
+        "path": "Frameworks/Python.framework/Python",
+        "bytes": 4966592,
+        "sha256": "bfaad488a0ddfb447ed8dc91d0b65a068ed086195a0197fe9b1812b52c2a356d"
+      },
+      {
+        "path": "Frameworks/TranslationRuntime.framework/TranslationRuntime",
+        "bytes": 14962672,
+        "sha256": "faf546b4071737174d1092837fa0f989a008858beaf1eb4f8f63dfe4f2b18290"
+      },
+      {
+        "path": "Frameworks/_asyncio.framework/_asyncio",
+        "bytes": 139872,
+        "sha256": "f71ab0b187b13b10ef56209296b1f9a3714fd118017aff76ae2c0d7c9521d204"
+      },
+      {
+        "path": "Frameworks/_bisect.framework/_bisect",
+        "bytes": 86976,
+        "sha256": "252221fe38f0204f609e736e07c114901859567cff05c1f6da0fb94d86efd85d"
+      },
+      {
+        "path": "Frameworks/_blake2.framework/_blake2",
+        "bytes": 108288,
+        "sha256": "4a2903c1b7e0b06867da2c0807878112604fa8d9378a739ab5812d9a1c00e7f7"
+      },
+      {
+        "path": "Frameworks/_bz2.framework/_bz2",
+        "bytes": 192144,
+        "sha256": "b094096ea7711fc4f7e0fa645be3490b27349dd2f268e430beceb9ac6f899b9a"
+      },
+      {
+        "path": "Frameworks/_codecs_cn.framework/_codecs_cn",
+        "bytes": 202464,
+        "sha256": "5e5cce7d1d157f933509adb366ba97fb5101305ba3bee4d084b76430f39eeb4c"
+      },
+      {
+        "path": "Frameworks/_codecs_hk.framework/_codecs_hk",
+        "bytes": 201920,
+        "sha256": "9c8b40a53b4b411514ce498f8c51a39c28b835a8a7f65b568c73c148e1975011"
+      },
+      {
+        "path": "Frameworks/_codecs_iso2022.framework/_codecs_iso2022",
+        "bytes": 90224,
+        "sha256": "f702f459fa88f9792c68836b6fa91a791963715f0969d38d5b3fea144eacfec1"
+      },
+      {
+        "path": "Frameworks/_codecs_jp.framework/_codecs_jp",
+        "bytes": 319152,
+        "sha256": "b16c5401fce477e7a7f1bd39d3db01ffa9d4184315d73a4c00da5c913187080d"
+      },
+      {
+        "path": "Frameworks/_codecs_kr.framework/_codecs_kr",
+        "bytes": 185824,
+        "sha256": "be5492507516b8e60020ff0c299bb2c955715eb9de8275ac2369db0e10f83fbc"
+      },
+      {
+        "path": "Frameworks/_codecs_tw.framework/_codecs_tw",
+        "bytes": 168448,
+        "sha256": "fa98b155bdb0c56c0c9c28ee251c0793f474d85529fb208bacac0dc12bc8bc66"
+      },
+      {
+        "path": "Frameworks/_contextvars.framework/_contextvars",
+        "bytes": 84064,
+        "sha256": "5768f5877de02ffc63aea0c8f60803bed9e36cd55eea90b2e2bc9bc70871c09f"
+      },
+      {
+        "path": "Frameworks/_csv.framework/_csv",
+        "bytes": 109824,
+        "sha256": "a6adcf3a0a8ddec10e047a016db99fcd6ff09e2d3a2ad96cf0fecf652d25ce52"
+      },
+      {
+        "path": "Frameworks/_ctypes.framework/_ctypes",
+        "bytes": 263424,
+        "sha256": "8accc042b4908399ea3617604af3f7537afb51e25c15b377cb019399370ba74d"
+      },
+      {
+        "path": "Frameworks/_ctypes_test.framework/_ctypes_test",
+        "bytes": 96176,
+        "sha256": "38c1440a64eeb9e5a56fed9b8b89fe54cf703f2db01d64497990a98251fda66e"
+      },
+      {
+        "path": "Frameworks/_datetime.framework/_datetime",
+        "bytes": 178064,
+        "sha256": "ca5438e959b870ed40039e0b61db8220fff4698fdf53d51a1a1e90a010bab3da"
+      },
+      {
+        "path": "Frameworks/_dbm.framework/_dbm",
+        "bytes": 88592,
+        "sha256": "de0632b4ee87cd9871ef31b1ae52ad3deac653926143c230a92bf96fbd23791c"
+      },
+      {
+        "path": "Frameworks/_decimal.framework/_decimal",
+        "bytes": 385136,
+        "sha256": "d08562c192ad3b9b93aa74880d881f494a83f5f462b4359197b0e8eb44ca6063"
+      },
+      {
+        "path": "Frameworks/_elementtree.framework/_elementtree",
+        "bytes": 140320,
+        "sha256": "81821835b4cd0f6eccdfaab4d4e982fde751cd0a68c99bdd980171ad11b42b68"
+      },
+      {
+        "path": "Frameworks/_heapq.framework/_heapq",
+        "bytes": 86080,
+        "sha256": "c9bfb7034fc265fd3224dfd61cee631a3bcc9b5c5bb51992d2d5de7abb20b89f"
+      },
+      {
+        "path": "Frameworks/_interpchannels.framework/_interpchannels",
+        "bytes": 111744,
+        "sha256": "5eda95b7d19218aaab35a0a0d87b2f6e6c5f8042882d014c8212f9434ddbf2b6"
+      },
+      {
+        "path": "Frameworks/_interpqueues.framework/_interpqueues",
+        "bytes": 91504,
+        "sha256": "1dcdfd107ae73034ea08379a68f6924ffb7260eb1b1a6bebe8c62039c95e8526"
+      },
+      {
+        "path": "Frameworks/_interpreters.framework/_interpreters",
+        "bytes": 94656,
+        "sha256": "3f24e986b5096d14048e96234d3df6ded6a6e021dfa338c816fd6b53ea6bb5f8"
+      },
+      {
+        "path": "Frameworks/_json.framework/_json",
+        "bytes": 108064,
+        "sha256": "700fda22c31c8ac767fdc65ecb757ccd400c60738136f73623fe963b44153e90"
+      },
+      {
+        "path": "Frameworks/_lsprof.framework/_lsprof",
+        "bytes": 90352,
+        "sha256": "029d7a217d2a704d9a396f1bea08d5daf07c46147b9fc49b58435d19d3bbc162"
+      },
+      {
+        "path": "Frameworks/_lzma.framework/_lzma",
+        "bytes": 325200,
+        "sha256": "d0db027021f9afb1dc296334fa33378b859769189c30cb4b7c7d24b3683d7692"
+      },
+      {
+        "path": "Frameworks/_md5.framework/_md5",
+        "bytes": 89280,
+        "sha256": "0800be47e4c2e2a6fc078f5bb3bcda6dc7a9ca65f77db4badc2170d1af354f56"
+      },
+      {
+        "path": "Frameworks/_multibytecodec.framework/_multibytecodec",
+        "bytes": 115248,
+        "sha256": "e01ffbef74b094dbd2630e05476a6c13a3fab081a472fe4ec68e8b095e1c9eb8"
+      },
+      {
+        "path": "Frameworks/_opcode.framework/_opcode",
+        "bytes": 89264,
+        "sha256": "b89394432af2d67fb13ac795912a47dba9e0e7146684a25bbd0a574ac21b2975"
+      },
+      {
+        "path": "Frameworks/_pickle.framework/_pickle",
+        "bytes": 191328,
+        "sha256": "2272849097d533dcb52e3945d3c39737c9880243fa62af4fc2acbf68bd308921"
+      },
+      {
+        "path": "Frameworks/_queue.framework/_queue",
+        "bytes": 88512,
+        "sha256": "b109936c53d48ff59dfaba2adcd2921a29e0b554c9b6fcf98dddc2db5993521e"
+      },
+      {
+        "path": "Frameworks/_random.framework/_random",
+        "bytes": 88016,
+        "sha256": "62a7a5a892dbd77f446bd1a0ffab92bd6716d341e0137b54f5f3c39f9b0441d1"
+      },
+      {
+        "path": "Frameworks/_sha1.framework/_sha1",
+        "bytes": 89312,
+        "sha256": "60e9352e5f2b9e1ce5348e60a2ca0e6d79d73260cf3c7048180474426d7e6fdf"
+      },
+      {
+        "path": "Frameworks/_sha2.framework/_sha2",
+        "bytes": 128224,
+        "sha256": "0f99b846bc06c71e4a8e29912731b352a1380042274a9328a3acc6e5118747d3"
+      },
+      {
+        "path": "Frameworks/_sha3.framework/_sha3",
+        "bytes": 92896,
+        "sha256": "9819f89ccb0ca5ebf65d10fe1fe3500419889aa0338512aa840b2f73675992be"
+      },
+      {
+        "path": "Frameworks/_socket.framework/_socket",
+        "bytes": 155008,
+        "sha256": "1f23fec14d35c04c875fd01271dc1aa75f5c21c73d70d03bfdb4f5abdfc507b2"
+      },
+      {
+        "path": "Frameworks/_sqlite3.framework/_sqlite3",
+        "bytes": 191024,
+        "sha256": "b5604d224c46e3b37915addf0f95d304527017f769593f0e24e79a9c79d22edf"
+      },
+      {
+        "path": "Frameworks/_statistics.framework/_statistics",
+        "bytes": 84144,
+        "sha256": "5dd114d0fe1fef001aaf0e6b4698328b58ac675b44fb3f1127dbeafc623f7695"
+      },
+      {
+        "path": "Frameworks/_struct.framework/_struct",
+        "bytes": 117136,
+        "sha256": "5e4103c06a892fc351087bbcfa5ffdf5cc9ad2895ee9db491f2a431b41b6629e"
+      },
+      {
+        "path": "Frameworks/_testbuffer.framework/_testbuffer",
+        "bytes": 110464,
+        "sha256": "cccfd98fd86b89188e10b63df4f71cf70a60c54d4b344a6b080761a610a192d8"
+      },
+      {
+        "path": "Frameworks/_testcapi.framework/_testcapi",
+        "bytes": 509568,
+        "sha256": "638800fe0f4fade7eef54afd5867d3ac2fd3fb67436843265c4989d631e9049d"
+      },
+      {
+        "path": "Frameworks/_testclinic.framework/_testclinic",
+        "bytes": 193744,
+        "sha256": "57d75baa69ae4e6b0083fadcf49a9e3f6019d7b84cc4d4f64c617ad2d917a2b2"
+      },
+      {
+        "path": "Frameworks/_testclinic_limited.framework/_testclinic_limited",
+        "bytes": 84912,
+        "sha256": "46985c58a08b6fb372822969a45fb66ef921f068340072229d982fa8aecc1430"
+      },
+      {
+        "path": "Frameworks/_testexternalinspection.framework/_testexternalinspection",
+        "bytes": 84160,
+        "sha256": "6178413d951f829b13ecfa961a11d19654b71c5a9789d1bbf4d2fdb479768239"
+      },
+      {
+        "path": "Frameworks/_testimportmultiple.framework/_testimportmultiple",
+        "bytes": 83712,
+        "sha256": "328d469532528ad0c38c22e7fd54b7aa7574bf7d739bbb61726dfcaae724c1ef"
+      },
+      {
+        "path": "Frameworks/_testinternalcapi.framework/_testinternalcapi",
+        "bytes": 161984,
+        "sha256": "b83fbb28fd2e0eda60275d959508f4d2d9eaac574b88645b6b4c39f17cc09e61"
+      },
+      {
+        "path": "Frameworks/_testlimitedcapi.framework/_testlimitedcapi",
+        "bytes": 251888,
+        "sha256": "444171e07eb63e2204d59fbc7037a5ea2cd3f0d6c9555dbdce338a7a3f03ec88"
+      },
+      {
+        "path": "Frameworks/_testmultiphase.framework/_testmultiphase",
+        "bytes": 96592,
+        "sha256": "5d55061ab38866c72264c6c58ea15d571748896bad8b7f57417d058f718e6edc"
+      },
+      {
+        "path": "Frameworks/_testsinglephase.framework/_testsinglephase",
+        "bytes": 88240,
+        "sha256": "ca231545d2aa585623fa06b0b02253ef6e5551bd71cdd94a502aa171678426f0"
+      },
+      {
+        "path": "Frameworks/_uuid.framework/_uuid",
+        "bytes": 83968,
+        "sha256": "0502f9618d4964b545379729c72b23d198856ada0e18183c9b8bd29c87b09db0"
+      },
+      {
+        "path": "Frameworks/_xxtestfuzz.framework/_xxtestfuzz",
+        "bytes": 90768,
+        "sha256": "e45e0eef00bd56ab4f9b6f481761b5dd73336c82ae7589f3d3b914fa8b121049"
+      },
+      {
+        "path": "Frameworks/_zoneinfo.framework/_zoneinfo",
+        "bytes": 110352,
+        "sha256": "6fa1639eba35004e45f71ca4017bf49d0580488057ae8d34aa568a7b9e246c65"
+      },
+      {
+        "path": "Frameworks/array.framework/array",
+        "bytes": 136656,
+        "sha256": "718f1366957c3ab1a212331e9ec93526930bc0b7d05d880944e9c7cff3aa1a44"
+      },
+      {
+        "path": "Frameworks/binascii.framework/binascii",
+        "bytes": 89168,
+        "sha256": "89dfa922481dd49b6d16d3ea0a8282e1d6a88965a984ca5252ebe5d660bba6f8"
+      },
+      {
+        "path": "Frameworks/cmath.framework/cmath",
+        "bytes": 106384,
+        "sha256": "c0b0b43dc9b88d66333f79d62b6f7a32a8efbeab295794d49cc22fbc294fb890"
+      },
+      {
+        "path": "Frameworks/fcntl.framework/fcntl",
+        "bytes": 86128,
+        "sha256": "6d27d4f180a4c85011b2fdd99c01ceb8139b009ea5573447a9e2111c1a48fdf5"
+      },
+      {
+        "path": "Frameworks/math.framework/math",
+        "bytes": 132976,
+        "sha256": "45774951ffe0df9651492155ff401228cdf9f9c23e5b33aba6bda6d4b24dfac8"
+      },
+      {
+        "path": "Frameworks/mmap.framework/mmap",
+        "bytes": 91840,
+        "sha256": "800ff48668a9a4c8cdc56a8579dbc395a8a8d1a2fa4180f4616a180761c6a037"
+      },
+      {
+        "path": "Frameworks/pyexpat.framework/pyexpat",
+        "bytes": 303232,
+        "sha256": "a88b0d3654c2dfdee201821776361d5ac008c43b2bdd91ff787755168dbc32e8"
+      },
+      {
+        "path": "Frameworks/resource.framework/resource",
+        "bytes": 87168,
+        "sha256": "a42589b9b2679cb93d79815ef7d9707138d9401a1153eec1f6121cf66f27b3f9"
+      },
+      {
+        "path": "Frameworks/select.framework/select",
+        "bytes": 109696,
+        "sha256": "6e993a4179c489b5f3814c51451ff6943fcf523ddbc493573ae87f11183c1068"
+      },
+      {
+        "path": "Frameworks/termios.framework/termios",
+        "bytes": 88048,
+        "sha256": "e17cef98a0953f6595ab6290ae93ebfe3d88ed85c83fcf24c73624f541adecc2"
+      },
+      {
+        "path": "Frameworks/unicodedata.framework/unicodedata",
+        "bytes": 768384,
+        "sha256": "eb737b52cf424ee8b3d0a7fc2f2d42f6b8e653a8f988cae9dad61d8c13d4f75d"
+      },
+      {
+        "path": "Frameworks/xxlimited.framework/xxlimited",
+        "bytes": 87168,
+        "sha256": "e9f716080683e14fe010191ad9ba2265019b25049484dbf84d1fcde5f0bdb5ef"
+      },
+      {
+        "path": "Frameworks/xxlimited_35.framework/xxlimited_35",
+        "bytes": 86208,
+        "sha256": "19faf561c0204fc25858d3eece3b264e8e11cbb72a2737f05426704746e14841"
+      },
+      {
+        "path": "Frameworks/xxsubtype.framework/xxsubtype",
+        "bytes": 85392,
+        "sha256": "9290541a44e47e0cac24ad30e4a90144fb7154a838c06d4e6f1feaeaf160b50c"
+      },
+      {
+        "path": "Frameworks/zlib.framework/zlib",
+        "bytes": 111696,
+        "sha256": "ea03b7f3f59cfd9eee381862c2e62126c51af303b1f3894e35c382f0dd6411aa"
+      },
+      {
+        "path": "OfflineTranslator",
+        "bytes": 36749936,
+        "sha256": "8830363adbde8283c248757dbac3d006f89b7c604b1680f745b525564df1b92d"
+      },
+      {
+        "path": "PlugIns/DownloadActivityExtension.appex/DownloadActivityExtension",
+        "bytes": 168688,
+        "sha256": "110dfd8e02e6d04ea0c49001350fbbaac34870894fb41fda632c5303440ae950"
+      }
+    ],
+    "build_identity": {
+      "configuration": "Release",
+      "identifier": "ios-90878004762ec725",
+      "platform": "iphoneos",
+      "schema": 1,
+      "sha256": "90878004762ec7253266b14f5db6abe9636685fa83686884f1a3abdf1109eabb",
+      "sourceFileCount": 788
+    },
+    "device_test": "not performed",
+    "uploaded": false
+  },
+  "macos": {
+    "platform": "macos",
+    "version": "1.0",
+    "build": "67",
+    "artifact_name": "Kat translator.pkg",
+    "artifact_bytes": 349356025,
+    "artifact_sha256": "8d7b78b2646a20dd111aaacf5fcc20f7bcf6936520eda983b9cab77415962627",
+    "notice_documents": 42,
+    "notice_sha256": "1c57c983384507806fd75d77057a75865da4ea65d6fb032bf3878c77018f1cae",
+    "privacy_manifests": [],
+    "signature": "PASS",
+    "all_binary_signers_match_app": true,
+    "distribution_profiles": 1,
+    "export_encryption_flag": false,
+    "loading_animations": 14,
+    "loading_source_bytes_match": true,
+    "no_xctest": true,
+    "no_one_beer": true,
+    "resource_bundles": [
+      {
+        "path": "Contents/Resources/OfflineCore_OfflineCore.bundle",
+        "bundle_id": "offlinecore.OfflineCore.resources",
+        "codeless_unsigned": true
+      },
+      {
+        "path": "Contents/Resources/FluidAudio_FluidAudio.bundle",
+        "bundle_id": "fluidaudio.FluidAudio.resources",
+        "codeless_unsigned": true
+      }
+    ],
+    "binary_checks": {
+      "machOFiles": 154,
+      "minimumMacOS": "27.0",
+      "externalNonSystemDependencies": [],
+      "externalNonSystemRPaths": [],
+      "librariesExceedingMinimumMacOS": []
+    },
+    "binaries": [
+      {
+        "path": "Contents/Frameworks/OmniVoiceRuntime.framework/Versions/A/OmniVoiceRuntime",
+        "bytes": 4023840,
+        "sha256": "246691333800573037198d518f4d51787ff1d182ed54ba73cfb7a49863776823"
+      },
+      {
+        "path": "Contents/Frameworks/OpusRuntime.framework/Versions/A/OpusRuntime",
+        "bytes": 3515824,
+        "sha256": "0ffc31417f4f3fa23c6022fd8114032925eea45bf21c88bbd467c97dba2f470c"
+      },
+      {
+        "path": "Contents/Frameworks/libTranslationRuntime.dylib",
+        "bytes": 10266336,
+        "sha256": "3af40a67bf5414300f8cc58bc4ec7004050cab8beeeceacdd800677c390259b7"
+      },
+      {
+        "path": "Contents/Frameworks/liblzma.5.dylib",
+        "bytes": 182736,
+        "sha256": "e1ec44f22936a5446d9dac23ee62a66f30a1aa75186673800b2a3f69489c2689"
+      },
+      {
+        "path": "Contents/Frameworks/libmpdec.4.dylib",
+        "bytes": 186656,
+        "sha256": "f61266deedab7d055d1f1e455a53abd52f753a840a7a471aaa6a83fa6ab013bc"
+      },
+      {
+        "path": "Contents/Frameworks/libonnxruntime.dylib",
+        "bytes": 33032784,
+        "sha256": "c17eaa97884f7ef52e8740d33950483b2c560fe518ceba4b1838c90aa7ab814d"
+      },
+      {
+        "path": "Contents/Frameworks/libpython3.11.dylib",
+        "bytes": 4881680,
+        "sha256": "410763356303115a50d7ca9b9d46717ea24721585d0792ae8b5124024bd1d7a9"
+      },
+      {
+        "path": "Contents/Frameworks/libsherpa-onnx-c-api.dylib",
+        "bytes": 58087104,
+        "sha256": "b71263b97d498b7de65c395866f2bbf9bf0112304b63a021f45911e6b2abd39a"
+      },
+      {
+        "path": "Contents/Frameworks/libsqlite3.dylib",
+        "bytes": 1285056,
+        "sha256": "b2037b91a29c4ff213091f54f0b00a5f06d0a12ddaa295e699e9735c3ebef52c"
+      },
+      {
+        "path": "Contents/MacOS/Kat translator",
+        "bytes": 13026944,
+        "sha256": "dcf448fb7edb8239f62d05581916506b871e447ec120b71cc5c92f6fc46892d4"
+      },
+      {
+        "path": "Contents/MacOS/OpusPython",
+        "bytes": 50080,
+        "sha256": "d16f36c0eab89860d02103bf76fb03d011482b393bcd29011d59534a142ce609"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/google/_upb/_message.abi3.so",
+        "bytes": 742720,
+        "sha256": "1b4d80227f47be94ce769d2b51616064f178b890f17d323d88e91b920ae391e3"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/markupsafe/_speedups.cpython-311-darwin.so",
+        "bytes": 66736,
+        "sha256": "01848d29177ff80c5e1594ba0ffd0eda8327ca102d83b719ca3574b3bf266d97"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/mlx/core.cpython-311-darwin.so",
+        "bytes": 1534688,
+        "sha256": "e827a4aee55305248fd3396af9e44b40f78e2d30d435bd7b379d53be2eff61eb"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/mlx/lib/libjaccl.dylib",
+        "bytes": 1562800,
+        "sha256": "5a36a4f0ed6753841be248c3dbf7962ea4f853dacfd4de822ef3b9b6fcb76129"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/mlx/lib/libmlx.dylib",
+        "bytes": 21831232,
+        "sha256": "1376fcdc2e3af665e7706fe8a3e0e7ba90c489f7bdaaca48c17898da916b2f69"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/_core/_multiarray_tests.cpython-311-darwin.so",
+        "bytes": 136512,
+        "sha256": "baeaa8c3b5c4cfbca585e0f6fa4957d914c813957b599b7625ab1790b66e40c2"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/_core/_multiarray_umath.cpython-311-darwin.so",
+        "bytes": 3673152,
+        "sha256": "78e09e1854bc334ad4bafb002a61a2e94a16ee2fe7907db2fc2fa062893aeb1d"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/_core/_operand_flag_tests.cpython-311-darwin.so",
+        "bytes": 67264,
+        "sha256": "50dcb501dc45d7b57d0842de36e913132ab5fa161366e4d9f9e792c77bbfa742"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/_core/_rational_tests.cpython-311-darwin.so",
+        "bytes": 88688,
+        "sha256": "4ba5af3ffd50d6408734ae18da5435517bb04d90b34b87e7638ae86528c8716a"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/_core/_simd.cpython-311-darwin.so",
+        "bytes": 353904,
+        "sha256": "22c4657415df16c7aaac1254af4fd2537feda2a08e4b25bce8414ffd16134d74"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/_core/_struct_ufunc_tests.cpython-311-darwin.so",
+        "bytes": 67504,
+        "sha256": "a3391ec9e8321cc34c7a6c6837d26acf4460af447adddbb2ce85d456d16d48a2"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/_core/_umath_tests.cpython-311-darwin.so",
+        "bytes": 87600,
+        "sha256": "024c45d292b095a1eaa49848c3cfdd4bc53140f754e1fcc290c546dc188d9144"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/fft/_pocketfft_umath.cpython-311-darwin.so",
+        "bytes": 344288,
+        "sha256": "f48a0a9adeecfcd7001b136fdc11879c13b7eb5c845146fee9fd0d143d28b8f8"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/linalg/_umath_linalg.cpython-311-darwin.so",
+        "bytes": 170256,
+        "sha256": "166b19267ed3eab47bce9bb8b393b0acd7cd7f32a3c2a48cc40eb161da24b819"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/linalg/lapack_lite.cpython-311-darwin.so",
+        "bytes": 69024,
+        "sha256": "ec5cda65139af63ac1386c83c85540c2a75d9f5a4832bdde75ef92f2b0a68575"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/random/_bounded_integers.cpython-311-darwin.so",
+        "bytes": 294304,
+        "sha256": "70a44ca4b8e5b87725cfe50ccbf1ad091328956aabedfc1a86432a98e8c53455"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/random/_common.cpython-311-darwin.so",
+        "bytes": 246848,
+        "sha256": "2d1aac736ad4e4482dfdb161882c8714ec6c660d560ea6b1998af981db2c8f8f"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/random/_generator.cpython-311-darwin.so",
+        "bytes": 663520,
+        "sha256": "5083da80e0edec0fef6efa91b349f7dc7ab12cb2c6e8ade5d4b8db9245eb2161"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/random/_mt19937.cpython-311-darwin.so",
+        "bytes": 147632,
+        "sha256": "a7bcff7e9d8855e5c101256a633cd25b106fa243b9fab782290f640dbf5b1ecd"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/random/_pcg64.cpython-311-darwin.so",
+        "bytes": 148752,
+        "sha256": "52ee77eb3a90cfc0a95e81748beb25c8a4d453f8480b073e3652c098b18ff81c"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/random/_philox.cpython-311-darwin.so",
+        "bytes": 131216,
+        "sha256": "8811f1b789a36ae370f5e3586fe0bd962f03f8b5e953774f1783dc0a9e9b4795"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/random/_sfc64.cpython-311-darwin.so",
+        "bytes": 112704,
+        "sha256": "4baaef6a9b69e373af50c8679aecb4012fead7ac663915f16fe291fd0d98a14c"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/random/bit_generator.cpython-311-darwin.so",
+        "bytes": 221328,
+        "sha256": "5820008800902cec2ef1fa6f4abddc192c7388cbc8b9d4b780c195616dd3c670"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/numpy/random/mtrand.cpython-311-darwin.so",
+        "bytes": 557152,
+        "sha256": "8769954691e3b00359c9c65df437cdb67ea4e69ebd25bb55011d21df93689636"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/omlx/custom_kernels/decode_fast/_ext.cpython-311-darwin.so",
+        "bytes": 143408,
+        "sha256": "4b8d469e6587d475aee099575d9dd15a277f33ff4882809d74719ddb1134cf16"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/omlx/custom_kernels/decode_fast/libomlx_decode_fast_kernel_ops.dylib",
+        "bytes": 101408,
+        "sha256": "c85586058d8fb7d8e544eefb3c889e1cbb44d07391a8ea92afa2fb17ad141916"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/omlx/custom_kernels/qwen35_prefill/_ext.cpython-311-darwin.so",
+        "bytes": 229712,
+        "sha256": "b0b2f1a3719ff0a0ba4608fb85d572f3afcb243901fca79faca1653e71870a13"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/omlx/custom_kernels/qwen35_prefill/libomlx_qwen35_prefill_kernel_ops.dylib",
+        "bytes": 489872,
+        "sha256": "c041dd72856dd24c234d3c39022a2ae88d242b30bb5155b0d55917181e160539"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/psutil/_psutil_osx.abi3.so",
+        "bytes": 121600,
+        "sha256": "39359f1e8714b3a8dd8d9ef15d2ef3811b9bf66364cc88a09760a57e4966bc73"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/regex/_regex.cpython-311-darwin.so",
+        "bytes": 804592,
+        "sha256": "54d4cf348ea17c9540661a30e2b5ddc644ba6a3b25751065b9b47429bb11e571"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/safetensors/_safetensors_rust.abi3.so",
+        "bytes": 1101808,
+        "sha256": "eb6752f28e8051ef45f2066f33f8a4ee6a3a457ed5feec69a2912e004852178a"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/sentencepiece/_sentencepiece.cpython-311-darwin.so",
+        "bytes": 2361088,
+        "sha256": "a8eee294009106605d41fc26467411528fdbf0f6c9668ce97d399438723e80da"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/tokenizers/tokenizers.abi3.so",
+        "bytes": 9579584,
+        "sha256": "fdb483e466e7df74f3b40f02c4fed683e28aed7561ff01fcdbc328e3ccb92077"
+      },
+      {
+        "path": "Contents/Resources/IndexPython/yaml/_yaml.cpython-311-darwin.so",
+        "bytes": 397920,
+        "sha256": "a9a661d51d9a6ace49c4c6944a50c911b144ceaaa7ce48ca5cc4d76c4bd108d5"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/charset_normalizer/cd.cpython-311-darwin.so",
+        "bytes": 363888,
+        "sha256": "13beff64d83136d9e73fe2b342fe3e62983a6ce645d4933980d81e10e888d3b8"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/charset_normalizer/md.cpython-311-darwin.so",
+        "bytes": 632720,
+        "sha256": "d61460d30f39b571e6502db9b1074c37e89b60cd23ad897ec196a1bcada651c3"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/markupsafe/_speedups.cpython-311-darwin.so",
+        "bytes": 66736,
+        "sha256": "42ed9f3df0a81a4f0ce1c1db03b381633792b639b171a41acf183aa6b152ba93"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/_core/_multiarray_tests.cpython-311-darwin.so",
+        "bytes": 136512,
+        "sha256": "260c252647a8a50c6ff121bf4632a0ac7daecc49e6cc644f000f15e4c119fa39"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/_core/_multiarray_umath.cpython-311-darwin.so",
+        "bytes": 3673152,
+        "sha256": "75de4b0018da51a5bbfd9b08c73a00cd67d5f574b1714114176eeded251493da"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/_core/_operand_flag_tests.cpython-311-darwin.so",
+        "bytes": 67264,
+        "sha256": "cf04e3847f5bc1223aaa1aee57e50f874103232b002f8186612f2acc99c8b4ec"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/_core/_rational_tests.cpython-311-darwin.so",
+        "bytes": 88688,
+        "sha256": "da7e0122e3834e742c5656144b37cac19b4da7c06974d318e75e8577c4ed6bda"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/_core/_simd.cpython-311-darwin.so",
+        "bytes": 353904,
+        "sha256": "d08a487242d2140d648c88b2b9c3b8a9597f114e07c22bd79fadcaf48afdac3f"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/_core/_struct_ufunc_tests.cpython-311-darwin.so",
+        "bytes": 67504,
+        "sha256": "c3a6adb2d7eed11f734dc669f4920c17328c057fd6eef51d3d7bd38b928074f0"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/_core/_umath_tests.cpython-311-darwin.so",
+        "bytes": 87600,
+        "sha256": "d99a1bf186968004e2b4c65d9751fd06572f3189c8a2942f888bea33d0d7dde2"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/fft/_pocketfft_umath.cpython-311-darwin.so",
+        "bytes": 344288,
+        "sha256": "d6f689ae9b609d51dc38646f8630de898f070129e370d3027971b49afd6cc5ae"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/linalg/_umath_linalg.cpython-311-darwin.so",
+        "bytes": 170256,
+        "sha256": "ea8da7a57aac89a82b6697548d3de15c3891e9368e4e4bcd241e329565dd6290"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/linalg/lapack_lite.cpython-311-darwin.so",
+        "bytes": 69024,
+        "sha256": "a3ceb6256abb99c561531d57a187add313311f33d3dd6ef6f919c7914aa5c860"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/random/_bounded_integers.cpython-311-darwin.so",
+        "bytes": 294304,
+        "sha256": "82db3a0314880b585a81b2d86446a81f72a33354bf1c3a61d9e8e2fad6d69460"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/random/_common.cpython-311-darwin.so",
+        "bytes": 246848,
+        "sha256": "1185b713a200c8cd7ad5cceeaadbca0f9e6334dd312ca706df6a245f469f21dd"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/random/_generator.cpython-311-darwin.so",
+        "bytes": 663520,
+        "sha256": "25b849eefe8aaa482a7f7dc9bd8fe804b798562ce0b84af5a18ced9087623f97"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/random/_mt19937.cpython-311-darwin.so",
+        "bytes": 147632,
+        "sha256": "6a5b15f29b04e06d217292e401071167671a3d15cfd9705b5cb64f08834e0972"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/random/_pcg64.cpython-311-darwin.so",
+        "bytes": 148752,
+        "sha256": "3c354789d84a47d603d8f606bd835a32cb8e5c2d0890fe56a138b8da13ef607d"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/random/_philox.cpython-311-darwin.so",
+        "bytes": 131216,
+        "sha256": "93cbb224dce0c6ee3b022ce7477c1f8acb3e8c03262ef0fe43803cf42c6091f9"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/random/_sfc64.cpython-311-darwin.so",
+        "bytes": 112704,
+        "sha256": "78048222cc0148e6b9c9ae160eebf943d53db91a205c80f4715895c29efd847d"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/random/bit_generator.cpython-311-darwin.so",
+        "bytes": 221328,
+        "sha256": "8318366bdaf93613cb5b8873c4b20f358fe220f0a612e59aee49ca8c5cc4805c"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/numpy/random/mtrand.cpython-311-darwin.so",
+        "bytes": 557152,
+        "sha256": "7f26a478e560d41e154acc062b9664f327f98f4b9a403095cc9f53661d5d3593"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/regex/_regex.cpython-311-darwin.so",
+        "bytes": 804592,
+        "sha256": "02c99c050b0f668f50c4d1cecdda4d1acee0be7e4ce04e45aec466e2c62f275d"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/safetensors/_safetensors_rust.abi3.so",
+        "bytes": 1101808,
+        "sha256": "179e5de6cbb4546bb6174afd0970be38e9c3d9ae392cd52eb452e4d9ec71833b"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/sentencepiece/_sentencepiece.cpython-311-darwin.so",
+        "bytes": 2361088,
+        "sha256": "ee70233aadb4f8cf92b4ce0163ad166716279df496bf587b752d62d46add6d8d"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/tokenizers/tokenizers.abi3.so",
+        "bytes": 8229312,
+        "sha256": "ddd53eb9d23a4d5b61f82bb569822e95c49b67a2f5f7beb86dcecbdfc538a223"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/torch/_C.cpython-311-darwin.so",
+        "bytes": 65952,
+        "sha256": "da71ebbb047cbb65daadb5fc2e770745d1474e05798783e80f907f94d6083e7e"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/torch/bin/torch_shm_manager",
+        "bytes": 75728,
+        "sha256": "23b3e78f38b9f55979548b39ff497fc85e975f94cad0fd6e3b3d0428f8bfc591"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/torch/lib/libc10.dylib",
+        "bytes": 1131376,
+        "sha256": "2da7f542b88cd2870490fa78364f1f42485b19bd169fa3fb9b49ffc36f2cbd44"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/torch/lib/libomp.dylib",
+        "bytes": 854240,
+        "sha256": "827b02513e878d0123e6fabc31ceea73d53abbc332dec07ae3f43ab5f279eac8"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/torch/lib/libshm.dylib",
+        "bytes": 80160,
+        "sha256": "ae81e42d0119454c4440cb637c836111b637606bd41ddaf8691c5a95cf2f516d"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/torch/lib/libtorch.dylib",
+        "bytes": 32928,
+        "sha256": "afeaee6b2d2c6792dd9904c77565c1e298ceeadc182724ff58c836f7db3fc17d"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/torch/lib/libtorch_cpu.dylib",
+        "bytes": 386014944,
+        "sha256": "ce363980f824c57f6f38a15bd920300f969769c6ef6e3af8107802e31917e068"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/torch/lib/libtorch_global_deps.dylib",
+        "bytes": 32944,
+        "sha256": "a48a86eb5605fab623c9b0440f6acee03c12dfab95a749bcc2426791b534e419"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/torch/lib/libtorch_python.dylib",
+        "bytes": 30809584,
+        "sha256": "a5ed60c06294c7d7bb3ac504d8f3582a8073551981811f1454899c57d869dc07"
+      },
+      {
+        "path": "Contents/Resources/OpusPython/yaml/_yaml.cpython-311-darwin.so",
+        "bytes": 397920,
+        "sha256": "29d623777b90abcaf10fd3fb33e10997162d30698ddc5882a30bef00b83f5b9e"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_asyncio.cpython-311-darwin.so",
+        "bytes": 115888,
+        "sha256": "9ad4f2402878d493b24a829b5c9ecfc6453633a3b612a8ee5120828c002a6795"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_bisect.cpython-311-darwin.so",
+        "bytes": 68432,
+        "sha256": "0a7b78ddee840ced30f7256149f28b200c48b8d2afebc3871a3cda4797f6b76b"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_blake2.cpython-311-darwin.so",
+        "bytes": 87520,
+        "sha256": "09d903e0d008cc4f2e01cfaf3f65c7dd34a7e11c05c28e597a8ef110148531c5"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_bz2.cpython-311-darwin.so",
+        "bytes": 71040,
+        "sha256": "afae9794c66b09fb631346bfb09604e2c8a2d35c65c23831e6223aa8568d9191"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_codecs_cn.cpython-311-darwin.so",
+        "bytes": 183088,
+        "sha256": "4f5264d3ef59df910a3e5ca44ed78d1f8f2777bab3f7e75ed45fcb07b368bc6d"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_codecs_hk.cpython-311-darwin.so",
+        "bytes": 183280,
+        "sha256": "caece7c52282f57bcad75b8b14596e3f24011afbe3604bbc7b86cc2f034a0e37"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_codecs_iso2022.cpython-311-darwin.so",
+        "bytes": 70368,
+        "sha256": "95a2126ca9229a870252078845cca7e1ce331c63fecfd734a821e417cb4cb779"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_codecs_jp.cpython-311-darwin.so",
+        "bytes": 298944,
+        "sha256": "cfc46c693144724fa3e0c6eb022e623971e48c9285d55ef97e8c1a749597d10c"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_codecs_kr.cpython-311-darwin.so",
+        "bytes": 166752,
+        "sha256": "c941ec9c728f8e8cd21a0ba29e300ff19501774a3590509ecb3b98f27f534908"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_codecs_tw.cpython-311-darwin.so",
+        "bytes": 166240,
+        "sha256": "87440d8308520e1d836f83216c083ffa070baa7d036e4ff1f6a03bad89c63f01"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_contextvars.cpython-311-darwin.so",
+        "bytes": 66608,
+        "sha256": "ae23c7b4ea5c40bbec4d77da79f877c61f94714db079f86e335525e751ea2def"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_crypt.cpython-311-darwin.so",
+        "bytes": 66768,
+        "sha256": "8a3b484751a4b08abcd2e7eb5580e7479ddbc1925ef59a34fb8b208ea6792e92"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_csv.cpython-311-darwin.so",
+        "bytes": 89600,
+        "sha256": "8d09546beb736964a5eee574abe802b820042a71f4c4f42b99fd40fe1beb1828"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_ctypes.cpython-311-darwin.so",
+        "bytes": 157856,
+        "sha256": "1f1e3f55c04e8d9646b0d5b2a0aecf8417339d7468b7edc716622eaf92a02059"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_ctypes_test.cpython-311-darwin.so",
+        "bytes": 72224,
+        "sha256": "445c7850b55cc0223cbaf2dbe87556ffa87ce2a661ba83148c17e0b45a08cdba"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_curses.cpython-311-darwin.so",
+        "bytes": 159088,
+        "sha256": "00a1b87b023a0532f44857ed2c9c2dce585769a2fcc71518ab9a0c62601d5b5d"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_curses_panel.cpython-311-darwin.so",
+        "bytes": 71216,
+        "sha256": "fb9db104900bb816f7477c9a051be98a26c089b3cd9d2c94bbdeacf534c2838e"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_datetime.cpython-311-darwin.so",
+        "bytes": 132160,
+        "sha256": "bf6d76bf46b455b2a858127b9797fa03317b96bda9e3b8253c5ffcd92f58c78c"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_dbm.cpython-311-darwin.so",
+        "bytes": 69936,
+        "sha256": "0bce3dd5617a93181beb8c2cf640b4363db17f8230dd3d8e8c4ec4b53c621100"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_decimal.cpython-311-darwin.so",
+        "bytes": 193536,
+        "sha256": "46d77fb836da2f7d521e07288eb53a7f483161ee1fc69f7bbd6bc1a7b821401e"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_elementtree.cpython-311-darwin.so",
+        "bytes": 115904,
+        "sha256": "b57228ff69bc3a47142d7af25aaf97eb24a27c83869031b543583ac560087149"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_heapq.cpython-311-darwin.so",
+        "bytes": 67840,
+        "sha256": "e4ca984f1fe5a6fec731b8514aa7f8656cc564e67712d2e392fd35369460f978"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_json.cpython-311-darwin.so",
+        "bytes": 89280,
+        "sha256": "9e53bd6f039a1ffae43b0aa9e1e4d182c9fb26e856c3dc123398fd50b163f884"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_lsprof.cpython-311-darwin.so",
+        "bytes": 70272,
+        "sha256": "c020cfd32a1f4436ad2c3ba767240caa2f6f42b44a528eece11cffcac6da507e"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_lzma.cpython-311-darwin.so",
+        "bytes": 90752,
+        "sha256": "096af9aa7f26e9c10de88615a95f3ecbd8e20e83ae7b022fc0197c81d87a44d7"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_md5.cpython-311-darwin.so",
+        "bytes": 68880,
+        "sha256": "f0ce8b16e19107ae251fc7d9e04c3d66980087daf1b9b0885baa0168515bfa24"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_multibytecodec.cpython-311-darwin.so",
+        "bytes": 94656,
+        "sha256": "d8b73a796bbc0ad3e8c5f338485dc1b9d24947e1bf9ef06341ef3da59ee59386"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_multiprocessing.cpython-311-darwin.so",
+        "bytes": 71072,
+        "sha256": "175746451d103f2964a357bf70e0181bdb88043155a04f3bbff536b04f58a301"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_opcode.cpython-311-darwin.so",
+        "bytes": 67216,
+        "sha256": "e25fd96f248e63580a1dddb925461638c051c2ae99c3b1d773206fd37be62582"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_pickle.cpython-311-darwin.so",
+        "bytes": 150048,
+        "sha256": "aacc7462aaaf8235faab777d1be846a9e8a566183c27e19bf26163f3cdeffe2c"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_posixshmem.cpython-311-darwin.so",
+        "bytes": 67888,
+        "sha256": "f8d1821ff52f54766bb3ce851ad692228d8cb16d4c2d64488878d63c3c3a7c31"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_posixsubprocess.cpython-311-darwin.so",
+        "bytes": 70304,
+        "sha256": "8a5cf56f55dcd8465f413cb9e0f4935b03d58d6e2fdfad79fc7b6d0e51cf116c"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_queue.cpython-311-darwin.so",
+        "bytes": 70368,
+        "sha256": "afa281fea8a0fd6e9047dad0ac1dfb934adb2323becb2a24406050a87c547270"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_random.cpython-311-darwin.so",
+        "bytes": 69808,
+        "sha256": "70521d438d841fbd544c10d9b4ee8af9f364e8d8febc4be5194128befe9656b3"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_scproxy.cpython-311-darwin.so",
+        "bytes": 68928,
+        "sha256": "5b58b9d264607a67df34b6f6124cfc6f07a163b972580af0c39c48623e44b0a3"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_sha1.cpython-311-darwin.so",
+        "bytes": 68848,
+        "sha256": "25dbbb264051bac410664d0c1c669651ecf608f60af2dc7778be25414c465f30"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_sha256.cpython-311-darwin.so",
+        "bytes": 69088,
+        "sha256": "cdebe2c8537d5dffb045de299baf79d9fbfd4191c1897647f67344583f25d86f"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_sha3.cpython-311-darwin.so",
+        "bytes": 70576,
+        "sha256": "c78079f92d4aaff83561a83674d66c0f34d19bdb9780de5dadd1426c21c05f00"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_sha512.cpython-311-darwin.so",
+        "bytes": 69152,
+        "sha256": "82b520dc4086d81b52f8665463db0db2597415eb9ec6c9a3ce5b91091b0e820e"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_socket.cpython-311-darwin.so",
+        "bytes": 130064,
+        "sha256": "3ceba2ada126291a6976ff087fb03aed0040168eda40dcd4d97e330f9053c306"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_sqlite3.cpython-311-darwin.so",
+        "bytes": 143232,
+        "sha256": "2a8b37186e8ced45106ab358f49a98acd5b48552791d1997d3dbc0c54b2791c5"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_statistics.cpython-311-darwin.so",
+        "bytes": 66800,
+        "sha256": "1422c12277cd6ae6aacadc070c6a9ab3ee315f85deb94aeaa1b49b130cf78ad9"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_struct.cpython-311-darwin.so",
+        "bytes": 92816,
+        "sha256": "b72760f2526f446a88d5a815118b660f58735bc6fefd095639bb6b74c84a03af"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_testbuffer.cpython-311-darwin.so",
+        "bytes": 90256,
+        "sha256": "88a9fba2ef7c8ee13dfd6eea574190ac77ea164c3f8a25179a6dd627137afcdc"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_testcapi.cpython-311-darwin.so",
+        "bytes": 204896,
+        "sha256": "435f49959ecfa5d5c7bb621eb3b905b4e439fd0ff8dd2bf649c907ce24b14e80"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_testclinic.cpython-311-darwin.so",
+        "bytes": 93296,
+        "sha256": "b2369f47df9a59b379148d8728d5bdaa9a5fc00f3f146fb6a1c5f877c40e0dc5"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_testimportmultiple.cpython-311-darwin.so",
+        "bytes": 66240,
+        "sha256": "f19c85a6dd4d9f70015ad9e4b4bced59eba1cbff7b770cfa3397b421c53bfad4"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_testinternalcapi.cpython-311-darwin.so",
+        "bytes": 70704,
+        "sha256": "73a1889222eeb0396ed83d5432a6a5662b9bf10fbae5f3b02d030277cf841a6f"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_testmultiphase.cpython-311-darwin.so",
+        "bytes": 74256,
+        "sha256": "66107f71834463b20b857be01bdb5f220722425938483d4a4640be3315b337f6"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_typing.cpython-311-darwin.so",
+        "bytes": 66176,
+        "sha256": "7788efd7cbd7f72f05e27e3a7a737bd8bb72cbece4e95a19b32d8fff6963f809"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_uuid.cpython-311-darwin.so",
+        "bytes": 66544,
+        "sha256": "ca9266e2d3ce45482f13e461d29d6abd14c4185309dd92d2ccfcca4cfc2a88f1"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_xxsubinterpreters.cpython-311-darwin.so",
+        "bytes": 91216,
+        "sha256": "4b0db7e8052fcaf3fc51f85a1bbf2da3e830e0735428f44edb636569b5a270bc"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_xxtestfuzz.cpython-311-darwin.so",
+        "bytes": 69680,
+        "sha256": "f55c29bd0b42ff2a2ddc64ab07ef19331455543bfd6a90b250db78cfd2204f6b"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/_zoneinfo.cpython-311-darwin.so",
+        "bytes": 88064,
+        "sha256": "2e2d8e859e58e230510e55aaf50f133c839a113796462863c67ba6d961680176"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/array.cpython-311-darwin.so",
+        "bytes": 95264,
+        "sha256": "d5cf4942ef02112e377de383c903aa32276b2ddd0d35ed061c7e37a4005a395d"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/audioop.cpython-311-darwin.so",
+        "bytes": 87472,
+        "sha256": "e3dd99bd00869a607bdbd4fc61ad3b53c979544380a58b34c5ed0ddf0db16a27"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/binascii.cpython-311-darwin.so",
+        "bytes": 86800,
+        "sha256": "4f6163814d4653e6d5d61c0f07a8259067416242c6835328d4213a96be51928e"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/cmath.cpython-311-darwin.so",
+        "bytes": 87024,
+        "sha256": "21a37a2f623620ea93287ae58fb3ce6eedf227f16db02595613e4d05396c71b8"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/fcntl.cpython-311-darwin.so",
+        "bytes": 68480,
+        "sha256": "f585a7dc3d88739a926aef7f3b063d78c181babac908c30f396030c6590a8f13"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/grp.cpython-311-darwin.so",
+        "bytes": 68800,
+        "sha256": "e7533ebf65585d2232024a19e25dfcd65b5d5c9dff4ba2904096e45e2b31ecd8"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/math.cpython-311-darwin.so",
+        "bytes": 109392,
+        "sha256": "2e4ba1929b2a2f2f27ae9bb626ccff699a74d6d8912f6de8f9deba02efd0afbb"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/mmap.cpython-311-darwin.so",
+        "bytes": 71536,
+        "sha256": "759b8db5d0599814857f5632c4d826671f7c4b35e709d13fe55a33db238687d7"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/nis.cpython-311-darwin.so",
+        "bytes": 68928,
+        "sha256": "ee858d715ab2c9269b635fda27b0855673109f1825faa7d93c43ecf98e8793d8"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/pyexpat.cpython-311-darwin.so",
+        "bytes": 117088,
+        "sha256": "941b570cac4d05d548ef030fdeeb2f06aa365802517f57351e3db3e48a8938c9"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/readline.cpython-311-darwin.so",
+        "bytes": 93184,
+        "sha256": "8cdf929950e98da64ed88b8db7c5c8b0b4d6ea0d82cc800c4765c63924af4178"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/resource.cpython-311-darwin.so",
+        "bytes": 68480,
+        "sha256": "ae428eb1529fa82aa7b09ab429dad41018e4d331b9ed17a0f7cea015746187af"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/select.cpython-311-darwin.so",
+        "bytes": 90016,
+        "sha256": "2484bcf99f2f55831863c0771fad162d25e3db81623a212ae991c9cc597e1c53"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/syslog.cpython-311-darwin.so",
+        "bytes": 67616,
+        "sha256": "5be19f4816f7625f9b6d9760fe7c25827162955fa7db74bdfdecf3df77bf27fd"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/termios.cpython-311-darwin.so",
+        "bytes": 69712,
+        "sha256": "5afe99e7aac8665efbfead3bf1d0dac406c4db3563bf42b800773366a664b982"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/unicodedata.cpython-311-darwin.so",
+        "bytes": 1172768,
+        "sha256": "afe39797461385d3a337da4166e09d182817aaaf4acff61c8c9600c4a8db3efd"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/xxlimited.cpython-311-darwin.so",
+        "bytes": 68640,
+        "sha256": "3fab52d148f3534fa5a101d8ff4804f7e2bf7616bf58389c08e10fcc584fdb9f"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/xxlimited_35.cpython-311-darwin.so",
+        "bytes": 68272,
+        "sha256": "3928739126a4dca82d63ed6c0f24c022e03306ff68ed662ab53bad7a2164f305"
+      },
+      {
+        "path": "Contents/Resources/python/lib/python3.11/lib-dynload/zlib.cpython-311-darwin.so",
+        "bytes": 90336,
+        "sha256": "73adbcc1979bfdb251405abcec634a05ace35211d73cc877828819a689a2ae40"
+      }
+    ],
+    "build_identity": {
+      "configuration": "Release",
+      "identifier": "mac-f2099c734125748c",
+      "platform": "macosx",
+      "schema": 1,
+      "sha256": "f2099c734125748c40f9590ea6dfe6637d7c3b4228e494ba1f4725bdffbf9b73",
+      "sourceFileCount": 786
+    },
+    "device_test": "not performed",
+    "uploaded": false,
+    "installer_signature": "PASS: Mac App Store installer certificate, Apple root chain",
+    "privacy_scope": "No xcprivacy files in package; macOS is outside required-reason API platform list. Data collection and listed-SDK requirements remain separate; no comprehensive SDK privacy certification."
+  }
+}
