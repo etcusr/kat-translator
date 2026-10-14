@@ -133,5 +133,71 @@
     "file": "piper-phonemize-LICENSE.txt",
     "source": "https://raw.githubusercontent.com/csukuangfj/piper-phonemize/f3ff95afc03640bc1399e113e83361192a2fafb4/LICENSE.md",
     "sha256": "13746d509d74e55ea2265fbef204bb7cdbf84a8315b0207e988326cb54387028"
+  },
+  {
+    "file": "macOS-Python-3.11-LICENSE.txt",
+    "source": "/opt/homebrew/opt/python@3.11/LICENSE",
+    "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf",
+    "scope": "macOS; retained as supplemental notices in the shared set"
+  },
+  {
+    "file": "macOS-libmpdecimal-COPYRIGHT.txt",
+    "source": "/opt/homebrew/opt/mpdecimal/share/doc/mpdecimal/COPYRIGHT.txt",
+    "sha256": "8d99282e76b6de2247323d6fe7cc45700872b9b761f9a644ba8db7c15a984c49",
+    "scope": "macOS; retained as supplemental notices in the shared set"
+  },
+  {
+    "file": "macOS-liblzma-COPYING.txt",
+    "source": "/opt/homebrew/opt/xz/COPYING",
+    "sha256": "616a3ad264ce29b8f1cb97e53037b139d406899ca8d1f799651e17bfa09830b8",
+    "scope": "macOS; retained as supplemental notices in the shared set"
+  },
+  {
+    "file": "macOS-liblzma-0BSD.txt",
+    "source": "/opt/homebrew/opt/xz/COPYING.0BSD",
+    "sha256": "0b01625d853911cd0e2e088dcfb743261034a091bb379246cb25a14cc4c74bf1",
+    "scope": "macOS; retained as supplemental notices in the shared set"
+  },
+  {
+    "file": "macOS-ONNXRuntime-1.30-LICENSE.txt",
+    "source": ".build/wayu-env/lib/python3.11/site-packages/onnxruntime/LICENSE",
+    "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c",
+    "scope": "macOS; retained as supplemental notices in the shared set"
+  },
+  {
+    "file": "macOS-ONNXRuntime-1.30-ThirdPartyNotices.txt",
+    "source": ".build/wayu-env/lib/python3.11/site-packages/onnxruntime/ThirdPartyNotices.txt",
+    "sha256": "143764b952fdb1a7c69ce653bfba74a7744d6a8a573bfb73e235fba356c83de3",
+    "scope": "macOS; retained as supplemental notices in the shared set"
+  },
+  {
+    "file": "macOS-oMLX-LICENSE.txt",
+    "source": "Dependencies/build/index-mlx/IndexPython/OMLX-LICENSE",
+    "sha256": "de69b4352c9952cd5f0f4b8cb4584782a07f02c9ba82aeb5d496aa2b7fe5457d",
+    "scope": "macOS; retained as supplemental notices in the shared set"
+  },
+  {
+    "file": "tqdm-4.70.1-LICENCE.txt",
+    "source": "https://raw.githubusercontent.com/tqdm/tqdm/v4.70.1/LICENCE",
+    "sha256": "fcff87c3a47ce8028a8512aa182d4fcf0ad1c90544ee75cf9b343684cac194de",
+    "scope": "macOS; retained as supplemental notices in the shared set"
+  },
+  {
+    "file": "tokenizers-0.23.3-LICENSE.txt",
+    "source": "https://raw.githubusercontent.com/huggingface/tokenizers/v0.23.3/LICENSE",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "scope": "macOS; retained as supplemental notices in the shared set"
+  },
+  {
+    "file": "tokenizers-0.22.2-LICENSE.txt",
+    "source": "https://raw.githubusercontent.com/huggingface/tokenizers/v0.22.2/LICENSE",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "scope": "macOS; retained as supplemental notices in the shared set"
+  },
+  {
+    "file": "sentencepiece-python-0.2.2-LICENSE.txt",
+    "source": "https://raw.githubusercontent.com/google/sentencepiece/v0.2.2/LICENSE",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "scope": "macOS; retained as supplemental notices in the shared set"
   }
 ]

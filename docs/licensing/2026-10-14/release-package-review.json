@@ -1,0 +1,938 @@
+{
+  "date": "2026-10-14",
+  "scope": "Artifact notice coverage and source mapping; not legal clearance or complete corresponding source",
+  "artifacts": [
+    {
+      "name": "iOS 1.0 (47)",
+      "path": "dist/ios/store/Kat-translator-1.0-build47.ipa",
+      "sha256": "d28e29ef8ae07dda2d4b1392267b2d12ea494e104e36937fac544bdcb6fedfbf",
+      "bytes": 68089588
+    },
+    {
+      "name": "macOS 1.0 (66)",
+      "path": ".build/macos-appstore/1.0-66/export-export/Kat translator.pkg",
+      "sha256": "17a5030ab66aba20dd1571fcb8ebee3564e5c33e9071d51535153ca1a9275615",
+      "bytes": 348860066
+    },
+    {
+      "name": "Android debug 0.4.6 (21), rebuilt with notices",
+      "path": "apps/android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "7f33c7572b1604c84ab1e61d10fe17a085d9889db7fe4adeb7a625b1f6012f62",
+      "bytes": 186557666
+    }
+  ],
+  "mac_python": [
+    {
+      "bundle": "IndexPython",
+      "package": "annotated-doc",
+      "version": "0.0.5",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/annotated_doc-0.0.5.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "anyio",
+      "version": "4.15.1",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/anyio-4.15.1.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "certifi",
+      "version": "2026.7.22",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/certifi-2026.7.22.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "click",
+      "version": "8.5.0",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/click-8.5.0.dist-info/licenses/LICENSE.txt"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "filelock",
+      "version": "4.1.1",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/filelock-4.1.1.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "fsspec",
+      "version": "2026.9.0",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/fsspec-2026.9.0.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "h11",
+      "version": "0.16.0",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/h11-0.16.0.dist-info/licenses/LICENSE.txt"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "httpcore",
+      "version": "1.0.9",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/httpcore-1.0.9.dist-info/licenses/LICENSE.md"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "httpx",
+      "version": "0.28.1",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/httpx-0.28.1.dist-info/licenses/LICENSE.md"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "huggingface_hub",
+      "version": "1.33.0",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/huggingface_hub-1.33.0.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "idna",
+      "version": "3.20",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/idna-3.20.dist-info/licenses/LICENSE.md"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "Jinja2",
+      "version": "3.1.6",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/jinja2-3.1.6.dist-info/licenses/LICENSE.txt"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "markdown-it-py",
+      "version": "4.2.0",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/markdown_it_py-4.2.0.dist-info/licenses/LICENSE",
+        "Contents/Resources/IndexPython/markdown_it_py-4.2.0.dist-info/licenses/LICENSE.markdown-it"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "MarkupSafe",
+      "version": "3.0.4",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/markupsafe-3.0.4.dist-info/licenses/LICENSE.txt"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "mdurl",
+      "version": "0.1.2",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/mdurl-0.1.2.dist-info/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "mlx",
+      "version": "0.32.2",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/mlx-0.32.2.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "mlx-lm",
+      "version": "0.31.4.dev132+g94cdcae13",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/mlx_lm-0.31.4.dev132+g94cdcae13.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "mlx-metal",
+      "version": "0.32.2",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/mlx_metal-0.32.2.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "numpy",
+      "version": "2.4.6",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/LICENSE.txt",
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/numpy/ma/LICENSE",
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/numpy/random/LICENSE.md",
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/numpy/random/src/mt19937/LICENSE.md",
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/numpy/random/src/sfc64/LICENSE.md",
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/numpy/random/src/pcg64/LICENSE.md",
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/numpy/random/src/philox/LICENSE.md",
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/numpy/random/src/splitmix64/LICENSE.md",
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/numpy/random/src/distributions/LICENSE.md",
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/numpy/fft/pocketfft/LICENSE.md",
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/numpy/_core/src/highway/LICENSE",
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/numpy/_core/src/multiarray/dragon4_LICENSE.txt",
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/numpy/_core/src/umath/svml/LICENSE",
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/numpy/_core/src/common/pythoncapi-compat/COPYING",
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/numpy/_core/src/npysort/x86-simd-sort/LICENSE.md",
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/numpy/_core/include/numpy/libdivide/LICENSE.txt",
+        "Contents/Resources/IndexPython/numpy-2.4.6.dist-info/licenses/numpy/linalg/lapack_lite/LICENSE.txt"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "packaging",
+      "version": "26.3",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/packaging-26.3.dist-info/licenses/LICENSE",
+        "Contents/Resources/IndexPython/packaging-26.3.dist-info/licenses/LICENSE.APACHE",
+        "Contents/Resources/IndexPython/packaging-26.3.dist-info/licenses/LICENSE.BSD"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "protobuf",
+      "version": "7.36.2",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/protobuf-7.36.2.dist-info/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "psutil",
+      "version": "7.2.2",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/psutil-7.2.2.dist-info/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "Pygments",
+      "version": "2.21.0",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/pygments-2.21.0.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "PyYAML",
+      "version": "6.0.3",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/pyyaml-6.0.3.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "regex",
+      "version": "2026.9.29",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/regex-2026.9.29.dist-info/licenses/LICENSE.txt"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "rich",
+      "version": "15.0.0",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/rich-15.0.0.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "safetensors",
+      "version": "0.8.0",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/safetensors-0.8.0.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "sentencepiece",
+      "version": "0.2.2",
+      "packaged_license_files": [],
+      "added_shared_notice": [
+        "sentencepiece-python-0.2.2-LICENSE.txt"
+      ]
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "shellingham",
+      "version": "1.5.4",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/shellingham-1.5.4.dist-info/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "tokenizers",
+      "version": "0.23.3",
+      "packaged_license_files": [],
+      "added_shared_notice": [
+        "tokenizers-0.23.3-LICENSE.txt"
+      ]
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "tqdm",
+      "version": "4.70.1",
+      "packaged_license_files": [],
+      "added_shared_notice": [
+        "tqdm-4.70.1-LICENCE.txt"
+      ]
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "transformers",
+      "version": "5.17.0",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/transformers-5.17.0.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "typer",
+      "version": "0.27.3",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/typer-0.27.3.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "IndexPython",
+      "package": "typing_extensions",
+      "version": "4.16.0",
+      "packaged_license_files": [
+        "Contents/Resources/IndexPython/typing_extensions-4.16.0.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "certifi",
+      "version": "2026.7.22",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/certifi-2026.7.22.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "charset-normalizer",
+      "version": "3.5.2",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/charset_normalizer-3.5.2.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "click",
+      "version": "8.5.0",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/click-8.5.0.dist-info/licenses/LICENSE.txt"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "cloudpickle",
+      "version": "3.1.2",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/cloudpickle-3.1.2.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "filelock",
+      "version": "4.0.12",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/filelock-4.0.12.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "fsspec",
+      "version": "2026.9.0",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/fsspec-2026.9.0.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "huggingface_hub",
+      "version": "0.36.2",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/huggingface_hub-0.36.2.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "idna",
+      "version": "3.20",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/idna-3.20.dist-info/licenses/LICENSE.md"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "Jinja2",
+      "version": "3.1.6",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/jinja2-3.1.6.dist-info/licenses/LICENSE.txt"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "joblib",
+      "version": "1.6.0",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/joblib-1.6.0.dist-info/licenses/LICENSE.txt"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "MarkupSafe",
+      "version": "3.0.4",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/markupsafe-3.0.4.dist-info/licenses/LICENSE.txt"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "mpmath",
+      "version": "1.3.0",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/mpmath-1.3.0.dist-info/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "networkx",
+      "version": "3.6.1",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/networkx-3.6.1.dist-info/licenses/LICENSE.txt"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "numpy",
+      "version": "2.4.6",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/LICENSE.txt",
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/numpy/ma/LICENSE",
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/numpy/random/LICENSE.md",
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/numpy/random/src/mt19937/LICENSE.md",
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/numpy/random/src/sfc64/LICENSE.md",
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/numpy/random/src/pcg64/LICENSE.md",
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/numpy/random/src/philox/LICENSE.md",
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/numpy/random/src/splitmix64/LICENSE.md",
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/numpy/random/src/distributions/LICENSE.md",
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/numpy/fft/pocketfft/LICENSE.md",
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/numpy/_core/src/highway/LICENSE",
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/numpy/_core/src/multiarray/dragon4_LICENSE.txt",
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/numpy/_core/src/umath/svml/LICENSE",
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/numpy/_core/src/common/pythoncapi-compat/COPYING",
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/numpy/_core/src/npysort/x86-simd-sort/LICENSE.md",
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/numpy/_core/include/numpy/libdivide/LICENSE.txt",
+        "Contents/Resources/OpusPython/numpy-2.4.6.dist-info/licenses/numpy/linalg/lapack_lite/LICENSE.txt"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "packaging",
+      "version": "26.3",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/packaging-26.3.dist-info/licenses/LICENSE",
+        "Contents/Resources/OpusPython/packaging-26.3.dist-info/licenses/LICENSE.APACHE",
+        "Contents/Resources/OpusPython/packaging-26.3.dist-info/licenses/LICENSE.BSD"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "PyYAML",
+      "version": "6.0.3",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/pyyaml-6.0.3.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "regex",
+      "version": "2026.9.29",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/regex-2026.9.29.dist-info/licenses/LICENSE.txt"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "requests",
+      "version": "2.34.2",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/requests-2.34.2.dist-info/licenses/LICENSE",
+        "Contents/Resources/OpusPython/requests-2.34.2.dist-info/licenses/NOTICE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "sacremoses",
+      "version": "0.2.0",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/sacremoses-0.2.0.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "safetensors",
+      "version": "0.8.0",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/safetensors-0.8.0.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "sentencepiece",
+      "version": "0.2.2",
+      "packaged_license_files": [],
+      "added_shared_notice": [
+        "sentencepiece-python-0.2.2-LICENSE.txt"
+      ]
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "sympy",
+      "version": "1.14.0",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/sympy-1.14.0.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "tokenizers",
+      "version": "0.22.2",
+      "packaged_license_files": [],
+      "added_shared_notice": [
+        "tokenizers-0.22.2-LICENSE.txt"
+      ]
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "torch",
+      "version": "2.14.1",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/benchmark/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/composable_kernel/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/NNPACK/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/miniz-3.0.2/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/perfetto/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/pthreadpool/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/nccl/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/ideep/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/onnx/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/pybind11/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/fmt/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/gloo/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/tensorpipe/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/mimalloc/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/fbgemm/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/kineto/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/python-peachpy/LICENSE.rst",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/VulkanMemoryAllocator/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/FXdiv/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/aiter/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/XNNPACK/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/cudnn_frontend/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/googletest/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/sleef/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/flatbuffers/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/psimd/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/flash-attention/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/cutlass/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/cpp-httplib/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/llvm-openmp/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/cpuinfo/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/FP16/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/mslk/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/protobuf/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/NVTX/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/NVTX/python/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/NVTX/rust/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/NVTX/docs/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/NVTX/tools/docs/github-markdown-css/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/protobuf/third_party/benchmark/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/protobuf/third_party/utf8_range/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/protobuf/third_party/googletest/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/protobuf/third_party/googletest/googletest/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/protobuf/third_party/googletest/googlemock/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/protobuf/third_party/googletest/googlemock/scripts/generator/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/mslk/mslk/attention/flash_attn/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/mslk/external/composable_kernel/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/mslk/external/hipify_torch/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/mslk/external/googletest/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/mslk/external/cutlass/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/mslk/external/cutlass/python/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/mslk/external/composable_kernel/docs/LICENSE.rst",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/cpuinfo/deps/clog/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/cutlass/python/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/flash-attention/flash_attn/cute/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/flash-attention/third_party/aiter/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/flash-attention/third_party/aiter/3rdparty/composable_kernel/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/flash-attention/third_party/aiter/3rdparty/composable_kernel/docs/LICENSE.rst",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/flash-attention/csrc/composable_kernel/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/flash-attention/csrc/cutlass/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/flash-attention/csrc/cutlass/python/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/flash-attention/csrc/composable_kernel/docs/LICENSE.rst",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/flatbuffers/dart/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/flatbuffers/swift/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/aiter/3rdparty/composable_kernel/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/aiter/3rdparty/composable_kernel/docs/LICENSE.rst",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/kineto/libkineto/third_party/fmt/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/kineto/libkineto/third_party/dynolog_headers/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/kineto/libkineto/third_party/googletest/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/fbgemm/external/composable_kernel/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/fbgemm/external/hipify_torch/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/fbgemm/external/googletest/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/fbgemm/external/cutlass/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/fbgemm/external/cpuinfo/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/fbgemm/external/cpuinfo/deps/clog/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/fbgemm/external/cutlass/python/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/fbgemm/external/composable_kernel/docs/LICENSE.rst",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/fbgemm/fbgemm_gpu/src/quantize_ops/mx/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/fbgemm/fbgemm_gpu/docs/src/general/LICENSE.rst",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/fbgemm/fbgemm_gpu/experimental/hstu/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/tensorpipe/third_party/libuv/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/tensorpipe/third_party/pybind11/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/tensorpipe/third_party/googletest/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/tensorpipe/third_party/libnop/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/tensorpipe/third_party/googletest/googletest/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/tensorpipe/third_party/googletest/googlemock/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/tensorpipe/third_party/googletest/googlemock/scripts/generator/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/tensorpipe/third_party/pybind11/tools/clang/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/gemmlowp/gemmlowp/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/onnx/third_party/pybind11/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/ideep/mkl-dnn/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/ideep/mkl-dnn/third_party/opencl/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/ideep/mkl-dnn/third_party/gtest/LICENSE",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/nccl/bindings/nccl4py/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/nccl/contrib/nccl_ep/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/nccl/contrib/nccl_ubx/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/nccl/contrib/nccl_checkpoint/python/LICENSE.txt",
+        "Contents/Resources/OpusPython/torch-2.14.1.dist-info/licenses/third_party/composable_kernel/docs/LICENSE.rst"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "tqdm",
+      "version": "4.70.1",
+      "packaged_license_files": [],
+      "added_shared_notice": [
+        "tqdm-4.70.1-LICENCE.txt"
+      ]
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "transformers",
+      "version": "4.57.6",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/transformers-4.57.6.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "typing_extensions",
+      "version": "4.16.0",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/typing_extensions-4.16.0.dist-info/licenses/LICENSE"
+      ],
+      "added_shared_notice": []
+    },
+    {
+      "bundle": "OpusPython",
+      "package": "urllib3",
+      "version": "2.8.0",
+      "packaged_license_files": [
+        "Contents/Resources/OpusPython/urllib3-2.8.0.dist-info/licenses/LICENSE.txt"
+      ],
+      "added_shared_notice": []
+    }
+  ],
+  "source_patches": [
+    {
+      "component": "CTranslate2",
+      "revision": "617405f4b050e994e829d527da6caa0e0030afe7",
+      "patch": "shared/native/OpusRuntime/mobile-cancel.patch",
+      "patch_sha256": "771922c9f474afa307f025eb46b2d20af8692458d0d5b46f164604b55b1e8e35",
+      "matches_working_diff": true
+    },
+    {
+      "component": "omnivoice-mobile",
+      "revision": "53e6c2066150802ad3cd4b655b31c696e78e0019",
+      "patch": "shared/native/OmniVoice/mobile-cancel.patch",
+      "patch_sha256": "ad5ac004f5e953cf4a3c37d8f023f3f1de5a4d56842b3eb5df864257808ddc4d",
+      "matches_working_diff": true
+    },
+    {
+      "component": "FluidAudio",
+      "revision": "ea63ac36fcadb8a6611d0f58a8e4a0e7dd4381e2",
+      "recipe": "scripts/prepare-speech-recognition.py",
+      "recipe_sha256": "7a7d93c3e119426a5031f752cb836e4af1aebf048c4bda1f3aea0abd87d27fc1",
+      "changed_files": [
+        "Package@swift-6.2.swift"
+      ]
+    }
+  ],
+  "shared_notice_files": 38,
+  "shared_notice_sha256": "74e7a749b2ab883289d528fbda9c21928b69c970aea83f86cdb4ac0ee2b7d39c",
+  "old_mac66_notice_sha256": "c797c3d70b8d72e28579ab2f674aa959b43ffe0a2b5663e7fbf681ea5833a5df",
+  "old_ios47_notice_sha256": "c797c3d70b8d72e28579ab2f674aa959b43ffe0a2b5663e7fbf681ea5833a5df",
+  "media": [
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-break.jpg",
+      "bytes": 24211,
+      "sha256": "45d43fe065f52c8dbc87c2c947cf7bc37cab119099202c2eabc056ad00e04976",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-break.mp4",
+      "bytes": 83100,
+      "sha256": "80a47993645e4bce1510377768d726c13a9796efaa497c22186b8dce4799021b",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-dance.jpg",
+      "bytes": 10044,
+      "sha256": "6d47fb6b5b231771d1328f12e0d95b6e8446f0e3772feeb57319a527e3258221",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-dance.mp4",
+      "bytes": 70376,
+      "sha256": "39c512b1a182ea6512e40fb81212f5e6382fdc991865588c08dd320404ad630f",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-magic.jpg",
+      "bytes": 7502,
+      "sha256": "0604a7586f1691912a4d31493fda75924f0c2e1245ce5c0c89d6804d71738381",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-magic.mp4",
+      "bytes": 45196,
+      "sha256": "2304890ac5f64499a459b8280ec42d593bc0a2c3806621c9ee977b8fb18918f9",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-paw.jpg",
+      "bytes": 10814,
+      "sha256": "4a48d317a347e8f41661287cee91f3141759b51221e1d3971a85c11db9ec23d5",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-paw.mp4",
+      "bytes": 95857,
+      "sha256": "d067b8ea90b70c6c0a38795da0ef6f988bff799e5aef5d1869d881cb51afebe0",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-stalk.jpg",
+      "bytes": 16507,
+      "sha256": "865b2bcbcad7254aeec2df0e9170c4795a642cae48e3d7df15ee43cb334db394",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-stalk.mp4",
+      "bytes": 243473,
+      "sha256": "6553b1aa92fc7c64ef5b772a40e7378d6d5c735f5169854ff43cc95d757873a4",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-stretch.jpg",
+      "bytes": 11475,
+      "sha256": "2592cbb386c97ef1d789c1ee93fd59224218286b8cb5b5f8c1895ededd1c5849",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-stretch.mp4",
+      "bytes": 98493,
+      "sha256": "56742f6e4b4ce26071a63d4dc0dbed3770158c28ef67b68d69d11a977c3d0999",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-vibe.jpg",
+      "bytes": 6162,
+      "sha256": "93bffb1f18e0ddc07a74151b36fc91800fbf4a08fb41f4901dc3ba7d2f1d628f",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-cat-vibe.mp4",
+      "bytes": 201438,
+      "sha256": "b04e0bda16cb41681a84f70b6591bc08d361ffc2de8910dcb659ccade32da400",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-film-drink.jpg",
+      "bytes": 19124,
+      "sha256": "cf85666a9b1b04ea3ba14d423c99c38769c6193f1369fc2febff12fdc37d5e7a",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-film-drink.mp4",
+      "bytes": 261437,
+      "sha256": "422155dc02fe8f9d76dfb6849ef50fb81fb2bd8a4e168480226c4330ec3dd70e",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-monkey-work.jpg",
+      "bytes": 13125,
+      "sha256": "65a885af6d5077a9b0090a251ad9cc841b8bf359a104dabb7bcd3679e2b27b02",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-monkey-work.mp4",
+      "bytes": 28418,
+      "sha256": "d3fac9982b2d572c608b0827d3d95a39eb45fb7a300f97238a5b4a384fb3b6ec",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-pigeon.jpg",
+      "bytes": 7891,
+      "sha256": "c999eb5437da27fe1cfaa0bf517ed07becbc306228c6ba7a6261b31afdb652aa",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-pigeon.mp4",
+      "bytes": 70077,
+      "sha256": "9e6c855077491781d17e5067442351c22ace30fc8dd4037a1ccbeb8a0ab7452f",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-porpoise.jpg",
+      "bytes": 6223,
+      "sha256": "f0da4e3e8dceeeadf2e09c7033ad9e947cc453cbbaa10d376aabb0033c3c3217",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-porpoise.mp4",
+      "bytes": 31521,
+      "sha256": "1b3c55476b560d783c89626aefa874bb0d3fe261eac2b4168e36dbcd3f5ed743",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-swing.jpg",
+      "bytes": 25971,
+      "sha256": "58c00e0ff253b3df0079bd1906c0a5299367d66b4ceb8fbf8c7810387a12ccc4",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-swing.mp4",
+      "bytes": 212553,
+      "sha256": "9d4066021621ae2e107d509ea129d053829fa265b76736b37271d4a6861e8e82",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-wizard.jpg",
+      "bytes": 14315,
+      "sha256": "fd8809b837345ba8ee1260321b2293dd0d704c781e489dd012a3050d70b1596f",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-wizard.mp4",
+      "bytes": 148279,
+      "sha256": "7497a461db150d2329aaaec234106e0fea0136fe992621c21f1c691cd27d7daa",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-work-sleep.jpg",
+      "bytes": 6148,
+      "sha256": "942a5364b180e3d5ae447eb5b5169257094d4bc13f90135f04b15aa1283ea85d",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/LoadingAnimations/loading-work-sleep.mp4",
+      "bytes": 19786,
+      "sha256": "11220bd890a33d2f527c0547195f11275061bb8fecd6a2d3c2e06a1695b465f5",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/CatWizard/cat-wizard-poster.jpg",
+      "bytes": 7470,
+      "sha256": "06ab47a02e0d5cdc71fdecd0ef29ebc78625440985d928944eaab08cb910d579",
+      "rights_evidence": "not located"
+    },
+    {
+      "path": "assets/bundled/CatWizard/cat-wizard.mp4",
+      "bytes": 87701,
+      "sha256": "aa17ba0b4baa56098c1d7bd357756e38e8ee415397700d46b9862a60efbf0396",
+      "rights_evidence": "not located"
+    }
+  ],
+  "voice_preview_count": 111,
+  "tokenizers_sbom": {
+    "python_package_version": "0.23.3",
+    "root_rust_crate_version": "0.23.2",
+    "component_count": 127,
+    "status": "transitive source/license text reconciliation incomplete; 0.22.2 wheel has no matching SBOM at the inspected path"
+  }
+}

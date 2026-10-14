@@ -23,7 +23,8 @@ def assemble():
         data = (SOURCE / item['file']).read_bytes()
         if hashlib.sha256(data).hexdigest() != item['sha256']:
             raise ValueError('License checksum mismatch: ' + item['file'])
-        sections.append(item['file'] + '\n\n' + data.decode('utf-8').replace('\r\n', '\n').replace('\r', '\n'))
+        scope = '\n' + item['scope'] if item.get('scope') else ''
+        sections.append(item['file'] + scope + '\n\n' + data.decode('utf-8').replace('\r\n', '\n').replace('\r', '\n'))
     return '\n\n' + ('\n\n' + '=' * 72 + '\n\n').join(sections) + '\n'
 
 

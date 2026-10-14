@@ -31,6 +31,10 @@ struct PrivacyView: View {
             }
             Section {
                 Text(L10n.text("Приложение использует открытые компоненты, включая whisper.cpp, llama.cpp, sherpa-onnx и ONNX Runtime. У программных компонентов, моделей и голосов разные лицензии; некоторые веса имеют ограничения, в том числе на коммерческое использование. Открытость исходного кода не означает одинаковые условия для всех моделей и не гарантирует точность результата."))
+                NavigationLink(L10n.text("Лицензии компонентов")) {
+                    SoftwareLicensesView()
+                }
+                Link("Kat source · GPL-3.0-or-later", destination: URL(string: "https://github.com/etcusr/kat-translator")!)
                 Link("whisper.cpp", destination: URL(string: "https://github.com/ggml-org/whisper.cpp")!)
                 Link("llama.cpp", destination: URL(string: "https://github.com/ggml-org/llama.cpp")!)
                 Link("sherpa-onnx", destination: URL(string: "https://github.com/k2-fsa/sherpa-onnx")!)
@@ -42,5 +46,42 @@ struct PrivacyView: View {
         }.katSectionSpacing()
             .navigationTitle(L10n.text("Конфиденциальность и точность"))
             .accessibilityIdentifier("settings.privacy.content")
+    }
+}
+
+/// Legal texts remain available offline; each document opens separately for readability.
+private struct SoftwareLicensesView: View {
+    private let sections: [String]
+
+    init() {
+        if let url = Bundle.main.url(forResource: "ThirdPartyNotices", withExtension: "txt"),
+           let text = try? String(contentsOf: url, encoding: .utf8) {
+            sections = text.components(separatedBy: "\n\n" + String(repeating: "=", count: 72) + "\n\n")
+                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                .filter { !$0.isEmpty }
+        } else {
+            sections = []
+        }
+    }
+
+    var body: some View {
+        List {
+            if sections.isEmpty {
+                Text(L10n.text("Не удалось открыть файл лицензий."))
+            }
+            ForEach(sections.indices, id: \.self) { index in
+                let title = String(sections[index].split(separator: "\n", maxSplits: 1).first ?? "")
+                NavigationLink(title) {
+                    ScrollView {
+                        Text(verbatim: sections[index])
+                            .font(.body)
+                            .textSelection(.enabled)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
+                    }.navigationTitle(title)
+                }
+            }
+        }.navigationTitle(L10n.text("Лицензии компонентов"))
+            .katScreenSurface()
     }
 }

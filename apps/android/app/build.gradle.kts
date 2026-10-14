@@ -24,6 +24,7 @@ val syncSharedMediaAssets by tasks.registering(Sync::class) {
     into(layout.buildDirectory.dir("generated/shared-media-assets"))
     from(rootProject.file("../../assets/bundled/espeak-ng-data")) { into("espeak-ng-data") }
     from(rootProject.file("../../assets/bundled/VoicePreviews")) { into("VoicePreviews") }
+    from(rootProject.file("../../assets/bundled/ThirdPartyNotices.txt"))
     from(rootProject.file("../../.build/android-media/assets")) { include("wayu-runtime.zip", "wayu-runtime.sha256") }
     from(rootProject.file("../../Dependencies/build/speech/silero_vad.onnx"))
 }
