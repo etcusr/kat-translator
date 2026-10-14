@@ -1,0 +1,1 @@
+Translate speech, text and images offline after downloading models

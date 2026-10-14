@@ -1,0 +1,5 @@
+{
+  "tool": "image_gen",
+  "reference": "../kat-primary-stamp-v1.png",
+  "prompt": "Adapt the attached approved kat translator stamp logo into a finished square iPhone app icon. Preserve the identity precisely: very tall condensed lowercase black 'kat', rough printed stamp edges, acid-yellow tilted rectangle tucked behind lower right part of t. Remove the tiny 'translator' subtitle entirely. Enlarge and optically center the kat mark so it occupies around 72 percent of the square width and 76 percent of its height, with comfortable safe margins on every side; avoid skinny unreadable gaps. Pure warm-white full-bleed background all the way to the four square corners. Retain a subtle stamp grain only, simplify minute holes so letters read at small size. No new objects, no cats, no border, no rounded outer corners, no shadow, no mockup, no lighting. Output a single perfectly square icon image, flat graphic appearance, opaque background. Match the selected lettering silhouette and yellow accent rather than redesigning the brand."
+}

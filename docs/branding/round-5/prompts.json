@@ -1,0 +1,18 @@
+{
+  "tool": "built-in image_gen",
+  "referenceImages": [],
+  "variants": [
+    {
+      "file": "kt-monogram.png",
+      "prompt": "Use case: logo-brand. Design ONE exceptionally refined minimalist logo mark for an offline translation app 'kat translator'. ABSTRACT TYPOGRAPHIC MONOGRAM of lowercase k and t fused into ONE compact geometric symbol using shared vertical strokes and precise negative space. Legible construction, balanced optical weight, slightly softened corners, three or four bold shapes maximum. Professional Swiss typography / independent modern software identity. Flat solid warm ivory mark on a perfectly uniform deep charcoal square background. The symbol occupies central 50 percent, generous whitespace. NO CAT, no animal, no face, no ears, no mascot, no character, no sticker, no eyes, no speech bubbles, no globe, no stars, no arrows, no gradients, no texture, no 3D, no shadows, no mockup. No other text. This is a timeless, simple, scalable logo mark, not an illustration. Aim for confident unusual letter fusion, not generic disconnected kt typed in a font. One concept only."
+    },
+    {
+      "file": "exchange-mark.png",
+      "prompt": "Use case: logo-brand. ONE minimal abstract logo symbol for kat translator, an offline translation app. Represent a dialogue between two languages with TWO interlocking bold rounded right-angle forms, one rotated 180 degrees relative to the other, balanced together into a compact nearly square mark. An ingenious open channel / exchange through negative space in the center, like two parts that fit together but leave a clear gap. Architectural geometry, thick consistent stroke weight, exactly TWO discrete solid shapes, no thin lines or detail. Modern Swiss identity, simple and memorable, excellent at 24px. Dark charcoal and vivid cobalt blue shapes on perfectly uniform white square background, symbol centrally placed occupying 50 percent of canvas, huge breathing room. NO typography, NO letters, NO cats, NO animal, NO face, NO stickers, NO globe, NO conventional crossing arrows, NO translation A/Chinese glyph clichés, NO speech bubble outlines. No gradient, no shadow, no 3D, no texture, no mockup. Flat vector-like original graphic design, finished emblem rather than illustration."
+    },
+    {
+      "file": "kat-wordmark.png",
+      "prompt": "Use case: logo-brand. ONE premium minimalist custom WORDMARK for the app kat translator. Exact main text 'kat' all lowercase, exact secondary text 'translator' all lowercase. Main kat wordmark very large and striking: bold geometric grotesk letterforms with optically balanced width, one-storey a, concise t, shared purposeful diagonal cut motif on terminals of k and t to suggest movement between languages. Entire word remains highly legible. A little asymmetry gives wit, absolutely no pictorial character. Secondary 'translator' much smaller in clean widely spaced sans serif aligned beneath the main word. Ink-black lettering on completely solid warm off-white background, ONE electric-orange short horizontal accent dash to the right of kat, visually like a cursor. Wide horizontal canvas, logo centered with generous margins. Modern independent productivity software identity, typography carries all personality. NO cats, NO ears hidden in letters, NO whiskers, NO faces, NO eyes, NO animals, no speech bubbles, no arrows, no illustrations, no stickers, no 3D, no texture, no gradients, no shadows, no mockups, no extra words. Crisp flat vector-like typography, sophisticated clean spacing. Single concept."
+    }
+  ]
+}

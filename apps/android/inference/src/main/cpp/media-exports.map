@@ -1,0 +1,1 @@
+{ global: Java_org_openoffline_translator_inference_MediaNative_*; local: *; };

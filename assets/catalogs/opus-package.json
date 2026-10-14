@@ -1,0 +1,86 @@
+[
+  {
+    "id": "opus-big-en-zle-LICENSE-CC-BY-4-0-txt",
+    "path": "en-zle/LICENSE-CC-BY-4.0.txt",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-zle-ct2/LICENSE-CC-BY-4.0.txt?download=true",
+    "byteCount": 18657,
+    "sha256": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+  },
+  {
+    "id": "opus-big-en-zle-config-json",
+    "path": "en-zle/config.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-zle-ct2/config.json?download=true",
+    "byteCount": 233,
+    "sha256": "72901fbd8abd89fb5cf4a388f26fc681f5c4c58a1e1a88b30b879f107270e7ee"
+  },
+  {
+    "id": "opus-big-en-zle-model-bin",
+    "path": "en-zle/model.bin",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-zle-ct2/model.bin?download=true",
+    "byteCount": 242630403,
+    "sha256": "fbd24e6fdfa27fb69d4bbce7968eccef693b7a6249ec09733269e96cf2d1a319"
+  },
+  {
+    "id": "opus-big-en-zle-shared_vocabulary-json",
+    "path": "en-zle/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-zle-ct2/shared_vocabulary.json?download=true",
+    "byteCount": 2152164,
+    "sha256": "558fb7414f75540fc3e9f272dac90cb85272083014978e5a8f81c7e35ae2a49b"
+  },
+  {
+    "id": "opus-big-en-zle-source-spm",
+    "path": "en-zle/source.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-zle-ct2/source.spm?download=true",
+    "byteCount": 802747,
+    "sha256": "3612abfe04bf08344ba91115f0e15e228a7a15a621ea856bfd548097dbaeb43c"
+  },
+  {
+    "id": "opus-big-en-zle-target-spm",
+    "path": "en-zle/target.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-zle-ct2/target.spm?download=true",
+    "byteCount": 1017004,
+    "sha256": "22940e744b3a9fd166a04880938fb61f7dfa8ba4b5d2d3f6371a6c4ba8f3b019"
+  },
+  {
+    "id": "opus-big-zle-en-LICENSE-CC-BY-4-0-txt",
+    "path": "zle-en/LICENSE-CC-BY-4.0.txt",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-zle-en-ct2/LICENSE-CC-BY-4.0.txt?download=true",
+    "byteCount": 18657,
+    "sha256": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+  },
+  {
+    "id": "opus-big-zle-en-config-json",
+    "path": "zle-en/config.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-zle-en-ct2/config.json?download=true",
+    "byteCount": 233,
+    "sha256": "72901fbd8abd89fb5cf4a388f26fc681f5c4c58a1e1a88b30b879f107270e7ee"
+  },
+  {
+    "id": "opus-big-zle-en-model-bin",
+    "path": "zle-en/model.bin",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-zle-en-ct2/model.bin?download=true",
+    "byteCount": 242053603,
+    "sha256": "860d99f70a826652be43f1f79bcb6dd81e936f8cd5b27c67767b326daa1e21a7"
+  },
+  {
+    "id": "opus-big-zle-en-shared_vocabulary-json",
+    "path": "zle-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-zle-en-ct2/shared_vocabulary.json?download=true",
+    "byteCount": 2137483,
+    "sha256": "ee12302f160cdc16bbdf0c5ebf339d1413ca4e9285d27ee7425cbc1e99a4d86f"
+  },
+  {
+    "id": "opus-big-zle-en-source-spm",
+    "path": "zle-en/source.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-zle-en-ct2/source.spm?download=true",
+    "byteCount": 1016851,
+    "sha256": "a982dbb9362861151e36b0db1595b324cd1ce09acf46ce1f4d6d624e11c5807f"
+  },
+  {
+    "id": "opus-big-zle-en-target-spm",
+    "path": "zle-en/target.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-zle-en-ct2/target.spm?download=true",
+    "byteCount": 802387,
+    "sha256": "e69faed7f1e60eec38c64cceba35cc4fb05ec6478082f4c8a14b141fd6596e9e"
+  }
+]

@@ -1,0 +1,93 @@
+{
+  "sourceLanguage": "ru",
+  "strings": {
+    "NSMicrophoneUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запись речи для распознавания непосредственно на iPhone. Голос не отправляется на сервер."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record speech for recognition on your iPhone. Your voice is not sent to a server."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grabar voz para reconocerla en su iPhone. Su voz no se envía a un servidor."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konuşmayı iPhone üzerinde tanımak için kaydeder. Sesiniz sunucuya gönderilmez."
+          }
+        }
+      }
+    },
+    "NSCameraUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Камера для распознавания и перевода текста на iPhone. Изображения не отправляются на сервер."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recognize and translate text using the camera on your iPhone. Images are not sent to a server."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reconocer y traducir texto con la cámara del iPhone. Las imágenes no se envían a un servidor."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iPhone kamerasıyla metin tanıma ve çeviri. Görüntüler sunucuya gönderilmez."
+          }
+        }
+      }
+    },
+    "NSPhotoLibraryAddUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранение выбранного снимка с переводом в Фото."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save the selected translated image to Photos."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar la imagen traducida seleccionada en Fotos."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seçili çevrilmiş görüntüyü Fotoğraflar’a kaydeder."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

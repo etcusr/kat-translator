@@ -1,0 +1,10 @@
+{
+  "description": "Synthetic GPU regression corpus. Patterns check essential facts, not full translation quality; inspect outputs when changing numerical kernels.",
+  "cases": [
+    {"id":"short-ru-en","text":"Спасибо за помощь!","target":"en","patterns":["thank","help"]},
+    {"id":"numbers-ru-en","text":"Анна заказала 3 билета. Поезд отправляется в 18:45 с платформы 7. Не забудь паспорт.","target":"en","patterns":["Anna","3|three","18:45|6:45","7|seven","passport"]},
+    {"id":"medium-en-ru","text":"Please send the documents to Anna before Friday. The meeting will start at 14:20 in room 305. We need two copies of the report and one signed contract. If the schedule changes, call me before you leave the office.","target":"ru","patterns":["Анн","пятниц","14:20|2:20","305","договор|контракт"]},
+    {"id":"long-ru-en","text":"Добрый день, Анна! Подтверждаю, что наша встреча состоится завтра в 15:30 в офисе на втором этаже. Пожалуйста, возьми с собой паспорт, договор и две копии отчёта. Сначала мы обсудим результаты за сентябрь, затем проверим документы и согласуем план на следующий месяц. Если поезд задержится или ты не успеешь приехать вовремя, напиши мне сообщение. Я смогу перенести начало встречи на 16:00. После обсуждения мы вместе отправим итоговое письмо коллегам.","target":"en","patterns":["Anna","15:30|3:30","passport","September","16:00|4:00"]},
+    {"id":"changed-text-ru-en","text":"Нет, встреча послезавтра в 09:15, а не завтра.","target":"en","patterns":["day after tomorrow","09:15|9:15"]}
+  ]
+}

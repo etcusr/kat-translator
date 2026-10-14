@@ -1,0 +1,255 @@
+import AVFoundation
+import Combine
+import OfflineCore
+
+private final class RecordingSink: @unchecked Sendable {
+    private let queue = DispatchQueue(label: "org.openoffline.audio-conversion")
+    private let lock = NSLock()
+    private var paused = false
+    private var pending = 0
+    private var failed = false
+    private var buffer: BoundedRecordingBuffer
+    private var conversionError: Error?
+    private let normalizer = AudioNormalizer()
+    private let detector: SpeechActivityDetector
+    var onBoundary: (@Sendable (Int) -> Void)?
+    private var offeredBoundary = 0
+    let onFailure: @Sendable () -> Void
+    let onLimit: @Sendable () -> Void
+    init(detector: SpeechActivityDetector, maxSeconds: Int, onLimit: @escaping @Sendable () -> Void, onFailure: @escaping @Sendable () -> Void) {
+        self.detector = detector; buffer = BoundedRecordingBuffer(maxSeconds: maxSeconds)
+        self.onLimit = onLimit; self.onFailure = onFailure
+    }
+    func setPaused(_ value: Bool) { lock.lock(); paused = value; lock.unlock() }
+    func append(_ buffer: AVAudioPCMBuffer) {
+        lock.lock()
+        guard !paused else { lock.unlock(); return }
+        guard pending < 8, !failed else {
+            let first = !failed; failed = true; lock.unlock()
+            if first { onFailure() }; return
+        }
+        pending += 1; lock.unlock()
+        guard let copy = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameLength) else {
+            lock.lock(); pending -= 1; failed = true; lock.unlock(); onFailure(); return
+        }
+        copy.frameLength = buffer.frameLength
+        let source = UnsafeMutableAudioBufferListPointer(buffer.mutableAudioBufferList)
+        let target = UnsafeMutableAudioBufferListPointer(copy.mutableAudioBufferList)
+        for (src, dst) in zip(source, target) {
+            if let s = src.mData, let d = dst.mData { memcpy(d, s, Int(src.mDataByteSize)) }
+        }
+        queue.async {
+            defer { self.lock.lock(); self.pending -= 1; self.lock.unlock() }
+            do {
+                let converted = try self.normalizer.convert(copy)
+                let silence = self.detector.append(converted)
+                let limit = self.buffer.append(converted)
+                if let end = self.detector.latestBoundary, end > self.offeredBoundary {
+                    self.offeredBoundary = end; self.onBoundary?(min(end, self.buffer.samples.count))
+                }
+                if silence || limit { self.onLimit() }
+            } catch { self.conversionError = error; self.onFailure() }
+        }
+    }
+    func snapshot(_ range: Range<Int>) async throws -> CapturedAudio {
+        try await withCheckedThrowingContinuation { continuation in
+            queue.async {
+                guard range.lowerBound >= 0, range.upperBound <= self.buffer.samples.count else { continuation.resume(throwing: CancellationError()); return }
+                continuation.resume(returning: CapturedAudio(samples: Array(self.buffer.samples[range])))
+            }
+        }
+    }
+    func speechEnd() async -> Int { await withCheckedContinuation { c in queue.async { c.resume(returning: self.detector.lastSpeechEnd) } } }
+    func finish() async throws -> CapturedAudio {
+        try await withCheckedThrowingContinuation { continuation in
+            queue.async {
+                do {
+                    let tail = try self.normalizer.finish()
+                    _ = self.buffer.append(tail)
+                } catch { self.conversionError = error }
+                self.lock.lock(); let failed = self.failed; self.lock.unlock()
+                if let error = self.conversionError { continuation.resume(throwing: error) }
+                else if failed {
+                    continuation.resume(throwing: NSError(domain: "Audio", code: 1,
+                        userInfo: [NSLocalizedDescriptionKey: L10n.text("Телефон не успевает обработать запись. Попробуйте снова.")]))
+                } else if !self.detector.heardSpeech { continuation.resume(throwing: PipelineError.noSpeech) }
+                else { continuation.resume(returning: CapturedAudio(samples: self.buffer.samples)) }
+
+            }
+        }
+    }
+}
+
+@MainActor final class AudioRecorder: ObservableObject {
+    @Published private(set) var isRecording = false
+    @Published private(set) var isPaused = false
+    @Published private(set) var starting = false
+    @Published private(set) var elapsed: Double = 0
+    @Published private(set) var limitSeconds = RecordingPolicy.limitSeconds(minutes: RecordingPolicy.defaultMinutes)
+    var onBoundary: ((Int) -> Void)?
+    private(set) var finalSpeechEnd = 0
+    var previewSnapshot: RecordingPreviewCoordinator.Snapshot? {
+        guard let sink else { return nil }
+        return { range in try await sink.snapshot(range) }
+    }
+    var onLimit: (() -> Void)?
+    var onInterruption: ((String) -> Void)?
+    private var engine: AVAudioEngine?
+    private var sink: RecordingSink?
+    private var timer: Task<Void, Never>?
+    private var observers: [NSObjectProtocol] = []
+    private var generation = 0
+    private var clock: RecordingClock?
+    private var deferredLimit = false
+    init() {
+        #if os(iOS)
+        for name in [AVAudioSession.interruptionNotification, AVAudioSession.routeChangeNotification] {
+            observers.append(NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { [weak self] notification in
+                // Activating our own audio category also posts route-change notifications.
+                // Only a hardware-route loss/change or a new interruption invalidates capture.
+                if name == AVAudioSession.routeChangeNotification {
+                    let reason = (notification.userInfo?[AVAudioSessionRouteChangeReasonKey] as? NSNumber)?.uintValue
+                    guard reason == AVAudioSession.RouteChangeReason.oldDeviceUnavailable.rawValue
+                        || reason == AVAudioSession.RouteChangeReason.newDeviceAvailable.rawValue
+                        || reason == AVAudioSession.RouteChangeReason.noSuitableRouteForCategory.rawValue else { return }
+                } else {
+                    let type = (notification.userInfo?[AVAudioSessionInterruptionTypeKey] as? NSNumber)?.uintValue
+                    guard type == AVAudioSession.InterruptionType.began.rawValue else { return }
+                }
+                Task { @MainActor in
+                    guard let self, self.isRecording || self.starting else { return }
+                    self.cancel(); self.onInterruption?(L10n.text("Запись прервана. Нажмите кнопку, чтобы начать снова."))
+                }
+            })
+        }
+        #endif
+    }
+    func start(silenceSeconds: Double = SilenceMonitor.defaultTimeout, limitMinutes: Double = RecordingPolicy.defaultMinutes) async throws {
+        guard !isRecording, !starting else { return }
+        starting = true; generation += 1; let operation = generation
+        defer { starting = false }
+        #if os(macOS)
+        let permitted = await AVCaptureDevice.requestAccess(for: .audio)
+        #else
+        let permitted = await AVAudioApplication.requestRecordPermission()
+        #endif
+        guard permitted else {
+            throw NSError(domain: "Audio", code: 2, userInfo: [NSLocalizedDescriptionKey: L10n.text("Разрешите доступ к микрофону в настройках iPhone.")])
+        }
+        guard generation == operation else { throw CancellationError() }
+        guard let vadURL = Bundle.main.url(forResource: "silero_vad", withExtension: "onnx") else { throw PipelineError.modelLoad }
+        let detector = try await Task.detached { try SpeechActivityDetector(modelURL: vadURL, silenceSeconds: silenceSeconds) }.value
+        guard generation == operation else { throw CancellationError() }
+        var started = false
+        defer { if !started { cancel() } }
+        #if os(iOS)
+        let session = AVAudioSession.sharedInstance()
+        try session.setCategory(.playAndRecord, mode: .measurement, options: [.defaultToSpeaker])
+        try session.setActive(true)
+        #endif
+        let engine = AVAudioEngine()
+        let input = engine.inputNode; let format = input.outputFormat(forBus: 0)
+        guard format.sampleRate > 0, format.channelCount > 0 else { throw AudioError.invalidFormat }
+        let limit = RecordingPolicy.limitSeconds(minutes: limitMinutes)
+        limitSeconds = limit
+        let sink = RecordingSink(detector: detector, maxSeconds: limit, onLimit: { [weak self] in
+            Task { @MainActor in
+                guard let self, self.generation == operation, self.isRecording else { return }
+                if self.isPaused { self.deferredLimit = true } else { self.onLimit?() }
+            }
+        }) { [weak self] in
+            Task { @MainActor in
+                guard let self, self.generation == operation else { return }
+                self.cancel(); self.onInterruption?(L10n.text("Ошибка обработки записи. Попробуйте снова."))
+            }
+        }
+        sink.onBoundary = { [weak self] end in
+            Task { @MainActor in
+                guard let self, self.generation == operation, self.isRecording else { return }
+                self.onBoundary?(end)
+            }
+        }
+        finalSpeechEnd = 0
+        input.installTap(onBus: 0, bufferSize: 2048, format: format) { buffer, _ in sink.append(buffer) }
+        self.engine = engine; self.sink = sink
+        engine.prepare(); try engine.start()
+        elapsed = 0; isPaused = false; deferredLimit = false; isRecording = true
+        started = true
+        clock = RecordingClock(start: ProcessInfo.processInfo.systemUptime)
+        timer = Task { [weak self] in
+            while !Task.isCancelled {
+                try? await Task.sleep(nanoseconds: 100_000_000)
+                guard let self, self.isRecording, !Task.isCancelled else { return }
+                guard !self.isPaused else { continue }
+                self.elapsed = min(Double(limit), self.clock?.elapsed(at: ProcessInfo.processInfo.systemUptime) ?? 0)
+                if self.elapsed >= Double(limit) { self.onLimit?(); return }
+            }
+        }
+    }
+    func togglePause() {
+        guard isRecording else { return }
+        let now = ProcessInfo.processInfo.systemUptime
+        if isPaused {
+            do { try engine?.start() } catch {
+                cancel(); onInterruption?(L10n.text("Не удалось продолжить запись. Попробуйте снова.")); return
+            }
+            clock?.resume(at: now); isPaused = false; sink?.setPaused(false)
+            if deferredLimit { deferredLimit = false; onLimit?() }
+        } else {
+            sink?.setPaused(true); engine?.pause(); clock?.pause(at: now)
+            elapsed = min(Double(limitSeconds), clock?.elapsed(at: now) ?? elapsed)
+            isPaused = true
+        }
+    }
+    func stop() async throws -> CapturedAudio {
+        guard isRecording, let sink else { throw CancellationError() }
+        RecordingStopTrace.mark("recorder.stop.begin")
+        stopEngine(); self.sink = nil
+        RecordingStopTrace.mark("recorder.stop.engineDone")
+        let audio = try await sink.finish()
+        RecordingStopTrace.mark("recorder.stop.sinkDone")
+        finalSpeechEnd = await sink.speechEnd()
+        return audio
+    }
+    func cancel() {
+        generation += 1; stopEngine(); sink = nil
+    }
+    private func stopEngine() {
+        timer?.cancel(); timer = nil
+        engine?.inputNode.removeTap(onBus: 0); engine?.stop(); engine = nil
+        isRecording = false; isPaused = false; clock = nil; deferredLimit = false
+        #if os(iOS)
+        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        #endif
+    }
+    deinit { for observer in observers { NotificationCenter.default.removeObserver(observer) } }
+}
+
+// Opt-in development fixture replay. Uses the same converter, VAD and bounded sink as capture.
+// No user recordings are read; only the explicitly provided fixture file is replayed.
+extension AudioRecorder {
+    static func replayFixture(_ url: URL,
+                              started: @MainActor (@escaping RecordingPreviewCoordinator.Snapshot) -> Void,
+                              boundary: @escaping @MainActor (Int) -> Void) async throws -> (CapturedAudio, Int) {
+        guard let vadURL = Bundle.main.url(forResource: "silero_vad", withExtension: "onnx") else { throw PipelineError.modelLoad }
+        let file = try AVAudioFile(forReading: url)
+        let format = file.processingFormat
+        let detector = try SpeechActivityDetector(modelURL: vadURL, silenceSeconds: 30)
+        let sink = RecordingSink(detector: detector, maxSeconds: 60, onLimit: {}, onFailure: {})
+        sink.onBoundary = { end in Task { @MainActor in boundary(end) } }
+        started { range in try await sink.snapshot(range) }
+        let start = ProcessInfo.processInfo.systemUptime
+        var sent: AVAudioFramePosition = 0
+        while file.framePosition < file.length {
+            try Task.checkCancellation()
+            let frames = AVAudioFrameCount(min(1024, file.length - file.framePosition))
+            guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frames) else { throw PipelineError.invalidAudio }
+            try file.read(into: buffer, frameCount: frames)
+            sink.append(buffer); sent += AVAudioFramePosition(buffer.frameLength)
+            let remaining = Double(sent) / format.sampleRate - (ProcessInfo.processInfo.systemUptime - start)
+            if remaining > 0 { try await Task.sleep(nanoseconds: UInt64(remaining * 1_000_000_000)) }
+        }
+        let audio = try await sink.finish()
+        return (audio, await sink.speechEnd())
+    }
+}

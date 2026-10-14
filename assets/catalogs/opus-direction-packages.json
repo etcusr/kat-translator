@@ -1,0 +1,2830 @@
+[
+ {
+  "id": "opus-tc-big-zle-de-int8",
+  "direction": "zle-de",
+  "sources": [
+   "ru",
+   "uk",
+   "be"
+  ],
+  "targets": [
+   "de"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-de",
+  "parts": [
+   {
+    "id": "opus-zle-de-config-json",
+    "path": "zle-de/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-de-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-zle-de-model-bin",
+    "path": "zle-de/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-de-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 242207073,
+    "sha256": "e9468448e61f8ceb2ab819dc0c0cc2a235febc22d5fb3804e3d86c16b6873227"
+   },
+   {
+    "id": "opus-zle-de-shared_vocabulary-json",
+    "path": "zle-de/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-de-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2087259,
+    "sha256": "6af5d5d9ced5fdc4bf84b40c36f19e9e25e251155268be3641e77a14bc15c3f6"
+   },
+   {
+    "id": "opus-zle-de-source-spm",
+    "path": "zle-de/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-de-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 1008968,
+    "sha256": "ce6c0b9887274cbaef5320aec5db60c5afab66f983723ac4051aa68523f9032f"
+   },
+   {
+    "id": "opus-zle-de-target-spm",
+    "path": "zle-de/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-de-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 823197,
+    "sha256": "7c23b510033f9329f8f2c6200a5c8f2cedc03133690dbde920c0f4f14e6a8bda"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-de-zle-int8",
+  "direction": "de-zle",
+  "sources": [
+   "de"
+  ],
+  "targets": [
+   "ru",
+   "uk",
+   "be"
+  ],
+  "markers": {
+   "ru": ">>rus<<",
+   "uk": ">>ukr<<",
+   "be": ">>bel<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-de-zle",
+  "parts": [
+   {
+    "id": "opus-de-zle-config-json",
+    "path": "de-zle/config.json",
+    "remoteURL": "https://huggingface.co/NothingSoftware/opus-mt-tc-big-de-zle-ct2-int8/resolve/85f12ad6bb475170231c23a5e1496bde74c870d1/config.json?download=true",
+    "byteCount": 233,
+    "sha256": "72901fbd8abd89fb5cf4a388f26fc681f5c4c58a1e1a88b30b879f107270e7ee"
+   },
+   {
+    "id": "opus-de-zle-model-bin",
+    "path": "de-zle/model.bin",
+    "remoteURL": "https://huggingface.co/NothingSoftware/opus-mt-tc-big-de-zle-ct2-int8/resolve/85f12ad6bb475170231c23a5e1496bde74c870d1/model.bin?download=true",
+    "byteCount": 242171023,
+    "sha256": "2534ced3ddba7feeb35745f4039a4133ac660ffcfd615e45a442471097803cf0"
+   },
+   {
+    "id": "opus-de-zle-shared_vocabulary-json",
+    "path": "de-zle/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/NothingSoftware/opus-mt-tc-big-de-zle-ct2-int8/resolve/85f12ad6bb475170231c23a5e1496bde74c870d1/shared_vocabulary.json?download=true",
+    "byteCount": 2148905,
+    "sha256": "5b8652a61db35b73b254f0390930e7174ed1bfa047acc5b2df082ff97c03c911"
+   },
+   {
+    "id": "opus-de-zle-source-spm",
+    "path": "de-zle/source.spm",
+    "remoteURL": "https://huggingface.co/NothingSoftware/opus-mt-tc-big-de-zle-ct2-int8/resolve/85f12ad6bb475170231c23a5e1496bde74c870d1/source.spm?download=true",
+    "byteCount": 822915,
+    "sha256": "dde526685600b958138d2b3863bf9b8be10774bf8a99573aede7db619c9b5eb0"
+   },
+   {
+    "id": "opus-de-zle-target-spm",
+    "path": "de-zle/target.spm",
+    "remoteURL": "https://huggingface.co/NothingSoftware/opus-mt-tc-big-de-zle-ct2-int8/resolve/85f12ad6bb475170231c23a5e1496bde74c870d1/target.spm?download=true",
+    "byteCount": 1009491,
+    "sha256": "3341e4c42304e509ef8068c1b0726be116a8ad90b513c62638db210bf47b4fb6"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-zle-fr-int8",
+  "direction": "zle-fr",
+  "sources": [
+   "ru",
+   "uk",
+   "be"
+  ],
+  "targets": [
+   "fr"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-fr",
+  "parts": [
+   {
+    "id": "opus-zle-fr-config-json",
+    "path": "zle-fr/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-fr-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-zle-fr-model-bin",
+    "path": "zle-fr/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-fr-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 242477963,
+    "sha256": "1fd45cbfaad4f4508e9c0758f202c5b9876e0de4974cd3a69c961cd22f2884b1"
+   },
+   {
+    "id": "opus-zle-fr-shared_vocabulary-json",
+    "path": "zle-fr/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-fr-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2196169,
+    "sha256": "8f2d9e03698afc071649272a4b9024fdf2da33a2616773dc8a8960130e15256a"
+   },
+   {
+    "id": "opus-zle-fr-source-spm",
+    "path": "zle-fr/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-fr-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 1034758,
+    "sha256": "b661c1ee48af0dbfb5e37fb3835ab6f38a94143d0813114652153603f2b3146b"
+   },
+   {
+    "id": "opus-zle-fr-target-spm",
+    "path": "zle-fr/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-fr-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 824805,
+    "sha256": "6fa3c380fb13bb59ef07803ed09620ea0cc6f5600d68640da9bbb919bb0edde2"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-fr-zle-int8",
+  "direction": "fr-zle",
+  "sources": [
+   "fr"
+  ],
+  "targets": [
+   "ru",
+   "uk",
+   "be"
+  ],
+  "markers": {
+   "ru": ">>rus<<",
+   "uk": ">>ukr<<",
+   "be": ">>bel<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-fr-zle",
+  "parts": [
+   {
+    "id": "opus-fr-zle-config-json",
+    "path": "fr-zle/config.json",
+    "remoteURL": "https://huggingface.co/NothingSoftware/opus-mt-tc-big-fr-zle-ct2-int8/resolve/6ccda3a9ceeff3712c147e5295d71ef4bf7c17eb/config.json?download=true",
+    "byteCount": 233,
+    "sha256": "72901fbd8abd89fb5cf4a388f26fc681f5c4c58a1e1a88b30b879f107270e7ee"
+   },
+   {
+    "id": "opus-fr-zle-model-bin",
+    "path": "fr-zle/model.bin",
+    "remoteURL": "https://huggingface.co/NothingSoftware/opus-mt-tc-big-fr-zle-ct2-int8/resolve/6ccda3a9ceeff3712c147e5295d71ef4bf7c17eb/model.bin?download=true",
+    "byteCount": 242439853,
+    "sha256": "742263b38109178d319fb67df179e54fe6ce9bed135f80940ee0ee78e440f7ad"
+   },
+   {
+    "id": "opus-fr-zle-shared_vocabulary-json",
+    "path": "fr-zle/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/NothingSoftware/opus-mt-tc-big-fr-zle-ct2-int8/resolve/6ccda3a9ceeff3712c147e5295d71ef4bf7c17eb/shared_vocabulary.json?download=true",
+    "byteCount": 2259838,
+    "sha256": "926e4fc129bdaa0d94d2c37371c7de1bab9547be728963447798bf61116794de"
+   },
+   {
+    "id": "opus-fr-zle-source-spm",
+    "path": "fr-zle/source.spm",
+    "remoteURL": "https://huggingface.co/NothingSoftware/opus-mt-tc-big-fr-zle-ct2-int8/resolve/6ccda3a9ceeff3712c147e5295d71ef4bf7c17eb/source.spm?download=true",
+    "byteCount": 824258,
+    "sha256": "a552ab37e1013e599492a306a13f3bc6e163549d494ac162efc252f9d201a71f"
+   },
+   {
+    "id": "opus-fr-zle-target-spm",
+    "path": "fr-zle/target.spm",
+    "remoteURL": "https://huggingface.co/NothingSoftware/opus-mt-tc-big-fr-zle-ct2-int8/resolve/6ccda3a9ceeff3712c147e5295d71ef4bf7c17eb/target.spm?download=true",
+    "byteCount": 1035951,
+    "sha256": "90e397a3ef99dc67d483405e86144399218afb25355aeb8caea483aef9b650b6"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-zle-es-int8",
+  "direction": "zle-es",
+  "sources": [
+   "ru",
+   "uk",
+   "be"
+  ],
+  "targets": [
+   "es"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-es",
+  "parts": [
+   {
+    "id": "opus-zle-es-config-json",
+    "path": "zle-es/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-es-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-zle-es-model-bin",
+    "path": "zle-es/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-es-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 242566543,
+    "sha256": "1cf1c26942f74675a7df14355281ec65c37a2d87aa36e8991a37c7c2b6848600"
+   },
+   {
+    "id": "opus-zle-es-shared_vocabulary-json",
+    "path": "zle-es/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-es-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2211068,
+    "sha256": "856c51598bbb51d4d5088c4634c428da97db2d32046bcbb66031a6c540a396b6"
+   },
+   {
+    "id": "opus-zle-es-source-spm",
+    "path": "zle-es/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-es-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 1041183,
+    "sha256": "901ac323ea14a010b9685bc54e7404b46c6ee22244336dc4a97bb769a6fad9fa"
+   },
+   {
+    "id": "opus-zle-es-target-spm",
+    "path": "zle-es/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-es-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 829840,
+    "sha256": "4db22e29afbb2ce81168fea4841f1092886b0efd3e36b41fbbe399a05e6f39a9"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-es-zle-int8",
+  "direction": "es-zle",
+  "sources": [
+   "es"
+  ],
+  "targets": [
+   "ru",
+   "uk",
+   "be"
+  ],
+  "markers": {
+   "ru": ">>rus<<",
+   "uk": ">>ukr<<",
+   "be": ">>bel<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-es-zle",
+  "parts": [
+   {
+    "id": "opus-es-zle-config-json",
+    "path": "es-zle/config.json",
+    "remoteURL": "https://huggingface.co/NothingSoftware/opus-mt-tc-big-es-zle-ct2-int8/resolve/11e36db004be103470368d8070060462c8cddef3/config.json?download=true",
+    "byteCount": 233,
+    "sha256": "72901fbd8abd89fb5cf4a388f26fc681f5c4c58a1e1a88b30b879f107270e7ee"
+   },
+   {
+    "id": "opus-es-zle-model-bin",
+    "path": "es-zle/model.bin",
+    "remoteURL": "https://huggingface.co/NothingSoftware/opus-mt-tc-big-es-zle-ct2-int8/resolve/11e36db004be103470368d8070060462c8cddef3/model.bin?download=true",
+    "byteCount": 242630403,
+    "sha256": "c3a9a46bd7e5bf421979aa07da4630bebdf98cbbedc2db41fc3748c0e105799e"
+   },
+   {
+    "id": "opus-es-zle-shared_vocabulary-json",
+    "path": "es-zle/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/NothingSoftware/opus-mt-tc-big-es-zle-ct2-int8/resolve/11e36db004be103470368d8070060462c8cddef3/shared_vocabulary.json?download=true",
+    "byteCount": 2256440,
+    "sha256": "27c5d041d2c7122a761026cf1b97ff983411ca66c4e102de38c696a50e895d69"
+   },
+   {
+    "id": "opus-es-zle-source-spm",
+    "path": "es-zle/source.spm",
+    "remoteURL": "https://huggingface.co/NothingSoftware/opus-mt-tc-big-es-zle-ct2-int8/resolve/11e36db004be103470368d8070060462c8cddef3/source.spm?download=true",
+    "byteCount": 830008,
+    "sha256": "5048793a9d6399b4c9b83f566a9dc64ed17b18ca14dbfa57e309ecc13228f6b7"
+   },
+   {
+    "id": "opus-es-zle-target-spm",
+    "path": "es-zle/target.spm",
+    "remoteURL": "https://huggingface.co/NothingSoftware/opus-mt-tc-big-es-zle-ct2-int8/resolve/11e36db004be103470368d8070060462c8cddef3/target.spm?download=true",
+    "byteCount": 1035223,
+    "sha256": "40141a59f31f3d8d0cedd7d60733baa6ee82952128d0225f638dbc61a30ec387"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-zle-it-int8",
+  "direction": "zle-it",
+  "sources": [
+   "ru",
+   "uk",
+   "be"
+  ],
+  "targets": [
+   "it"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-it",
+  "parts": [
+   {
+    "id": "opus-zle-it-config-json",
+    "path": "zle-it/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-it-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-zle-it-model-bin",
+    "path": "zle-it/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-it-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 242009313,
+    "sha256": "64b26ff47c152ed1f5b1cf2a47d950dd40e091afb02438490245f4fff3e2f604"
+   },
+   {
+    "id": "opus-zle-it-shared_vocabulary-json",
+    "path": "zle-it/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-it-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2018885,
+    "sha256": "7fc45430d521474cc38ff54ab16e2a60e54dc83e61667ea6309dab028a48d2cd"
+   },
+   {
+    "id": "opus-zle-it-source-spm",
+    "path": "zle-it/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-it-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 991369,
+    "sha256": "9aa841167e336fcb86b6c52ef9074103e8aa3975f7dba392cbc2f50f814d92b2"
+   },
+   {
+    "id": "opus-zle-it-target-spm",
+    "path": "zle-it/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-it-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 816995,
+    "sha256": "92d831168fc04bd759416636e72f3540dea31f349878bb8d4e3fcab5c734eb4a"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-it-zle-int8",
+  "direction": "it-zle",
+  "sources": [
+   "it"
+  ],
+  "targets": [
+   "ru",
+   "uk",
+   "be"
+  ],
+  "markers": {
+   "ru": ">>rus<<",
+   "uk": ">>ukr<<",
+   "be": ">>bel<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-it-zle",
+  "parts": [
+   {
+    "id": "opus-it-zle-config-json",
+    "path": "it-zle/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-it-zle-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-it-zle-model-bin",
+    "path": "it-zle/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-it-zle-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 241989743,
+    "sha256": "32528347150d0a33d5f5574455ea75a7f3b8a625e028833c05baba1885126a3d"
+   },
+   {
+    "id": "opus-it-zle-shared_vocabulary-json",
+    "path": "it-zle/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-it-zle-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2023010,
+    "sha256": "75ca7133e6bc25765613c9f95ac04bfc4a03a080e777e9b0bd7c87d9de17a1f0"
+   },
+   {
+    "id": "opus-it-zle-source-spm",
+    "path": "it-zle/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-it-zle-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 817116,
+    "sha256": "5e66a61f38c3f85b94e9f6e47e3467b0ca315db67a5bfa0875cc8619933a4ee8"
+   },
+   {
+    "id": "opus-it-zle-target-spm",
+    "path": "it-zle/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-it-zle-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 992897,
+    "sha256": "6dda9bcad25c2c922f184225cba8177a7d9be6d936d35864a2c17bdbcbb92f62"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-zle-pt-int8",
+  "direction": "zle-pt",
+  "sources": [
+   "ru",
+   "uk"
+  ],
+  "targets": [
+   "pt"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-pt",
+  "parts": [
+   {
+    "id": "opus-zle-pt-config-json",
+    "path": "zle-pt/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-pt-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-zle-pt-model-bin",
+    "path": "zle-pt/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-pt-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 242392473,
+    "sha256": "cc6ccf29234e840c7d9056faff52441b903d6c228babbb4861402da87fd6593d"
+   },
+   {
+    "id": "opus-zle-pt-shared_vocabulary-json",
+    "path": "zle-pt/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-pt-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2108579,
+    "sha256": "e1bed62dfb4aa1ebeb2130a973163102a6a0692f7095ce9cb8918e1701f0271f"
+   },
+   {
+    "id": "opus-zle-pt-source-spm",
+    "path": "zle-pt/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-pt-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 1007440,
+    "sha256": "a1699e46f517b7666064c39fffad71f6b0d7da30029d6f1dad7d9e9a4907d6cf"
+   },
+   {
+    "id": "opus-zle-pt-target-spm",
+    "path": "zle-pt/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-pt-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 824046,
+    "sha256": "10eded6500eb7745a1619f128c4663c4f88a854c0874eb7daf9fa39b4e308191"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-pt-zle-int8",
+  "direction": "pt-zle",
+  "sources": [
+   "pt"
+  ],
+  "targets": [
+   "ru",
+   "uk"
+  ],
+  "markers": {
+   "ru": ">>rus<<",
+   "uk": ">>ukr<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-pt-zle",
+  "parts": [
+   {
+    "id": "opus-pt-zle-config-json",
+    "path": "pt-zle/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-pt-zle-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-pt-zle-model-bin",
+    "path": "pt-zle/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-pt-zle-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 242391443,
+    "sha256": "ec71c9f27f0d7defc478407a243e26544ca62c244b61a85e77ba4dbaeb206773"
+   },
+   {
+    "id": "opus-pt-zle-shared_vocabulary-json",
+    "path": "pt-zle/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-pt-zle-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2108607,
+    "sha256": "6d78ce45e2cf7d8d84fcd90ccd0804d8e99c3ee2e5a21fc869075325fce5b651"
+   },
+   {
+    "id": "opus-pt-zle-source-spm",
+    "path": "pt-zle/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-pt-zle-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 823761,
+    "sha256": "e9a2dea0771e44c2e2d0c09ed2a6f7f1c305fef9556a4eed28cefb2921a1be69"
+   },
+   {
+    "id": "opus-pt-zle-target-spm",
+    "path": "pt-zle/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-pt-zle-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 1007525,
+    "sha256": "56f30f06722151f0e1c0d99891d9a0d6946c0f4b305e87377054119bbe0735eb"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-zle-fi-int8",
+  "direction": "zle-fi",
+  "sources": [
+   "ru",
+   "uk"
+  ],
+  "targets": [
+   "fi"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-fi",
+  "parts": [
+   {
+    "id": "opus-zle-fi-config-json",
+    "path": "zle-fi/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-fi-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-zle-fi-model-bin",
+    "path": "zle-fi/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-fi-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 242303893,
+    "sha256": "09fa692f776ad8c1e6d4df6782b6ffc07e7b2f88e1ab2f44fcbd4be727272327"
+   },
+   {
+    "id": "opus-zle-fi-shared_vocabulary-json",
+    "path": "zle-fi/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-fi-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2073893,
+    "sha256": "77d31558f326309aac2f06cdb3c8b0d158e267b9a089d4026560148a3fe52ba9"
+   },
+   {
+    "id": "opus-zle-fi-source-spm",
+    "path": "zle-fi/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-fi-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 997169,
+    "sha256": "0a03e2e58a26037120f0b48fb209e238608d79f7092c6e90c7a30a5ba2b29874"
+   },
+   {
+    "id": "opus-zle-fi-target-spm",
+    "path": "zle-fi/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-fi-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 824682,
+    "sha256": "dc41cc04b755b4479e1e585bde98f3342065ef81dbf021eb05666ba61c0c6d27"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-fi-zle-int8",
+  "direction": "fi-zle",
+  "sources": [
+   "fi"
+  ],
+  "targets": [
+   "ru",
+   "uk"
+  ],
+  "markers": {
+   "ru": ">>rus<<",
+   "uk": ">>ukr<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-fi-zle",
+  "parts": [
+   {
+    "id": "opus-fi-zle-config-json",
+    "path": "fi-zle/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-fi-zle-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-fi-zle-model-bin",
+    "path": "fi-zle/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-fi-zle-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 241968113,
+    "sha256": "0080655c58459110355652e838e4fe695f293a40b13bfb68aa5ce57785ac43bc"
+   },
+   {
+    "id": "opus-fi-zle-shared_vocabulary-json",
+    "path": "fi-zle/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-fi-zle-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2043001,
+    "sha256": "2e727d0c3a1b691645b6823a5812d8a40318925d55d3ed38de37583cbcacf66b"
+   },
+   {
+    "id": "opus-fi-zle-source-spm",
+    "path": "fi-zle/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-fi-zle-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 825192,
+    "sha256": "cc4435dbfab49e483192b62a87ff6854ab849847d6fb358326c96229b0033979"
+   },
+   {
+    "id": "opus-fi-zle-target-spm",
+    "path": "fi-zle/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-fi-zle-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 985365,
+    "sha256": "05f2d644a6e13847b98b46c53bb3488b3edf887a08d694379e1bb54338c78a37"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-zle-zle-int8",
+  "direction": "zle-zle",
+  "sources": [
+   "ru",
+   "uk",
+   "be"
+  ],
+  "targets": [
+   "ru",
+   "uk",
+   "be"
+  ],
+  "markers": {
+   "ru": ">>rus<<",
+   "uk": ">>ukr<<",
+   "be": ">>bel<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-zle",
+  "parts": [
+   {
+    "id": "opus-zle-zle-config-json",
+    "path": "zle-zle/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-zle-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-zle-zle-model-bin",
+    "path": "zle-zle/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-zle-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 216556983,
+    "sha256": "5f91f4020f181a6268d6a4a91e901543d4f9f1229d75b46b2bf39224e83f3749"
+   },
+   {
+    "id": "opus-zle-zle-shared_vocabulary-json",
+    "path": "zle-zle/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-zle-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1790843,
+    "sha256": "999ed2cf153cf22a3853594f6b5ece3161fa7e535ac9e6c4515f293271ee37fb"
+   },
+   {
+    "id": "opus-zle-zle-source-spm",
+    "path": "zle-zle/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-zle-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 1012800,
+    "sha256": "9b49b740c96c0d82a918f7986274b4352cce26420bf166db9dddd9a2e96e40aa"
+   },
+   {
+    "id": "opus-zle-zle-target-spm",
+    "path": "zle-zle/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-zle-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 1012444,
+    "sha256": "4c5be1deafcea3cd0a23b164ea9645df09e394a91959e35bfd5140db879c5ff9"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-zle-zlw-int8",
+  "direction": "zle-zlw",
+  "sources": [
+   "ru",
+   "uk",
+   "be"
+  ],
+  "targets": [
+   "cs",
+   "pl"
+  ],
+  "markers": {
+   "cs": ">>ces<<",
+   "pl": ">>pol<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-zlw",
+  "parts": [
+   {
+    "id": "opus-zle-zlw-config-json",
+    "path": "zle-zlw/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-zlw-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-zle-zlw-model-bin",
+    "path": "zle-zlw/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-zlw-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 242646883,
+    "sha256": "506717fb4f539c6123ee3814d64643e2a0f66944b4380076a060f1de061f5f8c"
+   },
+   {
+    "id": "opus-zle-zlw-shared_vocabulary-json",
+    "path": "zle-zlw/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-zlw-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2137723,
+    "sha256": "627207cbe84819ece2f590f5101117caa79a8585d0099d135177517ded52b2d0"
+   },
+   {
+    "id": "opus-zle-zlw-source-spm",
+    "path": "zle-zlw/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-zlw-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 1000541,
+    "sha256": "8a940b4375cacfb75b1c7e1d27d4b06a5f130dcd026489e1e693d6fd8ed2259e"
+   },
+   {
+    "id": "opus-zle-zlw-target-spm",
+    "path": "zle-zlw/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-zlw-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 824018,
+    "sha256": "f0937cb077654ee99bb4f0897f0b672b1ac19564c84d299b772b95d1f871dd1b"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-zlw-zle-int8",
+  "direction": "zlw-zle",
+  "sources": [
+   "cs",
+   "pl"
+  ],
+  "targets": [
+   "ru",
+   "uk",
+   "be"
+  ],
+  "markers": {
+   "ru": ">>rus<<",
+   "uk": ">>ukr<<",
+   "be": ">>bel<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zlw-zle",
+  "parts": [
+   {
+    "id": "opus-zlw-zle-config-json",
+    "path": "zlw-zle/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zlw-zle-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-zlw-zle-model-bin",
+    "path": "zlw-zle/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zlw-zle-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 242645853,
+    "sha256": "5ec791b80fc0b0813e071513b6a0df34fd7f8db820a6d3ae4b19110d8218b97c"
+   },
+   {
+    "id": "opus-zlw-zle-shared_vocabulary-json",
+    "path": "zlw-zle/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zlw-zle-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2134997,
+    "sha256": "7ef3d353192810948cd59b5307a064885ea7957b94df58c695cda4b7c28c3efc"
+   },
+   {
+    "id": "opus-zlw-zle-source-spm",
+    "path": "zlw-zle/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zlw-zle-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 823630,
+    "sha256": "355a0b36cf3875b624259bb8bb4de72ec71f7476ec2b822a1c4ca1d25db96438"
+   },
+   {
+    "id": "opus-zlw-zle-target-spm",
+    "path": "zlw-zle/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zlw-zle-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 1000034,
+    "sha256": "553cd1bd0e78c767ead25854e48c4cd1a10b244c70a7cbdce5ccac9c9f945e81"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-zle-zls-int8",
+  "direction": "zle-zls",
+  "sources": [
+   "ru",
+   "uk",
+   "be"
+  ],
+  "targets": [
+   "bg",
+   "hr",
+   "sl",
+   "sr"
+  ],
+  "markers": {
+   "bg": ">>bul<<",
+   "hr": ">>hrv<<",
+   "sl": ">>slv<<",
+   "sr": ">>srp_Cyrl<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-zls",
+  "parts": [
+   {
+    "id": "opus-zle-zls-config-json",
+    "path": "zle-zls/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-zls-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-zle-zls-model-bin",
+    "path": "zle-zls/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-zls-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 238770993,
+    "sha256": "849c30c50bbeedcb83fdc34a58e81bd5dcd6994a23fd6ba5ba62ff0f6aa0d841"
+   },
+   {
+    "id": "opus-zle-zls-shared_vocabulary-json",
+    "path": "zle-zls/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-zls-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2439644,
+    "sha256": "5833b5caa4f8220a3835f61b42f632dd03c1ae9c1bfecfb5656d07f006d2aefd"
+   },
+   {
+    "id": "opus-zle-zls-source-spm",
+    "path": "zle-zls/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-zls-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 1008545,
+    "sha256": "65b06b918b96b013d576aec6060f5ff70b65c38b986da107c06f3006638e07fc"
+   },
+   {
+    "id": "opus-zle-zls-target-spm",
+    "path": "zle-zls/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-zls-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 902152,
+    "sha256": "ae10d5dc2d9be8bf00def389730a37432fbc27c34b5404ee5fd547623778ef8e"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-zls-zle-int8",
+  "direction": "zls-zle",
+  "sources": [
+   "bg",
+   "hr",
+   "sl",
+   "sr",
+   "sr-Latn"
+  ],
+  "targets": [
+   "ru",
+   "uk",
+   "be"
+  ],
+  "markers": {
+   "ru": ">>rus<<",
+   "uk": ">>ukr<<",
+   "be": ">>bel<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zls-zle",
+  "parts": [
+   {
+    "id": "opus-zls-zle-config-json",
+    "path": "zls-zle/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zls-zle-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-zls-zle-model-bin",
+    "path": "zls-zle/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zls-zle-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 238648423,
+    "sha256": "106d984f820b8e8f71bdfcff4be0f4ab6ec45c7d1cc0ba05a825215060d80077"
+   },
+   {
+    "id": "opus-zls-zle-shared_vocabulary-json",
+    "path": "zls-zle/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zls-zle-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2444101,
+    "sha256": "83bf36e37cf51bb3089aa9c79d55338d58302fbdffc3847b4155a5ad8b75c8aa"
+   },
+   {
+    "id": "opus-zls-zle-source-spm",
+    "path": "zls-zle/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zls-zle-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 904350,
+    "sha256": "a0c1eee9419b953aa06d0719417d0945f8fe635a6584f93b5eb8734b988cf980"
+   },
+   {
+    "id": "opus-zls-zle-target-spm",
+    "path": "zls-zle/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zls-zle-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 1007925,
+    "sha256": "ee7bf2911b3630257f6a10512279e320a7631459cbccf7d60715f9fe9f6147bb"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-zle-gmq-int8",
+  "direction": "zle-gmq",
+  "sources": [
+   "ru",
+   "uk"
+  ],
+  "targets": [
+   "da",
+   "no",
+   "sv"
+  ],
+  "markers": {
+   "da": ">>dan<<",
+   "no": ">>nob<<",
+   "sv": ">>swe<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-gmq",
+  "parts": [
+   {
+    "id": "opus-zle-gmq-config-json",
+    "path": "zle-gmq/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-gmq-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-zle-gmq-model-bin",
+    "path": "zle-gmq/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-gmq-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 242423373,
+    "sha256": "14b55c61f36055aa44978b65f482a13e2366d916d53e18b33ff308a131b133c9"
+   },
+   {
+    "id": "opus-zle-gmq-shared_vocabulary-json",
+    "path": "zle-gmq/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-gmq-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2082912,
+    "sha256": "df5224216fa687b7c8d8ae2daab8ed0547f47f41a25ea80be2c0cf32e15cd609"
+   },
+   {
+    "id": "opus-zle-gmq-source-spm",
+    "path": "zle-gmq/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-gmq-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 1009426,
+    "sha256": "bd8cc293d1b97fb3347ab64b85da528a533573e10a8a06badb6a5b28b7b20251"
+   },
+   {
+    "id": "opus-zle-gmq-target-spm",
+    "path": "zle-gmq/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zle-gmq-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 806068,
+    "sha256": "910f577e8872560ea9a4eb5385ef8cda9f9d38adfc3ac6c7fc6d383c03174979"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-gmq-zle-int8",
+  "direction": "gmq-zle",
+  "sources": [
+   "da",
+   "is",
+   "no",
+   "sv"
+  ],
+  "targets": [
+   "ru",
+   "uk"
+  ],
+  "markers": {
+   "ru": ">>rus<<",
+   "uk": ">>ukr<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-gmq-zle",
+  "parts": [
+   {
+    "id": "opus-gmq-zle-config-json",
+    "path": "gmq-zle/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-gmq-zle-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-gmq-zle-model-bin",
+    "path": "gmq-zle/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-gmq-zle-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 242420283,
+    "sha256": "b16ca1296e314701d19027e6b8436aa4346c8d98d13846be5d9da39e1cddf1af"
+   },
+   {
+    "id": "opus-gmq-zle-shared_vocabulary-json",
+    "path": "gmq-zle/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-gmq-zle-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2039901,
+    "sha256": "c58e12e21ec96fbbbf026c008daf1443c7261792698a34dd5ef7045852cc0a78"
+   },
+   {
+    "id": "opus-gmq-zle-source-spm",
+    "path": "gmq-zle/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-gmq-zle-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 807151,
+    "sha256": "9cd1d66c501e588e5deb2a9dfda8cf5370c870a5755087b676e04b5336ff1bb0"
+   },
+   {
+    "id": "opus-gmq-zle-target-spm",
+    "path": "gmq-zle/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-gmq-zle-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 994651,
+    "sha256": "a62fbc31052711d155dc46c2ce9a27f6987d4c3bdefdb721f9d70bcdf2cc54ce"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-es-int8",
+  "direction": "en-es",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "es"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-es",
+  "parts": [
+   {
+    "id": "opus-en-es-config-json",
+    "path": "en-es/config.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-es-ct2/config.json?download=true",
+    "byteCount": 233,
+    "sha256": "72901fbd8abd89fb5cf4a388f26fc681f5c4c58a1e1a88b30b879f107270e7ee"
+   },
+   {
+    "id": "opus-en-es-model-bin",
+    "path": "en-es/model.bin",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-es-ct2/model.bin?download=true",
+    "byteCount": 235883903,
+    "sha256": "9332e2dd98f10fba1c3cf762d366c76f5f514122e630b074f2e7b9b1cc2072ea"
+   },
+   {
+    "id": "opus-en-es-shared_vocabulary-json",
+    "path": "en-es/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-es-ct2/shared_vocabulary.json?download=true",
+    "byteCount": 1058959,
+    "sha256": "c7a6f1e3f43c2bff87035785f00792c3daeb079272263e4f5715b720c3269065"
+   },
+   {
+    "id": "opus-en-es-source-spm",
+    "path": "en-es/source.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-es-ct2/source.spm?download=true",
+    "byteCount": 804235,
+    "sha256": "b1763341d3a71262ed5aacc3f8287d3c3c2f2ae82295e11d03aea80879c98009"
+   },
+   {
+    "id": "opus-en-es-target-spm",
+    "path": "en-es/target.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-es-ct2/target.spm?download=true",
+    "byteCount": 824118,
+    "sha256": "c70086dcac73d9c759cca0b5f195a073033906dcd29433d6c5fe74e66b2cc8da"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-fr-int8",
+  "direction": "en-fr",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "fr"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-fr",
+  "parts": [
+   {
+    "id": "opus-en-fr-config-json",
+    "path": "en-fr/config.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-fr-ct2/config.json?download=true",
+    "byteCount": 233,
+    "sha256": "72901fbd8abd89fb5cf4a388f26fc681f5c4c58a1e1a88b30b879f107270e7ee"
+   },
+   {
+    "id": "opus-en-fr-model-bin",
+    "path": "en-fr/model.bin",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-fr-ct2/model.bin?download=true",
+    "byteCount": 233813603,
+    "sha256": "68473b88d245ecb48ef2e76bfcfb9935a4b677d4924e78a845a7bf5013fd6d45"
+   },
+   {
+    "id": "opus-en-fr-shared_vocabulary-json",
+    "path": "en-fr/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-fr-ct2/shared_vocabulary.json?download=true",
+    "byteCount": 1025007,
+    "sha256": "5fbf71ee8cd8bd0ff69f041a6accd4d61a62e9f304113e435650f9f33211cfaf"
+   },
+   {
+    "id": "opus-en-fr-source-spm",
+    "path": "en-fr/source.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-fr-ct2/source.spm?download=true",
+    "byteCount": 802408,
+    "sha256": "18bb5a422a53a0bd699b005c8086cbd58a85c4be427fd57ca687c958588edcc9"
+   },
+   {
+    "id": "opus-en-fr-target-spm",
+    "path": "en-fr/target.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-fr-ct2/target.spm?download=true",
+    "byteCount": 819955,
+    "sha256": "6437b5600d2ae14888939e589773b09bc667c77e81326e20e3f57698a4078593"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-it-int8",
+  "direction": "en-it",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "it"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-it",
+  "parts": [
+   {
+    "id": "opus-en-it-config-json",
+    "path": "en-it/config.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-it-ct2/config.json?download=true",
+    "byteCount": 233,
+    "sha256": "72901fbd8abd89fb5cf4a388f26fc681f5c4c58a1e1a88b30b879f107270e7ee"
+   },
+   {
+    "id": "opus-en-it-model-bin",
+    "path": "en-it/model.bin",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-it-ct2/model.bin?download=true",
+    "byteCount": 235260753,
+    "sha256": "56f3c2c9119c64018b05a07e221e6064fd15cf761d9d0418a29e72d0d41f0f43"
+   },
+   {
+    "id": "opus-en-it-shared_vocabulary-json",
+    "path": "en-it/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-it-ct2/shared_vocabulary.json?download=true",
+    "byteCount": 1024215,
+    "sha256": "51008eafa076154c3a96b439b956b3ae3942510f3108067026dced8219289f8a"
+   },
+   {
+    "id": "opus-en-it-source-spm",
+    "path": "en-it/source.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-it-ct2/source.spm?download=true",
+    "byteCount": 802852,
+    "sha256": "50e828d41b3ea6c89ef4c3312cb74ba3d942f4d313ec19c5115aa535cb5ba286"
+   },
+   {
+    "id": "opus-en-it-target-spm",
+    "path": "en-it/target.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-it-ct2/target.spm?download=true",
+    "byteCount": 820134,
+    "sha256": "cf5ee094f498d8391ff2bbd52c4488c3d53f72175ff9b3e8094bfd45ffc77c59"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-bg-int8",
+  "direction": "en-bg",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "bg"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-bg",
+  "parts": [
+   {
+    "id": "opus-en-bg-config-json",
+    "path": "en-bg/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-bg-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-en-bg-model-bin",
+    "path": "en-bg/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-bg-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 241445903,
+    "sha256": "576c5bfbe41e489a04d3d4c9aee77b657d40e2f1e6f11ebe272739ddccea4d8b"
+   },
+   {
+    "id": "opus-en-bg-shared_vocabulary-json",
+    "path": "en-bg/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-bg-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2060063,
+    "sha256": "b28762d7211e5cfdb7eea8cc91ee00216708714f6124202cbd9eee85651ba30c"
+   },
+   {
+    "id": "opus-en-bg-source-spm",
+    "path": "en-bg/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-bg-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 804415,
+    "sha256": "2aa5f560397dbe2eff8dbf7934c9f44c1002c1bf04e494529f5377eef2582225"
+   },
+   {
+    "id": "opus-en-bg-target-spm",
+    "path": "en-bg/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-bg-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 1014652,
+    "sha256": "556cf31670b622f9b1239290d54ebce1c31dbe419ba202534291eb1d881927f5"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-el-int8",
+  "direction": "en-el",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "el"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-el",
+  "parts": [
+   {
+    "id": "opus-en-el-config-json",
+    "path": "en-el/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-el-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-en-el-model-bin",
+    "path": "en-el/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-el-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 239799963,
+    "sha256": "8442e28f50671b7d2d9ac6a7070f64472a69fc24cf059d8c486e2a0d2c565147"
+   },
+   {
+    "id": "opus-en-el-shared_vocabulary-json",
+    "path": "en-el/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-el-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1977376,
+    "sha256": "de77938983aa10bc06e52ed06ab217e25e4545b61b04341034c0d3f0b6efcea7"
+   },
+   {
+    "id": "opus-en-el-source-spm",
+    "path": "en-el/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-el-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 798543,
+    "sha256": "88b64b8dedc045a78ff259f0910ec8970b042f2210ed2575e9a37ea440fb8307"
+   },
+   {
+    "id": "opus-en-el-target-spm",
+    "path": "en-el/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-el-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 1003064,
+    "sha256": "6274798c1831a98a55cf0c5b6809f8444f4d0bc3ca35f571895280e27bc1ab9b"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-et-int8",
+  "direction": "en-et",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "et"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-et",
+  "parts": [
+   {
+    "id": "opus-en-et-config-json",
+    "path": "en-et/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-et-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-en-et-model-bin",
+    "path": "en-et/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-et-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 238244663,
+    "sha256": "37fb9eb05ff5b2d3105cab89150892687cdac202f52700c46035fadf4595ba13"
+   },
+   {
+    "id": "opus-en-et-shared_vocabulary-json",
+    "path": "en-et/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-et-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1042095,
+    "sha256": "7ffdd7f98cf42acfa3726298f32efb45c2c69c9609a1263bc5fe4eb3edd5b23b"
+   },
+   {
+    "id": "opus-en-et-source-spm",
+    "path": "en-et/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-et-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 794590,
+    "sha256": "c0280a42a281bf4af6e4dd0dcf9e64d82e7d647de7dbf43a91fae834d98bf90a"
+   },
+   {
+    "id": "opus-en-et-target-spm",
+    "path": "en-et/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-et-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 823475,
+    "sha256": "e59ffff87fd815b48b6d848a63b6eb06c2ceff1565a7a93045a9db4ad5c207e9"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-hu-int8",
+  "direction": "en-hu",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "hu"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-hu",
+  "parts": [
+   {
+    "id": "opus-en-hu-config-json",
+    "path": "en-hu/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-hu-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-en-hu-model-bin",
+    "path": "en-hu/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-hu-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 237888283,
+    "sha256": "44fa4efe9d78ac527c30e622f5211b9840f2bdefb1c23ba2de59f781e748754d"
+   },
+   {
+    "id": "opus-en-hu-shared_vocabulary-json",
+    "path": "en-hu/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-hu-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1113916,
+    "sha256": "e624527be481f8ff58c1e41cb4f396ea95778ee6e5f78f86cb7f3c7863a5992e"
+   },
+   {
+    "id": "opus-en-hu-source-spm",
+    "path": "en-hu/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-hu-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 794916,
+    "sha256": "3850fefdba11c1abc87aacd021530c977b26f095dc6f800a674baa112513208d"
+   },
+   {
+    "id": "opus-en-hu-target-spm",
+    "path": "en-hu/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-hu-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 834496,
+    "sha256": "b5d97cc1e75ab4fec33b9dc0490f078329057d0ab37069ea086394c2be10c0ac"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-lt-int8",
+  "direction": "en-lt",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "lt"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-lt",
+  "parts": [
+   {
+    "id": "opus-en-lt-config-json",
+    "path": "en-lt/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-lt-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-en-lt-model-bin",
+    "path": "en-lt/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-lt-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 239540403,
+    "sha256": "6afd0c548fed0b70803ad77d5d955a48bcfc3240f808c844fa182d29a971de1d"
+   },
+   {
+    "id": "opus-en-lt-shared_vocabulary-json",
+    "path": "en-lt/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-lt-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1106722,
+    "sha256": "015a42687a14e0523f373096237c9aae36a5e02619f353ad9cde6f744dd7b304"
+   },
+   {
+    "id": "opus-en-lt-source-spm",
+    "path": "en-lt/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-lt-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 801213,
+    "sha256": "7c494c9df0fb537038a2f1fbd7794dd83e859745dae7a9b512c2263338d86177"
+   },
+   {
+    "id": "opus-en-lt-target-spm",
+    "path": "en-lt/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-lt-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 836803,
+    "sha256": "80e652327bda51d3169693b50844168ff1f2d34d462ff9e3450bd23ed66a2f17"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-lv-int8",
+  "direction": "en-lv",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "lv"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-lv",
+  "parts": [
+   {
+    "id": "opus-en-lv-config-json",
+    "path": "en-lv/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-lv-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-en-lv-model-bin",
+    "path": "en-lv/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-lv-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 239253033,
+    "sha256": "ff494669460985002f834cfba91783624ee3245583421a9b0584f038eeee671a"
+   },
+   {
+    "id": "opus-en-lv-shared_vocabulary-json",
+    "path": "en-lv/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-lv-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1136425,
+    "sha256": "e78a05e115ed552ca0e00a3dbb434a446139c4b860cc7f8028c84265e87f50d4"
+   },
+   {
+    "id": "opus-en-lv-source-spm",
+    "path": "en-lv/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-lv-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 798014,
+    "sha256": "94634cc0b00a2a1e0e2e4317cc0a49d0154d835f7951425e45be15c72ba21417"
+   },
+   {
+    "id": "opus-en-lv-target-spm",
+    "path": "en-lv/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-lv-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 838711,
+    "sha256": "25446f415fe316afbf692acf7ef5131a74940dc820e2cbe31300f09ac3c492dc"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-ro-int8",
+  "direction": "en-ro",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "ro"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-ro",
+  "parts": [
+   {
+    "id": "opus-en-ro-config-json",
+    "path": "en-ro/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-ro-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-en-ro-model-bin",
+    "path": "en-ro/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-ro-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 235052693,
+    "sha256": "71ed00d3cdc136d4d2fdd32eee8b506ad9272d269f2b95a4dd2ddcddbaeb1435"
+   },
+   {
+    "id": "opus-en-ro-shared_vocabulary-json",
+    "path": "en-ro/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-ro-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1000395,
+    "sha256": "bd38a1064b29150296a5f61facfa1ac79f9e6b3def41e7a6eb6ccb523f704429"
+   },
+   {
+    "id": "opus-en-ro-source-spm",
+    "path": "en-ro/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-ro-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 802048,
+    "sha256": "e89c326f5f6887eeecdc46c18174c9ad86a2f429e1e5c8492705ace5b858ebbd"
+   },
+   {
+    "id": "opus-en-ro-target-spm",
+    "path": "en-ro/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-ro-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 826047,
+    "sha256": "6fa1ec14839bda5beef82191160d1db6dd88bf7a1da9aed1bb4f152bdad26229"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-tr-int8",
+  "direction": "en-tr",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "tr"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-tr",
+  "parts": [
+   {
+    "id": "opus-en-tr-config-json",
+    "path": "en-tr/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-tr-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-en-tr-model-bin",
+    "path": "en-tr/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-tr-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 237977893,
+    "sha256": "a5a148aae553f2573fd1f9ba735a03385f050437f98e51f8b5c4e4f9c4de3719"
+   },
+   {
+    "id": "opus-en-tr-shared_vocabulary-json",
+    "path": "en-tr/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-tr-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1112966,
+    "sha256": "19bb107d0d72fde62e5c28378da7eb1bb379a2203b9957890618d3df18ba2bb3"
+   },
+   {
+    "id": "opus-en-tr-source-spm",
+    "path": "en-tr/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-tr-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 796953,
+    "sha256": "180d3f94ddfee5585d78b702290ded0f4f9bd40f299349c8383b32a579fefad4"
+   },
+   {
+    "id": "opus-en-tr-target-spm",
+    "path": "en-tr/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-tr-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 833391,
+    "sha256": "cd0c475692178b6c626aadaef01bd8f98d8053946938e4e67005fc1e4811d797"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-pt-int8",
+  "direction": "en-pt",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "pt"
+  ],
+  "markers": {
+   "pt": ">>por<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-pt",
+  "parts": [
+   {
+    "id": "opus-en-pt-config-json",
+    "path": "en-pt/config.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-pt-ct2/config.json?download=true",
+    "byteCount": 233,
+    "sha256": "72901fbd8abd89fb5cf4a388f26fc681f5c4c58a1e1a88b30b879f107270e7ee"
+   },
+   {
+    "id": "opus-en-pt-model-bin",
+    "path": "en-pt/model.bin",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-pt-ct2/model.bin?download=true",
+    "byteCount": 235625373,
+    "sha256": "5c2b607d9f0c00e935a00a497aa4c523225288697fbca57ddb7f9ee96fe80006"
+   },
+   {
+    "id": "opus-en-pt-shared_vocabulary-json",
+    "path": "en-pt/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-pt-ct2/shared_vocabulary.json?download=true",
+    "byteCount": 1063207,
+    "sha256": "c27223d6d29d670bfab4f6b7e073694ba1479ca9a3a9e723a5d0996989a84ff0"
+   },
+   {
+    "id": "opus-en-pt-source-spm",
+    "path": "en-pt/source.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-pt-ct2/source.spm?download=true",
+    "byteCount": 802741,
+    "sha256": "7a7fcf812cf03a5785daa35d4932bbbe69e7e605c0fe56fce5a3f731d6c355aa"
+   },
+   {
+    "id": "opus-en-pt-target-spm",
+    "path": "en-pt/target.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-pt-ct2/target.spm?download=true",
+    "byteCount": 824855,
+    "sha256": "b3cf20ccd4e48a89882cfdba157c05fa1cd71a6b69517dfc80e3a34d387ea91f"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-ar-int8",
+  "direction": "en-ar",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "ar"
+  ],
+  "markers": {
+   "ar": ">>ara<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-ar",
+  "parts": [
+   {
+    "id": "opus-en-ar-config-json",
+    "path": "en-ar/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-ar-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-en-ar-model-bin",
+    "path": "en-ar/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-ar-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 242290503,
+    "sha256": "1c3482bdf098be1a8bfb6242093964a585d668c3f96c60883d761cd43730b9d8"
+   },
+   {
+    "id": "opus-en-ar-shared_vocabulary-json",
+    "path": "en-ar/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-ar-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1787481,
+    "sha256": "a0e6bb37588d1134dd47116c74674e49a809a8e6cecdeb5782f1b8956cb058e3"
+   },
+   {
+    "id": "opus-en-ar-source-spm",
+    "path": "en-ar/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-ar-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 806127,
+    "sha256": "0a9b220e324e29d4fbab530747ab82968a79d5408f1b3210f0f6d812d148b7d2"
+   },
+   {
+    "id": "opus-en-ar-target-spm",
+    "path": "en-ar/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-ar-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 916373,
+    "sha256": "db09c46631638384f2b13ccdececb1c88103f0e59c14d5def247975007e7eaac"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-fi-int8",
+  "direction": "en-fi",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "fi"
+  ],
+  "markers": {
+   "fi": ">>fin<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-fi",
+  "parts": [
+   {
+    "id": "opus-en-fi-config-json",
+    "path": "en-fi/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-fi-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-en-fi-model-bin",
+    "path": "en-fi/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-fi-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 238790563,
+    "sha256": "26a234c6860ceeff2f1e4ddee2cc3fef66852beada8d5039c0b7c8bcbaa58706"
+   },
+   {
+    "id": "opus-en-fi-shared_vocabulary-json",
+    "path": "en-fi/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-fi-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1066159,
+    "sha256": "8df45f15f328cf5cf21c2b88155b8251d226b9c12340480e3169d6060f096023"
+   },
+   {
+    "id": "opus-en-fi-source-spm",
+    "path": "en-fi/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-fi-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 797685,
+    "sha256": "a4eeca5b2be408db6354e253f879a314dff03a08742530272bd4461336df2417"
+   },
+   {
+    "id": "opus-en-fi-target-spm",
+    "path": "en-fi/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-fi-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 835977,
+    "sha256": "435dcf642c54ee6427752a15d884dc0fd180442cf4018b931872f9ee2788d29d"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-gmq-int8",
+  "direction": "en-gmq",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "da",
+   "fo",
+   "is",
+   "nn",
+   "no",
+   "sv"
+  ],
+  "markers": {
+   "da": ">>dan<<",
+   "fo": ">>fao<<",
+   "is": ">>isl<<",
+   "nn": ">>nno<<",
+   "no": ">>nob<<",
+   "sv": ">>swe<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-gmq",
+  "parts": [
+   {
+    "id": "opus-en-gmq-config-json",
+    "path": "en-gmq/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-gmq-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-en-gmq-model-bin",
+    "path": "en-gmq/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-gmq-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 235513103,
+    "sha256": "55494c815d79ef95efad2afef7382fad921f5cb44feac81bb53f9072d8166602"
+   },
+   {
+    "id": "opus-en-gmq-shared_vocabulary-json",
+    "path": "en-gmq/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-gmq-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 966761,
+    "sha256": "433c35696c89c58227030d6df487d54a3a67eff560bfee3321e59602c3404c15"
+   },
+   {
+    "id": "opus-en-gmq-source-spm",
+    "path": "en-gmq/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-gmq-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 794427,
+    "sha256": "05f3dec886e0b8ce55a962aa0f1c747b9606c6068d76e3e840ed9a0d2b64ce57"
+   },
+   {
+    "id": "opus-en-gmq-target-spm",
+    "path": "en-gmq/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-gmq-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 799832,
+    "sha256": "c8b2f0d2cf9308d2fe38257c8ddb0ed93d20fc71057d917028e3ac237a4c5b13"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-ces-slk-int8",
+  "direction": "en-ces_slk",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "cs"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-ces_slk",
+  "parts": [
+   {
+    "id": "opus-en-ces_slk-config-json",
+    "path": "en-ces_slk/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-ces_slk-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-en-ces_slk-model-bin",
+    "path": "en-ces_slk/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-ces_slk-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 238640183,
+    "sha256": "ec5f73d88e1855020991e20a64e936aa2634841cbc8bb9fc0c264a4a1e1f698e"
+   },
+   {
+    "id": "opus-en-ces_slk-shared_vocabulary-json",
+    "path": "en-ces_slk/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-ces_slk-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1113956,
+    "sha256": "2578b35d5d7b0be458c73147d31a62b28cd8481d24f5b85043ab610577d50ea6"
+   },
+   {
+    "id": "opus-en-ces_slk-source-spm",
+    "path": "en-ces_slk/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-ces_slk-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 796504,
+    "sha256": "adabb94ecde18c3b7d9af17fc922f206cae6f880d8cd6df24b6b629594f5dd29"
+   },
+   {
+    "id": "opus-en-ces_slk-target-spm",
+    "path": "en-ces_slk/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-ces_slk-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 823079,
+    "sha256": "03d425403f18a5e6f1ce7513643e01755341532c88ed26831edaba60fc6043f0"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-en-cat-oci-spa-int8",
+  "direction": "en-cat_oci_spa",
+  "sources": [
+   "en"
+  ],
+  "targets": [
+   "ca"
+  ],
+  "markers": {
+   "ca": ">>cat<<"
+  },
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-cat_oci_spa",
+  "parts": [
+   {
+    "id": "opus-en-cat_oci_spa-config-json",
+    "path": "en-cat_oci_spa/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-cat_oci_spa-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-en-cat_oci_spa-model-bin",
+    "path": "en-cat_oci_spa/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-cat_oci_spa-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 235505893,
+    "sha256": "89958ff8887abb0b0a34e026acd96137d1689dc6b3db20e6a7d3e1a5530162cd"
+   },
+   {
+    "id": "opus-en-cat_oci_spa-shared_vocabulary-json",
+    "path": "en-cat_oci_spa/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-cat_oci_spa-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 992036,
+    "sha256": "54ff102296f2149ce3c73c096d2b22a85900db1b65eade97f8ff1f911d587391"
+   },
+   {
+    "id": "opus-en-cat_oci_spa-source-spm",
+    "path": "en-cat_oci_spa/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-cat_oci_spa-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 802599,
+    "sha256": "80a586743ff7dccadac4e1839fbc31698a16c5aadec719c5d0d0ad2667cf6b38"
+   },
+   {
+    "id": "opus-en-cat_oci_spa-target-spm",
+    "path": "en-cat_oci_spa/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-en-cat_oci_spa-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 819513,
+    "sha256": "af7471aac423933fb52d9bbea0d1d90f2888a898150fc43fc32cb4fbc20bab84"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-fr-en-int8",
+  "direction": "fr-en",
+  "sources": [
+   "fr"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-fr-en",
+  "parts": [
+   {
+    "id": "opus-fr-en-config-json",
+    "path": "fr-en/config.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-fr-en-ct2/config.json?download=true",
+    "byteCount": 233,
+    "sha256": "72901fbd8abd89fb5cf4a388f26fc681f5c4c58a1e1a88b30b879f107270e7ee"
+   },
+   {
+    "id": "opus-fr-en-model-bin",
+    "path": "fr-en/model.bin",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-fr-en-ct2/model.bin?download=true",
+    "byteCount": 233813603,
+    "sha256": "cca66d988a9305a7d3b61777dee9b8254cc5cbd8ae0ba12706788e0570dcd691"
+   },
+   {
+    "id": "opus-fr-en-shared_vocabulary-json",
+    "path": "fr-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-fr-en-ct2/shared_vocabulary.json?download=true",
+    "byteCount": 1025007,
+    "sha256": "5fbf71ee8cd8bd0ff69f041a6accd4d61a62e9f304113e435650f9f33211cfaf"
+   },
+   {
+    "id": "opus-fr-en-source-spm",
+    "path": "fr-en/source.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-fr-en-ct2/source.spm?download=true",
+    "byteCount": 819955,
+    "sha256": "622a0fef37ea7c6d7cd4a6530c2279d4688987c5417bba26fba9ae416f8b7758"
+   },
+   {
+    "id": "opus-fr-en-target-spm",
+    "path": "fr-en/target.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-fr-en-ct2/target.spm?download=true",
+    "byteCount": 802408,
+    "sha256": "69e8272c2d215294ae2e19c6fcef39fc26b386fcf64cd07f376b965740c80592"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-it-en-int8",
+  "direction": "it-en",
+  "sources": [
+   "it"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-it-en",
+  "parts": [
+   {
+    "id": "opus-it-en-config-json",
+    "path": "it-en/config.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-it-en-ct2/config.json?download=true",
+    "byteCount": 233,
+    "sha256": "72901fbd8abd89fb5cf4a388f26fc681f5c4c58a1e1a88b30b879f107270e7ee"
+   },
+   {
+    "id": "opus-it-en-model-bin",
+    "path": "it-en/model.bin",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-it-en-ct2/model.bin?download=true",
+    "byteCount": 235260753,
+    "sha256": "5595dc853728446cabec34bc47b1634fb388cc0396004080f766b70a374067d6"
+   },
+   {
+    "id": "opus-it-en-shared_vocabulary-json",
+    "path": "it-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-it-en-ct2/shared_vocabulary.json?download=true",
+    "byteCount": 1024215,
+    "sha256": "51008eafa076154c3a96b439b956b3ae3942510f3108067026dced8219289f8a"
+   },
+   {
+    "id": "opus-it-en-source-spm",
+    "path": "it-en/source.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-it-en-ct2/source.spm?download=true",
+    "byteCount": 820134,
+    "sha256": "4e900c0f10324efc6ac67a5246cec9b0faf693ea1ea9fa1786a9f3755a59a73a"
+   },
+   {
+    "id": "opus-it-en-target-spm",
+    "path": "it-en/target.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-it-en-ct2/target.spm?download=true",
+    "byteCount": 802852,
+    "sha256": "8e6799550a391c7a30ae95869c4692a00352e05fdf1ffcf9b50d96f08b0327bf"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-ar-en-int8",
+  "direction": "ar-en",
+  "sources": [
+   "ar"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-ar-en",
+  "parts": [
+   {
+    "id": "opus-ar-en-config-json",
+    "path": "ar-en/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-ar-en-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-ar-en-model-bin",
+    "path": "ar-en/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-ar-en-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 242148363,
+    "sha256": "c9d1c328668df8f2e620ace15ceb522be5b699f698d29e33e20e53b9677cb53f"
+   },
+   {
+    "id": "opus-ar-en-shared_vocabulary-json",
+    "path": "ar-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-ar-en-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1779312,
+    "sha256": "44d71ff9b75b066d1b56c7d87cd52258603269fdde99e8b02c47a7b9bdc5852e"
+   },
+   {
+    "id": "opus-ar-en-source-spm",
+    "path": "ar-en/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-ar-en-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 915066,
+    "sha256": "fce8e7e41d2e9337d5176edc530bd900efd6d99f86153f755c88529796b67a65"
+   },
+   {
+    "id": "opus-ar-en-target-spm",
+    "path": "ar-en/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-ar-en-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 804240,
+    "sha256": "cd90eef39e9f181bac516565a7bfc239306ecd446eb0adc85a44be4458fe6fe9"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-bg-en-int8",
+  "direction": "bg-en",
+  "sources": [
+   "bg"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-bg-en",
+  "parts": [
+   {
+    "id": "opus-bg-en-config-json",
+    "path": "bg-en/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-bg-en-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-bg-en-model-bin",
+    "path": "bg-en/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-bg-en-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 241445903,
+    "sha256": "daf59f4c7319ed23ece806c55e8607dbe95d9523764df624a4c1c633aa3839fe"
+   },
+   {
+    "id": "opus-bg-en-shared_vocabulary-json",
+    "path": "bg-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-bg-en-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 2060063,
+    "sha256": "9dd15fbd9adfd7e68f9484d161c44c8b6f5f9be7f1ce34429959d3b0143bd0fa"
+   },
+   {
+    "id": "opus-bg-en-source-spm",
+    "path": "bg-en/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-bg-en-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 1014639,
+    "sha256": "feed6183f1216a9e5e5cf4bd245d821c31a618e9251dadb4c74d4b9964e025cb"
+   },
+   {
+    "id": "opus-bg-en-target-spm",
+    "path": "bg-en/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-bg-en-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 804402,
+    "sha256": "2d84955844296c4aea0e8c9928e4d50d5b932ef24376c03f418be6b851354a30"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-el-en-int8",
+  "direction": "el-en",
+  "sources": [
+   "el"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-el-en",
+  "parts": [
+   {
+    "id": "opus-el-en-config-json",
+    "path": "el-en/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-el-en-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-el-en-model-bin",
+    "path": "el-en/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-el-en-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 239799963,
+    "sha256": "5b467e13bdcab24710b98088ffce535117a72f33de6ff0a2c3c2d520f8ff4429"
+   },
+   {
+    "id": "opus-el-en-shared_vocabulary-json",
+    "path": "el-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-el-en-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1977376,
+    "sha256": "de77938983aa10bc06e52ed06ab217e25e4545b61b04341034c0d3f0b6efcea7"
+   },
+   {
+    "id": "opus-el-en-source-spm",
+    "path": "el-en/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-el-en-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 1003051,
+    "sha256": "1f78d71e80e2dc22697802dfea24855499c5d482d1c47611f96a96af0b38ea4f"
+   },
+   {
+    "id": "opus-el-en-target-spm",
+    "path": "el-en/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-el-en-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 798530,
+    "sha256": "eb161fb698225d722b251738042d6e27481a66ba96477ab0fb046d8aa937ab2c"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-et-en-int8",
+  "direction": "et-en",
+  "sources": [
+   "et"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-et-en",
+  "parts": [
+   {
+    "id": "opus-et-en-config-json",
+    "path": "et-en/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-et-en-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-et-en-model-bin",
+    "path": "et-en/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-et-en-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 237411393,
+    "sha256": "833f08a12cba658bc89746154cbf6775f6b8138a6d3bb007113490fe6df5774f"
+   },
+   {
+    "id": "opus-et-en-shared_vocabulary-json",
+    "path": "et-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-et-en-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1017047,
+    "sha256": "ef958ca699ea5ec77c5aa3380a41042ca16c2086e1dbc8552191f46252e41b7e"
+   },
+   {
+    "id": "opus-et-en-source-spm",
+    "path": "et-en/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-et-en-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 812799,
+    "sha256": "09179aae4ceeafa81903611e660770d3953f5291ed66974dc28ac6d25ae4cb23"
+   },
+   {
+    "id": "opus-et-en-target-spm",
+    "path": "et-en/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-et-en-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 797197,
+    "sha256": "7a7be560659ccf537b9f699c5d6f02a0ebfb637e0bcfdb894c3a5fa7574234a7"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-fi-en-int8",
+  "direction": "fi-en",
+  "sources": [
+   "fi"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-fi-en",
+  "parts": [
+   {
+    "id": "opus-fi-en-config-json",
+    "path": "fi-en/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-fi-en-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-fi-en-model-bin",
+    "path": "fi-en/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-fi-en-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 238770993,
+    "sha256": "827710c49c03060568dd46d7638a6b1375f01cd25fbee13b75b7894b08263a35"
+   },
+   {
+    "id": "opus-fi-en-shared_vocabulary-json",
+    "path": "fi-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-fi-en-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1064424,
+    "sha256": "eb5645d60c69efd7053b1e5d66893a034b28c484c4beccd83cff606df891e2b4"
+   },
+   {
+    "id": "opus-fi-en-source-spm",
+    "path": "fi-en/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-fi-en-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 831865,
+    "sha256": "82fcb74f79c5f5b5bf0fe73f7dfb6a646efa50ffb4b2a0cd564a1193c78a032e"
+   },
+   {
+    "id": "opus-fi-en-target-spm",
+    "path": "fi-en/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-fi-en-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 789795,
+    "sha256": "ec7b44af3bba8e0439b9cf203adf29e37921ae6711491d138e219b9f1b69d84c"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-hu-en-int8",
+  "direction": "hu-en",
+  "sources": [
+   "hu"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-hu-en",
+  "parts": [
+   {
+    "id": "opus-hu-en-config-json",
+    "path": "hu-en/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-hu-en-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-hu-en-model-bin",
+    "path": "hu-en/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-hu-en-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 237888283,
+    "sha256": "c87f438c3a97e95b213cc24806085d6948e5877d7661af1234bf7febfbe8bacd"
+   },
+   {
+    "id": "opus-hu-en-shared_vocabulary-json",
+    "path": "hu-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-hu-en-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1113916,
+    "sha256": "e624527be481f8ff58c1e41cb4f396ea95778ee6e5f78f86cb7f3c7863a5992e"
+   },
+   {
+    "id": "opus-hu-en-source-spm",
+    "path": "hu-en/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-hu-en-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 834496,
+    "sha256": "b5d97cc1e75ab4fec33b9dc0490f078329057d0ab37069ea086394c2be10c0ac"
+   },
+   {
+    "id": "opus-hu-en-target-spm",
+    "path": "hu-en/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-hu-en-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 794916,
+    "sha256": "3850fefdba11c1abc87aacd021530c977b26f095dc6f800a674baa112513208d"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-lt-en-int8",
+  "direction": "lt-en",
+  "sources": [
+   "lt"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-lt-en",
+  "parts": [
+   {
+    "id": "opus-lt-en-config-json",
+    "path": "lt-en/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-lt-en-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-lt-en-model-bin",
+    "path": "lt-en/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-lt-en-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 239540403,
+    "sha256": "18b646366c925c3a379891c90f89c39a386bd2f1e78ef2d80eea6d1b8bd1f078"
+   },
+   {
+    "id": "opus-lt-en-shared_vocabulary-json",
+    "path": "lt-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-lt-en-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1106722,
+    "sha256": "6ba243fccca7d44bf5a5b12cb3d7aeb6d34104f971e6681eaaa1f263ce89d849"
+   },
+   {
+    "id": "opus-lt-en-source-spm",
+    "path": "lt-en/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-lt-en-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 836790,
+    "sha256": "b8f47ea6f62f72021654522ef3e88628c1da11ee3963f3c438623d5d883e98c5"
+   },
+   {
+    "id": "opus-lt-en-target-spm",
+    "path": "lt-en/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-lt-en-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 801200,
+    "sha256": "7c2211e1f2bb8466b109c65cf5c7daa4f515c33c961b9a06b60488fa334e55d7"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-lv-en-int8",
+  "direction": "lv-en",
+  "sources": [
+   "lv"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-lv-en",
+  "parts": [
+   {
+    "id": "opus-lv-en-config-json",
+    "path": "lv-en/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-lv-en-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-lv-en-model-bin",
+    "path": "lv-en/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-lv-en-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 238660783,
+    "sha256": "ebbcd357209e464c579e8e3a64f2872ad0894160281722b7c060dbea5601823a"
+   },
+   {
+    "id": "opus-lv-en-shared_vocabulary-json",
+    "path": "lv-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-lv-en-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1118186,
+    "sha256": "03cd9209d9f20ca284db97c24a5b88ab70460956fd96a179de1d5ae4b85da7a5"
+   },
+   {
+    "id": "opus-lv-en-source-spm",
+    "path": "lv-en/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-lv-en-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 835221,
+    "sha256": "153290d0c57d51a9f248dad5b53ff41e955cc375f155d4b550e903a48e0b964b"
+   },
+   {
+    "id": "opus-lv-en-target-spm",
+    "path": "lv-en/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-lv-en-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 795408,
+    "sha256": "866671354123313c7afa15d27d76bc943d12113e2fe7519dae9cc7f5f6f07a97"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-tr-en-int8",
+  "direction": "tr-en",
+  "sources": [
+   "tr"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-tr-en",
+  "parts": [
+   {
+    "id": "opus-tr-en-config-json",
+    "path": "tr-en/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-tr-en-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-tr-en-model-bin",
+    "path": "tr-en/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-tr-en-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 237977893,
+    "sha256": "61df8aed31762eaefa0e3a9807a8caa91894d305a2eb5a56156699d1d1ebfbac"
+   },
+   {
+    "id": "opus-tr-en-shared_vocabulary-json",
+    "path": "tr-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-tr-en-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1112966,
+    "sha256": "19bb107d0d72fde62e5c28378da7eb1bb379a2203b9957890618d3df18ba2bb3"
+   },
+   {
+    "id": "opus-tr-en-source-spm",
+    "path": "tr-en/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-tr-en-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 833378,
+    "sha256": "a6946a00a5cbd04044bb1c25b48ea798561a2fd12d872e5d1452bdc3dc076e77"
+   },
+   {
+    "id": "opus-tr-en-target-spm",
+    "path": "tr-en/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-tr-en-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 796940,
+    "sha256": "cfd9506b675c3f26850ae08995f5a7c8baf56db49d9784a80f418fb8a9210d48"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-he-en-int8",
+  "direction": "he-en",
+  "sources": [
+   "he"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-he-en",
+  "parts": [
+   {
+    "id": "opus-he-en-config-json",
+    "path": "he-en/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-he-en-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-he-en-model-bin",
+    "path": "he-en/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-he-en-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 241283163,
+    "sha256": "12c4a917bdf04150bb98f1c77d31e0f75bd6f65eb1ee7f31e48d7fefd134105e"
+   },
+   {
+    "id": "opus-he-en-shared_vocabulary-json",
+    "path": "he-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-he-en-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1662108,
+    "sha256": "62356087995903de0b680360a2bba06fea174abeb5d82977d0392a419b24ee59"
+   },
+   {
+    "id": "opus-he-en-source-spm",
+    "path": "he-en/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-he-en-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 881489,
+    "sha256": "13dabf370542066abcfd660e72887d0ce1296a04e15913d2ec47793656434257"
+   },
+   {
+    "id": "opus-he-en-target-spm",
+    "path": "he-en/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-he-en-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 799154,
+    "sha256": "da28ecbe4e59653b716708410b78edbd9fd639978f01002e2a8bc9319b1ee933"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-cat-oci-spa-en-int8",
+  "direction": "cat_oci_spa-en",
+  "sources": [
+   "es",
+   "ca"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-cat_oci_spa-en",
+  "parts": [
+   {
+    "id": "opus-cat_oci_spa-en-config-json",
+    "path": "cat_oci_spa-en/config.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-cat_oci_spa-en-ct2/config.json?download=true",
+    "byteCount": 233,
+    "sha256": "72901fbd8abd89fb5cf4a388f26fc681f5c4c58a1e1a88b30b879f107270e7ee"
+   },
+   {
+    "id": "opus-cat_oci_spa-en-model-bin",
+    "path": "cat_oci_spa-en/model.bin",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-cat_oci_spa-en-ct2/model.bin?download=true",
+    "byteCount": 235576963,
+    "sha256": "01db09bd751bf4f835180f8ff811997d431eedce25c8c5b7921bbc3f90b53f88"
+   },
+   {
+    "id": "opus-cat_oci_spa-en-shared_vocabulary-json",
+    "path": "cat_oci_spa-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-cat_oci_spa-en-ct2/shared_vocabulary.json?download=true",
+    "byteCount": 1048434,
+    "sha256": "9079b872ce91bd50f78b7eca04e6fe72ff295a7ef2c726d177b43b23aeb6d126"
+   },
+   {
+    "id": "opus-cat_oci_spa-en-source-spm",
+    "path": "cat_oci_spa-en/source.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-cat_oci_spa-en-ct2/source.spm?download=true",
+    "byteCount": 820182,
+    "sha256": "0a23783d3c79054e9033fa55aaaeeeb6513cf712063ea87b4eeff5014ee49134"
+   },
+   {
+    "id": "opus-cat_oci_spa-en-target-spm",
+    "path": "cat_oci_spa-en/target.spm",
+    "remoteURL": "https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-cat_oci_spa-en-ct2/target.spm?download=true",
+    "byteCount": 802657,
+    "sha256": "e8ba58a95c4029a5c5a16c43f6784ee30fe197a1766bf2dbacc9f9b255f9361e"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-ces-slk-en-int8",
+  "direction": "ces_slk-en",
+  "sources": [
+   "cs"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-ces_slk-en",
+  "parts": [
+   {
+    "id": "opus-ces_slk-en-config-json",
+    "path": "ces_slk-en/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-ces_slk-en-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-ces_slk-en-model-bin",
+    "path": "ces_slk-en/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-ces_slk-en-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 238651513,
+    "sha256": "4213e640a9a42bce48015080b51fadfa2712ae9146768f9bb66247413e86d064"
+   },
+   {
+    "id": "opus-ces_slk-en-shared_vocabulary-json",
+    "path": "ces_slk-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-ces_slk-en-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1113177,
+    "sha256": "57e673dc1b4e956c76804b9a22fae650793bdf3b84c7dc913332a942160d3982"
+   },
+   {
+    "id": "opus-ces_slk-en-source-spm",
+    "path": "ces_slk-en/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-ces_slk-en-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 823611,
+    "sha256": "fa297556cf75acf29f51dea0f1c0ef5225d247450e05307fd44dea6ea3185251"
+   },
+   {
+    "id": "opus-ces_slk-en-target-spm",
+    "path": "ces_slk-en/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-ces_slk-en-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 796116,
+    "sha256": "b1c603a8ddb42de2558898ca8d1ff49eb9549bc15d5922102c9890a2db4108f5"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-zlw-en-int8",
+  "direction": "zlw-en",
+  "sources": [
+   "pl"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zlw-en",
+  "parts": [
+   {
+    "id": "opus-zlw-en-config-json",
+    "path": "zlw-en/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zlw-en-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-zlw-en-model-bin",
+    "path": "zlw-en/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zlw-en-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 239051153,
+    "sha256": "3929f85645001b0b3367f33dcf1a67a1cdb472c2d0d14ec413f6452298ec1ca2"
+   },
+   {
+    "id": "opus-zlw-en-shared_vocabulary-json",
+    "path": "zlw-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zlw-en-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1096687,
+    "sha256": "b1cc4f3e534d86af8533cf27857810f4727c45dc37fb16c9229f834c95b5d5b9"
+   },
+   {
+    "id": "opus-zlw-en-source-spm",
+    "path": "zlw-en/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zlw-en-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 820935,
+    "sha256": "0f6c4f92c0339fc552f89bf13f0131bf7f219a02bcfd160492d9e5f23829e80a"
+   },
+   {
+    "id": "opus-zlw-en-target-spm",
+    "path": "zlw-en/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zlw-en-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 796568,
+    "sha256": "578a275c6f4a88a733d01da296827a167eaa46c289c113b51446ab1470ec1fa1"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-sh-en-int8",
+  "direction": "sh-en",
+  "sources": [
+   "bs",
+   "hr",
+   "sr",
+   "sr-Latn"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-sh-en",
+  "parts": [
+   {
+    "id": "opus-sh-en-config-json",
+    "path": "sh-en/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-sh-en-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-sh-en-model-bin",
+    "path": "sh-en/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-sh-en-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 239896783,
+    "sha256": "e46b21c5d1690d8bc7a65b0074abbce87125faa87d464d01d3d0b33178c55616"
+   },
+   {
+    "id": "opus-sh-en-shared_vocabulary-json",
+    "path": "sh-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-sh-en-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1294044,
+    "sha256": "493d4701c88b207529010e6efa120b00c01ee9cda3161253403d5602295de079"
+   },
+   {
+    "id": "opus-sh-en-source-spm",
+    "path": "sh-en/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-sh-en-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 848531,
+    "sha256": "04edd3b1ef274a674fad5bd278165e20db3b9190af3ed93ecc208546fc18c813"
+   },
+   {
+    "id": "opus-sh-en-target-spm",
+    "path": "sh-en/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-sh-en-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 794188,
+    "sha256": "f8162fb45022dc045c39eccfc02274ce988336f531a38eb3c892bd95692d7ae5"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-zls-en-int8",
+  "direction": "zls-en",
+  "sources": [
+   "bg",
+   "mk",
+   "sl"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zls-en",
+  "parts": [
+   {
+    "id": "opus-zls-en-config-json",
+    "path": "zls-en/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zls-en-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-zls-en-model-bin",
+    "path": "zls-en/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zls-en-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 240885583,
+    "sha256": "c19cb6d088f1295d3d5c168a366209ca48aa6a8ada5f4c985e06c9dd39fb9fbe"
+   },
+   {
+    "id": "opus-zls-en-shared_vocabulary-json",
+    "path": "zls-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zls-en-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 1543371,
+    "sha256": "0634675fa0249a16b75048c20c4caca90707102f7594bdd6698603eace751c57"
+   },
+   {
+    "id": "opus-zls-en-source-spm",
+    "path": "zls-en/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zls-en-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 895870,
+    "sha256": "533310227f43bd2f1f71368fc983ba8cbe2332896967409bb9bc67cf14a0af07"
+   },
+   {
+    "id": "opus-zls-en-target-spm",
+    "path": "zls-en/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-zls-en-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 797979,
+    "sha256": "216ebb622b4d2842e9d71b1f7917aa1ff65b8687e37c0f66a9cdaa195dc2dbc9"
+   }
+  ]
+ },
+ {
+  "id": "opus-tc-big-gmq-en-int8",
+  "direction": "gmq-en",
+  "sources": [
+   "da",
+   "fo",
+   "is",
+   "nn",
+   "no",
+   "sv"
+  ],
+  "targets": [
+   "en"
+  ],
+  "markers": {},
+  "license": "CC-BY-4.0",
+  "sourceURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-gmq-en",
+  "parts": [
+   {
+    "id": "opus-gmq-en-config-json",
+    "path": "gmq-en/config.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-gmq-en-ct2-int8/resolve/main/config.json?download=true",
+    "byteCount": 223,
+    "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+   },
+   {
+    "id": "opus-gmq-en-model-bin",
+    "path": "gmq-en/model.bin",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-gmq-en-ct2-int8/resolve/main/model.bin?download=true",
+    "byteCount": 235614043,
+    "sha256": "6001f13823a18d4bddee8ca834559c73062bcee7398deaa75c472f5fff22b612"
+   },
+   {
+    "id": "opus-gmq-en-shared_vocabulary-json",
+    "path": "gmq-en/shared_vocabulary.json",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-gmq-en-ct2-int8/resolve/main/shared_vocabulary.json?download=true",
+    "byteCount": 968355,
+    "sha256": "59b42d394fa549ab495dae085774427a7a23514136fe0617b1772e659efb8f30"
+   },
+   {
+    "id": "opus-gmq-en-source-spm",
+    "path": "gmq-en/source.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-gmq-en-ct2-int8/resolve/main/source.spm?download=true",
+    "byteCount": 799747,
+    "sha256": "20dd2029ff0a4b6dd7b89442035d57fb03e9a9efbbd36543d5aae5e2aa866bad"
+   },
+   {
+    "id": "opus-gmq-en-target-spm",
+    "path": "gmq-en/target.spm",
+    "remoteURL": "https://huggingface.co/HOSTING-PENDING/opus-mt-tc-big-gmq-en-ct2-int8/resolve/main/target.spm?download=true",
+    "byteCount": 795929,
+    "sha256": "c51247265dd2c7773c3be3669b63c5152ce145baeb54a17975145309eb422cf2"
+   }
+  ]
+ }
+]

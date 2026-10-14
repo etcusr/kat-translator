@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "sherpa": {
+    "version": "1.13.8",
+    "sourceCommit": "11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf",
+    "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/v1.13.8/sherpa-onnx-v1.13.8-android.tar.bz2",
+    "sha256": "2ff63469a71cb6009aa2e3ed5f4a670f8abdcbe4bb9ffd23776afc792a6b4f44",
+    "cApiHeaderSHA256": "2a1b95084be8fd1deb3228fcad2fd3f7f0258b64582f7402281ec174c7b7f4ce",
+    "arm64CAPI_SHA256": "c85e2382e2ca12b0513826be926eaccfea896b4cbf568182e287671ba526f80d"
+  },
+  "onnxruntime": {
+    "version": "1.28.2",
+    "provenance": "Bundled in the pinned official sherpa Android release; version string inspected in library",
+    "arm64SHA256": "33847ad43bffe204699fd4a27f7f3603452a8cdaf2f9a44983a0bc31ffcf2da1",
+    "cApiVersion": 17,
+    "headerVersion": "1.17.3",
+    "headerSHA256": "7e47eb78563da119f740dc0ddfda96800e779e0bcbd169a9a49e9c10746c4cd5"
+  },
+  "whisper": {
+    "sourceLock": "Dependencies/whisper.lock.json",
+    "commit": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+    "backend": "cpu",
+    "note": "Separate hidden-symbol DSO with its own pinned ggml avoids mixing Index and Whisper ABIs"
+  },
+  "abi": "arm64-v8a",
+  "minimumELFLoadAlignment": 16384,
+  "packagedLibraries": [
+    "libkat_media.so",
+    "libkat_whisper.so",
+    "libsherpa-onnx-c-api.so",
+    "libonnxruntime.so",
+    "libkat_omnivoice.so",
+    "libpython3.14.so",
+    "libssl_python.so",
+    "libcrypto_python.so",
+    "libsqlite3_python.so"
+  ],
+  "systemDependencies": [
+    "libandroid.so",
+    "liblog.so",
+    "libm.so",
+    "libdl.so",
+    "libc.so",
+    "libc++_shared.so"
+  ],
+  "omnivoice": {
+    "sourceCommit": "53e6c2066150802ad3cd4b655b31c696e78e0019",
+    "ggmlCommit": "40e16e4a814f7fe851a0c486fb9e8c722e957830",
+    "patch": "shared/native/OmniVoice/mobile-cancel.patch",
+    "backend": "cpu",
+    "weights": "Same shared Q8_0 model and codec as Apple"
+  },
+  "wayu": {
+    "pythonVersion": "3.14.8",
+    "url": "https://www.python.org/ftp/python/3.14.8/python-3.14.8-aarch64-linux-android.tar.gz",
+    "sha256": "11324313957da3736f44e90257304d288864321a4dd376ed0cc35a54eacf9a33",
+    "frontendSource": "shared/native/Wayu/wayu_frontend.py",
+    "frontendDependencyLock": "shared/native/Wayu/dependencies.lock.json",
+    "runtimeAssetSHA256": "8797abb8f06722f9b93b9bcc9523109e38b72618fb6b88d08149bed7d1713ba9",
+    "runtimeAssets": 1527,
+    "nativeLibraries": {
+      "libcrypto_python.so": "e13734377377603cda9c2ea6d6171fc4d639d8a0768050a8a22cdaa3b40f0ece",
+      "libpython3.14.so": "655816679dcd5e36e48187515c9435ad330688c1b2f2ffb40fc4f1a3f3e17bf4",
+      "libsqlite3_python.so": "e8c9c26012244a175013d17188a65300abedb946bd959b5b59fc19b63dfb92b9",
+      "libssl_python.so": "c54e3be0d21c43d908b0891d8c8775785f4045c168d21105b7284f8895383944"
+    },
+    "runtimeContentSHA256": "c66263c3ccccb9398f707d5bcf7a899c14f742b695ef17ff3250e7fc00fbd95b",
+    "tzdata": {
+      "version": "2026.5",
+      "url": "https://files.pythonhosted.org/packages/94/21/1e5995a1c920cce14e4bffae20c665ec10e7ed03ab25e006cd741092b718/tzdata-2026.5-py2.py3-none-any.whl",
+      "sha256": "b683bd1b6659ddcd810ff02ad09ba821d4bf1065072805063eb35c49617905ac",
+      "provenance": "First-party CPython tzdata wheel; full timezone database and licenses; standard zoneinfo fallback"
+    }
+  },
+  "icu4j": {
+    "version": "78.3",
+    "mavenCoordinate": "com.ibm.icu:icu4j:78.3",
+    "jarSHA256": "e962c1758d9659ea1e1fbab99c58683f654d304e1126ace19aaabfe39e0edb25",
+    "purpose": "Public rule-based number spellout; rejects native-language fallback"
+  }
+}

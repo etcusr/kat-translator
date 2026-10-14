@@ -1,0 +1,39 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 62b99d1..c29c3cc 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -58,7 +58,7 @@ endif(NOT CMAKE_BUILD_TYPE)
+ # Set CXX flags.
+ set(CMAKE_CXX_STANDARD 17)
+ 
+-if(APPLE)
++if(APPLE AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
+   set(CMAKE_OSX_DEPLOYMENT_TARGET 10.13)
+ endif()
+ 
+diff --git a/src/decoding.cc b/src/decoding.cc
+index 84f39ac..1260039 100644
+--- a/src/decoding.cc
++++ b/src/decoding.cc
+@@ -1,3 +1,5 @@
++// Kat: cooperative cancellation for direct replica execution, including beam search.
++extern void kat_opus_check_cancel();
+ #include "ctranslate2/decoding.h"
+ 
+ #include <algorithm>
+@@ -491,6 +493,7 @@ namespace ctranslate2 {
+                                         use_hard_prefix ? prefix_ids : nullptr);
+ 
+     for (dim_t step = 0; step < max_step; ++step) {
++      ::kat_opus_check_cancel();
+       const bool is_expanded = (!expand_after_first_step || step > 0);
+ 
+       // Compute log probs for the current step.
+@@ -842,6 +845,7 @@ namespace ctranslate2 {
+     const dim_t max_step = get_max_step(max_length, return_prefix, prefix_ids);
+ 
+     for (dim_t step = 0; step < max_step; ++step) {
++      ::kat_opus_check_cancel();
+       convert_to_original_word_ids(decoder, sample_from);
+       decoder(start_step + step,
+               sample_from.to(device),

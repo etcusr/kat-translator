@@ -1,0 +1,12 @@
+_ot_opus_load
+_ot_opus_free
+_ot_opus_flag_create
+_ot_opus_flag_cancel
+_ot_opus_flag_free
+_ot_opus_last_error
+_ot_opus_count
+_ot_opus_run
+_ot_opus_prepare
+_ot_opus_count_direction
+_ot_opus_prepare_direction
+_ot_opus_run_direction

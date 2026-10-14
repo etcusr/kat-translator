@@ -1,0 +1,115 @@
+{
+  "models": [
+    {
+      "id": "gigaam-v3-int8",
+      "title": "GigaAM v3 · RU",
+      "backend": "gigaam",
+      "languages": [
+        "ru"
+      ],
+      "license": "MIT",
+      "sourceURL": "https://github.com/salute-developers/GigaAM",
+      "parts": [
+        {
+          "id": "gigaam-v3-encoder-int8-onnx",
+          "path": "encoder.int8.onnx",
+          "remoteURL": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-giga-am-v3-russian-2025-12-16/resolve/0424d62637b37d8b7b1eb0f75a04d78dec55fdcc/encoder.int8.onnx",
+          "byteCount": 224570814,
+          "sha256": "0ec54e5f130a91c0f228d21795ede10b31c992a1f73e45dcd827e843a71a9b50"
+        },
+        {
+          "id": "gigaam-v3-decoder-onnx",
+          "path": "decoder.onnx",
+          "remoteURL": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-giga-am-v3-russian-2025-12-16/resolve/0424d62637b37d8b7b1eb0f75a04d78dec55fdcc/decoder.onnx",
+          "byteCount": 3331651,
+          "sha256": "5d1cfef155d8e07f213bd2f3229b5f6c5c29355c7fa5c1b9eb62cb1925725254"
+        },
+        {
+          "id": "gigaam-v3-joiner-onnx",
+          "path": "joiner.onnx",
+          "remoteURL": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-giga-am-v3-russian-2025-12-16/resolve/0424d62637b37d8b7b1eb0f75a04d78dec55fdcc/joiner.onnx",
+          "byteCount": 1440448,
+          "sha256": "fd1d02f45c2ad3d6b67cc149811ad794ab4b020ed49a0a9e2790a8619d1cddd8"
+        },
+        {
+          "id": "gigaam-v3-tokens-txt",
+          "path": "tokens.txt",
+          "remoteURL": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-giga-am-v3-russian-2025-12-16/resolve/0424d62637b37d8b7b1eb0f75a04d78dec55fdcc/tokens.txt",
+          "byteCount": 196,
+          "sha256": "17cc514451bcceac9c280068c71502f8448f99e9fb1456b8d0761651fd0392f2"
+        },
+        {
+          "id": "gigaam-v3-LICENSE",
+          "path": "LICENSE",
+          "remoteURL": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-transducer-giga-am-v3-russian-2025-12-16/resolve/0424d62637b37d8b7b1eb0f75a04d78dec55fdcc/LICENSE",
+          "byteCount": 1070,
+          "sha256": "f00de6715714c7a63d08639cdbfaa40224eefc407302614bd19f1a8b98c875aa"
+        }
+      ]
+    },
+    {
+      "id": "parakeet-v3-int8",
+      "title": "Parakeet TDT v3",
+      "backend": "parakeet",
+      "languages": [
+        "bg",
+        "hr",
+        "cs",
+        "da",
+        "nl",
+        "en",
+        "et",
+        "fi",
+        "fr",
+        "de",
+        "el",
+        "hu",
+        "it",
+        "lv",
+        "lt",
+        "mt",
+        "pl",
+        "pt",
+        "ro",
+        "sk",
+        "sl",
+        "es",
+        "sv",
+        "ru",
+        "uk"
+      ],
+      "license": "CC-BY-4.0 · NVIDIA",
+      "sourceURL": "https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3",
+      "parts": [
+        {
+          "id": "parakeet-v3-encoder-int8-onnx",
+          "path": "encoder.int8.onnx",
+          "remoteURL": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v3-int8/resolve/2bda32ec70b097a55adaa07d9a7173915b43cc78/encoder.int8.onnx",
+          "byteCount": 652184281,
+          "sha256": "acfc2b4456377e15d04f0243af540b7fe7c992f8d898d751cf134c3a55fd2247"
+        },
+        {
+          "id": "parakeet-v3-decoder-int8-onnx",
+          "path": "decoder.int8.onnx",
+          "remoteURL": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v3-int8/resolve/2bda32ec70b097a55adaa07d9a7173915b43cc78/decoder.int8.onnx",
+          "byteCount": 11845275,
+          "sha256": "179e50c43d1a9de79c8a24149a2f9bac6eb5981823f2a2ed88d655b24248db4e"
+        },
+        {
+          "id": "parakeet-v3-joiner-int8-onnx",
+          "path": "joiner.int8.onnx",
+          "remoteURL": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v3-int8/resolve/2bda32ec70b097a55adaa07d9a7173915b43cc78/joiner.int8.onnx",
+          "byteCount": 6355277,
+          "sha256": "3164c13fc2821009440d20fcb5fdc78bff28b4db2f8d0f0b329101719c0948b3"
+        },
+        {
+          "id": "parakeet-v3-tokens-txt",
+          "path": "tokens.txt",
+          "remoteURL": "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v3-int8/resolve/2bda32ec70b097a55adaa07d9a7173915b43cc78/tokens.txt",
+          "byteCount": 93939,
+          "sha256": "d58544679ea4bc6ac563d1f545eb7d474bd6cfa467f0a6e2c1dc1c7d37e3c35d"
+        }
+      ]
+    }
+  ]
+}

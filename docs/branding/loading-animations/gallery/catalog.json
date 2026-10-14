@@ -1,0 +1,206 @@
+{
+  "cats": [
+    {
+      "duration": 6,
+      "gif": "cat/idle.gif",
+      "id": "idle",
+      "poster": "cat/idle.jpg",
+      "title": "Ожидание · хвост и моргание",
+      "video": "cat/idle.mp4"
+    },
+    {
+      "duration": 5,
+      "gif": "cat/walk.gif",
+      "id": "walk",
+      "poster": "cat/walk.jpg",
+      "title": "Неторопливая ходьба",
+      "video": "cat/walk.mp4"
+    },
+    {
+      "duration": 5,
+      "gif": "cat/run.gif",
+      "id": "run",
+      "poster": "cat/run.jpg",
+      "title": "Бег при быстрой загрузке",
+      "video": "cat/run.mp4"
+    },
+    {
+      "duration": 4,
+      "gif": "cat/progress-jump.gif",
+      "id": "progress-jump",
+      "poster": "cat/progress-jump.jpg",
+      "title": "Прыжок вслед за прогрессом",
+      "video": "cat/progress-jump.mp4"
+    },
+    {
+      "duration": 3.1,
+      "gif": "cat/hop.gif",
+      "id": "hop",
+      "poster": "cat/hop.jpg",
+      "title": "Прыжок на месте",
+      "video": "cat/hop.mp4"
+    },
+    {
+      "duration": 3.966666666666667,
+      "gif": "cat/doubleHop.gif",
+      "id": "doubleHop",
+      "poster": "cat/doubleHop.jpg",
+      "title": "Двойной прыжок",
+      "video": "cat/doubleHop.mp4"
+    },
+    {
+      "duration": 3.7,
+      "gif": "cat/somersault.gif",
+      "id": "somersault",
+      "poster": "cat/somersault.jpg",
+      "title": "Сальто",
+      "video": "cat/somersault.mp4"
+    },
+    {
+      "duration": 7.433333333333334,
+      "gif": "cat/mischief.gif",
+      "id": "mischief",
+      "poster": "cat/mischief.jpg",
+      "title": "Кучка · закапывание задними лапами",
+      "video": "cat/mischief.mp4"
+    },
+    {
+      "duration": 4.633333333333334,
+      "gif": "cat/wallKick.gif",
+      "id": "wallKick",
+      "poster": "cat/wallKick.jpg",
+      "title": "Отскок и разворот у края",
+      "video": "cat/wallKick.mp4"
+    },
+    {
+      "duration": 9.366666666666667,
+      "gif": "cat/puke.gif",
+      "id": "puke",
+      "poster": "cat/puke.jpg",
+      "title": "Лужица · перепрыгнул и пошёл дальше",
+      "video": "cat/puke.mp4"
+    }
+  ],
+  "clips": [
+    {
+      "duration": 3.8,
+      "id": "wizard",
+      "poster": "clips/wizard.jpg",
+      "sha256": "7497a461db150d2329aaaec234106e0fea0136fe992621c21f1c691cd27d7daa",
+      "title": "Кот-волшебник",
+      "video": "clips/wizard.mp4"
+    },
+    {
+      "duration": 1.125,
+      "id": "monkey-work",
+      "poster": "clips/monkey-work.jpg",
+      "sha256": "d3fac9982b2d572c608b0827d3d95a39eb45fb7a300f97238a5b4a384fb3b6ec",
+      "title": "За работой",
+      "video": "clips/monkey-work.mp4"
+    },
+    {
+      "duration": 4.291667,
+      "id": "cat-break",
+      "poster": "clips/cat-break.jpg",
+      "sha256": "55c907ae291cf314738cafd7e0734b1a0725b26409ba62b6ba9068e4d7acd59d",
+      "title": "Кот на перерыве",
+      "video": "clips/cat-break.mp4"
+    },
+    {
+      "duration": 5.5,
+      "id": "swing",
+      "poster": "clips/swing.jpg",
+      "sha256": "9d4066021621ae2e107d509ea129d053829fa265b76736b37271d4a6861e8e82",
+      "title": "Качели",
+      "video": "clips/swing.mp4"
+    },
+    {
+      "duration": 5.9,
+      "id": "one-beer",
+      "poster": "clips/one-beer.jpg",
+      "sha256": "4a599dad309f751192089900b7403060be1774ee60d028860590d62b54856524",
+      "title": "Перерыв на пиво",
+      "video": "clips/one-beer.mp4"
+    },
+    {
+      "duration": 4.9,
+      "id": "cat-dance",
+      "poster": "clips/cat-dance.jpg",
+      "sha256": "39c512b1a182ea6512e40fb81212f5e6382fdc991865588c08dd320404ad630f",
+      "title": "Танцующий кот",
+      "video": "clips/cat-dance.mp4"
+    },
+    {
+      "duration": 5.933008,
+      "id": "cat-magic",
+      "poster": "clips/cat-magic.jpg",
+      "sha256": "2304890ac5f64499a459b8280ec42d593bc0a2c3806621c9ee977b8fb18918f9",
+      "title": "Кот и магия",
+      "video": "clips/cat-magic.mp4"
+    },
+    {
+      "duration": 8.0,
+      "id": "cat-stalk",
+      "poster": "clips/cat-stalk.jpg",
+      "sha256": "6553b1aa92fc7c64ef5b772a40e7378d6d5c735f5169854ff43cc95d757873a4",
+      "title": "Кот крадётся",
+      "video": "clips/cat-stalk.mp4"
+    },
+    {
+      "duration": 2.958333,
+      "id": "cat-paw",
+      "poster": "clips/cat-paw.jpg",
+      "sha256": "d067b8ea90b70c6c0a38795da0ef6f988bff799e5aef5d1869d881cb51afebe0",
+      "title": "Кошачья лапка",
+      "video": "clips/cat-paw.mp4"
+    },
+    {
+      "duration": 4.9,
+      "id": "porpoise",
+      "poster": "clips/porpoise.jpg",
+      "sha256": "1b3c55476b560d783c89626aefa874bb0d3fe261eac2b4168e36dbcd3f5ed743",
+      "title": "Дельфин",
+      "video": "clips/porpoise.mp4"
+    },
+    {
+      "duration": 6.375,
+      "id": "cat-vibe",
+      "poster": "clips/cat-vibe.jpg",
+      "sha256": "b04e0bda16cb41681a84f70b6591bc08d361ffc2de8910dcb659ccade32da400",
+      "title": "Кот ловит вайб",
+      "video": "clips/cat-vibe.mp4"
+    },
+    {
+      "duration": 11.041667,
+      "id": "film-drink",
+      "poster": "clips/film-drink.jpg",
+      "sha256": "422155dc02fe8f9d76dfb6849ef50fb81fb2bd8a4e168480226c4330ec3dd70e",
+      "title": "Кино и напиток",
+      "video": "clips/film-drink.mp4"
+    },
+    {
+      "duration": 4.1,
+      "id": "pigeon",
+      "poster": "clips/pigeon.jpg",
+      "sha256": "9e6c855077491781d17e5067442351c22ace30fc8dd4037a1ccbeb8a0ab7452f",
+      "title": "Голубь",
+      "video": "clips/pigeon.mp4"
+    },
+    {
+      "duration": 4.291667,
+      "id": "cat-stretch",
+      "poster": "clips/cat-stretch.jpg",
+      "sha256": "56742f6e4b4ce26071a63d4dc0dbed3770158c28ef67b68d69d11a977c3d0999",
+      "title": "Кот потягивается",
+      "video": "clips/cat-stretch.mp4"
+    },
+    {
+      "duration": 4.2,
+      "id": "work-sleep",
+      "poster": "clips/work-sleep.jpg",
+      "sha256": "11220bd890a33d2f527c0547195f11275061bb8fecd6a2d3c2e06a1695b465f5",
+      "title": "Работа и сон",
+      "video": "clips/work-sleep.mp4"
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+{
+  "checked": "2026-10-14",
+  "piper_revision": "c10ece1aade47bb51c153c893d14e5bf8e5b7117",
+  "sources": [
+    {
+      "id": "vits-piper-en_US-ljspeech-high",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/en/en_US/ljspeech/high/MODEL_CARD",
+      "sha256": "289f7421072d689a3d91f6c632f486af46f9b8b04417536104a4ea667b8a394b"
+    },
+    {
+      "id": "vits-piper-ru_RU-denis-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ru/ru_RU/denis/medium/MODEL_CARD",
+      "sha256": "8b5d685dd80f8ad3f8dbbe1c56b16bb0809f00c144af3642dbcf3b707eb89c12"
+    },
+    {
+      "id": "vits-piper-ru_RU-irina-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ru/ru_RU/irina/medium/MODEL_CARD",
+      "sha256": "f4fc2deb0e8c6219f29202b8dd06c9638c5ffd50ad5c6b2c90cf1aa59d507593"
+    },
+    {
+      "id": "vits-piper-en_US-lessac-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/en/en_US/lessac/medium/MODEL_CARD",
+      "sha256": "ce49eb457742208166d399a40cdec2c7fa9db77960930031564ab56f12882645"
+    },
+    {
+      "id": "vits-piper-zh_CN-huayan-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/zh/zh_CN/huayan/medium/MODEL_CARD",
+      "sha256": "25d7d8f7a03e9382e629c5c4f074176e7ca84e08be12a873022e91fcac98c2c7"
+    },
+    {
+      "id": "vits-piper-ca_ES-upc_ona-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ca/ca_ES/upc_ona/medium/MODEL_CARD",
+      "sha256": "2961b53af17c66971b3ebe3b174566a16ae6e9302997eed111a7d2b1954d31fd"
+    },
+    {
+      "id": "vits-piper-cy_GB-bu_tts-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/cy/cy_GB/bu_tts/medium/MODEL_CARD",
+      "sha256": "b6dea17117b4dba58b6e836616ab639fb21c154e6045414cf4cb855b4d71299c"
+    },
+    {
+      "id": "vits-piper-eu_ES-maider-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/eu/eu_ES/maider/medium/MODEL_CARD",
+      "sha256": "bb7f284582ddd497f500b5275e2bd4f06031f483a63b0f5367dae18c9ae214ff"
+    },
+    {
+      "id": "vits-piper-fa_IR-amir-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/fa/fa_IR/amir/medium/MODEL_CARD",
+      "sha256": "0d7d315699945ac830162f82d485d79af51a33081a7649e8992726bd4bba2384"
+    },
+    {
+      "id": "piper-hy_AM-gor-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/hy/hy_AM/gor/medium/MODEL_CARD",
+      "sha256": "8aa657540385acbc6e651185eb60f162a9317ab1cce1d50ab08f9604975c401b"
+    },
+    {
+      "id": "vits-piper-is_IS-ugla-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/is/is_IS/ugla/medium/MODEL_CARD",
+      "sha256": "7ebe554f5261950caa98624a3758a3b37371a8101ec532836e99018925c6ddca"
+    },
+    {
+      "id": "vits-piper-ka_GE-natia-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ka/ka_GE/natia/medium/MODEL_CARD",
+      "sha256": "67224b9fa87999fc78c8289305f40348941423c5ad3fd1f1baefb2be0b8a6c18"
+    },
+    {
+      "id": "vits-piper-kk_KZ-issai-high",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/kk/kk_KZ/issai/high/MODEL_CARD",
+      "sha256": "1b0704348a17a5f84fba84caa20d14a116eea9953bb9bc147ada4234d18687a2"
+    },
+    {
+      "id": "vits-piper-ku_TR-berfin_renas-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ku/ku_TR/berfin_renas/medium/MODEL_CARD",
+      "sha256": "9c65915ac8c7e3536e322fb8f3f4b285e2e007068588def12eaac815e3bed615"
+    },
+    {
+      "id": "vits-piper-lb_LU-marylux-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/lb/lb_LU/marylux/medium/MODEL_CARD",
+      "sha256": "613dc86e24d7ebd06ca1a91b04584636528a25fad1ba62318ff5622211b1dc10"
+    },
+    {
+      "id": "vits-piper-ml_IN-arjun-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ml/ml_IN/arjun/medium/MODEL_CARD",
+      "sha256": "0115bfc12e2b7d9cc28b43e2ebc746e402b6ed867c619ae61bc80d0427a95c83"
+    },
+    {
+      "id": "vits-piper-ne_NP-chitwan-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ne/ne_NP/chitwan/medium/MODEL_CARD",
+      "sha256": "127e85643329612dbebd7a071dd0f69a03439ceecdec5b637ed8641379b4ba00"
+    },
+    {
+      "id": "vits-piper-no_NO-talesyntese-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/no/no_NO/talesyntese/medium/MODEL_CARD",
+      "sha256": "0a03b201db00e1bdc384e2dee4f8710075ef8d32ca3c64ed16782b04d2605f6c"
+    },
+    {
+      "id": "vits-piper-sq_AL-edon-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/sq/sq_AL/edon/medium/MODEL_CARD",
+      "sha256": "3849de03579aaeabf996ca2e08792ee457f8d55bd473332cd0d7684fc728cfb0"
+    },
+    {
+      "id": "vits-piper-sr_RS-serbski_institut-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/sr/sr_RS/serbski_institut/medium/MODEL_CARD",
+      "sha256": "1ed2209d4d01b359416f17772c6c11272bdb59359d0b0b076e31a5ccb87446ac"
+    },
+    {
+      "id": "vits-piper-sw_CD-lanfrica-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/sw/sw_CD/lanfrica/medium/MODEL_CARD",
+      "sha256": "763a444ca0e205ac08bd3bf3a4d3d44da58f56d244a145adf22eb0a863638ab2"
+    },
+    {
+      "id": "piper-te_IN-maya-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/te/te_IN/maya/medium/MODEL_CARD",
+      "sha256": "fe0a4b70db1f6c952df23492ed1fe6c09a85a2b0df3df5f8975dbf2d84f07992"
+    },
+    {
+      "id": "vits-piper-ur_PK-fasih-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ur/ur_PK/fasih/medium/MODEL_CARD",
+      "sha256": "0d6419e74f99fdb0240180fc26067e2f71cff465c61b59e218a7cf53351cf91f"
+    },
+    {
+      "id": "ru_ru_RU_dmitri_medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/main/ru/ru_RU/dmitri/medium/MODEL_CARD",
+      "sha256": "6d59c756776d57860232cea6484e1b2ea1fc1c8d2c3446ef246f706fd9875821"
+    },
+    {
+      "id": "ru_ru_RU_ruslan_medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/main/ru/ru_RU/ruslan/medium/MODEL_CARD",
+      "sha256": "28f5c0381c1234eb17bfd77e77f893b008948c29bc351fb811abd2d6a69e7662"
+    },
+    {
+      "id": "en_en_US_amy_medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/amy/medium/MODEL_CARD",
+      "sha256": "858419ea604c427ff2e9918556345667eb46397da3c965de75f4f7f0bb50a962"
+    },
+    {
+      "id": "en_en_US_bryce_medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/bryce/medium/MODEL_CARD",
+      "sha256": "96042c4ddbd405f6e40e2938b069987f4016a35832114bbefed1ed04242ee532"
+    },
+    {
+      "id": "hi_hi_IN_rohan_medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/main/hi/hi_IN/rohan/medium/MODEL_CARD",
+      "sha256": "231592a0c299bacae6e5945ee27d5a36204e14ee9d83f01ee15e34a26810651e"
+    },
+    {
+      "id": "en_en_US_libritts_r_medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/libritts_r/medium/MODEL_CARD",
+      "sha256": "0ccde6927e5bb4d743f4ea39618a9387ba18cca3351220a8a9cfdbc68b30fcb9"
+    },
+    {
+      "id": "silero-license",
+      "url": "https://raw.githubusercontent.com/snakers4/silero-models/master/LICENSE",
+      "sha256": "1349a4b6148492b44f629e64eed676612e234fe9a839e4f3b277c1482c8849f1"
+    },
+    {
+      "id": "silero-models",
+      "url": "https://raw.githubusercontent.com/snakers4/silero-models/master/models.yml",
+      "sha256": "64ccc436c72fd8c538e1a37de00301cc164a82c3d8ef0356532fe4c662ed1aa7"
+    },
+    {
+      "id": "rhvoice-license",
+      "url": "https://raw.githubusercontent.com/RHVoice/RHVoice/master/LICENSE.md",
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+      "id": "rhvoice-apple",
+      "url": "https://raw.githubusercontent.com/RHVoice/RHVoice/master/LICENSE_APPLE_APP_STORE.md",
+      "sha256": "1903851a9ee79590a8e893d688dd420b6eb57acee7d33fe34e8edc3e7f08287f"
+    },
+    {
+      "id": "supertonic-license",
+      "url": "https://huggingface.co/Supertone/supertonic-3/resolve/main/LICENSE",
+      "sha256": "0d944a9110fed9a9602d60e0423a272903e7bd21ab060490774efc77c2275e9f"
+    },
+    {
+      "id": "vosk-model",
+      "url": "https://huggingface.co/alphacep/vosk-tts-ru-multi/resolve/main/README.md",
+      "sha256": "cc39b3f69ccd0569ec99f9ae2d643740ce8198309e5ed207fc9892d96b892e01"
+    },
+    {
+      "id": "vosk-stabletts",
+      "url": "https://huggingface.co/alphacep/vosk-tts-ru-stabletts/resolve/main/README.md",
+      "sha256": "4bcf87ecfbbb8e07a01b21415a970c8b53a5283bf6872b657040d3f45c9241f7"
+    },
+    {
+      "id": "qwen-model",
+      "url": "https://huggingface.co/Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice/resolve/main/README.md",
+      "sha256": "1e3adeecc7a72d6756fdb77c2847f8e994195e105b51206a7a5c049b0dfa48a8"
+    },
+    {
+      "id": "cards-revision",
+      "url": "https://huggingface.co/api/models/rhasspy/piper-voices/revision/main",
+      "sha256": "f0b25a59bb95ab0ba56f97d67075f8e0d8a811a36d6758a1844c92e4b70a7cc8"
+    },
+    {
+      "id": "chatterbox-model",
+      "url": "https://huggingface.co/ResembleAI/chatterbox/resolve/main/README.md",
+      "sha256": "6ac86d5ec7e85a9cf6566a34c6aae60ac1d50a6fceccade4c2aa57cfa6f590b4"
+    }
+  ]
+}

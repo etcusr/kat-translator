@@ -1,0 +1,32 @@
+[
+  {
+    "component": "iOS sherpa",
+    "sha256": "21098bd9ebf455a45ae2858e5f9e99d3baf00a697636e3b2eeb200db39694aea",
+    "bytes": 21190592,
+    "markers": [
+      "espeak_Initialize",
+      "espeak_TextToPhonemes",
+      "Failed to initialize espeak-ng",
+      "PiperPhonemizeLexicon"
+    ]
+  },
+  {
+    "component": "Android sherpa",
+    "sha256": "c85e2382e2ca12b0513826be926eaccfea896b4cbf568182e287671ba526f80d",
+    "bytes": 4465168,
+    "markers": [
+      "Failed to initialize espeak-ng",
+      "PiperPhonemizeLexicon"
+    ]
+  },
+  {
+    "component": "Mac sherpa",
+    "sha256": "8696565d9b175e859fda2b84ca4e7903d4cae11a527f1ac3a9942491cf256993",
+    "bytes": 58054592,
+    "markers": [
+      "espeak_Initialize",
+      "Failed to initialize espeak-ng",
+      "PiperPhonemizeLexicon"
+    ]
+  }
+]

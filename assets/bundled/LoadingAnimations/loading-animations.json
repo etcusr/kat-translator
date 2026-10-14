@@ -1,0 +1,152 @@
+[
+  {
+    "id": "wizard",
+    "resource": "loading-wizard",
+    "duration": 3.8,
+    "source": "App/Resources/CatWizard/cat-wizard.mp4",
+    "sourceSHA256": "aa17ba0b4baa56098c1d7bd357756e38e8ee415397700d46b9862a60efbf0396",
+    "bytes": 148279,
+    "width": 384,
+    "height": 288
+  },
+  {
+    "id": "monkey-work",
+    "resource": "loading-monkey-work",
+    "duration": 1.125,
+    "source": "4_6041982296330863639.mp4",
+    "sourceSHA256": "53eafb625e22b2d6a83ddcf7a003c588b438e4aa85761533a6bcbfdc98a409d6",
+    "bytes": 28418,
+    "width": 384,
+    "height": 288
+  },
+  {
+    "id": "cat-break",
+    "resource": "loading-cat-break",
+    "duration": 4.291667,
+    "source": "CapCut_vdzQ5Zc8nt (online-video-cutter.com).mp4",
+    "sourceSHA256": "22745734cfd65107516520aad958d941f586fa91d3df4b7115f7ecf71790aff7",
+    "bytes": 101616,
+    "width": 384,
+    "height": 288
+  },
+  {
+    "id": "swing",
+    "resource": "loading-swing",
+    "duration": 5.5,
+    "source": "IMG_6652.MP4",
+    "sourceSHA256": "377c9b280100fe2223a4e3e4ac2e3e7bd9f4b4aa0ad1ca0ef0a5ccb2759f7019",
+    "bytes": 212553,
+    "width": 384,
+    "height": 288
+  },
+  {
+    "id": "one-beer",
+    "resource": "loading-one-beer",
+    "duration": 5.9,
+    "source": "beer-chug.mp4",
+    "sourceSHA256": "98359e18613eaff5ddbe56c1f48af83625b18109d31c14dce8416f033c0a9c99",
+    "bytes": 109421,
+    "width": 384,
+    "height": 288
+  },
+  {
+    "id": "cat-dance",
+    "resource": "loading-cat-dance",
+    "duration": 4.9,
+    "source": "cat-dance-dancing-cat.mp4",
+    "sourceSHA256": "2e8096b0d5d54858f8c959922c12b1056be7f5e59ead070e07122e2704eaa266",
+    "bytes": 70376,
+    "width": 384,
+    "height": 288
+  },
+  {
+    "id": "cat-magic",
+    "resource": "loading-cat-magic",
+    "duration": 5.933008,
+    "source": "cat-magic.mp4",
+    "sourceSHA256": "d41a3074b0a7b10128ba2d53114708e7f830f845cd045e9fdf8a023acad6e3c1",
+    "bytes": 45196,
+    "width": 384,
+    "height": 288
+  },
+  {
+    "id": "cat-stalk",
+    "resource": "loading-cat-stalk",
+    "duration": 8.0,
+    "source": "cat-stalk.mp4",
+    "sourceSHA256": "ae51d69d26bce3af48948ac8b0f819de9aa33f20b12e95d8b258ee6fcf5cdf9e",
+    "bytes": 243473,
+    "width": 384,
+    "height": 288
+  },
+  {
+    "id": "cat-paw",
+    "resource": "loading-cat-paw",
+    "duration": 2.958333,
+    "source": "doc_2025-09-15_21-44-19.mp4",
+    "sourceSHA256": "ca2a17d7df19184070d9c8d6808cd6f2b6b08f7136f2fea0bbcdf00d0255cb21",
+    "bytes": 95857,
+    "width": 384,
+    "height": 288
+  },
+  {
+    "id": "porpoise",
+    "resource": "loading-porpoise",
+    "duration": 4.9,
+    "source": "dumb-porpoise-i'm-stupid.mp4",
+    "sourceSHA256": "e73629867a17fd0c5c1c3a7f4c7e0981a21814bace6968b826e859fd00156c39",
+    "bytes": 31521,
+    "width": 384,
+    "height": 288
+  },
+  {
+    "id": "cat-vibe",
+    "resource": "loading-cat-vibe",
+    "duration": 6.375,
+    "source": "giphy.gif.mp4",
+    "sourceSHA256": "7edf4eaf96b6971d5531780e8e5935aa0fc420d5cb63bf37a7e5f95c6b614340",
+    "bytes": 201438,
+    "width": 384,
+    "height": 288
+  },
+  {
+    "id": "film-drink",
+    "resource": "loading-film-drink",
+    "duration": 11.041667,
+    "source": "giphy.mp4",
+    "sourceSHA256": "fd55c1d5f7e397b126d02a114f505553f1687bac92c6c6994178cd6d5874660c",
+    "bytes": 261437,
+    "width": 384,
+    "height": 288
+  },
+  {
+    "id": "pigeon",
+    "resource": "loading-pigeon",
+    "duration": 4.1,
+    "source": "mp4.mp4",
+    "sourceSHA256": "0291e159105c9f43d6aee16a98d7071e3b8d2a3c150ea86d9fd18628e3560142",
+    "bytes": 70077,
+    "width": 384,
+    "height": 288
+  },
+  {
+    "id": "cat-stretch",
+    "resource": "loading-cat-stretch",
+    "duration": 4.291667,
+    "source": "redditsave.com_morning_stretch-njmis5p0sze91.mp4",
+    "sourceSHA256": "a23773a49d6ae773077ff7ce5af8a34ce4b8db25fada0b64f86e0bf3d4f5e9c7",
+    "bytes": 98493,
+    "width": 384,
+    "height": 288
+  },
+  {
+    "id": "work-sleep",
+    "resource": "loading-work-sleep",
+    "duration": 4.2,
+    "source": "work-and-sleep-work-sleep.mp4",
+    "sourceSHA256": "fe892825598d719cd44e4b45f66b18c1c58626933a0701e8717150973da80eba",
+    "bytes": 19786,
+    "width": 384,
+    "height": 288
+  }
+]

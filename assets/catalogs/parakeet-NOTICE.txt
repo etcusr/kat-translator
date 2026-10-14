@@ -1,0 +1,7 @@
+Parakeet TDT 0.6B v3 — NVIDIA
+Source: https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3
+License: Creative Commons Attribution 4.0 International
+https://creativecommons.org/licenses/by/4.0/
+This application uses the sherpa-onnx ONNX export with INT8 encoder, decoder and joiner by csukuangfj.
+Export: https://huggingface.co/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v3-int8
+Revision: 2bda32ec70b097a55adaa07d9a7173915b43cc78

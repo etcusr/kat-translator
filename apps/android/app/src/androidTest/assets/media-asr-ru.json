@@ -1,0 +1,8 @@
+{
+  "format": "PCM16 mono WAV",
+  "text": "Здравствуйте! Так звучит мой голос. Поезд отправляется в пять часов.",
+  "source": "scripts/validation/multilingual-voice-previews.c synthetic shared Supertonic preview, resampled by ffmpeg to16kHz; no user recording",
+  "voicePackage": "sherpa-onnx-supertonic-3-tts-int8-2026-05-11",
+  "sha256": "974ad24df2b51978a7151ef53eb2506cd094a392d4b0237a4a7f4396f293b12a",
+  "bytes": 208732
+}

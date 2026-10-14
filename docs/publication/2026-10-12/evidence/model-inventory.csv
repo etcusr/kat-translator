@@ -1,0 +1,85 @@
+catalog,id,title,bytes,license_as_declared,source
+models.json,index-translate-9b-q4km,Index-Translate 9B · Q4_K_M,5780090304,not in this catalog; check model card,https://huggingface.co/IndexTeam/Index-Translate-9B-GGUF/resolve/d01404384ba429b93f5f63d43573812d103b5bcd/Index-Translate-9B.Q4_K_M.gguf?download=true
+models.json,vits-piper-ru_RU-denis-medium,Русский голос · Denis,67190991,not in this catalog; check model card,https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-ru_RU-denis-medium.tar.bz2
+models.json,vits-piper-en_US-ljspeech-high,Английский голос · LJ Speech,115817679,not in this catalog; check model card,https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-en_US-ljspeech-high.tar.bz2
+models.json,vits-piper-ru_RU-irina-medium,Русский голос · Irina,67153308,not in this catalog; check model card,https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-ru_RU-irina-medium.tar.bz2
+models.json,vits-piper-en_US-lessac-medium,Английский голос · Lessac,67230653,not in this catalog; check model card,https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-en_US-lessac-medium.tar.bz2
+models.json,sherpa-onnx-supertonic-3-tts-int8-2026-05-11,Supertonic 3 · общий голос для 31 языка,128774318,not in this catalog; check model card,https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/sherpa-onnx-supertonic-3-tts-int8-2026-05-11.tar.bz2
+models.json,vits-piper-zh_CN-huayan-medium,Китайский голос · Huayan,67255926,not in this catalog; check model card,https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-zh_CN-huayan-medium.tar.bz2
+models.json,ppocr-v5-eslav,OCR · Русский,7870092,not in this catalog; check model card,https://huggingface.co/monkt/paddleocr-onnx/resolve/7b02d0a30a07ba2b92ad1ff5a8941ae2c633de65/languages/eslav/rec.onnx
+models.json,ppocr-v5-english,OCR · Английский,7830888,not in this catalog; check model card,https://huggingface.co/monkt/paddleocr-onnx/resolve/7b02d0a30a07ba2b92ad1ff5a8941ae2c633de65/languages/english/rec.onnx
+models.json,sherpa-onnx-omnilingual-asr-1600-languages-300M-ctc-v2-int8-2026-02-05,Meta Omnilingual · дополнительная речь,292313120,not in this catalog; check model card,https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-omnilingual-asr-1600-languages-300M-ctc-v2-int8-2026-02-05.tar.bz2
+models.json,mms-tts-ban-onnx,Балийский голос · Meta MMS,114007044,not in this catalog; check model card,https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/ban/model.onnx
+models.json,mms-tts-ban-tokens,Балийский · словарь голоса,211,not in this catalog; check model card,https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/ban/tokens.txt
+models.json,whisper-large-v3-turbo-f16,Whisper large-v3-turbo,1624555275,not in this catalog; check model card,https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-large-v3-turbo.bin?download=true
+recognition-packages.json,asr-parakeet-ultra,Parakeet Ultra · 25 languages,632165613,CC-BY-4.0,https://huggingface.co/FluidInference/parakeet-ultra-coreml
+additional-voices.json,mms-tts-asm-onnx,Meta MMS · asm,114038972,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-asm
+additional-voices.json,mms-tts-azb-onnx,Meta MMS · azb,114018017,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-azb
+additional-voices.json,mms-tts-bak-onnx,Meta MMS · bak,114024443,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-bak
+additional-voices.json,mms-tts-ben-onnx,Meta MMS · ben,114045156,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-ben
+additional-voices.json,mms-tts-bod-onnx,Meta MMS · bod,114034332,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-bod
+additional-voices.json,vits-piper-ca_ES-upc_ona-medium,Piper · ca_ES-upc_ona-medium,67223188,* License: CC BY-SA 3.0 ES,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ca/ca_ES/upc_ona/medium/MODEL_CARD
+additional-voices.json,mms-tts-ceb-onnx,Meta MMS · ceb,114019652,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-ceb
+additional-voices.json,mms-tts-cnh-onnx,Meta MMS · cnh,114011146,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-cnh
+additional-voices.json,mms-tts-chv-onnx,Meta MMS · chv,114018219,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-chv
+additional-voices.json,vits-piper-cy_GB-bu_tts-medium,Piper · cy_GB-bu_tts-medium,80313215,* License: CC-BY,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/cy/cy_GB/bu_tts/medium/MODEL_CARD
+additional-voices.json,mms-tts-div-onnx,Meta MMS · div,114028853,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-div
+additional-voices.json,vits-piper-eu_ES-maider-medium,Piper · eu_ES-maider-medium,67247291,* License: Creative Commons Attribution 4.0,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/eu/eu_ES/maider/medium/MODEL_CARD
+additional-voices.json,vits-piper-fa_IR-amir-medium,Piper · fa_IR-amir-medium,67180373,* License: CC0,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/fa/fa_IR/amir/medium/MODEL_CARD
+additional-voices.json,mms-tts-fao-onnx,Meta MMS · fao,114016594,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-fao
+additional-voices.json,mms-tts-guj-onnx,Meta MMS · guj,114034326,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-guj
+additional-voices.json,mms-tts-hau-onnx,Meta MMS · hau,114014260,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-hau
+additional-voices.json,mms-tts-heb-onnx,Meta MMS · heb,114012599,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-heb
+additional-voices.json,mms-tts-hif-onnx,Meta MMS · hif,114018911,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-hif
+additional-voices.json,mms-tts-hil-onnx,Meta MMS · hil,114020430,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-hil
+additional-voices.json,mms-tts-hat-onnx,Meta MMS · hat,114012704,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-hat
+additional-voices.json,piper-hy_AM-gor-medium,Piper · hy_AM-gor-medium,63511038,* License: GPL 2.0,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/hy/hy_AM/gor/medium/MODEL_CARD
+additional-voices.json,mms-tts-hyw-onnx,Meta MMS · hyw,114019784,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-hyw
+additional-voices.json,vits-piper-is_IS-ugla-medium,Piper · is_IS-ugla-medium,67376655,* License: See URL,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/is/is_IS/ugla/medium/MODEL_CARD
+additional-voices.json,mms-tts-jav-onnx,Meta MMS · jav,114008038,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-jav
+additional-voices.json,vits-piper-ka_GE-natia-medium,Piper · ka_GE-natia-medium,67209457,* License: See LICENSE file,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ka/ka_GE/natia/medium/MODEL_CARD
+additional-voices.json,vits-piper-kk_KZ-issai-high,Piper · kk_KZ-issai-high,129278805,* License:  CC-BY-4.0,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/kk/kk_KZ/issai/high/MODEL_CARD
+additional-voices.json,mms-tts-khm-onnx,Meta MMS · khm,114045179,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-khm
+additional-voices.json,mms-tts-kan-onnx,Meta MMS · kan,114045931,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-kan
+additional-voices.json,vits-piper-ku_TR-berfin_renas-medium,Piper · ku_TR-berfin_renas-medium,80263336,license: cc-by-nc-4.0; - **License:** [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) — free for non-commercial use with attribution; commercial use restricted due to [Blizzard 2013 base model](https://www.cstr.ed.ac.uk/projects/blizzard/2013/lessac_blizzard2013/license.html),https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ku/ku_TR/berfin_renas/medium/MODEL_CARD
+additional-voices.json,mms-tts-kir-onnx,Meta MMS · kir,114017439,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-kir
+additional-voices.json,mms-tts-lat-onnx,Meta MMS · lat,114010373,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-lat
+additional-voices.json,vits-piper-lb_LU-marylux-medium,Piper · lb_LU-marylux-medium,67184319,* License: http://creativecommons.org/licenses/by-nc-sa/4.0/,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/lb/lb_LU/marylux/medium/MODEL_CARD
+additional-voices.json,mms-tts-lao-onnx,Meta MMS · lao,114027351,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-lao
+additional-voices.json,mms-tts-mlg-onnx,Meta MMS · mlg,114011157,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-mlg
+additional-voices.json,vits-piper-ml_IN-arjun-medium,Piper · ml_IN-arjun-medium,67222458,* License:  See URL,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ml/ml_IN/arjun/medium/MODEL_CARD
+additional-voices.json,mms-tts-mon-onnx,Meta MMS · mon,114037667,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-mon
+additional-voices.json,mms-tts-mar-onnx,Meta MMS · mar,114044398,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-mar
+additional-voices.json,mms-tts-mya-onnx,Meta MMS · mya,114032005,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-mya
+additional-voices.json,vits-piper-ne_NP-chitwan-medium,Piper · ne_NP-chitwan-medium,67213467,* License:  CC0,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ne/ne_NP/chitwan/medium/MODEL_CARD
+additional-voices.json,vits-piper-no_NO-talesyntese-medium,Piper · no_NO-talesyntese-medium,67194829,* License:  CC0,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/no/no_NO/talesyntese/medium/MODEL_CARD
+additional-voices.json,mms-tts-nya-onnx,Meta MMS · nya,114018099,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-nya
+additional-voices.json,mms-tts-orm-onnx,Meta MMS · orm,114010368,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-orm
+additional-voices.json,mms-tts-oss-onnx,Meta MMS · oss,114014312,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-oss
+additional-voices.json,mms-tts-pan-onnx,Meta MMS · pan,114033553,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-pan
+additional-voices.json,mms-tts-pap-onnx,Meta MMS · pap,114027454,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-pap
+additional-voices.json,mms-tts-run-onnx,Meta MMS · run,114010364,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-run
+additional-voices.json,mms-tts-kin-onnx,Meta MMS · kin,114021992,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-kin
+additional-voices.json,mms-tts-sah-onnx,Meta MMS · sah,114022104,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-sah
+additional-voices.json,mms-tts-smo-onnx,Meta MMS · smo,114008043,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-smo
+additional-voices.json,mms-tts-sna-onnx,Meta MMS · sna,114013460,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-sna
+additional-voices.json,mms-tts-som-onnx,Meta MMS · som,114008812,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-som
+additional-voices.json,vits-piper-sq_AL-edon-medium,Piper · sq_AL-edon-medium,67191820,* License: CC0,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/sq/sq_AL/edon/medium/MODEL_CARD
+additional-voices.json,vits-piper-sr_RS-serbski_institut-medium,Piper · sr_RS-serbski_institut-medium,80298557,* License: https://creativecommons.org/licenses/by-nc-sa/4.0/,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/sr/sr_RS/serbski_institut/medium/MODEL_CARD
+additional-voices.json,mms-tts-sun-onnx,Meta MMS · sun,114016541,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-sun
+additional-voices.json,vits-piper-sw_CD-lanfrica-medium,Piper · sw_CD-lanfrica-medium,67217230,* License: See URL,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/sw/sw_CD/lanfrica/medium/MODEL_CARD
+additional-voices.json,mms-tts-tam-onnx,Meta MMS · tam,114032763,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-tam
+additional-voices.json,piper-te_IN-maya-medium,Piper · te_IN-maya-medium,62950044,* License:  www.iitm.ac.in/donlab/indictts/downloads/license.pdf,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/te/te_IN/maya/medium/MODEL_CARD
+additional-voices.json,mms-tts-tgk-onnx,Meta MMS · tgk,114019781,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-tgk
+additional-voices.json,mms-tts-tgl-onnx,Meta MMS · tgl,114021205,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-tgl
+additional-voices.json,mms-tts-tat-onnx,Meta MMS · tat,114021332,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-tat
+additional-voices.json,vits-piper-ur_PK-fasih-medium,Piper · ur_PK-fasih-medium,67227718,license: mit; ## License,https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ur/ur_PK/fasih/medium/MODEL_CARD
+additional-voices.json,mms-tts-yor-onnx,Meta MMS · yor,114021284,CC BY-NC 4.0,https://huggingface.co/facebook/mms-tts-yor
+additional-voices.json,omnivoice-q8-base,OmniVoice Q8,945284608,CC BY-NC 4.0,https://huggingface.co/k2-fsa/OmniVoice
+android-asr.json,gigaam-v3-int8,GigaAM v3 · RU,229344179,MIT,https://github.com/salute-developers/GigaAM
+android-asr.json,parakeet-v3-int8,Parakeet TDT v3,670478772,CC-BY-4.0 · NVIDIA,https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3
+android-ocr.json,ppocr-v5-mobile-det,OCR · Быстрый поиск текста · mobile,4819576,Apache-2.0,https://github.com/RapidAI/RapidOCR/blob/main/python/rapidocr/default_models.yaml
+android-ocr.json,ppocr-v5-det,OCR · Поиск текста · server (88 МБ),88030804,Apache-2.0,https://huggingface.co/monkt/paddleocr-onnx/tree/7b02d0a30a07ba2b92ad1ff5a8941ae2c633de65/detection/v5
+opus-package.json,opus-package,opus-package.json,492650422,check included LICENSE and notice,https://huggingface.co/crash-sv/scribe-translate-ct2/resolve/366ea5f4bd2bc417a7430006408a0c6cd72a9f91/opus-mt-tc-big-en-zle-ct2/LICENSE-CC-BY-4.0.txt?download=true
+opus-gpu-package.json,opus-gpu-package,opus-gpu-package.json,965472092,check included LICENSE and notice,https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-zle/resolve/708be1d372fe4c358a352f404e6dc9ca0126ba48/README.md?download=true
+index-mlx-package.json,index-mlx-package,index-mlx-package.json,5243376219,check included LICENSE and notice,https://huggingface.co/rariruluis/Index-Translate-9B-MLX-4bit-MTP/resolve/60fdfb05568b8a370cf0d95b0959fd8ac9877533/model.safetensors?download=true

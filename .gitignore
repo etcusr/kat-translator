@@ -1,0 +1,104 @@
+.DS_Store
+.build/
+.build-logs/
+.superpowers/
+DerivedData/
+Dependencies/vendor/
+Dependencies/build/
+*.xcuserstate
+xcuserdata/
+*.bin
+*.wav
+*.m4a
+*.pcm
+.swiftpm/
+Packages/*/.build/
+Config/Signing.local.xcconfig
+Dependencies/downloads/
+
+Tools/*/.build/
+
+dist/
+
+# Synthetic fixture for the opt-in desktop audio import integration test.
+!Tests/Fixtures/audio-import.m4a
+
+# Personal recordings must never be added to publication history.
+
+# Shared multi-platform model cache, never bundled or committed.
+model-store/*
+!model-store/README.md
+shared/packages/*/.build/
+apps/ios/Config/Signing.local.xcconfig
+apps/ios/build/
+apps/android/.gradle/
+apps/android/.kotlin/
+apps/android/**/build/
+apps/android/**/.cxx/
+apps/android/local.properties
+!tests/fixtures/audio-import.m4a
+
+# Small shipped voice resources must remain versionable after relocation.
+!assets/bundled/VoicePreviews/*.m4a
+!assets/bundled/Voices/*.m4a
+
+# Downloaded weights and compiled model packages (catalogs/locks stay tracked).
+*.gguf
+*.safetensors
+*.onnx
+*.onnx_data
+*.pt
+*.pth
+*.ckpt
+*.tflite
+*.mlmodel
+*.mlmodelc/
+*.mlpackage/
+# The downloads cache may be a symlink, not a directory.
+/Dependencies/downloads
+
+# Local environments and language caches.
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# Local credentials and signing material; templates remain versionable.
+.env
+.env.*
+!.env.example
+!.env.sample
+*.p12
+*.pfx
+*.mobileprovision
+*.provisionprofile
+*.jks
+*.keystore
+
+# Loose user imports/temporary session files, not application resources.
+/:memory:.ses
+/2.6 · Неон.pdf
+/kat-icon.zip
+/translation-benchmarks 2.json
+
+# Private publication preparation and local diagnostic/user exports.
+.github-publish/
+*.sqlite
+*.sqlite3
+*.db
+*.har
+
+# Never re-add the historical private recording bundle.
+docs/benchmarks/crypto-voice-2026-10-11/
+
+# Local collaboration notes and internal plans
+/AGENTS.md
+/CLAUDE.md
+/CLAUDE_HANDOFF.md
+/CODEX_HANDOFF.md
+/GPT_HANDOFF.md
+/HANDOVER.md
+/docs/claude-export/
+/docs/superpowers/

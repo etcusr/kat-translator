@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-11",
+  "default_translation": "opus-mt-big-en-zle-int8",
+  "primary_translation": "index-translate-9b-q4km",
+  "acceptance_device": "Google Pixel 9 Pro",
+  "android_inference_verified": false,
+  "models": [
+    {
+      "source": "shared/packages/OfflineCore/Sources/OfflineCore/SharedModelAssets.swift",
+      "symbol": "indexTranslation",
+      "asset": {
+        "remoteURL": "https://huggingface.co/IndexTeam/Index-Translate-9B-GGUF/resolve/d01404384ba429b93f5f63d43573812d103b5bcd/Index-Translate-9B.Q4_K_M.gguf?download=true",
+        "byteCount": 5780090304,
+        "sha256": "9cc6758b0007f4cbf42ea3400768cbff91ae74ef8d640e467158348426d33713"
+      }
+    },
+    {
+      "source": "shared/packages/OfflineCore/Sources/OfflineCore/SharedModelAssets.swift",
+      "symbol": "indexTranslation2B",
+      "asset": {
+        "remoteURL": "https://huggingface.co/IndexTeam/Index-Translate-2B-GGUF/resolve/3a0eca6ce931d88d00614d427ab3ed8ff0743902/Index-Translate-2B.Q4_K_M.gguf?download=true",
+        "byteCount": 1312164352,
+        "sha256": "044b313d29342bd3b2c77cbb64023ca0d209bd9b3247763f9d162767ef2d746a"
+      }
+    },
+    {
+      "source": "shared/packages/OfflineCore/Sources/OfflineCore/SharedModelAssets.swift",
+      "symbol": "turbo",
+      "asset": {
+        "remoteURL": "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-large-v3-turbo.bin?download=true",
+        "byteCount": 1624555275,
+        "sha256": "1fc70f774d38eb169993ac391eea357ef47c88757ef72ee5943879b7e8e2bc69"
+      }
+    }
+  ],
+  "runtime_pins": [
+    {
+      "name": "llama.cpp",
+      "source": "Dependencies/runtime.lock.json",
+      "key": [
+        "llama",
+        "commit"
+      ],
+      "commit": "d81235049384534c167caea52b85a694f6103d14"
+    },
+    {
+      "name": "whisper.cpp",
+      "source": "Dependencies/whisper.lock.json",
+      "key": [
+        "commit"
+      ],
+      "commit": "927cfce34f31707e17f2bff35c349632fb9e2c3a"
+    }
+  ]
+}

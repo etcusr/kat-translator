@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "agp": "9.2.0",
+  "gradle": {
+    "version": "9.4.1",
+    "distributionSHA256": "2ab2958f2a1e51120c326cad6f385153bb11ee93b3c216c5fccebfdfbb7ec6cb",
+    "wrapperJarSHA256": "55243ef57851f12b070ad14f7f5bb8302daceeebc5bce5ece5fa6edb23e1145c"
+  },
+  "jdk": {
+    "vendor": "Azul Zulu",
+    "version": "17.0.20.1",
+    "macArm64SHA256": "ed54397260c5994b2fc4e31c780f480b947e6532bc6a5ac7754355d5dd4c127d"
+  },
+  "sdk": {
+    "compile": 36,
+    "target": 36,
+    "min": 31,
+    "buildTools": "36.0.0",
+    "commandLineTools": "15859902",
+    "commandLineToolsMacArm64SHA256": "835b62a26162b229b441d1f6d4680383815a270809eb33522c0d480fa5002c4e"
+  },
+  "ndk": "28.2.13676358",
+  "cmake": "3.22.1",
+  "llamaCommit": "d81235049384534c167caea52b85a694f6103d14",
+  "abi": [
+    "arm64-v8a"
+  ],
+  "nativeBuildType": "RelWithDebInfo",
+  "gpuLayers": 99,
+  "flashAttention": true,
+  "threads": 4,
+  "context": 2048,
+  "inputCap": 1536,
+  "defaultBackend": "vulkan",
+  "cpuControlAvailable": true,
+  "composeBom": "2026.03.00",
+  "composeCompiler": "2.2.10",
+  "vulkan": {
+    "shaderc": "2026.4",
+    "headers": "1.4.363.0",
+    "spirvHeaders": "1.4.363.0",
+    "maliNarrowProjectionTile": "medium",
+    "maliG715CooperativeMatrix": false,
+    "patch": "apps/android/inference/src/main/cpp/mali-narrow-tiles.cmake",
+    "maliG715SingleTokenMMVQ": false,
+    "maliG715PrefillIntegerDotProduct": true
+  },
+  "controlBackend": "cpu",
+  "opus": {
+    "ctranslate2Commit": "617405f4b050e994e829d527da6caa0e0030afe7",
+    "sentencepieceCommit": "31646a467d2051eb904e0b45de3a73e91fe1c1e3",
+    "backend": "ruy-int8-float32",
+    "sharedRuntime": "shared/native/OpusRuntime",
+    "androidAdaptations": [
+      "generated thread_pool.cpp excludes optional pthread affinity",
+      "PIC static libraries linked into JNI"
+    ]
+  }
+}

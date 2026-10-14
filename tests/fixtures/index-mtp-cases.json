@@ -1,0 +1,60 @@
+[
+  {
+    "id": "en01",
+    "source": "en_bennu",
+    "from_language": "en",
+    "to_language": "ru",
+    "text": "What is important about the Bennu samples is that researchers did not find deoxyribose.",
+    "reference": "Важно, что в образцах Бенну исследователи не обнаружили дезоксирибозу.",
+    "kind": "excerpt",
+    "words": 14,
+    "source_url": "https://www.nasa.gov/missions/osiris-rex/sugars-gum-stardust-found-in-nasas-asteroid-bennu-samples/"
+  },
+  {
+    "id": "en02",
+    "source": "en_bennu",
+    "from_language": "en",
+    "to_language": "ru",
+    "text": "Although these sugars are not evidence of life, their detection, along with previous detections of amino acids, nucleobases, and carboxylic acids in Bennu samples, show building blocks of biological molecules were widespread throughout the solar system.",
+    "reference": "Хотя эти сахара не являются свидетельством жизни, их обнаружение, наряду с ранее обнаруженными в образцах Бенну аминокислотами, азотистыми основаниями и карбоновыми кислотами, показывает, что строительные блоки биологических молекул были широко распространены по всей Солнечной системе.",
+    "kind": "excerpt",
+    "words": 36,
+    "source_url": "https://www.nasa.gov/missions/osiris-rex/sugars-gum-stardust-found-in-nasas-asteroid-bennu-samples/"
+  },
+  {
+    "id": "ru01",
+    "source": "ru_station",
+    "from_language": "ru",
+    "to_language": "en",
+    "text": "Работы проходили без остановки движения поездов. Для посадки и высадки пассажиров соорудили временную деревянную платформу.",
+    "reference": "The work was carried out without suspending train services. A temporary wooden platform was built for passengers to board and leave the trains.",
+    "kind": "excerpt",
+    "words": 15,
+    "source_url": "https://ru.wikinews.org/wiki/%D0%9F%D0%BE%D1%81%D0%BB%D0%B5_%D1%80%D0%B5%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D0%B8_%D0%BE%D1%82%D0%BA%D1%80%D1%8B%D1%82%D0%B0_%D1%81%D1%82%D0%B0%D0%BD%D1%86%D0%B8%D1%8F_%D0%9A%D0%BE%D0%BA%D0%BE%D1%88%D0%BA%D0%B8%D0%BD%D0%BE_%D0%9A%D0%B8%D0%B5%D0%B2%D1%81%D0%BA%D0%BE%D0%B3%D0%BE_%D0%BD%D0%B0%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F_%D0%9C%D0%96%D0%94_(%D1%84%D0%BE%D1%82%D0%BE%D1%80%D0%B5%D0%BF%D0%BE%D1%80%D1%82%D0%B0%D0%B6)"
+  },
+  {
+    "id": "ru02",
+    "source": "ru_station",
+    "from_language": "ru",
+    "to_language": "en",
+    "text": "Поездка на поезде от станции Кокошкино до Киевского вокзала занимает примерно 50 минут, тогда как на автомобиле — около 1,5 часа.",
+    "reference": "The train journey from Kokoshkino station to Kiyevsky railway terminal takes about 50 minutes, compared with around 1.5 hours by car.",
+    "kind": "excerpt",
+    "words": 21,
+    "source_url": "https://ru.wikinews.org/wiki/%D0%9F%D0%BE%D1%81%D0%BB%D0%B5_%D1%80%D0%B5%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D0%B8_%D0%BE%D1%82%D0%BA%D1%80%D1%8B%D1%82%D0%B0_%D1%81%D1%82%D0%B0%D0%BD%D1%86%D0%B8%D1%8F_%D0%9A%D0%BE%D0%BA%D0%BE%D1%88%D0%BA%D0%B8%D0%BD%D0%BE_%D0%9A%D0%B8%D0%B5%D0%B2%D1%81%D0%BA%D0%BE%D0%B3%D0%BE_%D0%BD%D0%B0%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F_%D0%9C%D0%96%D0%94_(%D1%84%D0%BE%D1%82%D0%BE%D1%80%D0%B5%D0%BF%D0%BE%D1%80%D1%82%D0%B0%D0%B6)"
+  },
+  {
+    "id": "synthetic_long_ru",
+    "from_language": "ru",
+    "to_language": "en",
+    "text": "Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. ",
+    "source": "synthetic privacy-safe fixture; not comparable to earlier private benchmark"
+  },
+  {
+    "id": "travel_ru",
+    "from_language": "ru",
+    "to_language": "en",
+    "text": "Это синтетический пример для проверки перевода. Можно ли открыть окно?",
+    "source": "synthetic privacy-safe fixture; not comparable to earlier private benchmark"
+  }
+]

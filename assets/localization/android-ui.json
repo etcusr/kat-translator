@@ -1,0 +1,937 @@
+{
+  "ГБ": {
+    "en": "GB",
+    "es": "GB",
+    "tr": "GB"
+  },
+  "МБ": {
+    "en": "MB",
+    "es": "MB",
+    "tr": "MB"
+  },
+  "Будет скачано до ": {
+    "en": "Download up to ",
+    "es": "Descargar hasta ",
+    "tr": "En fazla indirilecek: "
+  },
+  "Модели выполняют перевод на Android. После скачивания сеть для перевода не нужна.": {
+    "en": "Models translate on Android. Translation needs no network after downloading.",
+    "es": "Los modelos traducen en Android. Tras descargarlos, no se necesita internet para traducir.",
+    "tr": "Modeller Android'de çeviri yapar. İndirildikten sonra çeviri için internet gerekmez."
+  },
+  "RAM телефона: от 12 ГБ (ориентир)": {
+    "en": "Phone RAM: 12 GB or more (estimate)",
+    "es": "RAM del teléfono: desde 12 GB (orientativo)",
+    "tr": "Telefon RAM'i: en az 12 GB (tahmini)"
+  },
+  "150 языков · максимальное качество · требует больше памяти и времени": {
+    "en": "150 languages · maximum quality · uses more memory and time",
+    "es": "150 idiomas · máxima calidad · usa más memoria y tiempo",
+    "tr": "150 dil · en yüksek kalite · daha fazla bellek ve süre gerektirir"
+  },
+  "Число языков заявлено авторами моделей. Озвучка и камера имеют отдельные ограничения.": {
+    "en": "Language coverage is reported by model authors. Speech and camera have separate limitations.",
+    "es": "Los autores de los modelos indican los idiomas compatibles. La voz y la cámara tienen límites propios.",
+    "tr": "Dil kapsamını model geliştiricileri belirtir. Ses ve kameranın sınırları ayrıdır."
+  },
+  "Авто выбирает GigaAM для русского и Parakeet для остальных 24 поддерживаемых языков. Скачайте нужные пакеты один раз; затем распознавание работает без интернета.": {
+    "en": "Auto selects GigaAM for Russian and Parakeet for the other 24 supported languages. Download the required packages once; recognition then works offline.",
+    "es": "Auto elige GigaAM para ruso y Parakeet para los otros 24 idiomas compatibles. Descargue una vez los paquetes necesarios; después el reconocimiento funciona sin conexión.",
+    "tr": "Otomatik, Rusça için GigaAM'i, desteklenen diğer 24 dil için Parakeet'i seçer. Gerekli paketleri bir kez indirin; ardından tanıma çevrimdışı çalışır."
+  },
+  "Установлено %@ из %@ направлений. Выберите нужные языки и скачайте их одной кнопкой.": {
+    "en": "%@ of %@ directions installed. Choose languages and download them with one button.",
+    "es": "Instaladas %@ de %@ direcciones. Elija los idiomas y descárguelos con un botón.",
+    "tr": "%@ / %@ yön yüklü. Dilleri seçip tek düğmeyle indirin."
+  },
+  "Meta Omnilingual добавляет голосовой ввод для дополнительных языков. Новые направления экспериментальные; язык выбирается вручную.": {
+    "en": "Meta Omnilingual adds voice input for additional languages. These directions are experimental; select the language manually.",
+    "es": "Meta Omnilingual añade entrada de voz para idiomas adicionales. Estas direcciones son experimentales; elija el idioma manualmente.",
+    "tr": "Meta Omnilingual ek diller için sesli giriş sağlar. Bu yönler deneyseldir; dili elle seçin."
+  },
+  "Общий пакет OmniVoice скачивается один раз. Требует больше памяти и времени, чем лёгкие голоса; качество зависит от языка. Даже короткая фраза может обрабатываться больше минуты.": {
+    "en": "The shared OmniVoice package downloads once. It uses more memory and time than lightweight voices; quality depends on the language. Even a short phrase may take more than a minute.",
+    "es": "El paquete compartido OmniVoice se descarga una sola vez. Usa más memoria y tiempo que las voces ligeras; la calidad depende del idioma. Incluso una frase corta puede tardar más de un minuto.",
+    "tr": "Ortak OmniVoice paketi bir kez indirilir. Hafif seslerden daha fazla bellek ve süre gerektirir; kalite dile bağlıdır. Kısa bir cümle bile bir dakikadan uzun sürebilir."
+  },
+  "Использовать для распознавания": {
+    "en": "Use for recognition",
+    "es": "Usar para reconocimiento",
+    "tr": "Tanıma için kullan"
+  },
+  "Импорт": {
+    "en": "Import",
+    "es": "Importar",
+    "tr": "İçe aktar"
+  },
+  "Балийский": {
+    "en": "Balinese",
+    "es": "Balinés",
+    "tr": "Bali dili"
+  },
+  "Встроено · без интернета": {
+    "en": "Built in · offline",
+    "es": "Integrado · sin conexión",
+    "tr": "Yerleşik · çevrimdışı"
+  },
+  "Для поддерживаемых языков используется автоматически: латиница, китайский, японский, корейский и деванагари. Отдельная загрузка не нужна.": {
+    "en": "Used automatically for supported languages: Latin, Chinese, Japanese, Korean and Devanagari. No additional download needed.",
+    "es": "Se usa automáticamente para las escrituras compatibles: latina, china, japonesa, coreana y devanagari. No necesita descarga adicional.",
+    "tr": "Desteklenen yazı sistemleri için otomatik kullanılır: Latin, Çince, Japonca, Korece ve Devanagari. Ek indirme gerekmez."
+  },
+  "Русский — PP-OCR. Установите русский пакет и быстрый поиск текста mobile. Движок выбирается по исходному языку.": {
+    "en": "Russian uses PP-OCR. Install the Russian pack and fast mobile text detector. The source language selects the engine.",
+    "es": "El ruso usa PP-OCR. Instale el paquete ruso y el detector de texto rápido mobile. El idioma de origen determina el motor.",
+    "tr": "Rusça PP-OCR kullanır. Rusça paketi ve hızlı mobile metin algılayıcısını yükleyin. Motoru kaynak dil belirler."
+  },
+  "Память: %.0f ГБ/с · GPU: %s · Index 9B с учётом нагрева: ~%.1f ток/с": {
+    "en": "Memory: %.0f GB/s · GPU: %s · Index 9B with thermal margin: ~%.1f tokens/s",
+    "es": "Memoria: %.0f GB/s · GPU: %s · Index 9B con margen térmico: ~%.1f tokens/s",
+    "tr": "Bellek: %.0f GB/sn · GPU: %s · ısınma payıyla Index 9B: ~%.1f belirteç/sn"
+  },
+  " (оценка Index 9B: ~%.0f ток/с)": {
+    "en": " (Index 9B estimate: ~%.0f tokens/s)",
+    "es": " (estimación de Index 9B: ~%.0f tokens/s)",
+    "tr": " (Index 9B tahmini: ~%.0f belirteç/sn)"
+  },
+  "Мощное устройство%@: перевод — Index 9B, одна модель на все языки.": {
+    "en": "Powerful device%@: Index 9B translates all languages.",
+    "es": "Dispositivo potente%@: Index 9B traduce todos los idiomas.",
+    "tr": "Güçlü cihaz%@: Index 9B tüm dilleri çevirir."
+  },
+  "Устройство среднего класса%@: перевод — компактные модели OPUS для каждой пары; для пар без OPUS — Index 2B.": {
+    "en": "Mid-range device%@: compact OPUS models per pair; Index 2B for pairs OPUS does not cover.",
+    "es": "Dispositivo de gama media%@: modelos OPUS compactos para cada par; Index 2B para los pares sin OPUS.",
+    "tr": "Orta sınıf cihaz%@: her dil çifti için küçük OPUS modelleri; OPUS'un kapsamadığı çiftler için Index 2B."
+  },
+  "Index 9B — максимальное качество. Index 2B примерно в 3 раза быстрее. Модель перевода общая для нескольких языков.": {
+    "en": "Index 9B gives maximum quality. Index 2B is about 3× faster. One translation model serves several languages.",
+    "es": "Index 9B ofrece la máxima calidad. Index 2B es unas 3 veces más rápido. Un modelo de traducción sirve para varios idiomas.",
+    "tr": "Index 9B en yüksek kaliteyi sunar. Index 2B yaklaşık 3 kat daha hızlıdır. Tek çeviri modeli birden fazla dile hizmet eder."
+  },
+  "всего: ": {
+    "en": "total: ",
+    "es": "total: ",
+    "tr": "toplam: "
+  },
+  "Мои языки": {
+    "en": "My languages",
+    "es": "Mis idiomas",
+    "tr": "Dillerim"
+  },
+  "Для поддерживаемых пар на Android рекомендуется OPUS Big. Index доступен для других языков.": {
+    "en": "OPUS Big is recommended for supported pairs on Android. Index is available for other languages.",
+    "es": "En Android, se recomienda OPUS Big para los pares compatibles. Index está disponible para otros idiomas.",
+    "tr": "Android'de desteklenen dil çiftleri için OPUS Big önerilir. Diğer diller için Index kullanılabilir."
+  },
+  "Более длинный текст, другие приложения и одновременная работа с речью могут увеличить нагрузку. Качество оценивайте на нужных вам языках.": {
+    "en": "Longer text, other apps and speech processing can increase memory use. Assess quality in the languages you need.",
+    "es": "Los textos largos, otras apps y el procesamiento de voz pueden aumentar el uso de memoria. Evalúe la calidad en los idiomas que necesite.",
+    "tr": "Uzun metinler, diğer uygulamalar ve ses işleme bellek kullanımını artırabilir. İhtiyacınız olan dillerde kaliteyi değerlendirin."
+  },
+  "Список зависит от выбранной модели. Для речи нужны отдельные модели распознавания и голоса; для камеры — распознавание текста.": {
+    "en": "The list depends on the selected model. Speech needs separate recognition and voice models; the camera needs text recognition.",
+    "es": "La lista depende del modelo elegido. La voz necesita modelos de reconocimiento y de voz aparte; la cámara necesita reconocimiento de texto.",
+    "tr": "Liste seçili modele bağlıdır. Ses için ayrı tanıma ve ses modelleri; kamera için metin tanıma gerekir."
+  },
+  "Подготовить модель": {
+    "en": "Prepare model",
+    "es": "Preparar modelo",
+    "tr": "Modeli hazırla"
+  },
+  "Назад": {
+    "en": "Back",
+    "es": "Atrás",
+    "tr": "Geri"
+  },
+  "Скопировать": {
+    "en": "Copy",
+    "es": "Copiar",
+    "tr": "Kopyala"
+  },
+  "Конфиденциальность": {
+    "en": "Privacy",
+    "es": "Privacidad",
+    "tr": "Gizlilik"
+  },
+  "Модели скачиваются со сторонних серверов. Google ML Kit для распознавания текста на фото передаёт Google технические метрики. История, включая исходные записи речи при включённом сохранении аудио, хранится локально. Копирование и отправка используют системный буфер обмена и выбранное приложение.": {
+    "en": "Models are downloaded from third-party servers. Google ML Kit for image text recognition sends technical metrics to Google. History, including original recordings when audio saving is enabled, is stored locally. Copy and Share use the system clipboard and the app you choose.",
+    "es": "Los modelos se descargan de servidores de terceros. Google ML Kit, usado para reconocer texto en imágenes, envía métricas técnicas a Google. El historial, incluidas las grabaciones originales si se guarda audio, se almacena localmente. Copiar y Compartir usan el portapapeles del sistema y la app elegida.",
+    "tr": "Modeller üçüncü taraf sunuculardan indirilir. Görüntüde metin tanıma için kullanılan Google ML Kit, Google'a teknik ölçümler gönderir. Ses kaydetme açıkken orijinal kayıtlar dahil geçmiş yerel olarak saklanır. Kopyala ve Paylaş, sistem panosunu ve seçtiğiniz uygulamayı kullanır."
+  },
+  "Определение языка предоставляется системным TextClassifier Android. Модели и лицензии управляются операционной системой.": {
+    "en": "Language detection is provided by Android’s system TextClassifier. Its models and licenses are managed by the operating system.",
+    "es": "La detección de idioma usa TextClassifier de Android. El sistema operativo gestiona sus modelos y licencias.",
+    "tr": "Dil algılama Android sisteminin TextClassifier bileşeniyle sağlanır. Modellerini ve lisanslarını işletim sistemi yönetir."
+  },
+  "Экспортировать отчёт": {
+    "en": "Export report",
+    "es": "Exportar informe",
+    "tr": "Raporu dışa aktar"
+  },
+  "Освободить память": {
+    "en": "Free memory",
+    "es": "Liberar memoria",
+    "tr": "Belleği boşalt"
+  },
+  "Локальный перевод текста, речи и изображений. Доступность языков распознавания и озвучки зависит от установленных моделей.": {
+    "en": "Local translation of text, speech and images. Recognition and speech languages depend on installed models.",
+    "es": "Traducción local de texto, voz e imágenes. Los idiomas de reconocimiento y de voz dependen de los modelos instalados.",
+    "tr": "Metin, ses ve görüntülerin yerel çevirisi. Tanıma ve seslendirme dilleri yüklü modellere bağlıdır."
+  },
+  "Удалить запись?": {
+    "en": "Delete entry?",
+    "es": "¿Eliminar entrada?",
+    "tr": "Kayıt silinsin mi?"
+  },
+  "Это действие нельзя отменить.": {
+    "en": "This cannot be undone.",
+    "es": "Esta acción no se puede deshacer.",
+    "tr": "Bu işlem geri alınamaz."
+  },
+  "Распознанный язык": {
+    "en": "Detected language",
+    "es": "Idioma detectado",
+    "tr": "Algılanan dil"
+  },
+  "Прослушать запись": {
+    "en": "Play recording",
+    "es": "Reproducir grabación",
+    "tr": "Kaydı oynat"
+  },
+  "Поделиться записью": {
+    "en": "Share recording",
+    "es": "Compartir grabación",
+    "tr": "Kaydı paylaş"
+  },
+  "Поделиться аудио перевода": {
+    "en": "Share translated audio",
+    "es": "Compartir audio traducido",
+    "tr": "Çeviri sesini paylaş"
+  },
+  "Поделиться текстом": {
+    "en": "Share text",
+    "es": "Compartir texto",
+    "tr": "Metni paylaş"
+  },
+  "Здесь появится распознанный текст": {
+    "en": "Recognized text will appear here",
+    "es": "El texto reconocido aparecerá aquí",
+    "tr": "Tanınan metin burada görünecek"
+  },
+  "символов": {
+    "en": "characters",
+    "es": "caracteres",
+    "tr": "karakter"
+  },
+  "Остановить запись": {
+    "en": "Stop recording",
+    "es": "Detener grabación",
+    "tr": "Kaydı durdur"
+  },
+  "Открыть аудиофайл…": {
+    "en": "Open audio file…",
+    "es": "Abrir archivo de audio",
+    "tr": "Ses dosyası aç"
+  },
+  "микрофону": {
+    "en": "microphone",
+    "es": "micrófono",
+    "tr": "mikrofon"
+  },
+  "Обрабатываю фразу…": {
+    "en": "Processing phrase…",
+    "es": "Procesando frase…",
+    "tr": "Cümle işleniyor…"
+  },
+  "Остановить": {
+    "en": "Stop",
+    "es": "Detener",
+    "tr": "Durdur"
+  },
+  "Нет доступа к %@. Нажмите, чтобы разрешить в настройках Android.": {
+    "en": "No access to %@. Tap to allow it in Android settings.",
+    "es": "Sin acceso a %@. Toque para permitirlo en los ajustes de Android.",
+    "tr": "%@ erişimi yok. Android ayarlarından izin vermek için dokunun."
+  },
+  "Нужен доступ к %@. Нажмите, чтобы разрешить.": {
+    "en": "Access to %@ is required. Tap to allow.",
+    "es": "Se necesita acceso a %@. Toque para permitirlo.",
+    "tr": "%@ erişimi gerekiyor. İzin vermek için dokunun."
+  },
+  "Скачиваю распознавание: %@ · %@%": {
+    "en": "Downloading recognition: %@ · %@%",
+    "es": "Descargando reconocimiento: %@ · %@%",
+    "tr": "Konuşma tanıma indiriliyor: %@ · %@%"
+  },
+  "Не удалось скачать %@. Нажмите, чтобы повторить.": {
+    "en": "Could not download %@. Tap to retry.",
+    "es": "No se ha podido descargar %@. Toque para reintentar.",
+    "tr": "%@ indirilemedi. Yeniden denemek için dokunun."
+  },
+  "Для выбранного языка нужен %@. Скачать распознавание — нажмите здесь.": {
+    "en": "This language requires %@. Download recognition — tap here.",
+    "es": "Este idioma necesita %@. Toque aquí para descargar el reconocimiento.",
+    "tr": "Bu dil için %@ gerekiyor. Tanıma modelini indirmek için buraya dokunun."
+  },
+  "Озвучка для языка «%@» скачана. Нажмите динамик для воспроизведения.": {
+    "en": "The %@ voice is downloaded. Tap the speaker to play.",
+    "es": "La voz de %@ está descargada. Toque el altavoz para reproducirla.",
+    "tr": "%@ sesi indirildi. Oynatmak için hoparlöre dokunun."
+  },
+  "Скачиваю озвучку: %@ · %@%": {
+    "en": "Downloading %@ voice · %@%",
+    "es": "Descargando voz de %@ · %@%",
+    "tr": "%@ sesi indiriliyor · %@%"
+  },
+  "Не удалось скачать озвучку для языка «%@». Нажмите, чтобы повторить.": {
+    "en": "Could not download the %@ voice. Tap to retry.",
+    "es": "No se ha podido descargar la voz de %@. Toque para reintentar.",
+    "tr": "%@ sesi indirilemedi. Yeniden denemek için dokunun."
+  },
+  "Озвучка для языка «%@» не скачана. Нажмите, чтобы скачать.": {
+    "en": "The %@ voice is not downloaded. Tap to download.",
+    "es": "La voz de %@ no está descargada. Toque para descargarla.",
+    "tr": "%@ sesi indirilmemiş. İndirmek için dokunun."
+  },
+  " с": {
+    "en": " s",
+    "es": " s",
+    "tr": " sn"
+  },
+  "Всего": {
+    "en": "Total",
+    "es": "Total",
+    "tr": "Toplam"
+  },
+  "Для этой пары нет модели OPUS · выберите Index": {
+    "en": "No OPUS model for this pair · use Index",
+    "es": "No hay modelo OPUS para este par · use Index",
+    "tr": "Bu dil çifti için OPUS modeli yok · Index kullanın"
+  },
+  "с": {
+    "en": "s",
+    "es": "s",
+    "tr": "sn"
+  },
+  "мин": {
+    "en": "min",
+    "es": "min",
+    "tr": "dk"
+  },
+  "При удержании запись идёт до отпускания кнопки или лимита. Остановка после тишины действует в режиме нажатия. Настройки применяются со следующей записи.": {
+    "en": "When holding, recording continues until release or the time limit. Silence stops recording in tap mode. Changes apply to the next recording.",
+    "es": "Al mantener pulsado, se graba hasta soltar el botón o alcanzar el límite. El silencio detiene la grabación en el modo de toque. Los cambios se aplican a la siguiente grabación.",
+    "tr": "Basılı tutarken kayıt, düğme bırakılana veya süre sınırına ulaşılana kadar devam eder. Sessizlik, dokunma modunda kaydı durdurur. Değişiklikler sonraki kayda uygulanır."
+  },
+  "Android — на устройстве": {
+    "en": "Android — on device",
+    "es": "Android — en el dispositivo",
+    "tr": "Android — cihazda"
+  },
+  "Авто выбирает модель по исходному языку: русский — GigaAM, остальные поддерживаемые языки — Parakeet. Если модель не скачана, приложение предложит её загрузить. Для других языков остаётся встроенное распознавание Android; Whisper и Meta можно выбрать вручную.": {
+    "en": "Auto selects by source language: Russian uses GigaAM; other supported languages use Parakeet. If the model is missing, the app offers a download. Other languages retain Android on-device recognition; Whisper and Meta can be selected manually.",
+    "es": "Auto elige según el idioma de origen: GigaAM para ruso y Parakeet para los demás idiomas compatibles. Si falta el modelo, la app ofrece descargarlo. Los otros idiomas usan el reconocimiento local de Android; Whisper y Meta se pueden elegir manualmente.",
+    "tr": "Otomatik, kaynak dile göre seçer: Rusça için GigaAM, desteklenen diğer diller için Parakeet. Model eksikse uygulama indirmeyi önerir. Diğer dillerde Android'in cihaz üzerinde tanıması kullanılır; Whisper ve Meta elle seçilebilir."
+  },
+  "Parakeet Ultra использует Apple CoreML и недоступен на Android.": {
+    "en": "Parakeet Ultra requires Apple CoreML and is unavailable on Android.",
+    "es": "Parakeet Ultra requiere Apple CoreML y no está disponible en Android.",
+    "tr": "Parakeet Ultra, Apple CoreML gerektirir ve Android'de kullanılamaz."
+  },
+  "Готовить перевод законченных фраз заранее. Озвучка начнётся после остановки. На Android пока для Whisper с Index без экономии памяти; возможны ошибки на стыках фраз.": {
+    "en": "Prepare translations of completed phrases. Speech starts after recording stops. On Android this requires Whisper and Index with memory saving off; phrase boundaries may contain errors.",
+    "es": "Prepara la traducción de frases completas. La voz empieza al detener la grabación. En Android requiere Whisper e Index con el ahorro de memoria desactivado; puede haber errores entre frases.",
+    "tr": "Tamamlanan cümlelerin çevirisini önceden hazırlar. Seslendirme kayıt durunca başlar. Android'de bellek tasarrufu kapalıyken Whisper ve Index gerekir; cümle sınırlarında hatalar olabilir."
+  },
+  "Отключение сохранения не мешает озвучке. Ранее сохранённые аудиофайлы останутся. Сохраняются озвучка и исходная запись микрофона.": {
+    "en": "Turning saving off does not disable speech. Existing audio files remain. Synthesized speech and the original microphone recording are saved.",
+    "es": "Desactivar el guardado no impide la voz. El audio existente se conserva. Se guardan la voz sintetizada y la grabación original del micrófono.",
+    "tr": "Kaydetmeyi kapatmak seslendirmeyi engellemez. Mevcut ses dosyaları korunur. Sentezlenen ses ve orijinal mikrofon kaydı kaydedilir."
+  },
+  "Офлайн-переводчик голоса, текста и изображений. ИИ-модели работают на вашем Android после скачивания нужных пакетов.": {
+    "en": "Offline voice, text and image translator. AI models run on your Android device after downloading the required packages.",
+    "es": "Traductor de voz, texto e imágenes sin conexión. Los modelos de IA funcionan en su Android tras descargar los paquetes necesarios.",
+    "tr": "Çevrimdışı ses, metin ve görüntü çevirmeni. Gerekli paketler indirildikten sonra yapay zekâ modelleri Android cihazınızda çalışır."
+  },
+  "Хранить %@ дней": {
+    "en": "Keep for %@ days",
+    "es": "Conservar %@ días",
+    "tr": "%@ gün sakla"
+  },
+  "Хранение в днях": {
+    "en": "Retention in days",
+    "es": "Conservación en días",
+    "tr": "Saklama süresi (gün)"
+  },
+  "В очереди": {
+    "en": "Queued",
+    "es": "En cola",
+    "tr": "Sırada"
+  },
+  "Скачивание": {
+    "en": "Downloading",
+    "es": "Descargando",
+    "tr": "İndiriliyor"
+  },
+  "Установка": {
+    "en": "Installing",
+    "es": "Instalando",
+    "tr": "Yükleniyor"
+  },
+  "Установлено": {
+    "en": "Installed",
+    "es": "Instalado",
+    "tr": "Yüklü"
+  },
+  "Ошибка": {
+    "en": "Error",
+    "es": "Error",
+    "tr": "Hata"
+  },
+  "Не удалось сделать снимок. Повторите попытку.": {
+    "en": "Could not take a photo. Try again.",
+    "es": "No se ha podido hacer la foto. Inténtelo de nuevo.",
+    "tr": "Fotoğraf çekilemedi. Yeniden deneyin."
+  },
+  "Камера недоступна. Повторите попытку или откройте галерею.": {
+    "en": "Camera unavailable. Try again or open the gallery.",
+    "es": "Cámara no disponible. Inténtelo de nuevo o abra la galería.",
+    "tr": "Kamera kullanılamıyor. Yeniden deneyin veya galeriyi açın."
+  },
+  "камере": {
+    "en": "camera",
+    "es": "cámara",
+    "tr": "kamera"
+  },
+  "Первая полная проверка моделей может занять некоторое время. При следующих запусках неизменённые файлы проверяются быстрее.": {
+    "en": "The first full model check can take a while. Unchanged files are checked faster on subsequent launches.",
+    "es": "La primera comprobación completa de modelos puede tardar un poco. Los archivos sin cambios se verifican más rápido en los próximos inicios.",
+    "tr": "İlk tam model kontrolü biraz sürebilir. Değişmeyen dosyalar sonraki açılışlarda daha hızlı kontrol edilir."
+  },
+  "Ошибка обработки": {
+    "en": "Processing failed",
+    "es": "Error de procesamiento",
+    "tr": "İşleme başarısız"
+  },
+  "Отменено": {
+    "en": "Cancelled",
+    "es": "Cancelado",
+    "tr": "İptal edildi"
+  },
+  "Установите Index в разделе «Модели».": {
+    "en": "Install Index in Models.",
+    "es": "Instale Index desde Modelos.",
+    "tr": "Modeller'den Index'i yükleyin."
+  },
+  "Проверка Index не пройдена. Установите модель заново.": {
+    "en": "Index verification failed. Reinstall the model.",
+    "es": "La verificación de Index ha fallado. Reinstale el modelo.",
+    "tr": "Index doğrulaması başarısız. Modeli yeniden yükleyin."
+  },
+  "Проверка модели…": {
+    "en": "Checking model…",
+    "es": "Comprobando modelo…",
+    "tr": "Model kontrol ediliyor…"
+  },
+  "Установите Index 2B в разделе «Модели».": {
+    "en": "Install Index 2B in Models.",
+    "es": "Instale Index 2B desde Modelos.",
+    "tr": "Modeller'den Index 2B'yi yükleyin."
+  },
+  "Загрузка модели…": {
+    "en": "Loading model…",
+    "es": "Cargando modelo…",
+    "tr": "Model yükleniyor…"
+  },
+  "Установите %@ в разделе «Модели».": {
+    "en": "Install %@ in Models.",
+    "es": "Instale %@ desde Modelos.",
+    "tr": "Modeller'den %@ yükleyin."
+  },
+  "Для этой пары не установлена модель перевода. Откройте «Настроить языки и загрузку».": {
+    "en": "No translation model is installed for this pair. Open language setup.",
+    "es": "No hay un modelo instalado para este par. Abra la configuración de idiomas.",
+    "tr": "Bu dil çifti için çeviri modeli yüklü değil. Dil ayarlarını açın."
+  },
+  "Подготовка текста…": {
+    "en": "Preparing text…",
+    "es": "Preparando texto…",
+    "tr": "Metin hazırlanıyor…"
+  },
+  "Перевожу": {
+    "en": "Translating",
+    "es": "Traduciendo…",
+    "tr": "Çevriliyor…"
+  },
+  "Модель остановилась по лимиту. Результат не сохранён.": {
+    "en": "Model reached its output limit. Result was not saved.",
+    "es": "El modelo ha alcanzado su límite de salida. No se ha guardado el resultado.",
+    "tr": "Model çıktı sınırına ulaştı. Sonuç kaydedilmedi."
+  },
+  "Не удалось выполнить перевод.": {
+    "en": "Translation failed.",
+    "es": "La traducción ha fallado.",
+    "tr": "Çeviri başarısız."
+  },
+  "Подготовка перевода…": {
+    "en": "Preparing translation…",
+    "es": "Preparando traducción…",
+    "tr": "Çeviri hazırlanıyor…"
+  },
+  "Для этой пары языков нет модели OPUS. Выберите другую пару или Index.": {
+    "en": "No OPUS model covers this language pair. Select another pair or Index.",
+    "es": "Ningún modelo OPUS cubre este par de idiomas. Elija otro par o Index.",
+    "tr": "Bu dil çiftini kapsayan OPUS modeli yok. Başka bir dil çifti veya Index seçin."
+  },
+  "Ошибка перевода OPUS.": {
+    "en": "OPUS translation failed.",
+    "es": "La traducción OPUS ha fallado.",
+    "tr": "OPUS çevirisi başarısız."
+  },
+  "Отменяю…": {
+    "en": "Cancelling…",
+    "es": "Cancelando…",
+    "tr": "İptal ediliyor…"
+  },
+  "Подготовка моделей…": {
+    "en": "Preparing models…",
+    "es": "Preparando modelos",
+    "tr": "Modeller hazırlanıyor"
+  },
+  "Вернитесь в приложение и повторите действие.": {
+    "en": "Return to the app and try again.",
+    "es": "Vuelva a la app e inténtelo de nuevo.",
+    "tr": "Uygulamaya dönüp yeniden deneyin."
+  },
+  "Не удалось запустить загрузку.": {
+    "en": "Could not start the download.",
+    "es": "No se ha podido iniciar la descarga.",
+    "tr": "İndirme başlatılamadı."
+  },
+  "Установите выбранную модель в разделе «Модели» или выберите другую.": {
+    "en": "Install the selected model in Models or choose another one.",
+    "es": "Instale el modelo elegido desde Modelos o elija otro.",
+    "tr": "Seçili modeli Modeller'den yükleyin veya başka bir model seçin."
+  },
+  "В пакете отсутствует нужный файл.": {
+    "en": "Required file is missing from the package.",
+    "es": "Falta un archivo necesario en el paquete.",
+    "tr": "Pakette gerekli bir dosya eksik."
+  },
+  "Для выбранного языка нет доступной озвучки. Выберите другой голос в настройках.": {
+    "en": "No voice is available for this language. Choose another voice in settings.",
+    "es": "No hay voz disponible para este idioma. Elija otra voz en Ajustes.",
+    "tr": "Bu dil için ses yok. Ayarlar'dan başka bir ses seçin."
+  },
+  "Подготовка озвучки…": {
+    "en": "Preparing speech…",
+    "es": "Preparando voz…",
+    "tr": "Ses hazırlanıyor…"
+  },
+  "Для озвучки оригинала выберите язык.": {
+    "en": "Select the source language to read the original.",
+    "es": "Elija el idioma de origen para leer el original.",
+    "tr": "Orijinali seslendirmek için kaynak dili seçin."
+  },
+  "Не удалось воспроизвести файл.": {
+    "en": "Could not play the file.",
+    "es": "No se ha podido reproducir el archivo.",
+    "tr": "Dosya oynatılamadı."
+  },
+  "Подготовка аудио…": {
+    "en": "Preparing audio…",
+    "es": "Preparando audio…",
+    "tr": "Ses hazırlanıyor…"
+  },
+  "Законченные фразы обрабатываются заранее. Озвучка — после остановки.": {
+    "en": "Completed phrases are processed now. Speech starts after recording stops.",
+    "es": "Las frases completas se procesan ahora. La voz empieza al detener la grabación.",
+    "tr": "Tamamlanan cümleler şimdi işleniyor. Seslendirme kayıt durduktan sonra başlar."
+  },
+  "Предварительная обработка недоступна для текущих моделей, настроек памяти или температуры. Перевод начнётся после остановки.": {
+    "en": "Preview is unavailable with these models, memory settings or temperature. Translation starts after recording stops.",
+    "es": "La vista previa no está disponible con estos modelos, ajustes de memoria o temperatura. La traducción empieza al detener la grabación.",
+    "tr": "Bu modeller, bellek ayarları veya sıcaklıkla ön işleme kullanılamıyor. Çeviri kayıt durduktan sonra başlar."
+  },
+  "Предварительная обработка приостановлена: устройство нагрелось.": {
+    "en": "Preview paused because the device is warm.",
+    "es": "Vista previa en pausa por calentamiento del dispositivo.",
+    "tr": "Cihaz ısındığı için ön işleme duraklatıldı."
+  },
+  "Длинная незаконченная фраза будет обработана после остановки.": {
+    "en": "The long unfinished phrase will be processed after recording stops.",
+    "es": "La frase larga sin terminar se procesará al detener la grabación.",
+    "tr": "Uzun ve tamamlanmamış cümle kayıt durduktan sonra işlenecek."
+  },
+  "Предварительная обработка остановлена. Полная запись будет обработана после остановки.": {
+    "en": "Preview stopped. The full recording will be processed after you stop.",
+    "es": "Vista previa detenida. La grabación completa se procesará cuando la detenga.",
+    "tr": "Ön işleme durduruldu. Kaydın tamamı, durdurduğunuzda işlenecek."
+  },
+  "Речь не распознана.": {
+    "en": "No speech recognized.",
+    "es": "No se ha reconocido voz.",
+    "tr": "Konuşma tanınamadı."
+  },
+  "Чтение аудиофайла…": {
+    "en": "Reading audio file…",
+    "es": "Leyendo archivo de audio…",
+    "tr": "Ses dosyası okunuyor…"
+  },
+  "Распознаю речь на устройстве…": {
+    "en": "Recognizing speech on device…",
+    "es": "Reconociendo voz en el dispositivo…",
+    "tr": "Konuşma cihazda tanınıyor…"
+  },
+  "Встроенное офлайн-распознавание недоступно для этой записи. Проверьте исходный язык и его пакет в настройках Android или выберите Whisper в настройках приложения.": {
+    "en": "On-device recognition is unavailable for this recording. Check the source language and its offline pack in Android settings, or choose Whisper in app settings.",
+    "es": "El reconocimiento local no está disponible para esta grabación. Compruebe el idioma de origen y su paquete sin conexión en los ajustes de Android, o elija Whisper en los ajustes de la app.",
+    "tr": "Bu kayıt için cihaz üzerinde tanıma kullanılamıyor. Android ayarlarından kaynak dili ve çevrimdışı paketini kontrol edin veya uygulama ayarlarından Whisper'ı seçin."
+  },
+  "Модель распознавания %@ не скачана. Нажмите «Скачать распознавание».": {
+    "en": "The %@ recognition model is not downloaded. Tap Download recognition.",
+    "es": "El modelo de reconocimiento %@ no está descargado. Pulse Descargar reconocimiento.",
+    "tr": "%@ tanıma modeli indirilmemiş. Tanıma modelini indir'e dokunun."
+  },
+  "Не удалось распознать текст.": {
+    "en": "Text recognition failed.",
+    "es": "El reconocimiento de texto ha fallado.",
+    "tr": "Metin tanıma başarısız."
+  },
+  "Исправляю перспективу…": {
+    "en": "Correcting perspective…",
+    "es": "Corrigiendo perspectiva…",
+    "tr": "Perspektif düzeltiliyor…"
+  },
+  "Выберите язык текста на изображении.": {
+    "en": "Select the language of the image text.",
+    "es": "Elija el idioma del texto de la imagen.",
+    "tr": "Görüntüdeki metnin dilini seçin."
+  },
+  "OCR: Google ML Kit · на устройстве": {
+    "en": "OCR: Google ML Kit · on device",
+    "es": "OCR: Google ML Kit · en el dispositivo",
+    "tr": "OCR: Google ML Kit · cihazda"
+  },
+  "OCR: PP-OCR · на устройстве": {
+    "en": "OCR: PP-OCR · on device",
+    "es": "OCR: PP-OCR · en el dispositivo",
+    "tr": "OCR: PP-OCR · cihazda"
+  },
+  "Установите модель поиска текста OCR в разделе «Модели».": {
+    "en": "Install the OCR text detector in Models.",
+    "es": "Instale el detector de texto OCR desde Modelos.",
+    "tr": "Modeller'den OCR metin algılayıcısını yükleyin."
+  },
+  "Установите OCR-пакет в разделе «Модели».": {
+    "en": "Install an OCR package in Models.",
+    "es": "Instale un paquete OCR desde Modelos.",
+    "tr": "Modeller'den bir OCR paketi yükleyin."
+  },
+  "OCR-пакет недоступен.": {
+    "en": "OCR package unavailable.",
+    "es": "Paquete OCR no disponible.",
+    "tr": "OCR paketi kullanılamıyor."
+  },
+  "Текст не найден. Измените область или язык.": {
+    "en": "No text found. Change the crop or source language.",
+    "es": "No se ha encontrado texto. Cambie el recorte o el idioma de origen.",
+    "tr": "Metin bulunamadı. Kırpma alanını veya kaynak dili değiştirin."
+  },
+  "Подготовка изображения…": {
+    "en": "Preparing image…",
+    "es": "Preparando imagen…",
+    "tr": "Görüntü hazırlanıyor…"
+  },
+  "Сохранение…": {
+    "en": "Saving…",
+    "es": "Guardando…",
+    "tr": "Kaydediliyor…"
+  },
+  "Не удалось сохранить изображение.": {
+    "en": "Could not save image.",
+    "es": "No se ha podido guardar la imagen.",
+    "tr": "Görüntü kaydedilemedi."
+  },
+  "Изображение сохранено в галерею": {
+    "en": "Image saved to gallery",
+    "es": "Imagen guardada en la galería",
+    "tr": "Görüntü galeriye kaydedildi"
+  },
+  "Сохранено": {
+    "en": "Saved",
+    "es": "Guardado",
+    "tr": "Kaydedildi"
+  },
+  "Открываю запись…": {
+    "en": "Opening recording…",
+    "es": "Abriendo grabación…",
+    "tr": "Kayıt açılıyor…"
+  },
+  "Не удалось прочитать историю переводов": {
+    "en": "Could not read translation history",
+    "es": "No se ha podido leer el historial de traducciones",
+    "tr": "Çeviri geçmişi okunamadı"
+  },
+  "Подготовка загрузки": {
+    "en": "Preparing download",
+    "es": "Preparando descarga",
+    "tr": "İndirme hazırlanıyor"
+  },
+  "Проверка SHA-256": {
+    "en": "Verifying SHA-256",
+    "es": "Verificando SHA-256",
+    "tr": "SHA-256 doğrulanıyor"
+  },
+  "пакет(ов)": {
+    "en": "package(s)",
+    "es": "paquete(s)",
+    "tr": "paket"
+  },
+  "Пакет проверен и установлен": {
+    "en": "Package verified and installed",
+    "es": "Paquete verificado e instalado",
+    "tr": "Paket doğrulandı ve yüklendi"
+  },
+  "Загрузка не завершена. Откройте приложение": {
+    "en": "Download incomplete. Open the app",
+    "es": "Descarga incompleta. Abra la app",
+    "tr": "İndirme tamamlanmadı. Uygulamayı açın"
+  },
+  "Разрешите мобильный интернет или подключитесь к обычному Wi-Fi": {
+    "en": "Allow mobile data or connect to unmetered Wi-Fi",
+    "es": "Permita los datos móviles o conéctese a Wi-Fi sin límite de datos",
+    "tr": "Mobil veriye izin verin veya sınırsız Wi-Fi'ye bağlanın"
+  },
+  "Хранилище приложения недоступно": {
+    "en": "App storage is unavailable",
+    "es": "El almacenamiento de la app no está disponible",
+    "tr": "Uygulama depolama alanı kullanılamıyor"
+  },
+  "Хранилище уже открыто другим загрузчиком": {
+    "en": "Storage is already open in another downloader",
+    "es": "Otro descargador ya tiene abierto el almacenamiento",
+    "tr": "Depolama alanı başka bir indirici tarafından açılmış"
+  },
+  "Пакет не установлен": {
+    "en": "Package is not installed",
+    "es": "El paquete no está instalado",
+    "tr": "Paket yüklü değil"
+  },
+  "Пакет изменяется": {
+    "en": "Package is being changed",
+    "es": "El paquete se está modificando",
+    "tr": "Paket değiştiriliyor"
+  },
+  "Модель используется. Сначала остановите перевод или озвучку": {
+    "en": "Model is in use. Stop translation or speech first",
+    "es": "El modelo está en uso. Detenga primero la traducción o la voz",
+    "tr": "Model kullanımda. Önce çeviriyi veya seslendirmeyi durdurun"
+  },
+  "Не удалось удалить пакет": {
+    "en": "Could not remove the package",
+    "es": "No se ha podido eliminar el paquete",
+    "tr": "Paket silinemedi"
+  },
+  "Импорт файла": {
+    "en": "Importing file",
+    "es": "Importando archivo",
+    "tr": "Dosya içe aktarılıyor"
+  },
+  "Не удалось открыть файл": {
+    "en": "Could not open the file",
+    "es": "No se ha podido abrir el archivo",
+    "tr": "Dosya açılamadı"
+  },
+  "Файл больше ожидаемого пакета": {
+    "en": "File exceeds the expected package size",
+    "es": "El archivo supera el tamaño esperado del paquete",
+    "tr": "Dosya beklenen paket boyutunu aşıyor"
+  },
+  "Размер файла не совпадает с каталогом": {
+    "en": "File size does not match the catalog",
+    "es": "El tamaño del archivo no coincide con el catálogo",
+    "tr": "Dosya boyutu katalogla eşleşmiyor"
+  },
+  "Файл не соответствует SHA-256 пакета": {
+    "en": "File does not match the package SHA-256",
+    "es": "El archivo no coincide con el SHA-256 del paquete",
+    "tr": "Dosya paketin SHA-256 değeriyle eşleşmiyor"
+  },
+  "Компонент импортирован. Импортируйте остальные или продолжите загрузку": {
+    "en": "Component imported. Import the remaining files or resume downloading",
+    "es": "Componente importado. Importe los archivos restantes o reanude la descarga",
+    "tr": "Bileşen içe aktarıldı. Kalan dosyaları içe aktarın veya indirmeye devam edin"
+  },
+  "Не удалось установить пакет": {
+    "en": "Could not install the package",
+    "es": "No se ha podido instalar el paquete",
+    "tr": "Paket yüklenemedi"
+  },
+  "Проверка пакета не пройдена": {
+    "en": "Package verification failed",
+    "es": "La verificación del paquete ha fallado",
+    "tr": "Paket doğrulaması başarısız"
+  },
+  "Неполный пакет": {
+    "en": "Incomplete package",
+    "es": "Paquete incompleto",
+    "tr": "Paket eksik"
+  },
+  "Разрешены только HTTPS-загрузки": {
+    "en": "Only HTTPS downloads are allowed",
+    "es": "Solo se permiten descargas HTTPS",
+    "tr": "Yalnızca HTTPS indirmelerine izin verilir"
+  },
+  "Слишком много перенаправлений": {
+    "en": "Too many redirects",
+    "es": "Demasiadas redirecciones",
+    "tr": "Çok fazla yönlendirme"
+  },
+  "Нет адреса перенаправления": {
+    "en": "Redirect location is missing",
+    "es": "Falta la dirección de redirección",
+    "tr": "Yönlendirme adresi eksik"
+  },
+  "Сервер вернул неверный диапазон": {
+    "en": "Server returned an invalid byte range",
+    "es": "El servidor ha devuelto un intervalo de bytes no válido",
+    "tr": "Sunucu geçersiz bir bayt aralığı döndürdü"
+  },
+  "Сервер вернул другой файл": {
+    "en": "Server returned a different file",
+    "es": "El servidor ha devuelto un archivo diferente",
+    "tr": "Sunucu farklı bir dosya döndürdü"
+  },
+  "Размер ответа не совпадает с каталогом": {
+    "en": "Response size does not match the catalog",
+    "es": "El tamaño de la respuesta no coincide con el catálogo",
+    "tr": "Yanıt boyutu katalogla eşleşmiyor"
+  },
+  "Ответ больше ожидаемого файла": {
+    "en": "Response exceeds the expected file size",
+    "es": "La respuesta supera el tamaño esperado del archivo",
+    "tr": "Yanıt beklenen dosya boyutunu aşıyor"
+  },
+  "Загрузка прервалась. Можно продолжить": {
+    "en": "Download interrupted. You can resume it",
+    "es": "Descarga interrumpida. Puede reanudarla.",
+    "tr": "İndirme kesildi. Devam edebilirsiniz."
+  },
+  "Недопустимый путь файла": {
+    "en": "Invalid file path",
+    "es": "Ruta de archivo no válida",
+    "tr": "Geçersiz dosya yolu"
+  },
+  "Файл скачан не полностью": {
+    "en": "File is incomplete",
+    "es": "El archivo está incompleto",
+    "tr": "Dosya eksik"
+  },
+  "Проверка SHA-256 не пройдена. Скачайте файл заново": {
+    "en": "SHA-256 verification failed. Download the file again",
+    "es": "La verificación SHA-256 ha fallado. Descargue el archivo de nuevo",
+    "tr": "SHA-256 doğrulaması başarısız. Dosyayı yeniden indirin"
+  },
+  "Не удалось создать папку пакета": {
+    "en": "Could not create the package folder",
+    "es": "No se ha podido crear la carpeta del paquete",
+    "tr": "Paket klasörü oluşturulamadı"
+  },
+  "Архив оборван": {
+    "en": "Archive is truncated",
+    "es": "El archivo comprimido está truncado",
+    "tr": "Arşiv kesilmiş"
+  },
+  "Архив неполон": {
+    "en": "Archive is incomplete",
+    "es": "El archivo comprimido está incompleto",
+    "tr": "Arşiv eksik"
+  },
+  "Лишние данные в архиве": {
+    "en": "Unexpected data in archive",
+    "es": "Datos inesperados en el archivo comprimido",
+    "tr": "Arşivde beklenmeyen veri"
+  },
+  "Слишком много файлов в архиве": {
+    "en": "Too many archive entries",
+    "es": "Demasiados archivos en el archivo comprimido",
+    "tr": "Arşivde çok fazla dosya"
+  },
+  "Повреждён заголовок архива": {
+    "en": "Archive header is damaged",
+    "es": "La cabecera del archivo comprimido está dañada",
+    "tr": "Arşiv başlığı bozuk"
+  },
+  "Небезопасный путь в архиве": {
+    "en": "Unsafe archive path",
+    "es": "Ruta no segura en el archivo comprimido",
+    "tr": "Arşivde güvenli olmayan yol"
+  },
+  "Неверный размер файла": {
+    "en": "Invalid file size",
+    "es": "Tamaño de archivo no válido",
+    "tr": "Geçersiz dosya boyutu"
+  },
+  "Неверная папка архива": {
+    "en": "Invalid archive directory",
+    "es": "Carpeta de archivo comprimido no válida",
+    "tr": "Geçersiz arşiv klasörü"
+  },
+  "Ссылки и расширенные заголовки архива запрещены": {
+    "en": "Archive links and extended headers are not allowed",
+    "es": "No se permiten enlaces ni cabeceras extendidas en el archivo comprimido",
+    "tr": "Arşivde bağlantılara ve genişletilmiş başlıklara izin verilmez"
+  },
+  "Неизвестный файл в архиве": {
+    "en": "Unknown archive file",
+    "es": "Archivo desconocido en el archivo comprimido",
+    "tr": "Arşivde bilinmeyen dosya"
+  },
+  "Файл архива не совпадает с каталогом": {
+    "en": "Archive entry does not match the catalog",
+    "es": "El archivo comprimido no coincide con el catálogo",
+    "tr": "Arşiv dosyası katalogla eşleşmiyor"
+  },
+  "Файл архива не прошёл SHA-256": {
+    "en": "Archive entry failed SHA-256 verification",
+    "es": "El archivo comprimido no supera la verificación SHA-256",
+    "tr": "Arşiv dosyası SHA-256 doğrulamasını geçemedi"
+  },
+  "%@ языков": {
+    "en": "%@ languages",
+    "es": "%@ idiomas",
+    "tr": "%@ dil"
+  },
+  "Сервер вернул HTTP %@": {
+    "en": "Server returned HTTP %@",
+    "es": "El servidor ha devuelto HTTP %@",
+    "tr": "Sunucu HTTP %@ döndürdü"
+  },
+  "Недостаточно свободного места. Нужно ещё %@ МБ": {
+    "en": "Not enough free space. Need another %@ MB",
+    "es": "Espacio insuficiente. Se necesitan %@ MB más",
+    "tr": "Boş alan yetersiz. %@ MB daha gerekiyor"
+  },
+  "OCR · Быстрый поиск текста · mobile": {
+    "en": "OCR · Fast text detection · mobile",
+    "es": "OCR · Detección rápida de texto · mobile",
+    "tr": "OCR · Hızlı metin algılama · mobile"
+  },
+  "OCR · Поиск текста · server (88 МБ)": {
+    "en": "OCR · Text detection · server (88 MB)",
+    "es": "OCR · Detección de texto · server (88 MB)",
+    "tr": "OCR · Metin algılama · server (88 MB)"
+  },
+  "Скачивание этого направления пока недоступно; установите файлы вручную": {
+    "en": "Downloading this direction is not available yet; install the files manually",
+    "es": "La descarga de esta dirección aún no está disponible; instale los archivos manualmente",
+    "tr": "Bu yön henüz indirilemiyor; dosyaları elle yükleyin"
+  },
+  "Пакет Core ML предназначен для Apple. На Android используйте Whisper": {
+    "en": "This Core ML package requires Apple. Use Whisper on Android",
+    "es": "Este paquete Core ML requiere Apple. Use Whisper en Android",
+    "tr": "Bu Core ML paketi Apple içindir. Android’de Whisper kullanın"
+  }
+}

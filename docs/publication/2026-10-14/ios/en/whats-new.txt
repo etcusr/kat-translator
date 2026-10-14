@@ -1,0 +1,1 @@
+New Kat app identifier and developer signing. Download Live Activities now open the correct app when the legacy version is also installed.

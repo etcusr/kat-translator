@@ -1,0 +1,18 @@
+{
+  "tool": "built-in image_gen",
+  "referenceRole": "Mood and subject inspiration only; not a reproduction or edit target.",
+  "variants": [
+    {
+      "file": "kat-flat.png",
+      "prompt": "Use case: logo-brand. Generate ONE square logo concept for an offline AI translation iPhone app named kat translator. Input reference is mood inspiration only: the white cat with dark crown markings, upright ears, faint knowing smile, slightly awkward long neck. Create a NEW original cat character, different markings, proportions and pose; do not trace or reproduce the photo, no room/window, no text from reference. Style: exceptionally clean flat graphic mascot, bold minimal vector-like silhouette, beautiful balanced negative space, cream-white cat face with charcoal asymmetric crown patch, half-lidded dark eyes and subtle one-sided sardonic smile, amused and skeptical, not angry or cute baby. Close-up head with a little neck, centered and legible at tiny iOS icon size. Opaque deep ink navy square background; restrained mint accent matching an existing mint-on-dark app. No words, no letters, no typography, no border, no rounded outer corners, no mockup, no additional icons or objects. Crisp premium app icon design, carefully controlled thick shapes."
+    },
+    {
+      "file": "kat-ink.png",
+      "prompt": "Use case: logo-brand. Create ONE square logo illustration concept for kat translator, an offline AI iPhone translator. Reference image is ONLY inspiration for personality: white cat with dark head markings, awkward upright neck, knowing restrained smirk. Design a distinct original mascot, different markings and pose, never copy the photo or its setting. Style: witty hand-drawn indie editorial sticker, confident chunky charcoal ink contours, deliberately imperfect lively lines, restrained screen-print grain, cream-white lanky cat head and upper chest, small skeptical eyes glancing sideways, tiny asymmetric closed-mouth grin, one ear tilted. Deadpan sarcastic, lovable but not childish, no aggression. Flat muted mint square backdrop with a very restrained dusty pink detail inspired by the reference. Strong recognizable silhouette and few large shapes that work as an app icon. Centered generous breathing space. No lettering, no words, no speech balloon, no accessories, no decorative stars, no border, no rounded outer corners, no photorealism or mockup. An authored cartoon character rather than a generic cute cat clipart."
+    },
+    {
+      "file": "kat-clay.png",
+      "prompt": "Use case: logo-brand. Generate ONE square iPhone app mascot logo concept for kat translator. Reference photo is personality inspiration ONLY: an upright cream-white cat, dark crown markings, restrained odd knowing smile. Invent a fresh original character with changed markings and facial proportions; do not reproduce the photograph or setting. Style: beautifully art-directed matte clay / vinyl sculpted designer toy bust, tactile ceramic softness, minimalist facial geometry, no realistic fur. Cream-white slightly lanky cat with asymmetric charcoal patch on one ear and crown, two small half-lidded eyes, dry skeptical sideways glance and subtle closed-mouth smirk, gently tilted head. Sarcastic calm personality, not angry, not baby-cute. Close-up centered head and upper neck, recognizable at icon size, ample margin around ears. Solid pale mint square backdrop, soft studio lighting, subtle grounding shadow, small pale pink nose and inner ears. No text, no letters, no props, no collar, no border, no outer rounded corners, no phone mockup. Highly polished original brand mascot."
+    }
+  ]
+}

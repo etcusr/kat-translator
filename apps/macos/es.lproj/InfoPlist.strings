@@ -1,0 +1,3 @@
+"NSMicrophoneUsageDescription" = "Grabar voz para reconocerla en este Mac. Su voz no se envía a un servidor.";
+"Translate in Kat translator" = "Traducir en Kat translator";
+"NSScreenCaptureUsageDescription" = "Capturar el área de pantalla seleccionada para reconocer y traducir texto en su Mac. La imagen no se envía a un servidor.";

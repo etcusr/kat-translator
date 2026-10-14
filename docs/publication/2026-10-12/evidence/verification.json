@@ -1,0 +1,30 @@
+{
+  "verified": "2026-10-12",
+  "scope": "Publication artifacts only; product tests not rerun",
+  "metadata_fields": 26,
+  "rendered_images": 36,
+  "store_images": 20,
+  "videos": {
+    "ru": {
+      "duration": 30.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "fps": "30/1",
+      "bytes": 479192
+    },
+    "en": {
+      "duration": 30.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "fps": "30/1",
+      "bytes": 479710
+    }
+  },
+  "errors": [],
+  "release_ready": false,
+  "remaining": "Publisher details, model/media rights, store binaries, final localized captures and privacy corrections are unresolved; see RELEASE-CHECKLIST."
+}

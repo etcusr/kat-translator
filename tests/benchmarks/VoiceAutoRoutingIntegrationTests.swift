@@ -1,0 +1,187 @@
+import XCTest
+import AVFoundation
+import CryptoKit
+import UIKit
+import OfflineCore
+@testable import OfflineTranslator
+
+/// Opt-in physical iPhone tests. Production ASR/MT/TTS, synthetic bundled previews,
+/// No history archive; preferences and temporary speech are restored/cleared in teardown.
+final class VoiceAutoRoutingIntegrationTests: XCTestCase {
+    private var oldIdleTimer = false
+    private var savedPreferences: [String: Any] = [:]
+    private var savedArguments: [String: Any] = [:]
+    private let preferenceKeys = [AutoTranslation.preferenceKey, "selectedTranslationModel"]
+    private var pipelineToUnload: ConversationPipeline?
+    private var recorderToCancel: AudioRecorder?
+    @MainActor override func setUp() async throws {
+        let defaults = UserDefaults.standard
+        for key in preferenceKeys { savedPreferences[key] = defaults.object(forKey: key) }
+        savedArguments = defaults.volatileDomain(forName: UserDefaults.argumentDomain)
+        oldIdleTimer = UIApplication.shared.isIdleTimerDisabled
+        UIApplication.shared.isIdleTimerDisabled = true
+    }
+    @MainActor override func tearDown() async throws {
+        recorderToCancel?.cancel()
+        await pipelineToUnload?.unload(); pipelineToUnload?.clearTemporarySpeech()
+        let defaults = UserDefaults.standard
+        let packages = PackageDownloadCoordinator.shared
+        packages.selectTranslation(TranslationModel.restoredSelection(savedPreferences["selectedTranslationModel"] as? String))
+        packages.setAutoTranslation(savedPreferences[AutoTranslation.preferenceKey] as? Bool ?? (savedPreferences["selectedTranslationModel"] == nil))
+        for key in preferenceKeys {
+            if let value = savedPreferences[key] { defaults.set(value, forKey: key) }
+            else { defaults.removeObject(forKey: key) }
+        }
+        defaults.setVolatileDomain(savedArguments, forName: UserDefaults.argumentDomain)
+        UIApplication.shared.isIdleTimerDisabled = oldIdleTimer
+    }
+    /// Opt-in migration check: the host provides a private manifest of the old
+    /// container's byte-stable files. Verify bytes without exporting another model copy.
+    /// Compare history.json semantically on the host: startup rewrites JSON key order.
+    @MainActor func testMigratedFilesMatchSHA256Manifest() async throws {
+        struct Entry: Decodable, Sendable { let path: String; let bytes: Int64; let sha256: String }
+        let home = URL(fileURLWithPath: NSHomeDirectory())
+        let manifest = home.appendingPathComponent("Documents/KatMigrationVerification.json")
+        guard FileManager.default.fileExists(atPath: manifest.path) else {
+            throw XCTSkip("Migration manifest is opt-in and must not ship in the app bundle")
+        }
+        XCTAssertEqual(Bundle.main.bundleIdentifier, "app.kattranslator")
+        let entries = try JSONDecoder().decode([Entry].self, from: Data(contentsOf: manifest))
+        XCTAssertFalse(entries.isEmpty)
+        executionTimeAllowance = 1800
+        let verified = try await Task.detached(priority: .utility) {
+            var count = 0
+            for entry in entries {
+                try Task.checkCancellation()
+                guard !entry.path.hasPrefix("/"), !entry.path.split(separator: "/").contains(".."),
+                      entry.path.hasPrefix("Documents/") || entry.path.hasPrefix("Library/Application Support/OfflineTranslator/") else {
+                    throw NSError(domain: "KatMigration", code: 1)
+                }
+                let url = home.appendingPathComponent(entry.path)
+                let values = try url.resourceValues(forKeys: [.fileSizeKey, .isRegularFileKey, .isSymbolicLinkKey])
+                guard values.isRegularFile == true, values.isSymbolicLink == false,
+                      Int64(values.fileSize ?? -1) == entry.bytes else {
+                    throw NSError(domain: "KatMigration", code: 2, userInfo: [NSLocalizedDescriptionKey: entry.path])
+                }
+                let file = try FileHandle(forReadingFrom: url)
+                defer { try? file.close() }
+                var hash = SHA256()
+                while try autoreleasepool(invoking: {
+                    let data = try file.read(upToCount: 1_048_576) ?? Data()
+                    guard !data.isEmpty else { return false }
+                    hash.update(data: data); return true
+                }) {}
+                guard hash.finalize().map({ String(format: "%02x", $0) }).joined() == entry.sha256 else {
+                    throw NSError(domain: "KatMigration", code: 3, userInfo: [NSLocalizedDescriptionKey: entry.path])
+                }
+                count += 1
+            }
+            return count
+        }.value
+        XCTAssertEqual(verified, entries.count)
+        print("KAT_MIGRATION_HASH_VERIFIED", verified, "files", entries.reduce(Int64(0)) { $0 + $1.bytes }, "bytes")
+        try FileManager.default.removeItem(at: manifest) // Only this test-owned input.
+    }
+    @MainActor private func fixture(_ language: String) throws -> CapturedAudio {
+        try AudioFileImport.read(try XCTUnwrap(Bundle.main.url(forResource: "sherpa-onnx-supertonic-3-tts-int8-2026-05-11-" + language, withExtension: "m4a")))
+    }
+    @MainActor private func prepare(_ initial: TranslationModel = .opusBig) async throws -> ConversationPipeline {
+        let defaults = UserDefaults.standard
+        // A process-local override exercises compact Auto; never overwrite the saved probe.
+        var arguments = defaults.volatileDomain(forName: UserDefaults.argumentDomain)
+        arguments["deviceProbeResult"] = ""; defaults.setVolatileDomain(arguments, forName: UserDefaults.argumentDomain)
+        let packages = PackageDownloadCoordinator.shared
+        await packages.restore(); packages.setAutoTranslation(true)
+        let pipeline = ConversationPipeline(asr: RoutedASRBackend(), translator: RoutedTranslationBackend(),
+            speech: SherpaSpeechBackend(), player: SpeechPlayer())
+        pipelineToUnload = pipeline
+        await pipeline.prepare(PipelineFiles(asr: try XCTUnwrap(packages.primaryRecognition(for: .automatic)),
+            translation: try XCTUnwrap(packages.translationURL(for: initial)),
+            voices: packages.selectedVoiceDirectories, voiceModelIDs: packages.selectedVoiceModelIDs,
+            translationModel: initial, translationResolver: try XCTUnwrap(packages.translationResolver)), memorySaving: false)
+        XCTAssertTrue(pipeline.isReady, pipeline.error ?? "Preparation failed")
+        return pipeline
+    }
+    @MainActor private func check(_ pipeline: ConversationPipeline, _ language: SpeechLanguage, _ model: TranslationModel) {
+        XCTAssertNil(pipeline.voiceFields.error)
+        XCTAssertEqual(pipeline.voiceFields.resolvedSource, language)
+        XCTAssertEqual(pipeline.voiceFields.resolvedTarget, .english)
+        XCTAssertEqual(pipeline.samples.last?.translationModelID, model.rawValue)
+        XCTAssertTrue(pipeline.voiceFields.sourceText.localizedCaseInsensitiveContains(language == .german ? "Zug" : "поезд"), pipeline.voiceFields.sourceText)
+        XCTAssertTrue(pipeline.voiceFields.translatedText.localizedCaseInsensitiveContains("train"), pipeline.voiceFields.translatedText)
+        XCTAssertTrue(pipeline.hasOriginalRecording)
+        XCTAssertNil(pipeline.voiceFields.lastHistoryID)
+        print("KAT_VOICE_RESULT", language.rawValue, model.rawValue, pipeline.voiceFields.sourceText, "=>", pipeline.voiceFields.translatedText)
+    }
+    @MainActor func testAfterStopDetectsLanguageAndSwitchesAutoModels() async throws {
+        let pipeline = try await prepare()
+        for (language, model) in [(SpeechLanguage.russian, TranslationModel.opusBig), (.german, .index9B), (.russian, .opusBig)] {
+            print("KAT_HOST_STATE", UIApplication.shared.applicationState.rawValue, "autoload", UserDefaults.standard.bool(forKey: "automaticModelLoad"))
+            let audio = try fixture(language.rawValue)
+            await pipeline.runRecording(audio: audio, speechEnd: audio.samples.count, source: nil, target: .english,
+                speakResult: true, inputMode: "synthetic-recording", thermal: "nominal", stoppedAt: ProcessInfo.processInfo.systemUptime,
+                requestedPreview: false, fallbackReason: nil)
+            check(pipeline, language, model)
+            XCTAssertTrue(pipeline.hasVoiceTranslationSpeech, pipeline.voiceFields.speechNotice ?? "Missing TTS")
+            let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+            defer { try? FileManager.default.removeItem(at: directory) }
+            let speech = try XCTUnwrap(pipeline.copyVoiceTranslationSpeech(into: directory))
+            XCTAssertGreaterThan(try AVAudioFile(forReading: speech).length, 0)
+        }
+        await pipeline.unload(); pipeline.clearTemporarySpeech()
+    }
+    @MainActor func testPreviewResolvesActualLanguageBeforeTranslation() async throws {
+        let pipeline = try await prepare(.index9B)
+        let audio = try fixture("ru")
+        XCTAssertTrue(pipeline.beginRecordingPreview(source: nil, target: .english, speakResult: false,
+            snapshot: { range in CapturedAudio(samples: Array(audio.samples[range])) }))
+        pipeline.offerRecordingBoundary(audio.samples.count)
+        // Finish joins actual ASR/MT preview work; no mocked transcript or translation.
+        await pipeline.runRecording(audio: audio, speechEnd: audio.samples.count, source: nil, target: .english,
+            speakResult: false, inputMode: "synthetic-preview", thermal: "nominal", stoppedAt: ProcessInfo.processInfo.systemUptime,
+            requestedPreview: true, fallbackReason: nil)
+        check(pipeline, .russian, .opusBig)
+        XCTAssertGreaterThan(pipeline.samples.last?.previewBlocks ?? 0, 0)
+        XCTAssertEqual(pipeline.samples.last?.processingMode, "during-recording")
+        await pipeline.unload(); pipeline.clearTemporarySpeech()
+    }
+    @MainActor func testMicrophoneDetectsPeerSpeechAndSwitchesAutoModels() async throws {
+        let pipeline = try await prepare()
+        let recorder = AudioRecorder(); recorderToCancel = recorder
+        for (language, model) in [(SpeechLanguage.german, TranslationModel.index9B), (.russian, .opusBig)] {
+            await pipeline.preloadRecognition(source: nil)
+            try await recorder.start(silenceSeconds: 60, limitMinutes: 1)
+            print("KAT_IPHONE_MIC_READY", language.rawValue); fflush(stdout)
+            try await Task.sleep(for: .seconds(25))
+            let audio = try await recorder.stop()
+            XCTAssertGreaterThan(audio.samples.map(abs).max() ?? 0, 0.005, "Peer speaker must reach microphone")
+            await pipeline.runRecording(audio: audio, speechEnd: recorder.finalSpeechEnd, source: nil, target: .english,
+                speakResult: false, inputMode: "physical-microphone", thermal: "nominal", stoppedAt: ProcessInfo.processInfo.systemUptime,
+                requestedPreview: false, fallbackReason: nil)
+            check(pipeline, language, model)
+        }
+        await pipeline.unload(); pipeline.clearTemporarySpeech()
+    }
+    /// Host copies only synthetic fixture commands into this test-owned temporary directory.
+    @MainActor func testSpeakerForPixelMicrophone() async throws {
+        let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("KatVoicePeerTest")
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let session = AVAudioSession.sharedInstance()
+        try session.setCategory(.playback, mode: .spokenAudio); try session.setActive(true)
+        defer { try? session.setActive(false) }
+        print("KAT_IPHONE_SPEAKER_READY"); fflush(stdout)
+        for number in 0..<3 {
+            let command = directory.appendingPathComponent("\(number).txt")
+            let deadline = Date().addingTimeInterval(120)
+            while !FileManager.default.fileExists(atPath: command.path), Date() < deadline { try await Task.sleep(for: .milliseconds(200)) }
+            let language = try String(contentsOf: command).trimmingCharacters(in: .whitespacesAndNewlines)
+            XCTAssertTrue(["ru", "de"].contains(language))
+            let url = try XCTUnwrap(Bundle.main.url(forResource: "sherpa-onnx-supertonic-3-tts-int8-2026-05-11-" + language, withExtension: "m4a"))
+            let player = try AVAudioPlayer(contentsOf: url); player.volume = 1
+            XCTAssertTrue(player.play())
+            while player.isPlaying { try await Task.sleep(for: .milliseconds(100)) }
+            print("KAT_IPHONE_SPEAKER_DONE", number, language); fflush(stdout)
+        }
+    }
+}

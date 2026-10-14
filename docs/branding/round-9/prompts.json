@@ -1,0 +1,31 @@
+{
+  "tool": "built-in image_gen",
+  "referenceImages": [],
+  "direction": "User explicitly requests random divergent exploration; no single style selected.",
+  "variants": [
+    {
+      "file": "stamp.png",
+      "prompt": "Use case: logo-brand. One bold experimental logo for 'kat translator'. Random exploration direction: raw underground print-studio stamp. Oversized ultra-condensed lowercase word 'kat', black chunky woodtype, dramatically narrow tall k and t, compact fat a. All three letters fit in a near-square footprint, slightly irregular ink edges but essentially clean solid silhouettes. A small tilted acid-yellow rectangular block behind the lower right corner, adding deliberate tension. Tiny plain 'translator' underneath outside the symbol. White background, generous margins, stark graphic composition. Grown-up irreverent independent brand, not luxury, not a tech startup. No cat, no mascot, no illustration, no presentation board, no mockup, no 3D, no shadows, no additional text. One memorable logo centered."
+    },
+    {
+      "file": "pixel.png",
+      "prompt": "Use case: logo-brand. Generate one extremely simple pixel-art logo symbol for kat translator. Direction: a mischievous punctuation glyph from a forgotten 1980s handheld computer, built on a strict coarse 12 by 12 pixel grid. Two chunky square brackets facing each other but offset one pixel vertically, enclosing a single small square cursor. Compact asymmetrical silhouette, witty restrained glitch character, perfectly square sharp pixels, not smooth. Bright chartreuse glyph on uniform deep midnight-blue field. Below symbol put tiny crisp pixel lowercase 'kat'. No cats, no face, no robot, no sticker, no complex circuitry, no QR code, no gaming scene, no 3D, no texture, no gradient, no glow, no mockup. Symbol occupies center half of square canvas with generous margins. Original highly reduced graphic identity."
+    },
+    {
+      "file": "calligraphy.png",
+      "prompt": "Use case: logo-brand. A single minimal black calligraphic logo for kat translator, completely unlike geometric tech logos. The lowercase word 'kat' drawn with three fast confident broad-nib ink gestures in an elegant contemporary expressive hand. Horizontal composition, dynamic large k, small open a, tall t whose crossbar flows smoothly across the composition, sculptural thick-to-thin contrast. Clearly legible actual letters, no flourishes beyond one intentional sweeping terminal. Feeling of a personal note written while travelling, spontaneous but expertly balanced. Pure warm white square background, ink black, no other color. Tiny neutral sans serif 'translator' beneath the lettering. Original compact memorable lettering, not generic brush-script font. No cat or mascot, no monogram, no frame, no artwork around logo, no pencil sketch, no messy splatters, no mockup. Plenty of blank space."
+    },
+    {
+      "file": "abstract.png",
+      "prompt": "Use case: logo-brand. One surprising joyful abstract logo for 'kat translator'. Build a compact off-kilter sculptural emblem from exactly three fat organic flat shapes: a cobalt-blue bent oval, a coral-red curved wedge and a butter-yellow small square, interacting like a playful visual conversation. Large clean negative-space hole through the center. A balance of Japanese modern graphic design and Memphis playfulness, but radically simplified to a real logo, not a poster. Strong asymmetrical silhouette, smooth confident contours, no outlines. Place tiny lowercase black 'kat' well below the symbol in quiet chunky typography. Plain ivory background, generous blank margins. No cat, no animal, no face, no arrows, no speech bubbles, no globe, no decorative pattern, no thin lines, no gradients, no 3D, no texture, no presentation mockup. Fresh expressive abstract icon."
+    },
+    {
+      "file": "optical.png",
+      "prompt": "Use case: logo-brand. Create one striking minimal optical-art logo for kat translator. A compact black symbol built of exactly five broad parallel curved bands, each a slightly different length, arranged into an unexpected folded fan silhouette suggesting a voice changing direction. Not a rainbow: bands turn through a sharp shared diagonal hinge, producing a geometric folded-paper optical illusion in flat black and white. The form is clean, sophisticated, slightly strange, like an experimental 1970s cultural institution mark. Thick bands, wide white gaps, visually balanced small-icon-ready shape. Main symbol in top center and small word 'kat' in an austere black lowercase monospaced type underneath. White square background, large margins. No cats, faces, globes, speech balloons, arrows, infinity loop, letters inside symbol, texture, color, gradient, shadow or mockup. Only one emblem and one kat word."
+    },
+    {
+      "file": "glass.png",
+      "prompt": "Use case: logo-brand. One experimental contemporary app icon concept for 'kat translator', no text. A simple sculptural lowercase k formed from three inflated soft glassy tubes, compact and chunky, rounded terminals. Material: translucent icy mint glass with a subtle pearlescent lilac edge, beautiful thick volume with a clear readable silhouette. The upright stem is straight; the two diagonal arms form a crisp k junction, no extra loops. Rich uniform near-black plum square background. The k floats front-facing with only a slight perspective, studio softbox highlights, restrained luminous reflections. Modern tactile digital identity, very simple geometry, not a toy character, not an illustration. Fill central 60 percent with generous blank border, no tile frame, no captions, no other icons, no sparkles, no cats, no face, no sticker outlines, no surrounding objects. Strong small-icon legibility, luxurious yet playful."
+    }
+  ]
+}

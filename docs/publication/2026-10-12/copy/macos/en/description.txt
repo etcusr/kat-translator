@@ -1,0 +1,25 @@
+Kat translator helps you translate speech, text and words in images on your device. Choose your languages, download the models you need and translate without an internet connection.
+
+SPEAK AND LISTEN
+Record a phrase, stop recording and get a translation. Download a voice to hear the result in supported languages. Your original recording and the spoken translation are available separately.
+
+TRANSLATE TEXT
+Type or paste text, choose a direction and copy the result. Language search and favourites keep your preferred pairs close at hand. Longer text is processed in sections.
+
+READ WORDS IN IMAGES
+Open an image file, paste an image from the clipboard or select an area of your screen. Kat recognises supported text and displays the translation on the image.
+
+CHOOSE MODELS AND VOICES
+The compact OPUS model translates between English and Russian, Ukrainian or Belarusian. Index offers a broader selection of text languages and needs more memory. Download voices separately and listen to a sample before choosing.
+
+KEEP USEFUL RESULTS
+Save translations in local history. Manage retention for text, audio and images, copy results and share them through your device's share menu.
+
+ON-DEVICE PROCESSING
+Offline translation using local models on your device. Internet access is needed for the initial download and for downloading additional models.
+
+Voice input, speech output and image recognition depend on the language, model and device. Packages can take several gigabytes of storage, and Index needs substantial memory. Translations may contain errors. Check important numbers, names and conditions against the original.
+
+Russian and English interface languages.
+
+On Mac, translate selected text or clipboard content with keyboard shortcuts, use the menu bar item and import audio files up to 30 minutes long. Requires a Mac with Apple silicon.

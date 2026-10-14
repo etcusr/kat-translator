@@ -1,0 +1,4 @@
+{
+  global: Java_org_openoffline_translator_inference_OpusNative_*;
+  local: *;
+};

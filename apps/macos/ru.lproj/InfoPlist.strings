@@ -1,0 +1,4 @@
+"NSMicrophoneUsageDescription" = "Запись речи для локального распознавания на Mac. Голос не отправляется на сервер.";
+"Translate in Kat translator" = "Перевести в Kat translator";
+
+"NSScreenCaptureUsageDescription" = "Снимок выбранной области экрана для распознавания и перевода текста на Mac. Изображение не отправляется на сервер.";

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "models": [
+    {
+      "id": "ppocr-v5-mobile-det",
+      "title": "OCR · Быстрый поиск текста · mobile",
+      "remoteURL": "https://www.modelscope.cn/models/RapidAI/RapidOCR/resolve/v3.10.0/onnx/PP-OCRv5/det/ch_PP-OCRv5_det_mobile.onnx",
+      "byteCount": 4819576,
+      "sha256": "4d97c44a20d30a81aad087d6a396b08f786c4635742afc391f6621f5c6ae78ae",
+      "license": "Apache-2.0",
+      "sourceURL": "https://github.com/RapidAI/RapidOCR/blob/main/python/rapidocr/default_models.yaml",
+      "platforms": [
+        "android"
+      ]
+    },
+    {
+      "id": "ppocr-v5-det",
+      "title": "OCR · Поиск текста · server (88 МБ)",
+      "remoteURL": "https://huggingface.co/monkt/paddleocr-onnx/resolve/7b02d0a30a07ba2b92ad1ff5a8941ae2c633de65/detection/v5/det.onnx",
+      "byteCount": 88030804,
+      "sha256": "61824840edf6e74581898930b8091b1b2318f4b2705a2e8a40ad3de7ac480133",
+      "license": "Apache-2.0",
+      "sourceURL": "https://huggingface.co/monkt/paddleocr-onnx/tree/7b02d0a30a07ba2b92ad1ff5a8941ae2c633de65/detection/v5",
+      "platforms": [
+        "android"
+      ]
+    }
+  ]
+}

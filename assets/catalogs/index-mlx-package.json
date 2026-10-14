@@ -1,0 +1,58 @@
+[
+  {
+    "id": "index-mlx-model-safetensors",
+    "path": "model.safetensors",
+    "remoteURL": "https://huggingface.co/rariruluis/Index-Translate-9B-MLX-4bit-MTP/resolve/60fdfb05568b8a370cf0d95b0959fd8ac9877533/model.safetensors?download=true",
+    "byteCount": 5223280226,
+    "sha256": "cdd9bfb2fa7471edb8616b4cb42c2b68bc3b502e5dbde1ba21d8fa9c584ebd05"
+  },
+  {
+    "id": "index-mlx-config-json",
+    "path": "config.json",
+    "remoteURL": "https://huggingface.co/rariruluis/Index-Translate-9B-MLX-4bit-MTP/resolve/60fdfb05568b8a370cf0d95b0959fd8ac9877533/config.json?download=true",
+    "byteCount": 2741,
+    "sha256": "fa8a56873cf965eaabbca9a142cec6ff0e8c5ddac3dace954d66e0db3028cb72"
+  },
+  {
+    "id": "index-mlx-tokenizer-json",
+    "path": "tokenizer.json",
+    "remoteURL": "https://huggingface.co/rariruluis/Index-Translate-9B-MLX-4bit-MTP/resolve/60fdfb05568b8a370cf0d95b0959fd8ac9877533/tokenizer.json?download=true",
+    "byteCount": 19989325,
+    "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523"
+  },
+  {
+    "id": "index-mlx-tokenizer_config-json",
+    "path": "tokenizer_config.json",
+    "remoteURL": "https://huggingface.co/rariruluis/Index-Translate-9B-MLX-4bit-MTP/resolve/60fdfb05568b8a370cf0d95b0959fd8ac9877533/tokenizer_config.json?download=true",
+    "byteCount": 1164,
+    "sha256": "a778ef4fe2a8be4e55782abdaa66dcf66ba7e96828940150607264420fb3a7cf"
+  },
+  {
+    "id": "index-mlx-generation_config-json",
+    "path": "generation_config.json",
+    "remoteURL": "https://huggingface.co/rariruluis/Index-Translate-9B-MLX-4bit-MTP/resolve/60fdfb05568b8a370cf0d95b0959fd8ac9877533/generation_config.json?download=true",
+    "byteCount": 100,
+    "sha256": "5b2e05bd687ce6eb52f8beff6d9dc98a0fb1e02ce8898062869218d17264220f"
+  },
+  {
+    "id": "index-mlx-model-safetensors-index-json",
+    "path": "model.safetensors.index.json",
+    "remoteURL": "https://huggingface.co/rariruluis/Index-Translate-9B-MLX-4bit-MTP/resolve/60fdfb05568b8a370cf0d95b0959fd8ac9877533/model.safetensors.index.json?download=true",
+    "byteCount": 83549,
+    "sha256": "3aa3d264edc9d049fe09c5fba0043cb1f348a52d6141b92f399c0bb9111d8cd7"
+  },
+  {
+    "id": "index-mlx-chat_template-jinja",
+    "path": "chat_template.jinja",
+    "remoteURL": "https://huggingface.co/rariruluis/Index-Translate-9B-MLX-4bit-MTP/resolve/60fdfb05568b8a370cf0d95b0959fd8ac9877533/chat_template.jinja?download=true",
+    "byteCount": 7756,
+    "sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+  },
+  {
+    "id": "index-mlx-LICENSE",
+    "path": "LICENSE",
+    "remoteURL": "https://huggingface.co/rariruluis/Index-Translate-9B-MLX-4bit-MTP/resolve/60fdfb05568b8a370cf0d95b0959fd8ac9877533/LICENSE?download=true",
+    "byteCount": 11358,
+    "sha256": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c"
+  }
+]

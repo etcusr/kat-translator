@@ -1,0 +1,1 @@
+Translate speech, text and words in images on your device. Download the models first, then translate offline.

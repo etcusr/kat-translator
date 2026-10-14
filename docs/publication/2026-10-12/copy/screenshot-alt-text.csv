@@ -1,0 +1,21 @@
+file,locale,alt_text
+assets/store/android-ru-01.png,ru,Голосовой режим Kat на Android с выбранными русским и английским языками.
+assets/store/android-ru-02.png,ru,Поиск и избранные языки в Kat на Android.
+assets/store/android-ru-03.png,ru,Каталог моделей OPUS и Index и управление загрузкой в Kat на Android.
+assets/store/android-ru-04.png,ru,Настройки управления записью и распознавания речи на Android.
+assets/store/ios-ru-01.png,ru,Экран голосового перевода Kat на iPhone с кнопкой микрофона.
+assets/store/ios-ru-02.png,ru,Текстовый перевод с русского на английский: просьба не закрывать окно и время поезда.
+assets/store/ios-ru-03.png,ru,Список четырёх языков компактной модели OPUS на iPhone.
+assets/store/ios-ru-04.png,ru,Развёрнутое чтение английского оригинала на iPhone.
+assets/store/macos-ru-01.png,ru,Текстовый перевод с английского на русский в окне Kat на Mac.
+assets/store/macos-ru-02.png,ru,Режим изображений Kat на Mac: открытие файла и вставка из буфера.
+assets/store/android-en-01.png,en,Kat voice mode on Android with Russian and English selected.
+assets/store/android-en-02.png,en,Language search and favourites in Kat on Android.
+assets/store/android-en-03.png,en,OPUS and Index model catalogue and downloads in Kat on Android.
+assets/store/android-en-04.png,en,Recording controls and speech recognition settings on Android.
+assets/store/ios-en-01.png,en,Kat voice translation on iPhone with a microphone button.
+assets/store/ios-en-02.png,en,Russian to English translation with a request to keep a window open and a train departure time.
+assets/store/ios-en-03.png,en,The four languages available in the compact OPUS model on iPhone.
+assets/store/ios-en-04.png,en,Expanded reading view of an English original on iPhone.
+assets/store/macos-en-01.png,en,English to Russian text translation in Kat on Mac.
+assets/store/macos-en-02.png,en,Kat Image mode on Mac with file and clipboard input.

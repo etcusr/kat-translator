@@ -1,0 +1,330 @@
+[
+  {
+    "id": "vits-piper-ca_ES-upc_ona-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ca/ca_ES/upc_ona/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "2961b53af17c66971b3ebe3b174566a16ae6e9302997eed111a7d2b1954d31fd",
+    "bytes": 296,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-cy_GB-bu_tts-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/cy/cy_GB/bu_tts/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "b6dea17117b4dba58b6e836616ab639fb21c154e6045414cf4cb855b4d71299c",
+    "bytes": 295,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-eu_ES-maider-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/eu/eu_ES/maider/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "bb7f284582ddd497f500b5275e2bd4f06031f483a63b0f5367dae18c9ae214ff",
+    "bytes": 310,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-fa_IR-amir-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/fa/fa_IR/amir/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "0d7d315699945ac830162f82d485d79af51a33081a7649e8992726bd4bba2384",
+    "bytes": 264,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "piper-hy_AM-gor-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/hy/hy_AM/gor/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "8aa657540385acbc6e651185eb60f162a9317ab1cce1d50ab08f9604975c401b",
+    "bytes": 269,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-is_IS-ugla-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/is/is_IS/ugla/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "7ebe554f5261950caa98624a3758a3b37371a8101ec532836e99018925c6ddca",
+    "bytes": 240,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-ka_GE-natia-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ka/ka_GE/natia/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "67224b9fa87999fc78c8289305f40348941423c5ad3fd1f1baefb2be0b8a6c18",
+    "bytes": 288,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-kk_KZ-issai-high",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/kk/kk_KZ/issai/high/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "1b0704348a17a5f84fba84caa20d14a116eea9953bb9bc147ada4234d18687a2",
+    "bytes": 237,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-ku_TR-berfin_renas-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ku/ku_TR/berfin_renas/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "9c65915ac8c7e3536e322fb8f3f4b285e2e007068588def12eaac815e3bed615",
+    "bytes": 3756,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-lb_LU-marylux-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/lb/lb_LU/marylux/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "613dc86e24d7ebd06ca1a91b04584636528a25fad1ba62318ff5622211b1dc10",
+    "bytes": 330,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-ml_IN-arjun-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ml/ml_IN/arjun/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "0115bfc12e2b7d9cc28b43e2ebc746e402b6ed867c619ae61bc80d0427a95c83",
+    "bytes": 308,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-ne_NP-chitwan-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ne/ne_NP/chitwan/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "127e85643329612dbebd7a071dd0f69a03439ceecdec5b637ed8641379b4ba00",
+    "bytes": 276,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-no_NO-talesyntese-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/no/no_NO/talesyntese/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "0a03b201db00e1bdc384e2dee4f8710075ef8d32ca3c64ed16782b04d2605f6c",
+    "bytes": 312,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-sq_AL-edon-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/sq/sq_AL/edon/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "3849de03579aaeabf996ca2e08792ee457f8d55bd473332cd0d7684fc728cfb0",
+    "bytes": 280,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-sr_RS-serbski_institut-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/sr/sr_RS/serbski_institut/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "1ed2209d4d01b359416f17772c6c11272bdb59359d0b0b076e31a5ccb87446ac",
+    "bytes": 343,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-sw_CD-lanfrica-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/sw/sw_CD/lanfrica/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "763a444ca0e205ac08bd3bf3a4d3d44da58f56d244a145adf22eb0a863638ab2",
+    "bytes": 315,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "piper-te_IN-maya-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/te/te_IN/maya/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "fe0a4b70db1f6c952df23492ed1fe6c09a85a2b0df3df5f8975dbf2d84f07992",
+    "bytes": 318,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-ur_PK-fasih-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ur/ur_PK/fasih/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "0d6419e74f99fdb0240180fc26067e2f71cff465c61b59e218a7cf53351cf91f",
+    "bytes": 3017,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-ru_RU-denis-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ru/ru_RU/denis/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "8b5d685dd80f8ad3f8dbbe1c56b16bb0809f00c144af3642dbcf3b707eb89c12",
+    "bytes": 276,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-ru_RU-irina-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ru/ru_RU/irina/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "f4fc2deb0e8c6219f29202b8dd06c9638c5ffd50ad5c6b2c90cf1aa59d507593",
+    "bytes": 271,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-en_US-ljspeech-high",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/en/en_US/ljspeech/high/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "289f7421072d689a3d91f6c632f486af46f9b8b04417536104a4ea667b8a394b",
+    "bytes": 513,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-en_US-lessac-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/en/en_US/lessac/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "ce49eb457742208166d399a40cdec2c7fa9db77960930031564ab56f12882645",
+    "bytes": 351,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "vits-piper-zh_CN-huayan-medium",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/zh/zh_CN/huayan/medium/MODEL_CARD",
+    "retrieved": "2026-10-12",
+    "sha256": "25d7d8f7a03e9382e629c5c4f074176e7ca84e08be12a873022e91fcac98c2c7",
+    "bytes": 276,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "index-gguf",
+    "url": "https://huggingface.co/IndexTeam/Index-Translate-9B-GGUF/resolve/d01404384ba429b93f5f63d43573812d103b5bcd/README.md",
+    "retrieved": "2026-10-12",
+    "sha256": "6be5e9be8593b67389409c7a17b0313924b4b7da80b82b937e6b59c3c8f78879",
+    "bytes": 5733,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "index-mlx",
+    "url": "https://huggingface.co/rariruluis/Index-Translate-9B-MLX-4bit-MTP/resolve/60fdfb05568b8a370cf0d95b0959fd8ac9877533/README.md",
+    "retrieved": "2026-10-12",
+    "sha256": "45356503dbc36ceb7da10f6b0092a2100d9a9685c3522bb0c7b4182c719dddc0",
+    "bytes": 5152,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "supertonic",
+    "url": "https://huggingface.co/Supertone/supertonic-3/resolve/main/README.md",
+    "retrieved": "2026-10-12",
+    "sha256": "d414e4b085fb9989ebfd2b64f868ff861694022b4bdb805b09e702386dbdc7d5",
+    "bytes": 9189,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "wayu",
+    "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/README.md",
+    "retrieved": "2026-10-12",
+    "sha256": "a2d3997464aa8a88be394f24926129a3ea09de2858a6deef2271d776bcd487e8",
+    "bytes": 1590,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "omni",
+    "url": "https://huggingface.co/k2-fsa/OmniVoice/resolve/main/README.md",
+    "retrieved": "2026-10-12",
+    "sha256": "b5d645a1874baa96a460a0e3a7d5a262811d682d04ce235878a16d5fed287fd3",
+    "bytes": 9424,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "parakeet",
+    "url": "https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3/resolve/main/README.md",
+    "retrieved": "2026-10-12",
+    "sha256": "7a4306a43f395e3a716e77f1d81c03db18a0a355d7b566bb1d6307213ba0302b",
+    "bytes": 42888,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "opus-en-zle",
+    "url": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-zle/resolve/708be1d372fe4c358a352f404e6dc9ca0126ba48/README.md",
+    "retrieved": "2026-10-12",
+    "sha256": "20a1bf8e91021f5aae1b271c633fbb70319acce47206292f0063f39db1cb67f9",
+    "bytes": 10310,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "mms",
+    "url": "https://huggingface.co/facebook/mms-tts-eng/resolve/main/README.md",
+    "retrieved": "2026-10-12",
+    "sha256": "8fee1e3884f8b7493d5c7ec8138d5af5c0b78fd11f0f142a2f08dc58de5e3d5f",
+    "bytes": 4002,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "sherpa-license",
+    "url": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf/LICENSE",
+    "retrieved": "2026-10-12",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "bytes": 11358,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "giga-license",
+    "url": "https://raw.githubusercontent.com/salute-developers/GigaAM/main/LICENSE",
+    "retrieved": "2026-10-12",
+    "sha256": "f00de6715714c7a63d08639cdbfaa40224eefc407302614bd19f1a8b98c875aa",
+    "bytes": 1070,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "lessac-terms",
+    "url": "https://www.cstr.ed.ac.uk/projects/blizzard/2013/lessac_blizzard2013/license.html",
+    "retrieved": "2026-10-12",
+    "sha256": "d5dd0f418d9e321b76c2126dad37ca5c362d10a933b315e9f33913216df8457f",
+    "bytes": 31131,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "ig-ugla",
+    "url": "https://repository.clarin.is/repository/xmlui/handle/20.500.12537/104",
+    "retrieved": "2026-10-12",
+    "sha256": "fa4c6972604f9487ca7cbc8b1c56beffa9e0c554aecbbb1c33df5594de702fcc",
+    "bytes": 500000,
+    "scope": "first 500000 bytes only"
+  },
+  {
+    "id": "sherpa-cmake",
+    "url": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf/cmake/piper-phonemize.cmake",
+    "retrieved": "2026-10-12",
+    "sha256": "b062750c938e4f4e778b9c0605a250f4abebdf17656c0d654fbace43a800258b",
+    "bytes": 2456,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "omlx-license",
+    "url": "https://raw.githubusercontent.com/jundot/omlx/4d4f5a280bc1739ba2cf39c1cee44fd5cc89cb40/LICENSE",
+    "retrieved": "2026-10-12",
+    "sha256": "de69b4352c9952cd5f0f4b8cb4584782a07f02c9ba82aeb5d496aa2b7fe5457d",
+    "bytes": 10768,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "supertonic-license",
+    "url": "https://huggingface.co/Supertone/supertonic-3/resolve/main/LICENSE",
+    "retrieved": "2026-10-12",
+    "sha256": "0d944a9110fed9a9602d60e0423a272903e7bd21ab060490774efc77c2275e9f",
+    "bytes": 15007,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "ultra-card",
+    "url": "https://huggingface.co/FluidInference/parakeet-ultra-coreml/resolve/95eaa59a39d4394f047a4dc5cce480388a60d1b6/README.md",
+    "retrieved": "2026-10-12",
+    "sha256": "9e9e26b6da628a0dc34b9c55f2029e486fc02304ccd7f83825333572ae11c158",
+    "bytes": 2235,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "omnilingual-card",
+    "url": "https://raw.githubusercontent.com/facebookresearch/omnilingual-asr/main/README.md",
+    "retrieved": "2026-10-12",
+    "sha256": "8462bbca4935ffab8745b047fe6baab9b0329805818e58a926f0f7306af410fd",
+    "bytes": 13928,
+    "scope": "downloaded response"
+  },
+  {
+    "id": "piper-repo-card",
+    "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/README.md",
+    "retrieved": "2026-10-12",
+    "sha256": "33e93643fce5180886300f9f0070eeeab8af148efb8e84361f8904def80fd9fb",
+    "bytes": 497,
+    "scope": "downloaded response"
+  }
+]

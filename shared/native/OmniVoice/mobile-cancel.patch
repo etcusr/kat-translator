@@ -1,0 +1,41 @@
+diff --git a/src/maskgit-tts.h b/src/maskgit-tts.h
+index 2fbbe5a..ed0dda7 100644
+--- a/src/maskgit-tts.h
++++ b/src/maskgit-tts.h
+@@ -21,6 +21,10 @@
+ #include <vector>
+ 
+ struct MaskgitConfig {
++    // App cancellation is checked between diffusion steps, not only long chunks.
++    ov_cancel_cb cancel = nullptr;
++    void * cancel_user_data = nullptr;
++    bool * cancel_triggered = nullptr;
+     int      num_step             = 32;
+     float    guidance_scale       = 2.0f;
+     float    t_shift              = 0.1f;
+@@ -176,6 +180,11 @@ static std::vector<int32_t> maskgit_generate(PipelineTTS *         pt,
+                                       S);
+ 
+     for (int step = 0; step < cfg.num_step; step++) {
++        if (cfg.cancel && cfg.cancel(cfg.cancel_user_data)) {
++            if (cfg.cancel_triggered) *cfg.cancel_triggered = true;
++            pipeline_tts_llm_batched_ctx_free(pt, &batched_ctx);
++            return {};
++        }
+         int k_demask = sched[step];
+         if (k_demask <= 0) {
+             continue;
+diff --git a/src/pipeline-tts.cpp b/src/pipeline-tts.cpp
+index 42c8ab8..fdde8bd 100644
+--- a/src/pipeline-tts.cpp
++++ b/src/pipeline-tts.cpp
+@@ -1434,6 +1434,9 @@ ov_status pipeline_tts_synthesize(PipelineTTS *         pt,
+     // disables polling; triggered starts at false and flips on the first
+     // poll that returns true.
+     tts_cancel cc = { params->cancel, params->cancel_user_data, false };
++    mg_cfg.cancel = params->cancel;
++    mg_cfg.cancel_user_data = params->cancel_user_data;
++    mg_cfg.cancel_triggered = &cc.triggered;
+ 
+     // Encode the optional raw reference once, before any synthesis. has_raw
+     // false leaves the struct empty with ref_rms_for_postproc=-1, routing the

@@ -1,0 +1,8 @@
+{
+  "format": "PCM16 mono WAV",
+  "text": "Do not cancel the entire order. The train leaves at five forty-five.",
+  "source": "scripts/validation/speech-smoke.c synthetic Piper LJ Speech fixture; no user recording",
+  "voicePackage": "vits-piper-en_US-ljspeech-high",
+  "sha256": "3d8e76f6b53ff50e95a342137e66f75bae17288ea28dcd6794fad2ae1106daab",
+  "bytes": 196140
+}

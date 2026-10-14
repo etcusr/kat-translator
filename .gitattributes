@@ -1,0 +1,4 @@
+
+# Preserve shipped resources byte-for-byte (catalog hashes may depend on them).
+assets/bundled/** -text
+*.bat text eol=crlf

@@ -1,0 +1,13 @@
+# Imported official CPython Android runtime; stdlib and frontend are APK assets.
+set(KAT_PYTHON "${KAT_ROOT}/.build/android-media/python/prefix")
+if(NOT EXISTS "${KAT_PYTHON}/lib/libpython3.14.so")
+ message(FATAL_ERROR "Run scripts/android/setup-wayu.py")
+endif()
+foreach(lib python3.14 ssl_python crypto_python sqlite3_python)
+ string(REPLACE "." "_" target "kat_${lib}")
+ add_library(${target} SHARED IMPORTED)
+ set_target_properties(${target} PROPERTIES IMPORTED_LOCATION "${KAT_PYTHON}/lib/lib${lib}.so")
+ target_link_libraries(kat_media PRIVATE ${target})
+endforeach()
+target_sources(kat_media PRIVATE "${CMAKE_CURRENT_LIST_DIR}/wayu_jni.cpp" "${CMAKE_CURRENT_LIST_DIR}/wayu_frontend_android.c" "${KAT_ROOT}/shared/native/app/Speech/WayuSpeechRuntime.c")
+target_include_directories(kat_media PRIVATE "${KAT_PYTHON}/include/python3.14")

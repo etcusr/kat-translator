@@ -1,0 +1,30 @@
+{
+  "tool": "built-in image_gen",
+  "referenceImages": [],
+  "variants": [
+    {
+      "file": "kt-angular.png",
+      "prompt": "Use case: logo-brand. ONE minimalist kt monogram logo exploration for kat translator. Style A: angular architectural ligature. Fuse lowercase k and t into one compact purposeful mark built from bold straight vertical strokes and exact 45-degree diagonals. The diagonal arm of k joins the crossbar of t intelligently, with one sharply cut triangular negative space. Squared terminals, no rounded corners, tight compact proportions, distinguishable k and t, excellent optical balance. Flat solid black mark on perfectly uniform white square canvas, centered within middle 55 percent with generous margins. Professional custom typographic symbol, strong memorable silhouette, Swiss graphic rigor. Exactly one mark; no separate wordmark or labels. NO cat, no ears, no eyes, no mascot, no decorative symbol, no gradients, no shadows, no texture, no 3D, no mockup. Avoid simply setting kt in a font; letters must share designed structural strokes."
+    },
+    {
+      "file": "kt-rounded.png",
+      "prompt": "Use case: logo-brand. ONE minimalist custom kt monogram logo for kat translator. Style B: soft compact interlocking typographic ligature, almost circular overall proportions. Two lowercase letters k and t built from thick smooth rounded tubular strokes with pill-shaped endpoints. k has short curving arms, t has a short broad crossbar and a rounded hooked foot; carefully interlock at center while retaining a clear open separation. Friendly functional modern app brand. Deliberately short squat letters, not tall vertical stems, not triangular negative-space angular monogram. Uniform generous stroke widths, simple fluid forms, excellent optical balance. Flat solid black symbol on plain uniform white square background. Centered within middle 55 percent, ample margins. NO extra text, no animals, no ears, no face, no sticker, no outline bubble, no gradient, no shadow, no 3D, no texture, no mockup. ONE original monogram, geometrically clean."
+    },
+    {
+      "file": "kt-negative.png",
+      "prompt": "Create one refined minimalist monogram logo for an offline translator named kat translator. Only the lowercase letters k and t, cleverly fused and carved as WHITE NEGATIVE SPACE into a compact solid BLACK rounded-square geometric block, centered on pure white background. The two letters must remain decipherable, sharing a stem and using one unexpected clean geometric incision. Strong deliberate silhouette, exceptionally simple, confident Swiss graphic identity, optically balanced, substantial white margins. Flat vector-like artwork, strictly black and white. No cats, ears, animals, mascots, faces, speech bubbles, arrows, gradients, shadows, textures, mockups, captions, wordmarks or extra typography. One symbol only, square image. Differentiate this from ordinary letters printed on a badge: the letter cutouts should determine the outer geometry in places."
+    },
+    {
+      "file": "kt-line.png",
+      "prompt": "Design a single distinctive minimalist typographic monogram for kat translator. Interwoven lowercase k and t drawn as a continuous medium-weight black monoline ribbon on pure white. Airy elegant construction, generous open counters, deliberate over-under interruption at just one crossing. Compact balanced silhouette. The letters share structure but are recognizable as kt; not a conventional font, not a knot with many loops. Swiss modernist graphic design with a subtle playful twist. Only black and white, crisp flat vector-like contours, no shading, no gradients, no texture, no cats or animals, no speech bubbles, no arrows, no enclosing badge, no mockup, no accompanying words. Center one symbol on a square canvas with generous white margins."
+    },
+    {
+      "file": "kat-compact.png",
+      "prompt": "A single bespoke abstract typographic monogram combining K A T for the brand kat translator. Build a compact clever near-square architectural symbol by overlapping and sharing the structural strokes of uppercase K, A and T, NOT three letters side by side. Bold geometric modular forms, straight lines, clean diagonal cuts, a small triangular negative-space counter revealing the A, T crossbar as the top of the composition. Inspired by modernist book publisher marks and experimental typographic ligatures. Strong silhouette and legibility at small scale, no unnecessary detail. Pure black ink on pure white square background, centered with large margins, flat vector appearance. No cats, ears, animals, faces, stickers, arrows, speech bubbles, gradients, texture, mockups, labels or additional text. One standalone monogram only."
+    },
+    {
+      "file": "kt-serif.png",
+      "prompt": "Design one minimal yet characterful editorial KT monogram for kat translator. Two uppercase letters K and T interlock tightly into one compact typographic emblem. Custom elegant chunky wedge serifs and contrasting thick and thin strokes, with a slight italic forward lean and one restrained sweeping diagonal on K that elegantly meets the foot of T. Contemporary literary magazine identity meets playful independent software brand. Make it distinctive and readable, no ornament beyond the letterforms themselves, no frame. Pure black on pure white, flat vector-like graphic, one centered mark with generous white margins in a square composition. Absolutely no cats or animals, no stickers, no speech bubbles or arrows, no shading, gradients, gold, textures, mockups, accompanying text or labels."
+    }
+  ]
+}

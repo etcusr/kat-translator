@@ -1,0 +1,285 @@
+--- a/Shared/CatProgressDrawing.swift
++++ b/Shared/CatProgressDrawing.swift
+@@ -3,18 +3,40 @@
+ import OfflineCore
+ #endif
+ 
++/// Shared app/widget palette, derived from the neon app icon.
++enum KatTheme {
++    static let accent = Color(red: 0.79, green: 0.98, blue: 0.20)
++    static let background = Color.black
++    static let surface = Color(red: 0.105, green: 0.09, blue: 0.16)
++    static let border = Color(red: 0.23, green: 0.20, blue: 0.31)
++}
++#if !CAT_WIDGET
++extension View {
++    func katScreenSurface() -> some View {
++        self.scrollContentBackground(.hidden)
++            .background(KatTheme.background)
++            .toolbarBackground(KatTheme.background, for: .navigationBar)
++            .tint(KatTheme.accent)
++    }
++}
++#endif
++
+ /// Small vector character: all gestures are decorative and never change byte progress.
+ enum CatCoat: CaseIterable {
+-    case tuxedo, ginger, silver, black
++    case tuxedo, ginger, silver, black, neon
+ }
+ 
+ struct CatProgressDrawing: View {
+     var motion: CatProgressMotion
+-    var coat: CatCoat = .tuxedo
++    var coat: CatCoat = .neon
+     @Environment(\.colorScheme) private var scheme
+     var body: some View {
+         Canvas { context, size in
+             context.scaleBy(x: size.width / 80, y: size.height / 64)
++            if coat == .neon {
++                drawNeonCat(context: &context, motion: motion)
++                return
++            }
+             let fur: Color
+             let shade: Color
+             let patch: Color
+@@ -31,6 +53,8 @@
+                 fur = Color(red: 0.70, green: 0.76, blue: 0.80)
+                 shade = Color(red: 0.43, green: 0.50, blue: 0.56)
+                 patch = Color(red: 0.29, green: 0.35, blue: 0.41)
++            case .neon:
++                fur = KatTheme.accent; shade = KatTheme.border; patch = KatTheme.surface
+             case .black:
+                 fur = Color(red: 0.32, green: 0.34, blue: 0.38)
+                 shade = Color(red: 0.24, green: 0.26, blue: 0.30)
+@@ -127,3 +151,51 @@
+         }
+     }
+ }
++
++/// The logo's lime outline, pointed ears and tiny eyes, with articulated walking legs.
++private func drawNeonCat(context: inout GraphicsContext, motion: CatProgressMotion) {
++    let s = motion.standing, t = motion.animationTime
++    let gait = motion.stride * s
++    let bounce = motion.phase == .walking ? abs(gait) * (0.6 + motion.running) : 0
++    context.translateBy(x: 0, y: -bounce - motion.leap * 8)
++    func mix(_ a: Double, _ b: Double) -> Double { a + (b - a) * s }
++    func line(_ points: [CGPoint], opacity: Double = 1, width: Double = 2.6) {
++        var p = Path(); p.addLines(points)
++        context.stroke(p, with: .color(KatTheme.accent.opacity(opacity)), style: StrokeStyle(lineWidth: width, lineCap: .round, lineJoin: .round))
++    }
++    var tail = Path()
++    tail.move(to: CGPoint(x: mix(34, 24), y: 44))
++    tail.addCurve(to: CGPoint(x: 11 + sin(t * 1.6) * 2, y: mix(34, 24)), control1: CGPoint(x: 7, y: 61), control2: CGPoint(x: 4, y: 40))
++    context.stroke(tail, with: .color(KatTheme.accent), style: StrokeStyle(lineWidth: 3, lineCap: .round))
++    for (hip, foot, phase) in [(mix(34, 25), mix(32, 21), -1.0), (51.0, 50.0, 1.0)] {
++        line([CGPoint(x: hip, y: 41), CGPoint(x: foot + gait * 6 * phase, y: 54), CGPoint(x: foot + gait * 6 * phase + 4, y: 54)], opacity: 0.78)
++    }
++    let body = Path(ellipseIn: CGRect(x: mix(29, 20), y: mix(29, 32), width: mix(29, 39), height: mix(29, 19)))
++    context.fill(body, with: .color(KatTheme.surface))
++    context.stroke(body, with: .color(KatTheme.accent), lineWidth: 2.6)
++    for (hip, foot, phase) in [(mix(42, 30), mix(43, 31), 1.0), (56.0, 59.0, -1.0)] {
++        let lift = motion.leap * 4 + max(0, gait * phase) * 2
++        line([CGPoint(x: hip, y: 43), CGPoint(x: foot + gait * 6 * phase, y: 58 - lift), CGPoint(x: foot + gait * 6 * phase + 5, y: 58 - lift)])
++    }
++    let x = mix(44, 52), y = mix(21, 26)
++    var head = Path()
++    head.move(to: CGPoint(x: x - 12, y: y - 2))
++    head.addLine(to: CGPoint(x: x - 10, y: y - 17))
++    head.addQuadCurve(to: CGPoint(x: x - 6, y: y - 17), control: CGPoint(x: x - 9, y: y - 20))
++    head.addLine(to: CGPoint(x: x, y: y - 10))
++    head.addLine(to: CGPoint(x: x + 8, y: y - 10))
++    head.addLine(to: CGPoint(x: x + 13, y: y - 17))
++    head.addQuadCurve(to: CGPoint(x: x + 17, y: y - 16), control: CGPoint(x: x + 16, y: y - 20))
++    head.addLine(to: CGPoint(x: x + 21, y: y - 2))
++    head.addQuadCurve(to: CGPoint(x: x + 12, y: y + 14), control: CGPoint(x: x + 25, y: y + 13))
++    head.addLine(to: CGPoint(x: x - 2, y: y + 14))
++    head.addQuadCurve(to: CGPoint(x: x - 12, y: y - 2), control: CGPoint(x: x - 17, y: y + 13))
++    head.closeSubpath()
++    context.fill(head, with: .color(KatTheme.surface))
++    context.stroke(head, with: .color(KatTheme.accent), style: StrokeStyle(lineWidth: 2.6, lineJoin: .round))
++    let blink = t.truncatingRemainder(dividingBy: 4.6) > 4.35
++    for eye in [x - 3, x + 10] {
++        context.fill(Path(ellipseIn: CGRect(x: eye, y: y + 1, width: 3.8, height: blink ? 1 : 5.5)), with: .color(KatTheme.accent))
++    }
++    line([CGPoint(x: x + 3, y: y + 9), CGPoint(x: x + 5, y: y + 10), CGPoint(x: x + 7, y: y + 9)], width: 1.6)
++}
+--- a/App/Conversation/ConversationView.swift
++++ b/App/Conversation/ConversationView.swift
+@@ -26,7 +26,7 @@
+     @State private var showReport = false
+     @State private var originalExpanded = false
+     init(model: AppModel) { self.model = model; session = model.session; recorder = model.recorder; packages = model.packages; history = model.history }
+-    private let accent = Color(red: 0.27, green: 0.87, blue: 0.76)
++    private let accent = KatTheme.accent
+     private var speechBusy: Bool { session.isBusy || recorder.isRecording || recorder.starting || model.preparingRecording || model.finishing || model.changingTranslation }
+     private var busy: Bool { speechBusy || model.usingCamera }
+     private var showWizard: Bool {
+@@ -126,7 +126,7 @@
+                     .onChange(of: input) { _, _ in originalExpanded = false }
+                 }
+                 }
+-            }.background(LinearGradient(colors: [Color(red: 0.045, green: 0.08, blue: 0.12), .black], startPoint: .topLeading, endPoint: .bottomTrailing))
++            }.background(KatTheme.background)
+                 .safeAreaInset(edge: .bottom, spacing: 0) {
+                     VStack(spacing: 0) {
+                         if let progress = session.translationProgress,
+--- a/App/Audio/RecordButton.swift
++++ b/App/Audio/RecordButton.swift
+@@ -13,7 +13,7 @@
+     let start: () -> Void
+     let stop: () -> Void
+     @State private var input = RecordingInputState(mode: .hold)
+-    private let accent = Color(red: 0.27, green: 0.87, blue: 0.76)
++    private let accent = KatTheme.accent
+     private var face: some View {
+         ZStack {
+             Circle().fill(recording ? Color.red.opacity(0.15) : accent.opacity(0.12))
+--- a/App/Camera/CameraView.swift
++++ b/App/Camera/CameraView.swift
+@@ -72,7 +72,7 @@
+                         .padding().background(.black.opacity(0.85), in: RoundedRectangle(cornerRadius: 12))
+                 }
+             }.frame(width: geometry.size.width, height: geometry.size.height)
+-        }.background(.black).preferredColorScheme(.dark).tint(Color(red: 0.27, green: 0.87, blue: 0.76))
++        }.background(.black).preferredColorScheme(.dark).tint(KatTheme.accent)
+         .sheet(isPresented: $showOCR) {
+             NavigationStack {
+                 Form {
+--- a/App/Models/LanguageSetupView.swift
++++ b/App/Models/LanguageSetupView.swift
+@@ -76,7 +76,7 @@
+                     }
+                 }.padding(20)
+             }
+-            .navigationTitle(L10n.text("Ваши языки")).navigationBarTitleDisplayMode(.inline)
++            .katScreenSurface().navigationTitle(L10n.text("Ваши языки")).navigationBarTitleDisplayMode(.inline)
+             .toolbar { Button(L10n.text("Позже")) { dismiss() }.disabled(applying) }
+             .safeAreaInset(edge: .bottom) {
+                 VStack(spacing: 8) {
+@@ -99,7 +99,7 @@
+                     }
+                 }.frame(maxWidth: .infinity).padding().background(.regularMaterial)
+             }
+-        }.interactiveDismissDisabled(packages.downloadingAll).preferredColorScheme(.dark).tint(Color(red: 0.2, green: 0.84, blue: 0.73))
++        }.interactiveDismissDisabled(packages.downloadingAll).preferredColorScheme(.dark).tint(KatTheme.accent)
+     }
+     private func names(_ values: [SpeechLanguage]) -> String { values.map { TranslationLanguage.name($0.rawValue) }.joined(separator: ", ") }
+     private func languageColumn(primary: Bool) -> some View {
+--- a/App/Models/CatDownloadProgressView.swift
++++ b/App/Models/CatDownloadProgressView.swift
+@@ -12,7 +12,7 @@
+     @State private var motion = CatProgressMotion(progress: 0, now: 0)
+     // The long-lived animation task must read State, not its initial View snapshot.
+     @State private var latestFraction = 0.0
+-    @State private var coat = CatCoat.allCases.randomElement() ?? .tuxedo
++    @State private var coat = CatCoat.neon
+     private var fraction: Double {
+         guard total.isFinite, total > 0, value.isFinite else { return 0 }
+         return min(1, max(0, value / total))
+@@ -27,7 +27,7 @@
+                     .offset(x: max(0, geometry.size.width - 68) * motion.position)
+             }.frame(height: 54).accessibilityHidden(true)
+             ProgressView(value: fraction, total: 1)
+-                .tint(Color(red: 0.83, green: 0.88, blue: 0.12))
++                .tint(KatTheme.accent)
+                 .accessibilityLabel(label ?? L10n.text("Загрузка"))
+                 .accessibilityValue(fraction.formatted(.percent.precision(.fractionLength(0))))
+         }
+@@ -62,7 +62,7 @@
+     @Environment(\.scenePhase) private var scenePhase
+     @State private var motion = CatProgressMotion(progress: 0.08, now: 0)
+     @State private var forward = true
+-    @State private var coat = CatCoat.allCases.randomElement() ?? .tuxedo
++    @State private var coat = CatCoat.neon
+     private var animating: Bool { !reduceMotion && scenePhase == .active }
+ 
+     var body: some View {
+--- a/DownloadActivity/DownloadActivityWidget.swift
++++ b/DownloadActivity/DownloadActivityWidget.swift
+@@ -6,7 +6,7 @@
+     var body: some Widget { ModelDownloadActivity() }
+ }
+ struct ModelDownloadActivity: Widget {
+-    private let accent = Color(red: 0.20, green: 0.84, blue: 0.73)
++    private let accent = KatTheme.accent
+     var body: some WidgetConfiguration {
+         ActivityConfiguration(for: DownloadActivityAttributes.self) { context in
+             VStack(alignment: .leading, spacing: 6) {
+@@ -26,7 +26,7 @@
+                     Text(context.attributes.staleMessage).font(.caption2).foregroundStyle(.secondary)
+                 }
+             }.padding(12)
+-                .activityBackgroundTint(Color(red: 0.07, green: 0.10, blue: 0.12))
++                .activityBackgroundTint(KatTheme.background)
+                 .activitySystemActionForegroundColor(.white)
+                 .foregroundStyle(.white)
+                 .widgetURL(URL(string: "openoffline://downloads"))
+@@ -68,12 +68,12 @@
+         VStack(spacing: 2) {
+             GeometryReader { geometry in
+                 CatProgressDrawing(motion: CatProgressMotion(progress: progress, now: 0),
+-                                   coat: CatCoat.allCases[min(CatCoat.allCases.count - 1, max(0, coatIndex))])
++                                   coat: .neon)
+                     .frame(width: catWidth, height: catHeight)
+                     .offset(x: max(0, geometry.size.width - catWidth) * progress)
+                     .animation(reduceMotion ? nil : .easeInOut(duration: 0.7), value: progress)
+             }.frame(height: catHeight).accessibilityHidden(true)
+-            ProgressView(value: progress).tint(Color(red: 0.83, green: 0.88, blue: 0.12))
++            ProgressView(value: progress).tint(KatTheme.accent)
+         }
+     }
+ }
+--- a/App/Conversation/LanguagePairPicker.swift
++++ b/App/Conversation/LanguagePairPicker.swift
+@@ -122,7 +122,7 @@
+                     ForEach(matches.filter { !favorites.contains($0.id) }) { language in languageRow(language) }
+                 }
+             }
+-            .navigationTitle(side == .source ? L10n.text("Исходный язык") : L10n.text("Язык перевода"))
++            .katScreenSurface().navigationTitle(side == .source ? L10n.text("Исходный язык") : L10n.text("Язык перевода"))
+             .navigationBarTitleDisplayMode(.inline)
+             .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always), prompt: L10n.text("Название или код языка"))
+             .navigationDestination(item: $voiceLanguage) { language in
+--- a/App/Settings/SettingsView.swift
++++ b/App/Settings/SettingsView.swift
+@@ -55,7 +55,7 @@
+                                 Text(recognitionTitle(choice)).foregroundStyle(.primary)
+                                 Spacer()
+                                 if recognitionPreference == choice {
+-                                    Image(systemName: "checkmark").foregroundStyle(.tint)
++                                    Image(systemName: "checkmark").foregroundStyle(KatTheme.accent)
+                                 }
+                             }.frame(minHeight: 28).contentShape(Rectangle())
+                         }.buttonStyle(.plain)
+--- a/App/Models/ModelsView.swift
++++ b/App/Models/ModelsView.swift
+@@ -111,7 +111,7 @@
+                     Text(L10n.text("Приостановленную загрузку можно продолжить, если сервер сохранил данные. Изменение мобильной сети применяется только к новой загрузке. Выбор, скачивание и удаление голосов доступны в настройках → Голоса и образцы."))
+                         .font(.footnote).foregroundStyle(.secondary)
+                 }
+-            }.navigationTitle(L10n.text("Модели"))
++            }.katScreenSurface().navigationTitle(L10n.text("Модели"))
+                 .toolbar { Button(L10n.text("Готово")) { dismiss() } }
+                 .fullScreenCover(isPresented: $showLanguageSetup) { LanguageSetupView(model: model) }
+                 .sheet(item: $details) { choice in
+@@ -134,7 +134,7 @@
+                                 Text(L10n.text("Размер файла — место в хранилище, а не расход RAM. При работе нужна дополнительная память для перевода, распознавания и озвучки. Общая RAM телефона не равна лимиту приложения."))
+                                 Text(L10n.text("Рекомендация предварительная: учитывает общий объём RAM и наши проверки, но не гарантирует стабильность при любой нагрузке. На непроверенном устройстве начните с короткой фразы."))
+                             }
+-                        }.navigationTitle(choice.title).navigationBarTitleDisplayMode(.inline)
++                        }.katScreenSurface().navigationTitle(choice.title).navigationBarTitleDisplayMode(.inline)
+                             .toolbar { Button(L10n.text("Готово")) { details = nil }.accessibilityIdentifier("model.info.close") }
+                     }
+                 }
+--- a/App/History/HistoryView.swift
++++ b/App/History/HistoryView.swift
+@@ -38,7 +38,7 @@
+                         Button(L10n.text("Удалить запись"), role: .destructive) { deleting = entry }
+                     }
+                 }
+-            }.navigationTitle(L10n.text("История переводов"))
++            }.katScreenSurface().navigationTitle(L10n.text("История переводов"))
+                 .toolbar { Button(L10n.text("Готово")) { dismiss() } }
+                 .task { await history.refresh() }
+                 .onDisappear { history.stopPlayback() }

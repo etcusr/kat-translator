@@ -1,0 +1,35 @@
+{
+  "tool": "built-in image_gen",
+  "referenceImages": [],
+  "styleResearch": [
+    "https://www.creativebloq.com/features/mid-century-modern-graphic-design-a-designers-guide",
+    "https://www.monotype.com/studio/portfolio/amstledok",
+    "https://ibrandstudio.com/inspiration/retrofuturism-logo-design-concepts"
+  ],
+  "variants": [
+    {
+      "file": "midcentury-symbol.png",
+      "prompt": "Create a fresh logo concept for kat translator, an independent offline language translator. Direction: mid-century modern cut-paper poster graphics. A single compact abstract symbol of two mismatched interlocking quotation marks, one vermilion red and one black, offset with witty asymmetrical tension yet balanced. Big simple shapes with subtly hand-cut edges. The negative space where they meet resembles a small lightning-like gap suggesting a quick exchange. Warm ivory plain background, bold instantly memorable silhouette. NO letters, NO animals, NO cats, NO faces, NO speech bubble outlines, NO stickers. No shadows, no 3D, no gradients, no paper texture, no presentation mockups. Flat two-color vector-like logo with plenty of breathing room, centered square composition, only one logo. Original design, do not reproduce any existing brand."
+    },
+    {
+      "file": "midcentury-wordmark.png",
+      "prompt": "Create one expressive yet simple logo wordmark reading exactly 'kat' with small 'translator' beneath. Direction: mid-century modern cut-paper typography, independent art-house film titles, witty editorial design. Three chunky lowercase black letters made of slightly irregular hand-cut shapes, oversized round a counter, a slightly tilting t as if making a dry sarcastic remark. A small vermilion rectangular accent above the t crossbar, integrated with the lettering. Dense compact wordmark, strong rhythmic silhouette and lovely optical spacing. Warm ivory background, centered with huge margins, two flat inks black and vermilion. Small translator line in restrained legible sans serif. No cats, no characters, no stickers, no monogram, no shadows, no gradient, no textures, no mockup. Fresh original graphic logo, not a copy of an existing brand."
+    },
+    {
+      "file": "modular-symbol.png",
+      "prompt": "Design one minimalist modular digital SYMBOL for kat translator offline language app. A square-grid sign composed of only 8 to 12 chunky equal square blocks, two interlocking staggered bracket shapes implying two people exchanging words. Small stepped white corridor between them. Solid electric cobalt blue, plain white background. Geometric playful computational identity, like an inventive early computer glyph; precise orthogonal rhythm, compact chunky shape and meaningful negative space. Absolutely not a QR code, not a checkerboard, not a medical cross, not arrows, not a letter monogram, not a face. No cats, no stickers, no gradients, no shadows, no 3D, no thin details. One icon centered large with ample margins. Flat vector-like artwork. No accompanying text."
+    },
+    {
+      "file": "modular-wordmark.png",
+      "prompt": "Create an original modular typographic logo reading exactly lowercase 'kat' for kat translator. Build the three letters from a rigorous kit of fat rectangular stems, quarter circles and large circular counters; surprising experimental Dutch graphic-design construction, compressed widths, rhythmic rectangular outer silhouette. Letters are individual yet fit together like a clever puzzle. Electric cobalt blue on white. Beneath place tiny understated black monospaced text 'translator'. Aim for distinctive well-designed contemporary arts institution logo with a computational character, not a normal font and not a KT monogram. Highly legible actual word kat. Flat vector-like contours with clean geometry. No animals, characters, decorative icons, arrows, gradients, shadows, 3D, mockups or surrounding layout. One logo centered on square canvas, generous white margins."
+    },
+    {
+      "file": "retrofuture-symbol.png",
+      "prompt": "Create a single original retrofuturist logo SYMBOL for kat translator, an offline voice translation app. Concept: two voices tuning into one another. Two broad smooth parallel U-shaped tracks interlock upside-down relative to one another, forming a compact continuous standing-wave emblem with only 3 or 4 bold strokes. Feel of a beautifully designed 1970s audio equipment badge or space-age transit symbol, understated rather than sci-fi illustration. Soft square curves, balanced near-square silhouette, intentional negative-space channels. Flat vivid tangerine orange symbol on uniform deep aubergine background. Very simple, graphic and highly legible at small sizes. No letters, no cats, no faces, no headphones, no literal microphone, no planet rings, no stars, no chrome, no shading, no gradients, no texture, no mockups. One centered emblem with generous surrounding space."
+    },
+    {
+      "file": "retrofuture-wordmark.png",
+      "prompt": "Design a custom retrofuturist wordmark reading exactly lowercase 'kat' for an offline translator brand. A compact connected soft-square display type construction inspired by optimistic 1970s industrial design, not a regular font. Wide low rounded letters, streamlined horizontal rhythm, each letter formed by two parallel cream tracks with narrow aubergine channels. The a should have a clean rectangular counter and k should stay legible with smooth branching diagonals. Small orange square period following kat. Underneath tiny widely spaced cream sans serif 'translator'. Background uniform deep aubergine purple. Beautifully restrained nostalgic audio-equipment identity, bold enough for contemporary app branding. Flat solid colors, minimal geometric vector-like artwork, centered with large margins. No cats, mascots, stickers, literal audio equipment, chrome, gradients, textures, shadows, mockups or extra labels."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "hardware": "Apple M3 Pro",
+  "memory_bytes": 19327352832,
+  "os": "macOS 27.0.1 26A434",
+  "omlx_version": "0.7.0",
+  "omlx_commit": "4d4f5a280bc1739ba2cf39c1cee44fd5cc89cb40",
+  "mlx_version": "0.32.2",
+  "mlx_lm_commit": "94cdcae13b266c337bcaca09b97b9c5a9c0e2cde",
+  "transformers_version": "5.17.0",
+  "model_repo": "rariruluis/Index-Translate-9B-MLX-4bit-MTP",
+  "model_revision": "60fdfb05568b8a370cf0d95b0959fd8ac9877533",
+  "model_sha256": "cdd9bfb2fa7471edb8616b4cb42c2b68bc3b502e5dbde1ba21d8fa9c584ebd05",
+  "model_bytes": 5223280226,
+  "gguf_sha256": "9cc6758b0007f4cbf42ea3400768cbff91ae74ef8d640e467158348426d33713",
+  "gguf_runtime_sha256": "ee5b69c6338a549e85d40a67279a772ced26693b153d6bbbd2dbbfb0198d9a34",
+  "gguf_runtime_llama_commit": "d81235049384534c167caea52b85a694f6103d14",
+  "native_kernels_built": [
+    "qwen35_prefill",
+    "decode_fast"
+  ],
+  "corpus_source": ".build/iphone-index-mtp/probe/cases.json",
+  "draft_depth": 2,
+  "model_package": "assets/catalogs/index-mlx-package.json",
+  "minimum_macos": "26.2",
+  "minimum_packaged_macos": "27.0",
+  "packaged_minimum_reason": "Existing bundled liblzma.5.dylib has LC_BUILD_VERSION minos27.0"
+}

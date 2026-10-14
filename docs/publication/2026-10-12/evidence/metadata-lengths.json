@@ -1,0 +1,118 @@
+{
+  "ios/ru": {
+    "name": {
+      "characters": 14,
+      "limit": 30
+    },
+    "description": {
+      "characters": 1706,
+      "limit": 4000
+    },
+    "subtitle": {
+      "characters": 25,
+      "limit": 30
+    },
+    "promotional_text": {
+      "characters": 122,
+      "limit": 170
+    },
+    "keywords": {
+      "characters": 66,
+      "limit": 100
+    }
+  },
+  "ios/en": {
+    "name": {
+      "characters": 14,
+      "limit": 30
+    },
+    "description": {
+      "characters": 1694,
+      "limit": 4000
+    },
+    "subtitle": {
+      "characters": 30,
+      "limit": 30
+    },
+    "promotional_text": {
+      "characters": 109,
+      "limit": 170
+    },
+    "keywords": {
+      "characters": 72,
+      "limit": 100
+    }
+  },
+  "android/ru": {
+    "name": {
+      "characters": 14,
+      "limit": 30
+    },
+    "description": {
+      "characters": 1787,
+      "limit": 4000
+    },
+    "short_description": {
+      "characters": 64,
+      "limit": 80
+    }
+  },
+  "android/en": {
+    "name": {
+      "characters": 14,
+      "limit": 30
+    },
+    "description": {
+      "characters": 1769,
+      "limit": 4000
+    },
+    "short_description": {
+      "characters": 66,
+      "limit": 80
+    }
+  },
+  "macos/ru": {
+    "name": {
+      "characters": 14,
+      "limit": 30
+    },
+    "description": {
+      "characters": 1884,
+      "limit": 4000
+    },
+    "subtitle": {
+      "characters": 26,
+      "limit": 30
+    },
+    "promotional_text": {
+      "characters": 122,
+      "limit": 170
+    },
+    "keywords": {
+      "characters": 66,
+      "limit": 100
+    }
+  },
+  "macos/en": {
+    "name": {
+      "characters": 14,
+      "limit": 30
+    },
+    "description": {
+      "characters": 1911,
+      "limit": 4000
+    },
+    "subtitle": {
+      "characters": 30,
+      "limit": 30
+    },
+    "promotional_text": {
+      "characters": 109,
+      "limit": 170
+    },
+    "keywords": {
+      "characters": 72,
+      "limit": 100
+    }
+  }
+}

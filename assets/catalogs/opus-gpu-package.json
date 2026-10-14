@@ -1,0 +1,128 @@
+[
+  {
+    "id": "opus-gpu-en-zle-README-md",
+    "path": "en-zle/README.md",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-zle/resolve/708be1d372fe4c358a352f404e6dc9ca0126ba48/README.md?download=true",
+    "byteCount": 10310,
+    "sha256": "20a1bf8e91021f5aae1b271c633fbb70319acce47206292f0063f39db1cb67f9"
+  },
+  {
+    "id": "opus-gpu-en-zle-config-json",
+    "path": "en-zle/config.json",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-zle/resolve/708be1d372fe4c358a352f404e6dc9ca0126ba48/config.json?download=true",
+    "byteCount": 1076,
+    "sha256": "962d235879c9def4cfdf140be81436d4fb9da25271dd69079df2c90b459f1332"
+  },
+  {
+    "id": "opus-gpu-en-zle-generation_config-json",
+    "path": "en-zle/generation_config.json",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-zle/resolve/708be1d372fe4c358a352f404e6dc9ca0126ba48/generation_config.json?download=true",
+    "byteCount": 301,
+    "sha256": "d851d84c804c745d92dae5659bd2d8e8b976b664dd0fbc39b82ee88340147802"
+  },
+  {
+    "id": "opus-gpu-en-zle-model-safetensors",
+    "path": "en-zle/model.safetensors",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-zle/resolve/708be1d372fe4c358a352f404e6dc9ca0126ba48/model.safetensors?download=true",
+    "byteCount": 478977130,
+    "sha256": "e68caa9a233c177a3489257b69c18cece6da97767ab2581918ce3fc3c3899416"
+  },
+  {
+    "id": "opus-gpu-en-zle-source-spm",
+    "path": "en-zle/source.spm",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-zle/resolve/708be1d372fe4c358a352f404e6dc9ca0126ba48/source.spm?download=true",
+    "byteCount": 802747,
+    "sha256": "3612abfe04bf08344ba91115f0e15e228a7a15a621ea856bfd548097dbaeb43c"
+  },
+  {
+    "id": "opus-gpu-en-zle-special_tokens_map-json",
+    "path": "en-zle/special_tokens_map.json",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-zle/resolve/708be1d372fe4c358a352f404e6dc9ca0126ba48/special_tokens_map.json?download=true",
+    "byteCount": 65,
+    "sha256": "09059cedc26bc46bc09a52f05b92d4922e11917e87f3b92059bb1a63a59ab2c4"
+  },
+  {
+    "id": "opus-gpu-en-zle-target-spm",
+    "path": "en-zle/target.spm",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-zle/resolve/708be1d372fe4c358a352f404e6dc9ca0126ba48/target.spm?download=true",
+    "byteCount": 1017004,
+    "sha256": "22940e744b3a9fd166a04880938fb61f7dfa8ba4b5d2d3f6371a6c4ba8f3b019"
+  },
+  {
+    "id": "opus-gpu-en-zle-tokenizer_config-json",
+    "path": "en-zle/tokenizer_config.json",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-zle/resolve/708be1d372fe4c358a352f404e6dc9ca0126ba48/tokenizer_config.json?download=true",
+    "byteCount": 339,
+    "sha256": "41deeedfc0e3ce366d6bde180dee025a8ca1bcd62b1451889301e8ea4bcbb609"
+  },
+  {
+    "id": "opus-gpu-en-zle-vocab-json",
+    "path": "en-zle/vocab.json",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-en-zle/resolve/708be1d372fe4c358a352f404e6dc9ca0126ba48/vocab.json?download=true",
+    "byteCount": 2510527,
+    "sha256": "41dbdff4a0b5a6ab125715c3342c5ce6516e93ffd49608813240403f036c5efb"
+  },
+  {
+    "id": "opus-gpu-zle-en-README-md",
+    "path": "zle-en/README.md",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-en/resolve/09a40f722d6d8b76aaad6fe51a06c914622a13d1/README.md?download=true",
+    "byteCount": 9958,
+    "sha256": "14aba4bb0cd469abed60f0739dc848853b91851223fb63247e00b98a0dccf64d"
+  },
+  {
+    "id": "opus-gpu-zle-en-config-json",
+    "path": "zle-en/config.json",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-en/resolve/09a40f722d6d8b76aaad6fe51a06c914622a13d1/config.json?download=true",
+    "byteCount": 1076,
+    "sha256": "c3a0d99762cd5009ab0d9e793fab27b02a8362bb366191a58af677ea712c1263"
+  },
+  {
+    "id": "opus-gpu-zle-en-generation_config-json",
+    "path": "zle-en/generation_config.json",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-en/resolve/09a40f722d6d8b76aaad6fe51a06c914622a13d1/generation_config.json?download=true",
+    "byteCount": 301,
+    "sha256": "aeafe756fb795970bccbb7c16391b79f42a4f9c1d5f32bc6e36b45f17cfa5a35"
+  },
+  {
+    "id": "opus-gpu-zle-en-model-safetensors",
+    "path": "zle-en/model.safetensors",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-en/resolve/09a40f722d6d8b76aaad6fe51a06c914622a13d1/model.safetensors?download=true",
+    "byteCount": 477829130,
+    "sha256": "78608083ed48db06dd4b0afdb58b1ac7e2a3648b295fac58449c131c7bf0cc2c"
+  },
+  {
+    "id": "opus-gpu-zle-en-source-spm",
+    "path": "zle-en/source.spm",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-en/resolve/09a40f722d6d8b76aaad6fe51a06c914622a13d1/source.spm?download=true",
+    "byteCount": 1016851,
+    "sha256": "a982dbb9362861151e36b0db1595b324cd1ce09acf46ce1f4d6d624e11c5807f"
+  },
+  {
+    "id": "opus-gpu-zle-en-special_tokens_map-json",
+    "path": "zle-en/special_tokens_map.json",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-en/resolve/09a40f722d6d8b76aaad6fe51a06c914622a13d1/special_tokens_map.json?download=true",
+    "byteCount": 65,
+    "sha256": "09059cedc26bc46bc09a52f05b92d4922e11917e87f3b92059bb1a63a59ab2c4"
+  },
+  {
+    "id": "opus-gpu-zle-en-target-spm",
+    "path": "zle-en/target.spm",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-en/resolve/09a40f722d6d8b76aaad6fe51a06c914622a13d1/target.spm?download=true",
+    "byteCount": 802387,
+    "sha256": "e69faed7f1e60eec38c64cceba35cc4fb05ec6478082f4c8a14b141fd6596e9e"
+  },
+  {
+    "id": "opus-gpu-zle-en-tokenizer_config-json",
+    "path": "zle-en/tokenizer_config.json",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-en/resolve/09a40f722d6d8b76aaad6fe51a06c914622a13d1/tokenizer_config.json?download=true",
+    "byteCount": 339,
+    "sha256": "1c99d6f6250779f482836b8380d5fdcaa3ab8c7b6f332a6fcec1d8040eeb6c00"
+  },
+  {
+    "id": "opus-gpu-zle-en-vocab-json",
+    "path": "zle-en/vocab.json",
+    "remoteURL": "https://huggingface.co/Helsinki-NLP/opus-mt-tc-big-zle-en/resolve/09a40f722d6d8b76aaad6fe51a06c914622a13d1/vocab.json?download=true",
+    "byteCount": 2492486,
+    "sha256": "92148daf001ba378588442dfcdc7c4529210f2f28635ebc092faecf508190680"
+  }
+]

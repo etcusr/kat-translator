@@ -1,0 +1,3 @@
+// Machine-local signing selection; never commit a personal Team ID.
+// App and extension IDs are defined in scripts/generate-project.py.
+#include? "Signing.local.xcconfig"

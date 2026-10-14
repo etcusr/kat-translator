@@ -1,0 +1,1410 @@
+[
+  {
+    "language": "as",
+    "id": "mms-tts-asm-onnx",
+    "title": "Meta MMS · asm",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-asm",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/asm/model.onnx",
+        "byteCount": 114038532,
+        "sha256": "85860bce4cf4cc1b985e48b5916eadf27a684e2e35dbc9ccef71c98f2a43e285",
+        "id": "mms-tts-asm-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/asm/tokens.txt",
+        "byteCount": 440,
+        "sha256": "2f61bedac3482dffdd0c32c0346188726d6bdf0f99be24bd5b10bfecacd0b973",
+        "id": "mms-tts-asm-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "azb",
+    "id": "mms-tts-azb-onnx",
+    "title": "Meta MMS · azb",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-azb",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/azb/model.onnx",
+        "byteCount": 114017796,
+        "sha256": "fc51f19a8e439e1c97071ece9d31d413284c9e37df502606c4b35572af54f18c",
+        "id": "mms-tts-azb-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/azb/tokens.txt",
+        "byteCount": 221,
+        "sha256": "7d99eb2f7999b214619f3ca353cf90625895d7c6836b5006e2d2caf1978cd306",
+        "id": "mms-tts-azb-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "ba",
+    "id": "mms-tts-bak-onnx",
+    "title": "Meta MMS · bak",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-bak",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/bak/model.onnx",
+        "byteCount": 114023940,
+        "sha256": "55cb06d6ba00fa06631573a2874498bb6f9af2af66f4c759c45e03bbbf4b8257",
+        "id": "mms-tts-bak-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/bak/tokens.txt",
+        "byteCount": 503,
+        "sha256": "7a3a36199f2e970abe970e68047b63bfa146c4a9ee30ec8ecbd471aa12255a9c",
+        "id": "mms-tts-bak-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "bn",
+    "id": "mms-tts-ben-onnx",
+    "title": "Meta MMS · ben",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-ben",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/ben/model.onnx",
+        "byteCount": 114044676,
+        "sha256": "c67081369061e87ba302bfbc0445543c4c23c04133514b7d6c7be2710363bc42",
+        "id": "mms-tts-ben-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/ben/tokens.txt",
+        "byteCount": 480,
+        "sha256": "a74190ec42b8f0afb349276430c716f1b585090d8fe6d3c1d6d5fe510798a387",
+        "id": "mms-tts-ben-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "bo",
+    "id": "mms-tts-bod-onnx",
+    "title": "Meta MMS · bod",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-bod",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/bod/model.onnx",
+        "byteCount": 114033924,
+        "sha256": "42f8b9f0d07be4404d2890ed756ecd546295f35b64901c4eb954d29277458228",
+        "id": "mms-tts-bod-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/bod/tokens.txt",
+        "byteCount": 408,
+        "sha256": "5da038c72ddfcddd9d94a79fbcb5d0c9b3e60c1f1af37c054e3ec755c813035e",
+        "id": "mms-tts-bod-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "ca",
+    "id": "vits-piper-ca_ES-upc_ona-medium",
+    "title": "Piper · ca_ES-upc_ona-medium",
+    "license": "* License: CC BY-SA 3.0 ES",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ca/ca_ES/upc_ona/medium/MODEL_CARD",
+    "kind": "archive",
+    "parts": [
+      {
+        "remoteURL": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-ca_ES-upc_ona-medium.tar.bz2",
+        "byteCount": 67223188,
+        "sha256": "b6c50f22e13cfc72ce51c496d22b987adf6704047f6d342968197b4b0b3127a5",
+        "id": "vits-piper-ca_ES-upc_ona-medium",
+        "path": "archive"
+      }
+    ]
+  },
+  {
+    "language": "ceb",
+    "id": "mms-tts-ceb-onnx",
+    "title": "Meta MMS · ceb",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-ceb",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/ceb/model.onnx",
+        "byteCount": 114019332,
+        "sha256": "f050f64c06a7d3a09f462adb5be829ff3cb3f637e45df9ba82115aaf6e9a46ce",
+        "id": "mms-tts-ceb-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/ceb/tokens.txt",
+        "byteCount": 320,
+        "sha256": "d49961b05b65dfba32ad5dcee11a86db92c4650522d9daa102a117fd97fed7f1",
+        "id": "mms-tts-ceb-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "cnh",
+    "id": "mms-tts-cnh-onnx",
+    "title": "Meta MMS · cnh",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-cnh",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/cnh/model.onnx",
+        "byteCount": 114010884,
+        "sha256": "e58eb9f8ebfa84f4a039d9b408eeaae6cee8c81606aa59f8765e7930e915c03f",
+        "id": "mms-tts-cnh-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/cnh/tokens.txt",
+        "byteCount": 262,
+        "sha256": "9d43f218e54e520bcfb5eb73b27b9dbb1b9fb4fe053ac3170a79dec9fbef5c52",
+        "id": "mms-tts-cnh-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "cv",
+    "id": "mms-tts-chv-onnx",
+    "title": "Meta MMS · chv",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-chv",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/chv/model.onnx",
+        "byteCount": 114017796,
+        "sha256": "13273d4de878039a7c457a1a04662d23e845974e32d3a0b1beace5440c58f368",
+        "id": "mms-tts-chv-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/chv/tokens.txt",
+        "byteCount": 423,
+        "sha256": "b40d8d9351b6d9a36487a4233e687e528830a7be45fd65f743bc843b749176af",
+        "id": "mms-tts-chv-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "cy",
+    "id": "vits-piper-cy_GB-bu_tts-medium",
+    "title": "Piper · cy_GB-bu_tts-medium",
+    "license": "* License: CC-BY",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/cy/cy_GB/bu_tts/medium/MODEL_CARD",
+    "kind": "archive",
+    "parts": [
+      {
+        "remoteURL": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-cy_GB-bu_tts-medium.tar.bz2",
+        "byteCount": 80313215,
+        "sha256": "09e5fd87e68ff28ffa9fbfd58a0e307acb6a45c572db1d4c06ed98f01ff5fe6a",
+        "id": "vits-piper-cy_GB-bu_tts-medium",
+        "path": "archive"
+      }
+    ]
+  },
+  {
+    "language": "dv",
+    "id": "mms-tts-div-onnx",
+    "title": "Meta MMS · div",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-div",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/div/model.onnx",
+        "byteCount": 114028548,
+        "sha256": "02ca7770c5a73937de5244c57bb9ab49172d10a3f86bce903a9775952ac6c634",
+        "id": "mms-tts-div-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/div/tokens.txt",
+        "byteCount": 305,
+        "sha256": "1b034159a9076e69438ff296984bd56746f9f8f6eb628964940ea171683a5ad1",
+        "id": "mms-tts-div-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "eu",
+    "id": "vits-piper-eu_ES-maider-medium",
+    "title": "Piper · eu_ES-maider-medium",
+    "license": "* License: Creative Commons Attribution 4.0",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/eu/eu_ES/maider/medium/MODEL_CARD",
+    "kind": "archive",
+    "parts": [
+      {
+        "remoteURL": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-eu_ES-maider-medium.tar.bz2",
+        "byteCount": 67247291,
+        "sha256": "60493b81a7f117ea96b6efc841d7465c1d4107ea72ef553ff91f92f72fbd95c1",
+        "id": "vits-piper-eu_ES-maider-medium",
+        "path": "archive"
+      }
+    ]
+  },
+  {
+    "language": "fa",
+    "id": "vits-piper-fa_IR-amir-medium",
+    "title": "Piper · fa_IR-amir-medium",
+    "license": "* License: CC0",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/fa/fa_IR/amir/medium/MODEL_CARD",
+    "kind": "archive",
+    "parts": [
+      {
+        "remoteURL": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-fa_IR-amir-medium.tar.bz2",
+        "byteCount": 67180373,
+        "sha256": "46af65c1cdd86ec300db3998f2bf31a68d9e38da930c0655c1ff6f610e84f864",
+        "id": "vits-piper-fa_IR-amir-medium",
+        "path": "archive"
+      }
+    ]
+  },
+  {
+    "language": "fo",
+    "id": "mms-tts-fao-onnx",
+    "title": "Meta MMS · fao",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-fao",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/fao/model.onnx",
+        "byteCount": 114016260,
+        "sha256": "99816551c649c096960472bbfaa3a02024b9f8e7dddf8b3064a96d80a628e5a8",
+        "id": "mms-tts-fao-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/fao/tokens.txt",
+        "byteCount": 334,
+        "sha256": "c8dc90a2b1a238822c600dabdd3a8dfc3ca87a0e9dfee3caa05152ce668773a0",
+        "id": "mms-tts-fao-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "gu",
+    "id": "mms-tts-guj-onnx",
+    "title": "Meta MMS · guj",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-guj",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/guj/model.onnx",
+        "byteCount": 114033924,
+        "sha256": "6d9b4f268765e19b6620983bd698c5e4fa943309560b6c7b199b50a4aae30d47",
+        "id": "mms-tts-guj-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/guj/tokens.txt",
+        "byteCount": 402,
+        "sha256": "2d855f2affb7586cc6be095a4382eb0bee2a22242deda32c86aab6b1a810d8c4",
+        "id": "mms-tts-guj-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "ha",
+    "id": "mms-tts-hau-onnx",
+    "title": "Meta MMS · hau",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-hau",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/hau/model.onnx",
+        "byteCount": 114013956,
+        "sha256": "5ce225af7c0177e7387ad549a41bf29a9134fc9f12b9220025b31e91a7b28f32",
+        "id": "mms-tts-hau-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/hau/tokens.txt",
+        "byteCount": 304,
+        "sha256": "78b39313ddfc60be59cc12a957f11bf0f5dd4d1cdd3d5c16fe0bf3fae165d0c9",
+        "id": "mms-tts-hau-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "he",
+    "id": "mms-tts-heb-onnx",
+    "title": "Meta MMS · heb",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-heb",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/heb/model.onnx",
+        "byteCount": 114012420,
+        "sha256": "0ca8214041a8af3fa7765054ca73a825509a8e640e8fda0d72d4347563e3b178",
+        "id": "mms-tts-heb-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/heb/tokens.txt",
+        "byteCount": 179,
+        "sha256": "d376b756ea9f18037316c20fe16ed041e86153f31bb53dd4ac98c5fe89cf0b4c",
+        "id": "mms-tts-heb-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "hif",
+    "id": "mms-tts-hif-onnx",
+    "title": "Meta MMS · hif",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-hif",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/hif/model.onnx",
+        "byteCount": 114018564,
+        "sha256": "770f9be78709ce28f38a329a2575de3bacb53053bc9565c079d069565f0de6b7",
+        "id": "mms-tts-hif-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/hif/tokens.txt",
+        "byteCount": 347,
+        "sha256": "dabb96df28439880f54a8ceebf950aecb5f22d1f5b487f631cb567d5f7b0de29",
+        "id": "mms-tts-hif-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "hil",
+    "id": "mms-tts-hil-onnx",
+    "title": "Meta MMS · hil",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-hil",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/hil/model.onnx",
+        "byteCount": 114020100,
+        "sha256": "1785bba9da4d3e281951ead8833a2360733d347efb2a0cdbb02b103a4f7be55d",
+        "id": "mms-tts-hil-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/hil/tokens.txt",
+        "byteCount": 330,
+        "sha256": "d6c6f8140fe9eadf9d48a707b3f694918729fa81025c38cd7cf6bff160aa4539",
+        "id": "mms-tts-hil-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "ht",
+    "id": "mms-tts-hat-onnx",
+    "title": "Meta MMS · hat",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-hat",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/hat/model.onnx",
+        "byteCount": 114012420,
+        "sha256": "1f6e6164dd9ad518b149853a866f2fc646e111fa742d7a25b6ac9be807127654",
+        "id": "mms-tts-hat-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/hat/tokens.txt",
+        "byteCount": 284,
+        "sha256": "79e3717b32acb413d43cd28aa801222409fb3701f9515ff54eb7332372b1194c",
+        "id": "mms-tts-hat-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "hy",
+    "kind": "piper",
+    "id": "piper-hy_AM-gor-medium",
+    "parts": [
+      {
+        "id": "piper-hy_AM-gor-medium",
+        "path": "model.onnx",
+        "remoteURL": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/hy/hy_AM/gor/medium/hy_AM-gor-medium.onnx",
+        "byteCount": 63511038,
+        "sha256": "1c91fc33fecbbfc6b7921f9d11fd7487a859053a3a1987147f5c361155b89e7c"
+      }
+    ],
+    "title": "Piper · hy_AM-gor-medium",
+    "license": "* License: GPL 2.0",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/hy/hy_AM/gor/medium/MODEL_CARD",
+    "piperPreparation": {
+      "metadataSuffix": "chIKCm1vZGVsX3R5cGUSBHZpdHNyEAoHY29tbWVudBIFcGlwZXJyFAoIbGFuZ3VhZ2USCEFybWVuaWFucgsKBXZvaWNlEgJoeXIMCgd2ZXJzaW9uEgExcg8KCmhhc19lc3BlYWsSATFyDQoIaGFzX2cycHcSATByDwoKbl9zcGVha2VycxIBMXIUCgtzYW1wbGVfcmF0ZRIFMjIwNTA=",
+      "tokens": "  3\n! 4\n\" 150\n# 149\n$ 2\n' 5\n( 6\n) 7\n, 8\n- 9\n. 10\n0 130\n1 131\n2 132\n3 133\n4 134\n5 135\n6 136\n7 137\n8 138\n9 139\n: 11\n; 12\n? 13\nX 156\n^ 1\n_ 0\na 14\nb 15\nc 16\nd 17\ne 18\nf 19\ng 154\nh 20\ni 21\nj 22\nk 23\nl 24\nm 25\nn 26\no 27\np 28\nq 29\nr 30\ns 31\nt 32\nu 33\nv 34\nw 35\nx 36\ny 37\nz 38\næ 39\nç 40\nð 41\nø 42\nħ 43\nŋ 44\nœ 45\nǀ 46\nǁ 47\nǂ 48\nǃ 49\nɐ 50\nɑ 51\nɒ 52\nɓ 53\nɔ 54\nɕ 55\nɖ 56\nɗ 57\nɘ 58\nə 59\nɚ 60\nɛ 61\nɜ 62\nɞ 63\nɟ 64\nɠ 65\nɡ 66\nɢ 67\nɣ 68\nɤ 69\nɥ 70\nɦ 71\nɧ 72\nɨ 73\nɪ 74\nɫ 75\nɬ 76\nɭ 77\nɮ 78\nɯ 79\nɰ 80\nɱ 81\nɲ 82\nɳ 83\nɴ 84\nɵ 85\nɶ 86\nɸ 87\nɹ 88\nɺ 89\nɻ 90\nɽ 91\nɾ 92\nʀ 93\nʁ 94\nʂ 95\nʃ 96\nʄ 97\nʈ 98\nʉ 99\nʊ 100\nʋ 101\nʌ 102\nʍ 103\nʎ 104\nʏ 105\nʐ 106\nʑ 107\nʒ 108\nʔ 109\nʕ 110\nʘ 111\nʙ 112\nʛ 113\nʜ 114\nʝ 115\nʟ 116\nʡ 117\nʢ 118\nʦ 155\nʰ 145\nʲ 119\nˈ 120\nˌ 121\nː 122\nˑ 123\n˞ 124\nˤ 146\ñ 141\ņ 140\n̩ 144\n̪ 142\n̯ 143\n̺ 152\n̻ 153\nβ 125\nε 147\nθ 126\nχ 127\nᵻ 128\n↑ 151\n↓ 148\nⱱ 129\n"
+    }
+  },
+  {
+    "language": "hyw",
+    "id": "mms-tts-hyw-onnx",
+    "title": "Meta MMS · hyw",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-hyw",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/hyw/model.onnx",
+        "byteCount": 114019332,
+        "sha256": "6c5f7e68e57a73bef593ea5478a3739282a404932678023f355b047749cae17b",
+        "id": "mms-tts-hyw-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/hyw/tokens.txt",
+        "byteCount": 452,
+        "sha256": "0fe27672c6f879feeada7c5559a91478b58ec97070a683ab4620d4c179d56f16",
+        "id": "mms-tts-hyw-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "is",
+    "id": "vits-piper-is_IS-ugla-medium",
+    "title": "Piper · is_IS-ugla-medium",
+    "license": "* License: See URL",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/is/is_IS/ugla/medium/MODEL_CARD",
+    "kind": "archive",
+    "parts": [
+      {
+        "remoteURL": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-is_IS-ugla-medium.tar.bz2",
+        "byteCount": 67376655,
+        "sha256": "2d2295b13746758620ef02ee35294ff1096d94fd01cb055c53f70de17a222519",
+        "id": "vits-piper-is_IS-ugla-medium",
+        "path": "archive"
+      }
+    ]
+  },
+  {
+    "language": "jv",
+    "id": "mms-tts-jav-onnx",
+    "title": "Meta MMS · jav",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-jav",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/jav/model.onnx",
+        "byteCount": 114007812,
+        "sha256": "b54cdac4114c39564cd94987e62ed9506dae9cc440d6aab6e82c23addbc9f0b3",
+        "id": "mms-tts-jav-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/jav/tokens.txt",
+        "byteCount": 226,
+        "sha256": "bb92676f9376fbb68d9b686e77cacfd060199608b6f0e056fac964353c743184",
+        "id": "mms-tts-jav-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "ka",
+    "id": "vits-piper-ka_GE-natia-medium",
+    "title": "Piper · ka_GE-natia-medium",
+    "license": "* License: See LICENSE file",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ka/ka_GE/natia/medium/MODEL_CARD",
+    "kind": "archive",
+    "parts": [
+      {
+        "remoteURL": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-ka_GE-natia-medium.tar.bz2",
+        "byteCount": 67209457,
+        "sha256": "18e34c601f4be13e5132ec772e2cbcfa47ca6a4aaaf995dd5baefe014f5a0256",
+        "id": "vits-piper-ka_GE-natia-medium",
+        "path": "archive"
+      }
+    ]
+  },
+  {
+    "language": "kk",
+    "id": "vits-piper-kk_KZ-issai-high",
+    "title": "Piper · kk_KZ-issai-high",
+    "license": "* License:  CC-BY-4.0",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/kk/kk_KZ/issai/high/MODEL_CARD",
+    "kind": "archive",
+    "parts": [
+      {
+        "remoteURL": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-kk_KZ-issai-high.tar.bz2",
+        "byteCount": 129278805,
+        "sha256": "6c59955f7f5e3fc50b130ced59a430eb4ef62d69155af4ce836db0dde4a42682",
+        "id": "vits-piper-kk_KZ-issai-high",
+        "path": "archive"
+      }
+    ]
+  },
+  {
+    "language": "km",
+    "id": "mms-tts-khm-onnx",
+    "title": "Meta MMS · khm",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-khm",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/khm/model.onnx",
+        "byteCount": 114044676,
+        "sha256": "70acf4f024df6d6e742b6056d6e22e7632ebba8e11eab4e35a0d6f33bbf47189",
+        "id": "mms-tts-khm-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/khm/tokens.txt",
+        "byteCount": 503,
+        "sha256": "b15954d9cc8eb2aad3eb564dce826c1361152ef4b83ac5e784f5ee86929ec317",
+        "id": "mms-tts-khm-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "kn",
+    "id": "mms-tts-kan-onnx",
+    "title": "Meta MMS · kan",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-kan",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/kan/model.onnx",
+        "byteCount": 114045444,
+        "sha256": "9644cfa46c5802c4c2c8196f91eedc0cd54d46527bbc32589ebaf967ed07591f",
+        "id": "mms-tts-kan-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/kan/tokens.txt",
+        "byteCount": 487,
+        "sha256": "a4a44037f7492c9e5b69a4483250e54af9a2d528bd4e19de95a21ff0c5e82a8a",
+        "id": "mms-tts-kan-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "ku",
+    "id": "vits-piper-ku_TR-berfin_renas-medium",
+    "title": "Piper · ku_TR-berfin_renas-medium",
+    "license": "license: cc-by-nc-4.0; - **License:** [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) — free for non-commercial use with attribution; commercial use restricted due to [Blizzard 2013 base model](https://www.cstr.ed.ac.uk/projects/blizzard/2013/lessac_blizzard2013/license.html)",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ku/ku_TR/berfin_renas/medium/MODEL_CARD",
+    "kind": "archive",
+    "parts": [
+      {
+        "remoteURL": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-ku_TR-berfin_renas-medium.tar.bz2",
+        "byteCount": 80263336,
+        "sha256": "b72695bc6f1ac30eba67bc096c5cc5be0ddafac948efc3231f217d1c49b7cfaa",
+        "id": "vits-piper-ku_TR-berfin_renas-medium",
+        "path": "archive"
+      }
+    ]
+  },
+  {
+    "language": "ky",
+    "id": "mms-tts-kir-onnx",
+    "title": "Meta MMS · kir",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-kir",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/kir/model.onnx",
+        "byteCount": 114017028,
+        "sha256": "a2f06e9d3d878a2b73adad4d560edadf0d626d4e1e29b7c0e721ac5e2e207eeb",
+        "id": "mms-tts-kir-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/kir/tokens.txt",
+        "byteCount": 411,
+        "sha256": "7ae294618335285bcef6a10078053aa315a2403bfd763a196eba954e578bd53f",
+        "id": "mms-tts-kir-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "la",
+    "id": "mms-tts-lat-onnx",
+    "title": "Meta MMS · lat",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-lat",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/lat/model.onnx",
+        "byteCount": 114010116,
+        "sha256": "ca5f134ed33d66c80644c98d4d1e1367d17ea2779fe4a0a3529f4ac55c6dddaf",
+        "id": "mms-tts-lat-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/lat/tokens.txt",
+        "byteCount": 257,
+        "sha256": "37aadb2a616679d64b4e390b715f499093f7f41473a6a21e58348cc470667422",
+        "id": "mms-tts-lat-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "lb",
+    "id": "vits-piper-lb_LU-marylux-medium",
+    "title": "Piper · lb_LU-marylux-medium",
+    "license": "* License: http://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/lb/lb_LU/marylux/medium/MODEL_CARD",
+    "kind": "archive",
+    "parts": [
+      {
+        "remoteURL": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-lb_LU-marylux-medium.tar.bz2",
+        "byteCount": 67184319,
+        "sha256": "f11117fc121db0d5c4dc46e07eac7b1d8ea719b04f0b381836a23050310ea5a4",
+        "id": "vits-piper-lb_LU-marylux-medium",
+        "path": "archive"
+      }
+    ]
+  },
+  {
+    "language": "lo",
+    "id": "mms-tts-lao-onnx",
+    "title": "Meta MMS · lao",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-lao",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/lao/model.onnx",
+        "byteCount": 114027012,
+        "sha256": "4fe7b25f40804781e1f91340ce1183bba637f47d20a77a27aeff8eb3efbe77e5",
+        "id": "mms-tts-lao-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/lao/tokens.txt",
+        "byteCount": 339,
+        "sha256": "2efa143e564d865e23290e645adccecd3fc68cf880441f7276c34083da74891b",
+        "id": "mms-tts-lao-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "mg",
+    "id": "mms-tts-mlg-onnx",
+    "title": "Meta MMS · mlg",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-mlg",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/mlg/model.onnx",
+        "byteCount": 114010884,
+        "sha256": "14b608ff71fd2c2203f024782c1b65a977a75c8744f8a209807513cbb89a9f6d",
+        "id": "mms-tts-mlg-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/mlg/tokens.txt",
+        "byteCount": 273,
+        "sha256": "3820c57711dd3efd606524206de79451726b39e7c643179960e13d926c873321",
+        "id": "mms-tts-mlg-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "ml",
+    "id": "vits-piper-ml_IN-arjun-medium",
+    "title": "Piper · ml_IN-arjun-medium",
+    "license": "* License:  See URL",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ml/ml_IN/arjun/medium/MODEL_CARD",
+    "kind": "archive",
+    "parts": [
+      {
+        "remoteURL": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-ml_IN-arjun-medium.tar.bz2",
+        "byteCount": 67222458,
+        "sha256": "3058d098e8b1ffcdd6069e96b1d492f319333235912a627c309c7c54cea59acf",
+        "id": "vits-piper-ml_IN-arjun-medium",
+        "path": "archive"
+      }
+    ]
+  },
+  {
+    "language": "mn",
+    "id": "mms-tts-mon-onnx",
+    "title": "Meta MMS · mon",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-mon",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/mon/model.onnx",
+        "byteCount": 114036996,
+        "sha256": "53b6eff2ac8edec7d3b78bc4d58ca1c6cf122cf8315985201e7137886bb20d71",
+        "id": "mms-tts-mon-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/mon/tokens.txt",
+        "byteCount": 671,
+        "sha256": "db75e80d45eff194330b411cffe020e592a97ad786e6025568c5d8f34621261c",
+        "id": "mms-tts-mon-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "mr",
+    "id": "mms-tts-mar-onnx",
+    "title": "Meta MMS · mar",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-mar",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/mar/model.onnx",
+        "byteCount": 114043908,
+        "sha256": "046cecf7cca77680c9ca319953e777c8d0233ce78e9b55a47aa909edf87d99e8",
+        "id": "mms-tts-mar-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/mar/tokens.txt",
+        "byteCount": 490,
+        "sha256": "4d968029d0754b41633cb0871cce6796a5ab3d3bc2b9b91c5721cfdf85156083",
+        "id": "mms-tts-mar-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "my",
+    "id": "mms-tts-mya-onnx",
+    "title": "Meta MMS · mya",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-mya",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/mya/model.onnx",
+        "byteCount": 114031620,
+        "sha256": "2dd0874209259565df110160dbad655bbb09855d8210882b640f0fc82bd4a42a",
+        "id": "mms-tts-mya-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/mya/tokens.txt",
+        "byteCount": 385,
+        "sha256": "cd0a6ecfb0c91dde4d8ced1a6f8d18a7bc48086a438a179ae00230b86d5e76e3",
+        "id": "mms-tts-mya-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "ne",
+    "id": "vits-piper-ne_NP-chitwan-medium",
+    "title": "Piper · ne_NP-chitwan-medium",
+    "license": "* License:  CC0",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ne/ne_NP/chitwan/medium/MODEL_CARD",
+    "kind": "archive",
+    "parts": [
+      {
+        "remoteURL": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-ne_NP-chitwan-medium.tar.bz2",
+        "byteCount": 67213467,
+        "sha256": "65fa157c090844bbe5b38c1c3e4321535f569fdbb526c08aaa2ad22c09d51279",
+        "id": "vits-piper-ne_NP-chitwan-medium",
+        "path": "archive"
+      }
+    ]
+  },
+  {
+    "language": "no",
+    "id": "vits-piper-no_NO-talesyntese-medium",
+    "title": "Piper · no_NO-talesyntese-medium",
+    "license": "* License:  CC0",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/no/no_NO/talesyntese/medium/MODEL_CARD",
+    "kind": "archive",
+    "parts": [
+      {
+        "remoteURL": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-no_NO-talesyntese-medium.tar.bz2",
+        "byteCount": 67194829,
+        "sha256": "dcb7c36b7222e290cca1fd4cdecb474e7fd651dc5b0d3d42c33d416a8e62018b",
+        "id": "vits-piper-no_NO-talesyntese-medium",
+        "path": "archive"
+      }
+    ]
+  },
+  {
+    "language": "ny",
+    "id": "mms-tts-nya-onnx",
+    "title": "Meta MMS · nya",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-nya",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/nya/model.onnx",
+        "byteCount": 114017796,
+        "sha256": "16035b60edbc0d2736191e6d6828856e9d8dafc8755e940732a3ac52ff88d944",
+        "id": "mms-tts-nya-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/nya/tokens.txt",
+        "byteCount": 303,
+        "sha256": "e6868455fdd5ee56329d9a51512f7a0902911cc36ecdcd6cf5c05498563b7e2c",
+        "id": "mms-tts-nya-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "om",
+    "id": "mms-tts-orm-onnx",
+    "title": "Meta MMS · orm",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-orm",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/orm/model.onnx",
+        "byteCount": 114010116,
+        "sha256": "6f7141ebf426aa4a0001ff1d690aa72447107d432e293e44ce3d038544a70a84",
+        "id": "mms-tts-orm-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/orm/tokens.txt",
+        "byteCount": 252,
+        "sha256": "46e28b6027703c5c408615085599063f334236984519c299ea387716e458a4e1",
+        "id": "mms-tts-orm-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "os",
+    "id": "mms-tts-oss-onnx",
+    "title": "Meta MMS · oss",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-oss",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/oss/model.onnx",
+        "byteCount": 114013956,
+        "sha256": "4e430ab24e2e379139cf4dd7f4f009c3c6a358903ceb80399e3002030b16b009",
+        "id": "mms-tts-oss-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/oss/tokens.txt",
+        "byteCount": 356,
+        "sha256": "f6edf01dc62c40a1e8fa59b0ba0f13cec5ac942a648131f332f00525371c0844",
+        "id": "mms-tts-oss-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "pa",
+    "id": "mms-tts-pan-onnx",
+    "title": "Meta MMS · pan",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-pan",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/pan/model.onnx",
+        "byteCount": 114033156,
+        "sha256": "63e6eccea5b296ab8e9d01107bd5d7a090d5db19d3b61119ba5f920f1430fa87",
+        "id": "mms-tts-pan-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/pan/tokens.txt",
+        "byteCount": 397,
+        "sha256": "91344d6f3d6287e8adc71e66c7e9ca83f5f6e9a7d0c24f043a219773d9dec163",
+        "id": "mms-tts-pan-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "pap",
+    "id": "mms-tts-pap-onnx",
+    "title": "Meta MMS · pap",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-pap",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/pap/model.onnx",
+        "byteCount": 114027012,
+        "sha256": "aacf3f58d56070cfd309a263b654c36139dd5a2af2d007b651ec1ed5e7cb4c79",
+        "id": "mms-tts-pap-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/pap/tokens.txt",
+        "byteCount": 442,
+        "sha256": "ea75dcdcc879da008a458e366d881398ea56032430730e056e42addc04e5ac69",
+        "id": "mms-tts-pap-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "rn",
+    "id": "mms-tts-run-onnx",
+    "title": "Meta MMS · run",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-run",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/run/model.onnx",
+        "byteCount": 114010116,
+        "sha256": "264de636f66e2c46da9dae929db73bdb4cb01afaa313ee5ef45a63422a8b70fb",
+        "id": "mms-tts-run-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/run/tokens.txt",
+        "byteCount": 248,
+        "sha256": "f8aef360a3fcd3b367721d8a1ad571ada76818d075dda2015302ac06609ae4ba",
+        "id": "mms-tts-run-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "rw",
+    "id": "mms-tts-kin-onnx",
+    "title": "Meta MMS · kin",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-kin",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/kin/model.onnx",
+        "byteCount": 114021636,
+        "sha256": "531563be608dc805fce34d2a979d42a67a757735631544d09ed841faf3ecc055",
+        "id": "mms-tts-kin-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/kin/tokens.txt",
+        "byteCount": 356,
+        "sha256": "2ab58191eec47a2cf944503c11ce307a05b13bc9e908a3c29c1e06d2881b4ee4",
+        "id": "mms-tts-kin-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "sah",
+    "id": "mms-tts-sah-onnx",
+    "title": "Meta MMS · sah",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-sah",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/sah/model.onnx",
+        "byteCount": 114021636,
+        "sha256": "39610d0a552b66e24f73451fcd83d80e596683209bd1e0d87cd8c947b5f93be6",
+        "id": "mms-tts-sah-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/sah/tokens.txt",
+        "byteCount": 468,
+        "sha256": "1203d279ac25b96595867ce1ac342a8cf8d962db845a4ca05a6a86fb13a610ec",
+        "id": "mms-tts-sah-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "sm",
+    "id": "mms-tts-smo-onnx",
+    "title": "Meta MMS · smo",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-smo",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/smo/model.onnx",
+        "byteCount": 114007812,
+        "sha256": "c9fb1cf6d65d0c544048aa8f34c1b2603c93ba544550945f63aeee960f9c97d2",
+        "id": "mms-tts-smo-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/smo/tokens.txt",
+        "byteCount": 231,
+        "sha256": "d20e8db7cfac406165243b0c90e405d1b6db57d8454240d9a9a51bd01212b0a1",
+        "id": "mms-tts-smo-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "sn",
+    "id": "mms-tts-sna-onnx",
+    "title": "Meta MMS · sna",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-sna",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/sna/model.onnx",
+        "byteCount": 114013188,
+        "sha256": "4d419c2c53b674f8d7cb72c0f52ed571db4043d465797ec1a1031c53483094de",
+        "id": "mms-tts-sna-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/sna/tokens.txt",
+        "byteCount": 272,
+        "sha256": "98391f18dc3ba8db4876b75abe253a0053d49c02b85c4295f1db8c6af646f443",
+        "id": "mms-tts-sna-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "so",
+    "id": "mms-tts-som-onnx",
+    "title": "Meta MMS · som",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-som",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/som/model.onnx",
+        "byteCount": 114008580,
+        "sha256": "0199dd00b919d345110a04a7d3c96f621834afcce4bff396afd493c3e10de0c1",
+        "id": "mms-tts-som-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/som/tokens.txt",
+        "byteCount": 232,
+        "sha256": "7735b35bace882ce0116589b5243f4072d7ff26f76903353bf879e3501c9b088",
+        "id": "mms-tts-som-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "sq",
+    "id": "vits-piper-sq_AL-edon-medium",
+    "title": "Piper · sq_AL-edon-medium",
+    "license": "* License: CC0",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/sq/sq_AL/edon/medium/MODEL_CARD",
+    "kind": "archive",
+    "parts": [
+      {
+        "remoteURL": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-sq_AL-edon-medium.tar.bz2",
+        "byteCount": 67191820,
+        "sha256": "2d7a3b3647a499ad40a28662edd5ff50eb8594ad7ace94a5d3525e280212bf99",
+        "id": "vits-piper-sq_AL-edon-medium",
+        "path": "archive"
+      }
+    ]
+  },
+  {
+    "language": "sr",
+    "id": "vits-piper-sr_RS-serbski_institut-medium",
+    "title": "Piper · sr_RS-serbski_institut-medium",
+    "license": "* License: https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/sr/sr_RS/serbski_institut/medium/MODEL_CARD",
+    "kind": "archive",
+    "parts": [
+      {
+        "remoteURL": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-sr_RS-serbski_institut-medium.tar.bz2",
+        "byteCount": 80298557,
+        "sha256": "b8c100e5ff885d11ff96ad92a953f4b82e1cd649f9ac60a77ae4553d37507b2b",
+        "id": "vits-piper-sr_RS-serbski_institut-medium",
+        "path": "archive"
+      }
+    ]
+  },
+  {
+    "language": "su",
+    "id": "mms-tts-sun-onnx",
+    "title": "Meta MMS · sun",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-sun",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/sun/model.onnx",
+        "byteCount": 114016260,
+        "sha256": "be1f351b1b9b58c89f864b997a2b441e4963affacc0dffe3d7db1f50cbe31ebd",
+        "id": "mms-tts-sun-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/sun/tokens.txt",
+        "byteCount": 281,
+        "sha256": "b0803ad9a381188f7ecb9fcb6b677596b42550ef084d8533ae5540f546e8dde4",
+        "id": "mms-tts-sun-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "sw",
+    "id": "vits-piper-sw_CD-lanfrica-medium",
+    "title": "Piper · sw_CD-lanfrica-medium",
+    "license": "* License: See URL",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/sw/sw_CD/lanfrica/medium/MODEL_CARD",
+    "kind": "archive",
+    "parts": [
+      {
+        "remoteURL": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-sw_CD-lanfrica-medium.tar.bz2",
+        "byteCount": 67217230,
+        "sha256": "93196704a0ae0c984806059480775d69dcc2419d0d545cddd0903d244dc66a72",
+        "id": "vits-piper-sw_CD-lanfrica-medium",
+        "path": "archive"
+      }
+    ]
+  },
+  {
+    "language": "ta",
+    "id": "mms-tts-tam-onnx",
+    "title": "Meta MMS · tam",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-tam",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/tam/model.onnx",
+        "byteCount": 114032388,
+        "sha256": "c44055b2e7c5719ca26708f6eb03680b0f1bbf6fdcb0df6480478f872f1f6e34",
+        "id": "mms-tts-tam-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/tam/tokens.txt",
+        "byteCount": 375,
+        "sha256": "0b3f692319bb5fae8658e2f84bf252bca92450d0207bbba7273caa1a182d81b8",
+        "id": "mms-tts-tam-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "te",
+    "kind": "piper",
+    "id": "piper-te_IN-maya-medium",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/te/te_IN/maya/medium/te_IN-maya-medium.onnx",
+        "byteCount": 62950044,
+        "sha256": "c3518ad4e3ca8ea6059c1e002f3772068f634960f58b237a96ff629db1c6200e",
+        "id": "piper-te_IN-maya-medium",
+        "path": "model.onnx"
+      }
+    ],
+    "title": "Piper · te_IN-maya-medium",
+    "license": "* License:  www.iitm.ac.in/donlab/indictts/downloads/license.pdf",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/te/te_IN/maya/medium/MODEL_CARD",
+    "piperPreparation": {
+      "metadataSuffix": "chIKCm1vZGVsX3R5cGUSBHZpdHNyEAoHY29tbWVudBIFcGlwZXJyEgoIbGFuZ3VhZ2USBlRlbHVndXILCgV2b2ljZRICdGVyDAoHdmVyc2lvbhIBMXIPCgpoYXNfZXNwZWFrEgExcg0KCGhhc19nMnB3EgEwcg8KCm5fc3BlYWtlcnMSATFyFAoLc2FtcGxlX3JhdGUSBTIyMDUw",
+      "tokens": "_ 0\n^ 1\n$ 2\n  3\n! 4\n' 5\n( 6\n) 7\n, 8\n- 9\n. 10\n: 11\n; 12\n? 13\na 14\nb 15\nc 16\nd 17\ne 18\nf 19\nh 20\ni 21\nj 22\nk 23\nl 24\nm 25\nn 26\no 27\np 28\nq 29\nr 30\ns 31\nt 32\nu 33\nv 34\nw 35\nx 36\ny 37\nz 38\næ 39\nç 40\nð 41\nø 42\nħ 43\nŋ 44\nœ 45\nǀ 46\nǁ 47\nǂ 48\nǃ 49\nɐ 50\nɑ 51\nɒ 52\nɓ 53\nɔ 54\nɕ 55\nɖ 56\nɗ 57\nɘ 58\nə 59\nɚ 60\nɛ 61\nɜ 62\nɞ 63\nɟ 64\nɠ 65\nɡ 66\nɢ 67\nɣ 68\nɤ 69\nɥ 70\nɦ 71\nɧ 72\nɨ 73\nɪ 74\nɫ 75\nɬ 76\nɭ 77\nɮ 78\nɯ 79\nɰ 80\nɱ 81\nɲ 82\nɳ 83\nɴ 84\nɵ 85\nɶ 86\nɸ 87\nɹ 88\nɺ 89\nɻ 90\nɽ 91\nɾ 92\nʀ 93\nʁ 94\nʂ 95\nʃ 96\nʄ 97\nʈ 98\nʉ 99\nʊ 100\nʋ 101\nʌ 102\nʍ 103\nʎ 104\nʏ 105\nʐ 106\nʑ 107\nʒ 108\nʔ 109\nʕ 110\nʘ 111\nʙ 112\nʛ 113\nʜ 114\nʝ 115\nʟ 116\nʡ 117\nʢ 118\nʲ 119\nˈ 120\nˌ 121\nː 122\nˑ 123\n˞ 124\nβ 125\nθ 126\nχ 127\nᵻ 128\nⱱ 129\n0 130\n1 131\n2 132\n3 133\n4 134\n5 135\n6 136\n7 137\n8 138\n9 139\ņ 140\ñ 141\n̪ 142\n̯ 143\n̩ 144\nʰ 145\nˤ 146\nε 147\n↓ 148\n# 149\n\" 150\n↑ 151\n̺ 152\n̻ 153\ng 154\nʦ 155\nX 156\n̝ 157\n̊ 158\nɝ 159\nʷ 160\n"
+    }
+  },
+  {
+    "language": "tg",
+    "id": "mms-tts-tgk-onnx",
+    "title": "Meta MMS · tgk",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-tgk",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/tgk/model.onnx",
+        "byteCount": 114019332,
+        "sha256": "45cc7aecb4b7dae96a8ace8a72e09b00eaf311e2f1bb69f44da7013eb275cfeb",
+        "id": "mms-tts-tgk-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/tgk/tokens.txt",
+        "byteCount": 449,
+        "sha256": "16f3918b85b7ba3c9346dd0934acc415697ed22dcc9d7793dc80034b2f8abf0d",
+        "id": "mms-tts-tgk-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "tl",
+    "id": "mms-tts-tgl-onnx",
+    "title": "Meta MMS · tgl",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-tgl",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/tgl/model.onnx",
+        "byteCount": 114020868,
+        "sha256": "f0594f259f7016a0ff00d5e72886f946e6ed6ae8edf1d9e78649f24d59c83ffb",
+        "id": "mms-tts-tgl-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/tgl/tokens.txt",
+        "byteCount": 337,
+        "sha256": "5f4883ec7ba2128b7467cda01aa875d02bee8d600dc5822843216d8a14224ab0",
+        "id": "mms-tts-tgl-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "tt",
+    "id": "mms-tts-tat-onnx",
+    "title": "Meta MMS · tat",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-tat",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/tat/model.onnx",
+        "byteCount": 114020868,
+        "sha256": "80b5ba3b03f60ba0a23c6c5b05a32a4ecc9e300ed846d2a9ba5b735c48ad9c63",
+        "id": "mms-tts-tat-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/tat/tokens.txt",
+        "byteCount": 464,
+        "sha256": "ff132903b330ff091179534f3225a59a8384103597546b96c1ef26267fa081f1",
+        "id": "mms-tts-tat-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "language": "ur",
+    "id": "vits-piper-ur_PK-fasih-medium",
+    "title": "Piper · ur_PK-fasih-medium",
+    "license": "license: mit; ## License",
+    "sourceURL": "https://huggingface.co/rhasspy/piper-voices/blob/c10ece1aade47bb51c153c893d14e5bf8e5b7117/ur/ur_PK/fasih/medium/MODEL_CARD",
+    "kind": "archive",
+    "parts": [
+      {
+        "remoteURL": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-ur_PK-fasih-medium.tar.bz2",
+        "byteCount": 67227718,
+        "sha256": "de64e03109f3c896b7cf910db6d9ffd2703e3d665580d9a19bedbf3e0760d0e4",
+        "id": "vits-piper-ur_PK-fasih-medium",
+        "path": "archive"
+      }
+    ]
+  },
+  {
+    "language": "yo",
+    "id": "mms-tts-yor-onnx",
+    "title": "Meta MMS · yor",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/facebook/mms-tts-yor",
+    "kind": "files",
+    "parts": [
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/yor/model.onnx",
+        "byteCount": 114020868,
+        "sha256": "1daf1b837dfb032995a9afdfd1b974d07fd69fd42c91765fc551969ba6d4c183",
+        "id": "mms-tts-yor-onnx",
+        "path": "model.onnx"
+      },
+      {
+        "remoteURL": "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/yor/tokens.txt",
+        "byteCount": 416,
+        "sha256": "3fca3219266d24915a05e358f16fc57e7f748150cf25d1ffe5b8b6e530f915f0",
+        "id": "mms-tts-yor-tokens",
+        "path": "tokens.txt"
+      }
+    ]
+  },
+  {
+    "id": "omnivoice-q8-base",
+    "language": "ms",
+    "languageAliases": {
+      "ms": "ms",
+      "mk": "mk",
+      "gl": "gl",
+      "ps": "ps",
+      "mt": "mt",
+      "am": "am",
+      "ars": "ars",
+      "zu": "zu",
+      "haw": "haw",
+      "ast": "ast",
+      "apc": "apc",
+      "hsb": "hsb"
+    },
+    "title": "OmniVoice Q8",
+    "license": "CC BY-NC 4.0",
+    "sourceURL": "https://huggingface.co/k2-fsa/OmniVoice",
+    "kind": "files",
+    "parts": [
+      {
+        "id": "omnivoice-q8-base",
+        "path": "omnivoice-base-Q8_0.gguf",
+        "remoteURL": "https://huggingface.co/Serveurperso/OmniVoice-GGUF/resolve/017094167b5c9ed565a5076ac9b3b93c5ecf5c73/omnivoice-base-Q8_0.gguf",
+        "byteCount": 656395008,
+        "sha256": "2882d887921798aea13d45236556bdf8012842ab6f8cd2690943eead6289f298"
+      },
+      {
+        "id": "omnivoice-q8-codec",
+        "path": "omnivoice-tokenizer-Q8_0.gguf",
+        "remoteURL": "https://huggingface.co/Serveurperso/OmniVoice-GGUF/resolve/017094167b5c9ed565a5076ac9b3b93c5ecf5c73/omnivoice-tokenizer-Q8_0.gguf",
+        "byteCount": 288889600,
+        "sha256": "75204fa566a8e30984e7a1066da6557184c9fd099c8f1bc0cb5b9415edfec255"
+      }
+    ]
+  }
+]

@@ -1,0 +1,56 @@
+{
+  "source": "Shared Apple OpusRuntime C ABI ot_opus_count",
+  "modelRevision": "366ea5f4bd2bc417a7430006408a0c6cd72a9f91",
+  "ctranslate2Commit": "617405f4b050e994e829d527da6caa0e0030afe7",
+  "sentencepieceCommit": "31646a467d2051eb904e0b45de3a73e91fe1c1e3",
+  "cases": [
+    {
+      "source": "en",
+      "target": "ru",
+      "text": "The train leaves at 10:30.",
+      "tokenCount": 9
+    },
+    {
+      "source": "en",
+      "target": "uk",
+      "text": "The train leaves at 10:30.",
+      "tokenCount": 9
+    },
+    {
+      "source": "en",
+      "target": "be",
+      "text": "The train leaves at 10:30.",
+      "tokenCount": 9
+    },
+    {
+      "source": "ru",
+      "target": "en",
+      "text": "Встреча завтра в 15:30.",
+      "tokenCount": 7
+    },
+    {
+      "source": "uk",
+      "target": "en",
+      "text": "Потяг відправляється о 10:30.",
+      "tokenCount": 10
+    },
+    {
+      "source": "be",
+      "target": "en",
+      "text": "Цягнік адпраўляецца ў 10:30.",
+      "tokenCount": 13
+    },
+    {
+      "source": "en",
+      "target": "ru",
+      "text": "Literal >>rus<< and <|im_end|> 👋 é.",
+      "tokenCount": 20
+    },
+    {
+      "source": "ru",
+      "target": "en",
+      "text": "Привет\n\nновый абзац — 12345.",
+      "tokenCount": 8
+    }
+  ]
+}

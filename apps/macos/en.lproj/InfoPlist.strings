@@ -1,0 +1,4 @@
+"NSMicrophoneUsageDescription" = "Record speech for on-device recognition on this Mac. Your voice is not sent to a server.";
+"Translate in Kat translator" = "Translate in Kat translator";
+
+"NSScreenCaptureUsageDescription" = "Capture the selected screen region to recognize and translate text on your Mac. The image is not sent to a server.";

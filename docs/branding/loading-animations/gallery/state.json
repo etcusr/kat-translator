@@ -1,0 +1,117 @@
+{
+  "cat_files": {
+    "cat/doubleHop.gif": "91f0c3a58772a59d74b4b15da78dd348b9ebd67140f7beda6d965daf4a407c54",
+    "cat/doubleHop.jpg": "01a2d69f061a9c731558a4e9845ea9d1b4e616a5271f32953d8453dc24fb67b5",
+    "cat/doubleHop.mp4": "0ae26ccc0e9950a0ec2ec21761108c25b87af51fd8bbb824fa0f0c95f61c036f",
+    "cat/hop.gif": "66df5d0dd0e67fdc320092fce9c20b3482d8da00fb17c2c2707140ce21e7e8ab",
+    "cat/hop.jpg": "0c344baa9637a89a9d57212b48e1a182d858095596ad191e15ec58115aed1a43",
+    "cat/hop.mp4": "97c28fc9e49bcfcc51e0062fbbb11a501540c39f5aa2824216fa7eb446e68ba3",
+    "cat/idle.gif": "ba2c84ba0c4c4e3a771bd6a0175fce0769828592614e3116120d2fce394ed17e",
+    "cat/idle.jpg": "32ffc574dd8403ffed7f7803f3fda7b415b8dc90bbf49ca57e65377a49c6a495",
+    "cat/idle.mp4": "62019074dab8cdbdea42fff96beb3ff09e6f94cf93906c0077daf73c5ff884d2",
+    "cat/mischief.gif": "66c8ec68a362ae1e6485fe4db6465c44e4f47584cf1fab5995291b0bf732e886",
+    "cat/mischief.jpg": "a0ca2747695baca3ed3a7002e1ad7f3cf4af3583e458820ce967ae612f6ad8d4",
+    "cat/mischief.mp4": "4af0612ff7dab5a4c6d7bda1d0a646449062f17c9eda2b59589634bff837ddc7",
+    "cat/progress-jump.gif": "bcd1adbe6dcfe4fa4fd777ac2da929b69bd2a62139f26fc053a91373613fcc1d",
+    "cat/progress-jump.jpg": "9602b399649f0b584cca9b4dd63def7632e48d2ff297afb3e8e68cb4cfda7abf",
+    "cat/progress-jump.mp4": "0bf44947d8a3b1430b4b75ac8169940fb9285e15676208aee77ad913f07a5a99",
+    "cat/puke.gif": "258b3c2830dca5c5b9693d181225ec7ddf8f28d3a6b9b0efe7b42b99e1247b46",
+    "cat/puke.jpg": "cb1c75eb77609a82fa1e2e98a5e682ffa0ca8dab22efc1ece11eaf12a3293142",
+    "cat/puke.mp4": "12a052541102bb7b3f0c0ccdf086d88b73dc32edf072094db3ce4e3b1b1b6306",
+    "cat/run.gif": "c81bfbeff8fc35998f6bb5a2023f66963a7b99add32d6d8fba4db55013ca1dc3",
+    "cat/run.jpg": "f0bed57ce6ab50cef267756729f2085e3aea6db5aa82b481b2fa3f4d5ce2f809",
+    "cat/run.mp4": "17ca240f0e0ac10ed015e8defdbcda8b91c1255f16d7fee7e413d22602c2f98d",
+    "cat/somersault.gif": "b5f9d743ff31ecd5fb0af581b4963c0e38132716bf64faea1da7af7b9e872a0c",
+    "cat/somersault.jpg": "06d46a3809e9a8ea937a36f17d336fa56d146b7622eb05ecc1dcb726f0e028ca",
+    "cat/somersault.mp4": "6a4b74869bbc89b68116aff65d91a1bfebe7927017287f0a919f0a2faec3a58a",
+    "cat/walk.gif": "f6c4a11593acc031aef98326d8703ed5f3ce067908943fc24c3b0e55d4b304d6",
+    "cat/walk.jpg": "04fe0c5fb278d710e1df271b1217bcb0338267bfb6246843c79cae7fa3250620",
+    "cat/walk.mp4": "5b72a890407111f012644701b792b55856b7731c98ba63c7f622f16bffb6badc",
+    "cat/wallKick.gif": "9a07918dd020913bf2d3d6a8beaa660af2922e483fa23d44da33dc626360171d",
+    "cat/wallKick.jpg": "769fbaba78bfdc39347357d0e1616da11990b5857755622246dcd28dafa5b739",
+    "cat/wallKick.mp4": "dcff904cb18484c346c67cfa9d1efe9b4c88d0bdb7532d13faee02e8c0fc3642"
+  },
+  "cat_source_sha256": "d703b1a41b7884869c4689cd1734ee8bddb9f5a02dc7c49b74824bd349c0c80b",
+  "cats": [
+    {
+      "duration": 6,
+      "gif": "cat/idle.gif",
+      "id": "idle",
+      "poster": "cat/idle.jpg",
+      "title": "Ожидание · хвост и моргание",
+      "video": "cat/idle.mp4"
+    },
+    {
+      "duration": 5,
+      "gif": "cat/walk.gif",
+      "id": "walk",
+      "poster": "cat/walk.jpg",
+      "title": "Неторопливая ходьба",
+      "video": "cat/walk.mp4"
+    },
+    {
+      "duration": 5,
+      "gif": "cat/run.gif",
+      "id": "run",
+      "poster": "cat/run.jpg",
+      "title": "Бег при быстрой загрузке",
+      "video": "cat/run.mp4"
+    },
+    {
+      "duration": 4,
+      "gif": "cat/progress-jump.gif",
+      "id": "progress-jump",
+      "poster": "cat/progress-jump.jpg",
+      "title": "Прыжок вслед за прогрессом",
+      "video": "cat/progress-jump.mp4"
+    },
+    {
+      "duration": 3.1,
+      "gif": "cat/hop.gif",
+      "id": "hop",
+      "poster": "cat/hop.jpg",
+      "title": "Прыжок на месте",
+      "video": "cat/hop.mp4"
+    },
+    {
+      "duration": 3.966666666666667,
+      "gif": "cat/doubleHop.gif",
+      "id": "doubleHop",
+      "poster": "cat/doubleHop.jpg",
+      "title": "Двойной прыжок",
+      "video": "cat/doubleHop.mp4"
+    },
+    {
+      "duration": 3.7,
+      "gif": "cat/somersault.gif",
+      "id": "somersault",
+      "poster": "cat/somersault.jpg",
+      "title": "Сальто",
+      "video": "cat/somersault.mp4"
+    },
+    {
+      "duration": 7.433333333333334,
+      "gif": "cat/mischief.gif",
+      "id": "mischief",
+      "poster": "cat/mischief.jpg",
+      "title": "Кучка · закапывание задними лапами",
+      "video": "cat/mischief.mp4"
+    },
+    {
+      "duration": 4.633333333333334,
+      "gif": "cat/wallKick.gif",
+      "id": "wallKick",
+      "poster": "cat/wallKick.jpg",
+      "title": "Отскок и разворот у края",
+      "video": "cat/wallKick.mp4"
+    },
+    {
+      "duration": 9.366666666666667,
+      "gif": "cat/puke.gif",
+      "id": "puke",
+      "poster": "cat/puke.jpg",
+      "title": "Лужица · перепрыгнул и пошёл дальше",
+      "video": "cat/puke.mp4"
+    }
+  ]
+}

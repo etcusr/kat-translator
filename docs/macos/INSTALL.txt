@@ -1,0 +1,34 @@
+Kat translator — современный выпуск / Apple Silicon / macOS 27+
+
+Для macOS 15–26 нужен отдельный совместимый установщик с macos15-26 в имени.
+
+Откройте DMG и перетащите Kat translator в Applications (Программы).
+Модели не входят в установщик: выберите языки и скачайте нужные пакеты.
+Уже скачанные файлы можно импортировать в разделе «Модели» — приложение проверит их целостность.
+Модели и история хранятся отдельно от приложения:
+~/Library/Application Support/OfflineTranslator
+
+Это локальная тестовая сборка с подписью Apple Development, без Developer ID и нотариальной проверки Apple.
+Если macOS блокирует запуск скачанной копии, после попытки запуска откройте
+Системные настройки → Конфиденциальность и безопасность → Всё равно открыть
+(только если доверяете источнику). Защиту Gatekeeper целиком отключать не требуется.
+
+Разрешите микрофон при первой записи. Камера не используется: для изображений есть открытие файла и вставка из буфера.
+Перевод выделения запрашивает «Универсальный доступ», а перевод области — «Запись экрана», только при использовании этих функций.
+При переходе со старой ad-hoc сборки удалите старую запись Kat translator кнопкой «−»
+в обоих списках разрешений и добавьте текущую копию из Applications кнопкой «+».
+Простое выключение и включение старой записи может не обновить её подпись.
+Минимизация окна не прерывает перевод. Для фоновых загрузок оставляйте приложение запущенным;
+закрытие окна и завершение приложения через Cmd+Q — разные действия.
+
+English
+Open the DMG and drag Kat translator to Applications. Apple Silicon, macOS 27 or later.
+For macOS 15–26, use the separate installer named macos15-26.
+Choose languages and download models, or import already downloaded files in Models.
+This local test build uses Apple Development signing, not Developer ID signing or notarization.
+If blocked, use System Settings → Privacy & Security → Open Anyway for a trusted copy.
+No Homebrew or external Python installation is needed. The microphone requires permission;
+image translation uses files/clipboard, without camera access. Keep the app running for downloads.
+Selected-text and screen-region translation request Accessibility and Screen Recording only when used.
+When upgrading from an ad-hoc build, remove the old Kat entry with minus and add the current
+Applications copy with plus in both permission lists; toggling the old entry may not update its identity.

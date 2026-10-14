@@ -1,0 +1,153 @@
+id,ru,en,Index,OPUS,Whisper_code,voice_catalog_flag,quality
+en,Английский,English,True,True,en,True,not globally verified
+zh,Китайский,Chinese,True,False,zh,True,not globally verified
+de,Немецкий,German,True,False,de,True,not globally verified
+fr,Французский,French,True,False,fr,True,not globally verified
+es,Испанский,Spanish,True,False,es,True,not globally verified
+ja,Японский,Japanese,True,False,ja,True,not globally verified
+ko,Корейский,Korean,True,False,ko,True,not globally verified
+pt,Португальский,Portuguese,True,False,pt,True,not globally verified
+ru,Русский,Russian,True,True,ru,True,not globally verified
+ar,Арабский,Arabic,True,False,ar,True,not globally verified
+it,Итальянский,Italian,True,False,it,True,not globally verified
+nl,Нидерландский,Dutch,True,False,nl,True,not globally verified
+pl,Польский,Polish,True,False,pl,True,not globally verified
+ro,Румынский,Romanian,True,False,ro,True,not globally verified
+sv,Шведский,Swedish,True,False,sv,True,not globally verified
+tr,Турецкий,Turkish,True,False,tr,True,not globally verified
+hi,Хинди,Hindi,True,False,hi,True,not globally verified
+vi,Вьетнамский,Vietnamese,True,False,vi,True,not globally verified
+th,Тайский,Thai,True,False,th,True,not globally verified
+id,Индонезийский,Indonesian,True,False,id,True,not globally verified
+ms,Малайский,Malay,True,False,ms,True,not globally verified
+tl,Тагальский,Filipino,True,False,tl,True,not globally verified
+uk,Украинский,Ukrainian,True,True,uk,True,not globally verified
+fa,Персидский,Persian,True,False,fa,True,not globally verified
+cs,Чешский,Czech,True,False,cs,True,not globally verified
+el,Греческий,Greek,True,False,el,True,not globally verified
+da,Датский,Danish,True,False,da,True,not globally verified
+hu,Венгерский,Hungarian,True,False,hu,True,not globally verified
+fi,Финский,Finnish,True,False,fi,True,not globally verified
+no,Норвежский (букмол),Norwegian Bokmål,True,False,no,True,not globally verified
+sk,Словацкий,Slovak,True,False,sk,True,not globally verified
+bg,Болгарский,Bulgarian,True,False,bg,True,not globally verified
+bs,Боснийский,Bosnian,True,False,bs,False,not globally verified
+ca,Каталанский,Catalan,True,False,ca,True,not globally verified
+bn,Бенгальский,Bengali,True,False,bn,True,not globally verified
+he,Иврит,Hebrew,True,False,he,True,not globally verified
+lt,Литовский,Lithuanian,True,False,lt,True,not globally verified
+sl,Словенский,Slovenian,True,False,sl,True,not globally verified
+et,Эстонский,Estonian,True,False,et,True,not globally verified
+sq,Албанский,Albanian,True,False,sq,True,not globally verified
+lv,Латышский,Latvian,True,False,lv,True,not globally verified
+az,Азербайджанский,Azerbaijani,True,False,az,False,not globally verified
+hr,Хорватский,Croatian,True,False,hr,True,not globally verified
+ta,Тамильский,Tamil,True,False,ta,True,not globally verified
+ne,Непальский,Nepali,True,False,ne,True,not globally verified
+ur,Урду,Urdu,True,False,ur,True,not globally verified
+mk,Македонский,Macedonian,True,False,mk,True,not globally verified
+sr,Сербский (кириллица),Serbian (Cyrillic),True,False,sr,True,not globally verified
+mr,Маратхи,Marathi,True,False,mr,True,not globally verified
+ka,Грузинский,Georgian,True,False,ka,True,not globally verified
+ml,Малаялам,Malayalam,True,False,ml,True,not globally verified
+kk,Казахский,Kazakh,True,False,kk,True,not globally verified
+is,Исландский,Icelandic,True,False,is,True,not globally verified
+gl,Галисийский,Galician,True,False,gl,True,not globally verified
+kn,Каннада,Kannada,True,False,kn,True,not globally verified
+ary,Арабский (марокканский),Moroccan Arabic,True,False,,False,not globally verified
+gu,Гуджарати,Gujarati,True,False,gu,True,not globally verified
+be,Белорусский,Belarusian,True,True,be,False,not globally verified
+af,Африкаанс,Afrikaans,True,False,af,False,not globally verified
+hy,Армянский,Armenian,True,False,hy,True,not globally verified
+mn,Монгольский,Mongolian,True,False,mn,True,not globally verified
+km,Кхмерский,Khmer,True,False,km,True,not globally verified
+eu,Баскский,Basque,True,False,eu,True,not globally verified
+my,Бирманский,Burmese,True,False,my,True,not globally verified
+la,Латинский,Latin,True,False,la,True,not globally verified
+uz-Cyrl,Узбекский (кириллица),Uzbek (Cyrillic),True,False,,False,not globally verified
+te,Телугу,Telugu,True,False,te,True,not globally verified
+or,Ория,Odia,True,False,,False,not globally verified
+nn,Норвежский (нюнорск),Norwegian Nynorsk,True,False,nn,False,not globally verified
+uz,Узбекский,Uzbek,True,False,uz,False,not globally verified
+sw,Суахили,Swahili,True,False,sw,True,not globally verified
+si,Сингальский,Sinhala,True,False,si,False,not globally verified
+ky,Киргизский,Kyrgyz,True,False,,True,not globally verified
+so,Сомалийский,Somali,True,False,so,True,not globally verified
+pa,Панджаби,Punjabi,True,False,pa,True,not globally verified
+arz,Арабский (египетский),Egyptian Arabic,True,False,,False,not globally verified
+cy,Валлийский,Welsh,True,False,cy,True,not globally verified
+nrm,Нормандский,Norman,True,False,,False,not globally verified
+ps,Пушту,Pashto,True,False,ps,True,not globally verified
+ga,Ирландский,Irish,True,False,,False,not globally verified
+sr-Latn,Сербский (латиница),Serbian (Latin),True,False,,False,not globally verified
+ha,Хауса,Hausa,True,False,ha,True,not globally verified
+ckb,Курдский (сорани),Central Kurdish,True,False,,False,not globally verified
+mt,Мальтийский,Maltese,True,False,mt,True,not globally verified
+yue,Кантонский,Cantonese,True,False,yue,False,not globally verified
+tg,Таджикский,Tajik,True,False,tg,True,not globally verified
+ku,Курдский (курманджи),Northern Kurdish,True,False,,True,not globally verified
+bew,Бетави,Betawi,True,False,,False,not globally verified
+am,Амхарский,Amharic,True,False,am,True,not globally verified
+lo,Лаосский,Lao,True,False,lo,True,not globally verified
+lb,Люксембургский,Luxembourgish,True,False,lb,True,not globally verified
+fy,Фризский,Frisian,True,False,,False,not globally verified
+dv,Дивехи,Dhivehi,True,False,,True,not globally verified
+eo,Эсперанто,Esperanto,True,False,,False,not globally verified
+rw,Киньяруанда,Kinyarwanda,True,False,,True,not globally verified
+ars,Арабский (недждийский),Najdi Arabic,True,False,,True,not globally verified
+fo,Фарерский,Faroese,True,False,fo,True,not globally verified
+mg,Малагасийский,Malagasy,True,False,mg,True,not globally verified
+as,Ассамский,Assamese,True,False,as,True,not globally verified
+sd,Синдхи,Sindhi,True,False,sd,False,not globally verified
+xh,Коса,Xhosa,True,False,,False,not globally verified
+tk,Туркменский,Turkmen,True,False,tk,False,not globally verified
+ht,Гаитянский креольский,Haitian Creole,True,False,ht,True,not globally verified
+gd,Шотландский гэльский,Scottish Gaelic,True,False,,False,not globally verified
+ceb,Себуанский,Cebuano,True,False,,True,not globally verified
+yi,Идиш,Yiddish,True,False,yi,False,not globally verified
+jv,Яванский,Javanese,True,False,jw,True,not globally verified
+ba,Башкирский,Bashkir,True,False,ba,True,not globally verified
+pap,Папьяменто,Papiamento,True,False,,True,not globally verified
+mi,Маори,Māori,True,False,mi,False,not globally verified
+ug,Уйгурский,Uyghur,True,False,,False,not globally verified
+tt,Татарский,Tatar,True,False,tt,True,not globally verified
+bo,Тибетский,Tibetan,True,False,bo,True,not globally verified
+mww,Хмонг-дау,Hmong Daw,True,False,,False,not globally verified
+hyw,Западноармянский,Western Armenian,True,False,,True,not globally verified
+yo,Йоруба,Yoruba,True,False,yo,True,not globally verified
+zu,Зулу,Zulu,True,False,,True,not globally verified
+sdh,Курдский (южный),Southern Kurdish,True,False,,False,not globally verified
+sm,Самоанский,Samoan,True,False,,True,not globally verified
+co,Корсиканский,Corsican,True,False,,False,not globally verified
+hif,Фиджийский хинди,Fiji Hindi,True,False,,True,not globally verified
+su,Сунданский,Sundanese,True,False,su,True,not globally verified
+ny,Ньянджа,Chichewa,True,False,,True,not globally verified
+ig,Игбо,Igbo,True,False,,False,not globally verified
+haw,Гавайский,Hawaiian,True,False,haw,True,not globally verified
+st,Сесото,Sesotho,True,False,,False,not globally verified
+lus,Мизо,Mizo,True,False,,False,not globally verified
+sn,Шона,Shona,True,False,sn,True,not globally verified
+cv,Чувашский,Chuvash,True,False,,True,not globally verified
+azb,Азербайджанский (южный),South Azerbaijani,True,False,,True,not globally verified
+rm,Романшский,Romansh,True,False,,False,not globally verified
+rn,Кирунди,Rundi,True,False,,True,not globally verified
+hi-Latn,Хинди (латиница),Hindi (Latin),True,False,,False,not globally verified
+sah,Якутский,Yakut,True,False,,True,not globally verified
+ti,Тигринья,Tigrinya,True,False,,False,not globally verified
+ast,Астурийский,Asturian,True,False,,True,not globally verified
+oc,Окситанский,Occitan,True,False,oc,False,not globally verified
+cnh,Чинский (хака),Hakha Chin,True,False,,True,not globally verified
+se,Северносаамский,Northern Sami,True,False,,False,not globally verified
+nds,Нижненемецкий,Low German,True,False,,False,not globally verified
+os,Осетинский,Ossetian,True,False,,True,not globally verified
+ur-Latn,Урду (латиница),Urdu (Latin),True,False,,False,not globally verified
+gsw,Швейцарский немецкий,Swiss German,True,False,,False,not globally verified
+anp,Анги́ка,Angika,True,False,,False,not globally verified
+apc,Арабский (левантийский),Levantine Arabic,True,False,,True,not globally verified
+om,Оромо,Oromo,True,False,,True,not globally verified
+nap,Неаполитанский,Neapolitan,True,False,,False,not globally verified
+hsb,Верхнелужицкий,Upper Sorbian,True,False,,True,not globally verified
+hil,Хилигайнон,Hiligaynon,True,False,,True,not globally verified
+kl,Гренландский,Greenlandic,True,False,,False,not globally verified
+ban,Балийский,Balinese,False,False,,True,not globally verified
+zh-Hant,Китайский (традиционный),Chinese (Traditional),False,False,,False,not globally verified

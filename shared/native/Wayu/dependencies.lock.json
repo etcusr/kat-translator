@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://github.com/beeware/Python-Apple-support/releases/download/3.13-b14/Python-3.13-iOS-support.b14.tar.gz",
+    "path": "model-store/downloads/Python-3.13-iOS-support.b14.tar.gz",
+    "sha256": "8b5cb76ef8d8a2946052479358eeec9d54b4496cb60920e175ec1489b5cf7963"
+  },
+  {
+    "url": "https://files.pythonhosted.org/packages/f6/e9/9ed422db47a19186d76f72e4da5b2aa5ac49e12d790e5dd6ce83c8acc576/tltk-1.11-py3-none-any.whl",
+    "path": ".build/wayu-source/tltk-1.11-py3-none-any.whl",
+    "sha256": "76e1d88472da90ce0834ef05fe0eec900ee28b9f60811e41014f925bcdb26b4f"
+  },
+  {
+    "url": "https://files.pythonhosted.org/packages/c6/21/eec2b16a7e4f1ffb9577c62ef786e1eaad315ce2320c642835d11610b2de/pythainlp-5.3.8-py3-none-any.whl",
+    "path": ".build/wayu-source/pythainlp-5.3.8-py3-none-any.whl",
+    "sha256": "7f4367782d250afa936f65a1c151129fb80c316c3b3dbaa08923de04705b53b3"
+  },
+  {
+    "url": "https://files.pythonhosted.org/packages/82/ec/0ee4110ddb54278b8f21c40a140370ae8f687036c4edf578316602697c56/misaki-0.9.4-py3-none-any.whl",
+    "path": ".build/wayu-source/misaki-0.9.4-py3-none-any.whl",
+    "sha256": "90e2eeb169786c014c429e5058d2ea6bcd02d651f2a24450ba6c9ffc0f8da15a"
+  },
+  {
+    "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/kokoro_thai/__init__.py",
+    "path": ".build/wayu-source/reference/kokoro_thai/__init__.py",
+    "sha256": "bbf4488fa0cd0f3642916d059ff600a38df89ca478261eecc99a38009945d987"
+  },
+  {
+    "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/kokoro_thai/g2p.py",
+    "path": ".build/wayu-source/reference/kokoro_thai/g2p.py",
+    "sha256": "d3adfe54e6c875605dc5ecc0daf935940f811325619edfe904d835f5a5e4ec0c"
+  },
+  {
+    "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/kokoro_thai/normalize.py",
+    "path": ".build/wayu-source/reference/kokoro_thai/normalize.py",
+    "sha256": "9d7d24fd9717151b9be92c2ebf19935de604f9b50a902b63f7240335f1adbc9a"
+  },
+  {
+    "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/kokoro_thai/vocab.py",
+    "path": ".build/wayu-source/reference/kokoro_thai/vocab.py",
+    "sha256": "869edf3d4b05e28a9e05a5639b1e2f35ea79419087850fd2d6cf963d4b01f6c6"
+  },
+  {
+    "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/kokoro_thai/word_level.py",
+    "path": ".build/wayu-source/reference/kokoro_thai/word_level.py",
+    "sha256": "06bde07501930349d2e4970134face6ffa00cfe9f3925511ee455838b1d591fa"
+  },
+  {
+    "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/kokoro_thai/name_gate.py",
+    "path": ".build/wayu-source/reference/kokoro_thai/name_gate.py",
+    "sha256": "07d68c3dcdd0cafa09503d160e88e43f9624213511ce4c91239571e8e53cae84"
+  },
+  {
+    "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/kokoro_thai/data/name_respell.tsv",
+    "path": ".build/wayu-source/reference/kokoro_thai/data/name_respell.tsv",
+    "sha256": "f2a855e8cbc1abd0e9e51447f578a48f8622ab807b1b4e489b951715bf27702d"
+  },
+  {
+    "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/assets/kokoro_config.json",
+    "path": ".build/wayu-source/reference/assets/kokoro_config.json",
+    "sha256": "5abb01e2403b072bf03d04fde160443e209d7a0dad49a423be15196b9b43c17f"
+  },
+  {
+    "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/kokoro_thai/onnx_infer.py",
+    "path": ".build/wayu-source/onnx_infer.py",
+    "sha256": "911fd971d7ed92bbea0292056f2a0d5882bd5c180d23e8e13eabc7d395ffbfad",
+    "model": false
+  },
+  {
+    "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/onnx/source_params.npz",
+    "path": "model-store/downloads/wayu/source_params.npz",
+    "sha256": "9e820cc13e81d378c47e55e87382e7cd5579b50f5d9bbdf19663e721b5b1f1cc",
+    "model": true
+  },
+  {
+    "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/onnx/prosody_fp32.onnx",
+    "path": "model-store/downloads/wayu/prosody_fp32.onnx",
+    "sha256": "cab0963ab960a43e12cb2b2a232fd712bd5c0b369e86ad0c18090b81aa4eee35",
+    "model": true
+  },
+  {
+    "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/onnx/curves_fp32.onnx",
+    "path": "model-store/downloads/wayu/curves_fp32.onnx",
+    "sha256": "bc7c0a7c4e1a44c301143f9d1d34686b9a73dff7e577284a8781b0e428b17d1d",
+    "model": true
+  },
+  {
+    "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/onnx/decoder_fp32.onnx",
+    "path": "model-store/downloads/wayu/decoder_fp32.onnx",
+    "sha256": "e512c7e8cd05aefe1702b5f10581247a41b1c774a92c6a0d4538cad3a52d162b",
+    "model": true
+  },
+  {
+    "url": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/resolve/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/onnx/voicepacks.npz",
+    "path": "model-store/downloads/wayu/voicepacks.npz",
+    "sha256": "4a75ac3a5f25d2cffdd5272192e898ea2f23da6b3895650f19d95abd8fe32c5f",
+    "model": true
+  }
+]
