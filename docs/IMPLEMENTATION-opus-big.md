@@ -1,5 +1,7 @@
 # Optional OPUS Big translator
 
+**English** | [Русский](IMPLEMENTATION-opus-big.ru.md)
+
 **Current scope (13 October 2026):** the legacy EN↔RU/UK/BE package uses PyTorch Metal FP16 on modern Mac and CTranslate2 CPU INT8 on iOS/Android. The separate catalog now contains 54 OPUS direction packages, including direct pairs without EN, using CT2 CPU on all three platforms. Initial translation selection is Auto; saved manual choices persist. See [current state](CURRENT_STATE.md), [direction integration](android/benchmarks/2026-10-13-opus-directions/README.md) and [Mac legacy-package GPU evidence](benchmarks/mac-opus-gpu-release-2026-10-12/README.md).
 
 ## Historical initial EN-package integration
