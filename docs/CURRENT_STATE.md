@@ -22,7 +22,7 @@ iOS 0.5.16/build46 с privacy manifest и новым ID установлен о�
 
 ## Mac App Store (14.10)
 
-Mac-сборка **1.0 (64) отклонена при серверной обработке Apple**: ITMS-90284 для `FluidAudio_FluidAudio.bundle` и `OfflineCore_OfflineCore.bundle`. Успешная передача и локальная проверка подписи не означали приёмку. Готовится исправление в 65; подтверждения его приёма Apple пока нет. [Независимая сверка и открытые замечания](publication/macos-release-verification-2026-10-14.md).
+Mac-сборка **1.0 (64) отклонена при серверной обработке Apple**: ITMS-90284 для `FluidAudio_FluidAudio.bundle` и `OfflineCore_OfflineCore.bundle`. Успешная передача и локальная проверка подписи не означали приёмку. В экспортированном PKG65 отсутствие отдельных подписей этих ресурсов, строгая подпись приложения и совпадение сертификата с профилем проверены; подтверждения приёма Apple пока нет. [Независимая сверка и открытые замечания](publication/macos-release-verification-2026-10-14.md).
 
 В 64 сохранены `app.kattranslator`, App Sandbox, отсутствие OpenSSL/rustls и `ITSAppUsesNonExemptEncryption = NO`; OPUS GPU исправлен сохранением sandbox-helper. По отчёту прошли Index 9B/2B, OPUS GPU/CT2, Auto, Parakeet ASR, Piper TTS, Wayu, OCR и загрузка внутри тестового sandbox. Девять падений полного набора совпали с прямой сборкой; их причины ещё требуется разобрать, это не полностью зелёная приёмка. Живой микрофон, захват экрана, горячие клавиши/Accessibility, файловые панели и первый запуск в TestFlight не проверены. Прямая сборка 0.6.7/60 не заменялась. [Отчёт запусков](publication/macos-appstore-build-2026-10-14.md).
 

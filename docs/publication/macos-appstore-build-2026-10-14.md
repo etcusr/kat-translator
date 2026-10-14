@@ -1,4 +1,4 @@
-# Mac App Store: сборки 1.0 (61–64) — 14 октября 2026
+# Mac App Store: сборки 1.0 (61–65) — 14 октября 2026
 
 ## Решение
 
@@ -7,7 +7,7 @@
 | Параметр | Магазинная сборка |
 |---|---|
 | Bundle ID | `app.kattranslator` — общий с iOS: одна запись App Store Connect для iOS и macOS |
-| Версия / build | **1.0 / 64** (актуальная; 61 — с OpenSSL, 61 и 62 — с неработающим OPUS GPU, 63 — без декларации шифрования) — совпадает с версией macOS-страницы ASC «1.0», иначе сборка не появится в поле «Build». Номер build продолжает Mac-последовательность после 60 |
+| Версия / build | **1.0 / 65** (актуальная; 61 — с OpenSSL, 61 и 62 — с неработающим OPUS GPU, 63 — без декларации шифрования, 64 — отклонена ITMS-90284) — совпадает с версией macOS-страницы ASC «1.0», иначе сборка не появится в поле «Build». Номер build продолжает Mac-последовательность после 60 |
 | Entitlements | `apps/macos/KatMacStore.entitlements`: app-sandbox, device.audio-input, files.user-selected.read-write, network.client |
 | Helper | `Contents/MacOS/OpusPython` (PyTorch Metal worker старого OPUS EN-пакета) подписывается `KatMacHelper.entitlements`: app-sandbox + inherit |
 | Подпись | Archive — Apple Development (automatic), экспорт `app-store-connect` — Apple Distribution и 3rd Party Mac Developer Installer, профиль «Mac Team Store Provisioning Profile: app.kattranslator» (Xcode managed) |
@@ -106,6 +106,19 @@
 
 `testScreenImageHandoff…` падал в sandbox только из-за пустых настроек контейнера. Со снимком настроек прямой сборки он прошёл.
 
+## 1.0 (65): ITMS-90284 для ресурсных бандлов SwiftPM
+
+После обработки 64 Apple прислала ITMS-90284 (Invalid Code Signing) для `Contents/Resources/FluidAudio_FluidAudio.bundle` и `OfflineCore_OfflineCore.bundle`. Это ресурсные бандлы SwiftPM без `CFBundleExecutable`. Xcode подписывает их development-сертификатом ещё до копирования в приложение, а экспорт `app-store-connect` вложенный код в `Resources` не переподписывает. Локальная проверка искала только Mach-O, поэтому эти подписи пропустила.
+
+Исправление: в store-сборке `bundle-macos-runtimes.py` удаляет `_CodeSignature` у бандлов в `Resources`, у которых нет исполняемого файла. Их содержимое запечатывает подпись приложения. Скрипт останавливает сборку, если в `Resources` осталась вложенная подпись.
+
+Проверено для pkg 65:
+- строгая проверка подписи PASS;
+- в `Resources` нет `_CodeSignature`;
+- все 3 подписанных бандла (приложение, OmniVoiceRuntime, OpusRuntime) и все 154 Mach-O подписаны Apple Distribution;
+- `ITSAppUsesNonExemptEncryption=false`;
+- копия archive запускается вне `~/Downloads`, AppSandbox активен, новых отчётов о падениях нет.
+
 ## Открыто
 
 - Функциональная приёмка sandbox-сборки (лучше через TestFlight для macOS).
@@ -116,4 +129,4 @@
 
 ## Уточнение после серверной обработки 64
 
-Apple отклонила build64 с ITMS-90284 для FluidAudio/OfflineCore resource bundles. Историческое `Upload succeeded` выше подтверждает передачу, но не приёмку. Исправление 65 готовится отдельно. [Сверка архива, замечания и границы проверок](macos-release-verification-2026-10-14.md). В текущем дереве исправлено ожидание количества роликов после удаления one-beer; 4 теста `LoadingAnimationTests` прошли в отдельной Release-сборке. Это не повтор полного набора и не подтверждение TestFlight.
+Apple отклонила build64 с ITMS-90284 для FluidAudio/OfflineCore resource bundles. Историческое `Upload succeeded` выше подтверждает передачу, но не приёмку. Экспортированный PKG65 независимо проверен: обе отдельные подписи ресурсов удалены, строгая подпись и соответствие сертификата профилю проходят; приём Apple пока не подтверждён. [Сверка архива, замечания и границы проверок](macos-release-verification-2026-10-14.md). В текущем дереве исправлено ожидание количества роликов после удаления one-beer; 4 теста `LoadingAnimationTests` прошли в отдельной Release-сборке. Это не повтор полного набора и не подтверждение TestFlight.
