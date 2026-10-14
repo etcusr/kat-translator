@@ -1,0 +1,173 @@
+{
+  "date": "2026-10-14",
+  "scope": "Fresh locally exported App Store packages; no upload or device acceptance",
+  "app_privacy_published": true,
+  "asc_confirmation": "User-provided screenshot, no direct account access",
+  "privacy_policy_published": true,
+  "tests": {
+    "python_validation": {
+      "passed": 132,
+      "failed": 0
+    }
+  },
+  "packages": [
+    {
+      "platform": "ios",
+      "version": "1.0",
+      "build": "50",
+      "artifact_name": "Kat-translator-1.0-build50.ipa",
+      "artifact_bytes": 68578777,
+      "artifact_sha256": "b5a879269d30ba8c9f266f64bebfcb833c40b032822c8982dab3b0b76ea0876d",
+      "notice_documents": 42,
+      "notice_sha256": "1c57c983384507806fd75d77057a75865da4ea65d6fb032bf3878c77018f1cae",
+      "privacy_manifests": [
+        "FluidAudio_FluidAudio.bundle/PrivacyInfo.xcprivacy",
+        "Frameworks/OmniVoiceRuntime.framework/PrivacyInfo.xcprivacy",
+        "Frameworks/OpusRuntime.framework/PrivacyInfo.xcprivacy",
+        "Frameworks/Python.framework/PrivacyInfo.xcprivacy",
+        "Frameworks/TranslationRuntime.framework/PrivacyInfo.xcprivacy",
+        "ONNXRuntimePrivacy.bundle/PrivacyInfo.xcprivacy",
+        "OfflineCore_OfflineCore.bundle/PrivacyInfo.xcprivacy",
+        "PrivacyInfo.xcprivacy",
+        "SherpaOnnxPrivacy.bundle/PrivacyInfo.xcprivacy"
+      ],
+      "signature": "PASS",
+      "all_binary_signers_match_app": true,
+      "distribution_profiles": 2,
+      "export_encryption_flag": false,
+      "loading_animations": 14,
+      "loading_source_bytes_match": true,
+      "no_xctest": true,
+      "no_one_beer": true,
+      "resource_bundles": [],
+      "binary_checks": {
+        "macho_images_checked": 72,
+        "openssl_markers": 0,
+        "openssl_library_dependencies": 0,
+        "hash_fallbacks": [
+          "_md5",
+          "_sha1",
+          "_sha2",
+          "_sha3",
+          "_blake2"
+        ]
+      },
+      "build_identity": {
+        "configuration": "Release",
+        "identifier": "ios-e712e698b742a96b",
+        "platform": "iphoneos",
+        "schema": 1,
+        "sha256": "e712e698b742a96b729d18e69c210b238602ac58be56a1dafe1607d7760c4751",
+        "sourceFileCount": 792
+      },
+      "device_test": "not performed",
+      "uploaded": false,
+      "artifact_path": "dist/ios/store/Kat-translator-1.0-build50.ipa",
+      "privacy_verification": {
+        "app_manifest_sha256": "72703f587e33281e2bae5909f2e6fb7dd8cb5148070a931879b9fb9fca8fe7a8",
+        "app_categories_match_published_answers": true,
+        "sdk_collection_unchanged": true,
+        "tracking": false,
+        "manifest_count": 9
+      }
+    },
+    {
+      "platform": "macos",
+      "version": "1.0",
+      "build": "69",
+      "artifact_name": "Kat-translator-1.0-build69.pkg",
+      "artifact_bytes": 349369691,
+      "artifact_sha256": "25870d00f0c3b03a9641e24203a92f530af9149bfff050639442e255ce2d5e83",
+      "notice_documents": 42,
+      "notice_sha256": "1c57c983384507806fd75d77057a75865da4ea65d6fb032bf3878c77018f1cae",
+      "privacy_manifests": [
+        "Contents/Frameworks/OpusRuntime.framework/Versions/A/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/FluidAudio_FluidAudio.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/ONNXRuntimePrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/OfflineCore_OfflineCore.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/ProtobufPrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/PyTorchPrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/SentencePiecePrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/SherpaOnnxPrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy"
+      ],
+      "signature": "PASS",
+      "all_binary_signers_match_app": true,
+      "distribution_profiles": 1,
+      "export_encryption_flag": false,
+      "loading_animations": 14,
+      "loading_source_bytes_match": true,
+      "no_xctest": true,
+      "no_one_beer": true,
+      "resource_bundles": [
+        {
+          "path": "Contents/Resources/ONNXRuntimePrivacy.bundle",
+          "bundle_id": "app.kattranslator.privacy.ONNXRuntimePrivacy",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/PyTorchPrivacy.bundle",
+          "bundle_id": "app.kattranslator.privacy.PyTorchPrivacy",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/OfflineCore_OfflineCore.bundle",
+          "bundle_id": "offlinecore.OfflineCore.resources",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/ProtobufPrivacy.bundle",
+          "bundle_id": "app.kattranslator.privacy.ProtobufPrivacy",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/FluidAudio_FluidAudio.bundle",
+          "bundle_id": "fluidaudio.FluidAudio.resources",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/SentencePiecePrivacy.bundle",
+          "bundle_id": "app.kattranslator.privacy.SentencePiecePrivacy",
+          "codeless_unsigned": true
+        },
+        {
+          "path": "Contents/Resources/SherpaOnnxPrivacy.bundle",
+          "bundle_id": "app.kattranslator.privacy.SherpaOnnxPrivacy",
+          "codeless_unsigned": true
+        }
+      ],
+      "binary_checks": {
+        "machOFiles": 154,
+        "minimumMacOS": "27.0",
+        "externalNonSystemDependencies": [],
+        "externalNonSystemRPaths": [],
+        "librariesExceedingMinimumMacOS": []
+      },
+      "build_identity": {
+        "configuration": "Release",
+        "identifier": "mac-38b486463e1c61c2",
+        "platform": "macosx",
+        "schema": 1,
+        "sha256": "38b486463e1c61c2f3929a275e2f633755c3fd59e0587b2bf23a05afdea9554e",
+        "sourceFileCount": 790
+      },
+      "device_test": "not performed",
+      "uploaded": false,
+      "artifact_path": "dist/macos/store/Kat-translator-1.0-build69.pkg",
+      "privacy_verification": {
+        "app_manifest_sha256": "694d83f77111ff6e1fe87df621b027799625377282a9c532c272d506d5cf4052",
+        "app_categories_match_published_answers": true,
+        "sdk_collection_unchanged": true,
+        "tracking": false,
+        "manifest_count": 9
+      },
+      "installer_signature_verified": true,
+      "installer_certificate_type": "3rd Party Mac Developer Installer"
+    }
+  ],
+  "limitations": [
+    "No App Store upload or server processing for these builds",
+    "No new device, full runtime, network capture or TestFlight acceptance",
+    "Dependency source correspondence and SDK provenance remain open"
+  ]
+}
