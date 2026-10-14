@@ -1,5 +1,9 @@
 # Android packages and shared catalogs
 
+**English** | [Русский](PACKAGE-STORAGE.ru.md)
+
+> Technical reference written during the 0.3.x stage. Since 0.4.x the initial translation choice is "Auto" (see [current state](../CURRENT_STATE.md)); statements below that call OPUS Big the Android default are historical.
+
 `PackageRepository` is owned once per process by `PackageDownloads`, shared by the
 Android ViewModel and foreground service. Its `catalog` comes
 directly from the same `assets/catalogs` JSON files used by Apple. No model weights
