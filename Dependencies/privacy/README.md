@@ -42,3 +42,7 @@ Index sets HF offline and disable-telemetry before importing its dependencies. O
 - Vendor archives and XCFramework inputs are unchanged. App distribution signatures establish package integrity, **not** a supplier's original SDK signature. Upstream signature/provenance and App Store server processing remain separate acceptance steps.
 
 Run `PYTHONPATH=scripts/validation python3 -m unittest scripts.validation.test_inference_privacy scripts.validation.test_ios_privacy_manifests scripts.validation.test_sdk_privacy_manifests`. Inspect all manifests and strict signatures in the final exported IPA/PKG, not just sources. [Dated audit](../../docs/publication/apple-privacy-sdk-2026-10-14.md).
+
+## Source-built SDK candidate
+
+A separate OpusRuntime candidate was rebuilt from hash-locked archives, includes three per-platform manifests and has a verified Apple Development package signature. It has not replaced the existing build input yet. The three downloaded Sherpa/ONNX XCFrameworks remain unsigned; their51 files match official ZIPs and release digests. [Evidence and remaining work](../../docs/licensing/2026-10-14/publication-and-sdk.md).

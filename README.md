@@ -91,3 +91,5 @@ Hardware tests are separate from unit tests and compilation. Do not run instrume
 - [Publication preparation](docs/publication/2026-10-14/README.md) — dated preparation materials, not a published app.
 - [Animations](docs/branding/loading-animations/README.md), [branding](docs/branding/README.md).
 - [Previous README](docs/history/README-before-2026-10-12-sync.md) — archived details of earlier iterations.
+
+Dependency source delivery and SDK provenance are documented [here](docs/licensing/2026-10-14/publication-and-sdk.md). The source tree now includes46 notice documents; the newly rebuilt/signed Opus SDK is a separate candidate for the next release.

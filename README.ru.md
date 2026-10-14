@@ -91,3 +91,5 @@ xcodebuild -project apps/ios/OfflineTranslator.xcodeproj -scheme OfflineTranslat
 - [Подготовка публикации](docs/publication/2026-10-14/README.md) — датированный снимок материалов, не опубликованное приложение.
 - [Анимации](docs/branding/loading-animations/README.md), [брендинг](docs/branding/README.md).
 - [Предыдущий README](docs/history/README-before-2026-10-12-sync.md) — архив деталей ранних итераций.
+
+[Исходники зависимостей и происхождение SDK](docs/licensing/2026-10-14/publication-and-sdk.md): в исходниках46 документов лицензий; заново собранный и подписанный Opus SDK подготовлен отдельным кандидатом для следующего выпуска.

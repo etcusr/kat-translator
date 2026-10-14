@@ -135,3 +135,7 @@ Android использует тот же каталог и дополнител�
 ### Audio session cleanup (14 October 2026)
 
 SpeechPlayer and AudioRecorder deactivate the iOS session only after their own successful activation. SpeechPlayer observes interruptions and engine configuration changes, resolves pending playback with an error, removes observers before teardown and guards queued callbacks by engine identity. [Device regression evidence](publication/ios-playback-fix-2026-10-14.md).
+
+### Source kit and SDK reproducibility
+
+`scripts/package-dependency-sources.py` creates verified allowlisted source TAR parts. `scripts/rebuild-opus-source-kit.py` rebuilds an isolated Opus XCFramework from the checked archives and patch, includes per-platform manifests and optionally signs the SDK. It does not replace existing vendor outputs. [Provenance and limitations](licensing/2026-10-14/publication-and-sdk.md). The shared notice resource now contains46 documents, including Wayu, Supertonic3 and CC BY-NC model terms.

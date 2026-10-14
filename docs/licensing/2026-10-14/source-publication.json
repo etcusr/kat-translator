@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "date": "2026-10-14",
+  "releaseURL": "https://github.com/etcusr/kat-translator/releases/tag/dependency-sources-2026-10-14",
+  "public": true,
+  "serverAssetDigestVerification": "all nine assets match local SHA-256",
+  "assets": [
+    {
+      "file": "README.md",
+      "bytes": 1555,
+      "sha256": "1c8ca74c57219b5e46a1308a79a611545100bf24ad66110302ea806fc577421e",
+      "url": "https://github.com/etcusr/kat-translator/releases/download/dependency-sources-2026-10-14/README.md",
+      "anonymousGETSHA256Verified": true
+    },
+    {
+      "file": "SHA256SUMS",
+      "bytes": 737,
+      "sha256": "09354ff9957097ffcc9aba271c881cabd0d027ea5a73c4f0f71ddf867d034133",
+      "url": "https://github.com/etcusr/kat-translator/releases/download/dependency-sources-2026-10-14/SHA256SUMS",
+      "anonymousGETSHA256Verified": true
+    },
+    {
+      "file": "dependency-sources-part-01.tar",
+      "bytes": 893911040,
+      "sha256": "70808fad7d01de2c887bc0b422e9110099a6314c999034af0141cc3defbf3434",
+      "url": "https://github.com/etcusr/kat-translator/releases/download/dependency-sources-2026-10-14/dependency-sources-part-01.tar",
+      "anonymousHEADSizeVerified": true
+    },
+    {
+      "file": "dependency-sources-part-02.tar",
+      "bytes": 874987520,
+      "sha256": "3ceaa0b1e6146d5e394105a5fcb5de1d43ceb65b58eed95e6fc6c6abd5bd74fc",
+      "url": "https://github.com/etcusr/kat-translator/releases/download/dependency-sources-2026-10-14/dependency-sources-part-02.tar",
+      "anonymousHEADSizeVerified": true
+    },
+    {
+      "file": "dependency-sources-part-03.tar",
+      "bytes": 894832640,
+      "sha256": "0a0f88c8a6830e65a738e56d8add537e8545934e61820a405b7d44ccbaf4fc3f",
+      "url": "https://github.com/etcusr/kat-translator/releases/download/dependency-sources-2026-10-14/dependency-sources-part-03.tar",
+      "anonymousHEADSizeVerified": true
+    },
+    {
+      "file": "dependency-sources-part-04.tar",
+      "bytes": 47360000,
+      "sha256": "92c6d7670318e963a6cbbad4d9fa0142fedc769d32daa90c6fd0b596bf27a56b",
+      "url": "https://github.com/etcusr/kat-translator/releases/download/dependency-sources-2026-10-14/dependency-sources-part-04.tar",
+      "anonymousHEADSizeVerified": true
+    },
+    {
+      "file": "kat-source-f491064.tar.gz",
+      "bytes": 22085091,
+      "sha256": "1cf0dcbb5ae1d3fb3802b9fbf61593d9133f68f63cd33cc6ca7f552a0843404c",
+      "url": "https://github.com/etcusr/kat-translator/releases/download/dependency-sources-2026-10-14/kat-source-f491064.tar.gz",
+      "anonymousHEADSizeVerified": true
+    },
+    {
+      "file": "publication-manifest.json",
+      "bytes": 33058,
+      "sha256": "f0ce2b3573cfdc9d53ed816e75839c61ed1ae7f24e35e10e2caa093f5acc1b29",
+      "url": "https://github.com/etcusr/kat-translator/releases/download/dependency-sources-2026-10-14/publication-manifest.json",
+      "anonymousGETSHA256Verified": true
+    },
+    {
+      "file": "source-metadata.tar.gz",
+      "bytes": 1022546,
+      "sha256": "f378c6f3340e0410a2a2f08cf010a01569ad80d91940f46b58cce9a7f0aa4e99",
+      "url": "https://github.com/etcusr/kat-translator/releases/download/dependency-sources-2026-10-14/source-metadata.tar.gz",
+      "anonymousGETSHA256Verified": true
+    }
+  ]
+}

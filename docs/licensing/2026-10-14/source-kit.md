@@ -1,8 +1,8 @@
 # Dependency source kit — 14 October 2026
 
-Последние проверенные Apple-пакеты — iOS49/Mac68: 42 уведомления побайтово совпадают с этим комплектом; [privacy/SDK-аудит](../../publication/apple-privacy-sdk-2026-10-14.md). Полнота соответствующих исходников, публичная доставка и правовые вопросы ниже этим не закрыты.
+Последние проверенные store-пакеты — iOS50/Mac69:42 уведомления. В исходниках теперь46 документов: добавлены Wayu frontend, полный OpenRAIL-M Supertonic3, оригинальный MIT из конвертированного архива и CC BY-NC4.0. [Публикация исходников, чистая сборка собственного SDK и точный остаток](publication-and-sdk.md). Новые store-пакеты с46 notices ещё не собраны.
 
-The local kit contains **605 complete upstream archives and 9 pinned Wayu source files**, 2,709,554,635 bytes (2.52 GiB). Location: `dist/licensing/dependency-sources-2026-10-14/`. Large source archives stay outside Git. The checked-in [lock](dependency-sources.json) records exact HTTPS URLs, sizes and SHA-256; it allows the same files to be fetched again. Nothing was uploaded or published by this task.
+The local kit contains **605 complete upstream archives and 9 pinned Wayu source files**, 2,709,554,635 bytes (2.52 GiB). Location: `dist/licensing/dependency-sources-2026-10-14/`. Large source archives stay outside Git. The checked-in [lock](dependency-sources.json) records exact HTTPS URLs, sizes and SHA-256; it allows the same files to be fetched again. Public source-input delivery is complete and verified in [the continuation](publication-and-sdk.md); the source collection is separate from final binary correspondence.
 
 This closes source acquisition for the enumerated inputs. It does **not** certify complete corresponding source for every release binary: a source archive, source JAR or matching version label alone does not establish its complete build inputs, flags or binary provenance.
 
@@ -33,7 +33,7 @@ The shared manifest grows from 38 to **42 documents**, adding four reproducible 
 
 [Source member hashes and selections](source-notices.json) reproduce the first three aggregates without extracting or executing upstream code. Complete comment boundaries and full member hashes are checked. Original text is preserved apart from explicitly recorded decoding and line-ending normalization; identical bodies are shared, not discarded. The fourth aggregate retains original binary notice payloads already present in the resolved cache.
 
-The final app resource is `assets/bundled/ThirdPartyNotices.txt`. Existing signed IPA47 and PKG66 remain unchanged and contain the old notice set. Fresh store artifacts are required.
+The final app resource is `assets/bundled/ThirdPartyNotices.txt`. The aggregate construction above produced42 documents; the continuation adds4 model/frontend documents for46 total. Existing signed IPA50/PKG69 remain unchanged with42. Fresh store artifacts are required.
 
 ## Reproduce locally
 
@@ -49,11 +49,11 @@ python3 scripts/assemble-ios-notices.py --check
 ## Still open — precise limits
 
 1. **Release binary correspondence and rebuild.** Rebuild the precompiled sherpa/eSpeak/Piper and Python/native runtimes from these inputs with the intended target/toolchain/features, then audit the actual exported app. The download lock and upstream recipes are now local; an independent clean rebuild and complete link map were not performed. This also applies to native code inside Python wheels and any additional FetchContent/build-time inputs beyond the enumerated files. Do not call this kit a fully verified GPL corresponding-source delivery yet.
-2. **Source delivery.** Publish/host the verified kit and provide the applicable recipient access mechanism alongside a release. A local ignored directory is not public delivery. No source hosting/upload was performed.
+2. **Source delivery.** The [source-input release](https://github.com/etcusr/kat-translator/releases/tag/dependency-sources-2026-10-14) provides recipient access to the enumerated collection. Link the applicable source snapshot alongside each final binary release; complete binary correspondence remains distinct.
 3. **Google proprietary Android SDKs.** Source JAR 404 is not permission to omit SDK terms, nor evidence of a GPL violation. Verify current Google Play services/ML Kit terms and the exact final AAB. The 22 coordinates are explicit in the coverage JSON; no proprietary source was invented.
 4. **Distribution terms and assets.** GPL/App Store terms, downstream OpenRAIL/NC conditions, model/voice/dictionary provenance, 111 voice previews and rights for 30 media files remain as in the [release package review](release-package-review.md). Voices and media were not silently removed.
-5. **Final packages.** New signed iOS 1.0 (48) IPA and Mac 1.0 (67) PKG now contain the 42-document resource and pass local package checks ([report](../../publication/store-license-rebuild-2026-10-14.md)). They have not been uploaded or installed. Final Android AAB, Apple processing, device/TestFlight acceptance and the other release decisions remain open.
+5. **Final packages.** Signed iOS1.0(50)/Mac1.0(69) contain42 documents and passed their dated checks. The new46-document resource and signed Opus candidate need the next release build; no existing signed package was modified. Final Android AAB, Apple processing, device/TestFlight acceptance and the other release decisions remain open.
 
-## Validation
+## Historical acquisition/build validation (42 notices)
 
 All 614 source inputs pass SHA-256 verification; all 249 Rust crate hashes and all ONNX deps.txt hashes match upstream locks. Three native patches apply cleanly. Collector tests cover corrupted downloads, preservation of existing files, offline checking, traversal and symlinks. Notice assembly tests and package-resource tests pass. Fresh unsigned iOS Release, Mac Release and Android debug builds all pass. Their packaged notice bytes match SHA-256 `1c57c983384507806fd75d77057a75865da4ea65d6fb032bf3878c77018f1cae`. Logs are retained locally under `.build/source-kit-review/`. This task does not retest translation quality or install applications on devices.

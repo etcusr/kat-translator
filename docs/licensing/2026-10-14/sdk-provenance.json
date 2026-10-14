@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "date": "2026-10-14",
+  "scope": "Local extracted SDK bytes versus pinned upstream binary archives; not a rebuild or supplier attestation",
+  "sdks": [
+    {
+      "archive": "Dependencies/downloads/sherpa-ios.zip",
+      "sha256": "6b8e769cb153343270fdccbe92e3b3db0d1c421d67fa0989ab01fdf5b2fcf2de",
+      "sdk": "Dependencies/build/speech/sherpa-onnx.xcframework",
+      "matchedFiles": 9,
+      "differentFiles": [],
+      "unmappedFiles": [],
+      "sdkPackageSignatureValid": false,
+      "signatureResult": "unsigned",
+      "upstreamReleaseDigestMatches": true,
+      "upstreamRelease": "https://github.com/k2-fsa/sherpa-onnx/releases/tag/xcframework"
+    },
+    {
+      "archive": "Dependencies/downloads/onnx-ios.zip",
+      "sha256": "992d8a0cc6014cccc3a7815c36bbff5e5a06833ea2c4d47dd43ef071f639cf9d",
+      "sdk": "Dependencies/build/speech/onnxruntime.xcframework",
+      "matchedFiles": 37,
+      "differentFiles": [],
+      "unmappedFiles": [],
+      "sdkPackageSignatureValid": false,
+      "signatureResult": "unsigned",
+      "upstreamReleaseDigestMatches": true,
+      "upstreamRelease": "https://github.com/csukuangfj/onnxruntime-libs/releases/tag/v1.28.1"
+    },
+    {
+      "archive": "Dependencies/downloads/sherpa-macos.zip",
+      "sha256": "82d5cb3af38c3cb4871c3532a6c7dc86d6b7db1077bcc9d6a1047100976f199b",
+      "sdk": "Dependencies/build/speech-macos/sherpa-onnx.xcframework",
+      "matchedFiles": 5,
+      "differentFiles": [],
+      "unmappedFiles": [],
+      "sdkPackageSignatureValid": false,
+      "signatureResult": "unsigned",
+      "upstreamReleaseDigestMatches": true,
+      "upstreamRelease": "https://github.com/k2-fsa/sherpa-onnx/releases/tag/xcframework"
+    }
+  ],
+  "ownOpusRebuild": {
+    "recipe": "scripts/rebuild-opus-source-kit.py",
+    "inputs": "opus-source-build-inputs.json",
+    "slices": [
+      {
+        "slice": "ios-arm64-simulator",
+        "sha256": "277070dfc747d83833f495f0eff12ab5dc84b2eab10763089a9b7f429f32c912"
+      },
+      {
+        "slice": "macos-arm64",
+        "sha256": "1636fe35fa4b9da6d76fc61cb9013dadf7351dc7e6f70bb3b7cd3ac9127d7887"
+      },
+      {
+        "slice": "ios-arm64",
+        "sha256": "113b20bce7448b63cda8ea2bf1557eed854b51c7e6b2d09507ca9d56dc701a15"
+      }
+    ],
+    "sourcePatchAppliedAndReverseChecked": true,
+    "sdkPackageSignatureValid": true,
+    "signatureKind": "Apple Development with trusted timestamp",
+    "privacyManifests": 3,
+    "macDlopenAndInvalidModelControl": "PASS",
+    "notInstalledIntoProduction": true,
+    "limits": "No bit-identical comparison with prior release; full new-SDK device inference and final app packages are later release acceptance",
+    "macRuntimeControl": {
+      "translation": "The train leaves tomorrow at 5:00.",
+      "translationSeconds": 0.249,
+      "cooperativeCancellationCode": 2,
+      "cancellationSeconds": 0.066
+    }
+  }
+}

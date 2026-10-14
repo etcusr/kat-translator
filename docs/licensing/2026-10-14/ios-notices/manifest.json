@@ -223,5 +223,31 @@
     "source": "../android-binary-notices.json (binary archive/member SHA-256 provenance)",
     "scope": "Android; notices retained from resolved AAR/JAR payloads",
     "sha256": "1496820eacd25a5086d73e275cf544cf906400eb3eb54fe19e160aaefb59a88f"
+  },
+  {
+    "file": "Wayu-Frontend-NOTICE.txt",
+    "source": "https://huggingface.co/kunato/wayu-kokoro-thai-v1/blob/50d7f60e41ac118e5bb92b0ba52c30bb7830103c/README.md",
+    "sha256": "291549457384b7506c94729214e101d863d62b531202f0a03c456a8af5ea96db",
+    "scope": "Wayu frontend inputs; original model-card attribution and standard Apache-2.0 text; Kat transformations in scripts/prepare-wayu.py"
+  },
+  {
+    "file": "CC-BY-NC-4.0.txt",
+    "source": "https://raw.githubusercontent.com/creativecommons/cc-legal-tools-data/a0dac18d1a773b4cdb7d8dd5d9bf4efab7901030/docs/licenses/by-nc/4.0/legalcode.txt",
+    "sha256": "41003d4a74749c0220e33dd415042164b5a1093ed401f36277234f772d22d3d0",
+    "scope": "Downloaded Meta MMS and OmniVoice weights identified in assets/catalogs/additional-voices.json and omnivoice-notices.json; not Kat GPL code. Original sources and conversion revisions remain in those catalogs. Noncommercial model-use restrictions apply."
+  },
+  {
+    "file": "Supertonic3-OpenRAIL-M-LICENSE.txt",
+    "source": "https://huggingface.co/Supertone/supertonic-3/resolve/3cadd1ee6394adea1bd021217a0e650ede09a323/LICENSE",
+    "sha256": "0d944a9110fed9a9602d60e0423a272903e7bd21ab060490774efc77c2275e9f",
+    "scope": "Official Supertone Supertonic3 weight license. Full OpenRAIL-M including use restrictions. The sherpa INT8 archive contains a different MIT text, preserved separately; that text is not treated as overriding upstream weight terms. This copy does not replace the required downstream model-use agreement."
+  },
+  {
+    "file": "Supertonic3-Archive-LICENSE.txt",
+    "source": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/sherpa-onnx-supertonic-3-tts-int8-2026-05-11.tar.bz2",
+    "member": "sherpa-onnx-supertonic-3-tts-int8-2026-05-11/LICENSE",
+    "archiveSHA256": "82fa96f91c4ef8abaae3a14a3f4153facf88bed821d1f7331cec2700f432c427",
+    "sha256": "0dfe0d0ba84416fe3879d9a34f4909d8d0137c78d1e95834177b0414ac096fa2",
+    "scope": "Original MIT notice from the sherpa Supertonic3 INT8 archive. The official weight license is OpenRAIL-M, preserved separately. Retaining this notice does not resolve the mismatch or relicense model weights."
   }
 ]

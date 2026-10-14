@@ -14,6 +14,7 @@ def assemble():
     sections = [
         'Kat translator — software licenses and notices\n'
         'Kat source code: https://github.com/etcusr/kat-translator\n'
+        'Dependency source inputs: https://github.com/etcusr/kat-translator/releases/tag/dependency-sources-2026-10-14\n'
         'Kat is licensed under GPL-3.0-or-later. Third-party components retain '
         'their respective licenses. Downloadable models and voices have separate '
         'terms described in the model and voice information.\n',

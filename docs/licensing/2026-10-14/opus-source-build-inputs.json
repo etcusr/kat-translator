@@ -1,0 +1,137 @@
+{
+  "inputs": [
+    {
+      "archive": "CTranslate2.tar.gz",
+      "sha256": "e6adcd549593995ec4811ea50a9f238d661f9abbc55bd57370ee5c3cdf84a59a",
+      "destination": "CTranslate2"
+    },
+    {
+      "archive": "sentencepiece.tar.gz",
+      "sha256": "b4eb17e6bea5c9380ddd79d04d01d6aa5e280be8f3e3cef1f745a80e6d9451ce",
+      "destination": "sentencepiece"
+    },
+    {
+      "archive": "git-gabime-spdlog-76fb40d95455f249bd70824ecfcae7a8f0930fa3.tar.gz",
+      "sha256": "4530d53b86d45228a5b8982a8f4fe7d95d3ba8e1944858d3f663732c7e949cb7",
+      "destination": "CTranslate2/third_party/spdlog"
+    },
+    {
+      "archive": "git-google-ruy-363f252289fb7a1fba1703d99196524698cb884d.tar.gz",
+      "sha256": "3c2181c9134896784d5d0494e2638c43127de4da2ddf81b3a64c06311fb17432",
+      "destination": "CTranslate2/third_party/ruy"
+    },
+    {
+      "archive": "git-google-googletest-6c58c11d5497b6ee1df3cb400ce30deb72fc28c0.tar.gz",
+      "sha256": "b4a7109b1a4fa078c23012078ad5bc273af24a10f8bfcaecc6111839fceeb010",
+      "destination": "CTranslate2/third_party/ruy/third_party/googletest"
+    },
+    {
+      "archive": "git-pytorch-cpuinfo-082deffc80ce517f81dc2f3aebe6ba671fcd09c9.tar.gz",
+      "sha256": "4379348ec3127b37e854a0a66f85ea1d3c606e5f3a6dce235dc9c69ce663c026",
+      "destination": "CTranslate2/third_party/ruy/third_party/cpuinfo"
+    }
+  ],
+  "patchSHA256": "771922c9f474afa307f025eb46b2d20af8692458d0d5b46f164604b55b1e8e35",
+  "commands": [
+    [
+      "cmake",
+      "-S",
+      "$ROOT/shared/native/OpusRuntime",
+      "-B",
+      "$ROOT/.build/sdk-provenance-2026-10-14/verified/opus/ios",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+      "-DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.0.sdk",
+      "-DCMAKE_OSX_ARCHITECTURES=arm64",
+      "-DCMAKE_OSX_DEPLOYMENT_TARGET=18.0",
+      "-DCT2_SOURCE=$ROOT/.build/sdk-provenance-2026-10-14/verified/sources/CTranslate2",
+      "-DSPM_SOURCE=$ROOT/.build/sdk-provenance-2026-10-14/verified/sources/sentencepiece",
+      "-DCMAKE_SYSTEM_NAME=iOS"
+    ],
+    [
+      "cmake",
+      "--build",
+      "$ROOT/.build/sdk-provenance-2026-10-14/verified/opus/ios",
+      "--target",
+      "OpusRuntime",
+      "-j4"
+    ],
+    [
+      "install_name_tool",
+      "-id",
+      "@rpath/OpusRuntime.framework/OpusRuntime",
+      "$ROOT/.build/sdk-provenance-2026-10-14/verified/opus/ios/OpusRuntime.framework/OpusRuntime"
+    ],
+    [
+      "cmake",
+      "-S",
+      "$ROOT/shared/native/OpusRuntime",
+      "-B",
+      "$ROOT/.build/sdk-provenance-2026-10-14/verified/opus/simulator",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+      "-DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk",
+      "-DCMAKE_OSX_ARCHITECTURES=arm64",
+      "-DCMAKE_OSX_DEPLOYMENT_TARGET=18.0",
+      "-DCT2_SOURCE=$ROOT/.build/sdk-provenance-2026-10-14/verified/sources/CTranslate2",
+      "-DSPM_SOURCE=$ROOT/.build/sdk-provenance-2026-10-14/verified/sources/sentencepiece",
+      "-DCMAKE_SYSTEM_NAME=iOS"
+    ],
+    [
+      "cmake",
+      "--build",
+      "$ROOT/.build/sdk-provenance-2026-10-14/verified/opus/simulator",
+      "--target",
+      "OpusRuntime",
+      "-j4"
+    ],
+    [
+      "install_name_tool",
+      "-id",
+      "@rpath/OpusRuntime.framework/OpusRuntime",
+      "$ROOT/.build/sdk-provenance-2026-10-14/verified/opus/simulator/OpusRuntime.framework/OpusRuntime"
+    ],
+    [
+      "cmake",
+      "-S",
+      "$ROOT/shared/native/OpusRuntime",
+      "-B",
+      "$ROOT/.build/sdk-provenance-2026-10-14/verified/opus/macos",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+      "-DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-DCMAKE_OSX_ARCHITECTURES=arm64",
+      "-DCMAKE_OSX_DEPLOYMENT_TARGET=15.0",
+      "-DCT2_SOURCE=$ROOT/.build/sdk-provenance-2026-10-14/verified/sources/CTranslate2",
+      "-DSPM_SOURCE=$ROOT/.build/sdk-provenance-2026-10-14/verified/sources/sentencepiece"
+    ],
+    [
+      "cmake",
+      "--build",
+      "$ROOT/.build/sdk-provenance-2026-10-14/verified/opus/macos",
+      "--target",
+      "OpusRuntime",
+      "-j4"
+    ],
+    [
+      "install_name_tool",
+      "-id",
+      "@rpath/OpusRuntime.framework/OpusRuntime",
+      "$ROOT/.build/sdk-provenance-2026-10-14/verified/opus/macos/OpusRuntime.framework/OpusRuntime"
+    ],
+    [
+      "xcodebuild",
+      "-create-xcframework",
+      "-framework",
+      "$ROOT/.build/sdk-provenance-2026-10-14/verified/opus/ios/OpusRuntime.framework",
+      "-framework",
+      "$ROOT/.build/sdk-provenance-2026-10-14/verified/opus/simulator/OpusRuntime.framework",
+      "-framework",
+      "$ROOT/.build/sdk-provenance-2026-10-14/verified/opus/macos/OpusRuntime.framework",
+      "-output",
+      "$ROOT/.build/sdk-provenance-2026-10-14/verified/OpusRuntime.xcframework"
+    ]
+  ],
+  "toolchain": "Xcode 27.0\nBuild version 27A266a",
+  "cmake": "cmake version 4.4.3"
+}
