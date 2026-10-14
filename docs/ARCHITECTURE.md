@@ -131,3 +131,7 @@ Android использует тот же каталог и дополнител�
 ## Проверки runtime и сети
 
 `MacRuntimeTests` содержит opt-in `KAT_NETWORK_EXPECTATION=allowed|denied`: HEAD к каталожному файлу сравнивается в обычной sandbox-копии и копии без network-client entitlement. `KAT_SPEECH_INTEGRATION=1` включает полный Thai Wayu, а не только frontend. Загрузочный тест использует уникальный ID и восстанавливает liveDownloadIDs при любом исходе. `VoiceAutoRoutingIntegrationTests` проверяет повторный playback и пишет только тип выхода, частоту и состояние аудиосессии. [Прогон50/69](publication/runtime-acceptance-2026-10-14.md) выявил непостоянный iPhone-аудиосбой; эти проверки не означают TestFlight-приёмку или полную трассировку сети.
+
+### Audio session cleanup (14 October 2026)
+
+SpeechPlayer and AudioRecorder deactivate the iOS session only after their own successful activation. SpeechPlayer observes interruptions and engine configuration changes, resolves pending playback with an error, removes observers before teardown and guards queued callbacks by engine identity. [Device regression evidence](publication/ios-playback-fix-2026-10-14.md).

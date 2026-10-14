@@ -101,6 +101,9 @@ private final class RecordingSink: @unchecked Sendable {
     private var generation = 0
     private var clock: RecordingClock?
     private var deferredLimit = false
+    #if os(iOS)
+    private var activatedSession = false
+    #endif
     init() {
         #if os(iOS)
         for name in [AVAudioSession.interruptionNotification, AVAudioSession.routeChangeNotification] {
@@ -146,6 +149,7 @@ private final class RecordingSink: @unchecked Sendable {
         let session = AVAudioSession.sharedInstance()
         try session.setCategory(.playAndRecord, mode: .measurement, options: [.defaultToSpeaker])
         try session.setActive(true)
+        activatedSession = true
         #endif
         let engine = AVAudioEngine()
         let input = engine.inputNode; let format = input.outputFormat(forBus: 0)
@@ -219,7 +223,12 @@ private final class RecordingSink: @unchecked Sendable {
         engine?.inputNode.removeTap(onBus: 0); engine?.stop(); engine = nil
         isRecording = false; isPaused = false; clock = nil; deferredLimit = false
         #if os(iOS)
-        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        // Idle cleanup must not stop another player's process-wide audio session.
+        // Track activation separately: setup can fail before engine is assigned.
+        if activatedSession {
+            activatedSession = false
+            try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        }
         #endif
     }
     deinit { for observer in observers { NotificationCenter.default.removeObserver(observer) } }

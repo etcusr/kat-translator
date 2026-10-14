@@ -139,6 +139,58 @@ final class VoiceAutoRoutingIntegrationTests: XCTestCase {
             logAudioState("playback-\(index)-after")
         }
     }
+    @MainActor func testIdleAudioCleanupDoesNotInterruptPlayback() async throws {
+        let player = SpeechPlayer()
+        let idlePlayer = SpeechPlayer()
+        let idleRecorder = AudioRecorder()
+        let pcm = SpeechPCM(samples: (0..<24000).map { Float(sin(Double($0) * 2 * .pi * 440 / 24000)) * 0.02 }, sampleRate: 24000)
+        var finished = false
+        var failure: Error?
+        var elapsed = 0.0
+        let start = Date()
+        let playback = Task { @MainActor in
+            do { try await player.play(pcm) } catch { failure = error }
+            elapsed = Date().timeIntervalSince(start)
+            finished = true
+        }
+        try await Task.sleep(for: .milliseconds(150))
+        // An unused AppModel can receive a memory/background cleanup while a
+        // different pipeline owns playback. Idle objects must not deactivate it.
+        idlePlayer.stop()
+        idleRecorder.cancel()
+        let deadline = Date().addingTimeInterval(3)
+        while !finished && Date() < deadline { try await Task.sleep(for: .milliseconds(25)) }
+        let completedBeforeCleanup = finished
+        player.stop()
+        await playback.value
+        XCTAssertTrue(completedBeforeCleanup, "Idle cleanup stranded playback continuation")
+        XCTAssertNil(failure)
+        XCTAssertGreaterThanOrEqual(elapsed, 0.9, "Playback completed before the one-second signal")
+    }
+    @MainActor func testInterruptedSpeechPlaybackFinishesAndCanRestart() async throws {
+        let player = SpeechPlayer()
+        defer { player.stop() }
+        let pcm = SpeechPCM(samples: [Float](repeating: 0.01, count: 48000), sampleRate: 24000)
+        var finished = false
+        var failure: Error?
+        let playback = Task { @MainActor in
+            do { try await player.play(pcm) } catch { failure = error }
+            finished = true
+        }
+        try await Task.sleep(for: .milliseconds(150))
+        NotificationCenter.default.post(name: AVAudioSession.interruptionNotification,
+            object: AVAudioSession.sharedInstance(), userInfo: [
+                AVAudioSessionInterruptionTypeKey: AVAudioSession.InterruptionType.began.rawValue])
+        let deadline = Date().addingTimeInterval(0.5)
+        while !finished && Date() < deadline { try await Task.sleep(for: .milliseconds(25)) }
+        let completedBeforeCleanup = finished
+        let interruptionError = failure
+        player.stop()
+        await playback.value
+        XCTAssertTrue(completedBeforeCleanup, "Interruption must release the pending playback")
+        XCTAssertNotNil(interruptionError, "Interrupted audio must not report successful completion")
+        try await player.play(SpeechPCM(samples: [Float](repeating: 0.01, count: 4800), sampleRate: 24000))
+    }
     @MainActor func testAfterStopDetectsLanguageAndSwitchesAutoModels() async throws {
         let pipeline = try await prepare()
         for (language, model) in [(SpeechLanguage.russian, TranslationModel.opusBig), (.german, .index9B), (.russian, .opusBig)] {

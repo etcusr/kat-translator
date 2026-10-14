@@ -10,6 +10,8 @@ An offline voice, text and image-text translator for **iPhone, Apple Silicon Mac
 
 Local App Store packages iOS **1.0 (50)** and Mac **1.0 (69)** include current download-host privacy disclosures, nine manifests and 42 license documents each. Final package signatures, profiles and contents were checked; 132 validation tests passed. App Privacy answers and the updated policy are published. Package upload, final device/TestFlight acceptance and the remaining licensing/provenance checks are still open. [Release verification and remaining work](docs/publication/hosting-manifests-release-2026-10-14.md).
 
+The iPhone playback fix passed six device regressions and two repeated voice cases; the shared Mac player also passed. Existing IPA50/PKG69 do not yet include it. [Evidence and limits](docs/publication/ios-playback-fix-2026-10-14.md).
+
 Local runtime checks now include sandboxed Mac inference with network access denied. iPhone downloads and final voice repeats passed, but intermittent playback failures and a Thai pipeline timeout remain unresolved. [Runtime results and limits](docs/publication/runtime-acceptance-2026-10-14.md).
 
 **Repository privacy:** personal recordings, transcripts and diagnostic media are excluded from the published history. [Scope and handling of local data](docs/REPOSITORY_PRIVACY.md).
