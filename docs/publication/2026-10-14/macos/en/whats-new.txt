@@ -1,0 +1,1 @@
+The first App Store release of Kat translator: translate speech, text and words in images using on-device models.

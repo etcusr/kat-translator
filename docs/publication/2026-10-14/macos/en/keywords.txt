@@ -1,0 +1,1 @@
+offline,speech,voice,text,screen,language,pronunciation,travel

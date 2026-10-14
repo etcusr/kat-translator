@@ -1,0 +1,18 @@
+Kat translator, konuşmaları, metinleri ve görsellerdeki yazıları Mac üzerinde çevirir. Dillerinizi seçin, gerekli modelleri indirin ve internet bağlantısı olmadan çeviri yapın.
+
+Çeviri almak için bir cümle kaydedin veya metin yazın. Desteklenen dillerde sonucu dinlemek için bir ses paketi indirin. Sonuçları kopyalayabilir ve cihazınızın paylaşım seçenekleriyle paylaşabilirsiniz.
+
+Bir görsel dosyası açın, panodan görsel yapıştırın veya ekranın bir bölümünü seçin. Kat, desteklenen yazıları tanır ve çeviriyi görsel üzerinde gösterir.
+
+Otomatik mod, cihazınıza ve çeviri yönüne göre yüklü bir model seçer. Küçük OPUS paketleri belirli çeviri yönlerini kapsar. Index 2B ve 9B daha fazla metin dili sunar ve farklı miktarda bellek gerektirir. İndirilebilen paketler uygulamada belirtilir. Ses paketleri ayrı indirilir.
+
+Çevirileri yerel geçmişte saklayın; metinlerin, seslerin ve görsellerin ne kadar süre tutulacağını seçin. Ayarlardan geçmişi kapatabilir veya silebilirsiniz.
+
+Çeviriler yerel modellerle cihazınızda işlenir. İlk modelleri ve ek paketleri indirmek için internet bağlantısı gerekir.
+
+Ses girişi, seslendirme ve görsel tanıma desteği dile, modele ve cihaza bağlıdır. Paketler birkaç gigabayt yer kaplayabilir. Çeviriler hata içerebilir; önemli sayıları, adları ve bilgileri özgün metinle karşılaştırın.
+
+Arayüz dilleri: Türkçe, İngilizce, Rusça ve İspanyolca.
+
+MAC ÜZERİNDE
+Seçili metni ve pano içeriğini klavye kısayollarıyla çevirin, Kat’i menü çubuğundan açın. Apple Silicon çipli bir Mac ve macOS 27 veya üzeri gerekir.

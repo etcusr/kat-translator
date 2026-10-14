@@ -1,6 +1,12 @@
-Kat translator работает полностью офлайн: перевод, распознавание речи и озвучка выполняются на Mac с помощью локальных моделей. Учётная запись не нужна.
-Как проверить:
-1) При первом запуске приложение проверяет устройство (3–5 с) и предлагает выбрать языки.
-2) Выберите Русский и Английский и нажмите «Скачать». Нужные модели загрузятся с Hugging Face, интернет нужен только для этого.
-3) Вкладка «Текст»: введите фразу и нажмите «Перевести». Вкладка «Голос»: нажмите микрофон и скажите фразу. Вкладка «Изображение»: откройте картинку с текстом.
-Модели занимают от ~1 ГБ (OPUS) до ~5 ГБ (Index 9B). Микрофон используется только для локального распознавания речи, запись не отправляется на сервер.
+Kat translator performs speech recognition, translation and speech synthesis on the device. No account or sign-in is required.
+
+An internet connection is required to download the selected language models and voices before first use. Downloads may require several gigabytes of free storage. Available downloads are shown in the app; language coverage differs between translation, speech recognition and voices.
+
+Suggested review steps:
+1. Select English and Russian and download the required translation, speech recognition and voice packages.
+2. Open Text, enter a short sentence and translate it.
+3. Open Voice, allow microphone access, record a short phrase and stop recording to translate it.
+4. Open Image and choose a local image containing clearly printed text. Translate it.
+5. After the required packages are downloaded, disable the network and repeat text and voice translation.
+
+Larger translation models require more device memory. The macOS build requires Apple silicon and macOS 27 or later. Microphone access is requested for recording. Screen capture and selected-text shortcuts use the relevant macOS permissions; ordinary typed text does not require them. Speech recordings and translation input are processed locally.

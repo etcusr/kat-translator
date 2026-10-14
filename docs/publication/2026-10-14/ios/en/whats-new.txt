@@ -1,1 +1,1 @@
-New Kat app identifier and developer signing. Download Live Activities now open the correct app when the legacy version is also installed.
+The first App Store release of Kat translator: translate speech, text and words in images using on-device models.

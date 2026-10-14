@@ -1,0 +1,1 @@
+Primera versión de Kat translator en el App Store: traduce voz, texto y palabras en imágenes con modelos que se ejecutan en tu dispositivo.

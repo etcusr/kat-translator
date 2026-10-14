@@ -25,16 +25,39 @@ final class MacUITests: XCTestCase {
         }
     }
 
-    /// Opt-in (KAT_STORE_SHOTS=1): App Store screenshots of the installed /Applications build in
-    /// Russian. Launch arguments only live in the argument domain, so settings, history and
-    /// models stay as they are; the pasteboard is restored.
+    /// Opt-in (KAT_STORE_SHOTS=1): App Store screenshots of the current test-built app in
+    /// each supported UI language. Text-history recording is disabled via its typed UI
+    /// control and restored; other overrides stay in the argument domain. The caller
+    /// verifies persisted preferences/history before and after; the pasteboard is restored.
     @MainActor func testStoreScreenshots() throws {
+        try captureStoreScreenshots(language: ProcessInfo.processInfo.environment["KAT_STORE_SHOTS_LANG"] ?? "ru")
+    }
+
+    @MainActor func testStoreScreenshotsAllLanguages() throws {
+        for language in ["ru", "en", "es", "tr"] {
+            try captureStoreScreenshots(language: language)
+        }
+    }
+
+    @MainActor private func captureStoreScreenshots(language: String) throws {
         guard ProcessInfo.processInfo.environment["KAT_STORE_SHOTS"] == "1" else { throw XCTSkip("Opt-in store screenshots") }
+        let labels = try XCTUnwrap(["ru": (settings: "Настройки", models: "Модели"),
+                      "en": (settings: "Settings", models: "Models"),
+                      "es": (settings: "Ajustes", models: "Modelos"),
+                      "tr": (settings: "Ayarlar", models: "Modeller")][language], "Unsupported store screenshot language: \(language)")
         continueAfterFailure = false
-        let app = XCUIApplication(url: URL(fileURLWithPath: "/Applications/Kat translator.app"))
-        app.launchArguments = ["-languageSetupCompleted", "YES", "-appInterfaceLanguage", "ru", "-ApplePersistenceIgnoreState", "YES",
-                               "-translationSource", "ru", "-translationTarget", "en", "-automaticLanguage", "NO", "-automaticSpeechText", "NO",
-                               "-historyRecordText", "NO", "-historyRecordAudio", "NO", "-historyRecordImages", "NO",
+        let environment = ProcessInfo.processInfo.environment
+        // KAT_STORE_SHOTS_APP: a separately built copy, so the installed app is never replaced.
+        let app = environment["KAT_STORE_SHOTS_APP"].map { XCUIApplication(url: URL(fileURLWithPath: $0)) } ?? XCUIApplication()
+        // Interface language → (source, target, sample text, word expected in the translation).
+        let samples: [String: (String, String, String, String)] = [
+            "ru": ("ru", "en", "Поезд до Казани отправится завтра в 07:45 с третьего пути. Пожалуйста, возьмите с собой паспорт и билет.", "train"),
+            "en": ("en", "es", "The train to Madrid leaves tomorrow at 7:45 from platform 3. Please bring your passport and ticket.", "tren"),
+            "es": ("es", "en", "El tren a Sevilla sale mañana a las 7:45 desde el andén 3. Por favor, lleve su pasaporte y su billete.", "train"),
+            "tr": ("tr", "en", "İzmir treni yarın saat 07:45'te üçüncü perondan kalkacak. Lütfen pasaportunuzu ve biletinizi yanınızda getirin.", "train")]
+        let (source, target, sample, expected) = try XCTUnwrap(samples[language])
+        app.launchArguments = ["-languageSetupCompleted", "YES", "-appInterfaceLanguage", language, "-ApplePersistenceIgnoreState", "YES",
+                               "-translationSource", source, "-translationTarget", target, "-automaticLanguage", "NO", "-automaticSpeechText", "NO",
                                "-showTechnicalInfo", "NO"]   // store shots without the diagnostics toolbar, model line and timings
         let board = NSPasteboard.general
         let saved = (board.pasteboardItems ?? []).map { item in
@@ -42,10 +65,32 @@ final class MacUITests: XCTestCase {
             for type in item.types { if let data = item.data(forType: type) { copy.setData(data, forType: type) } }
             return copy
         }
-        let sample = "Поезд до Казани отправится завтра в 07:45 с третьего пути. Пожалуйста, возьмите с собой паспорт и билет."
         defer { app.terminate(); if board.string(forType: .string) == sample { board.clearContents(); board.writeObjects(saved) } }
         app.launch()
         XCTAssertTrue(app.buttons["mode.text"].waitForExistence(timeout: 60))
+        func textHistory(_ enabled: Bool?) -> Bool {
+            let settings = app.buttons[labels.settings].firstMatch
+            XCTAssertTrue(settings.waitForExistence(timeout: 60)); settings.click()
+            let control = app.switches["history.recordText"]
+            for _ in 0..<12 where !control.isHittable {
+                app.sheets.scrollViews.firstMatch.scroll(byDeltaX: 0, deltaY: -650)
+            }
+            XCTAssertTrue(control.isHittable)
+            let previous = control.value as? String == "1"
+            if let enabled, previous != enabled {
+                control.coordinate(withNormalizedOffset: CGVector(dx: 0.97, dy: 0.5)).click()
+                let changed = XCTNSPredicateExpectation(predicate: NSPredicate(format: "value == %@", enabled ? "1" : "0"), object: control)
+                XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 5), .completed)
+            }
+            app.buttons["settings.close"].click()
+            return previous
+        }
+        let originalHistory = textHistory(false)
+        defer {
+            app.terminate(); app.launch()
+            _ = textHistory(originalHistory)
+            app.terminate()
+        }
         // 1440×900 pt: an accepted Mac App Store size (2880×1800 on a Retina screen). XCUITest
         // could not capture a window moved to a second display, so the window stays where it opens.
         let window = app.windows.firstMatch
@@ -53,7 +98,7 @@ final class MacUITests: XCTestCase {
         corner.click(forDuration: 0.3, thenDragTo: corner.withOffset(CGVector(dx: 1440 - window.frame.width, dy: 900 - window.frame.height)))
         func shot(_ name: String) {
             Thread.sleep(forTimeInterval: 1.5)
-            let image = XCTAttachment(screenshot: window.screenshot()); image.name = "store-" + name; image.lifetime = .keepAlways; add(image)
+            let image = XCTAttachment(screenshot: window.screenshot()); image.name = "store-\(language)-" + name; image.lifetime = .keepAlways; add(image)
         }
         app.buttons["mode.text"].click()
         let editor = app.textViews.firstMatch
@@ -63,7 +108,7 @@ final class MacUITests: XCTestCase {
         // The first press may only prepare the model; press again whenever the button is back.
         let translate = app.buttons["text.translate"]
         let output = app.staticTexts["text.translation.text"]
-        func done() -> Bool { output.exists && (output.value as? String ?? output.label).lowercased().contains("train") }
+        func done() -> Bool { output.exists && (output.value as? String ?? output.label).lowercased().contains(expected) }
         let deadline = Date().addingTimeInterval(240)
         while !done() && Date() < deadline {
             if translate.exists && translate.isEnabled && translate.isHittable { translate.click() }
@@ -73,7 +118,7 @@ final class MacUITests: XCTestCase {
         shot("1-text")
         app.buttons["mode.voice"].click()
         shot("2-voice")
-        app.buttons.matching(NSPredicate(format: "label IN %@", ["Модели", "Models"])).firstMatch.click()
+        app.buttons.matching(NSPredicate(format: "label IN %@", ["Модели", "Models", "Modelos", "Modeller"])).firstMatch.click()
         XCTAssertTrue(app.buttons["models.languageSetup"].waitForExistence(timeout: 10))
         shot("3-models")
         app.buttons["models.languageSetup"].click()

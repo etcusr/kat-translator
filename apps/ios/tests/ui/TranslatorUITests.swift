@@ -4,21 +4,37 @@ final class TranslatorUITests: XCTestCase {
     /// Opt-in capture of real iPhone UI. The caller backs up and verifies the device
     /// preferences/history. Disable text history through its typed UI setting and restore it.
     @MainActor func testStoreScreenshotsRussian() throws {
+        try captureStoreScreenshots(language: "ru")
+    }
+
+    @MainActor func testStoreScreenshotsAllLanguages() throws {
+        for language in ["ru", "en", "es", "tr"] {
+            try captureStoreScreenshots(language: language)
+        }
+    }
+
+    @MainActor private func captureStoreScreenshots(language: String) throws {
         guard ProcessInfo.processInfo.environment["KAT_IOS_STORE_SHOTS"] == "1" else {
             throw XCTSkip("Opt-in App Store screenshots")
         }
+        let labels = [
+            "ru": (settings: "Настройки", done: "Готово", text: "Текст", voice: "Голос", editor: "Текст оригинала", keyboard: "Скрыть клавиатуру", models: "Модели"),
+            "en": (settings: "Settings", done: "Done", text: "Text", voice: "Voice", editor: "Original text", keyboard: "Hide keyboard", models: "Models"),
+            "es": (settings: "Ajustes", done: "Hecho", text: "Texto", voice: "Voz", editor: "Texto original", keyboard: "Ocultar teclado", models: "Modelos"),
+            "tr": (settings: "Ayarlar", done: "Tamamlandı", text: "Metin", voice: "Ses", editor: "Orijinal metin", keyboard: "Klavyeyi gizle", models: "Modeller")
+        ][language]!
         continueAfterFailure = false
         XCUIDevice.shared.orientation = .portrait
         let app = XCUIApplication()
-        app.launchArguments = ["-languageSetupCompleted", "YES", "-appInterfaceLanguage", "ru",
-            "-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU", "-automaticModelLoad", "NO",
+        app.launchArguments = ["-languageSetupCompleted", "YES", "-appInterfaceLanguage", language,
+            "-AppleLanguages", "(\(language))", "-automaticModelLoad", "NO",
             "-selectedTranslationModel", "index-translate-9b-q4km", "-translationSource", "ru", "-translationTarget", "en",
             "-automaticLanguage", "NO", "-automaticSpeechText", "NO", "-automaticSpeechVoice", "NO",
             "-showTechnicalInfo", "NO", "-memorySaving", "NO"]
         app.launch()
         func textHistory(_ enabled: Bool?) -> Bool {
-            XCTAssertTrue(app.buttons["Настройки"].waitForExistence(timeout: 90))
-            app.buttons["Настройки"].tap()
+            XCTAssertTrue(app.buttons[labels.settings].waitForExistence(timeout: 90))
+            app.buttons[labels.settings].tap()
             let control = app.switches["history.recordText"]
             for _ in 0..<8 where !control.isHittable { app.swipeUp() }
             XCTAssertTrue(control.isHittable)
@@ -28,7 +44,7 @@ final class TranslatorUITests: XCTestCase {
                 let changed = XCTNSPredicateExpectation(predicate: NSPredicate(format: "value == %@", enabled ? "1" : "0"), object: control)
                 XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 5), .completed)
             }
-            app.buttons["Готово"].tap()
+            app.buttons[labels.done].tap()
             return previous
         }
         let originalHistory = textHistory(false)
@@ -40,16 +56,16 @@ final class TranslatorUITests: XCTestCase {
         func shot(_ name: String) {
             Thread.sleep(forTimeInterval: 1.5)
             let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
-            attachment.name = "store-ios-ru-" + name
+            attachment.name = "store-ios-\(language)-" + name
             attachment.lifetime = .keepAlways
             add(attachment)
         }
-        let textMode = app.segmentedControls.buttons["Текст"]
+        let textMode = app.segmentedControls.buttons[labels.text]
         XCTAssertTrue(textMode.waitForExistence(timeout: 90)); textMode.tap()
-        let editor = app.textViews["Текст оригинала"]
+        let editor = app.textViews[labels.editor]
         XCTAssertTrue(editor.waitForExistence(timeout: 15))
         editor.tap(); editor.typeText("Подскажите, пожалуйста, как пройти к вокзалу?")
-        if app.buttons["Скрыть клавиатуру"].exists { app.buttons["Скрыть клавиатуру"].tap() }
+        if app.buttons[labels.keyboard].exists { app.buttons[labels.keyboard].tap() }
         let translate = app.buttons["text.translate"]
         XCTAssertTrue(translate.isEnabled); translate.tap()
         let result = app.staticTexts["text.translation.text"]
@@ -58,13 +74,13 @@ final class TranslatorUITests: XCTestCase {
         }, object: nil)
         XCTAssertEqual(XCTWaiter.wait(for: [completed], timeout: 180), .completed)
         shot("1-text")
-        app.segmentedControls.buttons["Голос"].tap()
+        app.segmentedControls.buttons[labels.voice].tap()
         let record = app.buttons["voice.record"]
         let prepare = app.buttons["voice.prepare"]
         if prepare.waitForExistence(timeout: 3) && prepare.isEnabled { prepare.tap() }
         XCTAssertTrue(record.waitForExistence(timeout: 180))
         shot("2-voice")
-        app.buttons["Модели"].firstMatch.tap()
+        app.buttons[labels.models].firstMatch.tap()
         XCTAssertTrue(app.buttons["models.languageSetup"].waitForExistence(timeout: 15))
         shot("3-models")
         app.buttons["models.languageSetup"].tap()

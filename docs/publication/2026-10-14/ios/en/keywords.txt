@@ -1,1 +1,1 @@
-translator,offline,speech,voice,text,photo,language,pronunciation,travel
+offline,speech,voice,text,photo,language,pronunciation,travel
