@@ -25,7 +25,7 @@ struct ConversationView: View {
     @ObservedObject private var integration: MacIntegration
     private let permissionTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     #endif
-    @AppStorage("recordingMode") private var recordingMode: RecordingMode = .hold
+    @AppStorage("recordingMode") private var recordingMode: RecordingMode = .toggle
     @AppStorage("automaticSpeechVoice") private var automaticSpeechVoice = true
     @AppStorage("automaticSpeechText") private var automaticSpeechText = false
     @AppStorage("showTechnicalInfo") private var showTechnicalInfo = false

@@ -4,7 +4,7 @@ struct SettingsView: View {
     @ObservedObject var model: AppModel
     @Bindable private var interfaceLanguage = AppInterfaceLanguage.shared
     @AppStorage("recognitionPreference") private var recognitionPreference: RecognitionPreference = .automatic
-    @AppStorage("recordingMode") private var mode: RecordingMode = .hold
+    @AppStorage("recordingMode") private var mode: RecordingMode = .toggle
     @AppStorage("recordingSilenceSeconds") private var silenceSeconds = SilenceMonitor.defaultTimeout
     @AppStorage("recordingLimitMinutes") private var limitMinutes = RecordingPolicy.defaultMinutes
     @AppStorage("recordingPreprocessing") private var preprocessing = false

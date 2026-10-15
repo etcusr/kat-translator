@@ -2,6 +2,8 @@
 
 **English** | [Русский](ARCHITECTURE.ru.md)
 
+The microphone defaults to tap to start / tap to stop on iOS, macOS and Android. A saved recording-mode choice is preserved; hold to record remains available in Settings. This source change requires a new build to reach installed apps.
+
 Overall component map. Current versions and limitations: [CURRENT_STATE](CURRENT_STATE.md).
 
 ## Architecture and key entry points

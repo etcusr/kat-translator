@@ -81,7 +81,7 @@ import OfflineCore
     private var recordingStart = RecordingStartGate()
     private var capturedLanguage: SpeechLanguage? = .russian
     private var capturedTarget: SpeechLanguage = .english
-    private var capturedMode = "hold"
+    private var capturedMode = "toggle"
     private var capturedAutomaticSpeech = true
     private var capturedPreview = false
     private var capturedVerification = true
@@ -265,7 +265,7 @@ import OfflineCore
         history.stopPlayback()
         capturedTarget = languages.runtimeTarget ?? .english
         capturedAutomaticSpeech = UserDefaults.standard.object(forKey: "automaticSpeechVoice") as? Bool ?? true
-        capturedLanguage = languages.automaticActive(in: .voice) ? nil : languages.runtimeSource; capturedMode = UserDefaults.standard.string(forKey: "recordingMode") ?? "hold"; message = nil
+        capturedLanguage = languages.automaticActive(in: .voice) ? nil : languages.runtimeSource; capturedMode = UserDefaults.standard.string(forKey: "recordingMode") ?? "toggle"; message = nil
         capturedPreview = UserDefaults.standard.bool(forKey: "recordingPreprocessing")
         capturedVerification = UserDefaults.standard.object(forKey: "recordingPreviewVerification") as? Bool ?? true
         previewFallback = capturedPreview ? session.recordingPreviewUnavailable(source: capturedLanguage) : nil
