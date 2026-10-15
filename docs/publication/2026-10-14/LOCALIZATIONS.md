@@ -37,7 +37,7 @@ What's New не требуется для первой версии; файлы 
 - В ES/TR используется действующая общая страница политики на RU/EN. Наличие ES/TR текста карточки не означает перевод самой политики.
 - Проверка носителями языка, App Store Preview и сохранение полей в кабинете ещё не выполнены. Горячие клавиши/захват экрана Mac описаны по реализации; приёмка окончательной sandbox/TestFlight-сборки остаётся в общем плане публикации.
 
-Копии для заполнения карточки расположены в `dist/store/localized-2026-10-14/<платформа>/<язык>/metadata/`. Общие Notes лежат рядом с остальными полями каждой копии. Это ignored-каталог; оригиналы выше находятся в Git. Скриншоты проверяются отдельно и не создаются из этих описаний.
+Для заполнения карточки использовать один файл `dist/store/apple/APP-STORE-TEXTS.md`: все поля сгруппированы по разделам App Store Connect и языкам, с длиной и пределом. Его и папку скриншотов собирает `python3 scripts/publication/build-apple-store-package.py`. Прежние покадровые копии — в `dist/store/_sources/localized-2026-10-14/`. Это ignored-каталог; оригиналы выше находятся в Git. Скриншоты проверяются отдельно и не создаются из этих описаний.
 
 ## Проверка
 
@@ -51,4 +51,4 @@ python3 scripts/validation/check_store_metadata.py --report docs/publication/202
 
 ## Готовые скриншоты
 
-[Съёмка iPhone](../localized-screenshots-2026-10-14.md) и [съёмка Mac](../localized-macos-screenshots-2026-10-14.md): по четыре экрана на RU/EN/ES/TR, всего 32 PNG. Файлы находятся рядом с текстами в `dist/store/localized-2026-10-14/<платформа>/<язык>/screenshots/`; общая локальная галерея — `dist/store/localized-2026-10-14/index.html`. Это материалы для **App Previews and Screenshots**; Header/Search Results подготовлены отдельно. Проверка App Store Connect Preview ещё требуется.
+[Съёмка iPhone](../localized-screenshots-2026-10-14.md) и [съёмка Mac](../localized-macos-screenshots-2026-10-14.md): по четыре экрана на RU/EN/ES/TR, всего 32 PNG. Для загрузки — `dist/store/apple/screenshots/<iPhone|Mac>/<язык>/01…04-*.png`; исходники и галерея — `dist/store/_sources/localized-2026-10-14/`. Это материалы для **App Previews and Screenshots**; Header/Search Results подготовлены отдельно. Проверка App Store Connect Preview ещё требуется.
