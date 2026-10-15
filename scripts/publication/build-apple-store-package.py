@@ -3,7 +3,7 @@
 
 Sources stay in Git (docs/publication/2026-10-14) and in the localized screenshot capture
 (dist/store/_sources/localized-2026-10-14). Output (ignored dist):
-  dist/store/apple/APP-STORE-TEXTS.md  - every text field, grouped by App Store Connect section
+  dist/store/apple/APP-STORE-TEXTS.txt - every text field, grouped by App Store Connect section (plain text)
   dist/store/apple/screenshots/<iPhone|Mac>/<language>/NN-<screen>.png
   dist/store/apple/header-and-search-results/*.png
 """
@@ -25,57 +25,61 @@ def read(path):
 
 def field(title, value, limit=None, unit="символов"):
     size = len(value.encode("utf-8")) if unit == "байт" else len(value)
-    note = f" — {size} / {limit} {unit}" if limit else ""
-    return f"**{title}**{note}\n\n```text\n{value}\n```\n"
+    note = f"  ({size} / {limit} {unit})" if limit else ""
+    return f"--- {title}{note} ---\n{value}\n"
+
+
+def heading(text, line="="):
+    return f"\n{line * 72}\n{text}\n{line * 72}\n"
 
 
 def main():
     if OUT.exists():
         shutil.rmtree(OUT)
     out = []
-    out.append("# Kat translator — тексты для App Store Connect\n")
+    out.append("KAT TRANSLATOR — ТЕКСТЫ ДЛЯ APP STORE CONNECT\n")
     out.append("Один файл со всеми полями карточки. Заголовок каждого блока = раздел App Store Connect, "
-               "подзаголовок = язык (переключатель языка справа вверху страницы). Копировать только содержимое серых блоков.\n")
-    out.append("Скриншоты лежат рядом: `screenshots/iPhone/<язык>/` и `screenshots/Mac/<язык>/`, порядок загрузки — по номеру в имени файла. "
-               "Header и Search Results — `header-and-search-results/`.\n")
-    out.append("Собрано скриптом `scripts/publication/build-apple-store-package.py` из исходников в `docs/publication/2026-10-14/`.\n")
-    out.append("## Содержание\n")
+               "подзаголовок = язык (переключатель языка справа вверху страницы).\nКопировать текст между строкой «--- Поле ---» и следующей такой строкой.\n")
+    out.append("Скриншоты лежат рядом: screenshots/iPhone/<язык>/ и screenshots/Mac/<язык>/, порядок загрузки — по номеру в имени файла.\n"
+               "Header и Search Results — header-and-search-results/.\n")
+    out.append("Собрано скриптом scripts/publication/build-apple-store-package.py из docs/publication/2026-10-14/.\n")
+    out.append("СОДЕРЖАНИЕ")
     out.append("1. App Information — общее для iPhone и Mac (Name, Subtitle)\n2. App Privacy — Privacy Policy URL\n"
                "3. iOS App → версия 1.0 — по языкам\n4. macOS App → версия 1.0 — по языкам\n5. App Review Information → Notes\n")
 
-    out.append("\n---\n\n## 1. App Information (общее для iPhone и Mac)\n")
+    out.append(heading("1. App Information (общее для iPhone и Mac)"))
     out.append("Раздел General → App Information. Заполняется один раз на каждый язык.\n")
     for code, name, note in LANGS:
-        out.append(f"\n### {name} ({code}){' — ' + note if note else ''}\n")
+        out.append(heading(f"{name} ({code}){' — ' + note if note else ''}", "-"))
         out.append(field("Name", read(COPY / f"ios/{code}/name.txt"), 30))
         out.append(field("Subtitle", read(COPY / f"ios/{code}/subtitle.txt"), 30))
 
-    out.append("\n---\n\n## 2. App Privacy\n")
+    out.append(heading("2. App Privacy"))
     out.append("Раздел App Privacy → Privacy Policy URL (по языкам ссылка одинаковая).\n\n")
     out.append(field("Privacy Policy URL", read(COPY / "ios/en/privacy_policy_url.txt")))
 
     for number, (platform, label, section) in enumerate(PLATFORMS, start=3):
-        out.append(f"\n---\n\n## {number}. {section} → версия 1.0 ({label})\n")
+        out.append(heading(f"{number}. {section} → версия 1.0 ({label})"))
         out.append("Слева в меню выбрать версию 1.0 под этой платформой. Поля идут в том же порядке, что на странице.\n")
         for code, name, note in LANGS:
             base = COPY / f"{platform}/{code}"
-            out.append(f"\n### {label} · {name} ({code}){' — ' + note if note else ''}\n")
-            out.append(f"Скриншоты: `screenshots/{label}/{code}/` (4 шт., по порядку номеров).\n\n")
+            out.append(heading(f"{label} · {name} ({code}){' — ' + note if note else ''}", "-"))
+            out.append(f"Скриншоты: screenshots/{label}/{code}/ (4 шт., по порядку номеров).\n")
             out.append(field("Promotional Text", read(base / "promotional_text.txt"), 170))
             out.append(field("Description", read(base / "description.txt"), 4000))
             out.append(field("Keywords", read(base / "keywords.txt"), 100, "байт"))
             out.append(field("Support URL", read(base / "support_url.txt")))
             out.append(field("Marketing URL", read(base / "marketing_url.txt")))
-            out.append("*What's New для первой версии не нужен — поле появится только у обновлений.*\n")
+            out.append("(What's New для первой версии не нужен — поле появится только у обновлений.)\n")
 
-    out.append("\n---\n\n## 5. App Review Information → Notes\n")
+    out.append(heading("5. App Review Information → Notes"))
     out.append("Одно поле на платформу, на английском. Sign-in required — выключено (входа нет).\n")
     for platform, label, _ in PLATFORMS:
-        out.append(f"\n### {label}\n")
+        out.append(heading(label, "-"))
         out.append(field("Notes", read(COPY / f"{platform}/review_notes.txt"), 4000))
 
     OUT.mkdir(parents=True)
-    (OUT / "APP-STORE-TEXTS.md").write_text("\n".join(out), encoding="utf-8")
+    (OUT / "APP-STORE-TEXTS.txt").write_text("\n".join(out), encoding="utf-8")
     for platform, label, _ in PLATFORMS:
         for code, _, _ in LANGS:
             target = OUT / "screenshots" / label / code
