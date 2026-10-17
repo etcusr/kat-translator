@@ -1,0 +1,555 @@
+{
+  "date": "2026-10-17",
+  "device": "Pixel 9 Pro, Tensor G4, 16 GB",
+  "recognizer": "Whisper large-v3-turbo Q8_0, pinned v1.9.4, 4 threads, greedy, default full audio context",
+  "modelSha256": "317eb69c11673c9de1e1f0d459b253999804ec71ac4c23c17ecf5fbe24e259a1",
+  "privateFixturesSeconds": [
+    25.179875,
+    28.859875
+  ],
+  "shortControlsSeconds": [
+    6.5204375,
+    4.446625
+  ],
+  "native": [
+    {
+      "id": "control1",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 0.909079,
+      "inferenceSeconds": 12.380444,
+      "encoderMilliseconds": 10525.06,
+      "decoderMilliseconds": 1624.4,
+      "thermal": {
+        "sampleCount": 9,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 32.372528,
+          "battery": 32.2,
+          "G3D": 35.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 32.722527,
+          "battery": 32.7,
+          "G3D": 63.000004
+        }
+      },
+      "exactReferenceText": true
+    },
+    {
+      "id": "gpu-fa",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 0.648595,
+      "inferenceSeconds": 67.334473,
+      "encoderMilliseconds": 63708.5,
+      "decoderMilliseconds": 2245.27,
+      "thermal": {
+        "sampleCount": 35,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 32.618164,
+          "battery": 33.5,
+          "G3D": 38.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 33.35267,
+          "battery": 34.300003,
+          "G3D": 62.000004
+        }
+      },
+      "exactReferenceText": true
+    },
+    {
+      "id": "cpu-nofa",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 1.267165,
+      "inferenceSeconds": 13.658934,
+      "encoderMilliseconds": 12252.29,
+      "decoderMilliseconds": 1167.37,
+      "thermal": {
+        "sampleCount": 10,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 33.37696,
+          "battery": 34.5,
+          "G3D": 38.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 34.138153,
+          "battery": 34.800003,
+          "G3D": 66.0
+        }
+      },
+      "exactReferenceText": true
+    },
+    {
+      "id": "kai1",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 3.291753,
+      "inferenceSeconds": 9.514602,
+      "encoderMilliseconds": 7641.86,
+      "decoderMilliseconds": 1623.08,
+      "thermal": {
+        "sampleCount": 9,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 33.16173,
+          "battery": 35.0,
+          "G3D": 38.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 33.89249,
+          "battery": 35.0,
+          "G3D": 65.0
+        }
+      },
+      "exactReferenceText": false
+    },
+    {
+      "id": "control2",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 0.923282,
+      "inferenceSeconds": 12.376249,
+      "encoderMilliseconds": 10584.08,
+      "decoderMilliseconds": 1589.99,
+      "thermal": {
+        "sampleCount": 9,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 33.697376,
+          "battery": 35.4,
+          "G3D": 39.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 33.975887,
+          "battery": 35.5,
+          "G3D": 65.0
+        }
+      },
+      "exactReferenceText": true
+    },
+    {
+      "id": "first-control",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 0.91866,
+      "inferenceSeconds": 13.75968,
+      "encoderMilliseconds": 10531.36,
+      "decoderMilliseconds": 3010.06,
+      "thermal": {
+        "sampleCount": 10,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 33.823364,
+          "battery": 35.2,
+          "G3D": 38.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 34.505127,
+          "battery": 35.5,
+          "G3D": 64.0
+        }
+      },
+      "exactReferenceText": true
+    },
+    {
+      "id": "first-kai",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 3.274913,
+      "inferenceSeconds": 10.15675,
+      "encoderMilliseconds": 7700.62,
+      "decoderMilliseconds": 2225.49,
+      "thermal": {
+        "sampleCount": 9,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 33.80951,
+          "battery": 35.2,
+          "G3D": 38.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 34.672386,
+          "battery": 35.300003,
+          "G3D": 65.0
+        }
+      },
+      "exactReferenceText": false
+    },
+    {
+      "id": "kai2",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 3.274833,
+      "inferenceSeconds": 9.503659,
+      "encoderMilliseconds": 7598.84,
+      "decoderMilliseconds": 1684.12,
+      "thermal": {
+        "sampleCount": 9,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 33.904213,
+          "battery": 35.300003,
+          "G3D": 38.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 34.83041,
+          "battery": 35.4,
+          "G3D": 65.0
+        }
+      },
+      "exactReferenceText": false
+    },
+    {
+      "id": "i8mm-new",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 0.694764,
+      "inferenceSeconds": 11.443981,
+      "encoderMilliseconds": 9574.15,
+      "decoderMilliseconds": 1660.77,
+      "thermal": {
+        "sampleCount": 8,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 33.919678,
+          "battery": 35.300003,
+          "G3D": 38.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 34.80321,
+          "battery": 35.5,
+          "G3D": 65.0
+        }
+      },
+      "exactReferenceText": true
+    },
+    {
+      "id": "i8mm-first",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 0.697457,
+      "inferenceSeconds": 12.510428,
+      "encoderMilliseconds": 9643.23,
+      "decoderMilliseconds": 2631.89,
+      "thermal": {
+        "sampleCount": 9,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 33.67132,
+          "battery": 35.300003,
+          "G3D": 38.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 35.178345,
+          "battery": 35.600002,
+          "G3D": 65.0
+        }
+      },
+      "exactReferenceText": true
+    },
+    {
+      "id": "i8mm-repeat",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 0.696246,
+      "inferenceSeconds": 11.619331,
+      "encoderMilliseconds": 9607.25,
+      "decoderMilliseconds": 1781.9,
+      "thermal": {
+        "sampleCount": 8,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 34.02983,
+          "battery": 35.2,
+          "G3D": 38.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 34.21786,
+          "battery": 35.4,
+          "G3D": 65.0
+        }
+      },
+      "exactReferenceText": true
+    },
+    {
+      "id": "control3",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 0.922237,
+      "inferenceSeconds": 12.559753,
+      "encoderMilliseconds": 10585.65,
+      "decoderMilliseconds": 1768.71,
+      "thermal": {
+        "sampleCount": 9,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 34.25925,
+          "battery": 35.300003,
+          "G3D": 38.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 34.663643,
+          "battery": 35.600002,
+          "G3D": 65.0
+        }
+      },
+      "exactReferenceText": true
+    },
+    {
+      "id": "profile",
+      "exitCode": 1,
+      "thermalAbort": false,
+      "thermal": {
+        "sampleCount": 3,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 34.29159,
+          "battery": 35.300003,
+          "G3D": 38.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 34.29159,
+          "battery": 35.300003,
+          "G3D": 38.0
+        }
+      }
+    },
+    {
+      "id": "profile-user",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 1.021114,
+      "inferenceSeconds": 12.870688,
+      "encoderMilliseconds": 10514.63,
+      "decoderMilliseconds": 2129.86,
+      "thermal": {
+        "sampleCount": 9,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 34.338135,
+          "battery": 34.600002,
+          "G3D": 37.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 34.620686,
+          "battery": 35.0,
+          "G3D": 64.0
+        }
+      },
+      "exactReferenceText": true
+    },
+    {
+      "id": "short-ru-control",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 1.713846,
+      "inferenceSeconds": 11.110726,
+      "encoderMilliseconds": 10560.25,
+      "decoderMilliseconds": 434.58,
+      "thermal": {
+        "sampleCount": 9,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 33.441345,
+          "battery": 35.300003,
+          "G3D": 38.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 34.375744,
+          "battery": 35.4,
+          "G3D": 64.0
+        }
+      },
+      "exactReferenceText": true
+    },
+    {
+      "id": "short-ru-i8mm",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 0.713538,
+      "inferenceSeconds": 10.12297,
+      "encoderMilliseconds": 9569.73,
+      "decoderMilliseconds": 441.05,
+      "thermal": {
+        "sampleCount": 8,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 33.804646,
+          "battery": 35.2,
+          "G3D": 38.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 34.240227,
+          "battery": 35.4,
+          "G3D": 64.0
+        }
+      },
+      "exactReferenceText": true
+    },
+    {
+      "id": "short-en-control",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 0.93329,
+      "inferenceSeconds": 10.990286,
+      "encoderMilliseconds": 10472.34,
+      "decoderMilliseconds": 421.04,
+      "thermal": {
+        "sampleCount": 8,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 33.765125,
+          "battery": 35.300003,
+          "G3D": 38.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 33.93769,
+          "battery": 35.5,
+          "G3D": 65.0
+        }
+      },
+      "exactReferenceText": true
+    },
+    {
+      "id": "short-en-i8mm",
+      "exitCode": 0,
+      "thermalAbort": false,
+      "loadSeconds": 0.717045,
+      "inferenceSeconds": 10.44658,
+      "encoderMilliseconds": 9605.54,
+      "decoderMilliseconds": 740.5,
+      "thermal": {
+        "sampleCount": 8,
+        "restrictedSamples": 0,
+        "startCelsius": {
+          "VIRTUAL-SKIN": 34.066643,
+          "battery": 35.2,
+          "G3D": 38.0
+        },
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 34.668373,
+          "battery": 35.4,
+          "G3D": 64.0
+        }
+      },
+      "exactReferenceText": true
+    }
+  ],
+  "application": [
+    {
+      "fixture": "baseline-first",
+      "model": "whisper-large-v3-turbo-q8_0",
+      "recognitionSeconds": 14.026561449,
+      "translationSeconds": 3.282159547,
+      "totalSeconds": 17.910464405,
+      "exactNativeReferenceText": false,
+      "thermal": {
+        "restrictedSamples": 0,
+        "sampleCount": 12,
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 34.756287,
+          "battery": 36.0,
+          "G3D": 67.0
+        }
+      }
+    },
+    {
+      "fixture": "baseline-new",
+      "model": "whisper-large-v3-turbo-q8_0",
+      "recognitionSeconds": 13.717110399,
+      "translationSeconds": 3.07580355,
+      "totalSeconds": 17.477108936,
+      "exactNativeReferenceText": true,
+      "thermal": {
+        "restrictedSamples": 0,
+        "sampleCount": 12,
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 35.605854,
+          "battery": 36.0,
+          "G3D": 67.0
+        }
+      }
+    },
+    {
+      "fixture": "first",
+      "model": "whisper-large-v3-turbo-q8_0",
+      "runtime": "i8mm",
+      "recognitionSeconds": 12.974068285,
+      "translationSeconds": 3.271769859,
+      "totalSeconds": 16.827698291,
+      "exactNativeReferenceText": false,
+      "exactApplicationBaselineText": true,
+      "thermal": {
+        "restrictedSamples": 0,
+        "sampleCount": 12,
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 35.125893,
+          "battery": 36.0,
+          "G3D": 67.0
+        }
+      }
+    },
+    {
+      "fixture": "new",
+      "model": "whisper-large-v3-turbo-q8_0",
+      "runtime": "i8mm",
+      "recognitionSeconds": 12.542531908,
+      "translationSeconds": 3.138699749,
+      "totalSeconds": 16.340123991,
+      "exactNativeReferenceText": true,
+      "exactApplicationBaselineText": true,
+      "thermal": {
+        "restrictedSamples": 0,
+        "sampleCount": 12,
+        "maxCelsius": {
+          "VIRTUAL-SKIN": 34.87435,
+          "battery": 35.4,
+          "G3D": 66.0
+        }
+      }
+    }
+  ],
+  "apkSha256": "8bbb6138085d488e0b2ededb2e28aed4075d6f8a0c5d89a7d4e5a3e47e8cdd68",
+  "profile": {
+    "event": "cpu-clock:u",
+    "frequencyHz": 1000,
+    "samples": 49903,
+    "selfCpuPercent": {
+      "q8_4x4_gemm": 33.2,
+      "flash_attention": 29.56,
+      "graph_compute_thread": 11.31,
+      "softmax": 4.48,
+      "barrier": 3.53,
+      "q8_gemv": 2.36,
+      "f16_dot": 2.34,
+      "flash_attention_one_chunk": 2.11
+    }
+  },
+  "limits": [
+    "Native samples are separate processes; inference excludes model loading. Repeated means independent runs, not cached-context inference.",
+    "Before each run: two fresh HAL readings 10 seconds apart, skin <=34.5 C, battery <=35.5 C, G3D <=45 C, thermal NONE and no CPU/GPU/uclamp restrictions. No fixed cooldown duration.",
+    "G3D >=65 C is retained as an experimental warning; abort uses compute restrictions or skin >=38/battery >=39.",
+    "Native output equality is relative to baseline, not a human-scored multilingual quality guarantee.",
+    "Short control provenance is pre-existing test audio; English resampled from 22050 Hz to 16000 Hz before both runs.",
+    "Kernel profiling was denied; user-process profiling succeeded. Profile timing is not part of speed comparison."
+  ],
+  "deviceAcceptance": {
+    "installedApkSha256": "8bbb6138085d488e0b2ededb2e28aed4075d6f8a0c5d89a7d4e5a3e47e8cdd68",
+    "matchesBuiltApk": true,
+    "savedPreferenceCount": 35,
+    "savedPreferencesUnchanged": true,
+    "stayAwakeSetting": "15",
+    "taskDeviceFixturesRemoved": true,
+    "normalAppOpened": true,
+    "nativeBoundaryTests": 10,
+    "applicationLatencyTests": 2,
+    "cancellationReuseTrimTest": true,
+    "crossLibraryLoadFreeTest": true,
+    "initialCrossLibraryTestFixturePathCorrected": true
+  }
+}

@@ -8,11 +8,22 @@ import kotlin.math.*
 internal object MediaNative {
     init { System.loadLibrary("kat_whisper"); System.loadLibrary("kat_media") }
     external fun whisperArm82Supported():Boolean
+    external fun whisperI8mmSupported():Boolean
     val acceleratedWhisper:Boolean by lazy {
         if(!whisperArm82Supported()) false else try {
             System.loadLibrary("kat_whisper_arm82");true
         } catch(_:UnsatisfiedLinkError) { false }
     }
+    // Separate JNI names allow Q8 to use i8mm while other models keep their original backend.
+    val i8mmWhisper:Boolean by lazy {
+        if(!whisperI8mmSupported()) false else try {
+            System.loadLibrary("kat_whisper_i8mm");true
+        } catch(_:UnsatisfiedLinkError) { false }
+    }
+    external fun whisperI8mm(path:ByteArray,samples:FloatArray,language:ByteArray,flag:Long):ByteArray?
+    external fun whisperI8mmCreate(path:ByteArray):Long
+    external fun whisperI8mmRun(handle:Long,samples:FloatArray,language:ByteArray,flag:Long):ByteArray?
+    external fun whisperI8mmFree(handle:Long)
     external fun whisperArm82(path:ByteArray,samples:FloatArray,language:ByteArray,flag:Long):ByteArray?
     external fun whisperCreate(path:ByteArray):Long
     external fun whisperRun(handle:Long,samples:FloatArray,language:ByteArray,flag:Long):ByteArray?
@@ -79,9 +90,16 @@ class OfflineMedia : AutoCloseable {
     }
     private fun checkCancellation() { if (cancelled || Thread.currentThread().isInterrupted) throw CancellationException("Media operation cancelled") }
     fun cancel() = synchronized(flagLock) { cancelled = true; if (flag != 0L) MediaNative.flagCancel(flag) }
-    private val whisperCache=NativeModelCache { if(MediaNative.acceleratedWhisper)MediaNative.whisperArm82Free(it) else MediaNative.whisperFree(it) }
+    private val whisperCache=WhisperModelCache { backend,handle ->
+        when(backend) {
+            WhisperBackend.I8MM -> MediaNative.whisperI8mmFree(handle)
+            WhisperBackend.ARM82 -> MediaNative.whisperArm82Free(handle)
+            WhisperBackend.BASELINE -> MediaNative.whisperFree(handle)
+        }
+    }
     private val piperCache=NativeModelCache { MediaNative.piperFree(it) }
     val recognitionLoads get()=whisperCache.loads
+    val recognitionRuntime get()=whisperCache.backend?.name?.lowercase()
     val voiceLoads get()=piperCache.loads
     private fun identity(vararg paths:String)=paths.joinToString("|") { path ->
         val f=File(path);"${f.canonicalPath}:${f.length()}:${f.lastModified()}"
@@ -131,12 +149,22 @@ class OfflineMedia : AutoCloseable {
         val path=file(modelPath);val lang=utf8(language)
         // Keep exactly one recognizer; no hidden accumulation when changing model families.
         if(nemoHandle!=0L)releaseRecognition()
-        val handle=whisperCache.acquire(identity(modelPath)) {
-            if(MediaNative.acceleratedWhisper)MediaNative.whisperArm82Create(path) else MediaNative.whisperCreate(path)
+        val name=File(modelPath).name
+        val backend=whisperBackendFor(name,MediaNative.acceleratedWhisper,
+            name=="ggml-large-v3-turbo-q8_0.bin" && MediaNative.acceleratedWhisper && MediaNative.i8mmWhisper)
+        val handle=whisperCache.acquire(identity(modelPath),backend) {
+            when(it) {
+                WhisperBackend.I8MM -> MediaNative.whisperI8mmCreate(path)
+                WhisperBackend.ARM82 -> MediaNative.whisperArm82Create(path)
+                WhisperBackend.BASELINE -> MediaNative.whisperCreate(path)
+            }
         }
         checkCancellation();if(isCancelled())throw CancellationException()
-        val raw = (if(MediaNative.acceleratedWhisper) MediaNative.whisperArm82Run(handle,samples,lang,f)
-            else MediaNative.whisperRun(handle,samples,lang,f)) ?: throw CancellationException()
+        val raw = when(backend) {
+            WhisperBackend.I8MM -> MediaNative.whisperI8mmRun(handle,samples,lang,f)
+            WhisperBackend.ARM82 -> MediaNative.whisperArm82Run(handle,samples,lang,f)
+            WhisperBackend.BASELINE -> MediaNative.whisperRun(handle,samples,lang,f)
+        } ?: throw CancellationException()
         val output = String(raw, Charsets.UTF_8); val split = output.indexOf('\n')
         check(split > 0) { "Invalid Whisper result" }
         val text = output.substring(split + 1).trim(); check(text.isNotEmpty()) { "No speech detected" }

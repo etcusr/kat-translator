@@ -5,7 +5,8 @@ variant="${1:-arm82}"
 case "$variant" in
   baseline) runtime="$KAT_ROOT/.build/android-media/whisper" ;;
   arm82) runtime="$KAT_ROOT/.build/android-media/whisper-arm82" ;;
-  *) echo "Usage: $0 [baseline|arm82]" >&2; exit 2 ;;
+  i8mm) runtime="$KAT_ROOT/.build/android-media/whisper-i8mm" ;;
+  *) echo "Usage: $0 [baseline|arm82|i8mm]" >&2; exit 2 ;;
 esac
 probe_out="$KAT_ROOT/.build/whisper-native-probe"
 mkdir -p "$probe_out"

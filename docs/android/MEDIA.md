@@ -2,6 +2,8 @@
 
 **English** | [Русский](MEDIA.ru.md)
 
+Whisper setup builds baseline, FP16/dotprod and optional i8mm libraries with distinct JNI names. HWCAP checks guard optional loading; i8mm is selected only for the verified Turbo Q8 filename. The original model bytes and decoding settings are retained. `WhisperModelCache` frees each handle through its owning library. Whisper and Piper are cached under the memory policy described in [architecture](../ARCHITECTURE.md); other media operations retain their own lifetimes. [i8mm measurements](benchmarks/2026-10-17-whisper-i8mm/README.md).
+
 Android now has native adapters for the existing shared Whisper F16 model,
 Piper/MMS and Supertonic voices, Meta Omnilingual, Silero VAD, and PP-OCR ONNX
 recognizers plus a new shared PP-OCR detector package. All inference uses local
@@ -28,7 +30,7 @@ Only `Java_org_openoffline_translator_inference_MediaNative_*` is exported from
 new native wrappers. The loader uses standard UTF-8 byte arrays, including emoji
 and combining characters; it rejects embedded NUL. Cancellation flags have
 shared C ownership and remain live until the synchronous native call returns.
-Each media operation loads and unloads its model; the UI must unload Index and
+Media operations follow the cache policy above; the UI must unload Index and
 serialize large operations to avoid overlapping memory use.
 
 ## APIs

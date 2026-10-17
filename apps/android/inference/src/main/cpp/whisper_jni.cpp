@@ -4,7 +4,9 @@ extern "C" {
 #include "ASR/WhisperCancellation.h"
 }
 #include <memory>
-#ifdef KAT_WHISPER_ARM82
+#if defined(KAT_WHISPER_I8MM)
+#define WHISPER_JNI(name) Java_org_openoffline_translator_inference_MediaNative_whisperI8mm##name
+#elif defined(KAT_WHISPER_ARM82)
 #define WHISPER_JNI(name) Java_org_openoffline_translator_inference_MediaNative_whisperArm82##name
 #else
 #define WHISPER_JNI(name) Java_org_openoffline_translator_inference_MediaNative_whisper##name
@@ -30,7 +32,7 @@ extern "C" JNIEXPORT jbyteArray JNICALL WHISPER_JNI(Run)(JNIEnv *e,jobject,jlong
  }catch(const std::exception &ex){media_error(e,ex.what());return nullptr;}
 }
 
-// These symbols belong to the same baseline/ARM82 library as their corresponding Run.
+// Each backend has distinct JNI names; handles must be freed by the library that created them.
 extern "C" JNIEXPORT jlong JNICALL WHISPER_JNI(Create)(JNIEnv *e,jobject,jbyteArray path) {
  try {
   auto p=media_string(e,path);whisper_log_set([](ggml_log_level,const char *,void *){},nullptr);

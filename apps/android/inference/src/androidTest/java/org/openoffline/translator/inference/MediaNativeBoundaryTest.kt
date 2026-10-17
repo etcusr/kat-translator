@@ -9,6 +9,24 @@ import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 class MediaNativeBoundaryTest {
+    @Test fun i8mmWhisperIsPackagedAndHardwareGated() {
+        assertEquals(MediaNative.whisperI8mmSupported(),MediaNative.i8mmWhisper)
+        if(MediaNative.i8mmWhisper)assertTrue(MediaNative.whisperArm82Supported())
+    }
+    @Test fun i8mmWhisperHonorsCancellationBeforeLoading() {
+        org.junit.Assume.assumeTrue(MediaNative.i8mmWhisper)
+        val flag=MediaNative.flagCreate();MediaNative.flagCancel(flag)
+        try { assertNull(MediaNative.whisperI8mm("/missing".toByteArray(),FloatArray(16000),"en".toByteArray(),flag)) }
+        finally { MediaNative.flagFree(flag) }
+    }
+    @Test fun i8mmWhisperRejectsCorruptModel() {
+        org.junit.Assume.assumeTrue(MediaNative.i8mmWhisper)
+        val file=File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,"broken-i8mm-whisper.bin")
+        file.writeBytes("invalid".toByteArray())
+        val flag=MediaNative.flagCreate()
+        try { assertThrows(IllegalStateException::class.java) { MediaNative.whisperI8mm(file.path.toByteArray(),FloatArray(16000){.1f},"en".toByteArray(),flag) } }
+        finally { MediaNative.flagFree(flag);file.delete() }
+    }
     @Test fun optimizedWhisperIsPackagedAndLoadsOnlyOnSupportedCpu() {
         assertEquals(MediaNative.whisperArm82Supported(),MediaNative.acceleratedWhisper)
     }

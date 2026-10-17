@@ -27,6 +27,7 @@ class RecognitionLatencyTest {
         ui.runOnIdle {
             state=ViewModelProvider(ui.activity)[TranslatorState::class.java]
             state.mode="voice";state.setHistory(false);state.changeRecordAudio(false)
+            state.changeMemorySaving(false)
             state.changeAutomaticSpeech(false);state.changeRecognitionPreference("whisper")
             state.selectRecognition(model)
             state.selectTranslation("opus");state.chooseLanguage("ru",true);state.chooseLanguage("en",false)
@@ -38,7 +39,9 @@ class RecognitionLatencyTest {
             ui.runOnIdle {
                 assertNull(state.error);assertEquals("whisper",state.recognitionBackend)
                 assertTrue(state.input.isNotBlank());assertTrue(state.output.isNotBlank())
+                args.getString("recognitionRuntime")?.let { assertEquals(it,state.recognitionRuntime) }
                 val row=JSONObject().put("model",model)
+                    .put("runtime",state.recognitionRuntime)
                     .put("recognitionSeconds",requireNotNull(state.timing?.recognition))
                     .put("translationSeconds",state.timing?.translation)
                     .put("totalSeconds",state.timing?.total)

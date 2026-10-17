@@ -16,6 +16,10 @@ JNI(whisperArm82Supported) jboolean JNICALL Java_org_openoffline_translator_infe
  const auto caps=getauxval(AT_HWCAP);
  return (caps&HWCAP_ASIMDDP) && (caps&HWCAP_ASIMDHP) && (caps&HWCAP_FPHP);
 }
+JNI(whisperI8mmSupported) jboolean JNICALL Java_org_openoffline_translator_inference_MediaNative_whisperI8mmSupported(JNIEnv *,jobject) {
+ const auto caps=getauxval(AT_HWCAP);
+ return (caps&HWCAP_ASIMDDP) && (caps&HWCAP_ASIMDHP) && (caps&HWCAP_FPHP) && (getauxval(AT_HWCAP2)&HWCAP2_I8MM);
+}
 JNI(flagCreate) jlong JNICALL Java_org_openoffline_translator_inference_MediaNative_flagCreate(JNIEnv *,jobject){return reinterpret_cast<jlong>(wt_cancel_create());}
 JNI(flagCancel) void JNICALL Java_org_openoffline_translator_inference_MediaNative_flagCancel(JNIEnv *,jobject,jlong f){wt_cancel_set(reinterpret_cast<wt_cancel_flag *>(f));}
 JNI(flagFree) void JNICALL Java_org_openoffline_translator_inference_MediaNative_flagFree(JNIEnv *,jobject,jlong f){wt_cancel_free(reinterpret_cast<wt_cancel_flag *>(f));}
