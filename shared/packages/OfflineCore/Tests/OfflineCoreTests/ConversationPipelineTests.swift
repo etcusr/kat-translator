@@ -165,6 +165,31 @@ private actor StreamingMT: TranslationBackend {
     func unload() async {}
 }
 @MainActor final class ConversationPipelineTests: XCTestCase {
+    func testStreamingRetainsWholeLongSentence() async throws {
+        let calls = Calls(), tts = TestTTS(calls)
+        let first = "Please confirm that the hotel reservation includes breakfast for every guest and a quiet room with a beautiful view of the city."
+        let full = first + " The second sentence is here. The third one comes last."
+        let mt = StreamingMT(calls, full: full, partial: first + " The second sentence is here. The", spokenBeforeFinish: 2)
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: mt, speech: tts, player: TestPlayer(calls))
+        await pipeline.prepare(files, memorySaving: false)
+        await pipeline.run(audio: nil, text: "Три предложения.", source: .russian, target: .english, speakResult: true, inputMode: "text", thermal: "nominal")
+        XCTAssertNil(pipeline.error)
+        let spoken = await tts.texts
+        XCTAssertEqual(spoken.joined(separator: " "), full)
+    }
+
+    func testStreamingNewlinesDoNotRepeatSentences() async throws {
+        let calls = Calls(), tts = TestTTS(calls)
+        let full = "The first sentence is here.\n\tThe second sentence is here.  The third one comes last."
+        let mt = StreamingMT(calls, full: full, partial: "The first sentence is here.\n\tThe second sentence is here.  The", spokenBeforeFinish: 2)
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: mt, speech: tts, player: TestPlayer(calls))
+        await pipeline.prepare(files, memorySaving: false)
+        await pipeline.run(audio: nil, text: "Три предложения.", source: .russian, target: .english, speakResult: true, inputMode: "text", thermal: "nominal")
+        XCTAssertNil(pipeline.error)
+        let spoken = await tts.texts
+        XCTAssertEqual(spoken, ["The first sentence is here.", "The second sentence is here.", "The third one comes last."])
+    }
+
     func testFirstTranslatedSentenceIsSpokenBeforeTranslationFinishes() async throws {
         let calls = Calls(), tts = TestTTS(calls)
         let full = "First sentence is ready. Second sentence follows it."

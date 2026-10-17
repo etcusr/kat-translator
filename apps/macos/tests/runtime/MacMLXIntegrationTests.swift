@@ -2,6 +2,13 @@ import XCTest
 import OfflineCore
 @testable import Kat_translator
 
+private final class MLXPartialProbe: @unchecked Sendable {
+    private let lock = NSLock()
+    private var texts: [String] = []
+    func receive(_ text: String) { lock.lock(); defer { lock.unlock() }; texts.append(text) }
+    var values: [String] { lock.lock(); defer { lock.unlock() }; return texts }
+}
+
 final class MacMLXIntegrationTests: XCTestCase {
     func testPackagedRuntimeCancellationLimitsAndRouting() async throws {
         guard ProcessInfo.processInfo.environment["KAT_MLX_INTEGRATION"] == "1" else {
@@ -42,14 +49,34 @@ final class MacMLXIntegrationTests: XCTestCase {
         kat_mlx_free(engine)
         let backend = RoutedTranslationBackend()
         try await backend.load(modelURL: model, model: .index9B)
-        let routed = try await backend.translate(text: request.text, source: .russian, target: .english)
+        let partials = MLXPartialProbe()
+        let routed = try await backend.translate(text: request.text, source: .russian, target: .english,
+                                                 progress: { _ in }, partial: { partials.receive($0) })
         XCTAssertEqual(routed.text, clean.1)
         XCTAssertNotNil(routed.firstTokenSeconds)
+        let snapshots = partials.values
+        XCTAssertFalse(snapshots.isEmpty, "Default Mac Index 9B must deliver partials through routed MLX")
+        XCTAssertTrue(snapshots.contains { !$0.isEmpty && $0 != routed.text && routed.text.hasPrefix($0) },
+                      "At least one genuine partial must precede the final translation")
+        try await Task.sleep(nanoseconds: 100_000_000)
+        XCTAssertEqual(partials.values, snapshots, "No callbacks after completion")
+        let cancelledPartials = MLXPartialProbe()
+        do {
+            _ = try await backend.translate(text: request.text, source: .russian, target: .english,
+                                            progress: { _ in }, partial: {
+                cancelledPartials.receive($0); backend.cancel()
+            })
+            XCTFail("Cancellation from a partial must abort the request")
+        } catch is CancellationError { }
+        XCTAssertEqual(cancelledPartials.values.count, 1)
+        let afterCancel = try await backend.translate(text: request.text, source: .russian, target: .english)
+        XCTAssertEqual(afterCancel.text, clean.1)
+        XCTAssertEqual(cancelledPartials.values.count, 1, "Reused engine must not call an old request")
         await backend.unload()
         // MLX and the existing Thai speech frontend share the packaged interpreter.
         XCTAssertEqual(ot_wayu_frontend_init(resources.path), 1)
         var speechTokens = [Int64](repeating: 0, count: 512)
         XCTAssertGreaterThan(ot_wayu_frontend_tokens("สวัสดีครับ", &speechTokens, Int32(speechTokens.count)), 0)
-        print("MAC_MLX_INTEGRATION_OK count=61 mtp2=true cancel=true reuse=true routed=true")
+        print("MAC_MLX_INTEGRATION_OK count=\(count) mtp2=true cancel=true reuse=true routed=true partials=\(snapshots.count) partialCancel=true")
     }
 }

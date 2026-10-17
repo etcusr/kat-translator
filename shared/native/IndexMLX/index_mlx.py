@@ -71,7 +71,7 @@ class Engine:
     def count(self, prefix, text, suffix):
         return len(self.tokenizer.encode(prefix + text + suffix, add_special_tokens=False))
 
-    def run(self, prefix, text, suffix, cancelled):
+    def run(self, prefix, text, suffix, cancelled, partial=None):
         from mlx_lm.generate import BatchGenerator
         if cancelled(): return (2, '', -1.)
         start = time.perf_counter()
@@ -83,7 +83,7 @@ class Engine:
                 stop_tokens=[[x] for x in self.tokenizer.eos_token_ids], completion_batch_size=1,
                 prefill_batch_size=1, prefill_step_size=512)
             gen.insert([tokens])
-            output = []; first = -1.; reason = None
+            output = []; first = -1.; reason = None; last_partial = ''
             while reason is None:
                 if cancelled(): return (2, '', -1.)
                 _, responses = gen.next()
@@ -91,6 +91,13 @@ class Engine:
                     if first < 0: first = time.perf_counter()-start
                     if item.token not in self.tokenizer.eos_token_ids: output.append(item.token)
                     if item.finish_reason: reason = item.finish_reason
+                if partial is not None and not cancelled():
+                    # Decode the same accepted tokens as the final result. A token may
+                    # end midway through a UTF-8 character; wait until it is complete.
+                    current = self.tokenizer.decode(output).strip()
+                    if current and not current.endswith('\ufffd') and current != last_partial:
+                        partial(current)
+                        last_partial = current
             self.mx.synchronize()
             if cancelled(): return (2, '', -1.)
             if reason != 'stop': return (1, '', -1.)

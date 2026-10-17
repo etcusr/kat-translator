@@ -6,6 +6,14 @@ private final class MLXTranslationFlag: @unchecked Sendable {
     func cancel() { kat_mlx_flag_cancel(pointer) }
     deinit { kat_mlx_flag_free(pointer) }
 }
+private final class MLXPartialReporter {
+    let completed: String
+    let report: @Sendable (String) -> Void
+    init(completed: String, report: @escaping @Sendable (String) -> Void) {
+        self.completed = completed; self.report = report
+    }
+    func receive(_ text: String) { report(completed.isEmpty ? text : completed + " " + text) }
+}
 final class MLXTranslationBackend: TranslationBackend, @unchecked Sendable {
     private let queue = DispatchQueue(label: "org.openoffline.translation", qos: .userInitiated)
     private var context: UnsafeMutableRawPointer?
@@ -32,6 +40,14 @@ final class MLXTranslationBackend: TranslationBackend, @unchecked Sendable {
         try await translate(text: text, source: source, target: target, progress: { _ in })
     }
     func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void) async throws -> TranslationResult {
+        try await translate(text: text, source: source, target: target, progress: progress, partial: nil)
+    }
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void,
+                   partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult {
+        try await translate(text: text, source: source, target: target, progress: progress, partial: Optional(partial))
+    }
+    private func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void,
+                           partial: (@Sendable (String) -> Void)?) async throws -> TranslationResult {
         try Task.checkCancellation()
         guard TranslationLanguage.details(source).connected(to: model), TranslationLanguage.details(target).connected(to: model) else { throw PipelineError.modelLanguageUnavailable }
         try TranslationPrompt.validate(text)
@@ -60,10 +76,25 @@ final class MLXTranslationBackend: TranslationBackend, @unchecked Sendable {
                         let callStart = ProcessInfo.processInfo.systemUptime
                         TranslationMemoryTrace.record("translate.start", model: self.model)
                         let request = self.model.request(text: input, source: source, target: target)
-                        let code = kat_mlx_run(context, request.prefix, request.text, request.suffix, flag.pointer, &output, output.count, &tokenSeconds)
+                        let done = translated.joined(separator: " ")
+                        let code: Int32
+                        if let partial {
+                            let reporter = MLXPartialReporter(completed: done, report: partial)
+                            code = withExtendedLifetime(reporter) {
+                                kat_mlx_run_stream(context, request.prefix, request.text, request.suffix,
+                                    flag.pointer, &output, output.count, &tokenSeconds, { text, user in
+                                        guard let text, let user else { return }
+                                        Unmanaged<MLXPartialReporter>.fromOpaque(user).takeUnretainedValue()
+                                            .receive(String(cString: text))
+                                    }, Unmanaged.passUnretained(reporter).toOpaque())
+                            }
+                        } else {
+                            code = kat_mlx_run(context, request.prefix, request.text, request.suffix, flag.pointer, &output, output.count, &tokenSeconds)
+                        }
                         TranslationMemoryTrace.record("translate.complete", model: self.model, seconds: ProcessInfo.processInfo.systemUptime - callStart, code: code)
                         if code == 2 { throw CancellationError() }
                         if code == 1 {
+                            partial?(done)
                             try work.splitCurrent(); progress(work.progress); continue
                         }
                         guard code == 0 else { throw PipelineError.inference }

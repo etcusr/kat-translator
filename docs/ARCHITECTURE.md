@@ -2,6 +2,8 @@
 
 **English** | [Русский](ARCHITECTURE.ru.md)
 
+Apple `StreamedSpeechStart` tracks the exact consumed translation prefix and drains every `SpeechPreparation` fragment before scheduling a sentence. It invalidates pending speech after a prefix rewrite and rechecks cancellation after waiting for playback. Mac MLX streams cumulative accepted-token text through `kat_mlx_run_stream`; callback state is invalidated before the synchronous request returns. `RussianSpeechText` resolves ambiguous ordinal endings only with supported adjacent context (bare day-of-month forms retain their convention). Already-played speech cannot be retracted after a backend rewrites it. [Implementation checks and limits](benchmarks/apple-speech-correctness-2026-10-17/README.md).
+
 Android also offers `whisper-large-v3-turbo-q8_0` as an explicit recognition package in `android-asr.json`. It shares F16’s Whisper backend, language aliases and unchanged greedy decoding/CPU selection. The package has pinned upstream size/hash verification. Q8 does not replace F16 or the GigaAM/Parakeet Auto routes. [Variant comparison](android/benchmarks/2026-10-17-whisper-options/README.md).
 
 Android Whisper ships two isolated JNI libraries: baseline `armv8-a` and optional `armv8.2-a+dotprod+fp16`. A baseline `kat_media` HWCAP check precedes loading the optimized library; unsupported CPUs or a library load failure retain baseline Whisper. Both accept the selected F16 or Q8 model with the same four threads, decoding parameters and cancellation patch. `setup-media.sh` builds both; Gradle packages the optimized library without adding a native link dependency. Apple runtimes and ASR Auto routing are unchanged.

@@ -2,6 +2,8 @@
 
 **English** | [Русский](README.ru.md)
 
+Development sources include corrected sentence-by-sentence speech for default Index 9B/MLX: all synthesis fragments are retained, whitespace does not cause replay, and Russian ordinal forms use supported grammatical context. Real MLX → Irina integration and control-audio checks passed in a separate development app. These fixes have not been published or installed over the normal app; listed distribution versions are unchanged. [Verification and limits](../benchmarks/apple-speech-correctness-2026-10-17/README.md).
+
 Native SwiftUI/AppKit application for Apple Silicon. There are two distribution channels built from the same sources:
 
 | Channel | Version | Bundle ID | Signing | Status |

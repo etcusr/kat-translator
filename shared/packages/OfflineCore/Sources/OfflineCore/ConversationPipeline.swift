@@ -393,9 +393,17 @@ public struct ConversationFields: Sendable {
                             try self.check(id)
                             if self.voiceLoaded != target { self.voiceLoaded = nil; try await self.speech.load(directory: voice, language: target); self.voiceLoaded = target }
                             try self.check(id)
-                            guard let part = try await SpeechPreparation(text: sentence, speech: self.speech).next() else { return nil }
-                            try self.check(id)
-                            return RecordingPreviewSpeech(text: part.text, pcm: part.pcm, seconds: part.synthesisSeconds)
+                            let producer = try SpeechPreparation(text: sentence, speech: self.speech)
+                            var samples: [Float] = [], rate = 0, seconds = 0.0
+                            // SpeechPreparation can split even a single sentence (including a
+                            // smaller first fragment). Retain every piece before claiming it.
+                            while let part = try await producer.next() {
+                                try self.check(id)
+                                guard rate == 0 || rate == part.pcm.sampleRate else { throw PipelineError.invalidAudio }
+                                rate = part.pcm.sampleRate; samples += part.pcm.samples; seconds += part.synthesisSeconds
+                            }
+                            guard !samples.isEmpty else { return nil }
+                            return RecordingPreviewSpeech(text: sentence, pcm: SpeechPCM(samples: samples, sampleRate: rate), seconds: seconds)
                         }, play: { prepared in
                             self.isSpeaking = true; self.isSpeechPaused = false
                             self.player.setRate(Float(self.playbackSpeed.rawValue))
@@ -785,9 +793,17 @@ public extension ConversationPipeline {
     private var pcm: [Float] = []
     private var sampleRate = 0
     private var synthesisSeconds = 0.0
-    private var chunks: [String] = []
+    private struct Sentence: Sendable {
+        let text: String
+        // Exact source prefix, including whitespace between sentences. This is
+        // also the boundary from which the final, unspoken remainder is taken.
+        let prefix: String
+    }
+    private var chunks: [Sentence] = []
     private var claimed = 0
+    private var claimedPrefix = ""
     private var closed = false
+    private var invalidated = false
     private var waiting: CheckedContinuation<Void, Never>?
     private var worker: Task<Void, Never>?
     var started: Bool { worker != nil }
@@ -795,28 +811,34 @@ public extension ConversationPipeline {
         spokenText.isEmpty ? nil : RecordingPreviewSpeech(text: spokenText, pcm: SpeechPCM(samples: pcm, sampleRate: sampleRate), seconds: synthesisSeconds)
     }
     /// Finished sentences of `text` (each followed by more text), grouped to at least 12 characters.
-    nonisolated static func sentences(in text: String, from offset: Int = 0) -> (chunks: [String], end: Int) {
+    nonisolated private static func sentences(in text: String, from offset: Int = 0) -> (chunks: [Sentence], end: Int) {
         let characters = Array(text)
-        var chunks: [String] = [], start = offset, end = offset
+        var chunks: [Sentence] = [], start = offset, end = offset
         guard offset < characters.count else { return ([], offset) }
         for index in offset..<max(offset, characters.count - 1) where ".!?…".contains(characters[index]) && characters[index + 1].isWhitespace {
             let candidate = String(characters[start...index]).trimmingCharacters(in: .whitespacesAndNewlines)
             if candidate.count > 180 { break }
-            if candidate.count >= 12 { chunks.append(candidate); start = index + 1; end = index + 1 }
+            if candidate.count >= 12 {
+                chunks.append(Sentence(text: candidate, prefix: String(characters[...index])))
+                start = index + 1; end = index + 1
+            }
         }
         return (chunks, end)
     }
-    nonisolated static func firstSentence(of text: String) -> String? { sentences(in: text).chunks.first }
+    nonisolated static func firstSentence(of text: String) -> String? { sentences(in: text).chunks.first?.text }
     func offer(_ partial: String, prepare: @escaping @MainActor (String) async throws -> RecordingPreviewSpeech?,
                play: @escaping @MainActor (RecordingPreviewSpeech) -> Task<Void, Error>) {
         guard !closed else { return }
+        // A retry may replace the generated prefix. Never apply old offsets to
+        // different text; the final authoritative result handles that fallback.
+        guard partial.hasPrefix(claimedPrefix) else { invalidated = true; close(); chunks.removeAll(); return }
         let found = Self.sentences(in: partial, from: claimed)
         guard !found.chunks.isEmpty else { return }
-        claimed = found.end; chunks += found.chunks
+        claimed = found.end; claimedPrefix = found.chunks.last!.prefix; chunks += found.chunks
         if let waiting { self.waiting = nil; waiting.resume() }
         if worker == nil { worker = Task { [weak self] in await self?.run(prepare: prepare, play: play) } }
     }
-    private func next() async -> String? {
+    private func next() async -> Sentence? {
         while chunks.isEmpty && !closed { await withCheckedContinuation { waiting = $0 } }
         return chunks.isEmpty ? nil : chunks.removeFirst()
     }
@@ -825,21 +847,22 @@ public extension ConversationPipeline {
         var playing: Task<Void, Error>?
         // The next sentence is synthesized while the previous one plays.
         while let chunk = await next(), !Task.isCancelled {
-            guard let prepared = try? await prepare(chunk), !Task.isCancelled else { break }
+            guard let prepared = try? await prepare(chunk.text), !Task.isCancelled, !invalidated else { break }
             if let playing { guard (try? await playing.value) != nil else { return } }
+            guard !Task.isCancelled, !invalidated else { break }
             guard sampleRate == 0 || sampleRate == prepared.pcm.sampleRate else { break }
             if startedAt == nil { startedAt = ProcessInfo.processInfo.systemUptime }
             sampleRate = prepared.pcm.sampleRate; pcm += prepared.pcm.samples; synthesisSeconds += prepared.seconds
-            spokenText = spokenText.isEmpty ? prepared.text : spokenText + " " + prepared.text
+            spokenText = chunk.prefix
             playing = play(prepared)
         }
         _ = try? await playing?.value
     }
     /// Stops taking new sentences and waits until the queued ones have been spoken.
     func finish() async {
-        closed = true
-        if let waiting { self.waiting = nil; waiting.resume() }
+        close()
         await worker?.value
     }
-    func cancel() { closed = true; waiting?.resume(); waiting = nil; worker?.cancel() }
+    private func close() { closed = true; waiting?.resume(); waiting = nil }
+    func cancel() { close(); worker?.cancel() }
 }

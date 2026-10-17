@@ -9,4 +9,10 @@ void kat_mlx_flag_cancel(void *flag);
 void kat_mlx_flag_free(void *flag);
 int kat_mlx_run(void *engine, const char *prefix, const char *text, const char *suffix,
                 void *flag, char *output, size_t capacity, double *first_token);
+// Called synchronously during generation; text is valid only for the callback.
+// No callback can run after kat_mlx_run_stream returns, including on failure.
+typedef void (*kat_mlx_partial_callback)(const char *text, void *user);
+int kat_mlx_run_stream(void *engine, const char *prefix, const char *text, const char *suffix,
+                      void *flag, char *output, size_t capacity, double *first_token,
+                      kat_mlx_partial_callback partial, void *user);
 #endif

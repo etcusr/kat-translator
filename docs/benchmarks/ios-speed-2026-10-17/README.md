@@ -1,5 +1,7 @@
 # iPhone voice latency — 17 October 2026
 
+Follow-up: [streamed speech correctness fixes](../apple-speech-correctness-2026-10-17/README.md) retain complete sentences, avoid whitespace-triggered replay, correct contextual ordinals and enable default Mac MLX partial output. The latency measurements below predate those fixes and are not a fresh timing result for the corrected implementation.
+
 Request: speed up recognition, translation and speech on iOS without lowering quality.
 
 ## Method
