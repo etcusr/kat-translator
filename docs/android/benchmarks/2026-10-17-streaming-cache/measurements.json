@@ -1,0 +1,446 @@
+{
+  "date": "2026-10-17",
+  "device": "Pixel 9 Pro, Tensor G4, 16 GB",
+  "version": "0.4.6 (21), development APK",
+  "apkSha256": "bfedee1957c059f72e86f0f6c6ec97a0beadda1bebf0cc3004678ad5e6ba76c3",
+  "fixture": {
+    "durationSeconds": 28.859875,
+    "sampleRate": 16000,
+    "channels": 1,
+    "private": true
+  },
+  "recognition": "Whisper large-v3-turbo Q8_0, ARMv8.2 CPU, 4 threads, unchanged greedy decoding",
+  "translation": "OPUS-MT RU to EN, INT8 CPU",
+  "voice": "Piper en_US-ljspeech-high, unchanged synthesis settings",
+  "playbackSpeed": 1.25,
+  "baseline": [
+    {
+      "run": 0,
+      "firstPlaybackSeconds": 25.614136691,
+      "processedSeconds": 25.614305839,
+      "drainedSeconds": 36.981888039,
+      "recognitionSeconds": 13.41015003,
+      "translationSeconds": 2.966338462,
+      "synthesisSeconds": 8.427044682,
+      "voiceLoadSeconds": 1.167379517
+    },
+    {
+      "run": 1,
+      "firstPlaybackSeconds": 25.282201632,
+      "processedSeconds": 25.282288017,
+      "drainedSeconds": 36.791127907,
+      "recognitionSeconds": 13.666490933,
+      "translationSeconds": 3.059242759,
+      "synthesisSeconds": 8.265452722,
+      "voiceLoadSeconds": 1.263254924
+    }
+  ],
+  "firstStreamingCandidate": [
+    {
+      "run": 0,
+      "firstPlaybackSeconds": 20.024812225,
+      "processedSeconds": 24.690037081,
+      "drainedSeconds": 31.64368601,
+      "recognitionSeconds": 13.312908576,
+      "translationSeconds": 3.243911297,
+      "synthesisSeconds": 7.280247196,
+      "voiceLoadSeconds": 0.000272095,
+      "writtenFrames": 315904,
+      "playedFrames": 315904,
+      "underruns": 1,
+      "firstWriteSeconds": 20.027633433,
+      "recognitionLoads": 1,
+      "voiceLoads": 1
+    },
+    {
+      "run": 1,
+      "firstPlaybackSeconds": 18.101620737,
+      "processedSeconds": 22.695728324,
+      "drainedSeconds": 29.677412816,
+      "recognitionSeconds": 12.295351487,
+      "translationSeconds": 3.036474937,
+      "synthesisSeconds": 7.137766931,
+      "voiceLoadSeconds": 0.000495768,
+      "writtenFrames": 315370,
+      "playedFrames": 315370,
+      "underruns": 1,
+      "firstWriteSeconds": 18.108995574,
+      "recognitionLoads": 1,
+      "voiceLoads": 1
+    }
+  ],
+  "finalInstalledBuild": [
+    {
+      "run": 0,
+      "firstPlaybackSeconds": 20.344085215,
+      "processedSeconds": 25.040433443,
+      "drainedSeconds": 32.049730037,
+      "recognitionSeconds": 13.534942431,
+      "translationSeconds": 3.486994549,
+      "synthesisSeconds": 7.350541955,
+      "voiceLoadSeconds": 0.000290528,
+      "writtenFrames": 318464,
+      "playedFrames": 318464,
+      "underrunsBeforeDrain": 0,
+      "underrunsAfterFinalWrite": 1,
+      "firstWriteSeconds": 20.342053395,
+      "recognitionLoads": 1,
+      "voiceLoads": 1,
+      "wavFrames": 318464,
+      "sampleRate": 22050
+    },
+    {
+      "run": 1,
+      "firstPlaybackSeconds": 17.945647552,
+      "processedSeconds": 22.507396048,
+      "drainedSeconds": 29.179046646,
+      "recognitionSeconds": 12.153122564,
+      "translationSeconds": 3.073223593,
+      "synthesisSeconds": 7.025057661,
+      "voiceLoadSeconds": 0.000250732,
+      "writtenFrames": 306536,
+      "playedFrames": 306536,
+      "underrunsBeforeDrain": 0,
+      "underrunsAfterFinalWrite": 1,
+      "firstWriteSeconds": 17.942682749,
+      "recognitionLoads": 1,
+      "voiceLoads": 1,
+      "wavFrames": 306536,
+      "sampleRate": 22050
+    }
+  ],
+  "finalBuildHeatedAttempt": [
+    {
+      "run": 0,
+      "firstPlaybackSeconds": 26.188414767,
+      "processedSeconds": 30.798630305,
+      "drainedSeconds": 37.506125181,
+      "recognitionSeconds": 15.178784431,
+      "translationSeconds": 7.595951176,
+      "synthesisSeconds": 7.147225182,
+      "voiceLoadSeconds": 0.000297567,
+      "writtenFrames": 307712,
+      "playedFrames": 307712,
+      "underrunsBeforeDrain": 0,
+      "underrunsAfterFinalWrite": 1,
+      "firstWriteSeconds": 26.18553403,
+      "recognitionLoads": 1,
+      "voiceLoads": 1
+    },
+    {
+      "run": 1,
+      "firstPlaybackSeconds": 23.785477266,
+      "processedSeconds": 29.504270604,
+      "drainedSeconds": 35.45269594,
+      "recognitionSeconds": 16.93840577,
+      "translationSeconds": 3.194876873,
+      "synthesisSeconds": 9.122449996,
+      "voiceLoadSeconds": 0.000295857,
+      "writtenFrames": 317184,
+      "playedFrames": 317184,
+      "underrunsBeforeDrain": 0,
+      "underrunsAfterFinalWrite": 1,
+      "firstWriteSeconds": 23.798352754,
+      "recognitionLoads": 1,
+      "voiceLoads": 1
+    }
+  ],
+  "finalThermal": {
+    "preflight": {
+      "cold": {
+        "status": 0,
+        "temperatures": {
+          "BG-TASKS-THROTTLING-HINT": {
+            "celsius": 0.0,
+            "status": 0
+          },
+          "disp_therm": {
+            "celsius": 35.044003,
+            "status": 1
+          },
+          "charging_therm": {
+            "celsius": 36.291,
+            "status": 0
+          },
+          "G3D": {
+            "celsius": 37.0,
+            "status": 0
+          },
+          "MID": {
+            "celsius": 36.0,
+            "status": 0
+          },
+          "LITTLE": {
+            "celsius": 36.0,
+            "status": 0
+          },
+          "VIRTUAL-USB-UI": {
+            "celsius": 0.0,
+            "status": 0
+          },
+          "VIRTUAL-USB-THROTTLING": {
+            "celsius": 0.0,
+            "status": 0
+          },
+          "USB-MINUS-CHARGING": {
+            "celsius": -1981.0,
+            "status": 0
+          },
+          "VIRTUAL-SKIN-CHARGE-PERSIST": {
+            "celsius": 34.32928,
+            "status": 1
+          },
+          "thb_hda": {
+            "celsius": 54.0,
+            "status": 0
+          },
+          "rfpa_therm": {
+            "celsius": 35.0,
+            "status": 1
+          },
+          "cellular-emergency": {
+            "celsius": 33.57577,
+            "status": 0
+          },
+          "soc_therm": {
+            "celsius": 35.801003,
+            "status": 0
+          },
+          "VIRTUAL-SKIN-MODEL": {
+            "celsius": 33.552166,
+            "status": 0
+          },
+          "ShutdownMode": {
+            "celsius": 33.57577,
+            "status": 0
+          },
+          "VIRTUAL-SKIN-SPEAKER": {
+            "celsius": 38.75265,
+            "status": 1
+          },
+          "VIRTUAL-SKIN-CHARGE-WIRED": {
+            "celsius": 34.32928,
+            "status": 1
+          },
+          "btmspkr_therm": {
+            "celsius": 34.354,
+            "status": 0
+          },
+          "TPU": {
+            "celsius": 37.0,
+            "status": 0
+          },
+          "VIRTUAL-SKIN-LEGACY": {
+            "celsius": 34.250465,
+            "status": 0
+          },
+          "VIRTUAL-SKIN": {
+            "celsius": 33.57577,
+            "status": 0
+          },
+          "VIRTUAL-SKIN-FRONT": {
+            "celsius": 34.146923,
+            "status": 0
+          },
+          "BIG": {
+            "celsius": 36.0,
+            "status": 0
+          },
+          "VIRTUAL-BTS-WINDOW-PARTIAL": {
+            "celsius": 1.53373,
+            "status": 0
+          },
+          "usb_pwr_therm": {
+            "celsius": 34.31,
+            "status": 0
+          },
+          "quiet_therm": {
+            "celsius": 35.690002,
+            "status": 1
+          },
+          "battery": {
+            "celsius": 33.800003,
+            "status": 0
+          },
+          "north_therm": {
+            "celsius": 34.755,
+            "status": 1
+          },
+          "ShutdownModeSteady": {
+            "celsius": 33.57577,
+            "status": 0
+          }
+        },
+        "cooling": {
+          "thermal-cpufreq-2": 0,
+          "thermal-cpufreq-0": 0,
+          "gxp-cooling": 0,
+          "tpu_cooling": 0,
+          "usbc-port": 0,
+          "chg_mdis": 0,
+          "thermal-cpufreq-1": 0,
+          "thermal-gpufreq-0": 0,
+          "thermal-uclamp-7": 0,
+          "thermal-uclamp-4": 0,
+          "thermal-uclamp-0": 0
+        }
+      },
+      "warm": {
+        "status": 0,
+        "temperatures": {
+          "BG-TASKS-THROTTLING-HINT": {
+            "celsius": 0.0,
+            "status": 0
+          },
+          "disp_therm": {
+            "celsius": 33.842003,
+            "status": 1
+          },
+          "charging_therm": {
+            "celsius": 35.378002,
+            "status": 0
+          },
+          "G3D": {
+            "celsius": 36.0,
+            "status": 0
+          },
+          "MID": {
+            "celsius": 35.0,
+            "status": 0
+          },
+          "LITTLE": {
+            "celsius": 35.0,
+            "status": 0
+          },
+          "VIRTUAL-USB-UI": {
+            "celsius": 0.0,
+            "status": 0
+          },
+          "VIRTUAL-USB-THROTTLING": {
+            "celsius": 0.0,
+            "status": 0
+          },
+          "USB-MINUS-CHARGING": {
+            "celsius": -1981.0,
+            "status": 0
+          },
+          "VIRTUAL-SKIN-CHARGE-PERSIST": {
+            "celsius": 33.34845,
+            "status": 1
+          },
+          "thb_hda": {
+            "celsius": 54.0,
+            "status": 0
+          },
+          "rfpa_therm": {
+            "celsius": 34.154003,
+            "status": 1
+          },
+          "cellular-emergency": {
+            "celsius": 32.95882,
+            "status": 0
+          },
+          "soc_therm": {
+            "celsius": 34.933002,
+            "status": 0
+          },
+          "VIRTUAL-SKIN-MODEL": {
+            "celsius": 32.90304,
+            "status": 0
+          },
+          "ShutdownMode": {
+            "celsius": 32.95882,
+            "status": 0
+          },
+          "VIRTUAL-SKIN-SPEAKER": {
+            "celsius": 37.74828,
+            "status": 1
+          },
+          "VIRTUAL-SKIN-CHARGE-WIRED": {
+            "celsius": 33.34845,
+            "status": 1
+          },
+          "btmspkr_therm": {
+            "celsius": 33.442,
+            "status": 0
+          },
+          "TPU": {
+            "celsius": 35.0,
+            "status": 0
+          },
+          "VIRTUAL-SKIN-LEGACY": {
+            "celsius": 33.333935,
+            "status": 0
+          },
+          "VIRTUAL-SKIN": {
+            "celsius": 32.95882,
+            "status": 0
+          },
+          "VIRTUAL-SKIN-FRONT": {
+            "celsius": 33.213974,
+            "status": 0
+          },
+          "BIG": {
+            "celsius": 35.0,
+            "status": 0
+          },
+          "VIRTUAL-BTS-WINDOW-PARTIAL": {
+            "celsius": 1.5189742,
+            "status": 0
+          },
+          "usb_pwr_therm": {
+            "celsius": 33.397003,
+            "status": 0
+          },
+          "quiet_therm": {
+            "celsius": 34.822002,
+            "status": 1
+          },
+          "battery": {
+            "celsius": 32.9,
+            "status": 0
+          },
+          "north_therm": {
+            "celsius": 33.887,
+            "status": 1
+          },
+          "ShutdownModeSteady": {
+            "celsius": 32.95882,
+            "status": 0
+          }
+        },
+        "cooling": {
+          "thermal-cpufreq-2": 0,
+          "thermal-cpufreq-0": 0,
+          "gxp-cooling": 0,
+          "tpu_cooling": 0,
+          "usbc-port": 0,
+          "chg_mdis": 0,
+          "thermal-cpufreq-1": 0,
+          "thermal-gpufreq-0": 0,
+          "thermal-uclamp-7": 0,
+          "thermal-uclamp-4": 0,
+          "thermal-uclamp-0": 0
+        }
+      }
+    },
+    "sampleCount": 13,
+    "warningSamples": 3,
+    "maxCelsius": {
+      "VIRTUAL-SKIN": 35.047493,
+      "battery": 36.2,
+      "G3D": 67.0
+    },
+    "frequencyRestrictionSamples": 0,
+    "nonzeroAndroidThermalStatusSamples": 0,
+    "warningExplanation": "Three G3D readings reached/exceeded the experimental 65 C warning threshold; no reported CPU/GPU/uclamp restriction or nonzero Android thermal status."
+  },
+  "transcriptAndTranslationExactMatch": true,
+  "notes": [
+    "Timings are observations on one private fixture, not a statistical performance guarantee.",
+    "Baseline start is app playback state; streaming also records first AudioTrack write.",
+    "The intermediate final-build attempt developed thermal restrictions and is reported separately.",
+    "Separate thermally restricted and keyguard-obscured attempts are excluded from speed comparison.",
+    "Frame accounting and exported-audio recognition do not replace acoustic speaker capture."
+  ]
+}

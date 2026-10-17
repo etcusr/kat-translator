@@ -14,6 +14,15 @@ internal object MediaNative {
         } catch(_:UnsatisfiedLinkError) { false }
     }
     external fun whisperArm82(path:ByteArray,samples:FloatArray,language:ByteArray,flag:Long):ByteArray?
+    external fun whisperCreate(path:ByteArray):Long
+    external fun whisperRun(handle:Long,samples:FloatArray,language:ByteArray,flag:Long):ByteArray?
+    external fun whisperFree(handle:Long)
+    external fun whisperArm82Create(path:ByteArray):Long
+    external fun whisperArm82Run(handle:Long,samples:FloatArray,language:ByteArray,flag:Long):ByteArray?
+    external fun whisperArm82Free(handle:Long)
+    external fun piperCreate(model:ByteArray,tokens:ByteArray,data:ByteArray):Long
+    external fun piperFree(handle:Long)
+    external fun piperRun(handle:Long,text:ByteArray,flag:Long,rate:IntArray,timing:DoubleArray,callback:SpeechChunkCallback?):FloatArray?
     external fun vadCreate(path: ByteArray): Long
     external fun vadAccept(handle: Long, samples: FloatArray): Boolean
     external fun vadFree(handle: Long)
@@ -36,6 +45,8 @@ internal object MediaNative {
     external fun ocrRunScored(handle: Long, input: FloatArray, width: Int): FloatArray
     external fun detect(path: ByteArray, input: FloatArray, width: Int, height: Int): FloatArray
 }
+/** Native calls synchronously on the synthesis thread; consumers must not retain native buffers. */
+fun interface SpeechChunkCallback { fun onChunk(samples:FloatArray,sampleRate:Int) }
 data class Transcript(val text: String, val language: String)
 /** Wall-clock phases of the last native Piper/Supertonic call; contains no text or audio. */
 data class SpeechSynthesisTiming(val load:Double,val generate:Double,val copy:Double,val release:Double)
@@ -47,7 +58,7 @@ data class OcrBlock(val text: String, val left: Float, val top: Float, val right
 
 /** Blocking offline operations. A caller must schedule these away from the UI thread and unload
  * translation as required by the caller. The selected GigaAM/Parakeet recognizer is retained until releaseRecognition/close;
- * other operations own their model. Native ASR decoding is bounded to 30-second audio segments.
+ * Whisper and Piper retain one selected model until explicit unload/memory pressure/close; other operations own their model. Native ASR decoding is bounded to 30-second audio segments.
  * cancel is safe from another thread; close waits for the current native call to return. */
 class OfflineMedia : AutoCloseable {
     @Volatile var lastSpeechTiming:SpeechSynthesisTiming?=null;private set
@@ -68,13 +79,27 @@ class OfflineMedia : AutoCloseable {
     }
     private fun checkCancellation() { if (cancelled || Thread.currentThread().isInterrupted) throw CancellationException("Media operation cancelled") }
     fun cancel() = synchronized(flagLock) { cancelled = true; if (flag != 0L) MediaNative.flagCancel(flag) }
+    private val whisperCache=NativeModelCache { if(MediaNative.acceleratedWhisper)MediaNative.whisperArm82Free(it) else MediaNative.whisperFree(it) }
+    private val piperCache=NativeModelCache { MediaNative.piperFree(it) }
+    val recognitionLoads get()=whisperCache.loads
+    val voiceLoads get()=piperCache.loads
+    private fun identity(vararg paths:String)=paths.joinToString("|") { path ->
+        val f=File(path);"${f.canonicalPath}:${f.length()}:${f.lastModified()}"
+    }
+    @Synchronized fun releaseSpeech() { piperCache.close() }
+    @Synchronized fun releaseModels() { releaseRecognition();releaseSpeech() }
+    @Synchronized fun preloadPiper(model:String,tokens:String,dataDir:String) {
+        check(!closed);val m=file(model);val t=file(tokens);val d=utf8(dataDir)
+        piperCache.acquire(identity(model,tokens,dataDir)) { MediaNative.piperCreate(m,t,d) }
+    }
     private var nemoHandle=0L
     private var nemoKey=""
     @Synchronized fun releaseRecognition() {
+        whisperCache.close()
         if(nemoHandle!=0L)MediaNative.nemoFree(nemoHandle)
         nemoHandle=0;nemoKey=""
     }
-    @Synchronized override fun close() { closed = true;releaseRecognition() }
+    @Synchronized override fun close() { closed = true;releaseModels() }
     fun transcribeGigaAM(directory:String,samples:FloatArray,vadPath:String,isCancelled:()->Boolean={false}):Transcript =
         transcribeNemo(directory,samples,vadPath,"ru",false,isCancelled)
     fun transcribeParakeet(directory:String,samples:FloatArray,vadPath:String,language:String,isCancelled:()->Boolean={false}):Transcript =
@@ -104,8 +129,14 @@ class OfflineMedia : AutoCloseable {
     @Synchronized fun transcribe(modelPath: String, samples: FloatArray, language: String = "auto", isCancelled: () -> Boolean = { false }): Transcript = operation(isCancelled) { f ->
         validatePcm(samples)
         val path=file(modelPath);val lang=utf8(language)
-        val raw = (if(MediaNative.acceleratedWhisper) MediaNative.whisperArm82(path,samples,lang,f)
-            else MediaNative.whisper(path,samples,lang,f)) ?: throw CancellationException()
+        // Keep exactly one recognizer; no hidden accumulation when changing model families.
+        if(nemoHandle!=0L)releaseRecognition()
+        val handle=whisperCache.acquire(identity(modelPath)) {
+            if(MediaNative.acceleratedWhisper)MediaNative.whisperArm82Create(path) else MediaNative.whisperCreate(path)
+        }
+        checkCancellation();if(isCancelled())throw CancellationException()
+        val raw = (if(MediaNative.acceleratedWhisper) MediaNative.whisperArm82Run(handle,samples,lang,f)
+            else MediaNative.whisperRun(handle,samples,lang,f)) ?: throw CancellationException()
         val output = String(raw, Charsets.UTF_8); val split = output.indexOf('\n')
         check(split > 0) { "Invalid Whisper result" }
         val text = output.substring(split + 1).trim(); check(text.isNotEmpty()) { "No speech detected" }
@@ -116,10 +147,15 @@ class OfflineMedia : AutoCloseable {
         val raw = MediaNative.omni(file(modelPath), file(tokensPath), samples, f) ?: throw CancellationException()
         val text = String(raw, Charsets.UTF_8).trim(); check(text.isNotEmpty()) { "No speech detected" }; Transcript(text, language)
     }
-    @Synchronized fun synthesizePiper(model: String, tokens: String, dataDir: String, text: String): SpeechAudio = operation { f ->
+    @Synchronized fun synthesizePiper(model: String, tokens: String, dataDir: String, text: String, callback:SpeechChunkCallback?=null): SpeechAudio = operation { f ->
         require(text.isNotBlank() && text.length <= 20000)
         val rate = IntArray(1);val timing=DoubleArray(4);lastSpeechTiming=null
-        val samples = MediaNative.tts(file(model), file(tokens), utf8(dataDir), utf8(text), utf8(""), false, f, rate,timing) ?: throw CancellationException()
+        val started=System.nanoTime();preloadPiper(model,tokens,dataDir)
+        val load=(System.nanoTime()-started)/1e9
+        checkCancellation()
+        val handle=piperCache.acquire(identity(model,tokens,dataDir)) { error("Voice cache missing") }
+        val samples = MediaNative.piperRun(handle,utf8(text),f,rate,timing,callback) ?: throw CancellationException()
+        timing[0]=load
         lastSpeechTiming=SpeechSynthesisTiming(timing[0],timing[1],timing[2],timing[3])
         SpeechAudio(samples, rate[0])
     }

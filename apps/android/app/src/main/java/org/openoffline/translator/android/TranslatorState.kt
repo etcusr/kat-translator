@@ -41,6 +41,8 @@ internal fun requireVoicePath(packageId:String,language:String,workspace:String,
 class TranslatorState(app:Application):AndroidViewModel(app) {
     private val prefs=app.getSharedPreferences("kat",0)
     private val worker=Executors.newSingleThreadExecutor()
+    private val voiceLoader=Executors.newSingleThreadExecutor()
+    private val playbackEpoch=java.util.concurrent.atomic.AtomicLong()
     private val main=Handler(Looper.getMainLooper())
     private val cancelled=AtomicBoolean(false)
     private val closed=AtomicBoolean(false)
@@ -90,6 +92,9 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
     private val player=SpeechPlayer(app)
     internal val playbackGain get()=player.appliedGain
     internal val speechRuntimeTiming get()=media.lastSpeechTiming
+    internal val speechPlaybackMetrics get()=player.metrics
+    internal val recognitionLoads get()=media.recognitionLoads
+    internal val voiceLoads get()=media.voiceLoads
     private val modelFile=File(app.getExternalFilesDir(null),"Index-Translate-9B.Q4_K_M.gguf")
     private val archiveDir=File(app.filesDir,"history").apply { mkdirs() }
     val exportDir=File(app.cacheDir,"exports").apply { mkdirs() }
@@ -170,7 +175,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
     var wayuVoice by mutableStateOf(prefs.getString("wayuVoice","m_elderly_deep")!!); private set
     var automaticLoad by mutableStateOf(prefs.getBoolean("automaticModelLoad",true)); private set
     var recognitionPreference by mutableStateOf(prefs.getString("recognitionPreference","automatic")!!);private set
-    var recordingPreprocessing by mutableStateOf(prefs.getBoolean("recordingPreprocessing",false)); private set
+    var recordingPreprocessing by mutableStateOf(prefs.getBoolean("recordingPreprocessing",true)); private set
     var recordingVerification by mutableStateOf(prefs.getBoolean("recordingPreviewVerification",true)); private set
     var previewProcessing by mutableStateOf(false); private set
     var previewMessage by mutableStateOf<String?>(null); private set
@@ -265,7 +270,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
     fun changeAutomaticLoad(v:Boolean) { automaticLoad=v;bool("automaticModelLoad",v);if(v && installed && !modelReady)prepare() }
     fun changeMtp(v:Boolean) { mtp=v;bool("mtpEnabled",v);unload() }
     fun changeMemorySaving(v:Boolean) { memorySaving=v;bool("memorySaving",v);if(v && !busy)unload() }
-    fun changeRecognitionPreference(v:String) { require(v in setOf("automatic","system","whisper"));recognitionPreference=v;prefs.edit().putString("recognitionPreference",v).remove("recognitionModel").apply();audioRevision++ }
+    fun changeRecognitionPreference(v:String) { require(v in setOf("automatic","system","whisper"));worker.execute { media.releaseRecognition() };recognitionPreference=v;prefs.edit().putString("recognitionPreference",v).remove("recognitionModel").apply();audioRevision++ }
     fun changeRecordingPreprocessing(v:Boolean) { recordingPreprocessing=v;bool("recordingPreprocessing",v) }
     fun changeRecordingVerification(v:Boolean) { recordingVerification=v;bool("recordingPreviewVerification",v) }
     fun changeRecordingMode(v:String) { recordingMode=v;prefs.edit().putString("recordingMode",v).apply() }
@@ -323,7 +328,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
                 val snapshot=activeTiming?.snapshot()
                 if(snapshot!=null && timedWorkspace!=null)ui { timings[timedWorkspace]=snapshot }
                 activeTiming=null;timingWorkspace=null
-                if(memorySaving)releaseTranslation();ui { busy=false;preparingModel=false;verificationProgress=null;if(cancelled.get())status=text("Отменено","Cancelled") } } }
+                if(memorySaving)releaseTranslation();if(!retainMediaModels())media.releaseModels();ui { busy=false;preparingModel=false;verificationProgress=null;if(cancelled.get())status=text("Отменено","Cancelled") } } }
     }
     private fun descriptor():JSONObject {
         val rows=JSONObject(getApplication<Application>().assets.open("models.json").bufferedReader().use { it.readText() }).getJSONArray("models")
@@ -423,13 +428,18 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
     private fun finishTranslation(original:String,from:String,language:String,workspace:String,preparedTranslation:String?=null,speak:Boolean=automaticSpeech) {
         val resolved=if(from=="auto")detectLanguage(original) else from
         ui { if(from=="auto")detectedSource=resolved }
-        val translated=TranslationRouting.translate(original,resolved ?: from,language) { preparedTranslation ?: translateParts(original,language,resolved ?: from) };checkCancelled()
+        val retain=retainMediaModels()
+        if(!retain)media.releaseModels()
+        val preload=if(speak && retain)preloadVoice(language) else null
+        val translated=try { TranslationRouting.translate(original,resolved ?: from,language) { preparedTranslation ?: translateParts(original,language,resolved ?: from) } }
+            finally { preload?.get() }
+        checkCancelled()
         ui { if(!cancelled.get()) { inputs[workspace]=original;outputs[workspace]=translated;status=text("Готово","Done") } }
         // Commit the completed translation before optional speech, as on iOS.
         val historyId=archive(original,translated,resolved ?: from,language,workspace,null)
         var speech:SpeechAudio?=null
         if(speak) {
-            try { speech=synthesize(translated,language);checkCancelled();val completed=speech;ui { if(!cancelled.get()) { translatedAudio[workspace]=completed;audioRevision++;playSpeech(completed,"$workspace:target:${translated.hashCode()}") } } }
+            try { speech=synthesizeAndPlay(translated,language,"$workspace:target:${translated.hashCode()}");checkCancelled();val completed=speech;ui { if(!cancelled.get()) { translatedAudio[workspace]=completed;audioRevision++ } } }
             catch(e:Exception) { ui { if(!cancelled.get())showFailure(e) } }
         }
         checkCancelled()
@@ -457,8 +467,21 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         val result=manager.textClassifier.detectLanguage(android.view.textclassifier.TextLanguage.Request.Builder(text.take(10000)).build())
         if(result.localeHypothesisCount>0 && result.getConfidenceScore(result.getLocale(0))>=.5f)result.getLocale(0).language.takeIf { it in IndexLanguages.byId } else null
     } catch(_:Exception) { null }
-    fun cancel() { if(busy) { cancelled.set(true);status=text("Отменяю…","Cancelling…");systemSpeech.cancel();mlKitOcr.cancel();engine?.cancel();opus?.cancel();media.cancel() } }
-    fun unload() { if(busy)return;worker.execute { releaseTranslation() } }
+    fun cancel() { if(busy) { stopPlayback();cancelled.set(true);status=text("Отменяю…","Cancelling…");systemSpeech.cancel();mlKitOcr.cancel();engine?.cancel();opus?.cancel();media.cancel() } }
+    fun unload() { if(busy)return;worker.execute { releaseTranslation();media.releaseModels() } }
+    fun trimMemory() { if(!closed.get())worker.execute { media.releaseModels() } }
+    private fun retainMediaModels():Boolean {
+        val info=ActivityManager.MemoryInfo()
+        getApplication<Application>().getSystemService(ActivityManager::class.java).getMemoryInfo(info)
+        return MediaCachePolicy.retain(info.totalMem,info.availMem,info.threshold,memorySaving || info.lowMemory)
+    }
+    // Android 14+ no longer delivers RUNNING_LOW/onLowMemory; also sample idle headroom.
+    private val memoryTicker=object:Runnable { override fun run() {
+        if(closed.get())return
+        if(!busy && !recording && !previewProcessing && !retainMediaModels())trimMemory()
+        main.postDelayed(this,15_000)
+    } }
+    fun foreground() { main.removeCallbacks(memoryTicker);main.postDelayed(memoryTicker,15_000) }
     /** Finish releasing native mappings first, then start the FGS on main only while the
      * originating screen is still visible. Leaving the app cancels this handoff. */
     private fun packageAction(visible:()->Boolean,launch:()->Unit) {
@@ -466,7 +489,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         busy=true;cancelled.set(false);error=null;status=text("Подготовка моделей…","Preparing models…")
         worker.execute {
             try {
-                releaseTranslation()
+                releaseTranslation();media.releaseModels()
                 ui {
                     busy=false
                     if(cancelled.get() || !visible()) {
@@ -485,7 +508,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
     fun importPackage(id:String,uri:Uri,visible:()->Boolean) {
         packageAction(visible) { PackageDownloads.importFile(getApplication(),id,uri) }
     }
-    fun removePackage(id:String) { if(busy || recording)return;worker.execute { releaseTranslation();packages.remove(id) } }
+    fun removePackage(id:String) { if(busy || recording)return;worker.execute { releaseTranslation();media.releaseModels();packages.remove(id) } }
     fun selectedVoice(language:String):String? {
         audioRevision
         prefs.getString("voice.$language",null)?.let { return it }
@@ -496,9 +519,9 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         return (preferred.firstOrNull()?.takeIf { installed[it.id]?.phase==PackagePhase.INSTALLED }
             ?: preferred.firstOrNull { installed[it.id]?.phase==PackagePhase.INSTALLED } ?: preferred.firstOrNull())?.id
     }
-    fun selectVoice(language:String,id:String) { missingVoice=null;stopPlayback();translatedAudio.clear();prefs.edit().putString("voice.$language",id).apply();audioRevision++ }
+    fun selectVoice(language:String,id:String) { if(selectedVoice(language)!=id)worker.execute { media.releaseSpeech() };missingVoice=null;stopPlayback();translatedAudio.clear();prefs.edit().putString("voice.$language",id).apply();audioRevision++ }
     fun selectedRecognition():String? { audioRevision;return prefs.getString("recognitionModel",null) }
-    fun selectRecognition(id:String) { recognitionPreference="automatic";prefs.edit().putString("recognitionPreference","automatic").putString("recognitionModel",id).apply();audioRevision++ }
+    fun selectRecognition(id:String) { if(prefs.getString("recognitionModel",null)!=id)worker.execute { media.releaseRecognition() };recognitionPreference="automatic";prefs.edit().putString("recognitionPreference","automatic").putString("recognitionModel",id).apply();audioRevision++ }
     private fun installedPackage(category:PackageCategory,language:String,preferred:String?=null):Pair<OfflinePackage,File> {
         val candidates=packages.catalog.filter { it.category==category && (category!=PackageCategory.RECOGNITION || recognitionPreference!="whisper" || it.backend=="whisper") && it.unavailableReason==null && it.backend!="ocr-detector" && (language=="auto" || it.supports(language) || it.languages.isEmpty()) && !(it.backend=="omnilingual" && language=="auto") }
         val selected=if(preferred!=null)candidates.firstOrNull { it.id==preferred }
@@ -509,36 +532,88 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         return selected to path
     }
     private fun findFile(root:File,predicate:(File)->Boolean):File=root.walkTopDown().firstOrNull { it.isFile && predicate(it) } ?: error(text("В пакете отсутствует нужный файл.","Required file is missing from the package."))
-    private fun synthesize(text:String,language:String):SpeechAudio = measure(ProcessingStage.SYNTHESIS) { synthesizeImpl(text,language) }
-    private fun synthesizeImpl(text:String,language:String):SpeechAudio {
+    private fun preloadVoice(language:String):java.util.concurrent.Future<*> {
+        val selected=selectedVoice(language)
+        val pack=packages.catalog.firstOrNull { it.id==selected && it.category==PackageCategory.VOICE && it.supports(language) && it.unavailableReason==null && it.backend in setOf("piper","vits","mms") }
+        val path=pack?.let { packages.installedPath(it.id) }
+        return voiceLoader.submit {
+            try {
+                if(pack!=null && path!=null && !cancelled.get() && !closed.get())packages.acquire(pack.id).use {
+                    val model=findFile(path) { it.extension=="onnx" && !it.name.contains("encoder") }
+                    val tokens=findFile(path) { it.name=="tokens.txt" }
+                    val data=if(pack.backend=="mms")"" else path.walkTopDown().firstOrNull { it.isDirectory && it.name=="espeak-ng-data" }?.path ?: bundledEspeak().path
+                    if(!cancelled.get() && !closed.get())media.preloadPiper(model.path,tokens.path,data)
+                }
+            } catch(_:Exception) { /* The ordinary synthesis path reports an unavailable voice. */ }
+        }
+    }
+    private fun synthesizeAndPlay(text:String,language:String,key:String):SpeechAudio {
+        val epoch=playbackEpoch.get()
+        var stream:SpeechStream?=null // Accessed only by FIFO main-thread posts.
+        val opening=SpeechStartBuffer()
+        ui { if(playbackEpoch.get()==epoch)clearPlayback() }
+        fun enqueue(chunk:SpeechAudio) {
+            ui {
+                if(!cancelled.get() && playbackEpoch.get()==epoch)try {
+                    if(stream==null) {
+                        stream=player.startStream(chunk.sampleRate,speed);playbackKey=key;playing=true;playbackPaused=false;main.post(playbackTicker)
+                    }
+                    stream?.offer(chunk.samples)
+                } catch(e:Exception) { stopPlayback();error=e.message }
+            }
+        }
+        return try {
+            val audio=measure(ProcessingStage.SYNTHESIS) { synthesizeImpl(text,language) { chunk ->
+                opening.accept(chunk).forEach(::enqueue)
+            } }
+            checkCancelled();opening.finish().forEach(::enqueue)
+            ui { if(playbackEpoch.get()==epoch)stream?.finish() }
+            audio
+        } catch(e:Exception) {
+            ui { if(playbackEpoch.get()==epoch)stopPlayback() };throw e
+        }
+    }
+    private fun synthesizeImpl(text:String,language:String,onChunk:(SpeechAudio)->Unit):SpeechAudio {
         checkCancelled()
         val selected=selectedVoice(language)
         val pack=packages.catalog.firstOrNull { it.id==selected && it.category==PackageCategory.VOICE && it.supports(language) && it.unavailableReason==null }
             ?: error(this.text("Для выбранного языка нет доступной озвучки. Выберите другой голос в настройках.","No voice is available for this language. Choose another voice in settings."))
         val path=requireVoicePath(pack.id,language,mode,packages.installedPath(pack.id))
         ui { status=this.text("Подготовка озвучки…","Preparing speech…") }
-        // Keep translation warm across speech unless memory saving is requested.
-        if(memorySaving)releaseTranslation()
+        if(memorySaving) { releaseTranslation();media.releaseRecognition() }
         checkCancelled()
         return packages.acquire(pack.id).use {
-            val parts=TextSegments.split(text) { it.length<=1500 }
-            val audio=parts.map { part ->
+            val normalizer=StreamingSpeechLoudness()
+            val chunks=mutableListOf<SpeechAudio>()
+            fun deliver(raw:SpeechAudio) {
                 checkCancelled()
-                if(pack.backend=="omnivoice")media.synthesizeOmniVoice(path.path,part,pack.runtimeLanguage(language))
-                else if(pack.backend=="wayu")media.synthesizeWayu(WayuAssets.prepare(getApplication()),path.path,part,wayuVoice)
-                else if(pack.backend=="supertonic") { val config=findFile(path) { it.name=="tts.json" };media.synthesizeSupertonic(config.parent!!,part,pack.runtimeLanguage(language)) }
-                else {
-                    val model=findFile(path) { it.extension=="onnx" && !it.name.contains("encoder") }
-                    val tokens=findFile(path) { it.name=="tokens.txt" }
-                    val data=if(pack.backend=="mms")"" else path.walkTopDown().firstOrNull { it.isDirectory && it.name=="espeak-ng-data" }?.path ?: bundledEspeak().path
-                    val spoken=if(pack.backend=="mms")MmsSpeechText.prepare(part,tokens.readText(),pack.runtimeLanguage(language)) else part
-                    media.synthesizePiper(model.path,tokens.path,data,spoken)
+                normalizer.accept(raw)?.let { chunks+=it;onChunk(it) }
+            }
+            val parts=TextSegments.split(text) { it.length<=1500 }
+            for(part in parts) {
+                checkCancelled()
+                val spoken=if(language=="ru" && pack.backend !in setOf("omnivoice","wayu"))RussianSpeechText.expandOrdinals(part) else part
+                if(pack.backend in setOf("omnivoice","wayu","supertonic"))media.releaseSpeech()
+                when(pack.backend) {
+                    "omnivoice" -> deliver(media.synthesizeOmniVoice(path.path,spoken,pack.runtimeLanguage(language)))
+                    "wayu" -> deliver(media.synthesizeWayu(WayuAssets.prepare(getApplication()),path.path,spoken,wayuVoice))
+                    "supertonic" -> { val config=findFile(path) { it.name=="tts.json" };deliver(media.synthesizeSupertonic(config.parent!!,spoken,pack.runtimeLanguage(language))) }
+                    else -> {
+                        val model=findFile(path) { it.extension=="onnx" && !it.name.contains("encoder") }
+                        val tokens=findFile(path) { it.name=="tokens.txt" }
+                        val data=if(pack.backend=="mms")"" else path.walkTopDown().firstOrNull { it.isDirectory && it.name=="espeak-ng-data" }?.path ?: bundledEspeak().path
+                        val prepared=if(pack.backend=="mms")MmsSpeechText.prepare(spoken,tokens.readText(),pack.runtimeLanguage(language)) else spoken
+                        // The final native aggregate is validated, never enqueued a second time.
+                        media.synthesizePiper(model.path,tokens.path,data,prepared) { samples,rate -> deliver(SpeechAudio(samples,rate)) }
+                    }
                 }
             }
-            val rate=audio.first().sampleRate;check(audio.all { it.sampleRate==rate })
-            val samples=FloatArray(audio.sumOf { it.samples.size });var offset=0
-            audio.forEach { it.samples.copyInto(samples,offset);offset+=it.samples.size }
-            SpeechLoudness.normalize(SpeechAudio(samples,rate))
+            normalizer.finish()?.let { chunks+=it;onChunk(it) }
+            check(chunks.isNotEmpty()) { "Empty speech stream" }
+            val rate=chunks.first().sampleRate;check(chunks.all { it.sampleRate==rate })
+            val samples=FloatArray(chunks.sumOf { it.samples.size });var offset=0
+            chunks.forEach { it.samples.copyInto(samples,offset);offset+=it.samples.size }
+            SpeechAudio(samples,rate)
         }
     }
     private fun bundledEspeak():File {
@@ -569,9 +644,9 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         if(language==null) { error=text("Для озвучки оригинала выберите язык.","Select the source language to read the original.");return }
         if(!original && translatedAudio[workspace]!=null) { playSpeech(translatedAudio.getValue(workspace),key);return }
         work(text("Подготовка озвучки…","Preparing speech…"),workspace,continueTiming=true) {
-            val speech=synthesize(content,language);checkCancelled()
+            val speech=synthesizeAndPlay(content,language,key);checkCancelled()
             archiveManualSpeech(content,language,workspace,original,speech)
-            ui { if(!original) { translatedAudio[workspace]=speech;audioRevision++ };playSpeech(speech,key) }
+            ui { if(!cancelled.get() && !original) { translatedAudio[workspace]=speech;audioRevision++ } }
         }
     }
     fun playOriginal() {
@@ -581,7 +656,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         playSpeech(original,"voice.recording",normalizeVolume=true)
     }
     private val playbackTicker=object:Runnable { override fun run() {
-        if(filePlayer==null && playing && !player.isPlaying) { playing=false;playbackPaused=false;return }
+        if(filePlayer==null && playing && !player.isPlaying) { player.metrics?.failure?.let { error=it };playing=false;playbackPaused=false;return }
         if(playing)main.postDelayed(this,150)
     } }
     private fun playSpeech(audio:SpeechAudio,key:String?=null,normalizeVolume:Boolean=false) {
@@ -592,7 +667,8 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         if(file!=null) { if(playbackPaused)file.start() else file.pause() } else { if(playbackPaused)player.resume() else player.pause() }
         playbackPaused=!playbackPaused
     }
-    fun stopPlayback() { main.removeCallbacks(playbackTicker);player.stop();filePlayer?.release();filePlayer=null;activePreview=null;playingFile=null;playbackKey=null;playing=false;playbackPaused=false }
+    fun stopPlayback() { playbackEpoch.incrementAndGet();clearPlayback() }
+    private fun clearPlayback() { main.removeCallbacks(playbackTicker);player.stop();filePlayer?.release();filePlayer=null;activePreview=null;playingFile=null;playbackKey=null;playing=false;playbackPaused=false }
     fun previewId(pack:OfflinePackage,language:String):String? {
         val id=if(pack.backend=="wayu")"wayu-$wayuVoice" else pack.id+if(pack.backend in setOf("supertonic","omnivoice"))"-$language" else ""
         return id.takeIf { "$it.m4a" in previews }
@@ -746,7 +822,9 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
     val automaticRecognitionPackage get()=automaticRecognition(currentSource)?.let { id -> packages.catalog.first { it.id==id } }
     private fun useSystemRecognition()=recognitionPreference=="system" ||
         (recognitionPreference=="automatic" && selectedRecognition()==null && systemRecognitionAvailable)
-    private fun transcribe(samples:FloatArray,from:String):Transcript = measure(ProcessingStage.RECOGNITION) { transcribeImpl(samples,from) }
+    private fun transcribe(samples:FloatArray,from:String):Transcript = measure(ProcessingStage.RECOGNITION) {
+        try { transcribeImpl(samples,from) } finally { if(!retainMediaModels())media.releaseRecognition() }
+    }
     private fun transcribeImpl(samples:FloatArray,from:String):Transcript {
         checkCancelled();ui { status=text("Распознаю речь…","Recognizing speech…") }
         val automatic=automaticRecognition(from)
@@ -775,7 +853,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
                     if(pack.backend=="parakeet")media.transcribeParakeet(path.path,samples,vad.path,from) { cancelled.get() || closed.get() }
                     else media.transcribeGigaAM(path.path,samples,vad.path) { cancelled.get() || closed.get() }
                 }
-                finally { if(memorySaving)media.releaseRecognition() }
+                finally { if(!retainMediaModels())media.releaseRecognition() }
             } else if(pack.backend=="omnilingual") {
                 val model=findFile(path) { it.extension=="onnx" };val tokens=findFile(path) { it.name=="tokens.txt" }
                 media.transcribeOmnilingual(model.path,tokens.path,samples,from) { cancelled.get() || closed.get() }
@@ -1030,11 +1108,12 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         return "Kat translator Android\n${translationRuntimeLabel}\nMTP: $mtpActive\nPackage check: ${packages.restorationSeconds} s (${packages.startupCachedPackages} cached, ${packages.startupFullVerifications} full checks)\nPreparation: ${preparationSeconds ?: "—"} s\nWorkspace: $mode\nRecognition: ${timing?.recognition ?: "—"} s\nTranslation: ${seconds ?: "—"} s\nSpeech synthesis: ${timing?.synthesis ?: "—"} s\nModel load: ${timing?.modelLoad ?: "—"} s\nTotal processing (excludes recording/playback): ${timing?.total ?: "—"} s\nFirst token: ${firstToken ?: "—"} s\nRAM free: ${info.availMem/1024/1024} MiB / ${info.totalMem/1024/1024} MiB\nStorage free: ${archiveDir.usableSpace/1024/1024} MiB\nAndroid: ${android.os.Build.VERSION.RELEASE}\nDevice: ${android.os.Build.MODEL}"
     }
     fun background() {
+        main.removeCallbacks(memoryTicker)
         stopLiveCamera()
         if(recording)discardRecording()
         recordingPreview?.suspend()
         if(previewProcessing) { engine?.cancel();media.cancel() }
-        cancel();stopPlayback()
+        cancel();stopPlayback();trimMemory()
     }
-    override fun onCleared() { closed.set(true);cancelled.set(true);systemSpeech.close();mlKitOcr.close();recordingPreview?.cancel();main.removeCallbacks(ticker);main.removeCallbacks(playbackTicker);recorder.stop();player.stop();filePlayer?.release();engine?.cancel();opus?.cancel();media.cancel();worker.execute { releaseTranslation();media.close() };worker.shutdown() }
+    override fun onCleared() { closed.set(true);cancelled.set(true);systemSpeech.close();mlKitOcr.close();recordingPreview?.cancel();main.removeCallbacks(ticker);main.removeCallbacks(playbackTicker);main.removeCallbacks(memoryTicker);recorder.stop();player.stop();filePlayer?.release();engine?.cancel();opus?.cancel();media.cancel();worker.execute { releaseTranslation();media.close() };worker.shutdown();voiceLoader.shutdownNow() }
 }

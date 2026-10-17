@@ -19,6 +19,12 @@ class MainActivity : ComponentActivity() {
             else window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         } }
     }
+    override fun onStart() { super.onStart();translator.foreground() }
+    override fun onTrimMemory(level:Int) {
+        super.onTrimMemory(level)
+        if(level>=android.content.ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW && ::translator.isInitialized)translator.trimMemory()
+    }
+    override fun onLowMemory() { super.onLowMemory();if(::translator.isInitialized)translator.trimMemory() }
     override fun onStop() {
         if (!isChangingConfigurations) translator.background()
         super.onStop()

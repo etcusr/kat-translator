@@ -135,7 +135,9 @@ class OriginalRecordingActionsTest {
         var clicks=0
         val status=androidx.compose.runtime.mutableStateOf(org.openoffline.translator.android.packages.PackageStatus())
         ui.runOnUiThread { ui.activity.setContent {
-            VoiceDownloadNotice("Английский",status.value) { clicks++ }
+            androidx.compose.runtime.CompositionLocalProvider(LocalUiLanguage provides "ru") {
+                VoiceDownloadNotice("Английский",status.value) { clicks++ }
+            }
         } }
         ui.onNodeWithText("Озвучка для языка «Английский» не скачана. Нажмите, чтобы скачать.").assertIsDisplayed()
         ui.onNodeWithTag("voice.download.notice").performClick()

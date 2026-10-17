@@ -2,6 +2,8 @@
 
 **English** | [Русский](README.ru.md)
 
+Piper starts playback from generated fragments; one Whisper model and one Piper voice stay cached on sufficiently large-memory devices. Voice loading can overlap translation. Stop discards pending playback, while completed audio stays available for replay/export. Partial translation speech is still a separate future step. [Implementation, timings and limits](../../docs/android/benchmarks/2026-10-17-streaming-cache/README.md). On the 28.86-second Pixel fixture, first playback changed from 25.61/25.28 s to 20.34/17.95 s (cold/repeat); recognition text and translation matched exactly. These are recorded observations, not a general latency guarantee.
+
 VITS/Piper speech uses up to four CPU threads with unchanged model/voice settings. On Pixel, a measured 257-character synthesis fell from 17.38 to 10.42 seconds. Other devices require their own measurements. [Timing breakdown and checks](../../docs/android/benchmarks/2026-10-17-tts-latency/README.md).
 
 Voice mode shows both original and translation cards immediately; the original stays expanded. The active speaker button becomes a stop cross during playback, including automatic speech, and returns after stopping or completion. Verified on Pixel with 4 device tests. [Verification](../../docs/android/benchmarks/2026-10-17-voice-results/README.md).

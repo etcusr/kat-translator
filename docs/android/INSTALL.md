@@ -2,6 +2,8 @@
 
 **English** | [Русский](INSTALL.ru.md)
 
+The latest source-built development APK includes streamed Piper, voice preloading and memory-aware Whisper/Piper caches. Re-run `setup-media.sh` and rebuild the app; an older APK with the same version number does not contain these changes. The saved `dist/android` release below is a separate artifact. [Checks and installed-build identity](benchmarks/2026-10-17-streaming-cache/README.md).
+
 For the tested faster Whisper option, open **Models → Recognition → Whisper large-v3-turbo Q8** and install/select it. Its verified download is 874 MB; the existing F16 model remains available. Q8 uses the existing accelerated CPU runtime with unchanged decoding settings. This option is in the updated development APK; saved distribution APKs have not been replaced. [Comparison and quality limits](benchmarks/2026-10-17-whisper-options/README.md).
 
 Whisper now includes a CPU path using FP16/dotprod instructions on compatible phones, with baseline arm64 fallback. Run `scripts/android/setup-media.sh` again before rebuilding: it prepares both libraries. Both large-v3-turbo F16 and the optional Q8 package use this runtime. Auto still selects GigaAM/Parakeet; choose Whisper explicitly in Settings for its recognition quality. [Pixel measurements](benchmarks/2026-10-17-whisper-latency/README.md).

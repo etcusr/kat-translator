@@ -2,7 +2,9 @@
 
 **English** | [Русский](ARCHITECTURE.ru.md)
 
-Android still collects all Piper PCM before playback; native callbacks check cancellation without forwarding audio to the player. Whisper is recreated per call. Recording preprocessing requires Index + Whisper and defaults off; audio import does not use it. [Measured limits and proposed next stage](android/benchmarks/2026-10-17-next-latency/README.md).
+Android Piper now forwards native PCM callbacks to a single `SpeechStream`/`AudioTrack` session. The native final aggregate is checked against all callbacks and is never replayed automatically. The same normalized fragments form replay/export audio. Stop invalidates pending UI posts; finish drains all frames. Initial fragments are accumulated to at least 0.8 s (or the complete shorter utterance) to choose one bounded loudness gain for the whole stream. Playback starts with at least four seconds of ready PCM, or all of a completed shorter utterance, to cover short opening sentences.
+
+`OfflineMedia` retains one selected Whisper context and one selected Piper voice; file path/size/mtime changes replace the handle. The voice may preload while translation runs. The app retains these caches only with at least 11.5 GB total RAM and available memory at least max(2 GB, twice Android's low-memory threshold), outside memory-saving mode. It checks headroom between stages and every 15 seconds while idle/foreground, and releases models on backgrounding, explicit unload, package changes and close. Switching voice reloads the single voice slot. Translation still completes before Piper streaming starts; partial translation speech is not implemented on Android. Other voices retain complete-buffer synthesis. Recording preprocessing now defaults on while preserving saved choices, but still requires Index + Whisper; imported audio and OPUS do not use it. Russian ordinal expansion now applies before Android Piper/MMS/Supertonic. [Implementation checks and measured limits](android/benchmarks/2026-10-17-streaming-cache/README.md).
 
 **iOS 1.0 (53) and Mac App Store 1.0 (71)** were built from the corrected sources, verified and uploaded to App Store Connect. They include complete streamed speech, exact whitespace handling to avoid replay, contextual Russian ordinals and Mac MLX partial output. Both packages contain the current 13 loading clips. Project validation: 143 PASS. Apple processing, TestFlight installation and build selection for review are not yet confirmed. [Checks and upload result](publication/apple-speech-store-2026-10-17.md).
 
@@ -16,7 +18,7 @@ Android also offers `whisper-large-v3-turbo-q8_0` as an explicit recognition pac
 
 Android Whisper ships two isolated JNI libraries: baseline `armv8-a` and optional `armv8.2-a+dotprod+fp16`. A baseline `kat_media` HWCAP check precedes loading the optimized library; unsupported CPUs or a library load failure retain baseline Whisper. Both accept the selected F16 or Q8 model with the same four threads, decoding parameters and cancellation patch. `setup-media.sh` builds both; Gradle packages the optimized library without adding a native link dependency. Apple runtimes and ASR Auto routing are unchanged.
 
-VITS uses up to four online CPU threads on Android and Apple; Supertonic retains two. Android JNI returns text-free phase timings through `OfflineMedia.lastSpeechTiming`. Voice engines still belong to one synthesis call.
+VITS uses up to four online CPU threads on Android and Apple; Supertonic retains two. Android JNI returns text-free phase timings through `OfflineMedia.lastSpeechTiming`. Piper has a bounded retained context; other voice engines still belong to one synthesis call.
 
 Android voice cards are always present with the original expanded. `TranslatorState.isTextPlaying` identifies the active card through observable playback ownership; its action stops playback before the processing-busy guard. `TextPanel` shows a stop cross during playback and a speaker otherwise.
 
