@@ -14,6 +14,13 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var model = AppModel()
     @Environment(\.scenePhase) private var scenePhase
+    init() {
+        // Persistent ggml Metal residency can exhaust iOS's wired-memory budget:
+        // CoreAudio then cannot mlock even its small I/O buffer (StartIO 'nope').
+        // Keep models loaded, but let Metal manage residency during GPU work.
+        // This flag must be set before the first ggml Metal device is created.
+        setenv("GGML_METAL_NO_RESIDENCY", "1", 1)
+    }
     var body: some Scene {
         WindowGroup {
             ConversationView(model: model)

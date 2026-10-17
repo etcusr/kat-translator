@@ -2,6 +2,8 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+The iPhone startup now disables persistent ggml Metal residency while keeping models loaded. This addresses the captured CoreAudio `mlock` failure behind microphone error 1852797029 with Index 9B; memory saving stays off. A local development 1.0 (51) was built and checked on the phone. Existing store/TestFlight packages are unchanged. [Cause, checks and limits](publication/ios-microphone-wired-memory-2026-10-17.md).
+
 The microphone defaults to tap to start / tap to stop on iOS, macOS and Android. A saved recording-mode choice is preserved; hold to record remains available in Settings. This source change requires a new build to reach installed apps.
 
 One loading clip has been removed from the shared iOS/macOS/Android resources, playlist, preparation script and gallery. The source catalog now contains 13 clips. Existing uploaded iOS 51 / Mac 70 packages still contain the removed clip; replacement builds and uploads are deferred. [Verification](publication/loading-clip-removal-2026-10-14.md).

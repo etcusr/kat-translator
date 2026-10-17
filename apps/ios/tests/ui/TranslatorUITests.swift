@@ -1,6 +1,59 @@
 import XCTest
 
 final class TranslatorUITests: XCTestCase {
+    /// Requires an unlocked iPhone, microphone permission and the installed Index/ASR packages.
+    /// Uses live capture; discards it by terminating before transcription/history writes.
+    /// Caller must snapshot/restore preferences: recognizer normalization persists launch overrides.
+    @MainActor func testLiveMicrophoneWithWarmIndex() throws {
+        guard ProcessInfo.processInfo.environment["KAT_IOS_LIVE_MIC"] == "1" else {
+            throw XCTSkip("Opt-in physical microphone regression")
+        }
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        let arguments = ["-appInterfaceLanguage", "ru", "-AppleLanguages", "(ru)",
+            "-automaticModelLoad", "YES", "-memorySaving", "NO",
+            "-selectedTranslationModel", "index-translate-9b-q4km",
+            "-translationSource", "ru", "-translationTarget", "en", "-automaticLanguage", "NO",
+            "-recordingMode", "toggle", "-recordingSilenceSeconds", "30",
+            "-historyRecordText", "NO", "-historyRecordAudio", "NO", "-automaticSpeechText", "NO"]
+        defer { app.terminate() }
+        for (attempt, recognizer) in ["automatic", "whisper"].enumerated() {
+            app.launchArguments = arguments + ["-recognitionPreference", recognizer]
+            app.launch()
+            let record = app.buttons["voice.record"]
+            let prepare = app.buttons["voice.prepare"]
+            if prepare.waitForExistence(timeout: 5), prepare.isEnabled { prepare.tap() }
+            XCTAssertTrue(record.waitForExistence(timeout: 180))
+            // Exercise the Metal inference path before capture, including residency after use.
+            app.segmentedControls.buttons["Текст"].tap()
+            let editor = app.textViews["Текст оригинала"]
+            XCTAssertTrue(editor.waitForExistence(timeout: 15))
+            editor.tap(); editor.typeText("Как пройти к вокзалу?")
+            if app.buttons["Скрыть клавиатуру"].exists { app.buttons["Скрыть клавиатуру"].tap() }
+            app.buttons["text.translate"].tap()
+            let result = app.staticTexts["text.translation.text"]
+            let translated = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+                result.exists && result.label.lowercased().contains("station")
+            }, object: nil)
+            XCTAssertEqual(XCTWaiter.wait(for: [translated], timeout: 180), .completed)
+            app.segmentedControls.buttons["Голос"].tap()
+            XCTAssertTrue(record.waitForExistence(timeout: 30)); record.tap()
+            let pause = app.buttons["voice.pauseResume"]
+            XCTAssertTrue(pause.waitForExistence(timeout: 30))
+            XCTAssertEqual(pause.label, "Приостановить запись")
+            pause.tap(); XCTAssertEqual(pause.label, "Продолжить запись")
+            pause.tap(); XCTAssertEqual(pause.label, "Приостановить запись")
+            let timer = app.staticTexts["voice.recording.time"]
+            let advancing = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+                timer.exists && !(timer.label.hasPrefix("0:00") || timer.label.hasPrefix("0:01"))
+            }, object: nil)
+            XCTAssertEqual(XCTWaiter.wait(for: [advancing], timeout: 10), .completed)
+            let shot = XCTAttachment(screenshot: app.screenshot())
+            shot.name = "warm-index-live-microphone-\(attempt)"; shot.lifetime = .keepAlways; add(shot)
+            app.terminate()
+        }
+    }
+
     /// Opt-in capture of real iPhone UI. The caller backs up and verifies the device
     /// preferences/history. Disable text history through its typed UI setting and restore it.
     @MainActor func testStoreScreenshotsRussian() throws {
