@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import AVFoundation
 import OfflineCore
 
 /// Explicit development launch only. Fixed synthetic fixtures; never exports user text.
@@ -7,6 +8,10 @@ import OfflineCore
     static func run(packages: PackageDownloadCoordinator, progress: (String) -> Void) async throws {
         let environment = ProcessInfo.processInfo.environment
         guard environment["OT_RECORDING_PREVIEW_PROBE"] == "1" else { return }
+        if let mode = environment["OT_SPEECH_CORRECTNESS_PROBE"] {
+            try await DeviceSpeechCorrectnessProbe.run(packages: packages, mode: mode, progress: progress)
+            return
+        }
         let previousIdleTimer = UIApplication.shared.isIdleTimerDisabled
         UIApplication.shared.isIdleTimerDisabled = true
         defer { UIApplication.shared.isIdleTimerDisabled = previousIdleTimer }
@@ -126,4 +131,154 @@ import OfflineCore
     func pause() { player.pause() }
     func resume() { player.resume() }
     func setRate(_ rate: Float) { player.setRate(rate) }
+}
+
+/// Opt-in synthetic checks through the production pipeline, voice and iPhone player.
+/// No microphone, history, saved settings or user-provided text are used.
+@MainActor private enum DeviceSpeechCorrectnessProbe {
+    static func run(packages: PackageDownloadCoordinator, mode: String, progress: (String) -> Void) async throws {
+        let root = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("SpeechCorrectnessProbe")
+        if mode == "cleanup" {
+            if FileManager.default.fileExists(atPath: root.path) { try FileManager.default.removeItem(at: root) }
+            progress("speech-check-cleaned"); return
+        }
+        guard mode == "1", let voice = packages.selectedVoiceDirectories[.russian],
+              let model = packages.indexTranslation.installedURL else { throw PipelineError.modelLoad }
+        let oldIdle = UIApplication.shared.isIdleTimerDisabled
+        UIApplication.shared.isIdleTimerDisabled = true
+        defer { UIApplication.shared.isIdleTimerDisabled = oldIdle }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        var rows: [[String: Any]] = []
+        func save(_ status: String) throws {
+            progress(status)
+            let result: [String: Any] = ["status": status, "voice": packages.selectedVoiceModelIDs[.russian] ?? "unknown", "rows": rows]
+            try JSONSerialization.data(withJSONObject: result, options: [.prettyPrinted, .sortedKeys])
+                .write(to: root.appendingPathComponent("results.json"), options: .atomic)
+        }
+        let first = "Пожалуйста, подтвердите, что в стоимость номера входит завтрак для каждого гостя и что из окна открывается красивый вид на город."
+        let second = "Встречаемся на 1-й улице перед 1-м рейсом."
+        let full = first + "\n\t" + second + "  Измените дату с 15-го на 16-е октября. Вспомним 80-е годы."
+        let input = "The hotel opens at eight in the morning. Breakfast is included in the price. Please leave the keys at reception. The museum is near the railway station. The bus leaves every twenty minutes. We will meet at the entrance tomorrow."
+        for name in ["controlled", "real-index"] {
+            try save("running-" + name)
+            let events = DeviceSpeechEvents()
+            let speech = DeviceObservedSpeech()
+            let player = DeviceObservedPlayer(events: events)
+            let translator = DeviceSpeechTranslation(events: events, fixture: name == "controlled" ? full : nil,
+                partial: first + "\n\t" + second + "  Измените")
+            let pipeline = ConversationPipeline(asr: DeviceUnusedASR(), translator: translator, speech: speech, player: player)
+            await pipeline.prepare(PipelineFiles(asr: nil, translation: model, voices: [.russian: voice]), memorySaving: false)
+            await pipeline.run(audio: nil, text: input, source: .english, target: .russian,
+                               speakResult: true, inputMode: "text", thermal: AppModel.thermalState)
+            let inputs = await speech.inputs
+            let order = await events.values
+            let expected = pipeline.translatedText
+            func words(_ text: String) -> String { text.split(whereSeparator: \.isWhitespace).joined(separator: " ") }
+            let wordsOnce = !expected.isEmpty && words(inputs.joined(separator: " ")) == words(expected)
+            let early = (order.firstIndex(of: "play") ?? Int.max) < (order.firstIndex(of: "translation-finished") ?? 0)
+            let completed = !player.playbacks.isEmpty && player.playbacks.count == order.filter { $0 == "play" }.count
+            let expanded = inputs.map(RussianSpeechText.expandOrdinals).joined(separator: " ")
+            let ordinals = name != "controlled" || ["на первой улице", "перед первым рейсом",
+                "с пятнадцатого на шестнадцатое октября", "восьмидесятые годы"].allSatisfy { expanded.contains($0) }
+            let valid = !player.samples.isEmpty && player.samples.allSatisfy(\.isFinite)
+                && (player.samples.map { abs($0) }.max() ?? 0) > 0.05
+            let passed = pipeline.error == nil && wordsOnce && early && completed && ordinals && valid
+            var row: [String: Any] = ["case": name, "passed": passed, "wordsOnce": wordsOnce,
+                "speechBeforeTranslationFinished": early, "playbackCompleted": completed, "ordinalsCorrect": ordinals,
+                "synthesisParts": inputs.count, "playbacks": player.playbacks, "sampleRate": player.sampleRate,
+                "pcmSeconds": Double(player.samples.count) / Double(max(1, player.sampleRate)),
+                "outputVolume": AVAudioSession.sharedInstance().outputVolume,
+                "outputRoutes": AVAudioSession.sharedInstance().currentRoute.outputs.map { $0.portType.rawValue },
+                "translation": expected, "synthesisInputs": inputs, "expandedSpeech": expanded]
+            if let error = pipeline.error { row["error"] = String(describing: error) }
+            rows.append(row)
+            if valid { try player.write(to: root.appendingPathComponent(name + ".wav")) }
+            await pipeline.unload()
+            try save(passed ? "passed-" + name : "failed-" + name)
+            guard passed else { throw PipelineError.inference }
+        }
+        try save("complete")
+    }
+}
+
+private actor DeviceSpeechEvents {
+    var values: [String] = []
+    func add(_ value: String) { values.append(value) }
+    var playCount: Int { values.filter { $0 == "play" }.count }
+}
+private actor DeviceUnusedASR: ASRBackend {
+    func load(modelURL: URL) async throws {}
+    func transcribe(_ audio: CapturedAudio, language: SpeechLanguage?) async throws -> ASRResult { throw PipelineError.inference }
+    nonisolated func cancel() {}
+    func unload() async {}
+}
+private actor DeviceSpeechTranslation: TranslationBackend {
+    let events: DeviceSpeechEvents
+    let fixture: String?, partialText: String
+    let backend = RoutedTranslationBackend()
+    init(events: DeviceSpeechEvents, fixture: String?, partial: String) {
+        self.events = events; self.fixture = fixture; partialText = partial
+    }
+    func load(modelURL: URL) async throws {
+        if fixture == nil { try await backend.load(modelURL: modelURL, model: .index9B) }
+    }
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage) async throws -> TranslationResult {
+        try await translate(text: text, source: source, target: target, progress: { _ in }, partial: { _ in })
+    }
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage,
+                   progress: @escaping @Sendable (TranslationProgress) -> Void,
+                   partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult {
+        let result: TranslationResult
+        if let fixture {
+            partial(partialText)
+            let start = ProcessInfo.processInfo.systemUptime
+            while await events.playCount < 2 {
+                guard ProcessInfo.processInfo.systemUptime - start < 60 else { throw PipelineError.inference }
+                try await Task.sleep(for: .milliseconds(10))
+            }
+            result = TranslationResult(text: fixture, firstTokenSeconds: 0, processingSeconds: 0, fragments: 1)
+        } else {
+            result = try await backend.translate(text: text, source: source, target: target, progress: progress, partial: partial)
+        }
+        await events.add("translation-finished")
+        return result
+    }
+    nonisolated func cancel() { backend.cancel() }
+    func unload() async { await backend.unload() }
+}
+private actor DeviceObservedSpeech: SpeechSynthesisBackend {
+    let backend = SherpaSpeechBackend()
+    private(set) var inputs: [String] = []
+    func load(directory: URL, language: SpeechLanguage) async throws { try await backend.load(directory: directory, language: language) }
+    func synthesize(text: String) async throws -> SpeechPCM { inputs.append(text); return try await backend.synthesize(text: text) }
+    nonisolated func cancel() { backend.cancel() }
+    func unload() async { await backend.unload() }
+}
+@MainActor private final class DeviceObservedPlayer: SpeechPlayback {
+    let player = SpeechPlayer(), events: DeviceSpeechEvents
+    var samples: [Float] = [], sampleRate = 0
+    var playbacks: [[String: Double]] = []
+    init(events: DeviceSpeechEvents) { self.events = events }
+    func play(_ pcm: SpeechPCM) async throws {
+        guard sampleRate == 0 || sampleRate == pcm.sampleRate else { throw PipelineError.invalidAudio }
+        sampleRate = pcm.sampleRate; samples += pcm.samples
+        await events.add("play")
+        let start = ProcessInfo.processInfo.systemUptime
+        try await player.play(pcm)
+        playbacks.append(["wallSeconds": ProcessInfo.processInfo.systemUptime - start,
+                          "pcmSeconds": Double(pcm.samples.count) / Double(pcm.sampleRate)])
+    }
+    func play(file: URL) async throws { throw PipelineError.invalidAudio }
+    func stop() { player.stop() }
+    func pause() { player.pause() }
+    func resume() { player.resume() }
+    func setRate(_ rate: Float) { player.setRate(rate) }
+    func write(to url: URL) throws {
+        guard let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: Double(sampleRate), channels: 1, interleaved: false),
+              let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(samples.count)) else { throw PipelineError.invalidAudio }
+        buffer.frameLength = buffer.frameCapacity
+        samples.withUnsafeBufferPointer { buffer.floatChannelData![0].update(from: $0.baseAddress!, count: $0.count) }
+        try AVAudioFile(forWriting: url, settings: format.settings).write(from: buffer)
+    }
 }

@@ -1,0 +1,35 @@
+{
+  "recognizer": "Whisper large-v3-turbo F16",
+  "prompt": false,
+  "comparison": "Case, punctuation, yo/e and conventional digit rendering normalized; exact word order thereafter.",
+  "cases": [
+    {
+      "case": "controlled",
+      "normalizedWordsEqual": true,
+      "wordCount": 37,
+      "realPlaybackCompleted": true,
+      "speechBeforeTranslationFinished": true,
+      "playbackParts": 3,
+      "synthesisParts": 4,
+      "pcmSeconds": 15.719410430839002,
+      "sampleRate": 22050,
+      "outputRoutes": [
+        "Speaker"
+      ]
+    },
+    {
+      "case": "real-index",
+      "normalizedWordsEqual": true,
+      "wordCount": 31,
+      "realPlaybackCompleted": true,
+      "speechBeforeTranslationFinished": true,
+      "playbackParts": 6,
+      "synthesisParts": 6,
+      "pcmSeconds": 15.596371882086167,
+      "sampleRate": 22050,
+      "outputRoutes": [
+        "Speaker"
+      ]
+    }
+  ]
+}

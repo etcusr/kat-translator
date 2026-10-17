@@ -2,6 +2,8 @@
 
 **English** | [Русский](ARCHITECTURE.ru.md)
 
+On iPhone, `RecordingPreviewProbe` has an opt-in `OT_SPEECH_CORRECTNESS_PROBE` mode that checks fixed long-sentence/ordinal fixtures and real routed Index 9B through the production voice and `SpeechPlayer`. It records actual playback completions and synthetic PCM without history writes or settings overrides; cleanup removes only its dedicated output directory. [Device procedure and evidence](benchmarks/iphone-speech-correctness-2026-10-17/README.md).
+
 Apple `StreamedSpeechStart` tracks the exact consumed translation prefix and drains every `SpeechPreparation` fragment before scheduling a sentence. It invalidates pending speech after a prefix rewrite and rechecks cancellation after waiting for playback. Mac MLX streams cumulative accepted-token text through `kat_mlx_run_stream`; callback state is invalidated before the synchronous request returns. `RussianSpeechText` resolves ambiguous ordinal endings only with supported adjacent context (bare day-of-month forms retain their convention). Already-played speech cannot be retracted after a backend rewrites it. [Implementation checks and limits](benchmarks/apple-speech-correctness-2026-10-17/README.md).
 
 Android also offers `whisper-large-v3-turbo-q8_0` as an explicit recognition package in `android-asr.json`. It shares F16’s Whisper backend, language aliases and unchanged greedy decoding/CPU selection. The package has pinned upstream size/hash verification. Q8 does not replace F16 or the GigaAM/Parakeet Auto routes. [Variant comparison](android/benchmarks/2026-10-17-whisper-options/README.md).

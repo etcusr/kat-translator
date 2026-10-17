@@ -1,5 +1,7 @@
 # Apple streamed speech correctness — 17 October 2026
 
+Subsequent verification: the corrected build was [installed and checked on iPhone](../iphone-speech-correctness-2026-10-17/README.md), using real playback plus independent control-audio recognition. The Mac-only checks below describe the earlier stage.
+
 Follow-up to the [initial speech latency change](../ios-speed-2026-10-17/README.md). Four regressions were reproduced and corrected without changing translation generation settings or voice weights.
 
 ## Fixes
