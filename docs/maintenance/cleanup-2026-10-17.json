@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-17",
+  "scope": "Completed test/build output, obsolete release and verified duplicates",
+  "removedPaths": 173,
+  "removedEntries": 210912,
+  "candidateLogicalBytes": 50297876324,
+  "candidateAllocatedBytes": 50809368576,
+  "projectBeforeKiB": 129428328,
+  "projectAfterKiB": 79884560,
+  "projectReductionBytes": 50732818432,
+  "volumeAvailableBytesAfter": 77414400000,
+  "preservation": {
+    "metadataEntriesChecked": 417238,
+    "missingEntries": 0,
+    "unchangedMetadataEntries": 417237,
+    "backgroundLogAppends": 1,
+    "immutableSHA256Matches": 2684,
+    "finderMetadataHashExceptions": 1,
+    "trackedDeletionConflicts": 0,
+    "retainedSymlinkTargetConflicts": 0,
+    "openCandidateHandles": 0,
+    "remainingDeletionCandidates": 0,
+    "workingTreeCleanBeforeDocumentation": true
+  },
+  "retained": {
+    "iosStoreBuilds": [
+      51,
+      52,
+      53
+    ],
+    "macStoreBuilds": [
+      69,
+      70,
+      71
+    ],
+    "macDirectBuilds": [
+      59,
+      60
+    ],
+    "macCompatibilityBuilds": [
+      53
+    ],
+    "androidDistributionVersions": [
+      "0.4.5",
+      "0.4.6"
+    ],
+    "androidCurrentDevelopmentAPK_SHA256": "8bbb6138085d488e0b2ededb2e28aed4075d6f8a0c5d89a7d4e5a3e47e8cdd68"
+  },
+  "limitations": [
+    "Filesystem preservation check, not a fresh build/device acceptance run",
+    "APFS/shared blocks and background writes mean directory reduction is not the same as physical free-space increase",
+    "Removed compilation output must be rebuilt for subsequent tests"
+  ]
+}

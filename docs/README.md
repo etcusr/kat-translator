@@ -41,5 +41,5 @@ Living documentation exists in two languages: `NAME.md` is English and is the de
 - `licensing/2026-10-*/` — license reviews, notices and dependency source kit.
 - `benchmarks/`, `android/benchmarks/` — measurements and device runs.
 - `research/`, `android/ASR-OPTIONS.md`, `android/OCR-OPTIONS.md` — research and decision records.
-- `maintenance/` — cleanups, migrations, signing and source audits.
+- `maintenance/` — cleanups, migrations, signing and source audits. Latest: [completed-test/build cleanup, 17 October](maintenance/cleanup-2026-10-17.md).
 - Historical implementation logs: [IMPLEMENTATION](IMPLEMENTATION.md) (RU), [startup verification cache](IMPLEMENTATION-startup-verification-cache.md) (RU), [language downloads](IMPLEMENTATION-language-downloads.md) (EN), [device testing protocol](../DEVICE_TESTING.md) (RU), [Android feature parity](android/FEATURE_PARITY.md) (EN), [Android interface parity](android/IOS_INTERFACE_PARITY.md) (EN), `macos/2026-10-10-shortcuts.md`, `macos/diagnostics/`, `branding/round-*`, `history/`.
