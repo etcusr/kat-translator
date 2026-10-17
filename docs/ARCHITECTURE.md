@@ -2,6 +2,8 @@
 
 **English** | [Русский](ARCHITECTURE.ru.md)
 
+The iPhone Index 9B runtime retains MTP with two draft tokens after the completed settings comparison; experimental MTP/draft-count/Q8-KV environment switches are absent. Mac Index 9B continues to use MLX with partial output. [Comparison](benchmarks/ios-mt-options-2026-10-17/README.md).
+
 On iPhone, `RecordingPreviewProbe` has an opt-in `OT_SPEECH_CORRECTNESS_PROBE` mode that checks fixed long-sentence/ordinal fixtures and real routed Index 9B through the production voice and `SpeechPlayer`. It records actual playback completions and synthetic PCM without history writes or settings overrides; cleanup removes only its dedicated output directory. [Device procedure and evidence](benchmarks/iphone-speech-correctness-2026-10-17/README.md).
 
 Apple `StreamedSpeechStart` tracks the exact consumed translation prefix and drains every `SpeechPreparation` fragment before scheduling a sentence. It invalidates pending speech after a prefix rewrite and rechecks cancellation after waiting for playback. Mac MLX streams cumulative accepted-token text through `kat_mlx_run_stream`; callback state is invalidated before the synchronous request returns. `RussianSpeechText` resolves ambiguous ordinal endings only with supported adjacent context (bare day-of-month forms retain their convention). Already-played speech cannot be retracted after a backend rewrites it. [Implementation checks and limits](benchmarks/apple-speech-correctness-2026-10-17/README.md).

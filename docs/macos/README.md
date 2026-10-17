@@ -2,7 +2,7 @@
 
 **English** | [Русский](README.ru.md)
 
-Development sources include corrected sentence-by-sentence speech for default Index 9B/MLX: all synthesis fragments are retained, whitespace does not cause replay, and Russian ordinal forms use supported grammatical context. Real MLX → Irina integration and control-audio checks passed in a separate development app. These fixes have not been published or installed over the normal app; listed distribution versions are unchanged. [Verification and limits](../benchmarks/apple-speech-correctness-2026-10-17/README.md).
+The corrected development app is installed at `/Applications/Kat translator.app` as **0.6.7 (60)**, source fingerprint `mac-c075be03543c17ac`. Complete streamed sentences, whitespace handling, contextual Russian ordinals and default MLX partial output are included. Four fresh runtime checks and signature/dependency/normal-launch checks passed. Saved distribution packages and App Store70 are unchanged. [Installation and verification](../benchmarks/mac-speech-install-2026-10-17/README.md).
 
 Native SwiftUI/AppKit application for Apple Silicon. There are two distribution channels built from the same sources:
 

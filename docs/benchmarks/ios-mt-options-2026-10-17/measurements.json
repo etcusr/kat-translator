@@ -1,0 +1,56 @@
+{
+  "platform": "iPhone 17 Pro",
+  "fixture": "fixed synthetic five-sentence medium fixture",
+  "mode": "after-stop",
+  "model": "Index 9B",
+  "runs": [
+    {
+      "variant": "mtp2",
+      "translationSeconds": 7.125276124977972,
+      "firstTokenSeconds": 2.065675124665841,
+      "generationSeconds": 5.0596010003121314,
+      "translationEqualsBaseline": true,
+      "thermalAtEnd": "fair"
+    },
+    {
+      "variant": "mtp0",
+      "translationSeconds": 6.969697458320297,
+      "firstTokenSeconds": 0.5183224163195634,
+      "generationSeconds": 6.451375042000734,
+      "translationEqualsBaseline": true,
+      "thermalAtEnd": "fair"
+    },
+    {
+      "variant": "mtp3",
+      "translationSeconds": 6.078594708349556,
+      "firstTokenSeconds": 0.664408916660741,
+      "generationSeconds": 5.414185791688815,
+      "translationEqualsBaseline": true,
+      "thermalAtEnd": "fair"
+    },
+    {
+      "variant": "mtp1",
+      "translationSeconds": 5.618082750006579,
+      "firstTokenSeconds": 0.6191329163527111,
+      "generationSeconds": 4.998949833653867,
+      "translationEqualsBaseline": true,
+      "thermalAtEnd": "fair"
+    },
+    {
+      "variant": "kvq8",
+      "translationSeconds": 5.331504750007298,
+      "firstTokenSeconds": 0.7269415830426955,
+      "generationSeconds": 4.604563166964603,
+      "translationEqualsBaseline": true,
+      "thermalAtEnd": "fair"
+    },
+    {
+      "variant": "mtp2b",
+      "translationSeconds": 5.274081124982331,
+      "firstTokenSeconds": 0.6421067079853261,
+      "generationSeconds": 4.6319744169970045,
+      "translationEqualsBaseline": true,
+      "thermalAtEnd": "fair"
+    }
+  ]
+}

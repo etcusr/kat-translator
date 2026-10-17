@@ -2,6 +2,10 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+The corrected Mac app is now installed at `/Applications/Kat translator.app`: development **0.6.7 (60)**, source fingerprint `mac-c075be03543c17ac`. Four fresh runtime tests passed, including real MLX/Irina and player controls; signature/dependency checks and normal launch passed. Saved DMG/ZIP and App Store70 are unchanged and predate these fixes. [Installation evidence](benchmarks/mac-speech-install-2026-10-17/README.md).
+
+The additional iPhone Index 9B comparison is complete: MTP with two draft tokens remains unchanged. MTP off, one/three draft tokens and Q8 KV cache showed no demonstrated repeatable improvement over the final control; all six translations matched. More compressed weights and an iPhone MLX port remain proposals. [Recorded comparison and limits](benchmarks/ios-mt-options-2026-10-17/README.md).
+
 The corrected Apple speech build is now installed on iPhone 17 Pro as development **1.0 (52)**. Two fresh device scenarios passed: long sentences/whitespace/ordinals and real Index 9B → Irina. All nine playback buffers completed through the real phone player, with each word synthesized once; independent recognition of both generated waveforms retained the full word sequence. Preferences were unchanged; temporary fixtures were removed and the app reopened normally. No store upload. [Device evidence and limits](benchmarks/iphone-speech-correctness-2026-10-17/README.md).
 
 Apple streamed speech now retains all synthesis fragments and exact newline/space boundaries, fixing truncated or repeated sentences. Russian ordinal expansion uses grammatical context; default Mac Index 9B/MLX now supplies partial translations. Fresh Mac checks passed with real MLX and Irina, including early playback and each word once; independent recognition also retained the complete control audio. OfflineCore: 288 tests, 2 opt-in skips, no failures; MLX bridge: 9 tests; real Mac integration: 3 tests. Mac and unsigned iOS Release builds passed. That initial Mac check did not replace the normal app or install on iPhone; the later iPhone installation is recorded above. [Correctness checks and limits](benchmarks/apple-speech-correctness-2026-10-17/README.md).
@@ -102,11 +106,11 @@ The build 45 signing candidate is kept separately in `dist/ios/signing-candidate
 |---|---|---|---|
 | Android | **0.4.6 / code21**, Debug | API 31+, arm64-v8a (ARMv8.2 dotprod/FP16 for Index); compile/target 36 | Installed on Pixel 9 Pro 13.10; native Auto OPUS→2B→OPUS, EN→EN, manual RU↔DE; voice RU/DE via import/microphone with GigaAM/Parakeet and TTS verified |
 | iPhone | **1.0 / build52** | iOS 18+, iPhone ARM64 | IPA52 verified and uploaded: 9 manifests, 46 notices, 72 signatures, 70 framework deployment checks. TestFlight acceptance pending. [Report](publication/ios-store-build52-2026-10-17.md) |
-| Mac modern | **0.6.7 / build60** | macOS 27+, Apple Silicon | Source Info.plist and `/Applications/Kat translator.app`; DMG/ZIP |
+| Mac modern | **0.6.7 / build60** | macOS 27+, Apple Silicon | Installed corrected development build: `mac-c075be03543c17ac`; saved DMG/ZIP are older |
 | Mac App Store | **1.0 / build70** | macOS 27+, Apple Silicon, sandbox | PKG 70 verified and uploaded: 9 manifests, 46 notices, 154 signatures and sandbox/helpers. Apple started processing; build selection by the owner. [Report](publication/signed-sdks-release-2026-10-14.md) |
 | Mac compatible | **0.6.0 / build53 / macos15-26** | binary minimum macOS 15, Apple Silicon | Saved DMG/ZIP and audit; launch verified on macOS 27, physical macOS 15–26 not tested |
 
-Android code 21 contains the Auto/OPUS fixes and is installed on the Pixel. The Mac sources are also fixed, but the saved build 60 does not contain those fixes: Mac checks ran from DerivedData; the installed app and the DMG/ZIP were not replaced.
+Android code21 with the later Whisper Q8 option is installed on Pixel. The Mac application was replaced on 17 October with the current corrected sources. The older saved build60 DMG/ZIP still predate those fixes; use the source fingerprint above to distinguish the installed executable.
 
 Artifacts (13.10):
 - `dist/android/kat-translator-0.4.6-debug.apk` (SHA-256 `1f0937878c09c2d0920db61f025ccd786ea6cc040496853ced00e89ba28cf70e`); 0.4.5, 0.4.4 and 0.4.3 are kept as well;

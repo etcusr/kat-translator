@@ -36,3 +36,5 @@ Translated text identical. During recording: speech starts after 0.1–0.3 s in 
 ## Limits
 
 One device; the phone throttled after repeated runs and several runs were skipped by the probe's thermal guard. No listening panel. Single measured run per build; numbers are observations, not a guarantee. Real microphone capture was not part of this probe.
+
+Follow-up: the [translation settings comparison](../ios-mt-options-2026-10-17/README.md) retained MTP with two draft tokens. It did not change model weights or provide a new speech-latency baseline.

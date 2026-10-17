@@ -2,6 +2,8 @@
 
 **English** | [Русский](OPEN_QUESTIONS.ru.md)
 
+The later October 17 speech corrections are verified in local development installations. The previously uploaded iOS52/Mac70 store artifacts predate those corrections; shipping them through the stores requires new store builds and separate acceptance. A GitHub source push does not update App Store Connect.
+
 **Package update, 17 October:** iOS1.0(52) was verified and uploaded with microphone/memory-pressure fixes and 13 loading clips. TestFlight acceptance is pending. Mac70 is unchanged and still contains the removed clip. [Release report](ios-store-build52-2026-10-17.md).
 
 The 14 October release was **iOS 1.0 (51), Mac 1.0 (70)**. It includes the playback fix, current privacy manifests and 46 license documents. [Build, checks and upload result](signed-sdks-release-2026-10-14.md).
