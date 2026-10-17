@@ -2,13 +2,15 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
-The iPhone startup now disables persistent ggml Metal residency while keeping models loaded. This addresses the captured CoreAudio `mlock` failure behind microphone error 1852797029 with Index 9B; memory saving stays off. A local development 1.0 (51) was built and checked on the phone. Existing store/TestFlight packages are unchanged. [Cause, checks and limits](publication/ios-microphone-wired-memory-2026-10-17.md).
+iOS **1.0 (52)** was verified and uploaded to App Store Connect on 17 October. It includes the microphone and memory-pressure fixes, tap recording defaults and 13 loading clips. TestFlight installation and acceptance are pending; the owner will replace the current review build and resubmit. [Release verification](publication/ios-store-build52-2026-10-17.md).
+
+The iPhone startup now disables persistent ggml Metal residency while keeping models loaded. This addresses the captured CoreAudio `mlock` failure behind microphone error 1852797029 with Index 9B; memory saving stays off. A local development 1.0 (51) was built and checked on the phone. These fixes are now included in the uploaded build 52; its TestFlight acceptance is tracked above. [Cause, checks and limits](publication/ios-microphone-wired-memory-2026-10-17.md).
 
 When iOS reports memory pressure with a large translator and a loaded recognizer, the pipeline now releases the recognizer at a safe boundary instead of cancelling the turn and unloading Index. Translation readiness, the result and speech playback are preserved; recognition reloads on the next capture. The saved memory-saving preference is unchanged. Full acoustic-cycle verification is recorded in the same report.
 
-The microphone defaults to tap to start / tap to stop on iOS, macOS and Android. A saved recording-mode choice is preserved; hold to record remains available in Settings. This source change requires a new build to reach installed apps.
+The microphone defaults to tap to start / tap to stop on iOS, macOS and Android. A saved recording-mode choice is preserved; hold to record remains available in Settings. The iOS change is included in build52; other installed platforms need a new build.
 
-One loading clip has been removed from the shared iOS/macOS/Android resources, playlist, preparation script and gallery. The source catalog now contains 13 clips. Existing uploaded iOS 51 / Mac 70 packages still contain the removed clip; replacement builds and uploads are deferred. [Verification](publication/loading-clip-removal-2026-10-14.md).
+One loading clip has been removed from the shared iOS/macOS/Android resources, playlist, preparation script and gallery. The source catalog now contains 13 clips. Uploaded iOS52 contains the current 13 clips. Mac70 still contains the removed clip; its replacement remains deferred. [Verification](publication/loading-clip-removal-2026-10-14.md).
 
 Working tree reconciled on **14 October 2026, Europe/Moscow**. After fixing seven Auto/OPUS regressions, local Android/OfflineCore tests, Mac runtime/UI tests and an iOS build were run. Details and limits: [fix report](benchmarks/auto-routing-fixes-2026-10-13/README.md). After the backup finished, **iPhone build 45 and Pixel code 21 were installed and verified**: [phone tests](benchmarks/auto-routing-devices-2026-10-13/README.md). Then real ASR→Auto MT→TTS and the microphones of both phones were checked: [voice run](benchmarks/voice-auto-devices-2026-10-13/README.md). Routing passed; a single iPhone audio output error and an extra Whisper word in one recording remain observations with an unknown cause.
 
@@ -83,7 +85,7 @@ The build 45 signing candidate is kept separately in `dist/ios/signing-candidate
 | Platform | Version | Build requirement | Confirmation |
 |---|---|---|---|
 | Android | **0.4.6 / code21**, Debug | API 31+, arm64-v8a (ARMv8.2 dotprod/FP16 for Index); compile/target 36 | Installed on Pixel 9 Pro 13.10; native Auto OPUS→2B→OPUS, EN→EN, manual RU↔DE; voice RU/DE via import/microphone with GigaAM/Parakeet and TTS verified |
-| iPhone | **1.0 / build51** | iOS 18+, iPhone ARM64 | The fixed IPA 51 was verified and uploaded: 9 manifests, 46 notices, 72 signatures, 70 framework deployment checks. Build selection/TestFlight are up to the owner. [Report](publication/signed-sdks-release-2026-10-14.md) |
+| iPhone | **1.0 / build52** | iOS 18+, iPhone ARM64 | IPA52 verified and uploaded: 9 manifests, 46 notices, 72 signatures, 70 framework deployment checks. TestFlight acceptance pending. [Report](publication/ios-store-build52-2026-10-17.md) |
 | Mac modern | **0.6.7 / build60** | macOS 27+, Apple Silicon | Source Info.plist and `/Applications/Kat translator.app`; DMG/ZIP |
 | Mac App Store | **1.0 / build70** | macOS 27+, Apple Silicon, sandbox | PKG 70 verified and uploaded: 9 manifests, 46 notices, 154 signatures and sandbox/helpers. Apple started processing; build selection by the owner. [Report](publication/signed-sdks-release-2026-10-14.md) |
 | Mac compatible | **0.6.0 / build53 / macos15-26** | binary minimum macOS 15, Apple Silicon | Saved DMG/ZIP and audit; launch verified on macOS 27, physical macOS 15–26 not tested |

@@ -10,7 +10,9 @@ An offline voice, text and image-text translator for **iPhone, Apple Silicon Mac
 
 **Start here:** [current status](docs/CURRENT_STATE.md) · [RU/EN product description](PROJECT_DESCRIPTION.md). This overview was checked against the working tree on October 14, 2026. Dated reports describe the build tested at that time, not necessarily today's code. Living documentation is in English with Russian versions (`*.ru.md`); dated reports stay in their original language. [Documentation index](docs/README.md).
 
-iOS **1.0 (51)** and Mac **1.0 (70)** passed package verification and were uploaded to App Store Connect, with the playback fix, signed SDK distributions, nine manifests and 46 license documents. 138 validation tests passed. Build selection, TestFlight and review submission remain with the owner. [Verification and remaining work](docs/publication/signed-sdks-release-2026-10-14.md).
+iOS **1.0 (52)** packages the microphone and memory-pressure fixes, tap recording defaults and the current 13 loading clips. Package validation and upload passed; TestFlight acceptance is tracked in the [release report](docs/publication/ios-store-build52-2026-10-17.md).
+
+Earlier iOS **1.0 (51)** and Mac **1.0 (70)** passed package verification and were uploaded to App Store Connect, with the playback fix, signed SDK distributions, nine manifests and 46 license documents. 138 validation tests passed. Build selection, TestFlight and review submission remain with the owner. [Verification and remaining work](docs/publication/signed-sdks-release-2026-10-14.md).
 
 The iPhone playback fix passed six device regressions and two repeated voice cases; the shared Mac player also passed. Release 51/70 includes this fix. [Evidence and limits](docs/publication/ios-playback-fix-2026-10-14.md).
 

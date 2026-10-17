@@ -1,0 +1,53 @@
+{
+  "platform": "ios",
+  "version": "1.0",
+  "build": "52",
+  "artifact_name": "OfflineTranslator.ipa",
+  "artifact_bytes": 68295575,
+  "artifact_sha256": "3680b328f9eb02f86b27f28977788b20563a25622d3dc526e72ef89859ed25e8",
+  "notice_documents": 46,
+  "privacy_manifests": [
+    "FluidAudio_FluidAudio.bundle/PrivacyInfo.xcprivacy",
+    "Frameworks/OmniVoiceRuntime.framework/PrivacyInfo.xcprivacy",
+    "Frameworks/OpusRuntime.framework/PrivacyInfo.xcprivacy",
+    "Frameworks/Python.framework/PrivacyInfo.xcprivacy",
+    "Frameworks/TranslationRuntime.framework/PrivacyInfo.xcprivacy",
+    "ONNXRuntimePrivacy.bundle/PrivacyInfo.xcprivacy",
+    "OfflineCore_OfflineCore.bundle/PrivacyInfo.xcprivacy",
+    "PrivacyInfo.xcprivacy",
+    "SherpaOnnxPrivacy.bundle/PrivacyInfo.xcprivacy"
+  ],
+  "signature": "PASS",
+  "all_binary_signers_match_app": true,
+  "distribution_profiles": 2,
+  "loading_animations": 13,
+  "loading_source_bytes_match": true,
+  "no_xctest": true,
+  "binary_checks": {
+    "macho_images_checked": 72,
+    "openssl_markers": 0,
+    "openssl_library_dependencies": 0,
+    "hash_fallbacks": [
+      "_md5",
+      "_sha1",
+      "_sha2",
+      "_sha3",
+      "_blake2"
+    ]
+  },
+  "build_identity": {
+    "configuration": "Release",
+    "identifier": "ios-b0509a62ade20de9",
+    "platform": "iphoneos",
+    "schema": 1,
+    "sha256": "b0509a62ade20de9eddea9792f51ccdf474a333d9cc5ecf5449409b0a5ad6e15",
+    "sourceFileCount": 793
+  },
+  "increased_memory_limit": true,
+  "framework_deployment_checks": 70,
+  "project_validation_tests": 138,
+  "upload_status": "Upload succeeded",
+  "testflight_acceptance": "pending",
+  "review_submission": "owner will replace and resubmit",
+  "upload_symbols": "Missing dSYM warnings for prebuilt frameworks; upload succeeded"
+}

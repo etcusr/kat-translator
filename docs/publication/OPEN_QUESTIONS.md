@@ -2,9 +2,9 @@
 
 **English** | [Русский](OPEN_QUESTIONS.ru.md)
 
-**Next package update:** one loading clip has been removed from all platform sources (13 remain). The uploaded iOS 51 / Mac 70 still contain it. Build and upload replacements later; no replacement was uploaded in this change.
+**Package update, 17 October:** iOS1.0(52) was verified and uploaded with microphone/memory-pressure fixes and 13 loading clips. TestFlight acceptance is pending. Mac70 is unchanged and still contains the removed clip. [Release report](ios-store-build52-2026-10-17.md).
 
-Updated 14 October 2026. Current release: **iOS 1.0 (51), Mac 1.0 (70)**. It includes the playback fix, current privacy manifests and 46 license documents. [Build, checks and upload result](signed-sdks-release-2026-10-14.md).
+The 14 October release was **iOS 1.0 (51), Mac 1.0 (70)**. It includes the playback fix, current privacy manifests and 46 license documents. [Build, checks and upload result](signed-sdks-release-2026-10-14.md).
 
 ## Done
 
@@ -17,10 +17,10 @@ Updated 14 October 2026. Current release: **iOS 1.0 (51), Mac 1.0 (70)**. It inc
 
 ## Remaining for the release
 
-1. **iOS 51 and Mac 70 were uploaded successfully.** Wait for Apple's processing; their availability for selection was not checked in App Store Connect.
+1. **iOS52 and Mac70 were uploaded successfully.** Install iOS52 through TestFlight and run the full voice cycle. Upload does not establish TestFlight acceptance.
 2. **The owner selects the new builds** on the iOS/Mac pages, checks Preview and the remaining required fields.
 3. Check the iPhone microphone/permissions and the Mac system features through TestFlight; local checks do not replace this.
-4. **The owner submits the apps for App Review.** Nothing has been submitted or approved by Apple yet.
+4. **The owner handles App Review.** The current iOS release is awaiting review according to the owner; replacing its build and resubmitting remain with the owner.
 
 Separate radio-off, background download and network observation checks were dropped from the queue by the owner's decision; they do not count as passed.
 
@@ -30,4 +30,4 @@ The [list](../licensing/2026-10-14/publication-and-sdk.md) keeps the questions a
 
 ## Next compatibility improvement
 
-Discuss and verify iPhone 13 Pro as the lower bound for the light OPUS mode; this is a preliminary guideline, not a confirmed acceptance of that model. Separately, limit heavy models by available memory with a clear explanation. The exact bound and implementation are not approved yet; the current 51/70 upload continues.
+Discuss and verify iPhone 13 Pro as the lower bound for the light OPUS mode; this is a preliminary guideline, not a confirmed acceptance of that model. Separately, limit heavy models by available memory with a clear explanation. The exact bound and implementation are not approved yet; this remains separate from the uploaded 52/70 packages.
