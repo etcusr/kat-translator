@@ -143,7 +143,65 @@ private actor BlockingPreviewArchive: TranslationArchive {
     func release() { let c = continuation; continuation = nil; c?.resume() }
     func stop() { let c = continuation; continuation = nil; c?.resume(throwing: CancellationError()) }
 }
+/// Emits a partial translation, then finishes only after the first sentence has been synthesized.
+private actor StreamingMT: TranslationBackend {
+    let calls: Calls
+    let full: String, partialText: String, spokenBeforeFinish: Int
+    init(_ calls: Calls, full: String, partial: String = "First sentence is ready. Second", spokenBeforeFinish: Int = 1) {
+        self.calls = calls; self.full = full; partialText = partial; self.spokenBeforeFinish = spokenBeforeFinish
+    }
+    func load(modelURL: URL) async throws {}
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage) async throws -> TranslationResult {
+        TranslationResult(text: full, firstTokenSeconds: 0.1, processingSeconds: 0.2, fragments: 1)
+    }
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void,
+                   partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult {
+        partial(partialText)
+        for _ in 0..<200 where await calls.items.filter({ $0.hasPrefix("TTS:") }).count < spokenBeforeFinish { try await Task.sleep(nanoseconds: 5_000_000) }
+        await calls.add("MT-done")
+        return TranslationResult(text: full, firstTokenSeconds: 0.1, processingSeconds: 0.2, fragments: 1)
+    }
+    nonisolated func cancel() {}
+    func unload() async {}
+}
 @MainActor final class ConversationPipelineTests: XCTestCase {
+    func testFirstTranslatedSentenceIsSpokenBeforeTranslationFinishes() async throws {
+        let calls = Calls(), tts = TestTTS(calls)
+        let full = "First sentence is ready. Second sentence follows it."
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: StreamingMT(calls, full: full), speech: tts, player: TestPlayer(calls))
+        await pipeline.prepare(files, memorySaving: false)
+        await pipeline.run(audio: nil, text: "Первое предложение готово. Второе следует за ним.", source: .russian, target: .english,
+                           speakResult: true, inputMode: "text", thermal: "nominal")
+        XCTAssertNil(pipeline.error)
+        XCTAssertEqual(pipeline.translatedText, full)
+        let spoken = await tts.texts
+        XCTAssertEqual(spoken, ["First sentence is ready.", "Second sentence follows it."])
+        let order = await calls.items
+        let firstSpeech = try XCTUnwrap(order.firstIndex(of: "TTS:First sentence is ready."))
+        let finished = try XCTUnwrap(order.firstIndex(of: "MT-done"))
+        XCTAssertLessThan(firstSpeech, finished, "The first sentence must be synthesized while translation is still running")
+        XCTAssertEqual(order.filter { $0 == "play" }.count, 2)
+    }
+    func testFinishedSentencesAreSpokenInOrderDuringTranslation() async throws {
+        let calls = Calls(), tts = TestTTS(calls)
+        let full = "The first sentence is here. The second sentence is here. The third one comes last."
+        let mt = StreamingMT(calls, full: full, partial: "The first sentence is here. The second sentence is here. The", spokenBeforeFinish: 2)
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: mt, speech: tts, player: TestPlayer(calls))
+        await pipeline.prepare(files, memorySaving: false)
+        await pipeline.run(audio: nil, text: "Три предложения.", source: .russian, target: .english, speakResult: true, inputMode: "text", thermal: "nominal")
+        XCTAssertNil(pipeline.error)
+        let spoken = await tts.texts
+        XCTAssertEqual(spoken, ["The first sentence is here.", "The second sentence is here.", "The third one comes last."])
+        let order = await calls.items
+        XCTAssertLessThan(try XCTUnwrap(order.firstIndex(of: "TTS:The second sentence is here.")), try XCTUnwrap(order.firstIndex(of: "MT-done")))
+        XCTAssertEqual(order.filter { $0 == "play" }.count, 3)
+    }
+    func testFirstSentenceNeedsFollowingText() {
+        XCTAssertNil(StreamedSpeechStart.firstSentence(of: "Only one sentence so far."))
+        XCTAssertNil(StreamedSpeechStart.firstSentence(of: "Mr. Smith"))
+        XCTAssertEqual(StreamedSpeechStart.firstSentence(of: "Please wait here. The"), "Please wait here.")
+        XCTAssertEqual(StreamedSpeechStart.firstSentence(of: "Price 2.5 euros now. Next"), "Price 2.5 euros now.")
+    }
     func testVoiceRecordingIsArchivedWithoutSynthesizingOriginal() async throws {
         let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: root) }

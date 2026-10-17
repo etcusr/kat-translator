@@ -16,6 +16,9 @@ void ot_mt_flag_cancel(void *flag);
 void ot_mt_flag_free(void *flag);
 int ot_mt_count(void *handle, const char *prefix, const char *text, const char *suffix);
 // 0 success, 1 output/input limit, 2 cancelled, -1 invalid/backend error, -2 invalid logits.
+// Copies the text generated so far by the running request (UTF-8, may end mid-sentence).
+// Returns its byte length; writes only when capacity is sufficient, -1 for invalid arguments.
+int ot_mt_partial(void *handle, char *out, size_t capacity);
 int ot_mt_run(void *handle, const char *prefix, const char *text, const char *suffix, void *flag, char *out, size_t capacity, double *first_token_seconds);
 #ifdef __cplusplus
 }

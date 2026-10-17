@@ -51,6 +51,10 @@ final class RoutedTranslationBackend: TranslationBackend, @unchecked Sendable {
                    progress: @escaping @Sendable (TranslationProgress) -> Void) async throws -> TranslationResult {
         try await active.translate(text: text, source: source, target: target, progress: progress)
     }
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void,
+                   partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult {
+        try await active.translate(text: text, source: source, target: target, progress: progress, partial: partial)
+    }
     func cancel() { llama.cancel(); compact.cancel(); opus.cancel(); directions.cancel() }
     func unload() async { cancel(); await llama.unload(); await compact.unload(); await opus.unload(); await directions.unload() }
 }

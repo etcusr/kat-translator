@@ -47,6 +47,10 @@ struct Engine {
 #ifdef KAT_IOS_MTP
     std::unique_ptr<IndexMTP> mtp;
 #endif
+    // Text generated so far by the running request; read from another thread while decoding.
+    std::mutex partial_mutex;
+    std::string partial;
+    void publish(const std::string &text) { std::lock_guard<std::mutex> lock(partial_mutex); partial = text; }
     ~Engine() {
 #ifdef KAT_IOS_MTP
         if (mtp) { mtp.reset(); ctx = nullptr; }
@@ -117,6 +121,14 @@ void ot_mt_free(void *handle) { delete static_cast<Engine *>(handle); }
 void *ot_mt_flag_create(void) { return new (std::nothrow) Flag(false); }
 void ot_mt_flag_cancel(void *flag) { if (flag) static_cast<Flag *>(flag)->store(true, std::memory_order_relaxed); }
 void ot_mt_flag_free(void *flag) { delete static_cast<Flag *>(flag); }
+int ot_mt_partial(void *handle, char *out, size_t capacity) {
+    if (!handle || !out || capacity < 1) return -1;
+    auto *e = static_cast<Engine *>(handle);
+    std::lock_guard<std::mutex> lock(e->partial_mutex);
+    if (e->partial.size() + 1 > capacity) return (int) e->partial.size();
+    std::memcpy(out, e->partial.c_str(), e->partial.size() + 1);
+    return (int) e->partial.size();
+}
 static std::vector<llama_token> tokenize(const llama_vocab *vocab, const char *text, bool controls) {
     int n = llama_tokenize(vocab, text, (int) strlen(text), nullptr, 0, false, controls);
     std::vector<llama_token> tokens(n < 0 ? -n : n);
@@ -158,9 +170,11 @@ int ot_mt_run(void *handle, const char *prefix, const char *text, const char *su
         if (tokens.size() >= context_capacity) return 1;
         const size_t output_budget = context_capacity - tokens.size();
 #ifdef KAT_IOS_MTP
-        if (e->mtp) return e->mtp->run(tokens, static_cast<Flag *>(flag), out, capacity, first);
+        e->publish({});
+        if (e->mtp) return e->mtp->run(tokens, static_cast<Flag *>(flag), out, capacity, first, [e](const std::string &text) { e->publish(text); });
 #endif
         KAT_MARK("tokenize");
+        e->publish({});
         if (abort_run(flag)) return 2;
         llama_synchronize(e->ctx);
         KAT_MARK("wait_previous");
@@ -213,6 +227,7 @@ int ot_mt_run(void *handle, const char *prefix, const char *text, const char *su
             if (n < 0) { std::vector<char> large(-n); n = llama_token_to_piece(vocab, token, large.data(), (int) large.size(), 0, false); if (n < 0) return -1; result.append(large.data(), n); }
             else result.append(piece, n);
             if (result.size() + 1 > capacity) return 1;
+            e->publish(result);
             KAT_MARK("detokenize");
             auto batch = llama_batch_get_one(&token, 1);
             if (llama_decode(e->ctx, batch)) return abort_run(flag) ? 2 : -1;

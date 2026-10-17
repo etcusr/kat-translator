@@ -3,9 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <limits.h>
-#if defined(__ANDROID__)
 #include <unistd.h>
-#endif
 const SherpaOnnxOfflineTts *ot_supertonic_create(const char *directory) {
     if (!ot_prepare_inference_privacy()) return NULL;
     const char *names[] = {"duration_predictor.int8.onnx", "text_encoder.int8.onnx", "vector_estimator.int8.onnx", "vocoder.int8.onnx", "tts.json", "unicode_indexer.bin", "voice.bin"};
@@ -45,13 +43,10 @@ const SherpaOnnxOfflineTts *ot_tts_create(const char *model, const char *tokens,
     SherpaOnnxOfflineTtsConfig config; memset(&config, 0, sizeof(config));
     config.model.vits.model = model; config.model.vits.tokens = tokens; config.model.vits.data_dir = data;
     config.model.vits.noise_scale = 0.667f; config.model.vits.noise_scale_w = 0.8f; config.model.vits.length_scale = 1;
-    config.model.num_threads = 2;
-#if defined(__ANDROID__)
     // Pixel profiling: four threads reduce VITS inference latency; six regress.
-    // Keep the model, precision, noise, duration and phonemization unchanged.
+    // iPhone/Mac use the same cap. Model, precision, noise, duration and phonemization unchanged.
     long processors = sysconf(_SC_NPROCESSORS_ONLN);
     config.model.num_threads = processors > 0 && processors < 4 ? (int32_t)processors : 4;
-#endif
     config.model.provider = "cpu"; config.max_num_sentences = 1; config.silence_scale = 1;
     return SherpaOnnxCreateOfflineTts(&config);
 }

@@ -59,7 +59,8 @@ std::unique_ptr<IndexMTP> IndexMTP::create(llama_model *model, llama_context_par
 }
 
 int IndexMTP::run(const std::vector<llama_token> &input, std::atomic_bool *flag,
-                  char *out, size_t capacity, double *first) {
+                  char *out, size_t capacity, double *first,
+                  const std::function<void(const std::string &)> &partial) {
     // C API validates pointers and token budget before dispatching here.
     try {
         if (cancelled(flag)) return 2;
@@ -133,6 +134,7 @@ int IndexMTP::run(const std::vector<llama_token> &input, std::atomic_bool *flag,
                 result += common_token_to_piece(target_, token);
                 if (result.size() + 1 > capacity) return 1;
             }
+            partial(result);
             if (cancelled(flag)) return 2;
             if (!llama_memory_seq_rm(llama_get_memory(target_), 0, position, -1) ||
                 !llama_memory_seq_rm(llama_get_memory(draft_), 0, position, -1)) return -1;

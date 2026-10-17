@@ -23,6 +23,9 @@ public protocol TranslationBackend: AnyObject, Sendable {
     func load(modelURL: URL, model: TranslationModel) async throws
     func translate(text: String, source: SpeechLanguage, target: SpeechLanguage) async throws -> TranslationResult
     func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void) async throws -> TranslationResult
+    /// `partial` receives the translation generated so far; the returned result stays authoritative.
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void,
+                   partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult
     func cancel()
     func unload() async
 }
@@ -30,6 +33,10 @@ public extension TranslationBackend {
     func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void) async throws -> TranslationResult {
         progress(TranslationWork(pieces: [text]).progress)
         return try await translate(text: text, source: source, target: target)
+    }
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void,
+                   partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult {
+        try await translate(text: text, source: source, target: target, progress: progress)
     }
     func load(modelURL: URL, model: TranslationModel) async throws { try await load(modelURL: modelURL) }
 }

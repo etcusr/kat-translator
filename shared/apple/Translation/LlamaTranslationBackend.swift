@@ -6,6 +6,26 @@ private final class TranslationFlag: @unchecked Sendable {
     func cancel() { ot_mt_flag_cancel(pointer) }
     deinit { ot_mt_flag_free(pointer) }
 }
+/// Polls the running request's generated text off the translation queue; `stop()` drains the last poll.
+private final class PartialWatcher: @unchecked Sendable {
+    private let queue = DispatchQueue(label: "org.openoffline.translation.partial", qos: .userInitiated)
+    private let timer: DispatchSourceTimer
+    private var last = ""
+    init(context: UnsafeMutableRawPointer, report: @escaping @Sendable (String) -> Void) {
+        timer = DispatchSource.makeTimerSource(queue: queue)
+        timer.schedule(deadline: .now() + .milliseconds(60), repeating: .milliseconds(60))
+        timer.setEventHandler { [unowned self] in
+            var buffer = [CChar](repeating: 0, count: 16_384)
+            let length = ot_mt_partial(context, &buffer, buffer.count)
+            guard length > 0, length < buffer.count else { return }
+            let text = String(cString: buffer).trimmingCharacters(in: .whitespacesAndNewlines)
+            guard text != self.last else { return }
+            self.last = text; report(text)
+        }
+        timer.resume()
+    }
+    func stop() { timer.cancel(); queue.sync {} }
+}
 final class LlamaTranslationBackend: TranslationBackend, @unchecked Sendable {
     private let queue = DispatchQueue(label: "org.openoffline.translation", qos: .userInitiated)
     private var context: UnsafeMutableRawPointer?
@@ -31,6 +51,14 @@ final class LlamaTranslationBackend: TranslationBackend, @unchecked Sendable {
         try await translate(text: text, source: source, target: target, progress: { _ in })
     }
     func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void) async throws -> TranslationResult {
+        try await translate(text: text, source: source, target: target, progress: progress, partial: nil)
+    }
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void,
+                   partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult {
+        try await translate(text: text, source: source, target: target, progress: progress, partial: Optional(partial))
+    }
+    private func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void,
+                           partial: (@Sendable (String) -> Void)?) async throws -> TranslationResult {
         try Task.checkCancellation()
         guard TranslationLanguage.details(source).connected(to: model), TranslationLanguage.details(target).connected(to: model) else { throw PipelineError.modelLanguageUnavailable }
         try TranslationPrompt.validate(text)
@@ -59,7 +87,10 @@ final class LlamaTranslationBackend: TranslationBackend, @unchecked Sendable {
                         let callStart = ProcessInfo.processInfo.systemUptime
                         TranslationMemoryTrace.record("translate.start", model: self.model)
                         let request = self.model.request(text: input, source: source, target: target)
+                        let done = translated.joined(separator: " ")
+                        let watcher = partial.map { report in PartialWatcher(context: context) { report(done.isEmpty ? $0 : done + " " + $0) } }
                         let code = ot_mt_run(context, request.prefix, request.text, request.suffix, flag.pointer, &output, output.count, &tokenSeconds)
+                        watcher?.stop()
                         TranslationMemoryTrace.record("translate.complete", model: self.model, seconds: ProcessInfo.processInfo.systemUptime - callStart, code: code)
                         if code == 2 { throw CancellationError() }
                         if code == 1 {

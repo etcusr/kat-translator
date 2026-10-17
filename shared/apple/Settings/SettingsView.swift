@@ -7,7 +7,7 @@ struct SettingsView: View {
     @AppStorage("recordingMode") private var mode: RecordingMode = .toggle
     @AppStorage("recordingSilenceSeconds") private var silenceSeconds = SilenceMonitor.defaultTimeout
     @AppStorage("recordingLimitMinutes") private var limitMinutes = RecordingPolicy.defaultMinutes
-    @AppStorage("recordingPreprocessing") private var preprocessing = false
+    @AppStorage("recordingPreprocessing") private var preprocessing = true
     @AppStorage("recordingPreviewVerification") private var verification = true
     @AppStorage("memorySaving") private var memorySaving = false
     @AppStorage("automaticModelLoad") private var automaticModelLoad = true

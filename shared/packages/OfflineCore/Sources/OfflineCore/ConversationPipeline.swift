@@ -282,11 +282,12 @@ public struct ConversationFields: Sendable {
             let start = stoppedAt ?? now
             var earlyPlayback: Task<Void, Error>?
             var earlySpeech: RecordingPreviewSpeech?
+            var streamedStart: StreamedSpeechStart?
             var earlyAudioHistoryID: UUID?
             var newText = ""
             var validatedSpeech = verifyPreview ? nil : preview?.firstSpeech
             sourceText = verifyPreview ? "" : (preview?.sourceText ?? ""); translatedText = verifyPreview ? "" : (preview?.translatedText ?? "")
-            defer { earlyPlayback?.cancel(); isSpeaking = false; isSpeechPaused = false; translationProgress = nil; player.stop(); metric.totalSeconds = now - start; samples.append(metric); isBusy = false; stage = ""; active = nil }
+            defer { earlyPlayback?.cancel(); streamedStart?.cancel(); isSpeaking = false; isSpeechPaused = false; translationProgress = nil; player.stop(); metric.totalSeconds = now - start; samples.append(metric); isBusy = false; stage = ""; active = nil }
             do {
                 if activeMode == .voice, let recording = originalRecording {
                     do {
@@ -371,7 +372,12 @@ public struct ConversationFields: Sendable {
                 if !mtLoaded { let t = now; stage = L10n.text("Загружаю перевод…"); try await translator.load(modelURL: files.translation, model: files.translationModel); mtLoaded = true; metric.mtLoadSeconds = now - t }
                 try check(id); stage = L10n.text("Перевожу…")
                 translationProgress = part.source.count >= 1000 ? TranslationWork(pieces: [part.source]).progress : nil
-                let result = try await translator.translate(text: part.source, source: source, target: target) { [weak self] update in
+                // The first finished sentence is spoken while the rest is generated; the text itself is unchanged.
+                if streamedStart == nil, speakResult, !memorySaving, earlySpeech == nil, translatedText.isEmpty, files.voice(target) != nil {
+                    streamedStart = StreamedSpeechStart()
+                }
+                let streaming = translatedText.isEmpty ? streamedStart : nil
+                let result = try await translator.translate(text: part.source, source: source, target: target, progress: { [weak self] update in
                     Task { @MainActor [weak self] in
                         guard let self, self.generation == id, let current = self.translationProgress,
                               update.totalCharacters == current.totalCharacters,
@@ -379,7 +385,24 @@ public struct ConversationFields: Sendable {
                               update.completedCharacters >= current.completedCharacters else { return }
                         self.translationProgress = update
                     }
-                }
+                }, partial: { [weak self] text in
+                    Task { @MainActor [weak self] in
+                        guard let self, self.generation == id, let streaming else { return }
+                        streaming.offer(text, prepare: { sentence in
+                            guard let voice = files.voice(target) else { return nil }
+                            try self.check(id)
+                            if self.voiceLoaded != target { self.voiceLoaded = nil; try await self.speech.load(directory: voice, language: target); self.voiceLoaded = target }
+                            try self.check(id)
+                            guard let part = try await SpeechPreparation(text: sentence, speech: self.speech).next() else { return nil }
+                            try self.check(id)
+                            return RecordingPreviewSpeech(text: part.text, pcm: part.pcm, seconds: part.synthesisSeconds)
+                        }, play: { prepared in
+                            self.isSpeaking = true; self.isSpeechPaused = false
+                            self.player.setRate(Float(self.playbackSpeed.rawValue))
+                            return Task { try await self.player.play(prepared.pcm) }
+                        })
+                    }
+                })
                 translationProgress = nil
                 try check(id)
                 guard !result.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { throw PipelineError.inference }
@@ -401,6 +424,17 @@ public struct ConversationFields: Sendable {
                 if memorySaving { await translator.unload(); mtLoaded = false }
                 try check(id)
                 if files.voice(target) == nil { speechNotice = target.hasVoice ? L10n.text("Скачайте голос в настройках, чтобы озвучить перевод.") : L10n.text("Для этого языка пока доступен перевод без озвучки.") }
+                if let streamedStart, streamedStart.started {
+                    await streamedStart.finish(); try check(id)
+                    if let prepared = streamedStart.speech {
+                        if translatedText.hasPrefix(prepared.text) {
+                            earlySpeech = prepared
+                            metric.playbackScheduledSeconds = streamedStart.startedAt.map { $0 - start }
+                            metric.ttsSeconds += prepared.seconds; metric.ttsFragments += 1
+                            metric.spokenSeconds += Double(prepared.pcm.samples.count) / Double(prepared.pcm.sampleRate)
+                        } else { player.stop() } // A retried translation changed the start: speak it in full.
+                    }
+                }
                 if let earlyPlayback { try await earlyPlayback.value; try check(id) }
                 if let earlySpeech, let archive, let entry = lastHistoryID {
                     earlyAudioHistoryID = entry
@@ -741,4 +775,71 @@ public extension ConversationPipeline {
                   recordedSeconds: audio.durationSeconds, processingMode: preview == nil ? (requestedPreview ? "preview-fallback" : "after-stop") : (verifying ? "during-recording-verified" : "during-recording"),
                   fallbackReason: fallbackReason, verifyPreview: verifying, originalRecording: audio)
     }
+}
+
+/// Speaks finished sentences of a translation that is still being generated, in order.
+/// The translation text is unchanged; only the moment speech starts moves earlier.
+@MainActor final class StreamedSpeechStart {
+    private(set) var startedAt: Double?
+    private(set) var spokenText = ""
+    private var pcm: [Float] = []
+    private var sampleRate = 0
+    private var synthesisSeconds = 0.0
+    private var chunks: [String] = []
+    private var claimed = 0
+    private var closed = false
+    private var waiting: CheckedContinuation<Void, Never>?
+    private var worker: Task<Void, Never>?
+    var started: Bool { worker != nil }
+    var speech: RecordingPreviewSpeech? {
+        spokenText.isEmpty ? nil : RecordingPreviewSpeech(text: spokenText, pcm: SpeechPCM(samples: pcm, sampleRate: sampleRate), seconds: synthesisSeconds)
+    }
+    /// Finished sentences of `text` (each followed by more text), grouped to at least 12 characters.
+    nonisolated static func sentences(in text: String, from offset: Int = 0) -> (chunks: [String], end: Int) {
+        let characters = Array(text)
+        var chunks: [String] = [], start = offset, end = offset
+        guard offset < characters.count else { return ([], offset) }
+        for index in offset..<max(offset, characters.count - 1) where ".!?…".contains(characters[index]) && characters[index + 1].isWhitespace {
+            let candidate = String(characters[start...index]).trimmingCharacters(in: .whitespacesAndNewlines)
+            if candidate.count > 180 { break }
+            if candidate.count >= 12 { chunks.append(candidate); start = index + 1; end = index + 1 }
+        }
+        return (chunks, end)
+    }
+    nonisolated static func firstSentence(of text: String) -> String? { sentences(in: text).chunks.first }
+    func offer(_ partial: String, prepare: @escaping @MainActor (String) async throws -> RecordingPreviewSpeech?,
+               play: @escaping @MainActor (RecordingPreviewSpeech) -> Task<Void, Error>) {
+        guard !closed else { return }
+        let found = Self.sentences(in: partial, from: claimed)
+        guard !found.chunks.isEmpty else { return }
+        claimed = found.end; chunks += found.chunks
+        if let waiting { self.waiting = nil; waiting.resume() }
+        if worker == nil { worker = Task { [weak self] in await self?.run(prepare: prepare, play: play) } }
+    }
+    private func next() async -> String? {
+        while chunks.isEmpty && !closed { await withCheckedContinuation { waiting = $0 } }
+        return chunks.isEmpty ? nil : chunks.removeFirst()
+    }
+    private func run(prepare: @escaping @MainActor (String) async throws -> RecordingPreviewSpeech?,
+                     play: @escaping @MainActor (RecordingPreviewSpeech) -> Task<Void, Error>) async {
+        var playing: Task<Void, Error>?
+        // The next sentence is synthesized while the previous one plays.
+        while let chunk = await next(), !Task.isCancelled {
+            guard let prepared = try? await prepare(chunk), !Task.isCancelled else { break }
+            if let playing { guard (try? await playing.value) != nil else { return } }
+            guard sampleRate == 0 || sampleRate == prepared.pcm.sampleRate else { break }
+            if startedAt == nil { startedAt = ProcessInfo.processInfo.systemUptime }
+            sampleRate = prepared.pcm.sampleRate; pcm += prepared.pcm.samples; synthesisSeconds += prepared.seconds
+            spokenText = spokenText.isEmpty ? prepared.text : spokenText + " " + prepared.text
+            playing = play(prepared)
+        }
+        _ = try? await playing?.value
+    }
+    /// Stops taking new sentences and waits until the queued ones have been spoken.
+    func finish() async {
+        closed = true
+        if let waiting { self.waiting = nil; waiting.resume() }
+        await worker?.value
+    }
+    func cancel() { closed = true; waiting?.resume(); waiting = nil; worker?.cancel() }
 }

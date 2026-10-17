@@ -266,7 +266,7 @@ import OfflineCore
         capturedTarget = languages.runtimeTarget ?? .english
         capturedAutomaticSpeech = UserDefaults.standard.object(forKey: "automaticSpeechVoice") as? Bool ?? true
         capturedLanguage = languages.automaticActive(in: .voice) ? nil : languages.runtimeSource; capturedMode = UserDefaults.standard.string(forKey: "recordingMode") ?? "toggle"; message = nil
-        capturedPreview = UserDefaults.standard.bool(forKey: "recordingPreprocessing")
+        capturedPreview = UserDefaults.standard.object(forKey: "recordingPreprocessing") as? Bool ?? true
         capturedVerification = UserDefaults.standard.object(forKey: "recordingPreviewVerification") as? Bool ?? true
         previewFallback = capturedPreview ? session.recordingPreviewUnavailable(source: capturedLanguage) : nil
         if capturedPreview, [.serious, .critical].contains(ProcessInfo.processInfo.thermalState) { previewFallback = "thermal" }
