@@ -22,6 +22,7 @@
         "shared/apple/ASR/CoreMLRecognitionBackend.swift",
         "shared/apple/ASR/OmnilingualBackend.swift",
         "shared/apple/ASR/WhisperBackend.swift",
+        "shared/apple/Audio/AudioQueueCapture.swift",
         "shared/apple/Audio/AudioRecorder.swift",
         "shared/apple/Audio/RecordButton.swift",
         "shared/apple/Audio/RecordingStopTrace.swift",
@@ -296,6 +297,7 @@
     },
     "MacRuntimeTests": {
       "PBXSourcesBuildPhase": [
+        "apps/macos/tests/runtime/AudioQueueCaptureTests.swift",
         "apps/macos/tests/runtime/CompactModelsIntegrationTests.swift",
         "apps/macos/tests/runtime/LoadingAnimationTests.swift",
         "apps/macos/tests/runtime/MacIntegrationTests.swift",
@@ -328,6 +330,7 @@
         "shared/apple/ASR/CoreMLRecognitionBackend.swift",
         "shared/apple/ASR/OmnilingualBackend.swift",
         "shared/apple/ASR/WhisperBackend.swift",
+        "shared/apple/Audio/AudioQueueCapture.swift",
         "shared/apple/Audio/AudioRecorder.swift",
         "shared/apple/Audio/RecordButton.swift",
         "shared/apple/Audio/RecordingStopTrace.swift",

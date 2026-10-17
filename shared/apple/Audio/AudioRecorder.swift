@@ -118,6 +118,9 @@ private struct RecordingEngineStartup: @unchecked Sendable {
     var onInterruption: ((String) -> Void)?
     private var engineStartInFlight = false
     private var engine: AVAudioEngine?
+    #if os(iOS)
+    private var inputQueue: AudioQueueCapture?
+    #endif
     private var sink: RecordingSink?
     private var timer: Task<Void, Never>?
     private var observers: [NSObjectProtocol] = []
@@ -182,6 +185,11 @@ private struct RecordingEngineStartup: @unchecked Sendable {
         activatedSession = true
         RecordingStopTrace.mark("start.sessionReady")
         #endif
+        #if os(iOS)
+        guard let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: session.sampleRate,
+            channels: AVAudioChannelCount(session.inputNumberOfChannels), interleaved: true),
+            format.sampleRate > 0, format.channelCount > 0 else { throw AudioError.invalidFormat }
+        #else
         let engine = AVAudioEngine()
         RecordingStopTrace.mark("start.engineCreated")
         let input = engine.inputNode
@@ -189,6 +197,7 @@ private struct RecordingEngineStartup: @unchecked Sendable {
         let format = input.outputFormat(forBus: 0)
         RecordingStopTrace.mark("start.formatReady")
         guard format.sampleRate > 0, format.channelCount > 0 else { throw AudioError.invalidFormat }
+        #endif
         let limit = RecordingPolicy.limitSeconds(minutes: limitMinutes)
         limitSeconds = limit
         let sink = RecordingSink(detector: detector, maxSeconds: limit, onLimit: { [weak self] in
@@ -209,6 +218,20 @@ private struct RecordingEngineStartup: @unchecked Sendable {
             }
         }
         finalSpeechEnd = 0
+        #if os(iOS)
+        self.sink = sink
+        let capture = AudioQueueCapture(format: format, receive: { sink.append($0) }, failure: sink.onFailure)
+        RecordingStopTrace.mark("start.enginePrepared")
+        engineStartInFlight = true
+        do { try await capture.start() }
+        catch {
+            engineStartInFlight = false; inputQueue = capture
+            guard generation == operation, !Task.isCancelled else { throw CancellationError() }
+            throw error
+        }
+        engineStartInFlight = false; inputQueue = capture
+        guard generation == operation, !Task.isCancelled else { throw CancellationError() }
+        #else
         input.installTap(onBus: 0, bufferSize: 2048, format: format) { buffer, _ in sink.append(buffer) }
         RecordingStopTrace.mark("start.tapReady")
         self.sink = sink
@@ -228,6 +251,7 @@ private struct RecordingEngineStartup: @unchecked Sendable {
         }
         engineStartInFlight = false; self.engine = engine
         guard generation == operation, !Task.isCancelled else { throw CancellationError() }
+        #endif
         RecordingStopTrace.mark("start.engineReady")
         elapsed = 0; isPaused = false; deferredLimit = false; isRecording = true
         started = true
@@ -246,13 +270,27 @@ private struct RecordingEngineStartup: @unchecked Sendable {
         guard isRecording else { return }
         let now = ProcessInfo.processInfo.systemUptime
         if isPaused {
-            do { try engine?.start() } catch {
+            do {
+                #if os(iOS)
+                // Resume can deliver PCM before AudioQueueStart returns.
+                sink?.setPaused(false)
+                try inputQueue?.resume()
+                #else
+                try engine?.start()
+                #endif
+            } catch {
                 cancel(); onInterruption?(L10n.text("Не удалось продолжить запись. Попробуйте снова.")); return
             }
             clock?.resume(at: now); isPaused = false; sink?.setPaused(false)
             if deferredLimit { deferredLimit = false; onLimit?() }
         } else {
-            sink?.setPaused(true); engine?.pause(); clock?.pause(at: now)
+            sink?.setPaused(true)
+            #if os(iOS)
+            inputQueue?.pause()
+            #else
+            engine?.pause()
+            #endif
+            clock?.pause(at: now)
             elapsed = min(Double(limitSeconds), clock?.elapsed(at: now) ?? elapsed)
             isPaused = true
         }
@@ -273,7 +311,11 @@ private struct RecordingEngineStartup: @unchecked Sendable {
     private func stopEngine() {
         sink?.setPaused(true)
         timer?.cancel(); timer = nil
+        #if os(iOS)
+        inputQueue?.stop(); inputQueue = nil
+        #else
         engine?.inputNode.removeTap(onBus: 0); engine?.stop(); engine = nil
+        #endif
         isRecording = false; isPaused = false; clock = nil; deferredLimit = false
         #if os(iOS)
         // Idle cleanup must not stop another player's process-wide audio session.
