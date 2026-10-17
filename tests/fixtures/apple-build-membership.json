@@ -303,6 +303,7 @@
         "apps/macos/tests/runtime/MacRuntimeTests.swift",
         "apps/macos/tests/runtime/OpusGPUIntegrationTests.swift",
         "apps/macos/tests/runtime/OpusRoutingTests.swift",
+        "apps/macos/tests/runtime/StreamedSpeechIntegrationTests.swift",
         "apps/macos/tests/runtime/TranslationOutputBudgetTests.swift",
         "apps/macos/tests/runtime/TranslationRollbackTests.swift",
         "tests/benchmarks/VoiceOriginalIntegrationTests.swift"

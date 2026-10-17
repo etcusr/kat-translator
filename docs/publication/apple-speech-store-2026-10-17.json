@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-17",
+  "project_validation_tests": 143,
+  "project_validation_result": "PASS",
+  "packages": [
+    {
+      "platform": "ios",
+      "version": "1.0",
+      "build": "53",
+      "artifact_name": "OfflineTranslator.ipa",
+      "artifact_bytes": 68374495,
+      "artifact_sha256": "dc41733f4a7b3cfb8b6b8885286d5697af25e0a35e3f70afd6bce8a8d8b02058",
+      "notice_documents": 46,
+      "privacy_manifests": [
+        "FluidAudio_FluidAudio.bundle/PrivacyInfo.xcprivacy",
+        "Frameworks/OmniVoiceRuntime.framework/PrivacyInfo.xcprivacy",
+        "Frameworks/OpusRuntime.framework/PrivacyInfo.xcprivacy",
+        "Frameworks/Python.framework/PrivacyInfo.xcprivacy",
+        "Frameworks/TranslationRuntime.framework/PrivacyInfo.xcprivacy",
+        "ONNXRuntimePrivacy.bundle/PrivacyInfo.xcprivacy",
+        "OfflineCore_OfflineCore.bundle/PrivacyInfo.xcprivacy",
+        "PrivacyInfo.xcprivacy",
+        "SherpaOnnxPrivacy.bundle/PrivacyInfo.xcprivacy"
+      ],
+      "signature": "PASS",
+      "all_binary_signers_match_app": true,
+      "distribution_profiles": 2,
+      "loading_animations": 13,
+      "loading_source_bytes_match": true,
+      "no_xctest": true,
+      "binary_checks": {
+        "macho_images_checked": 72,
+        "openssl_markers": 0,
+        "openssl_library_dependencies": 0,
+        "hash_fallbacks": [
+          "_md5",
+          "_sha1",
+          "_sha2",
+          "_sha3",
+          "_blake2"
+        ]
+      },
+      "build_identity": {
+        "configuration": "Release",
+        "identifier": "ios-016234c809534e0a",
+        "platform": "iphoneos",
+        "schema": 1,
+        "sha256": "016234c809534e0a4c9c71b5166eefbd131fc1934f975fe7c0545350c50f94e8",
+        "sourceFileCount": 794
+      },
+      "mach_o_signatures_checked": 72,
+      "store_device_acceptance": "pending",
+      "apple_processing_confirmed": false,
+      "framework_metadata_checks": 70,
+      "increased_memory_entitlement": true,
+      "uploaded": true,
+      "upload_result": "Upload succeeded / EXPORT SUCCEEDED",
+      "missing_dsym_warnings": 70
+    },
+    {
+      "platform": "macos",
+      "version": "1.0",
+      "build": "71",
+      "artifact_name": "Kat translator.pkg",
+      "artifact_bytes": 349132301,
+      "artifact_sha256": "da10d69d46dfea5234a71023b8c374ab83c462768425e005a53fd50eb03fb460",
+      "notice_documents": 46,
+      "privacy_manifests": [
+        "Contents/Frameworks/OpusRuntime.framework/Versions/A/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/FluidAudio_FluidAudio.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/ONNXRuntimePrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/OfflineCore_OfflineCore.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/ProtobufPrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/PyTorchPrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/SentencePiecePrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy",
+        "Contents/Resources/SherpaOnnxPrivacy.bundle/Contents/Resources/PrivacyInfo.xcprivacy"
+      ],
+      "signature": "PASS",
+      "all_binary_signers_match_app": true,
+      "distribution_profiles": 1,
+      "loading_animations": 13,
+      "loading_source_bytes_match": true,
+      "no_xctest": true,
+      "binary_checks": {
+        "machOFiles": 154,
+        "minimumMacOS": "27.0",
+        "externalNonSystemDependencies": [],
+        "externalNonSystemRPaths": [],
+        "librariesExceedingMinimumMacOS": []
+      },
+      "build_identity": {
+        "configuration": "Release",
+        "identifier": "mac-f8b3cb50afb217a7",
+        "platform": "macosx",
+        "schema": 1,
+        "sha256": "f8b3cb50afb217a716f4f6984ef4a065e879fcb8f2bad62791a936fab361f48e",
+        "sourceFileCount": 792
+      },
+      "mach_o_signatures_checked": 154,
+      "store_device_acceptance": "pending",
+      "apple_processing_confirmed": false,
+      "sandbox_and_inherited_helpers": "PASS",
+      "packaged_mlx_script_matches_source": true,
+      "uploaded": true,
+      "upload_result": "Upload succeeded / EXPORT SUCCEEDED",
+      "missing_dsym_warnings": 153
+    }
+  ]
+}

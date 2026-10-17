@@ -2,7 +2,9 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
-The corrected Mac app is now installed at `/Applications/Kat translator.app`: development **0.6.7 (60)**, source fingerprint `mac-c075be03543c17ac`. Four fresh runtime tests passed, including real MLX/Irina and player controls; signature/dependency checks and normal launch passed. Modern DMG/ZIP were subsequently refreshed with the same corrected source identity; [package integrity and hashes](benchmarks/mac-speech-install-2026-10-17/packages.md) passed. App Store70 remains unchanged. [Installation evidence](benchmarks/mac-speech-install-2026-10-17/README.md).
+**iOS 1.0 (53) and Mac App Store 1.0 (71)** were built from the corrected sources, verified and uploaded to App Store Connect. They include complete streamed speech, exact whitespace handling to avoid replay, contextual Russian ordinals and Mac MLX partial output. Both packages contain the current 13 loading clips. Project validation: 143 PASS. Apple processing, TestFlight installation and build selection for review are not yet confirmed. [Checks and upload result](publication/apple-speech-store-2026-10-17.md).
+
+The corrected Mac app is now installed at `/Applications/Kat translator.app`: development **0.6.7 (60)**, source fingerprint `mac-c075be03543c17ac`. Four fresh runtime tests passed, including real MLX/Irina and player controls; signature/dependency checks and normal launch passed. Modern DMG/ZIP were subsequently refreshed with the same corrected source identity; [package integrity and hashes](benchmarks/mac-speech-install-2026-10-17/packages.md) passed. The later store replacement is recorded above. [Installation evidence](benchmarks/mac-speech-install-2026-10-17/README.md).
 
 The additional iPhone Index 9B comparison is complete: MTP with two draft tokens remains unchanged. MTP off, one/three draft tokens and Q8 KV cache showed no demonstrated repeatable improvement over the final control; all six translations matched. More compressed weights and an iPhone MLX port remain proposals. [Recorded comparison and limits](benchmarks/ios-mt-options-2026-10-17/README.md).
 
@@ -28,9 +30,9 @@ The iPhone startup now disables persistent ggml Metal residency while keeping mo
 
 When iOS reports memory pressure with a large translator and a loaded recognizer, the pipeline now releases the recognizer at a safe boundary instead of cancelling the turn and unloading Index. Translation readiness, the result and speech playback are preserved; recognition reloads on the next capture. The saved memory-saving preference is unchanged. Full acoustic-cycle verification is recorded in the same report.
 
-The microphone defaults to tap to start / tap to stop on iOS, macOS and Android. A saved recording-mode choice is preserved; hold to record remains available in Settings. The iOS change is included in build52; other installed platforms need a new build.
+The microphone defaults to tap to start / tap to stop on iOS, macOS and Android. A saved recording-mode choice is preserved; hold to record remains available in Settings. The current iOS53/Mac71 store packages and refreshed direct Mac build include this default.
 
-One loading clip has been removed from the shared iOS/macOS/Android resources, playlist, preparation script and gallery. The source catalog now contains 13 clips. Uploaded iOS52 contains the current 13 clips. Mac70 still contains the removed clip; its replacement remains deferred. [Verification](publication/loading-clip-removal-2026-10-14.md).
+One loading clip has been removed from the shared iOS/macOS/Android resources, playlist, preparation script and gallery. The source catalog now contains 13 clips. Uploaded iOS52 contains the current 13 clips. The replacement Mac71 also contains the current 13 clips. [Verification](publication/loading-clip-removal-2026-10-14.md).
 
 Working tree reconciled on **14 October 2026, Europe/Moscow**. After fixing seven Auto/OPUS regressions, local Android/OfflineCore tests, Mac runtime/UI tests and an iOS build were run. Details and limits: [fix report](benchmarks/auto-routing-fixes-2026-10-13/README.md). After the backup finished, **iPhone build 45 and Pixel code 21 were installed and verified**: [phone tests](benchmarks/auto-routing-devices-2026-10-13/README.md). Then real ASR→Auto MT→TTS and the microphones of both phones were checked: [voice run](benchmarks/voice-auto-devices-2026-10-13/README.md). Routing passed; a single iPhone audio output error and an extra Whisper word in one recording remain observations with an unknown cause.
 
@@ -105,9 +107,9 @@ The build 45 signing candidate is kept separately in `dist/ios/signing-candidate
 | Platform | Version | Build requirement | Confirmation |
 |---|---|---|---|
 | Android | **0.4.6 / code21**, Debug | API 31+, arm64-v8a (ARMv8.2 dotprod/FP16 for Index); compile/target 36 | Installed on Pixel 9 Pro 13.10; native Auto OPUS→2B→OPUS, EN→EN, manual RU↔DE; voice RU/DE via import/microphone with GigaAM/Parakeet and TTS verified |
-| iPhone | **1.0 / build52** | iOS 18+, iPhone ARM64 | IPA52 verified and uploaded: 9 manifests, 46 notices, 72 signatures, 70 framework deployment checks. TestFlight acceptance pending. [Report](publication/ios-store-build52-2026-10-17.md) |
+| iPhone | **1.0 / build53** | iOS 18+, iPhone ARM64 | IPA53 verified and uploaded: 9 manifests, 46 notices, 72 signatures, 70 framework checks. TestFlight pending. [Report](publication/apple-speech-store-2026-10-17.md) |
 | Mac modern | **0.6.7 / build60** | macOS 27+, Apple Silicon | Installed corrected development build: `mac-c075be03543c17ac`; modern DMG/ZIP refreshed with the same source identity |
-| Mac App Store | **1.0 / build70** | macOS 27+, Apple Silicon, sandbox | PKG 70 verified and uploaded: 9 manifests, 46 notices, 154 signatures and sandbox/helpers. Apple started processing; build selection by the owner. [Report](publication/signed-sdks-release-2026-10-14.md) |
+| Mac App Store | **1.0 / build71** | macOS 27+, Apple Silicon, sandbox | PKG71 verified and uploaded: 9 manifests, 46 notices, 154 signatures and sandbox/helpers. Apple processing pending. [Report](publication/apple-speech-store-2026-10-17.md) |
 | Mac compatible | **0.6.0 / build53 / macos15-26** | binary minimum macOS 15, Apple Silicon | Saved DMG/ZIP and audit; launch verified on macOS 27, physical macOS 15–26 not tested |
 
 Android code21 with the later Whisper Q8 option is installed on Pixel. The Mac application was replaced on 17 October with the current corrected sources. The modern build60 DMG/ZIP now contain the same corrected source identity; package filenames/version stayed unchanged, so use the new checksums below.

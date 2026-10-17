@@ -2,13 +2,15 @@
 
 **English** | [Русский](README.ru.md)
 
-The corrected development app is installed at `/Applications/Kat translator.app` as **0.6.7 (60)**, source fingerprint `mac-c075be03543c17ac`. Complete streamed sentences, whitespace handling, contextual Russian ordinals and default MLX partial output are included. Four fresh runtime checks and signature/dependency/normal-launch checks passed. Modern DMG/ZIP now contain the corrected app: [verified packages and hashes](../benchmarks/mac-speech-install-2026-10-17/packages.md). App Store70 and the separate macOS15–26 packages remain unchanged. [Installation and verification](../benchmarks/mac-speech-install-2026-10-17/README.md).
+**iOS 1.0 (53) and Mac App Store 1.0 (71)** were built from the corrected sources, verified and uploaded to App Store Connect. They include complete streamed speech, exact whitespace handling to avoid replay, contextual Russian ordinals and Mac MLX partial output. Both packages contain the current 13 loading clips. Project validation: 143 PASS. Apple processing, TestFlight installation and build selection for review are not yet confirmed. [Checks and upload result](../publication/apple-speech-store-2026-10-17.md).
+
+The corrected development app is installed at `/Applications/Kat translator.app` as **0.6.7 (60)**, source fingerprint `mac-c075be03543c17ac`. Complete streamed sentences, whitespace handling, contextual Russian ordinals and default MLX partial output are included. Four fresh runtime checks and signature/dependency/normal-launch checks passed. Modern DMG/ZIP now contain the corrected app: [verified packages and hashes](../benchmarks/mac-speech-install-2026-10-17/packages.md). App Store71 now contains these fixes; the separate macOS15–26 packages remain unchanged. [Installation and verification](../benchmarks/mac-speech-install-2026-10-17/README.md).
 
 Native SwiftUI/AppKit application for Apple Silicon. There are two distribution channels built from the same sources:
 
 | Channel | Version | Bundle ID | Signing | Status |
 |---|---|---|---|---|
-| **Mac App Store** | **1.0 / build70** (uploaded; Apple processing started) | `app.kattranslator` (shared with iOS) | Apple Distribution, App Sandbox | Build70 uploaded; owner will select the build and submit for review |
+| **Mac App Store** | **1.0 / build71** (uploaded; processing result pending) | `app.kattranslator` (shared with iOS) | Apple Distribution, App Sandbox | Build71 uploaded; owner will select the build and submit for review |
 | Direct download (DMG/ZIP) | **0.6.7 / build 60**, plus the separate **macos15-26** compatibility build 0.6.0 / 53 | `org.openoffline.translator.mac` | Apple Development, no sandbox | Not Developer ID signed or notarized |
 
 The direct build requires macOS 27+ (the compatibility download declares macOS 15). Index 9B uses MLX + MTP2; Index 2B uses a separate llama.cpp/Metal backend. The legacy OPUS EN↔RU/UK/BE package uses a PyTorch Metal FP16 worker; catalog directions use CTranslate2 CPU INT8. The initial translation selection is Auto: installed 9B, then 2B on a strong device; otherwise a supported OPUS direction, then 2B and 9B. Saved manual choices persist. Recognition Auto is separate: Parakeet (Core ML) or classic Whisper for supported languages, Meta Omnilingual for additional recognition. See [current state](../CURRENT_STATE.md), [store build report](../publication/macos-appstore-build-2026-10-14.md) and [latest runtime acceptance](../publication/runtime-acceptance-2026-10-14.md).

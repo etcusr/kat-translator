@@ -2,7 +2,9 @@
 
 **English** | [Русский](README.ru.md)
 
-The microphone defaults to tap to start / tap to stop on iOS, macOS and Android. A saved recording-mode choice is preserved; hold to record remains available in Settings. This source change requires a new build to reach installed apps.
+**iOS 1.0 (53) and Mac App Store 1.0 (71)** were built from the corrected sources, verified and uploaded to App Store Connect. They include complete streamed speech, exact whitespace handling to avoid replay, contextual Russian ordinals and Mac MLX partial output. Both packages contain the current 13 loading clips. Project validation: 143 PASS. Apple processing, TestFlight installation and build selection for review are not yet confirmed. [Checks and upload result](docs/publication/apple-speech-store-2026-10-17.md).
+
+The microphone defaults to tap to start / tap to stop on iOS, macOS and Android. A saved recording-mode choice is preserved; hold to record remains available in Settings. The current iOS53/Mac71 store packages and refreshed direct Mac build include this default.
 
 **GPL-3.0-or-later.** Copyright (c) 2026 the respective copyright holders of Kat translator. Kat's own code may be used, modified and redistributed under GNU GPL version 3 or any later version, without warranty. Third-party components and models retain their own licenses. [GPL text](LICENSE) · [License scope and distribution terms](docs/LICENSING.md).
 

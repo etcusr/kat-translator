@@ -2,6 +2,8 @@
 
 **English** | [Русский](ARCHITECTURE.ru.md)
 
+**iOS 1.0 (53) and Mac App Store 1.0 (71)** were built from the corrected sources, verified and uploaded to App Store Connect. They include complete streamed speech, exact whitespace handling to avoid replay, contextual Russian ordinals and Mac MLX partial output. Both packages contain the current 13 loading clips. Project validation: 143 PASS. Apple processing, TestFlight installation and build selection for review are not yet confirmed. [Checks and upload result](publication/apple-speech-store-2026-10-17.md).
+
 The iPhone Index 9B runtime retains MTP with two draft tokens after the completed settings comparison; experimental MTP/draft-count/Q8-KV environment switches are absent. Mac Index 9B continues to use MLX with partial output. [Comparison](benchmarks/ios-mt-options-2026-10-17/README.md).
 
 On iPhone, `RecordingPreviewProbe` has an opt-in `OT_SPEECH_CORRECTNESS_PROBE` mode that checks fixed long-sentence/ordinal fixtures and real routed Index 9B through the production voice and `SpeechPlayer`. It records actual playback completions and synthetic PCM without history writes or settings overrides; cleanup removes only its dedicated output directory. [Device procedure and evidence](benchmarks/iphone-speech-correctness-2026-10-17/README.md).
