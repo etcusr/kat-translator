@@ -5,6 +5,17 @@ import org.junit.Test
 import java.io.File
 
 class RecognitionRoutingTest {
+    @Test fun compactWhisperRetainsAllLanguagesAndAliasesWithoutReplacingAuto() {
+        val all=catalog()
+        val full=all.single { it.id=="whisper-large-v3-turbo-f16" }
+        val compact=all.single { it.id=="whisper-large-v3-turbo-q8_0" }
+        assertEquals("whisper",compact.backend)
+        assertEquals(full.languages,compact.languages)
+        for(language in full.languages)assertEquals(full.runtimeLanguage(language),compact.runtimeLanguage(language))
+        assertTrue(compact.downloadBytes<full.downloadBytes)
+        assertNull(compact.unavailableReason)
+        assertEquals("gigaam-v3-int8",RecognitionRouting.recommended(all,"ru")!!.id)
+    }
     private fun catalog():List<OfflinePackage> {
         var root=File(System.getProperty("user.dir")!!)
         while(!File(root,"assets/catalogs/models.json").exists())root=root.parentFile ?: error("No catalog")

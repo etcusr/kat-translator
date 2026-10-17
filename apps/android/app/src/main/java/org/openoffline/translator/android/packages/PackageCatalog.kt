@@ -182,7 +182,8 @@ object PackageCatalog {
             val parts=model.getJSONArray("parts").objects().map { part(it) }
             packages += OfflinePackage(model.getString("id"),model.getString("title"),PackageCategory.RECOGNITION,
                 model.getString("backend"),model.getJSONArray("languages").strings().toSet(),PackageKind.FILES,
-                parts,parts.map { PackageEntry(it.path,it.byteCount,it.sha256) },license=model.getString("license"),sourceURL=model.getString("sourceURL"))
+                parts,parts.map { PackageEntry(it.path,it.byteCount,it.sha256) },license=model.getString("license"),sourceURL=model.getString("sourceURL"),
+                runtimeLanguages=if(model.getString("backend")=="whisper")whisper else emptyMap())
         }
         for (model in JSONObject(read("android-ocr.json")).getJSONArray("models").objects()) {
             val p = part(model)

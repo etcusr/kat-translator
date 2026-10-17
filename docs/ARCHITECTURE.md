@@ -2,9 +2,11 @@
 
 **English** | [Русский](ARCHITECTURE.ru.md)
 
-Android Whisper ships two isolated JNI libraries: baseline `armv8-a` and optional `armv8.2-a+dotprod+fp16`. A baseline `kat_media` HWCAP check precedes loading the optimized library; unsupported CPUs or a library load failure retain baseline Whisper. Both use the same F16 model, four threads, decoding parameters and cancellation patch. `setup-media.sh` builds both; Gradle packages the optimized library without adding a native link dependency. Apple runtimes and ASR Auto routing are unchanged.
+Android also offers `whisper-large-v3-turbo-q8_0` as an explicit recognition package in `android-asr.json`. It shares F16’s Whisper backend, language aliases and unchanged greedy decoding/CPU selection. The package has pinned upstream size/hash verification. Q8 does not replace F16 or the GigaAM/Parakeet Auto routes. [Variant comparison](android/benchmarks/2026-10-17-whisper-options/README.md).
 
-Android VITS uses up to four online CPU threads; the shared speech runtime retains two on Apple and for Supertonic. Android JNI returns text-free phase timings through `OfflineMedia.lastSpeechTiming`. Voice engines still belong to one synthesis call.
+Android Whisper ships two isolated JNI libraries: baseline `armv8-a` and optional `armv8.2-a+dotprod+fp16`. A baseline `kat_media` HWCAP check precedes loading the optimized library; unsupported CPUs or a library load failure retain baseline Whisper. Both accept the selected F16 or Q8 model with the same four threads, decoding parameters and cancellation patch. `setup-media.sh` builds both; Gradle packages the optimized library without adding a native link dependency. Apple runtimes and ASR Auto routing are unchanged.
+
+VITS uses up to four online CPU threads on Android and Apple; Supertonic retains two. Android JNI returns text-free phase timings through `OfflineMedia.lastSpeechTiming`. Voice engines still belong to one synthesis call.
 
 Android voice cards are always present with the original expanded. `TranslatorState.isTextPlaying` identifies the active card through observable playback ownership; its action stops playback before the processing-busy guard. `TextPanel` shows a stop cross during playback and a speaker otherwise.
 

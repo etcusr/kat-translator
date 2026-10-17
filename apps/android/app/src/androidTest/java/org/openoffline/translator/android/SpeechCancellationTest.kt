@@ -23,6 +23,8 @@ class SpeechCancellationTest {
 
     @Test fun cancelActiveRecognitionThenUseTranslatorAgain() {
         val instrumentation=InstrumentationRegistry.getInstrumentation()
+        val model=InstrumentationRegistry.getArguments().getString("recognitionModel","whisper-large-v3-turbo-f16")!!
+        require(model in setOf("whisper-large-v3-turbo-f16","whisper-large-v3-turbo-q8_0"))
         val fixture=File(instrumentation.targetContext.cacheDir,"cancel-asr-fixture.wav")
         instrumentation.context.assets.open("media-asr-en.fixture").use { input -> fixture.outputStream().use { input.copyTo(it) } }
         try {
@@ -30,7 +32,7 @@ class SpeechCancellationTest {
                 state=ViewModelProvider(ui.activity)[TranslatorState::class.java]
                 state.mode="voice";state.setHistory(false);state.changeRecordAudio(false)
                 state.changeAutomaticSpeech(false);state.changeRecognitionPreference("whisper")
-                state.selectRecognition("whisper-large-v3-turbo-f16")
+                state.selectRecognition(model)
                 state.selectTranslation("opus");state.chooseLanguage("en",true);state.chooseLanguage("ru",false)
             }
             ui.waitUntil(30_000) { state.packages.restored.value }

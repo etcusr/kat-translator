@@ -1,0 +1,425 @@
+{
+  "date": "2026-10-17",
+  "deviceClass": "Pixel 9 Pro",
+  "audioSeconds": 25.179875,
+  "nativeScreening": [
+    {
+      "variant": "f16-t4",
+      "loadSeconds": 0.997446,
+      "inferenceSeconds": 23.686678,
+      "exactBaselineTranscript": true,
+      "thermal": {
+        "before": {
+          "status": 0,
+          "skin": {
+            "celsius": 33.43069,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 32.800003,
+            "status": 0
+          },
+          "restrictions": {}
+        },
+        "after": {
+          "status": 0,
+          "skin": {
+            "celsius": 33.93835,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 34.600002,
+            "status": 0
+          },
+          "restrictions": {}
+        }
+      }
+    },
+    {
+      "variant": "f16-t6",
+      "loadSeconds": 1.061946,
+      "inferenceSeconds": 27.482065,
+      "exactBaselineTranscript": true,
+      "thermal": {
+        "before": {
+          "status": 0,
+          "skin": {
+            "celsius": 34.317955,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 36.2,
+            "status": 0
+          },
+          "restrictions": {}
+        },
+        "after": {
+          "status": 0,
+          "skin": {
+            "celsius": 37.681488,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 38.100002,
+            "status": 0
+          },
+          "restrictions": {}
+        }
+      }
+    },
+    {
+      "variant": "q5-t4",
+      "loadSeconds": 0.388095,
+      "inferenceSeconds": 31.453388,
+      "exactBaselineTranscript": false,
+      "thermal": {
+        "before": {
+          "status": 0,
+          "skin": {
+            "celsius": 33.93835,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 34.600002,
+            "status": 0
+          },
+          "restrictions": {}
+        },
+        "after": {
+          "status": 0,
+          "skin": {
+            "celsius": 35.089653,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 37.300003,
+            "status": 0
+          },
+          "restrictions": {}
+        }
+      }
+    },
+    {
+      "variant": "q5-i8mm",
+      "loadSeconds": 0.376135,
+      "inferenceSeconds": 33.581818,
+      "exactBaselineTranscript": false,
+      "thermal": {
+        "before": {
+          "status": 0,
+          "skin": {
+            "celsius": 36.24082,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 37.0,
+            "status": 0
+          },
+          "restrictions": {}
+        },
+        "after": {
+          "status": 0,
+          "skin": {
+            "celsius": 38.584637,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 38.2,
+            "status": 0
+          },
+          "restrictions": {
+            "thermal-cpufreq-2": 6,
+            "thermal-cpufreq-1": 6
+          }
+        }
+      }
+    },
+    {
+      "variant": "q8-arm82",
+      "loadSeconds": 0.951051,
+      "inferenceSeconds": 13.481191,
+      "exactBaselineTranscript": true,
+      "thermal": {
+        "before": {
+          "status": 0,
+          "skin": {
+            "celsius": 36.183224,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 36.800003,
+            "status": 0
+          },
+          "restrictions": {}
+        },
+        "after": {
+          "status": 0,
+          "skin": {
+            "celsius": 36.631985,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 36.9,
+            "status": 0
+          },
+          "restrictions": {
+            "thermal-cpufreq-2": 1
+          }
+        }
+      }
+    },
+    {
+      "variant": "q8-i8mm",
+      "loadSeconds": 0.734756,
+      "inferenceSeconds": 12.735931,
+      "exactBaselineTranscript": true,
+      "thermal": {
+        "before": {
+          "status": 0,
+          "skin": {
+            "celsius": 36.76704,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 36.7,
+            "status": 0
+          },
+          "restrictions": {}
+        },
+        "after": {
+          "status": 0,
+          "skin": {
+            "celsius": 36.669735,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 36.7,
+            "status": 0
+          },
+          "restrictions": {
+            "thermal-cpufreq-2": 2,
+            "thermal-cpufreq-1": 2
+          }
+        }
+      }
+    },
+    {
+      "variant": "base-t4",
+      "loadSeconds": 0.12444,
+      "inferenceSeconds": 2.443038,
+      "exactBaselineTranscript": false,
+      "thermal": {
+        "before": {
+          "status": 0,
+          "skin": {
+            "celsius": 35.089653,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 37.300003,
+            "status": 0
+          },
+          "restrictions": {}
+        },
+        "after": {
+          "status": 0,
+          "skin": {
+            "celsius": 35.181732,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 37.5,
+            "status": 0
+          },
+          "restrictions": {}
+        }
+      }
+    },
+    {
+      "variant": "small-t4",
+      "loadSeconds": 0.325531,
+      "inferenceSeconds": 7.228466,
+      "exactBaselineTranscript": false,
+      "thermal": {
+        "before": {
+          "status": 0,
+          "skin": {
+            "celsius": 33.66668,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 36.300003,
+            "status": 0
+          },
+          "restrictions": {}
+        },
+        "after": {
+          "status": 0,
+          "skin": {
+            "celsius": 34.317955,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 36.2,
+            "status": 0
+          },
+          "restrictions": {}
+        }
+      }
+    },
+    {
+      "variant": "small-beam5",
+      "loadSeconds": 0.322318,
+      "inferenceSeconds": 22.938234,
+      "exactBaselineTranscript": false,
+      "thermal": {
+        "before": {
+          "status": 0,
+          "skin": {
+            "celsius": 36.51231,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 36.9,
+            "status": 0
+          },
+          "restrictions": {}
+        },
+        "after": {
+          "status": 0,
+          "skin": {
+            "celsius": 37.16659,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 37.100002,
+            "status": 0
+          },
+          "restrictions": {
+            "thermal-cpufreq-2": 3,
+            "thermal-cpufreq-1": 1
+          }
+        }
+      }
+    },
+    {
+      "variant": "f16-ctx1280",
+      "loadSeconds": 1.058449,
+      "inferenceSeconds": 46.788423,
+      "exactBaselineTranscript": false,
+      "thermal": {
+        "before": {
+          "status": 0,
+          "skin": {
+            "celsius": 35.383747,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 37.800003,
+            "status": 0
+          },
+          "restrictions": {}
+        },
+        "after": {
+          "status": 0,
+          "skin": {
+            "celsius": 38.765938,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 39.100002,
+            "status": 0
+          },
+          "restrictions": {
+            "thermal-cpufreq-2": 14,
+            "thermal-cpufreq-0": 1,
+            "thermal-cpufreq-1": 7
+          }
+        }
+      }
+    }
+  ],
+  "privateMaterial": "Audio and transcripts are excluded. Native equality is relative to full Turbo F16, not a human-scored corpus.",
+  "applicationComparison": [
+    {
+      "model": "whisper-large-v3-turbo-f16",
+      "recognitionSeconds": 26.032543755,
+      "translationSeconds": 3.404516522,
+      "totalSeconds": 30.150142592,
+      "thermal": {
+        "before": {
+          "status": 0,
+          "skin": {
+            "celsius": 34.31492,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 34.300003,
+            "status": 0
+          },
+          "computeRestrictions": {}
+        },
+        "after": {
+          "status": 0,
+          "skin": {
+            "celsius": 36.041306,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 36.600002,
+            "status": 0
+          },
+          "computeRestrictions": {}
+        }
+      }
+    },
+    {
+      "model": "whisper-large-v3-turbo-q8_0",
+      "recognitionSeconds": 14.36484042,
+      "translationSeconds": 3.340506797,
+      "totalSeconds": 18.349957732,
+      "thermal": {
+        "before": {
+          "status": 0,
+          "skin": {
+            "celsius": 34.94953,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 35.300003,
+            "status": 0
+          },
+          "computeRestrictions": {}
+        },
+        "after": {
+          "status": 0,
+          "skin": {
+            "celsius": 36.644184,
+            "status": 0
+          },
+          "battery": {
+            "celsius": 36.100002,
+            "status": 0
+          },
+          "computeRestrictions": {}
+        }
+      }
+    }
+  ],
+  "applicationTranscriptComparison": {
+    "byteIdentical": false,
+    "wordsNumbersAndTimeIdentical": true,
+    "difference": "F16 includes a pair of quotation marks around the second utterance; Q8 omits them."
+  },
+  "validation": {
+    "unitTestsPassed": 108,
+    "lint": "PASS",
+    "appAndTestApkBuilds": "PASS",
+    "deviceTestsPassed": 5,
+    "q8CancellationMilliseconds": 214,
+    "preferencesUnchangedAfterTests": true,
+    "finalRecognitionModel": "whisper-large-v3-turbo-q8_0",
+    "buildBase": "f0a4ae7",
+    "liveMicrophoneTested": false
+  }
+}

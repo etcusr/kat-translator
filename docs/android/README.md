@@ -2,6 +2,8 @@
 
 **English** | [Русский](README.ru.md)
 
+Optional **Whisper large-v3-turbo Q8** (874 MB) is available in Models. In a fresh app comparison on a 25.18-second recording, recognition took **14.36 s versus 26.03 s for F16**; words, numbers and time match, with quotation marks differing. The tested Q8 package is selected on Pixel; F16 and Auto remain available. This development APK passed 108 unit tests, lint and five device checks; no distribution APK was replaced. [Variant comparison, build scope and quality limits](benchmarks/2026-10-17-whisper-options/README.md).
+
 Whisper CPU acceleration (17 October): the same large-v3-turbo F16 model recognized a 25.18-second input in **37.67 s instead of 117.41 s** through the real app path, with identical text. Compatible CPUs use FP16/dotprod; old arm64 CPUs retain baseline support. Run `setup-media.sh` again before rebuilding both libraries. Auto routing is unchanged. [Measurements, fallback, tests and thermal limits](benchmarks/2026-10-17-whisper-latency/README.md). This is installed in the development APK; saved distribution APKs were not replaced.
 
 Current release: **0.4.6 / code 21**. Compose, text/voice/camera, history and downloads; Index 9B on Vulkan with MTP, Index 2B on Vulkan without MTP, OPUS on CPU with separate directions, GigaAM/Parakeet ASR Auto. The initial translation choice is "Auto", based on the device class and language pair; a saved manual choice is kept. The initial CPU/GPU device check runs before language selection. [Current state](../CURRENT_STATE.md) · [install and build](INSTALL.md) · [actual layout](PLATFORM_LAYOUT.md).
@@ -141,6 +143,7 @@ Sizes below come from the current code/manifests, in decimal MB/GB. This is **fi
 |---|---:|---|
 | **Index-Translate 9B Q4_K_M** | **5 780 090 304 bytes / 5.78 GB** | Same GGUF, 5.38 GiB; first mandatory device test |
 | Whisper large-v3-turbo F16 | 1 624 555 275 bytes / 1.62 GB | Keep the baseline; pick a lighter Whisper only after a quality comparison |
+| Whisper large-v3-turbo Q8 | 874 188 075 bytes / 874 MB | Optional verified package; same Turbo architecture, compared on Pixel |
 | Piper Denis + LJ Speech | 183.01 MB of archives | 213.34 MB total by file manifests; shared data files may be deduplicated |
 | Supertonic 3 INT8 | 128.77 MB | 145.32 MB; candidate for the main multilingual TTS after tests |
 | Meta Omnilingual 300M INT8 | 292.31 MB | 366.71 MB; extra ASR languages, not all 1600 automatically available in Kat's UI |

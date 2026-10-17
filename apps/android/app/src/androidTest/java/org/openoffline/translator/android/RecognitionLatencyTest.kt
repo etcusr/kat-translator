@@ -21,12 +21,14 @@ class RecognitionLatencyTest {
         org.junit.Assume.assumeTrue("Opt in with -e recognitionLatency true",args.getString("recognitionLatency")=="true")
         val input=File(inst.targetContext.cacheDir,"asr-latency-input.wav")
         require(input.isFile && input.length() in 44..10_000_000)
+        val model=args.getString("recognitionModel","whisper-large-v3-turbo-f16")!!
+        require(model in setOf("whisper-large-v3-turbo-f16","whisper-large-v3-turbo-q8_0"))
         lateinit var state:TranslatorState
         ui.runOnIdle {
             state=ViewModelProvider(ui.activity)[TranslatorState::class.java]
             state.mode="voice";state.setHistory(false);state.changeRecordAudio(false)
             state.changeAutomaticSpeech(false);state.changeRecognitionPreference("whisper")
-            state.selectRecognition("whisper-large-v3-turbo-f16")
+            state.selectRecognition(model)
             state.selectTranslation("opus");state.chooseLanguage("ru",true);state.chooseLanguage("en",false)
         }
         ui.waitUntil(180_000) { state.packages.restored.value && !state.busy }
@@ -36,7 +38,7 @@ class RecognitionLatencyTest {
             ui.runOnIdle {
                 assertNull(state.error);assertEquals("whisper",state.recognitionBackend)
                 assertTrue(state.input.isNotBlank());assertTrue(state.output.isNotBlank())
-                val row=JSONObject().put("model","whisper-large-v3-turbo-f16")
+                val row=JSONObject().put("model",model)
                     .put("recognitionSeconds",requireNotNull(state.timing?.recognition))
                     .put("translationSeconds",state.timing?.translation)
                     .put("totalSeconds",state.timing?.total)
