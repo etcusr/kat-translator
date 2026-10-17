@@ -74,6 +74,7 @@ internal object UiStringsTr {
         "Ultra поддерживает 25 языков, включая русский и английский. Для остальных выберите Авто или Whisper." to "Ultra, Rusça ve İngilizce dahil 25 dili destekler. Diğer diller için Otomatik veya Whisper'ı seçin.",
         "Wayu не смог прочитать часть текста. Попробуйте записать иностранные имена тайскими буквами. Перевод сохранён." to "Wayu metnin bir bölümünü okuyamadı. Yabancı adları Tayca yazmayı deneyin. Çeviri korundu.",
         "Whisper (классический)" to "Whisper (klasik)",
+        "Whisper повторно проверяет неоднозначные дату и время в русской речи. Может увеличить ожидание." to "Whisper, Rusça konuşmadaki belirsiz tarih ve saatleri yeniden kontrol eder. Bekleme süresini artırabilir.",
         "Авто" to "Otomatik",
         "Авто выбирает GigaAM для русского и Parakeet для остальных 24 поддерживаемых языков. Скачайте нужные пакеты один раз; затем распознавание работает без интернета." to "Otomatik, Rusça için GigaAM'i, desteklenen diğer 24 dil için Parakeet'i seçer. Gerekli paketleri bir kez indirin; ardından tanıma çevrimdışı çalışır.",
         "Авто выбирает модель по исходному языку: русский — GigaAM, остальные поддерживаемые языки — Parakeet. Если модель не скачана, приложение предложит её загрузить. Для других языков остаётся встроенное распознавание Android; Whisper и Meta можно выбрать вручную." to "Otomatik, kaynak dile göre seçer: Rusça için GigaAM, desteklenen diğer diller için Parakeet. Model eksikse uygulama indirmeyi önerir. Diğer dillerde Android'in cihaz üzerinde tanıması kullanılır; Whisper ve Meta elle seçilebilir.",
@@ -113,9 +114,9 @@ internal object UiStringsTr {
         "В отчёте только показатели и версии, без голоса и текста." to "Rapor yalnızca ölçümleri ve sürümleri içerir; ses kaydı veya metin içermez.",
         "В очереди" to "Sırada",
         "В пакете отсутствует нужный файл." to "Pakette gerekli bir dosya eksik.",
-        "В приложениях с поддержкой служб: выделите текст → правый клик → Службы → Перевести в Kat translator." to "Servisler'i destekleyen uygulamalarda: metni seçin → sağ tıklayın → Servisler → Kat translator ile çevir.",
     )
     private fun part1() = mapOf(
+        "В приложениях с поддержкой служб: выделите текст → правый клик → Службы → Перевести в Kat translator." to "Servisler'i destekleyen uygulamalarda: metni seçin → sağ tıklayın → Servisler → Kat translator ile çevir.",
         "Ваши языки" to "Dilleriniz",
         "Введите текст" to "Metin girin",
         "Вернитесь в приложение и повторите действие." to "Uygulamaya dönüp yeniden deneyin.",
@@ -215,9 +216,9 @@ internal object UiStringsTr {
         "Женский · нейтральный" to "Kadın · nötr",
         "Женский · тёплый" to "Kadın · sıcak",
         "Женский · яркий" to "Kadın · parlak",
-        "Завершаю запись…" to "Kayıt tamamlanıyor…",
     )
     private fun part2() = mapOf(
+        "Завершаю запись…" to "Kayıt tamamlanıyor…",
         "Завершаю работу…" to "Kapatılıyor…",
         "Завершить запись" to "Kaydı bitir",
         "Загружать модель при запуске" to "Açılışta modeli yükle",
@@ -270,6 +271,7 @@ internal object UiStringsTr {
         "Использовать для распознавания" to "Tanıma için kullan",
         "Использовать открытый OCR" to "Açık kaynaklı OCR kullan",
         "Использовать этот голос" to "Bu sesi kullan",
+        "Исправлять дату и время" to "Tarih ve saati düzelt",
         "Исправляю перспективу…" to "Perspektif düzeltiliyor…",
         "История и отчёты" to "Geçmiş ve raporlar",
         "История очищена" to "Geçmiş temizlendi",
@@ -302,6 +304,7 @@ internal object UiStringsTr {
         "Конфиденциальность и точность" to "Gizlilik ve doğruluk",
         "Коснитесь текста для фокуса" to "Odaklamak için metne dokunun",
         "Лимит записи" to "Kayıt sınırı",
+        "Лицензии компонентов" to "Bileşen lisansları",
         "Лишние данные в архиве" to "Arşivde beklenmeyen veri",
         "Локальный перевод текста, речи и изображений. Доступность языков распознавания и озвучки зависит от установленных моделей." to "Metin, ses ve görüntülerin yerel çevirisi. Tanıma ve seslendirme dilleri yüklü modellere bağlıdır.",
         "МБ" to "MB",
@@ -315,11 +318,11 @@ internal object UiStringsTr {
         "Модели" to "Modeller",
         "Модели выгружены для освобождения памяти. Включите экономию памяти в настройках и подготовьте перевод снова." to "Belleği boşaltmak için modeller bellekten çıkarıldı. Ayarlar'dan bellek tasarrufunu açıp çeviriyi yeniden hazırlayın.",
         "Модели выполняют перевод на Android. После скачивания сеть для перевода не нужна." to "Modeller Android'de çeviri yapar. İndirildikten sonra çeviri için internet gerekmez.",
+    )
+    private fun part3() = mapOf(
         "Модели выполняют перевод на Mac. После скачивания сеть для перевода не нужна." to "Modeller Mac'inizde çeviri yapar. İndirildikten sonra internet bağlantısı gerekmez.",
         "Модели выполняют перевод на iPhone. После скачивания сеть для перевода не нужна." to "Modeller iPhone'unuzda çeviri yapar. İndirdikten sonra internet bağlantısı olmadan çevirebilirsiniz.",
         "Модели распознавания" to "Konuşma tanıma modelleri",
-    )
-    private fun part3() = mapOf(
         "Модели скачиваются со сторонних серверов. Google ML Kit для распознавания текста на фото передаёт Google технические метрики. История, включая исходные записи речи при включённом сохранении аудио, хранится локально. Копирование и отправка используют системный буфер обмена и выбранное приложение." to "Modeller üçüncü taraf sunuculardan indirilir. Görüntüde metin tanıma için kullanılan Google ML Kit, Google'a teknik ölçümler gönderir. Ses kaydetme açıkken orijinal kayıtlar dahil geçmiş yerel olarak saklanır. Kopyala ve Paylaş, sistem panosunu ve seçtiğiniz uygulamayı kullanır.",
         "Модель готова" to "Model hazır",
         "Модель используется. Сначала остановите перевод или озвучку" to "Model kullanımda. Önce çeviriyi veya seslendirmeyi durdurun",
@@ -376,6 +379,7 @@ internal object UiStringsTr {
         "Не удалось определить язык. Повторите фразу или выберите исходный язык вручную." to "Dil belirlenemedi. Başka bir cümle deneyin veya kaynak dili elle seçin.",
         "Не удалось открыть изображение. Выберите другое фото." to "Görüntü açılamadı. Başka bir fotoğraf seçin.",
         "Не удалось открыть файл" to "Dosya açılamadı",
+        "Не удалось открыть файл лицензий." to "Lisans dosyası açılamadı.",
         "Не удалось подготовить перевод." to "Çeviri hazırlanamadı.",
         "Не удалось полностью очистить историю: " to "Geçmiş tamamen temizlenemedi: ",
         "Не удалось получить снимок области экрана." to "Seçili ekran alanı yakalanamadı.",
@@ -416,12 +420,12 @@ internal object UiStringsTr {
         "Некорректный идентификатор модели." to "Geçersiz model kimliği.",
         "Неполный пакет" to "Paket eksik",
         "Нет адреса перенаправления" to "Yönlendirme adresi eksik",
+    )
+    private fun part4() = mapOf(
         "Нет данных" to "Veri yok",
         "Нет доступа к %@. Нажмите, чтобы разрешить в настройках Android." to "%@ erişimi yok. Android ayarlarından izin vermek için dokunun.",
         "Нет подключения к интернету" to "İnternet bağlantısı yok",
         "Новые языки подключены по списку модели. Качество перевода на телефоне ещё не проверено для каждой пары." to "Yeni diller modelin yayımlanmış listesine dayanır. Telefondaki çeviri kalitesi her dil çifti için doğrulanmamıştır.",
-    )
-    private fun part4() = mapOf(
         "Нужен доступ к %@. Нажмите, чтобы разрешить." to "%@ erişimi gerekiyor. İzin vermek için dokunun.",
         "Нужна повторная установка" to "Yeniden yükleme gerekiyor",
         "Нужно %@ свободного места; доступно %@." to "%@ boş alan gerekiyor; %@ kullanılabilir.",
@@ -518,12 +522,12 @@ internal object UiStringsTr {
         "Пакеты для перевода готовы" to "Çeviri paketleri hazır",
         "Память" to "Bellek",
         "Память и скачивание" to "Bellek ve indirmeler",
+    )
+    private fun part5() = mapOf(
         "Память приложения (footprint)" to "Uygulama belleği (footprint)",
         "Память: %.0f ГБ/с · GPU: %s · Index 9B с учётом нагрева: ~%.1f ток/с" to "Bellek: %.0f GB/sn · GPU: %s · ısınma payıyla Index 9B: ~%.1f belirteç/sn",
         "Память: %@ ГБ/с · GPU: %@ ГБ/с · Index 9B: ~%@ ток/с" to "Bellek: %@ GB/sn · GPU: %@ GB/sn · Index 9B: ~%@ belirteç/sn",
         "Папка моделей" to "Modeller klasörü",
-    )
-    private fun part5() = mapOf(
         "Пауза" to "Duraklat",
         "Первая подготовка распознавания может занять несколько минут. При смене языка может понадобиться загрузка другого распознавания." to "Konuşma tanımanın ilk hazırlığı birkaç dakika sürebilir. Dil değişikliği başka bir tanıma motorunun yüklenmesini gerektirebilir.",
         "Первая полная проверка моделей может занять некоторое время. При следующих запусках неизменённые файлы проверяются быстрее." to "İlk tam model kontrolü biraz sürebilir. Değişmeyen dosyalar sonraki açılışlarda daha hızlı kontrol edilir.",
@@ -620,12 +624,12 @@ internal object UiStringsTr {
         "Проверка пакета не пройдена" to "Paket doğrulaması başarısız",
         "Проверка повторно распознаёт запись и обновляет изменившиеся фразы перед озвучкой. Увеличивает ожидание и не гарантирует точность перевода." to "Doğrulama, kaydı yeniden yazıya döker ve oynatmadan önce değişen cümleleri günceller. Bekleme süresini artırır ve çevirinin doğruluğunu garanti etmez.",
         "Проверка устройства" to "Cihaz kontrolü",
+    )
+    private fun part6() = mapOf(
         "Проверка целостности не пройдена. Скачайте модель заново." to "Bütünlük doğrulaması başarısız. Modeli yeniden indirin.",
         "Проверка целостности…" to "Bütünlük doğrulanıyor…",
         "Проверяем системные и известные стандартные сочетания браузеров и Telegram. Пользовательские сочетания и расширения других приложений могут потребовать переназначения." to "Sistem kısayollarını ve tarayıcılarla Telegram'ın bilinen varsayılanlarını kontrol eder. Diğer uygulamaların özel kısayolları ve eklentileri yeniden atama gerektirebilir.",
         "Проверяем скачанные файлы озвучки" to "İndirilen ses dosyaları doğrulanıyor",
-    )
-    private fun part6() = mapOf(
         "Проверять текст после записи" to "Kayıttan sonra metni doğrula",
         "Проверяю голос…" to "Ses doğrulanıyor…",
         "Проверяю модели…" to "Modeller doğrulanıyor…",
@@ -722,12 +726,12 @@ internal object UiStringsTr {
         "Скачать голос" to "Ses indir",
         "Скачать голос: " to "Ses indir: ",
         "Скачать модели" to "Modelleri indir",
+    )
+    private fun part7() = mapOf(
         "Скачать модели · " to "Modelleri indir · ",
         "Скачать модели для перевода" to "Çeviri modellerini indir",
         "Скачать недостающие голоса" to "Eksik sesleri indir",
         "Скачать по Wi-Fi" to "Wi-Fi ile indir",
-    )
-    private fun part7() = mapOf(
         "Скачивание" to "İndiriliyor",
         "Скачивание направлений…" to "Yönler indiriliyor…",
         "Скачивание этого направления пока недоступно; установите файлы вручную" to "Bu yön henüz indirilemiyor; dosyaları elle yükleyin",
@@ -824,12 +828,12 @@ internal object UiStringsTr {
         "Файл больше ожидаемого пакета" to "Dosya beklenen paket boyutunu aşıyor",
         "Файл готов к отправке" to "Dosya paylaşılmaya hazır",
         "Файл модели" to "Model dosyası",
+    )
+    private fun part8() = mapOf(
         "Файл не соответствует SHA-256 пакета" to "Dosya paketin SHA-256 değeriyle eşleşmiyor",
         "Файл скачан не полностью" to "Dosya eksik",
         "Файл скачан не полностью. Попробуйте скачать модель заново." to "Dosya tamamen indirilmedi. Modeli yeniden indirin.",
         "Фрагмент слишком длинный для модели. Перевод не был обрезан — разделите реплику." to "Bu bölüm model için çok uzun. Çeviri kesilmedi; cümleyi daha küçük parçalara bölün.",
-    )
-    private fun part8() = mapOf(
         "Хранение в днях" to "Saklama süresi (gün)",
         "Хранилище" to "Depolama",
         "Хранилище приложения недоступно" to "Uygulama depolama alanı kullanılamıyor",

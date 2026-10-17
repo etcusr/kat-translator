@@ -7,6 +7,7 @@ private final class RecordingSink: @unchecked Sendable {
     private let lock = NSLock()
     private var paused = false
     private var pending = 0
+    private var tracedFirstBuffer = false
     private var failed = false
     private var buffer: BoundedRecordingBuffer
     private var conversionError: Error?
@@ -28,7 +29,13 @@ private final class RecordingSink: @unchecked Sendable {
             let first = !failed; failed = true; lock.unlock()
             if first { onFailure() }; return
         }
+        let traceFirst = RecordingStopTrace.enabled && !tracedFirstBuffer
+        tracedFirstBuffer = true
         pending += 1; lock.unlock()
+        if traceFirst {
+            let time = ProcessInfo.processInfo.systemUptime
+            Task { @MainActor in RecordingStopTrace.mark("start.firstPCM", at: time) }
+        }
         guard let copy = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameLength) else {
             lock.lock(); pending -= 1; failed = true; lock.unlock(); onFailure(); return
         }
@@ -80,6 +87,21 @@ private final class RecordingSink: @unchecked Sendable {
     }
 }
 
+/// One exclusive off-main operation. No caller touches the engine until the
+/// continuation returns, including cancellation/route-change cleanup.
+private struct RecordingEngineStartup: @unchecked Sendable {
+    let engine: AVAudioEngine
+    func start() async throws {
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            DispatchQueue.global(qos: .userInitiated).async {
+                do { try engine.start(); continuation.resume() }
+                catch { continuation.resume(throwing: error) }
+            }
+            if RecordingStopTrace.enabled { Task { @MainActor in RecordingStopTrace.mark("start.mainResponsive") } }
+        }
+    }
+}
+
 @MainActor final class AudioRecorder: ObservableObject {
     @Published private(set) var isRecording = false
     @Published private(set) var isPaused = false
@@ -94,6 +116,7 @@ private final class RecordingSink: @unchecked Sendable {
     }
     var onLimit: (() -> Void)?
     var onInterruption: ((String) -> Void)?
+    private var engineStartInFlight = false
     private var engine: AVAudioEngine?
     private var sink: RecordingSink?
     private var timer: Task<Void, Never>?
@@ -128,7 +151,9 @@ private final class RecordingSink: @unchecked Sendable {
         #endif
     }
     func start(silenceSeconds: Double = SilenceMonitor.defaultTimeout, limitMinutes: Double = RecordingPolicy.defaultMinutes) async throws {
+        try Task.checkCancellation()
         guard !isRecording, !starting else { return }
+        RecordingStopTrace.mark("start.recorder")
         starting = true; generation += 1; let operation = generation
         defer { starting = false }
         #if os(macOS)
@@ -136,23 +161,33 @@ private final class RecordingSink: @unchecked Sendable {
         #else
         let permitted = await AVAudioApplication.requestRecordPermission()
         #endif
+        RecordingStopTrace.mark("start.permissionReady")
+        guard generation == operation, !Task.isCancelled else { throw CancellationError() }
         guard permitted else {
             throw NSError(domain: "Audio", code: 2, userInfo: [NSLocalizedDescriptionKey: L10n.text("Разрешите доступ к микрофону в настройках iPhone.")])
         }
-        guard generation == operation else { throw CancellationError() }
+        guard generation == operation, !Task.isCancelled else { throw CancellationError() }
         guard let vadURL = Bundle.main.url(forResource: "silero_vad", withExtension: "onnx") else { throw PipelineError.modelLoad }
+        RecordingStopTrace.mark("start.vadBegin")
         let detector = try await Task.detached { try SpeechActivityDetector(modelURL: vadURL, silenceSeconds: silenceSeconds) }.value
-        guard generation == operation else { throw CancellationError() }
+        guard generation == operation, !Task.isCancelled else { throw CancellationError() }
+        RecordingStopTrace.mark("start.vadReady")
         var started = false
         defer { if !started { cancel() } }
         #if os(iOS)
         let session = AVAudioSession.sharedInstance()
+        RecordingStopTrace.mark("start.sessionBegin")
         try session.setCategory(.playAndRecord, mode: .measurement, options: [.defaultToSpeaker])
         try session.setActive(true)
         activatedSession = true
+        RecordingStopTrace.mark("start.sessionReady")
         #endif
         let engine = AVAudioEngine()
-        let input = engine.inputNode; let format = input.outputFormat(forBus: 0)
+        RecordingStopTrace.mark("start.engineCreated")
+        let input = engine.inputNode
+        RecordingStopTrace.mark("start.inputReady")
+        let format = input.outputFormat(forBus: 0)
+        RecordingStopTrace.mark("start.formatReady")
         guard format.sampleRate > 0, format.channelCount > 0 else { throw AudioError.invalidFormat }
         let limit = RecordingPolicy.limitSeconds(minutes: limitMinutes)
         limitSeconds = limit
@@ -175,8 +210,25 @@ private final class RecordingSink: @unchecked Sendable {
         }
         finalSpeechEnd = 0
         input.installTap(onBus: 0, bufferSize: 2048, format: format) { buffer, _ in sink.append(buffer) }
-        self.engine = engine; self.sink = sink
-        engine.prepare(); try engine.start()
+        RecordingStopTrace.mark("start.tapReady")
+        self.sink = sink
+        engine.prepare()
+        RecordingStopTrace.mark("start.enginePrepared")
+        // start() can wait for the audio service for over a second. The engine is
+        // owned by this operation until it completes; cancellation only latches
+        // the generation and pauses the sink, never stopping a starting engine.
+        engineStartInFlight = true
+        let startup = RecordingEngineStartup(engine: engine)
+        do {
+            try await startup.start()
+        } catch {
+            engineStartInFlight = false; self.engine = engine
+            guard generation == operation, !Task.isCancelled else { throw CancellationError() }
+            throw error
+        }
+        engineStartInFlight = false; self.engine = engine
+        guard generation == operation, !Task.isCancelled else { throw CancellationError() }
+        RecordingStopTrace.mark("start.engineReady")
         elapsed = 0; isPaused = false; deferredLimit = false; isRecording = true
         started = true
         clock = RecordingClock(start: ProcessInfo.processInfo.systemUptime)
@@ -219,13 +271,14 @@ private final class RecordingSink: @unchecked Sendable {
         generation += 1; stopEngine(); sink = nil
     }
     private func stopEngine() {
+        sink?.setPaused(true)
         timer?.cancel(); timer = nil
         engine?.inputNode.removeTap(onBus: 0); engine?.stop(); engine = nil
         isRecording = false; isPaused = false; clock = nil; deferredLimit = false
         #if os(iOS)
         // Idle cleanup must not stop another player's process-wide audio session.
         // Track activation separately: setup can fail before engine is assigned.
-        if activatedSession {
+        if activatedSession, !engineStartInFlight {
             activatedSession = false
             try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
         }

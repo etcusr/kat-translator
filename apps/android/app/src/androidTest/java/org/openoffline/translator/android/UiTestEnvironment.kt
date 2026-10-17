@@ -30,7 +30,7 @@ object UiTestEnvironment {
     }).around(activity)
 
     private val changedKeys=setOf("unfinishedAutomaticModelLoad","automaticModelLoad","interfaceLanguage","recordingMode","recordingLimitMinutes",
-        "recordingSilenceSeconds","recordingPreprocessing","recordingPreviewVerification","recognitionPreference",
+        "recordingSilenceSeconds","whisperDateTimeRepair","recordingPreprocessing","recordingPreviewVerification","recognitionPreference",
         "historyRecordText","historyRecordAudio","historyRecordImages","translationModel","recognitionModel",
         "source","target","manualSource","automaticSpeech","automaticSpeechVoice","automaticSpeechText","favoriteLanguages",
         "historyCount","historyDays","audioCount","audioDays","imageCount","imageDays","memorySaving","playbackSpeed")

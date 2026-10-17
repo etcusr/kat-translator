@@ -29,7 +29,10 @@ for folder in ['shared/apple', 'apps/ios', 'apps/macos', 'shared/packages/Offlin
     for path in Path(folder).rglob('*.swift'):
         if 'tests' in path.parts: continue
         # Language names are data for bilingual search. L10n owns plural lookup.
-        if path.name in {'LanguageSelection.swift', 'L10n.swift', 'ASRComparisonProbe.swift'}: continue # Fixed developer audio/text fixtures are not UI copy.
+        if path.name in {'LanguageSelection.swift', 'L10n.swift', 'ASRComparisonProbe.swift',
+                         'RecordingPreviewProbe.swift', 'RussianSpeechText.swift', 'WhisperDateTimeRepair.swift'}:
+            # Developer fixtures and language-processing vocabulary are not interface copy.
+            continue
         source = path.read_text()
         for start, end, key, raw, args in module.literals(source):
             if not source[:start].endswith('L10n.text('): errors.append(f'{path}: unlocalized {raw}')

@@ -18,8 +18,8 @@ public enum WhisperDateTimeRepair {
         let month: String
     }
 
-    public static func needsRetry(_ text: String, language: SpeechLanguage) -> Bool {
-        language == .russian && candidate(text) != nil
+    public static func needsRetry(_ text: String, language: SpeechLanguage, enabled: Bool = false) -> Bool {
+        enabled && language == .russian && candidate(text) != nil
     }
 
     public static func repair(_ original: String, retry: String) -> String {

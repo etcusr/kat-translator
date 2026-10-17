@@ -122,6 +122,9 @@ public struct ConversationFields: Sendable {
         player.setRate(Float(speed.rawValue))
     }
     @Published public private(set) var isReady = false
+    @Published public private(set) var isRecognitionReady = false
+    @Published public private(set) var isPreparingRecognition = false
+    @Published public private(set) var recognitionPreparationError: String?
     @Published public private(set) var samples: [PipelineBenchmark] = []
     @Published public private(set) var preparationSeconds: Double?
     private let asr: any ASRBackend
@@ -150,11 +153,15 @@ public struct ConversationFields: Sendable {
     private var recordingPreview: RecordingPreviewCoordinator?
     @Published public private(set) var isRecordingPreview = false
     private var nextSpeech: Task<PreparedSpeech?, Error>?
-    private var files: PipelineFiles?
+    private var files: PipelineFiles? { didSet { refreshRecognitionReadiness() } }
     private var memorySaving = false
     private var recognitionReleasePending = false
-    private var asrLoaded = false, mtLoaded = false
-    private var loadedASRURL: URL?
+    private var recognitionNeeded = true
+    private var recognitionSource: SpeechLanguage?
+    private var recognitionSelection = 0
+    private var asrLoaded = false { didSet { refreshRecognitionReadiness() } }
+    private var mtLoaded = false
+    private var loadedASRURL: URL? { didSet { refreshRecognitionReadiness() } }
     private var voiceLoaded: SpeechLanguage?
     private var generation = 0
     private var active: Task<Void, Never>?
@@ -164,9 +171,44 @@ public struct ConversationFields: Sendable {
     }
     private var now: Double { ProcessInfo.processInfo.systemUptime }
     private func check(_ id: Int) throws { try Task.checkCancellation(); if id != generation { throw CancellationError() } }
+    public func recognitionIsReady(for source: SpeechLanguage?, preference: RecognitionPreference? = nil) -> Bool {
+        guard recognitionNeeded, asrLoaded, let files,
+              preference == nil || preference == files.recognitionPreference,
+              let url = try? files.recognitionURL(for: source) else { return false }
+        return loadedASRURL == url
+    }
+    private func refreshRecognitionReadiness() {
+        isRecognitionReady = recognitionIsReady(for: recognitionSource)
+    }
+    /// The input tab owns recognition residency independently of the last result's mode.
+    /// Wait for native work before switching; only the latest tab request may proceed.
+    public func setRecognitionNeeded(_ needed: Bool, source: SpeechLanguage? = nil) async {
+        recognitionSelection += 1; let selection = recognitionSelection
+        defer { if selection == recognitionSelection { isPreparingRecognition = false } }
+        recognitionNeeded = needed; recognitionSource = source
+        recognitionPreparationError = nil; refreshRecognitionReadiness()
+        let work = active, preview = recordingPreview, teardown = unloading
+        await work?.value; await preview?.waitForIdle(); await teardown?.value
+        guard selection == recognitionSelection, !Task.isCancelled, unloading == nil else { return }
+        guard !isBusy else { return }
+        if needed {
+            guard isReady else { return }
+            isPreparingRecognition = true
+            await preloadRecognition(source: source)
+        } else if asrLoaded {
+            isBusy = true
+            let job = Task {
+                defer { isBusy = false; active = nil }
+                await asr.unload(); asrLoaded = false; loadedASRURL = nil
+            }
+            active = job; await job.value
+        }
+    }
     public func prepare(_ files: PipelineFiles, memorySaving: Bool, recognitionLanguage: SpeechLanguage? = nil, resultMode: ConversationMode? = nil) async {
         guard !isBusy, unloading == nil else { return }
         if let resultMode { activeMode = resultMode }
+        recognitionNeeded = resultMode == nil || resultMode == .voice
+        recognitionSource = recognitionLanguage; recognitionPreparationError = nil
         generation += 1; let id = generation; isBusy = true; isReady = false; error = nil
         let previousFiles = self.files
         self.files = files; self.memorySaving = memorySaving
@@ -176,10 +218,25 @@ public struct ConversationFields: Sendable {
             do {
                 if mtLoaded, memorySaving || previousFiles?.translation != files.translation || previousFiles?.translationModel != files.translationModel { await translator.unload(); mtLoaded = false }
                 try check(id)
-                let initialASR = try? files.recognitionURL(for: recognitionLanguage)
+                // App callers pass the current input mode. Voice preparation includes every
+                // selected recognizer; text preparation never allocates speech recognition.
+                let initialASR = resultMode == .voice ? try files.recognitionURL(for: recognitionLanguage)
+                    : (resultMode == nil ? try? files.recognitionURL(for: recognitionLanguage) : nil)
                 if asrLoaded, loadedASRURL != initialASR { await asr.unload(); asrLoaded = false; loadedASRURL = nil }
-                if let initialASR, !files.translationModel.defersRecognitionLoading || (!memorySaving && initialASR.lastPathComponent == RecognitionCatalog.ultraID) {
-                    if !asrLoaded { stage = L10n.text("Загружаю распознавание…"); try await asr.load(modelURL: initialASR); asrLoaded = true; loadedASRURL = initialASR }
+                // Large translation loading has a higher transient footprint. Finish it
+                // before adding recognition; memory saving still defers MT to its stage.
+                if resultMode == .voice, !memorySaving, !mtLoaded {
+                    if asrLoaded { await asr.unload(); asrLoaded = false; loadedASRURL = nil }
+                    stage = L10n.text("Загружаю перевод…")
+                    try await translator.load(modelURL: files.translation, model: files.translationModel); mtLoaded = true
+                    try check(id)
+                }
+                // MT loading yields to tab/language changes; honor the current Voice
+                // requirement before allocating recognition, not its initial snapshot.
+                let selectedASR = recognitionNeeded
+                    ? (resultMode == .voice ? try files.recognitionURL(for: recognitionSource) : initialASR) : nil
+                if let selectedASR, resultMode == .voice || !files.translationModel.defersRecognitionLoading || (!memorySaving && selectedASR.lastPathComponent == RecognitionCatalog.ultraID) {
+                    if !asrLoaded { stage = L10n.text("Загружаю распознавание…"); try await asr.load(modelURL: selectedASR); asrLoaded = true; loadedASRURL = selectedASR }
                 }
                 try check(id)
                 if !memorySaving, !mtLoaded { stage = L10n.text("Загружаю перевод…"); try await translator.load(modelURL: files.translation, model: files.translationModel); mtLoaded = true }
@@ -238,11 +295,11 @@ public struct ConversationFields: Sendable {
         }
         active = job; await job.value
     }
-    /// Warm the selected recognizer before microphone capture, not after the user stops speaking.
+    /// Warm recognition during voice preparation, before presenting the microphone.
     public func preloadRecognition(source: SpeechLanguage?) async {
         guard isReady, !isBusy, unloading == nil, let files else { return }
         generation += 1; let id = generation
-        isBusy = true; error = nil
+        isBusy = true; recognitionPreparationError = nil
         let job = Task {
             defer { isBusy = false; stage = ""; active = nil }
             do {
@@ -257,7 +314,12 @@ public struct ConversationFields: Sendable {
                     try await asr.load(modelURL: url); asrLoaded = true; loadedASRURL = url
                 }
                 try check(id)
-            } catch is CancellationError {} catch { if id == generation { self.error = error.localizedDescription } }
+            } catch is CancellationError {} catch { if id == generation { recognitionPreparationError = error.localizedDescription } }
+            // Native loading can finish after cancellation invalidates a waiting tab
+            // request. Its owning job must still release a context no longer needed.
+            if !recognitionNeeded, asrLoaded {
+                await asr.unload(); asrLoaded = false; loadedASRURL = nil
+            }
         }
         active = job; await job.value
     }
@@ -463,6 +525,7 @@ public struct ConversationFields: Sendable {
                 metric.status = id == generation ? "failed" : "cancelled"
                 if id == generation { self.error = error.localizedDescription }
             }
+            if !recognitionNeeded { recognitionReleasePending = true }
             await releaseRecognitionIfRequested()
         }
         active = job; await job.value
@@ -645,6 +708,11 @@ public struct ConversationFields: Sendable {
         translationProgress = nil
         isSpeechPaused = false
         generation += 1
+        if isPreparingRecognition {
+            recognitionSelection += 1; recognitionNeeded = false
+            isPreparingRecognition = false
+            refreshRecognitionReadiness()
+        }
         if let preview = recordingPreview {
             preview.cancel()
             Task {

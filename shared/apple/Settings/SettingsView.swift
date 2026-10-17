@@ -7,6 +7,7 @@ struct SettingsView: View {
     @AppStorage("recordingMode") private var mode: RecordingMode = .toggle
     @AppStorage("recordingSilenceSeconds") private var silenceSeconds = SilenceMonitor.defaultTimeout
     @AppStorage("recordingLimitMinutes") private var limitMinutes = RecordingPolicy.defaultMinutes
+    @AppStorage("whisperDateTimeRepair") private var dateTimeRepair = false
     @AppStorage("recordingPreprocessing") private var preprocessing = true
     @AppStorage("recordingPreviewVerification") private var verification = true
     @AppStorage("memorySaving") private var memorySaving = false
@@ -92,6 +93,12 @@ struct SettingsView: View {
                         Text(L10n.text("Ultra поддерживает 25 языков, включая русский и английский. Для остальных выберите Авто или Whisper."))
                     }
                     if let issue = model.voiceLanguageIssue { Text(issue) }
+                }
+                Section {
+                    Toggle(L10n.text("Исправлять дату и время"), isOn: $dateTimeRepair)
+                        .accessibilityIdentifier("settings.whisperDateTimeRepair")
+                } footer: {
+                    Text(L10n.text("Whisper повторно проверяет неоднозначные дату и время в русской речи. Может увеличить ожидание."))
                 }
                 Section {
                     Toggle(L10n.text("Обрабатывать во время записи"), isOn: $preprocessing)

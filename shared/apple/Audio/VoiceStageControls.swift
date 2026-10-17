@@ -58,15 +58,15 @@ struct VoiceStageControls: View {
     }
     var body: some View {
         VStack(spacing: 16) {
-            if !packages.restored || (!session.isReady && busy) {
+            if !packages.restored || (!session.isReady && busy) || session.isPreparingRecognition {
                 ModelPreparationView(checking: !packages.restored,
                     status: !packages.restored ? L10n.text("Проверяю модели…") : status,
                     canCancel: session.isBusy || model.importingAudio, cancel: model.cancel)
             } else if !packages.ready {
                 Button(L10n.text("Скачать модели для перевода"), action: showModels)
                     .katPrimaryAction().foregroundStyle(.black).fontWeight(.semibold)
-            } else if !session.isReady {
-                Button(prepareTitle) { Task { await model.load() } }
+            } else if !session.isReady || (!model.isVoiceReady && !busy) {
+                Button(prepareTitle) { Task { await model.load(resultMode: .voice) } }
                     .katPrimaryAction().foregroundStyle(.black).fontWeight(.semibold).disabled(busy)
                     .accessibilityIdentifier("voice.prepare")
             } else {
@@ -75,7 +75,7 @@ struct VoiceStageControls: View {
                     if !busy { audioImportButton }
                     #endif
                 ZStack {
-                    RecordButton(mode: recordingMode, enabled: !busy && model.voiceLanguageIssue == nil,
+                    RecordButton(mode: recordingMode, enabled: !busy && model.isVoiceReady && model.voiceLanguageIssue == nil,
                                  recording: recorder.isRecording, starting: recorder.starting || model.preparingRecording,
                                  processing: session.isBusy && !recorder.isRecording || model.finishing || model.importingAudio,
                                  paused: recorder.isPaused, speaking: session.isSpeaking,

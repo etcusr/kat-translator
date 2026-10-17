@@ -28,12 +28,12 @@ class SettingsParityTest {
         finally { bitmap.recycle() }
     }
     @Test fun settingsUseExplicitPickersStepperAndConditionalVerification() {
-        var language="";var mode="";var minutes=0;var silence=0;var preprocessing=false;var verification=false
+        var language="";var mode="";var minutes=0;var silence=0;var preprocessing=false;var verification=false;var dateRepair=false
         val orientation=ui.activity.requestedOrientation
         ui.runOnIdle {
             language=state().interfaceLanguage;mode=state().recordingMode;minutes=state().recordingMinutes
             silence=state().silenceSeconds
-            preprocessing=state().recordingPreprocessing;verification=state().recordingVerification
+            preprocessing=state().recordingPreprocessing;verification=state().recordingVerification;dateRepair=state().whisperDateTimeRepair
             state().changeInterfaceLanguage("ru")
             ui.activity.requestedOrientation=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
@@ -61,6 +61,11 @@ class SettingsParityTest {
             val nextSilence=if(silence==7)8 else 7
             ui.onNodeWithTag("settings.recordingSilence").performScrollTo().performSemanticsAction(SemanticsActions.SetProgress) { assertTrue(it(nextSilence.toFloat())) }
             ui.runOnIdle { assertEquals(nextSilence,state().silenceSeconds) }
+            ui.onNodeWithTag("settings.whisperDateTimeRepair").performScrollTo().performClick()
+            ui.runOnIdle {
+                assertEquals(!dateRepair,state().whisperDateTimeRepair)
+                assertEquals(!dateRepair,ui.activity.getSharedPreferences("kat",0).getBoolean("whisperDateTimeRepair",dateRepair))
+            }
             if(!preprocessing)ui.onNodeWithTag("settings.recordingPreprocessing").performScrollTo().performClick()
             ui.onNodeWithTag("settings.recordingPreviewVerification").performScrollTo().assertIsDisplayed().performClick()
             ui.runOnIdle { assertEquals(!verification,state().recordingVerification) }
@@ -89,7 +94,7 @@ class SettingsParityTest {
             ui.runOnIdle {
                 state().changeInterfaceLanguage(language);state().changeRecordingMode(mode);state().setRecordingLimit(minutes)
                 state().setSilence(silence)
-                state().changeRecordingPreprocessing(preprocessing);state().changeRecordingVerification(verification)
+                state().changeRecordingPreprocessing(preprocessing);state().changeRecordingVerification(verification);state().changeWhisperDateTimeRepair(dateRepair)
                 ui.activity.requestedOrientation=orientation
             }
         }

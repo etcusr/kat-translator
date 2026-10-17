@@ -97,14 +97,33 @@ JNI(tts) jfloatArray JNICALL Java_org_openoffline_translator_inference_MediaNati
   times[2]=elapsed();audio.reset();engine.reset();times[3]=elapsed();e->SetDoubleArrayRegion(timing,0,4,times);return result;
  }catch(const std::exception &ex){media_error(e,ex.what());return nullptr;}
 }
-JNI(omni) jbyteArray JNICALL Java_org_openoffline_translator_inference_MediaNative_omni(JNIEnv *e,jobject,jbyteArray model,jbyteArray tokens,jfloatArray samples,jlong flag){
- try{
- auto m=media_string(e,model),t=media_string(e,tokens);auto pcm=media_samples(e,samples);void *f=reinterpret_cast<void *>(flag);if(wt_abort(f))return nullptr;
- std::unique_ptr<const SherpaOnnxOfflineRecognizer,decltype(&SherpaOnnxDestroyOfflineRecognizer)> engine(ot_omni_create(m.c_str(),t.c_str()),SherpaOnnxDestroyOfflineRecognizer);if(!engine)throw std::runtime_error("Omnilingual model could not be loaded");
- std::unique_ptr<const SherpaOnnxOfflineStream,decltype(&SherpaOnnxDestroyOfflineStream)> stream(SherpaOnnxCreateOfflineStream(engine.get()),SherpaOnnxDestroyOfflineStream);if(!stream)throw std::runtime_error("Omnilingual stream failed");
- SherpaOnnxAcceptWaveformOffline(stream.get(),16000,pcm.data(),pcm.size());if(wt_abort(f))return nullptr;SherpaOnnxDecodeOfflineStream(engine.get(),stream.get());if(wt_abort(f))return nullptr;
- std::unique_ptr<const SherpaOnnxOfflineRecognizerResult,decltype(&SherpaOnnxDestroyOfflineRecognizerResult)> result(SherpaOnnxGetOfflineStreamResult(stream.get()),SherpaOnnxDestroyOfflineRecognizerResult);if(!result)throw std::runtime_error("Omnilingual inference failed");return media_bytes(e,result->text?result->text:"");
+JNI(omniCreate) jlong JNICALL Java_org_openoffline_translator_inference_MediaNative_omniCreate(JNIEnv *e,jobject,jbyteArray model,jbyteArray tokens){
+ try {
+  auto m=media_string(e,model),t=media_string(e,tokens);
+  auto *engine=ot_omni_create(m.c_str(),t.c_str());if(!engine)throw std::runtime_error("Omnilingual model could not be loaded");
+  return reinterpret_cast<jlong>(engine);
+ }catch(const std::exception &ex){media_error(e,ex.what());return 0;}
+}
+JNI(omniFree) void JNICALL Java_org_openoffline_translator_inference_MediaNative_omniFree(JNIEnv *,jobject,jlong handle){
+ if(handle)SherpaOnnxDestroyOfflineRecognizer(reinterpret_cast<const SherpaOnnxOfflineRecognizer *>(handle));
+}
+JNI(omniRun) jbyteArray JNICALL Java_org_openoffline_translator_inference_MediaNative_omniRun(JNIEnv *e,jobject,jlong handle,jfloatArray samples,jlong flag){
+ try {
+  auto *engine=reinterpret_cast<const SherpaOnnxOfflineRecognizer *>(handle);
+  if(!engine || !flag)throw std::runtime_error("Omnilingual model or cancellation is missing");
+  auto pcm=media_samples(e,samples);void *f=reinterpret_cast<void *>(flag);if(wt_abort(f))return nullptr;
+  std::unique_ptr<const SherpaOnnxOfflineStream,decltype(&SherpaOnnxDestroyOfflineStream)> stream(SherpaOnnxCreateOfflineStream(engine),SherpaOnnxDestroyOfflineStream);if(!stream)throw std::runtime_error("Omnilingual stream failed");
+  SherpaOnnxAcceptWaveformOffline(stream.get(),16000,pcm.data(),pcm.size());if(wt_abort(f))return nullptr;SherpaOnnxDecodeOfflineStream(engine,stream.get());if(wt_abort(f))return nullptr;
+  std::unique_ptr<const SherpaOnnxOfflineRecognizerResult,decltype(&SherpaOnnxDestroyOfflineRecognizerResult)> result(SherpaOnnxGetOfflineStreamResult(stream.get()),SherpaOnnxDestroyOfflineRecognizerResult);if(!result)throw std::runtime_error("Omnilingual inference failed");return media_bytes(e,result->text?result->text:"");
  }catch(const std::exception &ex){media_error(e,ex.what());return nullptr;}
+}
+// Keep the original full-lifetime boundary for existing callers/tests.
+JNI(omni) jbyteArray JNICALL Java_org_openoffline_translator_inference_MediaNative_omni(JNIEnv *e,jobject obj,jbyteArray model,jbyteArray tokens,jfloatArray samples,jlong flag){
+ if(!flag){media_error(e,"Missing cancellation");return nullptr;}
+ if(wt_abort(reinterpret_cast<void *>(flag)))return nullptr;
+ auto handle=Java_org_openoffline_translator_inference_MediaNative_omniCreate(e,obj,model,tokens);if(!handle)return nullptr;
+ auto result=Java_org_openoffline_translator_inference_MediaNative_omniRun(e,obj,handle,samples,flag);
+ Java_org_openoffline_translator_inference_MediaNative_omniFree(e,obj,handle);return result;
 }
 JNI(nemoCreate) jlong JNICALL Java_org_openoffline_translator_inference_MediaNative_nemoCreate(JNIEnv *e,jobject,jbyteArray directory,jboolean parakeet){
  try {

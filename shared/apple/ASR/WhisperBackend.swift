@@ -46,6 +46,7 @@ final class WhisperBackend: ASRBackend, @unchecked Sendable {
         try Task.checkCancellation()
         if let language, language.whisperCode == nil { throw PipelineError.recognitionUnavailable }
         guard !audio.samples.isEmpty else { throw WhisperError.noSpeech }
+        let repairDateTime = UserDefaults.standard.bool(forKey: "whisperDateTimeRepair")
         let flag = try WhisperFlag()
         setActive(flag)
         defer { clearActive(flag) }
@@ -93,7 +94,7 @@ final class WhisperBackend: ASRBackend, @unchecked Sendable {
                     // Only retry a short Russian clip with an ambiguous time/date triple.
                     // The original remains authoritative unless acoustic word evidence agrees.
                     if audio.samples.count <= 30 * 16_000,
-                       WhisperDateTimeRepair.needsRetry(text, language: detectedLanguage) {
+                       WhisperDateTimeRepair.needsRetry(text, language: detectedLanguage, enabled: repairDateTime) {
                         params.no_timestamps = true // Digit suppression must not suppress timestamp tokens.
                         params.max_tokens = 256 // A truncated retry fails word agreement and keeps the original.
                         let retryCode = "ru".withCString { lang in

@@ -1,5 +1,7 @@
 # Apple Whisper: separating spoken time and date — 2026-10-17
 
+Follow-up: [optional correction and recognition preparation](../date-setting-capture-2026-10-18/README.md). The checks below describe the original source-validation stage.
+
 ## Change
 
 Apple `WhisperBackend` keeps its normal large-v3-turbo F16/Metal greedy decoding. A Russian clip of at most 30 seconds with one plausible time/day triple separated by dots or hyphens immediately before a month name gets one additional acoustic decoding. Only that retry suppresses digit tokens, disables timestamps and caps output at 256 tokens. Disabling timestamps is necessary: suppressing digits while retaining timestamp decoding produced a repeated punctuation tail in the rejected experiment.

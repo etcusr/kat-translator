@@ -74,6 +74,7 @@ internal object UiStringsEs {
         "Ultra поддерживает 25 языков, включая русский и английский. Для остальных выберите Авто или Whisper." to "Ultra admite 25 idiomas, incluidos ruso e inglés. Para otros idiomas, elija Auto o Whisper.",
         "Wayu не смог прочитать часть текста. Попробуйте записать иностранные имена тайскими буквами. Перевод сохранён." to "Wayu no ha podido leer parte del texto. Pruebe a escribir los nombres extranjeros en tailandés. La traducción se ha conservado.",
         "Whisper (классический)" to "Whisper (clásico)",
+        "Whisper повторно проверяет неоднозначные дату и время в русской речи. Может увеличить ожидание." to "Whisper vuelve a comprobar fechas y horas ambiguas en el habla rusa. Puede aumentar la espera.",
         "Авто" to "Auto",
         "Авто выбирает GigaAM для русского и Parakeet для остальных 24 поддерживаемых языков. Скачайте нужные пакеты один раз; затем распознавание работает без интернета." to "Auto elige GigaAM para ruso y Parakeet para los otros 24 idiomas compatibles. Descargue una vez los paquetes necesarios; después el reconocimiento funciona sin conexión.",
         "Авто выбирает модель по исходному языку: русский — GigaAM, остальные поддерживаемые языки — Parakeet. Если модель не скачана, приложение предложит её загрузить. Для других языков остаётся встроенное распознавание Android; Whisper и Meta можно выбрать вручную." to "Auto elige según el idioma de origen: GigaAM para ruso y Parakeet para los demás idiomas compatibles. Si falta el modelo, la app ofrece descargarlo. Los otros idiomas usan el reconocimiento local de Android; Whisper y Meta se pueden elegir manualmente.",
@@ -113,9 +114,9 @@ internal object UiStringsEs {
         "В отчёте только показатели и версии, без голоса и текста." to "El informe solo incluye métricas y versiones, sin grabaciones de voz ni texto.",
         "В очереди" to "En cola",
         "В пакете отсутствует нужный файл." to "Falta un archivo necesario en el paquete.",
-        "В приложениях с поддержкой служб: выделите текст → правый клик → Службы → Перевести в Kat translator." to "En apps que admiten Servicios: seleccione texto → clic derecho → Servicios → Traducir en Kat translator.",
     )
     private fun part1() = mapOf(
+        "В приложениях с поддержкой служб: выделите текст → правый клик → Службы → Перевести в Kat translator." to "En apps que admiten Servicios: seleccione texto → clic derecho → Servicios → Traducir en Kat translator.",
         "Ваши языки" to "Sus idiomas",
         "Введите текст" to "Escriba texto",
         "Вернитесь в приложение и повторите действие." to "Vuelva a la app e inténtelo de nuevo.",
@@ -215,9 +216,9 @@ internal object UiStringsEs {
         "Женский · нейтральный" to "Femenina · neutra",
         "Женский · тёплый" to "Femenina · cálida",
         "Женский · яркий" to "Femenina · brillante",
-        "Завершаю запись…" to "Finalizando grabación…",
     )
     private fun part2() = mapOf(
+        "Завершаю запись…" to "Finalizando grabación…",
         "Завершаю работу…" to "Saliendo…",
         "Завершить запись" to "Finalizar grabación",
         "Загружать модель при запуске" to "Cargar modelo al iniciar",
@@ -270,6 +271,7 @@ internal object UiStringsEs {
         "Использовать для распознавания" to "Usar para reconocimiento",
         "Использовать открытый OCR" to "Usar OCR de código abierto",
         "Использовать этот голос" to "Usar esta voz",
+        "Исправлять дату и время" to "Corregir fecha y hora",
         "Исправляю перспективу…" to "Corrigiendo perspectiva…",
         "История и отчёты" to "Historial e informes",
         "История очищена" to "Historial borrado",
@@ -302,6 +304,7 @@ internal object UiStringsEs {
         "Конфиденциальность и точность" to "Privacidad y precisión",
         "Коснитесь текста для фокуса" to "Toque el texto para enfocar",
         "Лимит записи" to "Límite de grabación",
+        "Лицензии компонентов" to "Licencias de componentes",
         "Лишние данные в архиве" to "Datos inesperados en el archivo comprimido",
         "Локальный перевод текста, речи и изображений. Доступность языков распознавания и озвучки зависит от установленных моделей." to "Traducción local de texto, voz e imágenes. Los idiomas de reconocimiento y de voz dependen de los modelos instalados.",
         "МБ" to "MB",
@@ -315,11 +318,11 @@ internal object UiStringsEs {
         "Модели" to "Modelos",
         "Модели выгружены для освобождения памяти. Включите экономию памяти в настройках и подготовьте перевод снова." to "Los modelos se han descargado de la memoria para liberarla. Active el ahorro de memoria en Ajustes y prepare de nuevo la traducción.",
         "Модели выполняют перевод на Android. После скачивания сеть для перевода не нужна." to "Los modelos traducen en Android. Tras descargarlos, no se necesita internet para traducir.",
+    )
+    private fun part3() = mapOf(
         "Модели выполняют перевод на Mac. После скачивания сеть для перевода не нужна." to "Los modelos traducen en su Mac. Una vez descargados, no necesitan conexión a internet.",
         "Модели выполняют перевод на iPhone. После скачивания сеть для перевода не нужна." to "Los modelos traducen en su iPhone. Tras descargarlos, puede traducir sin conexión a internet.",
         "Модели распознавания" to "Modelos de reconocimiento de voz",
-    )
-    private fun part3() = mapOf(
         "Модели скачиваются со сторонних серверов. Google ML Kit для распознавания текста на фото передаёт Google технические метрики. История, включая исходные записи речи при включённом сохранении аудио, хранится локально. Копирование и отправка используют системный буфер обмена и выбранное приложение." to "Los modelos se descargan de servidores de terceros. Google ML Kit, usado para reconocer texto en imágenes, envía métricas técnicas a Google. El historial, incluidas las grabaciones originales si se guarda audio, se almacena localmente. Copiar y Compartir usan el portapapeles del sistema y la app elegida.",
         "Модель готова" to "Modelo listo",
         "Модель используется. Сначала остановите перевод или озвучку" to "El modelo está en uso. Detenga primero la traducción o la voz",
@@ -376,6 +379,7 @@ internal object UiStringsEs {
         "Не удалось определить язык. Повторите фразу или выберите исходный язык вручную." to "No se ha identificado el idioma. Pruebe otra frase o elija el idioma de origen manualmente.",
         "Не удалось открыть изображение. Выберите другое фото." to "No se ha podido abrir la imagen. Elija otra foto.",
         "Не удалось открыть файл" to "No se ha podido abrir el archivo",
+        "Не удалось открыть файл лицензий." to "No se pudo abrir el archivo de licencias.",
         "Не удалось подготовить перевод." to "No se ha podido preparar la traducción.",
         "Не удалось полностью очистить историю: " to "No se ha podido borrar todo el historial: ",
         "Не удалось получить снимок области экрана." to "No se ha podido capturar el área de pantalla seleccionada.",
@@ -416,12 +420,12 @@ internal object UiStringsEs {
         "Некорректный идентификатор модели." to "Identificador de modelo no válido.",
         "Неполный пакет" to "Paquete incompleto",
         "Нет адреса перенаправления" to "Falta la dirección de redirección",
+    )
+    private fun part4() = mapOf(
         "Нет данных" to "Sin datos",
         "Нет доступа к %@. Нажмите, чтобы разрешить в настройках Android." to "Sin acceso a %@. Toque para permitirlo en los ajustes de Android.",
         "Нет подключения к интернету" to "Sin conexión a internet",
         "Новые языки подключены по списку модели. Качество перевода на телефоне ещё не проверено для каждой пары." to "Los nuevos idiomas siguen la lista publicada del modelo. No se ha verificado la calidad en el teléfono para todos los pares.",
-    )
-    private fun part4() = mapOf(
         "Нужен доступ к %@. Нажмите, чтобы разрешить." to "Se necesita acceso a %@. Toque para permitirlo.",
         "Нужна повторная установка" to "Es necesario reinstalar",
         "Нужно %@ свободного места; доступно %@." to "Se necesitan %@ libres; hay %@ disponibles.",
@@ -518,12 +522,12 @@ internal object UiStringsEs {
         "Пакеты для перевода готовы" to "Paquetes de traducción listos",
         "Память" to "Memoria",
         "Память и скачивание" to "Memoria y descargas",
+    )
+    private fun part5() = mapOf(
         "Память приложения (footprint)" to "Memoria de la app (footprint)",
         "Память: %.0f ГБ/с · GPU: %s · Index 9B с учётом нагрева: ~%.1f ток/с" to "Memoria: %.0f GB/s · GPU: %s · Index 9B con margen térmico: ~%.1f tokens/s",
         "Память: %@ ГБ/с · GPU: %@ ГБ/с · Index 9B: ~%@ ток/с" to "Memoria: %@ GB/s · GPU: %@ GB/s · Index 9B: ~%@ tokens/s",
         "Папка моделей" to "Carpeta de modelos",
-    )
-    private fun part5() = mapOf(
         "Пауза" to "Pausa",
         "Первая подготовка распознавания может занять несколько минут. При смене языка может понадобиться загрузка другого распознавания." to "La primera preparación del reconocimiento de voz puede tardar varios minutos. Cambiar el idioma puede requerir cargar otro reconocedor.",
         "Первая полная проверка моделей может занять некоторое время. При следующих запусках неизменённые файлы проверяются быстрее." to "La primera comprobación completa de modelos puede tardar un poco. Los archivos sin cambios se verifican más rápido en los próximos inicios.",
@@ -620,12 +624,12 @@ internal object UiStringsEs {
         "Проверка пакета не пройдена" to "La verificación del paquete ha fallado",
         "Проверка повторно распознаёт запись и обновляет изменившиеся фразы перед озвучкой. Увеличивает ожидание и не гарантирует точность перевода." to "La verificación transcribe de nuevo la grabación y actualiza las frases modificadas antes de reproducirlas. Añade tiempo de espera y no garantiza la precisión de la traducción.",
         "Проверка устройства" to "Comprobación del dispositivo",
+    )
+    private fun part6() = mapOf(
         "Проверка целостности не пройдена. Скачайте модель заново." to "La verificación de integridad ha fallado. Descargue el modelo de nuevo.",
         "Проверка целостности…" to "Verificando integridad…",
         "Проверяем системные и известные стандартные сочетания браузеров и Telegram. Пользовательские сочетания и расширения других приложений могут потребовать переназначения." to "Comprueba los atajos del sistema y los predeterminados conocidos de navegadores y Telegram. Los atajos personalizados y las extensiones de otras apps pueden requerir reasignación.",
         "Проверяем скачанные файлы озвучки" to "Verificando archivos de voz descargados",
-    )
-    private fun part6() = mapOf(
         "Проверять текст после записи" to "Verificar texto tras grabar",
         "Проверяю голос…" to "Verificando voz…",
         "Проверяю модели…" to "Verificando modelos…",
@@ -722,12 +726,12 @@ internal object UiStringsEs {
         "Скачать голос" to "Descargar voz",
         "Скачать голос: " to "Descargar voz: ",
         "Скачать модели" to "Descargar modelos",
+    )
+    private fun part7() = mapOf(
         "Скачать модели · " to "Descargar modelos · ",
         "Скачать модели для перевода" to "Descargar modelos de traducción",
         "Скачать недостающие голоса" to "Descargar voces que faltan",
         "Скачать по Wi-Fi" to "Descargar por Wi-Fi",
-    )
-    private fun part7() = mapOf(
         "Скачивание" to "Descargando",
         "Скачивание направлений…" to "Descargando direcciones…",
         "Скачивание этого направления пока недоступно; установите файлы вручную" to "La descarga de esta dirección aún no está disponible; instale los archivos manualmente",
@@ -824,12 +828,12 @@ internal object UiStringsEs {
         "Файл больше ожидаемого пакета" to "El archivo supera el tamaño esperado del paquete",
         "Файл готов к отправке" to "Archivo listo para compartir",
         "Файл модели" to "Archivo del modelo",
+    )
+    private fun part8() = mapOf(
         "Файл не соответствует SHA-256 пакета" to "El archivo no coincide con el SHA-256 del paquete",
         "Файл скачан не полностью" to "El archivo está incompleto",
         "Файл скачан не полностью. Попробуйте скачать модель заново." to "El archivo no se ha descargado por completo. Descargue el modelo de nuevo.",
         "Фрагмент слишком длинный для модели. Перевод не был обрезан — разделите реплику." to "Este fragmento es demasiado largo para el modelo. No se ha recortado la traducción; divida la frase en partes más pequeñas.",
-    )
-    private fun part8() = mapOf(
         "Хранение в днях" to "Conservación en días",
         "Хранилище" to "Almacenamiento",
         "Хранилище приложения недоступно" to "El almacenamiento de la app no está disponible",

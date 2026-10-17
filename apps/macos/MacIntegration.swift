@@ -56,7 +56,7 @@ enum QuickTranslationLanguage {
     }
     var unavailable: Bool {
         guard let model else { return true }
-        return task != nil || selectionTask != nil || capture != nil || permissionTask != nil || model.isShuttingDown || model.externalOperation || model.session.isBusy || model.recorder.isRecording || model.recorder.starting || model.preparingRecording || model.finishing || model.importingAudio || model.changingTranslation || model.camera.opening || model.camera.recognizing || model.camera.translation.working
+        return task != nil || selectionTask != nil || capture != nil || permissionTask != nil || model.isShuttingDown || model.externalOperation || (model.session.isBusy && !model.session.isPreparingRecognition) || model.recorder.isRecording || model.recorder.starting || model.preparingRecording || model.finishing || model.importingAudio || model.changingTranslation || model.camera.opening || model.camera.recognizing || model.camera.translation.working
     }
     func perform(_ action: MacShortcutAction) {
         switch action {
@@ -102,6 +102,7 @@ enum QuickTranslationLanguage {
         guard !unavailable, let model else { busyNotice(); return }
         let source = source.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !source.isEmpty else { return }
+        model.selectInputMode(.text)
         text = source; message = nil; needsAccessibility = false; needsScreenCapture = false; showingPermissionMessage = false
         let target = QuickTranslationLanguage.target()
         model.languages = LanguageSelection(sourceID: model.languages.sourceID, targetID: target.rawValue, automaticRequested: model.languages.automaticRequested)
@@ -118,6 +119,7 @@ enum QuickTranslationLanguage {
         task = Task {
             defer { working = false; model.externalOperation = false; task = nil }
             await model.closeCamera()
+            await model.synchronizeRecognition()
             await model.packages.restore()
             guard !Task.isCancelled, !model.isShuttingDown else { return }
             guard model.packages.ready, model.packages.translationTermsAccepted else {

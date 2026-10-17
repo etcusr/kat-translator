@@ -19772,6 +19772,62 @@
           }
         }
       }
+    },
+    "Исправлять дату и время": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Исправлять дату и время"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Correct date and time"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corregir fecha y hora"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarih ve saati düzelt"
+          }
+        }
+      }
+    },
+    "Whisper повторно проверяет неоднозначные дату и время в русской речи. Может увеличить ожидание.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Whisper повторно проверяет неоднозначные дату и время в русской речи. Может увеличить ожидание."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Whisper rechecks ambiguous dates and times in Russian speech. May increase waiting time."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Whisper vuelve a comprobar fechas y horas ambiguas en el habla rusa. Puede aumentar la espera."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Whisper, Rusça konuşmadaki belirsiz tarih ve saatleri yeniden kontrol eder. Bekleme süresini artırabilir."
+          }
+        }
+      }
     }
   },
   "version": "1.0"

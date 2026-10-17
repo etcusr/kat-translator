@@ -22,7 +22,16 @@ private actor TestASR: ASRBackend {
     let calls: Calls
     init(_ calls: Calls) { self.calls = calls }
     var loadedURLs: [URL] = []
-    func load(modelURL: URL) async throws { loadedURLs.append(modelURL); await calls.add("loadASR") }
+    var loadingContinuation: CheckedContinuation<Void, Never>?
+    var delayLoading = false, failLoading = false
+    var loading: Bool { loadingContinuation != nil }
+    func configureLoad(delay: Bool = false, fail: Bool = false) { delayLoading = delay; failLoading = fail }
+    func resolveLoad() { loadingContinuation?.resume(); loadingContinuation = nil; delayLoading = false }
+    func load(modelURL: URL) async throws {
+        loadedURLs.append(modelURL); await calls.add("loadASR")
+        if delayLoading { await withCheckedContinuation { loadingContinuation = $0 } }
+        if failLoading { throw PipelineError.modelLoad }
+    }
     func transcribe(_ audio: CapturedAudio, language: SpeechLanguage?) async throws -> ASRResult {
         await calls.add(language == nil ? "ASR:auto" : "ASR")
         sampleCounts.append(audio.samples.count)
@@ -48,8 +57,16 @@ private actor TestMT: TranslationBackend {
     let calls: Calls
     var delayed = false
     var continuation: CheckedContinuation<TranslationResult, Error>?
+    var delayLoading = false
+    var loadingContinuation: CheckedContinuation<Void, Never>?
+    var loading: Bool { loadingContinuation != nil }
+    func delayLoad() { delayLoading = true }
+    func resolveLoad() { loadingContinuation?.resume(); loadingContinuation = nil; delayLoading = false }
     init(_ calls: Calls) { self.calls = calls }
-    func load(modelURL: URL) async throws { await calls.add("loadMT") }
+    func load(modelURL: URL) async throws {
+        await calls.add("loadMT")
+        if delayLoading { await withCheckedContinuation { loadingContinuation = $0 } }
+    }
     func load(modelURL: URL, model: TranslationModel) async throws { loadedModels.append(model); try await load(modelURL: modelURL) }
     func delay() { delayed = true }
     func translate(text: String, source: SpeechLanguage, target: SpeechLanguage) async throws -> TranslationResult {
@@ -165,6 +182,215 @@ private actor StreamingMT: TranslationBackend {
     func unload() async {}
 }
 @MainActor final class ConversationPipelineTests: XCTestCase {
+    func testVoicePreparationLoadsRecognitionBeforeReadyAndTextKeepsTranslation() async {
+        let calls = Calls(), asr = TestASR(Calls())
+        await asr.configureLoad(delay: true)
+        let pipeline = ConversationPipeline(asr: asr, translator: TestMT(calls), speech: TestTTS(calls), player: TestPlayer(calls))
+        let work = Task { await pipeline.prepare(files, memorySaving: false, resultMode: .voice) }
+        while !(await asr.loading) { await Task.yield() }
+        XCTAssertFalse(pipeline.isReady); XCTAssertFalse(pipeline.isRecognitionReady)
+        await asr.resolveLoad(); await work.value
+        XCTAssertTrue(pipeline.isReady); XCTAssertTrue(pipeline.isRecognitionReady)
+        await pipeline.setRecognitionNeeded(false)
+        XCTAssertTrue(pipeline.isReady); XCTAssertFalse(pipeline.isRecognitionReady)
+        let mtCalls = await calls.items
+        XCTAssertEqual(mtCalls, ["loadMT"])
+        await pipeline.setRecognitionNeeded(true, source: .russian)
+        XCTAssertTrue(pipeline.isRecognitionReady)
+        let asrCalls = await asr.calls.items
+        XCTAssertEqual(asrCalls, ["loadASR", "unloadASR", "loadASR"])
+    }
+
+    func testTextPreparationNeverLoadsRecognitionEvenWithSmallModel() async {
+        let calls = Calls()
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: TestMT(calls), speech: TestTTS(calls), player: TestPlayer(calls))
+        await pipeline.prepare(PipelineFiles(asr: nil, translation: files.translation, voices: [:], translationModel: .index2B), memorySaving: false, resultMode: .text)
+        XCTAssertTrue(pipeline.isReady); XCTAssertFalse(pipeline.isRecognitionReady)
+        let events = await calls.items
+        XCTAssertEqual(events, ["loadMT"])
+    }
+
+    func testLeavingVoiceDuringInitialTranslationLoadDoesNotAllocateRecognition() async {
+        let calls = Calls(), mt = TestMT(Calls())
+        await mt.delayLoad()
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: mt, speech: TestTTS(calls), player: TestPlayer(calls))
+        let prepare = Task { await pipeline.prepare(files, memorySaving: false, resultMode: .voice) }
+        while !(await mt.loading) { await Task.yield() }
+        let selectedText = expectation(description: "Text selected during MT load")
+        let text = Task {
+            selectedText.fulfill()
+            await pipeline.setRecognitionNeeded(false)
+        }
+        await fulfillment(of: [selectedText], timeout: 1)
+        await mt.resolveLoad(); await prepare.value; await text.value
+        XCTAssertTrue(pipeline.isReady); XCTAssertFalse(pipeline.isRecognitionReady)
+        let events = await calls.items
+        XCTAssertEqual(events, [], "Leaving Voice before recognition starts must avoid allocating it")
+    }
+
+    func testLatestTabSelectionWaitsForLoadingBeforeReleaseAndReturn() async {
+        let calls = Calls(), asr = TestASR(Calls())
+        let pipeline = ConversationPipeline(asr: asr, translator: TestMT(calls), speech: TestTTS(calls), player: TestPlayer(calls))
+        await pipeline.prepare(files, memorySaving: false, resultMode: .text)
+        await asr.configureLoad(delay: true)
+        let voice = Task { await pipeline.setRecognitionNeeded(true, source: .russian) }
+        while !(await asr.loading) { await Task.yield() }
+        let text = Task { await pipeline.setRecognitionNeeded(false) }
+        await Task.yield()
+        XCTAssertFalse(pipeline.isRecognitionReady)
+        let before = await asr.calls.items
+        XCTAssertEqual(before, ["loadASR"], "Never free a loading context")
+        await asr.resolveLoad(); await voice.value; await text.value
+        XCTAssertFalse(pipeline.isRecognitionReady); XCTAssertFalse(pipeline.isBusy)
+        await pipeline.setRecognitionNeeded(true, source: .english)
+        XCTAssertTrue(pipeline.isRecognitionReady)
+        let after = await asr.calls.items
+        XCTAssertEqual(after, ["loadASR", "unloadASR", "loadASR"])
+    }
+
+    func testRecognitionLoadFailureLeavesTextReadyAndCanRetry() async {
+        let calls = Calls(), asr = TestASR(Calls())
+        let pipeline = ConversationPipeline(asr: asr, translator: TestMT(calls), speech: TestTTS(calls), player: TestPlayer(calls))
+        await pipeline.prepare(files, memorySaving: false, resultMode: .text)
+        await asr.configureLoad(fail: true)
+        await pipeline.setRecognitionNeeded(true, source: .russian)
+        XCTAssertTrue(pipeline.isReady); XCTAssertFalse(pipeline.isRecognitionReady)
+        XCTAssertNotNil(pipeline.recognitionPreparationError)
+        await asr.configureLoad()
+        await pipeline.setRecognitionNeeded(true, source: .russian)
+        XCTAssertTrue(pipeline.isRecognitionReady); XCTAssertNil(pipeline.recognitionPreparationError)
+    }
+
+    func testMemorySavingVoicePreparesRecognitionAgainAfterTurn() async {
+        let calls = Calls()
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: TestMT(calls), speech: TestTTS(calls), player: TestPlayer(calls))
+        await pipeline.prepare(files, memorySaving: true, resultMode: .voice)
+        XCTAssertTrue(pipeline.isRecognitionReady)
+        await pipeline.run(audio: CapturedAudio(samples: [0.1]), source: .russian, target: .english, speakResult: false, inputMode: "toggle", thermal: "nominal")
+        XCTAssertFalse(pipeline.isRecognitionReady)
+        await pipeline.setRecognitionNeeded(true, source: .russian)
+        XCTAssertTrue(pipeline.isRecognitionReady)
+        let events = await calls.items
+        XCTAssertEqual(events.filter { $0 == "loadASR" }.count, 2)
+    }
+
+    func testLeavingVoiceWaitsForActiveRecognitionAndPreservesResult() async {
+        let calls = Calls(), asr = TestASR(Calls())
+        let pipeline = ConversationPipeline(asr: asr, translator: TestMT(calls), speech: TestTTS(calls), player: TestPlayer(calls))
+        await pipeline.prepare(files, memorySaving: false, resultMode: .voice)
+        await asr.delay()
+        let run = Task { await pipeline.run(audio: CapturedAudio(samples: [0.1]), source: .russian, target: .english, speakResult: false, inputMode: "toggle", thermal: "nominal") }
+        while !(await asr.waiting) { await Task.yield() }
+        let leave = Task { await pipeline.setRecognitionNeeded(false) }
+        await Task.yield()
+        let before = await asr.calls.items
+        XCTAssertFalse(before.contains("unloadASR"))
+        await asr.resolve(); await run.value; await leave.value
+        XCTAssertFalse(pipeline.isRecognitionReady); XCTAssertTrue(pipeline.isReady)
+        XCTAssertEqual(pipeline.voiceFields.translatedText, "Do not add sugar")
+        let after = await asr.calls.items
+        XCTAssertEqual(after.last, "unloadASR")
+        let mtCalls = await calls.items
+        XCTAssertFalse(mtCalls.contains("unloadMT")); XCTAssertFalse(mtCalls.contains("unloadTTS"))
+    }
+
+    func testRapidVoiceTextVoiceKeepsOnlyLatestRecognitionSelection() async {
+        let calls = Calls(), asr = TestASR(Calls())
+        let pipeline = ConversationPipeline(asr: asr, translator: TestMT(calls), speech: TestTTS(calls), player: TestPlayer(calls))
+        await pipeline.prepare(files, memorySaving: false, resultMode: .text)
+        await asr.configureLoad(delay: true)
+        let first = Task { await pipeline.setRecognitionNeeded(true, source: .russian) }
+        while !(await asr.loading) { await Task.yield() }
+        let text = Task { await pipeline.setRecognitionNeeded(false) }
+        await Task.yield()
+        let last = Task { await pipeline.setRecognitionNeeded(true, source: .english) }
+        await Task.yield()
+        await asr.resolveLoad(); await first.value; await text.value; await last.value
+        XCTAssertTrue(pipeline.isRecognitionReady)
+        XCTAssertFalse(pipeline.isPreparingRecognition)
+        let events = await asr.calls.items
+        XCTAssertEqual(events, ["loadASR"], "Stale Text request must not free the latest Voice context")
+    }
+
+    func testFailedInitialVoicePreparationDoesNotExposeMicrophone() async {
+        let calls = Calls(), asr = TestASR(Calls())
+        await asr.configureLoad(fail: true)
+        let pipeline = ConversationPipeline(asr: asr, translator: TestMT(calls), speech: TestTTS(calls), player: TestPlayer(calls))
+        await pipeline.prepare(files, memorySaving: false, resultMode: .voice)
+        XCTAssertFalse(pipeline.isReady); XCTAssertFalse(pipeline.isRecognitionReady)
+        XCTAssertNotNil(pipeline.voiceFields.error)
+        await asr.configureLoad()
+        await pipeline.prepare(files, memorySaving: false, resultMode: .voice)
+        XCTAssertTrue(pipeline.isReady); XCTAssertTrue(pipeline.isRecognitionReady)
+    }
+
+    func testExplicitVoicePreparationUsesSelectedRecognizerForEveryRoute() async throws {
+        let whisper = URL(fileURLWithPath: "/" + ModelDescriptor.turbo.id + ".bin")
+        let ultra = URL(fileURLWithPath: "/" + RecognitionCatalog.ultraID)
+        let omni = URL(fileURLWithPath: "/omnilingual")
+        let nonWhisper = try XCTUnwrap(SpeechLanguage.allCases.first { $0.whisperCode == nil && RecognitionCatalog.omnilingualCodes[$0.rawValue] != nil })
+        for (preference, language, expected) in [(RecognitionPreference.whisper, SpeechLanguage.russian, whisper), (.ultra, .english, ultra), (.automatic, nonWhisper, omni)] {
+            let calls = Calls(), asr = TestASR(Calls())
+            let pipeline = ConversationPipeline(asr: asr, translator: TestMT(calls), speech: TestTTS(calls), player: TestPlayer(calls))
+            let selected = PipelineFiles(asr: whisper, translation: files.translation, voices: [:], translationModel: .index9B, omnilingual: omni, ultra: ultra, recognitionPreference: preference)
+            await pipeline.prepare(selected, memorySaving: true, recognitionLanguage: language, resultMode: .voice)
+            XCTAssertTrue(pipeline.recognitionIsReady(for: language, preference: preference))
+            let urls = await asr.loadedURLs
+            XCTAssertEqual(urls, [expected])
+            let events = await calls.items
+            XCTAssertTrue(events.isEmpty, "Memory saving must not load translation alongside prepared ASR")
+        }
+    }
+
+    func testVoicePreparationLoadsLargeTranslationBeforeRecognition() async {
+        let calls = Calls()
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: TestMT(calls), speech: TestTTS(calls), player: TestPlayer(calls))
+        await pipeline.prepare(files, memorySaving: false, resultMode: .voice)
+        let events = await calls.items
+        XCTAssertEqual(events, ["loadMT", "loadASR"])
+    }
+
+    func testCancelledRecognitionPreparationCannotExposeLateLoadedMicrophone() async {
+        let calls = Calls()
+        let asr = TestASR(calls)
+        let pipeline = ConversationPipeline(asr: asr, translator: TestMT(calls), speech: TestTTS(calls), player: TestPlayer(calls))
+        await pipeline.prepare(files, memorySaving: false, resultMode: .text)
+        await asr.configureLoad(delay: true)
+        let warm = Task { await pipeline.setRecognitionNeeded(true, source: .russian) }
+        while !(await asr.loading) { await Task.yield() }
+        let text = Task { await pipeline.setRecognitionNeeded(false) }
+        while pipeline.isRecognitionReady { await Task.yield() }
+        await Task.yield()
+        pipeline.cancel()
+        await asr.resolveLoad(); await warm.value; await text.value
+        XCTAssertFalse(pipeline.isRecognitionReady); XCTAssertFalse(pipeline.isPreparingRecognition)
+        let events = await calls.items
+        XCTAssertEqual(events, ["loadMT", "loadASR", "unloadASR"])
+        await pipeline.setRecognitionNeeded(true, source: .russian)
+        XCTAssertTrue(pipeline.isRecognitionReady)
+    }
+
+    func testAudioProcessedWhileTextSelectedReleasesRecognitionAtCompletion() async {
+        let calls = Calls()
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: TestMT(calls), speech: TestTTS(calls), player: TestPlayer(calls))
+        await pipeline.prepare(files, memorySaving: false, resultMode: .text)
+        await pipeline.run(audio: CapturedAudio(samples: [0.1]), source: .russian, target: .english, speakResult: false, inputMode: "file", thermal: "nominal")
+        let events = await calls.items
+        XCTAssertEqual(events, ["loadMT", "loadASR", "ASR", "MT", "unloadASR"])
+        XCTAssertFalse(pipeline.isRecognitionReady); XCTAssertTrue(pipeline.isReady)
+    }
+
+    func testMemoryPressureInvalidatesMicrophoneWithoutReloadingRecognition() async {
+        let calls = Calls()
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: TestMT(calls), speech: TestTTS(calls), player: TestPlayer(calls))
+        await pipeline.prepare(files, memorySaving: false, resultMode: .voice)
+        await calls.reset()
+        let handled = await pipeline.relieveMemoryPressure()
+        XCTAssertTrue(handled); XCTAssertTrue(pipeline.isReady)
+        XCTAssertFalse(pipeline.isRecognitionReady); XCTAssertFalse(pipeline.isPreparingRecognition)
+        let events = await calls.items
+        XCTAssertEqual(events, ["unloadASR"])
+    }
     func testStreamingRetainsWholeLongSentence() async throws {
         let calls = Calls(), tts = TestTTS(calls)
         let first = "Please confirm that the hotel reservation includes breakfast for every guest and a quiet room with a beautiful view of the city."

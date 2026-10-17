@@ -185,6 +185,41 @@ import SwiftUI
         XCTAssertEqual(pipeline.textFields.translatedText, "12345")
         await pipeline.unload()
     }
+    func testExternalTextWaitsForRecognitionPreparationAndReleasesIt() async throws {
+        let asr = SuspendedIntegrationASR()
+        let pipeline = ConversationPipeline(asr: asr, translator: SlowIntegrationMT(), speech: IntegrationSpeech(), player: IntegrationPlayer())
+        let model = AppModel(session: pipeline)
+        let oldLanguages = model.languages
+        let defaults = UserDefaults.standard, oldQuick = UserDefaults.standard.object(forKey: QuickTranslationLanguage.preferenceKey)
+        defer {
+            model.languages = oldLanguages; model.integration.cancel()
+            if let oldQuick { defaults.set(oldQuick, forKey: QuickTranslationLanguage.preferenceKey) }
+            else { defaults.removeObject(forKey: QuickTranslationLanguage.preferenceKey) }
+        }
+        defaults.set("ru", forKey: QuickTranslationLanguage.preferenceKey)
+        model.languages = LanguageSelection(sourceID: "en", targetID: "ru", automaticRequested: false)
+        await model.packages.restore()
+        let url = FileManager.default.temporaryDirectory
+        await pipeline.prepare(PipelineFiles(asr: url, translation: url, voices: [:], translationModel: .index9B), memorySaving: false, resultMode: .text)
+        let warm = Task { await pipeline.setRecognitionNeeded(true, source: .english) }
+        for _ in 0..<200 where !(await asr.loading) { try await Task.sleep(for: .milliseconds(5)) }
+        XCTAssertTrue(pipeline.isPreparingRecognition)
+        model.integration.accept("The library opens at nine.")
+        XCTAssertTrue(model.integration.working)
+        XCTAssertEqual(model.inputMode, .text)
+        model.integration.activateRequestedText()
+        await Task.yield()
+        XCTAssertTrue(pipeline.textFields.sourceText.isEmpty)
+        await asr.resolveLoad(); await warm.value
+        for _ in 0..<300 where pipeline.textFields.sourceText.isEmpty { try await Task.sleep(for: .milliseconds(5)) }
+        XCTAssertEqual(pipeline.textFields.sourceText, "The library opens at nine.")
+        let unloaded = await asr.unloaded
+        XCTAssertTrue(unloaded); XCTAssertFalse(pipeline.isRecognitionReady)
+        XCTAssertTrue(model.integration.unavailable, "Active translation must still reject another request")
+        model.cancel()
+        for _ in 0..<300 where model.integration.working { try await Task.sleep(for: .milliseconds(5)) }
+        await pipeline.unload()
+    }
     func testServicesRoutesToMainTextAndRejectsBusyRequests() async throws {
         let pipeline = ConversationPipeline(asr: IntegrationASR(), translator: IntegrationMT(), speech: IntegrationSpeech(), player: IntegrationPlayer())
         let model = AppModel(session: pipeline)
@@ -358,6 +393,19 @@ private actor IntegrationASR: ASRBackend {
     func transcribe(_ audio: CapturedAudio, language: SpeechLanguage?) async throws -> ASRResult { ASRResult(text: "Original", language: .english, processingSeconds: 0) }
     nonisolated func cancel() {}
     func unload() async {}
+}
+private actor SuspendedIntegrationASR: ASRBackend {
+    private var continuation: CheckedContinuation<Void, Never>?
+    private(set) var loading = false
+    private(set) var unloaded = false
+    func load(modelURL: URL) async throws {
+        loading = true
+        await withCheckedContinuation { continuation = $0 }
+    }
+    func resolveLoad() { continuation?.resume(); continuation = nil }
+    func transcribe(_ audio: CapturedAudio, language: SpeechLanguage?) async throws -> ASRResult { ASRResult(text: "Original", language: .english, processingSeconds: 0) }
+    nonisolated func cancel() {}
+    func unload() async { unloaded = true }
 }
 private actor IntegrationMT: TranslationBackend {
     func load(modelURL: URL) async throws {}

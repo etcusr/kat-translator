@@ -282,11 +282,12 @@ internal fun shareFile(context:Context,file:File,mime:String) {
     }
     Column(Modifier.fillMaxWidth().testTag("voice.workspace").verticalScroll(rememberScrollState()).padding(20.dp),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(16.dp)) {
         LanguageControls(state,open)
-        if(!state.modelReady && !state.recording) {
+        if(!state.voiceReady && !state.recording) {
             Pill(if(state.installed)tr("Подготовить модель","Prepare model") else tr("Скачать модели для перевода","Download translation models"),"voice.prepare",!state.busy) {
                 if(state.installed)state.prepare() else open("models")
             }
         }
+        if(state.voiceReady || state.recording) {
         val label=if(state.recording)tr("Остановить запись","Stop recording") else tr("Начать запись","Start recording")
         Box(Modifier.size(116.dp).testTag("voice.record").semantics { contentDescription=label;role=Role.Button;onClick { if(state.recording)state.finishRecording() else begin();true } }
             .background(KatAccent.copy(alpha=.08f),CircleShape).border(2.dp,KatAccent,CircleShape)
@@ -308,6 +309,7 @@ internal fun shareFile(context:Context,file:File,mime:String) {
                 detectTapGestures(onTap={ if(state.recording)state.finishRecording() else begin() })
             }),contentAlignment=Alignment.Center) { KatIcon(if(state.recording)"clear" else "mic",KatAccent,Modifier.size(42.dp)) }
         Text(if(state.recording)"%02d:%02d".format(state.recordingMillis/60000,state.recordingMillis/1000%60) else if(state.recordingMode=="hold")tr("Удерживать для записи") else tr("Нажать для старта / остановки"),fontSize=15.sp,color=Muted)
+        }
         if(state.recording) {
             LinearProgressIndicator(progress={ (state.level*8).coerceIn(0f,1f) },modifier=Modifier.fillMaxWidth())
             Row { TextButton(onClick=state::pauseRecording) { Text(if(state.recordingPaused)tr("Продолжить","Resume") else tr("Пауза","Pause")) };TextButton(onClick=state::finishRecording) { Text(tr("Перевести")) };TextButton(onClick=state::discardRecording) { Text(tr("Отменить")) } }
@@ -502,9 +504,11 @@ internal val GroupActionPadding=PaddingValues(horizontal=0.dp,vertical=8.dp)
                 if(state.recognitionPreference==id && (id!="automatic" || state.selectedRecognition()==null))KatIcon("check")
             }
         }
+        ToggleRow(tr("Исправлять дату и время"),state.whisperDateTimeRepair,tag="settings.whisperDateTimeRepair",action=state::changeWhisperDateTimeRepair)
         TextButton(contentPadding=GroupActionPadding,onClick={navigate("models")},modifier=Modifier.testTag("settings.recognition.models")) { Text(tr("Модели распознавания")) }
     }
     Note(tr("Авто выбирает модель по исходному языку: русский — GigaAM, остальные поддерживаемые языки — Parakeet. Если модель не скачана, приложение предложит её загрузить. Для других языков остаётся встроенное распознавание Android; Whisper и Meta можно выбрать вручную.","Auto selects by source language: Russian uses GigaAM; other supported languages use Parakeet. If the model is missing, the app offers a download. Other languages retain Android on-device recognition; Whisper and Meta can be selected manually."))
+    Note(tr("Whisper повторно проверяет неоднозначные дату и время в русской речи. Может увеличить ожидание."))
     Note(tr("Parakeet Ultra использует Apple CoreML и недоступен на Android.","Parakeet Ultra requires Apple CoreML and is unavailable on Android."))
     SettingsGroup(tr("Экспериментально")) {
         ToggleRow(tr("Обрабатывать во время записи"),state.recordingPreprocessing,tag="settings.recordingPreprocessing",action=state::changeRecordingPreprocessing)

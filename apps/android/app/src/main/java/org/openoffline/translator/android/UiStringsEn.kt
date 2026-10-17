@@ -74,6 +74,7 @@ internal object UiStringsEn {
         "Ultra поддерживает 25 языков, включая русский и английский. Для остальных выберите Авто или Whisper." to "Ultra supports 25 languages, including Russian and English. For other languages, choose Auto or Whisper.",
         "Wayu не смог прочитать часть текста. Попробуйте записать иностранные имена тайскими буквами. Перевод сохранён." to "Wayu could not read part of the text. Try spelling foreign names in Thai. The translation has been kept.",
         "Whisper (классический)" to "Whisper (classic)",
+        "Whisper повторно проверяет неоднозначные дату и время в русской речи. Может увеличить ожидание." to "Whisper rechecks ambiguous dates and times in Russian speech. May increase waiting time.",
         "Авто" to "Auto",
         "Авто выбирает GigaAM для русского и Parakeet для остальных 24 поддерживаемых языков. Скачайте нужные пакеты один раз; затем распознавание работает без интернета." to "Auto selects GigaAM for Russian and Parakeet for the other 24 supported languages. Download the required packages once; recognition then works offline.",
         "Авто выбирает модель по исходному языку: русский — GigaAM, остальные поддерживаемые языки — Parakeet. Если модель не скачана, приложение предложит её загрузить. Для других языков остаётся встроенное распознавание Android; Whisper и Meta можно выбрать вручную." to "Auto selects by source language: Russian uses GigaAM; other supported languages use Parakeet. If the model is missing, the app offers a download. Other languages retain Android on-device recognition; Whisper and Meta can be selected manually.",
@@ -113,9 +114,9 @@ internal object UiStringsEn {
         "В отчёте только показатели и версии, без голоса и текста." to "The report includes only metrics and versions, without voice recordings or text.",
         "В очереди" to "Queued",
         "В пакете отсутствует нужный файл." to "Required file is missing from the package.",
-        "В приложениях с поддержкой служб: выделите текст → правый клик → Службы → Перевести в Kat translator." to "In apps that support Services: select text → right-click → Services → Translate in Kat translator.",
     )
     private fun part1() = mapOf(
+        "В приложениях с поддержкой служб: выделите текст → правый клик → Службы → Перевести в Kat translator." to "In apps that support Services: select text → right-click → Services → Translate in Kat translator.",
         "Ваши языки" to "Your languages",
         "Введите текст" to "Enter text",
         "Вернитесь в приложение и повторите действие." to "Return to the app and try again.",
@@ -215,9 +216,9 @@ internal object UiStringsEn {
         "Женский · нейтральный" to "Female · neutral",
         "Женский · тёплый" to "Female · warm",
         "Женский · яркий" to "Female · bright",
-        "Завершаю запись…" to "Finishing recording…",
     )
     private fun part2() = mapOf(
+        "Завершаю запись…" to "Finishing recording…",
         "Завершаю работу…" to "Quitting…",
         "Завершить запись" to "Finish recording",
         "Загружать модель при запуске" to "Load model at launch",
@@ -270,6 +271,7 @@ internal object UiStringsEn {
         "Использовать для распознавания" to "Use for recognition",
         "Использовать открытый OCR" to "Use open-source OCR",
         "Использовать этот голос" to "Use this voice",
+        "Исправлять дату и время" to "Correct date and time",
         "Исправляю перспективу…" to "Correcting perspective…",
         "История и отчёты" to "History and reports",
         "История очищена" to "History cleared",
@@ -302,6 +304,7 @@ internal object UiStringsEn {
         "Конфиденциальность и точность" to "Privacy and accuracy",
         "Коснитесь текста для фокуса" to "Tap text to focus",
         "Лимит записи" to "Recording limit",
+        "Лицензии компонентов" to "Component licenses",
         "Лишние данные в архиве" to "Unexpected data in archive",
         "Локальный перевод текста, речи и изображений. Доступность языков распознавания и озвучки зависит от установленных моделей." to "Local translation of text, speech and images. Recognition and speech languages depend on installed models.",
         "МБ" to "MB",
@@ -315,11 +318,11 @@ internal object UiStringsEn {
         "Модели" to "Models",
         "Модели выгружены для освобождения памяти. Включите экономию памяти в настройках и подготовьте перевод снова." to "Models were unloaded to free up memory. Enable memory-saving mode in Settings and prepare translation again.",
         "Модели выполняют перевод на Android. После скачивания сеть для перевода не нужна." to "Models translate on Android. Translation needs no network after downloading.",
+    )
+    private fun part3() = mapOf(
         "Модели выполняют перевод на Mac. После скачивания сеть для перевода не нужна." to "Models translate on your Mac. Once downloaded, no internet connection is required.",
         "Модели выполняют перевод на iPhone. После скачивания сеть для перевода не нужна." to "Models translate on your iPhone. After downloading them, you can translate without an internet connection.",
         "Модели распознавания" to "Speech recognition models",
-    )
-    private fun part3() = mapOf(
         "Модели скачиваются со сторонних серверов. Google ML Kit для распознавания текста на фото передаёт Google технические метрики. История, включая исходные записи речи при включённом сохранении аудио, хранится локально. Копирование и отправка используют системный буфер обмена и выбранное приложение." to "Models are downloaded from third-party servers. Google ML Kit for image text recognition sends technical metrics to Google. History, including original recordings when audio saving is enabled, is stored locally. Copy and Share use the system clipboard and the app you choose.",
         "Модель готова" to "Model ready",
         "Модель используется. Сначала остановите перевод или озвучку" to "Model is in use. Stop translation or speech first",
@@ -376,6 +379,7 @@ internal object UiStringsEn {
         "Не удалось определить язык. Повторите фразу или выберите исходный язык вручную." to "Could not identify the language. Try another phrase or select the source language manually.",
         "Не удалось открыть изображение. Выберите другое фото." to "Could not open the image. Choose another photo.",
         "Не удалось открыть файл" to "Could not open the file",
+        "Не удалось открыть файл лицензий." to "Could not open the license file.",
         "Не удалось подготовить перевод." to "Could not prepare translation.",
         "Не удалось полностью очистить историю: " to "Could not completely clear history: ",
         "Не удалось получить снимок области экрана." to "Could not capture the selected screen region.",
@@ -416,12 +420,12 @@ internal object UiStringsEn {
         "Некорректный идентификатор модели." to "Invalid model identifier.",
         "Неполный пакет" to "Incomplete package",
         "Нет адреса перенаправления" to "Redirect location is missing",
+    )
+    private fun part4() = mapOf(
         "Нет данных" to "No data",
         "Нет доступа к %@. Нажмите, чтобы разрешить в настройках Android." to "No access to %@. Tap to allow it in Android settings.",
         "Нет подключения к интернету" to "No internet connection",
         "Новые языки подключены по списку модели. Качество перевода на телефоне ещё не проверено для каждой пары." to "New languages follow the model's published list. Translation quality on the phone has not been verified for every pair.",
-    )
-    private fun part4() = mapOf(
         "Нужен доступ к %@. Нажмите, чтобы разрешить." to "Access to %@ is required. Tap to allow.",
         "Нужна повторная установка" to "Reinstallation required",
         "Нужно %@ свободного места; доступно %@." to "Requires %@ of free space; %@ available.",
@@ -518,12 +522,12 @@ internal object UiStringsEn {
         "Пакеты для перевода готовы" to "Translation packages are ready",
         "Память" to "Memory",
         "Память и скачивание" to "Memory and downloads",
+    )
+    private fun part5() = mapOf(
         "Память приложения (footprint)" to "App memory (footprint)",
         "Память: %.0f ГБ/с · GPU: %s · Index 9B с учётом нагрева: ~%.1f ток/с" to "Memory: %.0f GB/s · GPU: %s · Index 9B with thermal margin: ~%.1f tokens/s",
         "Память: %@ ГБ/с · GPU: %@ ГБ/с · Index 9B: ~%@ ток/с" to "Memory: %@ GB/s · GPU: %@ GB/s · Index 9B: ~%@ tokens/s",
         "Папка моделей" to "Models folder",
-    )
-    private fun part5() = mapOf(
         "Пауза" to "Pause",
         "Первая подготовка распознавания может занять несколько минут. При смене языка может понадобиться загрузка другого распознавания." to "Preparing speech recognition for the first time can take several minutes. Changing the language may require loading a different recognizer.",
         "Первая полная проверка моделей может занять некоторое время. При следующих запусках неизменённые файлы проверяются быстрее." to "The first full model check can take a while. Unchanged files are checked faster on subsequent launches.",
@@ -620,12 +624,12 @@ internal object UiStringsEn {
         "Проверка пакета не пройдена" to "Package verification failed",
         "Проверка повторно распознаёт запись и обновляет изменившиеся фразы перед озвучкой. Увеличивает ожидание и не гарантирует точность перевода." to "Verification transcribes the recording again and updates changed phrases before playback. It adds waiting time and does not guarantee translation accuracy.",
         "Проверка устройства" to "Device check",
+    )
+    private fun part6() = mapOf(
         "Проверка целостности не пройдена. Скачайте модель заново." to "Integrity verification failed. Download the model again.",
         "Проверка целостности…" to "Verifying integrity…",
         "Проверяем системные и известные стандартные сочетания браузеров и Telegram. Пользовательские сочетания и расширения других приложений могут потребовать переназначения." to "Checks system shortcuts and known browser and Telegram defaults. Custom shortcuts and extensions in other apps may require reassignment.",
         "Проверяем скачанные файлы озвучки" to "Checking downloaded voice files",
-    )
-    private fun part6() = mapOf(
         "Проверять текст после записи" to "Verify text after recording",
         "Проверяю голос…" to "Verifying voice…",
         "Проверяю модели…" to "Verifying models…",
@@ -722,12 +726,12 @@ internal object UiStringsEn {
         "Скачать голос" to "Download voice",
         "Скачать голос: " to "Download voice: ",
         "Скачать модели" to "Download models",
+    )
+    private fun part7() = mapOf(
         "Скачать модели · " to "Download models · ",
         "Скачать модели для перевода" to "Download translation models",
         "Скачать недостающие голоса" to "Download missing voices",
         "Скачать по Wi-Fi" to "Download over Wi-Fi",
-    )
-    private fun part7() = mapOf(
         "Скачивание" to "Downloading",
         "Скачивание направлений…" to "Downloading directions…",
         "Скачивание этого направления пока недоступно; установите файлы вручную" to "Downloading this direction is not available yet; install the files manually",
@@ -824,12 +828,12 @@ internal object UiStringsEn {
         "Файл больше ожидаемого пакета" to "File exceeds the expected package size",
         "Файл готов к отправке" to "File ready to share",
         "Файл модели" to "Model file",
+    )
+    private fun part8() = mapOf(
         "Файл не соответствует SHA-256 пакета" to "File does not match the package SHA-256",
         "Файл скачан не полностью" to "File is incomplete",
         "Файл скачан не полностью. Попробуйте скачать модель заново." to "The file did not finish downloading. Download the model again.",
         "Фрагмент слишком длинный для модели. Перевод не был обрезан — разделите реплику." to "This segment is too long for the model. Nothing was truncated; split the phrase into smaller parts.",
-    )
-    private fun part8() = mapOf(
         "Хранение в днях" to "Retention in days",
         "Хранилище" to "Storage",
         "Хранилище приложения недоступно" to "App storage is unavailable",

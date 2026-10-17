@@ -81,10 +81,10 @@ struct ConversationView: View {
     // Model preparation is shared by Voice/Text and may continue while navigating.
     // Only an active recording/translation or a model change locks the mode picker.
     private var desktopModeSwitchDisabled: Bool {
-        externalTextBusy || recorder.isRecording || recorder.starting || model.preparingRecording || model.importingAudio || model.finishing || model.changingTranslation || (session.isBusy && session.isReady)
+        externalTextBusy || recorder.isRecording || recorder.starting || model.preparingRecording || model.importingAudio || model.finishing || model.changingTranslation || (session.isBusy && session.isReady && !session.isPreparingRecognition)
     }
     private var showWizard: Bool {
-        session.isReady && (externalTextBusy || session.isBusy || model.finishing || model.importingAudio) && (!session.isSpeaking || session.isWaitingForSpeech) && (!recorder.isRecording || model.finishing) && !recorder.starting && !model.preparingRecording
+        session.isReady && !session.isPreparingRecognition && (externalTextBusy || session.isBusy || model.finishing || model.importingAudio) && (!session.isSpeaking || session.isWaitingForSpeech) && (!recorder.isRecording || model.finishing) && !recorder.starting && !model.preparingRecording
     }
     private var showProcessingOverlay: Bool {
         input != .camera && session.activeMode != .quick && showWizard && !session.isSpeaking
@@ -132,7 +132,7 @@ struct ConversationView: View {
                     Text(L10n.text("Голос")).tag(TranslatorInput.voice)
                     Text(L10n.text("Текст")).tag(TranslatorInput.text)
                     Text(AppPlatform.imageModeTitle).tag(TranslatorInput.camera)
-                }.pickerStyle(.segmented).katModePicker().disabled(speechBusy).padding(.horizontal, 20).padding(.vertical, 10)
+                }.pickerStyle(.segmented).katModePicker().disabled(desktopModeSwitchDisabled).padding(.horizontal, 20).padding(.vertical, 10)
                 #endif
                 if showTechnicalInfo {
                     Text(L10n.text("Модель: ") + packages.selectedTranslation.title)
@@ -184,16 +184,20 @@ struct ConversationView: View {
                     Button { showSettings = true } label: { Image(systemName: "gearshape").katToolbarIcon() }.accessibilityLabel(L10n.text("Настройки")).disabled(configurationBusy)
                     Button { showModels = true } label: { Image(systemName: "square.stack.3d.up").katToolbarIcon() }.accessibilityLabel(L10n.text("Модели")).disabled(configurationBusy)
                 }
-                .onChange(of: input) { old, new in if new == .camera { previousInput = old } }
+                .onChange(of: input) { old, new in
+                    if new == .camera { previousInput = old }
+                    model.selectInputMode(new == .camera ? nil : (new == .voice ? .voice : .text))
+                }
                 #if os(iOS)
                 .katFullScreenCover(isPresented: Binding(get: { input == .camera }, set: { if !$0 { input = previousInput } })) {
                     CameraView(app: model).withClose { input = previousInput }
                 }
                 #endif
                 .task(id: cameraActivationID) {
+                    model.selectInputMode(input == .camera ? nil : (input == .voice ? .voice : .text))
                     #if os(macOS)
                     if integration.working {
-                        if input == .text { integration.activateRequestedText() }
+                        if input == .text { await model.synchronizeRecognition(); integration.activateRequestedText() }
                         return
                     }
                     if model.importingScreenImage {
@@ -202,7 +206,11 @@ struct ConversationView: View {
                     }
                     #endif
                     if input == .camera { await model.openCamera() }
-                    else { await model.closeCamera(resumingConversation: true) }
+                    else {
+                        await model.closeCamera(resumingConversation: true)
+                        guard !Task.isCancelled else { return }
+                        await model.synchronizeRecognition()
+                    }
                 }
                 .sheet(isPresented: $showReport) {
                     NavigationStack {
@@ -279,6 +287,7 @@ struct ConversationView: View {
         // selection without clearing the visible image or loading it eagerly.
         if input == .camera { await model.openCamera() }
         #endif
+        if input != .camera { await model.synchronizeRecognition() }
     }
     private var automaticSpeechControl: some View {
         Toggle(L10n.text("Автоматически озвучивать"), isOn: input == .voice ? $automaticSpeechVoice : $automaticSpeechText)
@@ -567,7 +576,7 @@ struct ConversationView: View {
         if busy { model.cancel(); return }
         if !packages.ready { showModels = true; return }
         #if os(macOS)
-        if !session.isReady { Task { await model.load() }; return }
+        if !session.isReady { Task { await model.load(resultMode: .text) }; return }
         #endif
         let text = typedText
         Task { await model.translateText(text) }

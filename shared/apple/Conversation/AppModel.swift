@@ -12,6 +12,26 @@ import OfflineCore
     lazy var camera = CameraModel(packages: packages, history: history)
     #endif
     @Published private(set) var usingCamera = false
+    // Current input surface, independent of the tab that owns the last pipeline result.
+    @Published private(set) var inputMode: ConversationMode? = .voice
+    func selectInputMode(_ mode: ConversationMode?) { inputMode = mode }
+    var isVoiceReady: Bool {
+        inputMode == .voice && !usingCamera && session.isReady && session.recognitionIsReady(
+            for: languages.automaticActive(in: .voice) ? nil : languages.runtimeSource,
+            preference: recognitionPreference)
+    }
+    func synchronizeRecognition() async {
+        guard !isShuttingDown, !recorder.isRecording, !recorder.starting else { return }
+        if inputMode != .voice || usingCamera {
+            await session.setRecognitionNeeded(false)
+            return
+        }
+        await refreshVoiceFiles()
+        guard !isShuttingDown, !Task.isCancelled else { return }
+        await session.setRecognitionNeeded(inputMode == .voice && !usingCamera,
+            source: languages.automaticActive(in: .voice) ? nil : languages.runtimeSource)
+        if inputMode == .voice, let error = session.recognitionPreparationError { message = error }
+    }
     @Published private(set) var isShuttingDown = false
     #if os(macOS)
     private var shutdownTask: Task<Void, Never>?
@@ -63,7 +83,13 @@ import OfflineCore
             UserDefaults.standard.set(languages.sourceID, forKey: "translationSource")
             UserDefaults.standard.set(languages.targetID, forKey: "translationTarget")
             UserDefaults.standard.set(languages.automaticRequested, forKey: "automaticLanguage")
-            if oldValue.sourceID != languages.sourceID || oldValue.targetID != languages.targetID { Task { await applyAutoTranslation() } }
+            if oldValue != languages {
+                let wasPrepared = session.isReady
+                Task {
+                    await applyAutoTranslation()
+                    if wasPrepared { await synchronizeRecognition() }
+                }
+            }
         }
     }
     var recognitionPreference: RecognitionPreference {
@@ -188,10 +214,19 @@ import OfflineCore
     func load(resultMode: ConversationMode? = nil) async {
         guard !isShuttingDown else { return }
         automaticLoadAttempted = true
+        let mode = resultMode ?? inputMode ?? .text
+        if session.isReady {
+            message = nil
+            await refreshVoiceFiles()
+            await session.setRecognitionNeeded(mode == .voice,
+                source: languages.automaticActive(in: .voice) ? nil : languages.runtimeSource)
+            if let error = session.recognitionPreparationError { message = error }
+            return
+        }
         guard let mt = packages.translationURL else { return }
         let asr = packages.primaryRecognition(for: recognitionPreference)
         message = nil
-        await session.prepare(PipelineFiles(asr: asr, translation: mt, voices: packages.selectedVoiceDirectories, voiceModelIDs: packages.selectedVoiceModelIDs, translationModel: packages.selectedTranslation, omnilingual: packages.omnilingualDirectory, ultra: packages.recognition.ultra, recognitionPreference: recognitionPreference, translationResolver: packages.translationResolver), memorySaving: UserDefaults.standard.bool(forKey: "memorySaving"), recognitionLanguage: languages.automaticActive(in: .voice) ? nil : languages.runtimeSource, resultMode: resultMode)
+        await session.prepare(PipelineFiles(asr: asr, translation: mt, voices: packages.selectedVoiceDirectories, voiceModelIDs: packages.selectedVoiceModelIDs, translationModel: packages.selectedTranslation, omnilingual: packages.omnilingualDirectory, ultra: packages.recognition.ultra, recognitionPreference: recognitionPreference, translationResolver: packages.translationResolver), memorySaving: UserDefaults.standard.bool(forKey: "memorySaving"), recognitionLanguage: languages.automaticActive(in: .voice) ? nil : languages.runtimeSource, resultMode: mode)
         if UserDefaults.standard.string(forKey: "unfinishedAutomaticModelLoad") == packages.selectedTranslation.rawValue {
             UserDefaults.standard.removeObject(forKey: "unfinishedAutomaticModelLoad")
         }
@@ -254,14 +289,19 @@ import OfflineCore
         return nil
     }
     func beginRecording() async {
+        RecordingStopTrace.mark("start.request")
         guard !isShuttingDown else { return }
         if let voiceLanguageIssue { message = voiceLanguageIssue; return }
-        guard languages.isAvailable, !usingCamera, session.isReady, !session.isBusy, !finishing, !importingAudio, !recorder.starting, !recorder.isRecording,
+        guard languages.isAvailable, isVoiceReady, !session.isBusy, !finishing, !importingAudio, !recorder.starting, !recorder.isRecording,
               let request = recordingStart.begin() else { return }
         preparingRecording = true
-        defer { preparingRecording = false }
+        var captureStarted = false
+        defer {
+            preparingRecording = false
+            if !captureStarted { recordingStart.settle(request, succeeded: false) }
+        }
         await refreshVoiceFiles(); await history.applyRecordingSettings()
-        guard !isShuttingDown else { recordingStart.cancel(); return }
+        guard !isShuttingDown, isVoiceReady, recordingStart.isCurrent(request), !Task.isCancelled else { recordingStart.cancel(); return }
         history.stopPlayback()
         capturedTarget = languages.runtimeTarget ?? .english
         capturedAutomaticSpeech = UserDefaults.standard.object(forKey: "automaticSpeechVoice") as? Bool ?? true
@@ -277,12 +317,11 @@ import OfflineCore
                 ? SilenceMonitor.defaultTimeout : UserDefaults.standard.double(forKey: "recordingSilenceSeconds")
             RecordingStopTrace.mark("start.silenceSeconds=\(silenceSeconds)")
             let limitMinutes = UserDefaults.standard.object(forKey: "recordingLimitMinutes") as? Double ?? RecordingPolicy.defaultMinutes
-            guard id == interactionID, !Task.isCancelled else { throw CancellationError() }
-            await session.preloadRecognition(source: capturedLanguage)
-            guard id == interactionID else { throw CancellationError() }
-            if session.error != nil { throw PipelineError.modelLoad }
+            guard id == interactionID, recordingStart.isCurrent(request), !Task.isCancelled else { throw CancellationError() }
+            // Voice preparation already loaded ASR. The tap path only starts capture.
             try await recorder.start(silenceSeconds: silenceSeconds, limitMinutes: limitMinutes)
-            if !recordingStart.settle(request, succeeded: true) || id != interactionID { recorder.cancel(); return }
+            if !recordingStart.settle(request, succeeded: true) || id != interactionID || Task.isCancelled { recorder.cancel(); return }
+            captureStarted = true
             if capturedPreview, previewFallback == nil, let snapshot = recorder.previewSnapshot {
                 if !session.beginRecordingPreview(source: capturedLanguage, target: capturedTarget, speakResult: capturedAutomaticSpeech, snapshot: snapshot) { previewFallback = "busy" }
             }
@@ -325,6 +364,9 @@ import OfflineCore
                 requestedPreview: capturedPreview, fallbackReason: previewFallback, verifyPreview: capturedVerification)
             if id == interactionID { session.finishRecordingTelemetry(footprint: peakRecordingFootprint, resident: peakRecordingResident, thermal: Self.thermalState) }
             await history.refresh()
+            // Memory-saving recognition may have been released after ASR. Restore it
+            // during preparation, before the next microphone is exposed.
+            if id == interactionID, inputMode == .voice { await synchronizeRecognition() }
         } catch is CancellationError {} catch { if id == interactionID { message = error.localizedDescription } }
     }
     #if os(macOS)
@@ -378,7 +420,7 @@ import OfflineCore
         history.stopPlayback(); message = nil
         #if os(iOS)
         // The mobile Translate action also prepares models on its first use.
-        if !session.isReady { await load() }
+        if !session.isReady { await load(resultMode: .text) }
         guard id == interactionID, !isShuttingDown, !usingCamera, session.isReady, !Task.isCancelled else { return }
         #endif
         await refreshVoiceFiles()
@@ -392,7 +434,7 @@ import OfflineCore
         guard !usingCamera, !session.isBusy, !recorder.isRecording, !recorder.starting, !finishing, !importingAudio else { return }
         interactionID += 1; let id = interactionID
         history.stopPlayback(); voicePreview.stop(); message = nil
-        if !session.isReady { await load() }
+        if !session.isReady { await load(resultMode: .text) }
         await refreshVoiceFiles()
         guard id == interactionID, !usingCamera, session.isReady, !Task.isCancelled else { return }
         await history.applyRecordingSettings()
@@ -402,10 +444,13 @@ import OfflineCore
     }
     func openCamera() async {
         guard !isShuttingDown else { return }
+        inputMode = nil
         #if os(iOS)
         if !usingCamera { restoreConversationAfterCamera = restoreConversationAfterCamera || session.isReady }
         #endif
         cameraSwitch += 1; let id = cameraSwitch; usingCamera = true
+        await session.setRecognitionNeeded(false)
+        guard id == cameraSwitch, !isShuttingDown, !Task.isCancelled else { return }
         #if os(iOS)
         // Camera has its own translator. Drain Voice before allocating it, but
         // remember readiness so returning to Voice/Text needs no preparation tap.

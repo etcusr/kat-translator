@@ -2,6 +2,8 @@
 
 **English** | [Русский](README.ru.md)
 
+Voice preparation loads the selected recognizer before enabling the microphone. Text/Camera release it safely; Voice return prepares it again. Memory-saving mode prepares ASR and defers MT. System recognition checks its service; Android controls its own model residency. The optional Whisper date/time repair setting defaults off and may add another recognition pass when enabled. See [current validation](../benchmarks/date-setting-capture-2026-10-18/README.md).
+
 Android Whisper Q8 now has an optional i8mm CPU path on compatible devices, with the same weights and decoding settings. Native recognition improved by 7–9% on two private Pixel recordings; their transcripts and two short RU/EN controls match the previous runtime exactly. F16 and other model files retain the previous path; missing libraries or CPU support fall back. KleidiAI and Vulkan experiments were not selected. [Comparison, checks and limits](benchmarks/2026-10-17-whisper-i8mm/README.md). Fresh app imports improved from 14.03 to 12.97 s on the 25.18-second recording and from 13.72 to 12.54 s on the 28.86-second recording, with exact before/after transcripts; development 0.4.6 (21) is installed on Pixel.
 
 Android now streams Piper during synthesis, preloads the voice during translation and retains Whisper/Piper models when memory allows. Stop, replay and export use the complete sample sequence. [Installed streaming/cache checks](benchmarks/2026-10-17-streaming-cache/README.md).

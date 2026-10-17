@@ -31,7 +31,8 @@ import java.util.concurrent.atomic.AtomicReference
  * Input is mono Float PCM at 16 kHz. No microphone capture, downloads or network fallback.
  * FILE uses fast input for short clips; longer recordings must be paced: Pixel otherwise
  * reports successful completion after only the first utterance. App-owned ASR avoids this limit.
- * Each operation owns/destroys its recognizer, so cancellation does not poison subsequent calls. */
+ * Preparation binds a service and checks offline support; each transcription consumes and destroys
+ * that service, so cancellation does not poison subsequent calls. Android owns model residency. */
 class SystemSpeechRecognizer(
     context: Context,
     private val inputMode: InputMode = InputMode.FILE,
@@ -44,10 +45,70 @@ class SystemSpeechRecognizer(
     private val closed = AtomicBoolean(false)
     private val active = AtomicReference<Session?>()
     private val cancellationGeneration = AtomicLong()
+    private var preparedRecognizer:SpeechRecognizer?=null // main thread only; OS owns its model memory
+    private var preparedLanguage:String?=null
+    private var preparedAuto=false
+
+    fun releasePrepared() { main.post { preparedRecognizer?.destroy();preparedRecognizer=null;preparedLanguage=null } }
+
+    /** Bind the selected on-device service and verify installed language support before recording.
+     * Android does not expose control over when the service maps its own model weights. */
+    @SuppressLint("NewApi")
+    fun prepare(source:String,isCancelled:()->Boolean) {
+        check(Looper.myLooper()!=Looper.getMainLooper())
+        check(Build.VERSION.SDK_INT>=33 && !closed.get())
+        val auto=source.isBlank() || source=="auto"
+        check(!auto || Build.VERSION.SDK_INT>=34)
+        val language=when(source) { "en" -> "en-US";"ru" -> "ru-RU";else -> if(auto)"en-US" else Locale.forLanguageTag(source).toLanguageTag() }
+        val generation=cancellationGeneration.get()
+        val done=CountDownLatch(1);val failure=AtomicReference<Exception?>()
+        var service:SpeechRecognizer?=null
+        fun cancelled()=closed.get() || isCancelled() || generation!=cancellationGeneration.get()
+        main.post {
+            try {
+                if(cancelled())throw CancellationException()
+                preparedRecognizer?.destroy();preparedRecognizer=null;preparedLanguage=null
+                check(SpeechRecognizer.isOnDeviceRecognitionAvailable(context)) { "No on-device speech recognition service is installed" }
+                val created=SpeechRecognizer.createOnDeviceSpeechRecognizer(context);service=created
+                val intent=Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+                    putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                    putExtra(RecognizerIntent.EXTRA_LANGUAGE,language)
+                    putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE,true)
+                }
+                created.checkRecognitionSupport(intent,context.mainExecutor,object:RecognitionSupportCallback {
+                    override fun onSupportResult(support:RecognitionSupport) {
+                        try {
+                            if(cancelled())throw CancellationException()
+                            val installed=support.installedOnDeviceLanguages
+                            val required=if(auto)listOf("en-US","ru-RU") else listOf(language)
+                            check(required.all { wanted -> installed.any { it.equals(wanted,true) } }) { "Offline speech language is not installed" }
+                            preparedRecognizer=created;preparedLanguage=language;preparedAuto=auto
+                        } catch(e:Exception) { failure.set(e);created.destroy() }
+                        finally { done.countDown() }
+                    }
+                    override fun onError(error:Int) { failure.set(IllegalStateException("Offline recognition preparation failed ($error)"));created.destroy();done.countDown() }
+                })
+            } catch(e:Exception) { failure.set(e);done.countDown() }
+        }
+        val deadline=SystemClock.elapsedRealtime()+timeoutMillis
+        try {
+            while(!done.await(40,TimeUnit.MILLISECONDS)) {
+                if(cancelled())throw CancellationException()
+                if(SystemClock.elapsedRealtime()>=deadline)throw TimeoutException("Offline recognition preparation timed out")
+            }
+            if(cancelled())throw CancellationException()
+            failure.get()?.let { throw it }
+        } catch(e:Exception) {
+            // Main owns both service creation and destruction, including a late support callback.
+            cancellationGeneration.incrementAndGet()
+            main.post { service?.destroy();if(preparedRecognizer===service) { preparedRecognizer=null;preparedLanguage=null } }
+            throw e
+        }
+    }
 
     fun cancel() {
         cancellationGeneration.incrementAndGet()
-        active.get()?.abort(CancellationException("Speech recognition cancelled"))
+        active.get()?.abort(CancellationException("Speech recognition cancelled"));releasePrepared()
     }
     override fun close() { closed.set(true);cancel() }
 
@@ -148,7 +209,9 @@ class SystemSpeechRecognizer(
             if(cancelled.get() || completed) { finish(null,CancellationException("Speech recognition cancelled"));return }
             try {
                 check(SpeechRecognizer.isOnDeviceRecognitionAvailable(context)) { "No on-device speech recognition service is installed" }
-                val service=SpeechRecognizer.createOnDeviceSpeechRecognizer(context)
+                val service=if(preparedRecognizer!=null && preparedLanguage==language && preparedAuto==auto) {
+                    requireNotNull(preparedRecognizer).also { preparedRecognizer=null;preparedLanguage=null }
+                } else SpeechRecognizer.createOnDeviceSpeechRecognizer(context)
                 recognizer=service
                 service.setRecognitionListener(listener)
                 val intent=Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {

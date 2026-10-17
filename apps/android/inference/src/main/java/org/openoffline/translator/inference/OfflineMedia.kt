@@ -23,13 +23,16 @@ internal object MediaNative {
     external fun whisperI8mm(path:ByteArray,samples:FloatArray,language:ByteArray,flag:Long):ByteArray?
     external fun whisperI8mmCreate(path:ByteArray):Long
     external fun whisperI8mmRun(handle:Long,samples:FloatArray,language:ByteArray,flag:Long):ByteArray?
+    external fun whisperI8mmWordsRun(handle:Long,samples:FloatArray,language:ByteArray,flag:Long):ByteArray?
     external fun whisperI8mmFree(handle:Long)
     external fun whisperArm82(path:ByteArray,samples:FloatArray,language:ByteArray,flag:Long):ByteArray?
     external fun whisperCreate(path:ByteArray):Long
     external fun whisperRun(handle:Long,samples:FloatArray,language:ByteArray,flag:Long):ByteArray?
+    external fun whisperWordsRun(handle:Long,samples:FloatArray,language:ByteArray,flag:Long):ByteArray?
     external fun whisperFree(handle:Long)
     external fun whisperArm82Create(path:ByteArray):Long
     external fun whisperArm82Run(handle:Long,samples:FloatArray,language:ByteArray,flag:Long):ByteArray?
+    external fun whisperArm82WordsRun(handle:Long,samples:FloatArray,language:ByteArray,flag:Long):ByteArray?
     external fun whisperArm82Free(handle:Long)
     external fun piperCreate(model:ByteArray,tokens:ByteArray,data:ByteArray):Long
     external fun piperFree(handle:Long)
@@ -47,6 +50,9 @@ internal object MediaNative {
     external fun nemoCreate(directory:ByteArray,parakeet:Boolean):Long
     external fun nemoFree(handle:Long)
     external fun nemoRun(handle:Long,samples:FloatArray,flag:Long):ByteArray?
+    external fun omniCreate(path:ByteArray,tokens:ByteArray):Long
+    external fun omniFree(handle:Long)
+    external fun omniRun(handle:Long,samples:FloatArray,flag:Long):ByteArray?
     external fun omni(path: ByteArray, tokens: ByteArray, samples: FloatArray, flag: Long): ByteArray?
     external fun tts(model: ByteArray, tokens: ByteArray, data: ByteArray, text: ByteArray, language: ByteArray, supertonic: Boolean, flag: Long, rate: IntArray, timing: DoubleArray): FloatArray?
     external fun ocrLoad(path: ByteArray): Long
@@ -68,8 +74,9 @@ data class OcrRecognizer(val modelId: String, val path: String, val dictionary: 
 data class OcrBlock(val text: String, val left: Float, val top: Float, val right: Float, val bottom: Float)
 
 /** Blocking offline operations. A caller must schedule these away from the UI thread and unload
- * translation as required by the caller. The selected GigaAM/Parakeet recognizer is retained until releaseRecognition/close;
- * Whisper and Piper retain one selected model until explicit unload/memory pressure/close; other operations own their model. Native ASR decoding is bounded to 30-second audio segments.
+ * translation as required by the caller. The selected Whisper/GigaAM/Parakeet/Omnilingual recognizer
+ * can be prepared before capture and is retained until releaseRecognition/close. Piper retains one
+ * voice until explicit unload/memory pressure/close; other operations own their model.
  * cancel is safe from another thread; close waits for the current native call to return. */
 class OfflineMedia : AutoCloseable {
     @Volatile var lastSpeechTiming:SpeechSynthesisTiming?=null;private set
@@ -98,8 +105,12 @@ class OfflineMedia : AutoCloseable {
         }
     }
     private val piperCache=NativeModelCache { MediaNative.piperFree(it) }
-    val recognitionLoads get()=whisperCache.loads
-    val recognitionRuntime get()=whisperCache.backend?.name?.lowercase()
+    private val omniCache=NativeModelCache { MediaNative.omniFree(it) }
+    private var omniLoaded=false
+    private var nemoLoads=0
+    private var nemoFamily:String?=null
+    val recognitionLoads get()=whisperCache.loads+nemoLoads+omniCache.loads
+    val recognitionRuntime get()=whisperCache.backend?.name?.lowercase() ?: nemoFamily ?: if(omniLoaded)"omnilingual" else null
     val voiceLoads get()=piperCache.loads
     private fun identity(vararg paths:String)=paths.joinToString("|") { path ->
         val f=File(path);"${f.canonicalPath}:${f.length()}:${f.lastModified()}"
@@ -113,11 +124,52 @@ class OfflineMedia : AutoCloseable {
     private var nemoHandle=0L
     private var nemoKey=""
     @Synchronized fun releaseRecognition() {
-        whisperCache.close()
+        whisperCache.close();omniCache.close();omniLoaded=false;nemoFamily=null
         if(nemoHandle!=0L)MediaNative.nemoFree(nemoHandle)
         nemoHandle=0;nemoKey=""
     }
     @Synchronized override fun close() { closed = true;releaseModels() }
+    @Synchronized fun preloadWhisper(modelPath:String,isCancelled:()->Boolean={false}) = operation(isCancelled) {
+        ensureWhisper(modelPath);checkCancellation();if(isCancelled())throw CancellationException()
+    }
+    @Synchronized fun preloadNemo(directory:String,parakeet:Boolean,isCancelled:()->Boolean={false}) = operation(isCancelled) {
+        fun guard() { checkCancellation();if(isCancelled())throw CancellationException() }
+        ensureNemo(directory,parakeet,::guard);guard()
+    }
+    @Synchronized fun preloadOmnilingual(modelPath:String,tokensPath:String,isCancelled:()->Boolean={false}) = operation(isCancelled) {
+        ensureOmnilingual(modelPath,tokensPath);checkCancellation();if(isCancelled())throw CancellationException()
+    }
+    private fun ensureNemo(directory:String,parakeet:Boolean,guard:()->Unit) {
+        val files=listOf("encoder.int8.onnx",if(parakeet)"decoder.int8.onnx" else "decoder.onnx",if(parakeet)"joiner.int8.onnx" else "joiner.onnx","tokens.txt").map { File(directory,it) }
+        files.forEach { file(it.path) }
+        val key=files.joinToString { "${it.canonicalPath}:${it.length()}:${it.lastModified()}" }
+        if(key!=nemoKey || nemoHandle==0L) {
+            releaseRecognition();guard()
+            nemoHandle=MediaNative.nemoCreate(utf8(directory),parakeet);check(nemoHandle!=0L);nemoKey=key
+            nemoFamily=if(parakeet)"parakeet" else "gigaam";nemoLoads++
+        }
+    }
+    private fun ensureWhisper(modelPath:String):Pair<WhisperBackend,Long> {
+        val path=file(modelPath)
+        if(nemoHandle!=0L || omniLoaded)releaseRecognition()
+        val name=File(modelPath).name
+        val backend=whisperBackendFor(name,MediaNative.acceleratedWhisper,
+            name=="ggml-large-v3-turbo-q8_0.bin" && MediaNative.acceleratedWhisper && MediaNative.i8mmWhisper)
+        val handle=whisperCache.acquire(identity(modelPath),backend) {
+            when(it) {
+                WhisperBackend.I8MM -> MediaNative.whisperI8mmCreate(path)
+                WhisperBackend.ARM82 -> MediaNative.whisperArm82Create(path)
+                WhisperBackend.BASELINE -> MediaNative.whisperCreate(path)
+            }
+        }
+        return backend to handle
+    }
+    private fun ensureOmnilingual(modelPath:String,tokensPath:String):Long {
+        val model=file(modelPath);val tokens=file(tokensPath)
+        if(nemoHandle!=0L || whisperCache.backend!=null)releaseRecognition()
+        return try { omniCache.acquire(identity(modelPath,tokensPath)) { MediaNative.omniCreate(model,tokens) }.also { omniLoaded=true } }
+        catch(e:Exception) { omniLoaded=false;throw e }
+    }
     fun transcribeGigaAM(directory:String,samples:FloatArray,vadPath:String,isCancelled:()->Boolean={false}):Transcript =
         transcribeNemo(directory,samples,vadPath,"ru",false,isCancelled)
     fun transcribeParakeet(directory:String,samples:FloatArray,vadPath:String,language:String,isCancelled:()->Boolean={false}):Transcript =
@@ -126,13 +178,7 @@ class OfflineMedia : AutoCloseable {
         require(language.isNotBlank() && language!="auto") { "Select the speech language" }
         validatePcm(samples)
         fun guard() { checkCancellation();if(isCancelled())throw CancellationException("Speech recognition cancelled") }
-        val files=listOf("encoder.int8.onnx",if(parakeet)"decoder.int8.onnx" else "decoder.onnx",if(parakeet)"joiner.int8.onnx" else "joiner.onnx","tokens.txt").map { File(directory,it) }
-        files.forEach { file(it.path) }
-        val key=files.joinToString { "${it.canonicalPath}:${it.length()}:${it.lastModified()}" }
-        if(key!=nemoKey || nemoHandle==0L) {
-            releaseRecognition();guard()
-            nemoHandle=MediaNative.nemoCreate(utf8(directory),parakeet);check(nemoHandle!=0L);nemoKey=key
-        }
+        ensureNemo(directory,parakeet,::guard)
         guard()
         val parts=RecordedSpeechSegments.detect(samples,vadPath,::guard)
         var text=""
@@ -144,35 +190,41 @@ class OfflineMedia : AutoCloseable {
         check(text.isNotBlank()) { "No speech detected" }
         Transcript(text,language)
     }
-    @Synchronized fun transcribe(modelPath: String, samples: FloatArray, language: String = "auto", isCancelled: () -> Boolean = { false }): Transcript = operation(isCancelled) { f ->
+    @Synchronized fun transcribe(modelPath: String, samples: FloatArray, language: String = "auto", whisperDateTimeRepair: Boolean = false, isCancelled: () -> Boolean = { false }): Transcript = operation(isCancelled) { f ->
         validatePcm(samples)
-        val path=file(modelPath);val lang=utf8(language)
-        // Keep exactly one recognizer; no hidden accumulation when changing model families.
-        if(nemoHandle!=0L)releaseRecognition()
-        val name=File(modelPath).name
-        val backend=whisperBackendFor(name,MediaNative.acceleratedWhisper,
-            name=="ggml-large-v3-turbo-q8_0.bin" && MediaNative.acceleratedWhisper && MediaNative.i8mmWhisper)
-        val handle=whisperCache.acquire(identity(modelPath),backend) {
-            when(it) {
-                WhisperBackend.I8MM -> MediaNative.whisperI8mmCreate(path)
-                WhisperBackend.ARM82 -> MediaNative.whisperArm82Create(path)
-                WhisperBackend.BASELINE -> MediaNative.whisperCreate(path)
-            }
-        }
+        val lang=utf8(language)
+        val (backend,handle)=ensureWhisper(modelPath)
         checkCancellation();if(isCancelled())throw CancellationException()
         val raw = when(backend) {
             WhisperBackend.I8MM -> MediaNative.whisperI8mmRun(handle,samples,lang,f)
             WhisperBackend.ARM82 -> MediaNative.whisperArm82Run(handle,samples,lang,f)
             WhisperBackend.BASELINE -> MediaNative.whisperRun(handle,samples,lang,f)
         } ?: throw CancellationException()
+        checkCancellation();if(isCancelled())throw CancellationException()
         val output = String(raw, Charsets.UTF_8); val split = output.indexOf('\n')
         check(split > 0) { "Invalid Whisper result" }
         val text = output.substring(split + 1).trim(); check(text.isNotEmpty()) { "No speech detected" }
-        Transcript(text, output.substring(0, split))
+        val detected = output.substring(0, split)
+        val repaired = WhisperDateTimeRepair.apply(text, detected, samples.size, whisperDateTimeRepair,
+            { cancelled || isCancelled() }) {
+            val retryLanguage = utf8("ru")
+            val retry = when(backend) {
+                WhisperBackend.I8MM -> MediaNative.whisperI8mmWordsRun(handle,samples,retryLanguage,f)
+                WhisperBackend.ARM82 -> MediaNative.whisperArm82WordsRun(handle,samples,retryLanguage,f)
+                WhisperBackend.BASELINE -> MediaNative.whisperWordsRun(handle,samples,retryLanguage,f)
+            } ?: throw CancellationException()
+            val retryOutput = String(retry, Charsets.UTF_8)
+            val retrySplit = retryOutput.indexOf('\n')
+            check(retrySplit > 0) { "Invalid Whisper retry result" }
+            retryOutput.substring(retrySplit + 1).trim()
+        }
+        Transcript(repaired, detected)
     }
     @Synchronized fun transcribeOmnilingual(modelPath: String, tokensPath: String, samples: FloatArray, language: String, isCancelled: () -> Boolean = { false }): Transcript = operation(isCancelled) { f ->
         validatePcm(samples)
-        val raw = MediaNative.omni(file(modelPath), file(tokensPath), samples, f) ?: throw CancellationException()
+        val handle=ensureOmnilingual(modelPath,tokensPath)
+        checkCancellation();if(isCancelled())throw CancellationException()
+        val raw = MediaNative.omniRun(handle,samples,f) ?: throw CancellationException()
         val text = String(raw, Charsets.UTF_8).trim(); check(text.isNotEmpty()) { "No speech detected" }; Transcript(text, language)
     }
     @Synchronized fun synthesizePiper(model: String, tokens: String, dataDir: String, text: String, callback:SpeechChunkCallback?=null): SpeechAudio = operation { f ->
