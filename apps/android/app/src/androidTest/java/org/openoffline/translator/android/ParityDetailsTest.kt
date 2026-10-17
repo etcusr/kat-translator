@@ -14,7 +14,7 @@ class ParityDetailsTest {
         val bitmap=androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot()!!
         try { java.io.File(ui.activity.getExternalFilesDir(null),name).outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG,100,it) } } finally { bitmap.recycle() }
     }
-    @Test fun languageLegendShowsEachActualSymbolAndVoiceOriginalCollapses() {
+    @Test fun languageLegendShowsEachActualSymbolAndVoiceOriginalStaysVisible() {
         lateinit var state:TranslatorState
         ui.runOnIdle { state=ViewModelProvider(ui.activity)[TranslatorState::class.java] }
         ui.waitUntil(30_000) { state.packages.restored.value }
@@ -27,12 +27,9 @@ class ParityDetailsTest {
         screenshot("parity-language-legend.png")
         ui.onNodeWithTag("sheet.close").performClick()
         ui.runOnIdle { state.mode="voice";state.input="Исходный текст";state.output="Translated text" }
-        ui.onNodeWithTag("voice.original.text").assertDoesNotExist()
         ui.onNodeWithTag("text.translation.text").performScrollTo().assertTextEquals("Translated text")
-        ui.onNodeWithTag("voice.original.disclosure").performScrollTo().performClick()
         ui.onNodeWithTag("voice.original.text").performScrollTo().assertTextEquals("Исходный текст")
-        ui.onNodeWithTag("voice.original.disclosure").performScrollTo().performClick()
-        ui.onNodeWithTag("voice.original.text").assertDoesNotExist()
+        ui.onNodeWithTag("voice.original.disclosure").assertDoesNotExist()
         ui.onNodeWithTag("text.share.source").assertIsNotEnabled()
         screenshot("parity-voice-results.png")
     }

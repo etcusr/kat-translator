@@ -2,6 +2,8 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+Android voice mode now shows both original and translation cards immediately and keeps the original expanded. The active playback button becomes a stop cross and returns to a speaker after stopping or completion, including automatic speech. The rebuilt development APK is installed on Pixel (version unchanged: 0.4.6 / code 21); 107 unit tests, lint and 4 device checks passed. Settings/history were preserved. [Checks and limits](android/benchmarks/2026-10-17-voice-results/README.md).
+
 Android media builds now include the existing inference-privacy helper required by the shared speech runtime, fixing an unresolved-symbol link failure. App and instrumented-test APK builds passed. [Build check](android/benchmarks/2026-10-17-media-link/README.md).
 
 iOS **1.0 (52)** was verified and uploaded to App Store Connect on 17 October. It includes the microphone and memory-pressure fixes, tap recording defaults and 13 loading clips. TestFlight installation and acceptance are pending; the owner will replace the current review build and resubmit. [Release verification](publication/ios-store-build52-2026-10-17.md).

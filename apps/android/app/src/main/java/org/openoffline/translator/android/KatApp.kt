@@ -244,16 +244,13 @@ internal fun shareFile(context:Context,file:File,mime:String) {
     val content=if(original)state.input else state.output;val suffix=if(original)"source" else "target";val context=LocalContext.current
     val audioPanel=state.mode=="voice"
     val recordedOriginal=original && audioPanel
-    var originalExpanded by rememberSaveable(content,state.mode) { mutableStateOf(false) }
+    val playing=state.isTextPlaying(original)
     Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp)).background(Panel).padding(14.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
         Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically) {
-            if(recordedOriginal)Row(Modifier.weight(1f).heightIn(min=44.dp).clickable { originalExpanded=!originalExpanded }.testTag("voice.original.disclosure"),verticalAlignment=Alignment.CenterVertically) {
-                KatIcon(if(originalExpanded)"down" else "next",Muted,Modifier.size(12.dp))
-                Text(tr("Оригинал")+" · "+state.currentSource.uppercase(),fontSize=12.sp,color=Muted)
-            } else Text(if(original)state.currentSource.uppercase() else state.target.uppercase(),fontSize=12.sp,fontWeight=FontWeight.SemiBold,color=Muted,modifier=Modifier.weight(1f))
+            Text(if(recordedOriginal)tr("Оригинал")+" · "+state.currentSource.uppercase() else if(original)state.currentSource.uppercase() else state.target.uppercase(),fontSize=12.sp,fontWeight=FontWeight.SemiBold,color=Muted,modifier=Modifier.weight(1f))
             GlyphButton("expand",tr("Показать полностью"),"text.$suffix.expand",content.isNotBlank(),40,expand)
             if(!recordedOriginal)PlaybackSpeed(state,"text.$suffix.speed")
-            GlyphButton("speaker",if(recordedOriginal)tr("Прослушать запись","Play recording") else if(original)tr("Озвучить оригинал") else tr("Озвучить перевод"),"text.$suffix.playback",(if(recordedOriginal)state.hasOriginalAudio else content.isNotBlank()) && !state.busy && !state.recording,40) { state.readText(original) }
+            GlyphButton(if(playing)"close" else "speaker",if(playing)tr("Остановить","Stop") else if(recordedOriginal)tr("Прослушать запись","Play recording") else if(original)tr("Озвучить оригинал") else tr("Озвучить перевод"),"text.$suffix.playback",playing || ((if(recordedOriginal)state.hasOriginalAudio else content.isNotBlank()) && !state.busy && !state.recording),40) { state.readText(original) }
             GlyphButton("copy",if(original)tr("Скопировать оригинал") else tr("Скопировать перевод"),"text.copy.$suffix",content.isNotBlank(),40) { copy(context,content) }
             GlyphButton("share",if(recordedOriginal)tr("Поделиться записью","Share recording") else if(audioPanel)tr("Поделиться аудио перевода","Share translated audio") else tr("Поделиться текстом","Share text"),"text.share.$suffix",if(audioPanel)(if(original)state.hasOriginalAudio else state.hasTranslatedAudio) && !state.busy && !state.recording else content.isNotBlank(),40) {
                 if(audioPanel)state.exportAudio(original) { shareFile(context,it,"audio/wav") } else share(context,content)
@@ -262,7 +259,7 @@ internal fun shareFile(context:Context,file:File,mime:String) {
         }
         val inputLabel=tr("Текст оригинала","Original text")
         if(original && state.mode=="text")BasicTextField(value=state.input,onValueChange={state.input=it},textStyle=LabelStyle.copy(color=Color.White),cursorBrush=SolidColor(KatAccent),modifier=Modifier.fillMaxWidth().heightIn(min=88.dp).testTag("text.source.input").semantics { contentDescription=inputLabel })
-        else if(!recordedOriginal || originalExpanded)SelectionContainer { Text(if(content.isEmpty()) { if(original)tr("Здесь появится распознанный текст","Recognized text will appear here") else tr("Здесь появится перевод") } else content,color=if(content.isEmpty())Muted else Color.White,fontSize=17.sp,modifier=Modifier.fillMaxWidth().heightIn(min=72.dp).testTag(if(original)"voice.original.text" else "text.translation.text")) }
+        else SelectionContainer { Text(if(content.isEmpty()) { if(original)tr("Здесь появится распознанный текст","Recognized text will appear here") else tr("Здесь появится перевод") } else content,color=if(content.isEmpty())Muted else Color.White,fontSize=17.sp,modifier=Modifier.fillMaxWidth().heightIn(min=72.dp).testTag(if(original)"voice.original.text" else "text.translation.text")) }
         if(!original && state.showTechnical)state.timing?.let { TimingSummary(it) }
         Text("${countCharacters(content)} "+tr("символов","characters"),fontSize=11.sp,color=Muted,modifier=Modifier.align(Alignment.End).testTag("text.$suffix.count"))
     }
@@ -318,8 +315,8 @@ internal fun shareFile(context:Context,file:File,mime:String) {
         if(!microphone.granted && microphone.asked)PermissionAccessNotice(tr("микрофону","microphone"),microphone,"voice.permission")
         state.previewMessage?.let { Note(it) }
         if(state.previewProcessing)Text(tr("Обрабатываю фразу…","Processing phrase…"),color=Muted,modifier=Modifier.testTag("voice.preview.processing"))
-        if(state.output.isNotEmpty())TextPanel(state,false) { reader(state.output,false) }
-        if(state.input.isNotEmpty() || state.hasOriginalAudio)TextPanel(state,true) { reader(state.input,true) }
+        TextPanel(state,false) { reader(state.output,false) }
+        TextPanel(state,true) { reader(state.input,true) }
         PlaybackControls(state);ErrorText(state)
     }
 }

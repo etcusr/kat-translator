@@ -194,7 +194,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
     var playingFile by mutableStateOf<String?>(null); private set
     private var filePlayer:android.media.MediaPlayer?=null
     private var activePreview:String?=null
-    private var playbackKey:String?=null
+    private var playbackKey by mutableStateOf<String?>(null)
     private val previews=app.assets.list("VoicePreviews").orEmpty().toSet()
     var image by mutableStateOf<Bitmap?>(null); private set
     var cameraNotice by mutableStateOf<String?>(null); private set
@@ -543,13 +543,19 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         copyAsset("espeak-ng-data",target);File(target,".complete").writeText("1");return target
     }
 
+    fun isTextPlaying(original:Boolean=false):Boolean {
+        val key=if(original && mode=="voice")"voice.recording"
+            else "$mode:${if(original)"source" else "target"}:${(if(original)input else output).hashCode()}"
+        return playing && playbackKey==key
+    }
     fun readText(original:Boolean=false) {
+        // Automatic speech may start before the translation worker finishes bookkeeping.
+        if(isTextPlaying(original)) { stopPlayback();return }
         if(busy || recording)return
         if(original && mode=="voice") { playOriginal();return }
         val workspace=mode;val content=if(original)input else output;val language=if(original) { if(currentSource=="auto")detectedSource else currentSource } else target
         if(content.isBlank())return
         val key="$workspace:${if(original)"source" else "target"}:${content.hashCode()}"
-        if(playing && playbackKey==key) { stopPlayback();return }
         if(language==null) { error=text("Для озвучки оригинала выберите язык.","Select the source language to read the original.");return }
         if(!original && translatedAudio[workspace]!=null) { playSpeech(translatedAudio.getValue(workspace),key);return }
         work(text("Подготовка озвучки…","Preparing speech…"),workspace,continueTiming=true) {

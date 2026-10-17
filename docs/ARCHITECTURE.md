@@ -2,6 +2,8 @@
 
 **English** | [Русский](ARCHITECTURE.ru.md)
 
+Android voice cards are always present with the original expanded. `TranslatorState.isTextPlaying` identifies the active card through observable playback ownership; its action stops playback before the processing-busy guard. `TextPanel` shows a stop cross during playback and a speaker otherwise.
+
 Android `kat_media` links the shared `Privacy/InferencePrivacy.c` helper used by the speech runtime before voice creation.
 
 The microphone defaults to tap to start / tap to stop on iOS, macOS and Android. A saved recording-mode choice is preserved; hold to record remains available in Settings. This source change requires a new build to reach installed apps.
