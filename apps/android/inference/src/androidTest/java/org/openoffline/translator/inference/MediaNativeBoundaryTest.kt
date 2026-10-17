@@ -9,6 +9,23 @@ import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 class MediaNativeBoundaryTest {
+    @Test fun optimizedWhisperIsPackagedAndLoadsOnlyOnSupportedCpu() {
+        assertEquals(MediaNative.whisperArm82Supported(),MediaNative.acceleratedWhisper)
+    }
+    @Test fun optimizedWhisperHonorsCancellationBeforeLoading() {
+        org.junit.Assume.assumeTrue(MediaNative.acceleratedWhisper)
+        val flag=MediaNative.flagCreate();MediaNative.flagCancel(flag)
+        try { assertNull(MediaNative.whisperArm82("/missing".toByteArray(),FloatArray(16000),"en".toByteArray(),flag)) }
+        finally { MediaNative.flagFree(flag) }
+    }
+    @Test fun optimizedWhisperRejectsCorruptModel() {
+        org.junit.Assume.assumeTrue(MediaNative.acceleratedWhisper)
+        val file=File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,"broken-fast-whisper.bin")
+        file.writeBytes("invalid".toByteArray())
+        val flag=MediaNative.flagCreate()
+        try { assertThrows(IllegalStateException::class.java) { MediaNative.whisperArm82(file.path.toByteArray(),FloatArray(16000){.1f},"en".toByteArray(),flag) } }
+        finally { MediaNative.flagFree(flag);file.delete() }
+    }
     @Test fun cancellationFlagCanBeReleasedBeforeInference() {
         repeat(20) { val f=MediaNative.flagCreate();assertNotEquals(0L,f);MediaNative.flagCancel(f);MediaNative.flagFree(f) }
     }

@@ -1,0 +1,155 @@
+{
+  "date": "2026-10-17",
+  "deviceClass": "Pixel 9 Pro",
+  "model": "whisper-large-v3-turbo-f16",
+  "inputSeconds": 25.179875,
+  "threads": 4,
+  "nativeRuns": [
+    {
+      "backend": "baseline CPU",
+      "loadSeconds": 2.332548,
+      "inferenceSeconds": 117.416852,
+      "encodeSeconds": 105.47064,
+      "decodeSeconds": 11.566840000000001,
+      "melSeconds": 0.12687
+    },
+    {
+      "backend": "ARMv8.2 FP16/dotprod CPU",
+      "loadSeconds": 1.111569,
+      "inferenceSeconds": 28.093453,
+      "encodeSeconds": 23.3789,
+      "decodeSeconds": 4.463010000000001,
+      "melSeconds": 0.12121
+    },
+    {
+      "backend": "Vulkan candidate",
+      "loadSeconds": 1.190587,
+      "inferenceSeconds": 67.566966,
+      "encodeSeconds": 62.7301,
+      "decodeSeconds": 3.41867,
+      "melSeconds": 0.11888
+    }
+  ],
+  "nativeTranscriptsExactlyEqual": true,
+  "privacy": "Input and transcripts are excluded; retained only in ignored local diagnostics.",
+  "productBaseline": {
+    "model": "whisper-large-v3-turbo-f16",
+    "recognitionSeconds": 117.414000098,
+    "translationSeconds": 3.494579022,
+    "totalSeconds": 121.664358824
+  },
+  "productOptimized": {
+    "model": "whisper-large-v3-turbo-f16",
+    "recognitionSeconds": 37.67195587,
+    "translationSeconds": 4.319134035,
+    "totalSeconds": 42.730837952
+  },
+  "productTranscriptsExactlyEqual": true,
+  "productSpeedup": 3.116748185392266,
+  "thermal": {
+    "baseline-before": {
+      "status": 0,
+      "temperatures": {
+        "G3D": {
+          "celsius": 38.0,
+          "status": 0
+        },
+        "VIRTUAL-SKIN": {
+          "celsius": 36.0356,
+          "status": 0
+        },
+        "battery": {
+          "celsius": 35.0,
+          "status": 0
+        }
+      },
+      "cooling": {
+        "thermal-cpufreq-2": 0,
+        "thermal-cpufreq-0": 0,
+        "thermal-cpufreq-1": 0,
+        "thermal-gpufreq-0": 0,
+        "thermal-uclamp-7": 0,
+        "thermal-uclamp-4": 0,
+        "thermal-uclamp-0": 0
+      }
+    },
+    "baseline-after": {
+      "status": 0,
+      "temperatures": {
+        "G3D": {
+          "celsius": 55.000004,
+          "status": 0
+        },
+        "VIRTUAL-SKIN": {
+          "celsius": 36.428947,
+          "status": 0
+        },
+        "battery": {
+          "celsius": 38.5,
+          "status": 0
+        }
+      },
+      "cooling": {
+        "thermal-cpufreq-2": 8,
+        "thermal-cpufreq-0": 0,
+        "thermal-cpufreq-1": 3,
+        "thermal-gpufreq-0": 0,
+        "thermal-uclamp-7": 0,
+        "thermal-uclamp-4": 0,
+        "thermal-uclamp-0": 0
+      }
+    },
+    "optimized-before": {
+      "status": 0,
+      "temperatures": {
+        "G3D": {
+          "celsius": 41.000004,
+          "status": 0
+        },
+        "VIRTUAL-SKIN": {
+          "celsius": 36.265457,
+          "status": 0
+        },
+        "battery": {
+          "celsius": 37.4,
+          "status": 0
+        }
+      },
+      "cooling": {
+        "thermal-cpufreq-2": 0,
+        "thermal-cpufreq-0": 0,
+        "thermal-cpufreq-1": 0,
+        "thermal-gpufreq-0": 0,
+        "thermal-uclamp-7": 0,
+        "thermal-uclamp-4": 0,
+        "thermal-uclamp-0": 0
+      }
+    },
+    "optimized-after": {
+      "status": 1,
+      "temperatures": {
+        "G3D": {
+          "celsius": 54.000004,
+          "status": 0
+        },
+        "VIRTUAL-SKIN": {
+          "celsius": 38.845448,
+          "status": 1
+        },
+        "battery": {
+          "celsius": 38.9,
+          "status": 0
+        }
+      },
+      "cooling": {
+        "thermal-cpufreq-2": 10,
+        "thermal-cpufreq-0": 0,
+        "thermal-cpufreq-1": 6,
+        "thermal-gpufreq-0": 0,
+        "thermal-uclamp-7": 2,
+        "thermal-uclamp-4": 2,
+        "thermal-uclamp-0": 1
+      }
+    }
+  }
+}

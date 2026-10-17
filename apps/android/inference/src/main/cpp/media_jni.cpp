@@ -7,7 +7,14 @@ int ot_ocr_run_scored(void *handle, const float *input, int width, int *ids, flo
 #include <onnxruntime/onnxruntime_c_api.h>
 #include <memory>
 #include <chrono>
+#include <sys/auxv.h>
+#include <asm/hwcap.h>
 #define JNI(name) extern "C" JNIEXPORT
+// This entry point stays baseline arm64. Check before loading any optimized code.
+JNI(whisperArm82Supported) jboolean JNICALL Java_org_openoffline_translator_inference_MediaNative_whisperArm82Supported(JNIEnv *,jobject) {
+ const auto caps=getauxval(AT_HWCAP);
+ return (caps&HWCAP_ASIMDDP) && (caps&HWCAP_ASIMDHP) && (caps&HWCAP_FPHP);
+}
 JNI(flagCreate) jlong JNICALL Java_org_openoffline_translator_inference_MediaNative_flagCreate(JNIEnv *,jobject){return reinterpret_cast<jlong>(wt_cancel_create());}
 JNI(flagCancel) void JNICALL Java_org_openoffline_translator_inference_MediaNative_flagCancel(JNIEnv *,jobject,jlong f){wt_cancel_set(reinterpret_cast<wt_cancel_flag *>(f));}
 JNI(flagFree) void JNICALL Java_org_openoffline_translator_inference_MediaNative_flagFree(JNIEnv *,jobject,jlong f){wt_cancel_free(reinterpret_cast<wt_cancel_flag *>(f));}

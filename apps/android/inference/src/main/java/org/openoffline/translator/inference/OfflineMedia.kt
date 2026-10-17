@@ -7,6 +7,13 @@ import kotlin.math.*
 
 internal object MediaNative {
     init { System.loadLibrary("kat_whisper"); System.loadLibrary("kat_media") }
+    external fun whisperArm82Supported():Boolean
+    val acceleratedWhisper:Boolean by lazy {
+        if(!whisperArm82Supported()) false else try {
+            System.loadLibrary("kat_whisper_arm82");true
+        } catch(_:UnsatisfiedLinkError) { false }
+    }
+    external fun whisperArm82(path:ByteArray,samples:FloatArray,language:ByteArray,flag:Long):ByteArray?
     external fun vadCreate(path: ByteArray): Long
     external fun vadAccept(handle: Long, samples: FloatArray): Boolean
     external fun vadFree(handle: Long)
@@ -96,7 +103,9 @@ class OfflineMedia : AutoCloseable {
     }
     @Synchronized fun transcribe(modelPath: String, samples: FloatArray, language: String = "auto", isCancelled: () -> Boolean = { false }): Transcript = operation(isCancelled) { f ->
         validatePcm(samples)
-        val raw = MediaNative.whisper(file(modelPath), samples, utf8(language), f) ?: throw CancellationException()
+        val path=file(modelPath);val lang=utf8(language)
+        val raw = (if(MediaNative.acceleratedWhisper) MediaNative.whisperArm82(path,samples,lang,f)
+            else MediaNative.whisper(path,samples,lang,f)) ?: throw CancellationException()
         val output = String(raw, Charsets.UTF_8); val split = output.indexOf('\n')
         check(split > 0) { "Invalid Whisper result" }
         val text = output.substring(split + 1).trim(); check(text.isNotEmpty()) { "No speech detected" }

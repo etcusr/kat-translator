@@ -15,6 +15,12 @@ android {
     externalNativeBuild { cmake { path = file("src/main/cpp/CMakeLists.txt"); version = "3.22.1" } }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
 }
+androidComponents {
+    onVariants { variant ->
+        // Loaded only after a baseline HWCAP check; never a DT_NEEDED dependency.
+        variant.sources.jniLibs?.addStaticSourceDirectory("../../../.build/android-media/whisper-optimized")
+    }
+}
 dependencies {
     implementation("com.ibm.icu:icu4j:78.3")
     testImplementation("junit:junit:4.13.2")

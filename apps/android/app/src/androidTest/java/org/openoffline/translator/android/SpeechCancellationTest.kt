@@ -36,8 +36,8 @@ class SpeechCancellationTest {
             ui.waitUntil(30_000) { state.packages.restored.value }
             ui.runOnUiThread { state.importAudio(Uri.fromFile(fixture)) }
             ui.waitUntil(10_000) { state.hasOriginalAudio && state.busy }
-            // Large-v3-turbo takes >100 s for this fixture on this device. Let
-            // model initialization finish so cancellation exercises active compute.
+            // Let model initialization finish so cancellation exercises active compute.
+            // The optimized large-v3-turbo still needs more than five seconds here.
             SystemClock.sleep(5_000)
             ui.runOnIdle { assertTrue(state.busy);assertEquals("whisper",state.recognitionBackend);assertEquals("",state.input) }
             val started=SystemClock.elapsedRealtime()

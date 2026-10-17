@@ -4,7 +4,12 @@ extern "C" {
 #include "ASR/WhisperCancellation.h"
 }
 #include <memory>
-extern "C" JNIEXPORT jbyteArray JNICALL Java_org_openoffline_translator_inference_MediaNative_whisper(JNIEnv *e,jobject,jbyteArray path,jfloatArray samples,jbyteArray language,jlong flag) {
+#ifdef KAT_WHISPER_ARM82
+#define WHISPER_JNI Java_org_openoffline_translator_inference_MediaNative_whisperArm82
+#else
+#define WHISPER_JNI Java_org_openoffline_translator_inference_MediaNative_whisper
+#endif
+extern "C" JNIEXPORT jbyteArray JNICALL WHISPER_JNI(JNIEnv *e,jobject,jbyteArray path,jfloatArray samples,jbyteArray language,jlong flag) {
  try {
   auto p=media_string(e,path), lang=media_string(e,language); auto pcm=media_samples(e,samples);
   auto *cancel=reinterpret_cast<wt_cancel_flag *>(flag); if(!cancel)throw std::runtime_error("Missing cancellation");

@@ -1,6 +1,6 @@
 # Pinned offline media runtimes. Run scripts/android/setup-media.sh once.
 set(KAT_MEDIA "${KAT_ROOT}/.build/android-media")
-if(NOT EXISTS "${KAT_MEDIA}/whisper/libkat_whisper.so" OR NOT EXISTS "${KAT_MEDIA}/jniLibs/arm64-v8a/libsherpa-onnx-c-api.so")
+if(NOT EXISTS "${KAT_MEDIA}/whisper/libkat_whisper.so" OR NOT EXISTS "${KAT_MEDIA}/whisper-optimized/arm64-v8a/libkat_whisper_arm82.so" OR NOT EXISTS "${KAT_MEDIA}/jniLibs/arm64-v8a/libsherpa-onnx-c-api.so")
  message(FATAL_ERROR "Run scripts/android/setup-media.sh before building offline media")
 endif()
 add_library(kat_whisper SHARED IMPORTED)

@@ -2,6 +2,8 @@
 
 **English** | [Русский](INSTALL.ru.md)
 
+Whisper now includes a CPU path using FP16/dotprod instructions on compatible phones, with baseline arm64 fallback. Run `scripts/android/setup-media.sh` again before rebuilding: it prepares both libraries. The model remains large-v3-turbo F16; there is no smaller or quantized replacement. Auto still selects GigaAM/Parakeet; choose Whisper explicitly in Settings for its recognition quality. [Pixel measurements](benchmarks/2026-10-17-whisper-latency/README.md).
+
 Current release: **0.4.6 / versionCode 21**, Debug, ARM64 / API 31+. APK: `dist/android/kat-translator-0.4.6-debug.apk`; the checksum is in `dist/android/SHA256SUMS`. Local artifacts are not part of Git. [Versions, results and limitations](../CURRENT_STATE.md).
 
 Install over the previous app with the same application ID and signature, without deleting its data: this keeps models and history. Weights are not included in the APK. Downloading needs a network connection; translation, recognition and speech output run locally once the required packages are installed.

@@ -2,6 +2,8 @@
 
 **English** | [Русский](README.ru.md)
 
+Whisper CPU acceleration (17 October): the same large-v3-turbo F16 model recognized a 25.18-second input in **37.67 s instead of 117.41 s** through the real app path, with identical text. Compatible CPUs use FP16/dotprod; old arm64 CPUs retain baseline support. Run `setup-media.sh` again before rebuilding both libraries. Auto routing is unchanged. [Measurements, fallback, tests and thermal limits](benchmarks/2026-10-17-whisper-latency/README.md). This is installed in the development APK; saved distribution APKs were not replaced.
+
 Current release: **0.4.6 / code 21**. Compose, text/voice/camera, history and downloads; Index 9B on Vulkan with MTP, Index 2B on Vulkan without MTP, OPUS on CPU with separate directions, GigaAM/Parakeet ASR Auto. The initial translation choice is "Auto", based on the device class and language pair; a saved manual choice is kept. The initial CPU/GPU device check runs before language selection. [Current state](../CURRENT_STATE.md) · [install and build](INSTALL.md) · [actual layout](PLATFORM_LAYOUT.md).
 
 Latest [RU/DE voice acceptance](../benchmarks/voice-auto-devices-2026-10-13/README.md): import and the physical Pixel microphone, GigaAM/Parakeet → Auto OPUS/Index 2B → TTS. The Voice source language is chosen explicitly; ASR Auto selects an engine, it does not detect an unknown spoken language.
