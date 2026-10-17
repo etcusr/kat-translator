@@ -82,10 +82,31 @@ final class WhisperBackend: ASRBackend, @unchecked Sendable {
                         }
                         detectedLanguage = detected
                     }
-                    let count = whisper_full_n_segments(context)
-                    var text = ""
-                    for index in 0..<count {
-                        if let segment = whisper_full_get_segment_text(context, index) { text += String(cString: segment) }
+                    func transcript() -> String {
+                        var value = ""
+                        for index in 0..<whisper_full_n_segments(context) {
+                            if let segment = whisper_full_get_segment_text(context, index) { value += String(cString: segment) }
+                        }
+                        return value.trimmingCharacters(in: .whitespacesAndNewlines)
+                    }
+                    var text = transcript()
+                    // Only retry a short Russian clip with an ambiguous time/date triple.
+                    // The original remains authoritative unless acoustic word evidence agrees.
+                    if audio.samples.count <= 30 * 16_000,
+                       WhisperDateTimeRepair.needsRetry(text, language: detectedLanguage) {
+                        params.no_timestamps = true // Digit suppression must not suppress timestamp tokens.
+                        params.max_tokens = 256 // A truncated retry fails word agreement and keeps the original.
+                        let retryCode = "ru".withCString { lang in
+                            params.language = lang
+                            return ".*[0-9].*".withCString { pattern in
+                                params.suppress_regex = pattern
+                                return audio.samples.withUnsafeBufferPointer { samples in
+                                    whisper_full(context, params, samples.baseAddress, Int32(samples.count))
+                                }
+                            }
+                        }
+                        if flag.cancelled { continuation.resume(throwing: CancellationError()); return }
+                        if retryCode == 0 { text = WhisperDateTimeRepair.repair(text, retry: transcript()) }
                     }
                     let result = ASRResult(text: text.trimmingCharacters(in: .whitespacesAndNewlines), language: detectedLanguage,
                         processingSeconds: ProcessInfo.processInfo.systemUptime - start, engineID: ModelDescriptor.turbo.id)

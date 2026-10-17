@@ -1,0 +1,82 @@
+[
+  {
+    "name": "time-first",
+    "synthetic_spoken_text": "Поезд прибудет двадцать два восемнадцать шестнадцатого октября.",
+    "baseline_text": "Поезд прибудет 22-18-16 октября.",
+    "fixed_text": "Поезд прибудет 22:18, 16 октября.",
+    "repeat_exact": true,
+    "baseline_seconds": 0.7925416249781847,
+    "fixed_seconds": 2.4576514583313838,
+    "repeat_seconds": 2.3486048333288636
+  },
+  {
+    "name": "early-time",
+    "synthetic_spoken_text": "Встречаемся в девять ноль пять тридцать первого января.",
+    "baseline_text": "Встречаемся в 9.05.31 января.",
+    "fixed_text": "Встречаемся в 9:05, 31 января.",
+    "repeat_exact": true,
+    "baseline_seconds": 0.7915303750196472,
+    "fixed_seconds": 2.338216916687088,
+    "repeat_seconds": 2.242841999977827
+  },
+  {
+    "name": "date-first",
+    "synthetic_spoken_text": "Самолёт прилетит шестнадцатого октября в двадцать два восемнадцать.",
+    "baseline_text": "Самолет прилетит 16 октября в 22.18.",
+    "fixed_text": "Самолет прилетит 16 октября в 22.18.",
+    "repeat_exact": true,
+    "baseline_seconds": 0.7664595000096597,
+    "fixed_seconds": 0.8093418750213459,
+    "repeat_seconds": 0.7713359583285637
+  },
+  {
+    "name": "explicit-time",
+    "synthetic_spoken_text": "Заселение пятого мая в семнадцать часов тридцать минут.",
+    "baseline_text": "Заселение 5 мая в 17 часов 30 минут.",
+    "fixed_text": "Заселение 5 мая в 17 часов 30 минут.",
+    "repeat_exact": true,
+    "baseline_seconds": 0.7740259999991395,
+    "fixed_seconds": 0.792261166672688,
+    "repeat_seconds": 0.765843125001993
+  },
+  {
+    "name": "money",
+    "synthetic_spoken_text": "Два билета стоят тысячу двести пятьдесят рублей, скидка пятнадцать процентов.",
+    "baseline_text": "Два билета стоят 1250 рублей, скидка 15%.",
+    "fixed_text": "Два билета стоят 1250 рублей, скидка 15%.",
+    "repeat_exact": true,
+    "baseline_seconds": 0.7730395833204966,
+    "fixed_seconds": 0.7920936666778289,
+    "repeat_seconds": 0.7921152083436027
+  },
+  {
+    "name": "count",
+    "synthetic_spoken_text": "Номер комнаты двести четырнадцать. Нужно три полотенца и две бутылки воды.",
+    "baseline_text": "Номер комнаты 214. Нужно 3 полотенца и 2 бутылки воды.",
+    "fixed_text": "Номер комнаты 214. Нужно 3 полотенца и 2 бутылки воды.",
+    "repeat_exact": true,
+    "baseline_seconds": 0.829097208334133,
+    "fixed_seconds": 0.8262381249805912,
+    "repeat_seconds": 0.8597159583296161
+  },
+  {
+    "name": "decimal",
+    "synthetic_spoken_text": "Температура тридцать шесть целых шесть десятых. Масса два килограмма.",
+    "baseline_text": "Температура 36,6. Масса 2 килограмма.",
+    "fixed_text": "Температура 36,6. Масса 2 килограмма.",
+    "repeat_exact": true,
+    "baseline_seconds": 0.8061554583255202,
+    "fixed_seconds": 0.8131529166712426,
+    "repeat_seconds": 0.8156558749906253
+  },
+  {
+    "name": "phone",
+    "synthetic_spoken_text": "Код подтверждения: семь, два, ноль, пять, один, девять.",
+    "baseline_text": "Код подтверждения 720519.",
+    "fixed_text": "Код подтверждения 720519.",
+    "repeat_exact": true,
+    "baseline_seconds": 0.7552551666740328,
+    "fixed_seconds": 0.7556609583261888,
+    "repeat_seconds": 0.7564866666507442
+  }
+]

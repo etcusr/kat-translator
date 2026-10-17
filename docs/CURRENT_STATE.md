@@ -2,6 +2,8 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+Apple Whisper now repairs a narrowly detected Russian time/date merge using a second acoustic decoding and strict word/number agreement. The private reported case and two synthetic variants were corrected; six other numeric controls remained identical. Ordinary clips use the original single pass; ambiguous clips add recognition time. OfflineCore: 295 tests, 2 skips, no failures; unsigned iOS Release build passed. Source change only, not installed. [Checks and limits](benchmarks/apple-whisper-date-time-2026-10-17/README.md).
+
 Completed-test/build cleanup reduced the workspace by **50.73 GB**. iOS Store 51–53, Mac Store 69–71, current direct/compatibility packages and the current Android i8mm APK remain; models, dependencies and source are preserved. Removed test/build output must be regenerated for future runs. [Inventory and preservation checks](maintenance/cleanup-2026-10-17.md).
 
 Android Whisper Q8 now has an optional i8mm CPU path on compatible devices, with the same weights and decoding settings. Native recognition improved by 7–9% on two private Pixel recordings; their transcripts and two short RU/EN controls match the previous runtime exactly. F16 and other model files retain the previous path; missing libraries or CPU support fall back. KleidiAI and Vulkan experiments were not selected. [Comparison, checks and limits](android/benchmarks/2026-10-17-whisper-i8mm/README.md). Fresh app imports improved from 14.03 to 12.97 s on the 25.18-second recording and from 13.72 to 12.54 s on the 28.86-second recording, with exact before/after transcripts; development 0.4.6 (21) is installed on Pixel.
