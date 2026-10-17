@@ -120,6 +120,8 @@ final class SherpaSpeechBackend: SpeechSynthesisBackend, @unchecked Sendable {
                     return
                 }
                 guard let context = self.context, !flag.cancelled else { continuation.resume(throwing: CancellationError()); return }
+                // Voices read "16-е" as digits plus a letter; spell such ordinals out first.
+                let text = self.languageCode == "ru" ? RussianSpeechText.expandOrdinals(text) : text
                 let input: String
                 do { input = try self.mmsTokens.map { try MMSSpeechText.prepare(text, tokens: $0, language: self.languageCode) } ?? text }
                 catch { continuation.resume(throwing: error); return }

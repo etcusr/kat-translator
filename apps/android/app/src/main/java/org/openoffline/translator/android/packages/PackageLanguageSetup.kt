@@ -72,7 +72,7 @@ data class PackageLanguageSetup(
             }
             if (speech) {
                 val candidates = available.filter { it.category == PackageCategory.VOICE && it.supports(language) }
-                val voice = candidates.firstOrNull { it.id == selectedVoices[language] } ?: candidates.firstOrNull()
+                val voice = candidates.firstOrNull { it.id == selectedVoices[language] } ?: PackageVoiceDefaults.preferred(candidates, language)
                 if (voice == null) missingSpeech += language else selected[voice.id] = voice
             }
         }
@@ -120,8 +120,15 @@ object PackageVoiceDownloads {
         val voices = catalog.filter { it.category == PackageCategory.VOICE && it.unavailableReason == null }
         val selected = voices.flatMap { it.languages }.distinct().mapNotNull { language ->
             voices.firstOrNull { it.id == selectedVoices[language] && it.supports(language) }
-                ?: voices.firstOrNull { it.supports(language) }
+                ?: PackageVoiceDefaults.preferred(voices.filter { it.supports(language) }, language)
         }.distinctBy { it.id }
         return PackageSetupPlan(selected, emptyList(), emptyList(), emptyList(), selected.isNotEmpty())
     }
+}
+
+/** Default voice when the user has not chosen one: Irina for Russian, otherwise the catalog order. */
+object PackageVoiceDefaults {
+    const val RUSSIAN = "vits-piper-ru_RU-irina-medium"
+    fun preferred(candidates: List<OfflinePackage>, language: String): OfflinePackage? =
+        candidates.firstOrNull { language == "ru" && it.id == RUSSIAN } ?: candidates.firstOrNull()
 }

@@ -486,7 +486,16 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         packageAction(visible) { PackageDownloads.importFile(getApplication(),id,uri) }
     }
     fun removePackage(id:String) { if(busy || recording)return;worker.execute { releaseTranslation();packages.remove(id) } }
-    fun selectedVoice(language:String):String? { audioRevision;return prefs.getString("voice.$language",null) ?: packages.catalog.firstOrNull { it.category==PackageCategory.VOICE && it.unavailableReason==null && it.supports(language) }?.id }
+    fun selectedVoice(language:String):String? {
+        audioRevision
+        prefs.getString("voice.$language",null)?.let { return it }
+        val voices=packages.catalog.filter { it.category==PackageCategory.VOICE && it.unavailableReason==null && it.supports(language) }
+        // Irina is the default Russian voice; without an explicit choice an already installed earlier default is kept.
+        val preferred=voices.sortedBy { if(language=="ru" && it.id==PackageVoiceDefaults.RUSSIAN) 0 else 1 }
+        val installed=packages.states.value
+        return (preferred.firstOrNull()?.takeIf { installed[it.id]?.phase==PackagePhase.INSTALLED }
+            ?: preferred.firstOrNull { installed[it.id]?.phase==PackagePhase.INSTALLED } ?: preferred.firstOrNull())?.id
+    }
     fun selectVoice(language:String,id:String) { missingVoice=null;stopPlayback();translatedAudio.clear();prefs.edit().putString("voice.$language",id).apply();audioRevision++ }
     fun selectedRecognition():String? { audioRevision;return prefs.getString("recognitionModel",null) }
     fun selectRecognition(id:String) { recognitionPreference="automatic";prefs.edit().putString("recognitionPreference","automatic").putString("recognitionModel",id).apply();audioRevision++ }

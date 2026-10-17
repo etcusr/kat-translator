@@ -141,7 +141,8 @@ import OfflineCore
             additionalVoices.first { $0.model.id == definition.id }
         }
         switch language {
-        case .russian: return [russianVoice, irinaVoice, supertonicVoice] + additional
+        // Irina is the default Russian voice; Denis stays available as an option.
+        case .russian: return [irinaVoice, russianVoice, supertonicVoice] + additional
         case .english: return [englishVoice, lessacVoice, supertonicVoice] + additional
         case .chinese: return [chineseVoice] + additional
         case .thai: return [wayuVoice] + additional
@@ -181,7 +182,12 @@ import OfflineCore
     var missingVoiceBytes: Int64 { missingVoiceDownloaders.filter { $0.installedURL == nil }.reduce(0) { $0 + $1.model.byteCount } }
     func selectedVoice(_ language: SpeechLanguage) -> ModelDownloader {
         let id = UserDefaults.standard.string(forKey: "voice." + language.rawValue)
-        return voices(language).first(where: { $0.model.id == id }) ?? voices(language)[0]
+        if let chosen = voices(language).first(where: { $0.model.id == id }) { return chosen }
+        // Without an explicit choice keep a voice that is already installed (an earlier default),
+        // so changing the default never leaves an existing user without speech.
+        if voiceDirectories[voices(language)[0].model.id] == nil,
+           let installed = voices(language).first(where: { voiceDirectories[$0.model.id] != nil }) { return installed }
+        return voices(language)[0]
     }
     func selectVoice(_ item: ModelDownloader, language: SpeechLanguage) {
         guard voiceDirectories[item.model.id] != nil, voices(language).contains(where: { $0 === item }) else { return }

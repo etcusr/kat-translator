@@ -2,6 +2,8 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+iPhone/Mac now start speaking each finished sentence of the translation while the rest is still generated; the translated text is unchanged. On iPhone 17 Pro a 5-sentence phrase started speaking **3.1 s instead of 7.1 s** after recording stopped. Piper uses up to four threads, processing during recording is on by default, the default Russian voice is Irina on all platforms (an installed Denis is kept until Irina is downloaded) and Russian ordinals such as "16-е" are spelled out before speech on Apple. Development build only; no version change. [Measurements and limits](benchmarks/ios-speed-2026-10-17/README.md).
+
 Android Whisper large-v3-turbo F16 now uses FP16/dotprod CPU instructions where supported, with a baseline arm64 fallback. On the same 25.18-second recording, the real app recognition stage fell from **117.41 to 37.67 s (3.12× faster)** with identical text. The model and decoding settings are unchanged; the Pixel warmed into throttling, so this is an observed comparison rather than a universal speed claim. Builds, 107 unit tests, lint and 12 device checks passed. The updated development APK is installed without a version change. [Measurements and limits](android/benchmarks/2026-10-17-whisper-latency/README.md).
 
 Android VITS/Piper synthesis now uses up to four CPU threads with unchanged voice weights and quality settings. On Pixel, the same 257-character input took **10.42 s versus 17.38 s** in the synthesis stage (40% less); generation dominated the original wait. App/test builds, 107 unit tests, lint and four functional device checks passed. The updated development APK is installed with version unchanged. [Measurements and limits](android/benchmarks/2026-10-17-tts-latency/README.md).
