@@ -2,6 +2,8 @@
 
 **English** | [Русский](README.ru.md)
 
+Further Pixel profiling on a different 28.86-second recording: Q8 recognition 13.25 s, separate synthesis 8.88 s. Thread/affinity changes showed no convincing gain. Native Piper returns its first fragment in about 3.76 s including loading; four concatenated callbacks exactly matched the final PCM. Streamed playback and model caching are proposed, not implemented; the APK and preferences are unchanged. [Measurements and plan](benchmarks/2026-10-17-next-latency/README.md).
+
 Optional **Whisper large-v3-turbo Q8** (874 MB) is available in Models. In a fresh app comparison on a 25.18-second recording, recognition took **14.36 s versus 26.03 s for F16**; words, numbers and time match, with quotation marks differing. The tested Q8 package is selected on Pixel; F16 and Auto remain available. This development APK passed 108 unit tests, lint and five device checks; no distribution APK was replaced. [Variant comparison, build scope and quality limits](benchmarks/2026-10-17-whisper-options/README.md).
 
 Whisper CPU acceleration (17 October): the same large-v3-turbo F16 model recognized a 25.18-second input in **37.67 s instead of 117.41 s** through the real app path, with identical text. Compatible CPUs use FP16/dotprod; old arm64 CPUs retain baseline support. Run `setup-media.sh` again before rebuilding both libraries. Auto routing is unchanged. [Measurements, fallback, tests and thermal limits](benchmarks/2026-10-17-whisper-latency/README.md). This is installed in the development APK; saved distribution APKs were not replaced.

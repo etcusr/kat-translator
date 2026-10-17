@@ -1,0 +1,315 @@
+{
+  "date": "2026-10-17",
+  "device_class": "Pixel 9 Pro",
+  "installed_version": "0.4.6 (21)",
+  "app_changed": false,
+  "input_audio_seconds": 28.859875,
+  "input_audio_sample_rate": 16000,
+  "speech_characters": 215,
+  "asr_model": "whisper-large-v3-turbo-q8_0",
+  "voice": "vits-piper-en_US-ljspeech-high",
+  "app_asr": {
+    "model": "whisper-large-v3-turbo-q8_0",
+    "recognitionSeconds": 13.25317648,
+    "translationSeconds": 3.095757733,
+    "totalSeconds": 16.960493782
+  },
+  "app_tts": [
+    {
+      "run": 0,
+      "voice": "vits-piper-en_US-ljspeech-high",
+      "characters": 215,
+      "synthesisSeconds": 8.876415043,
+      "wallSeconds": 9.179,
+      "loadSeconds": 1.175109579,
+      "generateSeconds": 7.406905074,
+      "copySeconds": 0.00073938,
+      "releaseSeconds": 0.040695353,
+      "otherSeconds": 0.25296565699999984
+    }
+  ],
+  "asr_variants": [
+    {
+      "name": "asr4",
+      "threads": 4,
+      "affinity": "default",
+      "load_seconds": 0.930203,
+      "inference_seconds": 12.664531,
+      "encoder_seconds": 10.66207,
+      "decoder_seconds": 1.78027,
+      "exact_app_transcript_match": true,
+      "before": {
+        "status": 0,
+        "skin_celsius": 29.6714,
+        "battery_celsius": 32.0,
+        "restrictions": []
+      },
+      "after": {
+        "status": 0,
+        "skin_celsius": 31.439095,
+        "battery_celsius": 32.800003,
+        "restrictions": []
+      }
+    },
+    {
+      "name": "asr4big",
+      "threads": 4,
+      "affinity": "cpu4-7",
+      "load_seconds": 0.950235,
+      "inference_seconds": 12.327254,
+      "encoder_seconds": 10.664100000000001,
+      "decoder_seconds": 1.4691500000000002,
+      "exact_app_transcript_match": true,
+      "before": {
+        "status": 0,
+        "skin_celsius": 31.439095,
+        "battery_celsius": 32.800003,
+        "restrictions": []
+      },
+      "after": {
+        "status": 0,
+        "skin_celsius": 32.58358,
+        "battery_celsius": 33.9,
+        "restrictions": []
+      }
+    },
+    {
+      "name": "asr3big",
+      "threads": 3,
+      "affinity": "cpu4-7",
+      "load_seconds": 0.988835,
+      "inference_seconds": 16.47725,
+      "encoder_seconds": 13.71251,
+      "decoder_seconds": 2.52434,
+      "exact_app_transcript_match": true,
+      "before": {
+        "status": 0,
+        "skin_celsius": 32.92916,
+        "battery_celsius": 35.0,
+        "restrictions": []
+      },
+      "after": {
+        "status": 0,
+        "skin_celsius": 32.939064,
+        "battery_celsius": 35.300003,
+        "restrictions": []
+      }
+    },
+    {
+      "name": "asr4control",
+      "threads": 4,
+      "affinity": "default",
+      "load_seconds": 0.935157,
+      "inference_seconds": 12.614613,
+      "encoder_seconds": 10.80064,
+      "decoder_seconds": 1.58419,
+      "exact_app_transcript_match": true,
+      "before": {
+        "status": 0,
+        "skin_celsius": 32.963768,
+        "battery_celsius": 35.7,
+        "restrictions": []
+      },
+      "after": {
+        "status": 0,
+        "skin_celsius": 34.139133,
+        "battery_celsius": 36.2,
+        "restrictions": []
+      }
+    },
+    {
+      "name": "asr6",
+      "threads": 6,
+      "affinity": "default",
+      "load_seconds": 0.927351,
+      "inference_seconds": 18.181051,
+      "encoder_seconds": 13.0533,
+      "decoder_seconds": 4.84218,
+      "exact_app_transcript_match": true,
+      "before": {
+        "status": 0,
+        "skin_celsius": 34.36001,
+        "battery_celsius": 36.2,
+        "restrictions": []
+      },
+      "after": {
+        "status": 0,
+        "skin_celsius": 35.095406,
+        "battery_celsius": 36.300003,
+        "restrictions": []
+      }
+    },
+    {
+      "name": "asr8",
+      "threads": 8,
+      "affinity": "default",
+      "load_seconds": 0.934794,
+      "inference_seconds": 27.705494,
+      "encoder_seconds": 12.64668,
+      "decoder_seconds": 14.55148,
+      "exact_app_transcript_match": true,
+      "before": {
+        "status": 0,
+        "skin_celsius": 35.095406,
+        "battery_celsius": 36.300003,
+        "restrictions": []
+      },
+      "after": {
+        "status": 0,
+        "skin_celsius": 37.337193,
+        "battery_celsius": 37.800003,
+        "restrictions": [
+          "thermal-cpufreq-2: frequency restriction 4",
+          "thermal-cpufreq-0: frequency restriction 1",
+          "thermal-cpufreq-1: frequency restriction 4"
+        ]
+      }
+    },
+    {
+      "name": "asr4final",
+      "threads": 4,
+      "affinity": "default",
+      "load_seconds": 0.929153,
+      "inference_seconds": 12.284538,
+      "encoder_seconds": 10.51834,
+      "decoder_seconds": 1.5305499999999999,
+      "exact_app_transcript_match": true,
+      "before": {
+        "status": 0,
+        "skin_celsius": 34.57024,
+        "battery_celsius": 36.5,
+        "restrictions": []
+      },
+      "after": {
+        "status": 0,
+        "skin_celsius": 35.673832,
+        "battery_celsius": 36.4,
+        "restrictions": []
+      }
+    }
+  ],
+  "tts_variants": [
+    {
+      "name": "tts4",
+      "threads": 4,
+      "affinity": "default",
+      "load_seconds": 1.151403,
+      "generate_seconds": 7.072809,
+      "first_callback_seconds_after_load": 2.724548,
+      "first_callback_seconds_including_load": 3.8759509999999997,
+      "audio_seconds": 15.188617,
+      "samples": 334909,
+      "before": {
+        "status": 0,
+        "skin_celsius": 30.083166,
+        "battery_celsius": 32.100002,
+        "restrictions": []
+      },
+      "after": {
+        "status": 0,
+        "skin_celsius": 29.6714,
+        "battery_celsius": 32.0,
+        "restrictions": []
+      }
+    },
+    {
+      "name": "tts4big",
+      "threads": 4,
+      "affinity": "cpu4-7",
+      "load_seconds": 1.179913,
+      "generate_seconds": 6.863067,
+      "first_callback_seconds_after_load": 2.478105,
+      "first_callback_seconds_including_load": 3.6580179999999998,
+      "audio_seconds": 14.802721,
+      "samples": 326400,
+      "before": {
+        "status": 0,
+        "skin_celsius": 32.58358,
+        "battery_celsius": 33.9,
+        "restrictions": []
+      },
+      "after": {
+        "status": 0,
+        "skin_celsius": 32.854492,
+        "battery_celsius": 34.5,
+        "restrictions": [
+          "G3D: 65.00 C"
+        ]
+      }
+    },
+    {
+      "name": "tts3big",
+      "threads": 3,
+      "affinity": "cpu4-7",
+      "load_seconds": 1.230407,
+      "generate_seconds": 9.03055,
+      "first_callback_seconds_after_load": 3.151265,
+      "first_callback_seconds_including_load": 4.381672,
+      "audio_seconds": 15.020771,
+      "samples": 331208,
+      "before": {
+        "status": 0,
+        "skin_celsius": 32.939064,
+        "battery_celsius": 35.300003,
+        "restrictions": []
+      },
+      "after": {
+        "status": 0,
+        "skin_celsius": 33.960457,
+        "battery_celsius": 35.600002,
+        "restrictions": []
+      }
+    },
+    {
+      "name": "callbacks",
+      "threads": 4,
+      "affinity": "default",
+      "load_seconds": 1.281618,
+      "generate_seconds": 6.900647,
+      "first_callback_seconds_after_load": 2.477148,
+      "first_callback_seconds_including_load": 3.758766,
+      "audio_seconds": 15.39483,
+      "samples": 339456,
+      "before": {
+        "status": 0,
+        "skin_celsius": 33.766693,
+        "battery_celsius": 35.9,
+        "restrictions": []
+      },
+      "after": {
+        "status": 0,
+        "skin_celsius": 32.963768,
+        "battery_celsius": 35.7,
+        "restrictions": []
+      }
+    }
+  ],
+  "callbacks": [
+    {
+      "index": 0,
+      "ready_seconds_after_load": 2.477148,
+      "samples": 114944
+    },
+    {
+      "index": 1,
+      "ready_seconds_after_load": 3.175829,
+      "samples": 36864
+    },
+    {
+      "index": 2,
+      "ready_seconds_after_load": 5.374589,
+      "samples": 110080
+    },
+    {
+      "index": 3,
+      "ready_seconds_after_load": 6.900005,
+      "samples": 77568
+    }
+  ],
+  "callback_concat_bitwise_equal_to_final_pcm": true,
+  "callback_total_samples": 339456,
+  "sample_rate": 22050,
+  "simulated_queue_underflow_at_speeds_1_1_25_2": false,
+  "streamed_playback_on_device_tested": false,
+  "quality_limit": "Same raw PCM within one synthesis; no new streaming player or loudness handling implemented. ASR transcript agreement is not a human-scored or multilingual evaluation."
+}

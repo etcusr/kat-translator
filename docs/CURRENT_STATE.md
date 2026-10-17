@@ -2,6 +2,8 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+Further Pixel profiling on a different 28.86-second recording: Q8 recognition 13.25 s, separate synthesis 8.88 s. Thread/affinity changes showed no convincing gain. Native Piper returns its first fragment in about 3.76 s including loading; four concatenated callbacks exactly matched the final PCM. Streamed playback and model caching are proposed, not implemented; the APK and preferences are unchanged. [Measurements and plan](android/benchmarks/2026-10-17-next-latency/README.md).
+
 **iOS 1.0 (53) and Mac App Store 1.0 (71)** were built from the corrected sources, verified and uploaded to App Store Connect. They include complete streamed speech, exact whitespace handling to avoid replay, contextual Russian ordinals and Mac MLX partial output. Both packages contain the current 13 loading clips. Project validation: 143 PASS. Apple processing, TestFlight installation and build selection for review are not yet confirmed. [Checks and upload result](publication/apple-speech-store-2026-10-17.md).
 
 The corrected Mac app is now installed at `/Applications/Kat translator.app`: development **0.6.7 (60)**, source fingerprint `mac-c075be03543c17ac`. Four fresh runtime tests passed, including real MLX/Irina and player controls; signature/dependency checks and normal launch passed. Modern DMG/ZIP were subsequently refreshed with the same corrected source identity; [package integrity and hashes](benchmarks/mac-speech-install-2026-10-17/packages.md) passed. The later store replacement is recorded above. [Installation evidence](benchmarks/mac-speech-install-2026-10-17/README.md).

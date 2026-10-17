@@ -2,6 +2,8 @@
 
 **English** | [Русский](ARCHITECTURE.ru.md)
 
+Android still collects all Piper PCM before playback; native callbacks check cancellation without forwarding audio to the player. Whisper is recreated per call. Recording preprocessing requires Index + Whisper and defaults off; audio import does not use it. [Measured limits and proposed next stage](android/benchmarks/2026-10-17-next-latency/README.md).
+
 **iOS 1.0 (53) and Mac App Store 1.0 (71)** were built from the corrected sources, verified and uploaded to App Store Connect. They include complete streamed speech, exact whitespace handling to avoid replay, contextual Russian ordinals and Mac MLX partial output. Both packages contain the current 13 loading clips. Project validation: 143 PASS. Apple processing, TestFlight installation and build selection for review are not yet confirmed. [Checks and upload result](publication/apple-speech-store-2026-10-17.md).
 
 The iPhone Index 9B runtime retains MTP with two draft tokens after the completed settings comparison; experimental MTP/draft-count/Q8-KV environment switches are absent. Mac Index 9B continues to use MLX with partial output. [Comparison](benchmarks/ios-mt-options-2026-10-17/README.md).
