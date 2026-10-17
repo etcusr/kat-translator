@@ -2,6 +2,8 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+Android VITS/Piper synthesis now uses up to four CPU threads with unchanged voice weights and quality settings. On Pixel, the same 257-character input took **10.42 s versus 17.38 s** in the synthesis stage (40% less); generation dominated the original wait. App/test builds, 107 unit tests, lint and four functional device checks passed. The updated development APK is installed with version unchanged. [Measurements and limits](android/benchmarks/2026-10-17-tts-latency/README.md).
+
 Android voice mode now shows both original and translation cards immediately and keeps the original expanded. The active playback button becomes a stop cross and returns to a speaker after stopping or completion, including automatic speech. The rebuilt development APK is installed on Pixel (version unchanged: 0.4.6 / code 21); 107 unit tests, lint and 4 device checks passed. Settings/history were preserved. [Checks and limits](android/benchmarks/2026-10-17-voice-results/README.md).
 
 Android media builds now include the existing inference-privacy helper required by the shared speech runtime, fixing an unresolved-symbol link failure. App and instrumented-test APK builds passed. [Build check](android/benchmarks/2026-10-17-media-link/README.md).

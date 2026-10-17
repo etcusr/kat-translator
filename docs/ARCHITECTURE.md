@@ -2,6 +2,8 @@
 
 **English** | [Русский](ARCHITECTURE.ru.md)
 
+Android VITS uses up to four online CPU threads; the shared speech runtime retains two on Apple and for Supertonic. Android JNI returns text-free phase timings through `OfflineMedia.lastSpeechTiming`. Voice engines still belong to one synthesis call.
+
 Android voice cards are always present with the original expanded. `TranslatorState.isTextPlaying` identifies the active card through observable playback ownership; its action stops playback before the processing-busy guard. `TextPanel` shows a stop cross during playback and a speaker otherwise.
 
 Android `kat_media` links the shared `Privacy/InferencePrivacy.c` helper used by the speech runtime before voice creation.

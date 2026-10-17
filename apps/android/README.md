@@ -2,7 +2,9 @@
 
 **English** | [Русский](README.ru.md)
 
-Voice mode shows both original and translation cards immediately; the original stays expanded. The active speaker button becomes a stop cross during playback, including automatic speech, and returns after stopping or completion. Verified on Pixel with 4 device tests; synthesis speed is unchanged. [Verification](../../docs/android/benchmarks/2026-10-17-voice-results/README.md).
+VITS/Piper speech uses up to four CPU threads with unchanged model/voice settings. On Pixel, a measured 257-character synthesis fell from 17.38 to 10.42 seconds. Other devices require their own measurements. [Timing breakdown and checks](../../docs/android/benchmarks/2026-10-17-tts-latency/README.md).
+
+Voice mode shows both original and translation cards immediately; the original stays expanded. The active speaker button becomes a stop cross during playback, including automatic speech, and returns after stopping or completion. Verified on Pixel with 4 device tests. [Verification](../../docs/android/benchmarks/2026-10-17-voice-results/README.md).
 
 Current build: **0.4.6 / versionCode 21**, Debug, ARM64 / API 31+. Verified platform: Pixel 9 Pro / Mali-G715. [Overall current state](../../docs/CURRENT_STATE.md).
 

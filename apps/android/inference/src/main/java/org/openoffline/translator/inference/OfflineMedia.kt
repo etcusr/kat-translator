@@ -21,7 +21,7 @@ internal object MediaNative {
     external fun nemoFree(handle:Long)
     external fun nemoRun(handle:Long,samples:FloatArray,flag:Long):ByteArray?
     external fun omni(path: ByteArray, tokens: ByteArray, samples: FloatArray, flag: Long): ByteArray?
-    external fun tts(model: ByteArray, tokens: ByteArray, data: ByteArray, text: ByteArray, language: ByteArray, supertonic: Boolean, flag: Long, rate: IntArray): FloatArray?
+    external fun tts(model: ByteArray, tokens: ByteArray, data: ByteArray, text: ByteArray, language: ByteArray, supertonic: Boolean, flag: Long, rate: IntArray, timing: DoubleArray): FloatArray?
     external fun ocrLoad(path: ByteArray): Long
     external fun ocrFree(handle: Long)
     external fun ocrHeight(handle: Long): Int
@@ -30,6 +30,8 @@ internal object MediaNative {
     external fun detect(path: ByteArray, input: FloatArray, width: Int, height: Int): FloatArray
 }
 data class Transcript(val text: String, val language: String)
+/** Wall-clock phases of the last native Piper/Supertonic call; contains no text or audio. */
+data class SpeechSynthesisTiming(val load:Double,val generate:Double,val copy:Double,val release:Double)
 data class SpeechAudio(val samples: FloatArray, val sampleRate: Int) {
     init { require(sampleRate in 8000..192000); require(samples.isNotEmpty() && samples.all { it.isFinite() }) }
 }
@@ -41,6 +43,7 @@ data class OcrBlock(val text: String, val left: Float, val top: Float, val right
  * other operations own their model. Native ASR decoding is bounded to 30-second audio segments.
  * cancel is safe from another thread; close waits for the current native call to return. */
 class OfflineMedia : AutoCloseable {
+    @Volatile var lastSpeechTiming:SpeechSynthesisTiming?=null;private set
     private val flagLock = Any()
     private var flag = 0L
     @Volatile private var cancelled = false
@@ -106,15 +109,17 @@ class OfflineMedia : AutoCloseable {
     }
     @Synchronized fun synthesizePiper(model: String, tokens: String, dataDir: String, text: String): SpeechAudio = operation { f ->
         require(text.isNotBlank() && text.length <= 20000)
-        val rate = IntArray(1)
-        val samples = MediaNative.tts(file(model), file(tokens), utf8(dataDir), utf8(text), utf8(""), false, f, rate) ?: throw CancellationException()
+        val rate = IntArray(1);val timing=DoubleArray(4);lastSpeechTiming=null
+        val samples = MediaNative.tts(file(model), file(tokens), utf8(dataDir), utf8(text), utf8(""), false, f, rate,timing) ?: throw CancellationException()
+        lastSpeechTiming=SpeechSynthesisTiming(timing[0],timing[1],timing[2],timing[3])
         SpeechAudio(samples, rate[0])
     }
     @Synchronized fun synthesizeSupertonic(directory: String, text: String, language: String): SpeechAudio = operation { f ->
         require(text.isNotBlank() && text.length <= 20000)
         require(File(directory, "tts.json").isFile) { "Install the Supertonic voice package" }
-        val rate = IntArray(1)
-        val samples = MediaNative.tts(utf8(directory), utf8(""), utf8(""), utf8(text), utf8(language), true, f, rate) ?: throw CancellationException()
+        val rate = IntArray(1);val timing=DoubleArray(4);lastSpeechTiming=null
+        val samples = MediaNative.tts(utf8(directory), utf8(""), utf8(""), utf8(text), utf8(language), true, f, rate,timing) ?: throw CancellationException()
+        lastSpeechTiming=SpeechSynthesisTiming(timing[0],timing[1],timing[2],timing[3])
         SpeechAudio(samples, rate[0])
     }
     @Synchronized fun synthesizeWayu(runtimeDirectory: String, directory: String, text: String, voice: String = "m_elderly_deep"): SpeechAudio = operation { f ->

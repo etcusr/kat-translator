@@ -6,21 +6,31 @@ int ot_ocr_run_scored(void *handle, const float *input, int width, int *ids, flo
 }
 #include <onnxruntime/onnxruntime_c_api.h>
 #include <memory>
+#include <chrono>
 #define JNI(name) extern "C" JNIEXPORT
 JNI(flagCreate) jlong JNICALL Java_org_openoffline_translator_inference_MediaNative_flagCreate(JNIEnv *,jobject){return reinterpret_cast<jlong>(wt_cancel_create());}
 JNI(flagCancel) void JNICALL Java_org_openoffline_translator_inference_MediaNative_flagCancel(JNIEnv *,jobject,jlong f){wt_cancel_set(reinterpret_cast<wt_cancel_flag *>(f));}
 JNI(flagFree) void JNICALL Java_org_openoffline_translator_inference_MediaNative_flagFree(JNIEnv *,jobject,jlong f){wt_cancel_free(reinterpret_cast<wt_cancel_flag *>(f));}
-JNI(tts) jfloatArray JNICALL Java_org_openoffline_translator_inference_MediaNative_tts(JNIEnv *e,jobject,jbyteArray model,jbyteArray tokens,jbyteArray data,jbyteArray text,jbyteArray language,jboolean supertonic,jlong flag,jintArray rate){
+JNI(tts) jfloatArray JNICALL Java_org_openoffline_translator_inference_MediaNative_tts(JNIEnv *e,jobject,jbyteArray model,jbyteArray tokens,jbyteArray data,jbyteArray text,jbyteArray language,jboolean supertonic,jlong flag,jintArray rate,jdoubleArray timing){
  try{
+  if(!rate||e->GetArrayLength(rate)<1||!timing||e->GetArrayLength(timing)<4)throw std::runtime_error("Invalid speech outputs");
+  using Clock=std::chrono::steady_clock;auto phase=Clock::now();
+  auto elapsed=[&](){auto now=Clock::now();double seconds=std::chrono::duration<double>(now-phase).count();phase=now;return seconds;};
+  jdouble times[4]{};
   auto m=media_string(e,model),t=media_string(e,tokens),d=media_string(e,data),s=media_string(e,text),l=media_string(e,language);
   void *f=reinterpret_cast<void *>(flag);if(wt_abort(f))return nullptr;
   std::unique_ptr<const SherpaOnnxOfflineTts,decltype(&SherpaOnnxDestroyOfflineTts)> engine(supertonic?ot_supertonic_create(m.c_str()):ot_tts_create(m.c_str(),t.c_str(),d.c_str()),SherpaOnnxDestroyOfflineTts);
   if(!engine)throw std::runtime_error("Offline voice could not be loaded");
+  times[0]=elapsed();
   std::unique_ptr<const SherpaOnnxGeneratedAudio,decltype(&SherpaOnnxDestroyOfflineTtsGeneratedAudio)> audio(supertonic?ot_supertonic_generate(engine.get(),s.c_str(),l.c_str(),f):ot_tts_generate(engine.get(),s.c_str(),f),SherpaOnnxDestroyOfflineTtsGeneratedAudio);
   if(wt_abort(f))return nullptr;
+  times[1]=elapsed();
   if(!audio||audio->n<1||audio->sample_rate<8000||audio->sample_rate>192000||audio->n>audio->sample_rate*60*30)throw std::runtime_error("Offline voice returned invalid PCM");
   for(int i=0;i<audio->n;i++)if(!std::isfinite(audio->samples[i]))throw std::runtime_error("Nonfinite voice PCM");
-  auto result=e->NewFloatArray(audio->n); if(result)e->SetFloatArrayRegion(result,0,audio->n,audio->samples);jint sr=audio->sample_rate;e->SetIntArrayRegion(rate,0,1,&sr);return result;
+  auto result=e->NewFloatArray(audio->n);if(!result)return nullptr;
+  e->SetFloatArrayRegion(result,0,audio->n,audio->samples);if(e->ExceptionCheck())return nullptr;
+  jint sr=audio->sample_rate;e->SetIntArrayRegion(rate,0,1,&sr);if(e->ExceptionCheck())return nullptr;
+  times[2]=elapsed();audio.reset();engine.reset();times[3]=elapsed();e->SetDoubleArrayRegion(timing,0,4,times);return result;
  }catch(const std::exception &ex){media_error(e,ex.what());return nullptr;}
 }
 JNI(omni) jbyteArray JNICALL Java_org_openoffline_translator_inference_MediaNative_omni(JNIEnv *e,jobject,jbyteArray model,jbyteArray tokens,jfloatArray samples,jlong flag){

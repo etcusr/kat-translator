@@ -1,0 +1,32 @@
+{
+  "deviceClass": "Pixel 9 Pro",
+  "voice": "vits-piper-en_US-ljspeech-high",
+  "characters": 257,
+  "baseline": {
+    "run": 0,
+    "voice": "vits-piper-en_US-ljspeech-high",
+    "characters": 257,
+    "synthesisSeconds": 17.376504403,
+    "wallSeconds": 17.568,
+    "loadSeconds": 1.294232504,
+    "generateSeconds": 15.770159879,
+    "copySeconds": 0.000863932,
+    "releaseSeconds": 0.06680717,
+    "otherSeconds": 0.24444091799999892
+  },
+  "optimized": {
+    "run": 0,
+    "voice": "vits-piper-en_US-ljspeech-high",
+    "characters": 257,
+    "synthesisSeconds": 10.419156092,
+    "wallSeconds": 10.682,
+    "loadSeconds": 1.186665731,
+    "generateSeconds": 8.891265426,
+    "copySeconds": 0.000869507,
+    "releaseSeconds": 0.067063965,
+    "otherSeconds": 0.2732914629999996
+  },
+  "reductionPercent": 40.03882570189914,
+  "inputPublished": false,
+  "note": "Both app runs began with no thermal frequency restriction; throttling appeared during both runs. This is device-specific evidence, not a universal speedup."
+}

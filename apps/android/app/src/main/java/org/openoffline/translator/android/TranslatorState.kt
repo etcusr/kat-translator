@@ -89,6 +89,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
     }
     private val player=SpeechPlayer(app)
     internal val playbackGain get()=player.appliedGain
+    internal val speechRuntimeTiming get()=media.lastSpeechTiming
     private val modelFile=File(app.getExternalFilesDir(null),"Index-Translate-9B.Q4_K_M.gguf")
     private val archiveDir=File(app.filesDir,"history").apply { mkdirs() }
     val exportDir=File(app.cacheDir,"exports").apply { mkdirs() }
