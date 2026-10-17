@@ -152,6 +152,7 @@ public struct ConversationFields: Sendable {
     private var nextSpeech: Task<PreparedSpeech?, Error>?
     private var files: PipelineFiles?
     private var memorySaving = false
+    private var recognitionReleasePending = false
     private var asrLoaded = false, mtLoaded = false
     private var loadedASRURL: URL?
     private var voiceLoaded: SpeechLanguage?
@@ -182,6 +183,7 @@ public struct ConversationFields: Sendable {
                 }
                 try check(id)
                 if !memorySaving, !mtLoaded { stage = L10n.text("Загружаю перевод…"); try await translator.load(modelURL: files.translation, model: files.translationModel); mtLoaded = true }
+                await releaseRecognitionIfRequested()
                 try check(id); preparationSeconds = now - start; isReady = true
             } catch is CancellationError {} catch { if id == generation { self.error = error.localizedDescription } }
         }
@@ -343,6 +345,7 @@ public struct ConversationFields: Sendable {
                     catch { archiveWarning = L10n.text("Не удалось сохранить запись оригинала: ") + error.localizedDescription }
                     try check(id)
                 }
+                await releaseRecognitionIfRequested()
                 if memorySaving, asrLoaded { await asr.unload(); asrLoaded = false }
                 try check(id)
                 let reconciliation = verifyPreview ? RecordingReconciliation(finalText: sourceText,
@@ -394,6 +397,7 @@ public struct ConversationFields: Sendable {
                     catch { if id == generation { archiveWarning = L10n.text("Не удалось сохранить историю: ") + error.localizedDescription } }
                 }
                 try check(id)
+                await releaseRecognitionIfRequested()
                 if memorySaving { await translator.unload(); mtLoaded = false }
                 try check(id)
                 if files.voice(target) == nil { speechNotice = target.hasVoice ? L10n.text("Скачайте голос в настройках, чтобы озвучить перевод.") : L10n.text("Для этого языка пока доступен перевод без озвучки.") }
@@ -417,6 +421,7 @@ public struct ConversationFields: Sendable {
                 metric.status = id == generation ? "failed" : "cancelled"
                 if id == generation { self.error = error.localizedDescription }
             }
+            await releaseRecognitionIfRequested()
         }
         active = job; await job.value
     }
@@ -572,6 +577,7 @@ public struct ConversationFields: Sendable {
                         stage = L10n.text("Озвучиваю…")
                         player.setRate(Float(playbackSpeed.rawValue))
                         try await player.play(file: audio)
+                        await releaseRecognitionIfRequested()
                         try check(id)
                         return
                     }
@@ -589,6 +595,7 @@ public struct ConversationFields: Sendable {
                 if let archive, let entry = originalEntry { await archive.abortAudio(entry) }
                 if !(error is CancellationError), id == generation { self.error = error.localizedDescription }
             }
+            await releaseRecognitionIfRequested()
         }
         active = job; await job.value
     }
@@ -616,7 +623,33 @@ public struct ConversationFields: Sendable {
         case .quick: quickFields = ConversationFields()
         }
     }
+    /// Reclaim an inactive recognizer alongside a large translator without cancelling the turn.
+    /// A busy backend is released only at the next safe pipeline boundary.
+    public func relieveMemoryPressure() async -> Bool {
+        if recognitionReleasePending { return true }
+        guard unloading == nil, !isRecordingPreview,
+              files?.translationModel.defersRecognitionLoading == true, asrLoaded else { return false }
+        recognitionReleasePending = true
+        if !isBusy {
+            isBusy = true
+            defer { isBusy = false }
+            await releaseRecognitionIfRequested()
+        }
+        return true
+    }
+    private func releaseRecognitionIfRequested() async {
+        guard recognitionReleasePending, unloading == nil else { return }
+        // Keep isBusy and the request set across the await so another turn or warning
+        // cannot race model teardown. Index and synthesized/shared audio stay intact.
+        if asrLoaded {
+            await asr.unload()
+            asrLoaded = false; loadedASRURL = nil
+        }
+        recognitionReleasePending = false
+    }
+
     public func unload() async {
+        recognitionReleasePending = false
         if let unloading { await unloading.value; return }
         cancel(); isReady = false
         let work = active, preview = recordingPreview

@@ -1,6 +1,101 @@
 import XCTest
 
 final class TranslatorUITests: XCTestCase {
+    /// Acoustic end-to-end check: a host speaker supplies the phrase after CAPTURE_READY.
+    /// No imported audio or typed source text. Caller snapshots/restores preferences.
+    @MainActor func testLiveVoiceCycleWithIndex() throws {
+        guard ProcessInfo.processInfo.environment["KAT_IOS_VOICE_CYCLE"] == "1" else {
+            throw XCTSkip("Opt-in acoustic voice cycle; requires an external speech source")
+        }
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        // UserDefaults launch arguments are strings; object(as? Bool) readers do not
+        // honor "NO". Use typed Settings controls and restore their actual saved values.
+        func historyRecording(text: Bool?, audio: Bool?) -> (Bool, Bool) {
+            let settings = app.buttons["Настройки"]
+            XCTAssertTrue(settings.waitForExistence(timeout: 180))
+            let ready = XCTNSPredicateExpectation(predicate: NSPredicate(format: "enabled == true"), object: settings)
+            XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 180), .completed)
+            settings.tap()
+            var previous: [Bool] = []
+            for (identifier, desired) in [("history.recordText", text), ("history.recordAudio", audio)] {
+                let control = app.switches[identifier]
+                for _ in 0..<10 where !control.isHittable { app.swipeUp() }
+                XCTAssertTrue(control.isHittable)
+                let value = control.value as? String == "1"
+                previous.append(value)
+                if let desired, desired != value {
+                    control.coordinate(withNormalizedOffset: CGVector(dx: 0.93, dy: 0.5)).tap()
+                    let changed = XCTNSPredicateExpectation(predicate: NSPredicate(format: "value == %@", desired ? "1" : "0"), object: control)
+                    XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 5), .completed)
+                }
+            }
+            app.buttons["Готово"].tap()
+            return (previous[0], previous[1])
+        }
+        app.launch()
+        let savedHistory = historyRecording(text: false, audio: false)
+        app.terminate()
+        defer {
+            app.terminate(); app.launchArguments = []; app.launchEnvironment = [:]; app.launch()
+            _ = historyRecording(text: savedHistory.0, audio: savedHistory.1)
+            app.terminate()
+        }
+        print("KAT_E2E_PHYSICAL_MEMORY_BYTES=\(ProcessInfo.processInfo.physicalMemory)")
+        app.launchEnvironment = ["OT_MT_MEMORY_TRACE": "1", "OT_TTS_MEMORY_TRACE": "1"]
+        for recognizer in ["automatic", "whisper"] {
+            app.launchArguments = ["-appInterfaceLanguage", "ru", "-AppleLanguages", "(ru)",
+                "-automaticModelLoad", "YES", "-memorySaving", "NO",
+                "-selectedTranslationModel", "index-translate-9b-q4km",
+                "-translationSource", "ru", "-translationTarget", "en", "-automaticLanguage", "NO",
+                "-recordingMode", "toggle", "-recordingSilenceSeconds", "30",
+                "-automaticSpeechVoice", "YES", "-recognitionPreference", recognizer]
+            app.launch()
+            let record = app.buttons["voice.record"]
+            XCTAssertTrue(record.waitForExistence(timeout: 180))
+            record.tap()
+            XCTAssertTrue(app.buttons["voice.pauseResume"].waitForExistence(timeout: 20))
+            print("KAT_E2E_CAPTURE_READY_\(recognizer)")
+            Thread.sleep(forTimeInterval: 12)
+            XCTAssertEqual(record.label, "Завершить запись")
+            print("KAT_E2E_PLAYBACK_READY_\(recognizer)")
+            Thread.sleep(forTimeInterval: 3) // Host starts acoustic output capture before automatic TTS.
+            record.tap()
+            let translated = app.staticTexts["voice.translation.text"]
+            let translationReady = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+                translated.exists && translated.label.lowercased().contains("station")
+            }, object: nil)
+            XCTAssertEqual(XCTWaiter.wait(for: [translationReady], timeout: 180), .completed)
+            let original = app.staticTexts["voice.original.text"]
+            if !original.exists { app.buttons["voice.original.disclosure"].tap() }
+            XCTAssertTrue(original.waitForExistence(timeout: 10))
+            XCTAssertTrue(original.label.lowercased().contains("вокзал"))
+            print("KAT_E2E_RECOGNIZED_\(recognizer): " + original.label)
+            print("KAT_E2E_TRANSLATED_\(recognizer): " + translated.label)
+            let play = app.buttons["voice.playback.startStop"]
+            let audio = app.buttons["voice.translation.shareAudio"]
+            let finished = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+                play.exists && play.label == "Озвучить перевод" && audio.exists && audio.isEnabled
+                    && !app.buttons["voice.playback.pauseResume"].exists
+            }, object: nil)
+            XCTAssertEqual(XCTWaiter.wait(for: [finished], timeout: 60), .completed)
+            XCTAssertFalse(app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "Не удалось завершить операцию")).firstMatch.exists)
+            let shot = XCTAttachment(screenshot: app.screenshot())
+            shot.name = "live-voice-cycle-\(recognizer)"; shot.lifetime = .keepAlways; add(shot)
+            print("KAT_E2E_PLAYBACK_FINISHED_\(recognizer)")
+            // Verify that playback releases the audio session for the next live capture.
+            XCTAssertTrue(record.waitForExistence(timeout: 10), app.debugDescription)
+            XCTAssertFalse(app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "Модели выгружены")).firstMatch.exists)
+            record.tap()
+            XCTAssertTrue(app.buttons["voice.pauseResume"].waitForExistence(timeout: 20))
+            XCTAssertEqual(record.label, "Завершить запись")
+            Thread.sleep(forTimeInterval: 3)
+            XCTAssertTrue(app.buttons["voice.pauseResume"].exists)
+            XCTAssertEqual(record.label, "Завершить запись")
+            app.terminate()
+        }
+    }
+
     /// Requires an unlocked iPhone, microphone permission and the installed Index/ASR packages.
     /// Uses live capture; discards it by terminating before transcription/history writes.
     /// Caller must snapshot/restore preferences: recognizer normalization persists launch overrides.

@@ -509,6 +509,7 @@ import OfflineCore
             message = L10n.text("Предварительная обработка приостановлена. Запись продолжается.")
             return
         }
+        if !usingCamera, await session.relieveMemoryPressure() { return }
         message = L10n.text("Модели выгружены для освобождения памяти. Включите экономию памяти в настройках и подготовьте перевод снова.")
         await closeCamera(); await unload()
     }

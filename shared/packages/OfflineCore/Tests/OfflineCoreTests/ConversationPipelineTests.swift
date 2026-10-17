@@ -875,6 +875,70 @@ private actor BlockingPreviewArchive: TranslationArchive {
         XCTAssertNil(pipeline.samples.last?.mtLoadSeconds)
     }
 
+    func testMemoryPressureReleasesIdleRecognizerWithoutUnpreparingTranslation() async {
+        let calls = Calls()
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: TestMT(calls), speech: TestTTS(calls), player: TestPlayer(calls))
+        let large = PipelineFiles(asr: files.asr, translation: files.translation, voices: files.voices, translationModel: .index9B)
+        await pipeline.prepare(large, memorySaving: false)
+        await pipeline.preloadRecognition(source: .russian)
+        await calls.reset()
+        let handled = await pipeline.relieveMemoryPressure()
+        XCTAssertTrue(handled)
+        XCTAssertTrue(pipeline.isReady)
+        XCTAssertFalse(pipeline.isBusy)
+        let released = await calls.items
+        XCTAssertEqual(released, ["unloadASR"])
+        await pipeline.run(audio: CapturedAudio(samples: [0.1, 0.2]), source: .russian, target: .english, speakResult: true, inputMode: "toggle", thermal: "nominal")
+        let events = await calls.items
+        XCTAssertTrue(events.contains("loadASR"))
+        XCTAssertFalse(events.contains("loadMT"))
+        XCTAssertTrue(events.contains("play"))
+        XCTAssertEqual(pipeline.samples.last?.status, "completed")
+        XCTAssertEqual(pipeline.samples.last?.memorySaving, false)
+    }
+
+    func testMemoryPressureWaitsForActiveRecognitionAndCoalescesWarnings() async {
+        let calls = Calls(), asr = TestASR(Calls())
+        let pipeline = ConversationPipeline(asr: asr, translator: TestMT(calls), speech: TestTTS(calls), player: TestPlayer(calls))
+        await pipeline.prepare(PipelineFiles(asr: files.asr, translation: files.translation, voices: files.voices, translationModel: .index9B), memorySaving: false)
+        await asr.delay()
+        let job = Task { await pipeline.run(audio: CapturedAudio(samples: [0.1, 0.2]), source: .russian, target: .english, speakResult: true, inputMode: "toggle", thermal: "nominal") }
+        while !(await asr.waiting) { await Task.yield() }
+        let first = await pipeline.relieveMemoryPressure()
+        let second = await pipeline.relieveMemoryPressure()
+        XCTAssertTrue(first && second)
+        let before = await asr.calls.items
+        XCTAssertFalse(before.contains("unloadASR"))
+        await asr.resolve()
+        await job.value
+        let after = await asr.calls.items
+        XCTAssertEqual(after.filter { $0 == "unloadASR" }.count, 1)
+        XCTAssertEqual(pipeline.samples.last?.status, "completed")
+        XCTAssertTrue(pipeline.isReady)
+    }
+
+    func testMemoryPressureDuringTranslationPreservesResultAndPlayback() async {
+        let calls = Calls(), mt = TestMT(Calls())
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: mt, speech: TestTTS(calls), player: TestPlayer(calls))
+        await pipeline.prepare(PipelineFiles(asr: files.asr, translation: files.translation, voices: files.voices, translationModel: .index9B), memorySaving: false)
+        await mt.delay()
+        let job = Task { await pipeline.run(audio: CapturedAudio(samples: [0.1, 0.2]), source: .russian, target: .english, speakResult: true, inputMode: "toggle", thermal: "nominal") }
+        while !(await mt.waiting) { await Task.yield() }
+        // Schedule recovery while the translation backend is still in flight.
+        let pressure = Task { await pipeline.relieveMemoryPressure() }
+        await Task.yield()
+        await mt.resolve()
+        await job.value
+        let handled = await pressure.value
+        XCTAssertTrue(handled)
+        XCTAssertTrue(pipeline.isReady)
+        XCTAssertEqual(pipeline.voiceFields.translatedText, "Do not add sugar")
+        XCTAssertEqual(pipeline.samples.last?.status, "completed")
+        let events = await calls.items
+        XCTAssertTrue(events.contains("unloadASR"))
+        XCTAssertTrue(events.contains("play"))
+    }
+
     func testChangingTranslationFileReleasesOldContextBeforeLoadingNewOne() async {
         let calls = Calls()
         let mt = TestMT(calls)

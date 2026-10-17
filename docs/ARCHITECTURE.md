@@ -148,6 +148,8 @@ SpeechPlayer and AudioRecorder deactivate the iOS session only after their own s
 
 Before any model loads, `OfflineTranslatorApp.init` sets `GGML_METAL_NO_RESIDENCY=1`. The pinned ggml runtime otherwise requests persistent Metal residency for its buffers, consuming the system wired-memory budget needed by CoreAudio. Models remain loaded and inference still uses Metal; the user’s memory-saving preference is unchanged. This iOS startup policy does not change the macOS or Android runtime. [Diagnosis and device checks](publication/ios-microphone-wired-memory-2026-10-17.md).
 
+For iOS memory warnings, `AppModel.memoryWarning` first asks `ConversationPipeline.relieveMemoryPressure` to reclaim an inactive recognizer alongside a large translator. Recovery waits for an ASR/MT/playback boundary if work is active, coalesces pending warnings, and keeps the translator, results and readiness. The next capture preloads recognition normally; the user preference is unchanged. The existing full-unload fallback remains for cases without a reclaimable recognizer and for the camera.
+
 ### Source kit and SDK reproducibility
 
 `scripts/package-dependency-sources.py` creates verified allowlisted source TAR parts. `scripts/rebuild-opus-source-kit.py` rebuilds an isolated Opus XCFramework from the checked archives and patch, includes per-platform manifests and optionally signs the SDK. It does not replace existing vendor outputs. [Provenance and limitations](licensing/2026-10-14/publication-and-sdk.md). The shared notice resource now contains 46 documents, including Wayu, Supertonic 3 and CC BY-NC model terms.
