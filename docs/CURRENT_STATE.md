@@ -2,7 +2,7 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
-The corrected Mac app is now installed at `/Applications/Kat translator.app`: development **0.6.7 (60)**, source fingerprint `mac-c075be03543c17ac`. Four fresh runtime tests passed, including real MLX/Irina and player controls; signature/dependency checks and normal launch passed. Saved DMG/ZIP and App Store70 are unchanged and predate these fixes. [Installation evidence](benchmarks/mac-speech-install-2026-10-17/README.md).
+The corrected Mac app is now installed at `/Applications/Kat translator.app`: development **0.6.7 (60)**, source fingerprint `mac-c075be03543c17ac`. Four fresh runtime tests passed, including real MLX/Irina and player controls; signature/dependency checks and normal launch passed. Modern DMG/ZIP were subsequently refreshed with the same corrected source identity; [package integrity and hashes](benchmarks/mac-speech-install-2026-10-17/packages.md) passed. App Store70 remains unchanged. [Installation evidence](benchmarks/mac-speech-install-2026-10-17/README.md).
 
 The additional iPhone Index 9B comparison is complete: MTP with two draft tokens remains unchanged. MTP off, one/three draft tokens and Q8 KV cache showed no demonstrated repeatable improvement over the final control; all six translations matched. More compressed weights and an iPhone MLX port remain proposals. [Recorded comparison and limits](benchmarks/ios-mt-options-2026-10-17/README.md).
 
@@ -106,15 +106,15 @@ The build 45 signing candidate is kept separately in `dist/ios/signing-candidate
 |---|---|---|---|
 | Android | **0.4.6 / code21**, Debug | API 31+, arm64-v8a (ARMv8.2 dotprod/FP16 for Index); compile/target 36 | Installed on Pixel 9 Pro 13.10; native Auto OPUS→2B→OPUS, EN→EN, manual RU↔DE; voice RU/DE via import/microphone with GigaAM/Parakeet and TTS verified |
 | iPhone | **1.0 / build52** | iOS 18+, iPhone ARM64 | IPA52 verified and uploaded: 9 manifests, 46 notices, 72 signatures, 70 framework deployment checks. TestFlight acceptance pending. [Report](publication/ios-store-build52-2026-10-17.md) |
-| Mac modern | **0.6.7 / build60** | macOS 27+, Apple Silicon | Installed corrected development build: `mac-c075be03543c17ac`; saved DMG/ZIP are older |
+| Mac modern | **0.6.7 / build60** | macOS 27+, Apple Silicon | Installed corrected development build: `mac-c075be03543c17ac`; modern DMG/ZIP refreshed with the same source identity |
 | Mac App Store | **1.0 / build70** | macOS 27+, Apple Silicon, sandbox | PKG 70 verified and uploaded: 9 manifests, 46 notices, 154 signatures and sandbox/helpers. Apple started processing; build selection by the owner. [Report](publication/signed-sdks-release-2026-10-14.md) |
 | Mac compatible | **0.6.0 / build53 / macos15-26** | binary minimum macOS 15, Apple Silicon | Saved DMG/ZIP and audit; launch verified on macOS 27, physical macOS 15–26 not tested |
 
-Android code21 with the later Whisper Q8 option is installed on Pixel. The Mac application was replaced on 17 October with the current corrected sources. The older saved build60 DMG/ZIP still predate those fixes; use the source fingerprint above to distinguish the installed executable.
+Android code21 with the later Whisper Q8 option is installed on Pixel. The Mac application was replaced on 17 October with the current corrected sources. The modern build60 DMG/ZIP now contain the same corrected source identity; package filenames/version stayed unchanged, so use the new checksums below.
 
-Artifacts (13.10):
+Artifacts (13.10; modern Mac packages refreshed 17.10):
 - `dist/android/kat-translator-0.4.6-debug.apk` (SHA-256 `1f0937878c09c2d0920db61f025ccd786ea6cc040496853ced00e89ba28cf70e`); 0.4.5, 0.4.4 and 0.4.3 are kept as well;
-- `dist/macos/Kat-translator-0.6.7-build60-mac-arm64.{dmg,zip}` (DMG SHA-256 `28224f25b29e9f5bcc759dbc7d5c7a660d1f281f663a3d86fa2b6b8e93478a41`), plus 0.6.6 and 0.6.5 and the compatible `0.6.0-build53-macos15-26`;
+- `dist/macos/Kat-translator-0.6.7-build60-mac-arm64.{dmg,zip}` (DMG SHA-256 `43cc57d3911aa99b782427d636daa06429e2de77130dc8e9a60757352cf112ff`), plus 0.6.6 and 0.6.5 and the compatible `0.6.0-build53-macos15-26`;
 - `dist/ios/Kat-translator-0.5.15-build45.app` — a copy of the build installed on 13.10; the 14.10 check found broken signatures of nested Python frameworks, so do not use it for reinstalling without restoring them; 0.5.14, 0.5.6 and 0.5.5 are kept too (iOS 0.5.7–0.5.13 were not saved in `dist`).
 
 Android checksums are in `dist/android/SHA256SUMS`; Mac checksums in the `*-SHA256SUMS.txt` files next to the DMG/ZIP. The contents of `dist` are local and not part of Git.

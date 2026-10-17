@@ -1,0 +1,19 @@
+{
+  "version": "0.6.7",
+  "build": "60",
+  "sourceIdentity": "mac-c075be03543c17ac",
+  "appEntriesCompared": 25206,
+  "fullContentMatches": true,
+  "signaturesVerified": true,
+  "dmgImageVerified": true,
+  "artifacts": {
+    "Kat-translator-0.6.7-build60-mac-arm64.dmg": {
+      "bytes": 586703591,
+      "sha256": "43cc57d3911aa99b782427d636daa06429e2de77130dc8e9a60757352cf112ff"
+    },
+    "Kat-translator-0.6.7-build60-mac-arm64.zip": {
+      "bytes": 382157177,
+      "sha256": "e68b085b2dde417ab5fe8f4376a1d9c75939436d401fe22ef93777ed16c578c9"
+    }
+  }
+}

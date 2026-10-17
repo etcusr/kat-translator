@@ -1,6 +1,6 @@
 # Corrected Mac speech installation — 17 October 2026
 
-The corrected Apple streaming speech implementation was built in Release configuration and installed at `/Applications/Kat translator.app`, replacing the older local application. The installed development version remains **0.6.7 (60)**, bundle `org.openoffline.translator.mac`, source fingerprint **mac-c075be03543c17ac**. The earlier DMG/ZIP and Mac App Store build70 were not rebuilt or replaced; their matching version labels do not identify this new executable.
+The corrected Apple streaming speech implementation was built in Release configuration and installed at `/Applications/Kat translator.app`, replacing the older local application. The installed development version remains **0.6.7 (60)**, bundle `org.openoffline.translator.mac`, source fingerprint **mac-c075be03543c17ac**. At this installation step the earlier DMG/ZIP and Mac App Store build70 were not replaced. The modern DMG/ZIP were subsequently [refreshed and verified](packages.md); App Store70 remains unchanged.
 
 ## Fresh validation
 
