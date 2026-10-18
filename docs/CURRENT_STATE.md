@@ -2,9 +2,11 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+Local DMG/ZIP packages are updated to **0.6.8 (61)** for macOS 27+ and separately macOS 15–26. Both include the current recognition/speech and Image fixes, including paragraphs and diagnostic timings. Extracted contents, signatures, checksums and library deployment limits passed verification. Keep at most three releases per line: modern 59/60/61, compatible 53/61 (only two exist). The corrected installed copy remains 0.6.7 (60). [Package checks](publication/mac-direct-2026-10-18.md).
+
 **iOS 1.0 (54) and Mac App Store 1.0 (76)** were verified and uploaded to App Store Connect. They include recognition preparation before the microphone, recognition release on Text/Camera, and the off-by-default date/time correction setting. iPhone AudioQueue capture reduces first-buffer latency from about 1.40 to 0.28 seconds in development-device measurements. During-recording processing and prior streamed-speech fixes are preserved. Mac also reconstructs OCR paragraphs and shows recognition/translation timings when diagnostics is enabled. Signatures, entitlements, resources and all 143 project checks passed. Apple processing and TestFlight installation are not yet confirmed; the owner selects builds for App Review. [Verification and upload](publication/apple-capture-store-2026-10-18.md).
 
-The installed `/Applications/Kat translator.app` was refreshed with the Image fixes: version remains **0.6.7 (60)**, new source identity **mac-8378c215e7c13deb**. Signature verification, matching 25,206 file/link entries and normal launch passed; preferences were preserved. Direct DMG/ZIP remain the previous packages. [Installation checks](benchmarks/mac-image-paragraphs-2026-10-18/installed.md).
+The installed `/Applications/Kat translator.app` was refreshed with the Image fixes: version remains **0.6.7 (60)**, new source identity **mac-8378c215e7c13deb**. Signature verification, matching 25,206 file/link entries and normal launch passed; preferences were preserved. Direct DMG/ZIP were subsequently refreshed to 61 as described above. [Installation checks](benchmarks/mac-image-paragraphs-2026-10-18/installed.md).
 
 On Mac, Image mode reconstructs nearby OCR lines into paragraphs before translation and removes soft wraps/extra whitespace inside the translated text while retaining separate headings, paragraphs and list entries. With diagnostics enabled, the right pane shows recognition and translation times; explicit model loading is excluded and cached text has zero new translation time. iPhone live-camera grouping is unchanged. [Checks and limits](benchmarks/mac-image-paragraphs-2026-10-18/README.md).
 
@@ -126,15 +128,15 @@ The build 45 signing candidate is kept separately in `dist/ios/signing-candidate
 |---|---|---|---|
 | Android | **0.4.6 / code21**, Debug | API 31+, arm64-v8a (ARMv8.2 dotprod/FP16 for Index); compile/target 36 | Installed on Pixel 9 Pro 13.10; native Auto OPUS→2B→OPUS, EN→EN, manual RU↔DE; voice RU/DE via import/microphone with GigaAM/Parakeet and TTS verified |
 | iPhone | **1.0 / build54** | iOS 18+, iPhone ARM64 | IPA54 verified and uploaded; TestFlight pending. |
-| Mac modern | **0.6.7 / build60** | macOS 27+, Apple Silicon | Installed corrected development build: `mac-c075be03543c17ac`; modern DMG/ZIP refreshed with the same source identity |
+| Mac modern | **0.6.8 / build61** | macOS 27+, Apple Silicon | DMG/ZIP 61 verified; installed corrected copy 0.6.7 (60), `mac-8378c215e7c13deb` |
 | Mac App Store | **1.0 / build76** | macOS 27+, Apple Silicon, sandbox | PKG76 verified and uploaded; Apple processing unconfirmed. |
-| Mac compatible | **0.6.0 / build53 / macos15-26** | binary minimum macOS 15, Apple Silicon | Saved DMG/ZIP and audit; launch verified on macOS 27, physical macOS 15–26 not tested |
+| Mac compatible | **0.6.8 / build61 / macos15-26** | binary minimum macOS 15, Apple Silicon | DMG/ZIP 61 and audit verified; two runtime tests on macOS 27; physical macOS 15–26 not tested |
 
-Android code21 with the later Whisper Q8 option is installed on Pixel. The Mac application was replaced on 17 October with the current corrected sources. The modern build60 DMG/ZIP now contain the same corrected source identity; package filenames/version stayed unchanged, so use the new checksums below.
+Android code21 with the later Whisper Q8 option is installed on Pixel. The installed Mac application received the Image fixes on 18 October, retaining version 0.6.7 (60). Current modern and compatible DMG/ZIP packages are 0.6.8 (61); verification and hashes are in the [package report](publication/mac-direct-2026-10-18.md).
 
-Artifacts (13.10; modern Mac packages refreshed 17.10):
+Artifacts (Mac packages checked 18.10; Android/iOS entries below describe the 13.10 snapshot):
 - `dist/android/kat-translator-0.4.6-debug.apk` (SHA-256 `1f0937878c09c2d0920db61f025ccd786ea6cc040496853ced00e89ba28cf70e`); 0.4.5, 0.4.4 and 0.4.3 are kept as well;
-- `dist/macos/Kat-translator-0.6.7-build60-mac-arm64.{dmg,zip}` (DMG SHA-256 `43cc57d3911aa99b782427d636daa06429e2de77130dc8e9a60757352cf112ff`), plus 0.6.6 and 0.6.5 and the compatible `0.6.0-build53-macos15-26`;
+- `dist/macos/Kat-translator-0.6.8-build61-mac-arm64.{dmg,zip}` and the separate `-macos15-26` variant; retained modern builds59/60/61 and compatible builds53/61;
 - `dist/ios/Kat-translator-0.5.15-build45.app` — a copy of the build installed on 13.10; the 14.10 check found broken signatures of nested Python frameworks, so do not use it for reinstalling without restoring them; 0.5.14, 0.5.6 and 0.5.5 are kept too (iOS 0.5.7–0.5.13 were not saved in `dist`).
 
 Android checksums are in `dist/android/SHA256SUMS`; Mac checksums in the `*-SHA256SUMS.txt` files next to the DMG/ZIP. The contents of `dist` are local and not part of Git.

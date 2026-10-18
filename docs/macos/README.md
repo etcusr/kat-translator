@@ -2,9 +2,11 @@
 
 **English** | [Русский](README.ru.md)
 
+Local DMG/ZIP packages are updated to **0.6.8 (61)** for macOS 27+ and separately macOS 15–26. Both include the current recognition/speech and Image fixes, including paragraphs and diagnostic timings. Extracted contents, signatures, checksums and library deployment limits passed verification. Keep at most three releases per line: modern 59/60/61, compatible 53/61 (only two exist). The corrected installed copy remains 0.6.7 (60). [Package checks](../publication/mac-direct-2026-10-18.md).
+
 **iOS 1.0 (54) and Mac App Store 1.0 (76)** were verified and uploaded to App Store Connect. They include recognition preparation before the microphone, recognition release on Text/Camera, and the off-by-default date/time correction setting. iPhone AudioQueue capture reduces first-buffer latency from about 1.40 to 0.28 seconds in development-device measurements. During-recording processing and prior streamed-speech fixes are preserved. Mac also reconstructs OCR paragraphs and shows recognition/translation timings when diagnostics is enabled. Signatures, entitlements, resources and all 143 project checks passed. Apple processing and TestFlight installation are not yet confirmed; the owner selects builds for App Review. [Verification and upload](../publication/apple-capture-store-2026-10-18.md).
 
-The installed `/Applications/Kat translator.app` was refreshed with the Image fixes: version remains **0.6.7 (60)**, new source identity **mac-8378c215e7c13deb**. Signature verification, matching 25,206 file/link entries and normal launch passed; preferences were preserved. Direct DMG/ZIP remain the previous packages. [Installation checks](../benchmarks/mac-image-paragraphs-2026-10-18/installed.md).
+The installed `/Applications/Kat translator.app` was refreshed with the Image fixes: version remains **0.6.7 (60)**, new source identity **mac-8378c215e7c13deb**. Signature verification, matching 25,206 file/link entries and normal launch passed; preferences were preserved. Direct DMG/ZIP were subsequently refreshed to 61 as described above. [Installation checks](../benchmarks/mac-image-paragraphs-2026-10-18/installed.md).
 
 **Previous upload, 17 October:** **iOS 1.0 (53) and Mac App Store 1.0 (71)** were built from the corrected sources, verified and uploaded to App Store Connect. They include complete streamed speech, exact whitespace handling to avoid replay, contextual Russian ordinals and Mac MLX partial output. Both packages contain the current 13 loading clips. Project validation: 143 PASS. Apple processing, TestFlight installation and build selection for review are not yet confirmed. [Checks and upload result](../publication/apple-speech-store-2026-10-17.md).
 
@@ -15,7 +17,7 @@ Native SwiftUI/AppKit application for Apple Silicon. There are two distribution 
 | Channel | Version | Bundle ID | Signing | Status |
 |---|---|---|---|---|
 | **Mac App Store** | **1.0 / build76** (uploaded; processing result pending) | `app.kattranslator` (shared with iOS) | Apple Distribution, App Sandbox | Build76 uploaded; owner will select the build and submit for review |
-| Direct download (DMG/ZIP) | **0.6.7 / build 60**, plus the separate **macos15-26** compatibility build 0.6.0 / 53 | `org.openoffline.translator.mac` | Apple Development, no sandbox | Not Developer ID signed or notarized |
+| Direct download (DMG/ZIP) | **0.6.8 / build61**, modern and separate **macos15-26** variants | `org.openoffline.translator.mac` | Apple Development, no sandbox | Not Developer ID signed or notarized |
 
 The direct build requires macOS 27+ (the compatibility download declares macOS 15). Index 9B uses MLX + MTP2; Index 2B uses a separate llama.cpp/Metal backend. The legacy OPUS EN↔RU/UK/BE package uses a PyTorch Metal FP16 worker; catalog directions use CTranslate2 CPU INT8. The initial translation selection is Auto: installed 9B, then 2B on a strong device; otherwise a supported OPUS direction, then 2B and 9B. Saved manual choices persist. Recognition Auto is separate: Parakeet (Core ML) or classic Whisper for supported languages, Meta Omnilingual for additional recognition. See [current state](../CURRENT_STATE.md), [store build report](../publication/macos-appstore-build-2026-10-14.md) and [latest runtime acceptance](../publication/runtime-acceptance-2026-10-14.md).
 

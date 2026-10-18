@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-18",
+  "version": "0.6.8",
+  "build": 61,
+  "profiles": [
+    {
+      "profile": "modern",
+      "version": "0.6.8",
+      "build": 61,
+      "identity": "mac-83a7b28d8b88445e",
+      "minimumMacOS": "27.0",
+      "app_entries": 25199,
+      "packages": [
+        {
+          "file": "Kat-translator-0.6.8-build61-mac-arm64.dmg",
+          "bytes": 594258592,
+          "sha256": "5b0a6ce455fa95b6a50ea19c49489155378886e365e65d916b4ba0d3b8aa8fbd"
+        },
+        {
+          "file": "Kat-translator-0.6.8-build61-mac-arm64.zip",
+          "bytes": 382203664,
+          "sha256": "e16328edef650a5d856b0deadb7ed7916e682f225def801f0f69eb26b3b106dd"
+        }
+      ],
+      "exact_app_match": true,
+      "signatures": "PASS",
+      "dmg_checksum": "PASS",
+      "binary_audit": {
+        "machOFiles": 161,
+        "minimumMacOS": "27.0",
+        "externalNonSystemDependencies": [],
+        "externalNonSystemRPaths": [],
+        "librariesExceedingMinimumMacOS": []
+      }
+    },
+    {
+      "profile": "macos15",
+      "version": "0.6.8",
+      "build": 61,
+      "identity": "mac-557c23bc9f4e4c20",
+      "minimumMacOS": "15.0",
+      "app_entries": 25121,
+      "packages": [
+        {
+          "file": "Kat-translator-0.6.8-build61-mac-arm64-macos15-26.dmg",
+          "bytes": 570009372,
+          "sha256": "ff6fddf68db83a838b4a0d07f839ec45473112eb909cd8088b02d2de793aec72"
+        },
+        {
+          "file": "Kat-translator-0.6.8-build61-mac-arm64-macos15-26.zip",
+          "bytes": 368111275,
+          "sha256": "38844ebb1eb4666362b8b0aa7437707def57d8dad0d5a886034243e41fcd40b5"
+        }
+      ],
+      "exact_app_match": true,
+      "signatures": "PASS",
+      "dmg_checksum": "PASS",
+      "binary_audit": {
+        "machOFiles": 83,
+        "minimumMacOS": "15.0",
+        "externalNonSystemDependencies": [],
+        "externalNonSystemRPaths": [],
+        "librariesExceedingMinimumMacOS": []
+      }
+    }
+  ],
+  "retention": {
+    "kept": {
+      "modern": [
+        {
+          "build": 61,
+          "version": "0.6.8"
+        },
+        {
+          "build": 60,
+          "version": "0.6.7"
+        },
+        {
+          "build": 59,
+          "version": "0.6.6"
+        }
+      ],
+      "macos15": [
+        {
+          "build": 61,
+          "version": "0.6.8"
+        },
+        {
+          "build": 53,
+          "version": "0.6.0"
+        }
+      ]
+    },
+    "removed_packages": [],
+    "previous_distribution_hashes_verified": 878,
+    "all_retained_checksums_match": true
+  },
+  "compatibility_runtime_tests": 2,
+  "physical_macos15_to_26_tested": false
+}
