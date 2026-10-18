@@ -1,0 +1,20 @@
+{
+  "original": {
+    "seconds": 17.408125,
+    "rms_dbfs": -44.75,
+    "peak_dbfs": -12.65,
+    "samples_over_unity": 0
+  },
+  "translation": {
+    "seconds": 14.26,
+    "rms_dbfs": -16.73,
+    "peak_dbfs": -1.22,
+    "samples_over_unity": 0
+  },
+  "corrected": {
+    "seconds": 17.408125,
+    "rms_dbfs": -16.13,
+    "peak_dbfs": -1.26,
+    "samples_over_unity": 0
+  }
+}

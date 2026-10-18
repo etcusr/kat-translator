@@ -29,7 +29,7 @@ import AVFoundation
     nonisolated private static func write(_ audio: CapturedAudio, to destination: URL) throws {
         guard !audio.samples.isEmpty, audio.samples.allSatisfy(\.isFinite) else { throw AudioError.invalidFormat }
         try Task.checkCancellation()
-        let gain = SpeechLoudness.gain(for: audio.samples, sampleRate: 16000)
+        let gain = SpeechLoudness.recordingGain(for: audio.samples, sampleRate: 16000)
         try Task.checkCancellation()
         try FileManager.default.createDirectory(at: destination.deletingLastPathComponent(), withIntermediateDirectories: true)
         let settings: [String: Any] = [AVFormatIDKey: kAudioFormatMPEG4AAC, AVSampleRateKey: 16000,
@@ -46,7 +46,7 @@ import AVFoundation
                   let samples = buffer.floatChannelData?[0] else { throw AudioError.invalidFormat }
             buffer.frameLength = AVAudioFrameCount(count)
             if let gain {
-                for offset in 0..<count { samples[offset] = SpeechLoudness.adjusted(audio.samples[start + offset], gain: gain) }
+                for offset in 0..<count { samples[offset] = SpeechLoudness.recordingAdjusted(audio.samples[start + offset], gain: gain) }
             } else {
                 audio.samples.withUnsafeBufferPointer { samples.update(from: $0.baseAddress! + start, count: count) }
             }
