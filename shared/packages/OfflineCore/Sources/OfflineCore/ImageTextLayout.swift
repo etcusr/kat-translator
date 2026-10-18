@@ -16,7 +16,9 @@ public enum ImageTextLayout {
                 let gap = b.y - a.y - a.height
                 // Compare adjacent lines, not the height of the accumulated paragraph.
                 // A crop must not impose a maximum paragraph height or character count.
-                let similarHeight = max(a.height, b.height) <= min(a.height, b.height) * 1.8
+                // Ink bounds vary with glyphs; a lowercase-only final word can be
+                // nearly half as tall without representing a different font size.
+                let similarHeight = max(a.height, b.height) <= min(a.height, b.height) * 2
                 let shortLineBeforeWiderLine = a.width < b.width * 0.6
                 if abs(a.x - b.x) < 0.0125, gap >= -min(a.height, b.height) * 0.3,
                    gap < min(a.height, b.height) * 0.65, similarHeight,

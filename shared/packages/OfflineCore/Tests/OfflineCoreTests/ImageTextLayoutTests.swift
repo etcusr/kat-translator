@@ -46,6 +46,19 @@ final class ImageTextLayoutTests: XCTestCase {
         let result = ImageTextLayout.paragraphs([line("The report describes", 0.10, height: 0.02), line("changes across the", 0.124, height: 0.014), line("country.", 0.144, width: 0.3, height: 0.023)])
         XCTAssertEqual(result.map(\.text), ["The report describes changes across the country."])
     }
+    func testShortFinalWordWithOnlyLowercaseGlyphsStaysInParagraph() {
+        // OCR measures ink bounds: ascenders/descenders can make the preceding
+        // line almost twice as tall as a short word made of lowercase glyphs.
+        for smallHeight in [0.013, 0.014, 0.016] {
+            let result = ImageTextLayout.paragraphs([
+                line("Visitors must remain at a", 0.1, height: 0.025),
+                line("distance.", 0.127, width: 0.17, height: smallHeight),
+                line("21:00", 0.129, x: 0.8, width: 0.1, height: 0.017),
+                line("A separate article starts here.", 0.2, height: 0.022)
+            ])
+            XCTAssertEqual(result.map(\.text), ["Visitors must remain at a distance.", "21:00", "A separate article starts here."])
+        }
+    }
     func testSeparateArticlesAndFooterStaySeparate() {
         let result = ImageTextLayout.paragraphs([line("First article continues", 0.1, height: 0.02), line("on another line.", 0.125, width: 0.5, height: 0.02), line("20:41", 0.126, x: 0.8, width: 0.1, height: 0.015), line("Second article begins", 0.22, height: 0.02), line("with a different subject.", 0.245, height: 0.02)])
         XCTAssertEqual(result.map(\.text), ["First article continues on another line.", "20:41", "Second article begins with a different subject."])
