@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-18",
+  "releases": [
+    {
+      "platform": "ios",
+      "version": "1.0",
+      "build": "54",
+      "artifact_name": "OfflineTranslator.ipa",
+      "artifact_bytes": 68439264,
+      "artifact_sha256": "2f1d3eb836d88d464cf6b588d735369b9152022b9183058b3a132cbc82b17fd2",
+      "notice_documents": 46,
+      "notice_sha256": "d180b89902959618c22a5b47c0b822a529fc33e6da9ba1c385198455eeb9a3e5",
+      "signature": "PASS",
+      "all_binary_signers_match_app": true,
+      "distribution_profiles": 2,
+      "export_encryption_flag": false,
+      "loading_animations": 13,
+      "loading_source_bytes_match": true,
+      "no_xctest": true,
+      "binary_checks": {
+        "macho_images_checked": 72,
+        "openssl_markers": 0,
+        "openssl_library_dependencies": 0,
+        "hash_fallbacks": [
+          "_md5",
+          "_sha1",
+          "_sha2",
+          "_sha3",
+          "_blake2"
+        ]
+      },
+      "build_identity": {
+        "configuration": "Release",
+        "identifier": "ios-5cc382e1999195b3",
+        "platform": "iphoneos",
+        "schema": 1,
+        "sha256": "5cc382e1999195b33b400aaca2433d319d6922cd5912534d1cf080ad3787c465",
+        "sourceFileCount": 796
+      },
+      "mach_o_signatures": 72,
+      "privacy_manifest_count": 9,
+      "uploaded": true,
+      "upload_result": "EXPORT SUCCEEDED",
+      "missing_dsym_warnings": 70,
+      "apple_processing_confirmed": false,
+      "testflight_acceptance": "not performed"
+    },
+    {
+      "platform": "macos",
+      "version": "1.0",
+      "build": "76",
+      "artifact_name": "Kat translator.pkg",
+      "artifact_bytes": 349187906,
+      "artifact_sha256": "8a2558d0eecda430b37735118cf696c5cea1e6435291f17677e2204572ac7308",
+      "notice_documents": 46,
+      "notice_sha256": "d180b89902959618c22a5b47c0b822a529fc33e6da9ba1c385198455eeb9a3e5",
+      "signature": "PASS",
+      "all_binary_signers_match_app": true,
+      "distribution_profiles": 1,
+      "export_encryption_flag": false,
+      "loading_animations": 13,
+      "loading_source_bytes_match": true,
+      "no_xctest": true,
+      "binary_checks": {
+        "machOFiles": 154,
+        "minimumMacOS": "27.0",
+        "externalNonSystemDependencies": [],
+        "externalNonSystemRPaths": [],
+        "librariesExceedingMinimumMacOS": []
+      },
+      "build_identity": {
+        "configuration": "Release",
+        "identifier": "mac-240b281fe86b73dc",
+        "platform": "macosx",
+        "schema": 1,
+        "sha256": "240b281fe86b73dcfd3b85c929f1a26e1c20e972017c05f6996a254978ef5167",
+        "sourceFileCount": 795
+      },
+      "installer_signature": "verified Apple-issued Mac installer certificate",
+      "mach_o_signatures": 154,
+      "privacy_manifest_count": 9,
+      "uploaded": true,
+      "upload_result": "EXPORT SUCCEEDED",
+      "missing_dsym_warnings": 153,
+      "apple_processing_confirmed": false,
+      "testflight_acceptance": "not performed"
+    }
+  ],
+  "project_checks": 143,
+  "core_tests": {
+    "total": 326,
+    "skipped": 2,
+    "failed": 0
+  },
+  "mac_runtime_tests": 2,
+  "mac_ui_tests": 1,
+  "mac_image_fix_commit": "5bd014d",
+  "mac_short_line_fix_commit": "a53e5da",
+  "mac_private_image_import_tests": 1,
+  "microphone_fix_commit": "5b8791a",
+  "review_state_modified": false
+}
