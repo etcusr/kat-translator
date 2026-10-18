@@ -34,3 +34,9 @@ A soft limiter starts at magnitude 0.55 and approaches 0.70 for amplified origin
 - The fixed export and compact local logs are retained outside Git. Public evidence contains only measurements and synthetic tests.
 
 Reproduce synthetic checks with `swift test --package-path shared/packages/OfflineCore --filter 'VoiceRecordingCacheTests|SpeechLoudnessTests'`. The optional private probe uses `KAT_RECORDING_LEVEL_INPUT` and `KAT_RECORDING_LEVEL_OUTPUT`; leave them unset in ordinary CI. [Measurements](levels.json).
+
+## Subsequent iPhone installation
+
+At the owner's request, the same source fix was built as signed development **1.0 (54)**, identity **ios-ff3ccf9891771b76**, and installed over development53. Signed Release build and deep/strict signature validation passed; the device confirmed installation and build54, then normal launch succeeded. This is a local development build distinct from the previously uploaded Store54. No version bump, Store upload, push or microphone test was performed. The owner will check a new recording; existing history audio is unchanged by the fix.
+
+Optional copying of the device preferences for before/after comparison was rejected by the automatic approval review because preferences may contain private data. It was not retried or bypassed; settings equality is therefore not claimed. Installation succeeded without that optional operation.

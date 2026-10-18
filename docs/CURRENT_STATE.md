@@ -2,7 +2,7 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
-**Source update, not yet released:** quiet original microphone recordings on iOS/Mac now use separate bounded amplification when saved for playback/export/history. A supplied M4A improved from −44.75 to −16.13 dBFS RMS without duration loss or decoded clipping. Recognition input and TTS are unchanged. Core tests and the iOS build passed; no fresh device capture or installation is claimed. [Checks and limits](benchmarks/apple-original-level-2026-10-18/README.md).
+**Development fix installed on iPhone 1.0 (54), `ios-ff3ccf9891771b76`:** quiet original microphone recordings on iOS/Mac now use separate bounded amplification when saved for playback/export/history. A supplied M4A improved from −44.75 to −16.13 dBFS RMS without duration loss or decoded clipping. Recognition input and TTS are unchanged. Core tests, signed iOS build, signature verification, installation and normal launch passed. The owner will check a new recording; this is not an App Store upload or a fresh acoustic acceptance test. [Checks and limits](benchmarks/apple-original-level-2026-10-18/README.md).
 
 Local DMG/ZIP packages are updated to **0.6.8 (61)** for macOS 27+ and separately macOS 15–26. Both include the current recognition/speech and Image fixes, including paragraphs and diagnostic timings. Extracted contents, signatures, checksums and library deployment limits passed verification. Keep at most three releases per line: modern 59/60/61, compatible 53/61 (only two exist). The corrected installed copy remains 0.6.7 (60). [Package checks](publication/mac-direct-2026-10-18.md).
 
