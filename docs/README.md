@@ -10,6 +10,7 @@ Living documentation exists in two languages: `NAME.md` is English and is the de
 |---|---|
 | [README](../README.md) | Project overview, releases, quick links |
 | [CURRENT_STATE](CURRENT_STATE.md) | Current releases, verified results, limitations and experiments |
+| [Future work](BACKLOG.md) | Deferred product tasks and acceptance criteria |
 | [ARCHITECTURE](ARCHITECTURE.md) | Code map, shared and platform layers, build commands |
 | [Publication queue](publication/OPEN_QUESTIONS.md) | What remains before App Store / Google Play publication |
 | [Project description](../PROJECT_DESCRIPTION.md) | Product description and identifiers |

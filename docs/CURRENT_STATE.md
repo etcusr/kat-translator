@@ -2,6 +2,8 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+**Known image limitation (18 October):** a new multi-post example shows missing lines, sentence fragments, inconsistent spacing and exported overlays, with OCR taking 33.17 s in the supplied screenshot. Root cause is unconfirmed; investigation is deferred in the [future-work list](BACKLOG.md).
+
 **iOS 1.0 (55) was verified and uploaded to App Store Connect** with the original-recording volume fix. The owner checked development 54 and reported that it appears correct; that build remains installed on iPhone. Signatures, IPA contents and 143 project checks passed. Apple processing and Store 55 installation through TestFlight are unconfirmed; the owner selects the App Review build. Local Store 53/54/55 distributions are retained. [Checks and upload](publication/ios-original-volume-2026-10-18.md).
 
 **Development fix installed on iPhone 1.0 (54), `ios-ff3ccf9891771b76`:** quiet original microphone recordings on iOS/Mac now use separate bounded amplification when saved for playback/export/history. A supplied M4A improved from −44.75 to −16.13 dBFS RMS without duration loss or decoded clipping. Recognition input and TTS are unchanged. Core tests, signed iOS build, signature verification, installation and normal launch passed. The owner checked the installed development fix and reported that it appears correct; no independent fresh acoustic test is claimed. [Checks and limits](benchmarks/apple-original-level-2026-10-18/README.md).
