@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-18",
+  "candidate_paths": 22,
+  "inventory_entries": 231828,
+  "removed_allocated_bytes": 13705687040,
+  "removed_logical_bytes": 13213275103,
+  "protected_hashes_verified": 2694,
+  "volume_available_before_bytes": 50197069824,
+  "volume_available_after_bytes": 61076926464,
+  "ios_store_retained": [
+    52,
+    53,
+    54
+  ],
+  "mac_store_retained": [
+    70,
+    71,
+    76
+  ],
+  "model_and_dependency_directories_excluded": true,
+  "all_candidates_absent": true,
+  "all_protected_hashes_match": true
+}
