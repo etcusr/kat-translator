@@ -581,13 +581,16 @@ final class MacRuntimeTests: XCTestCase {
         let history = HistoryModel(store: TranslationHistory(root: directory))
         let model = CameraModel(packages: .shared, history: history, backend: VoiceCardTestMT())
         model.source = .english; model.target = .russian
-        await model.open(modelURL: directory)
         let fixture = NSImage(size: NSSize(width: 1000, height: 300), flipped: false) { rect in
             NSColor.white.setFill(); rect.fill()
             ("Check in at 23:30 on October 15." as NSString).draw(at: NSPoint(x: 35, y: 150), withAttributes: [.font: NSFont.systemFont(ofSize: 42), .foregroundColor: NSColor.black])
             return true
         }
         model.importData(try XCTUnwrap(fixture.tiffRepresentation))
+        XCTAssertNotNil(model.image)
+        XCTAssertFalse(model.translation.complete)
+        // Import may arrive while AppModel is still restoring packages for this tab.
+        await model.open(modelURL: directory)
         for _ in 0..<200 where model.recognizing { try await Task.sleep(for: .milliseconds(50)) }
         await model.translation.waitForIdle()
         XCTAssertTrue(model.translation.complete, model.error ?? "No image translation")
@@ -639,7 +642,9 @@ final class MacRuntimeTests: XCTestCase {
         XCTAssertFalse(model.opening)
         let image = NSImage(size: NSSize(width: 1000, height: 240), flipped: false) { rect in
             NSColor.white.setFill(); rect.fill()
-            ("Check in at 23:30 on October 15." as NSString).draw(at: NSPoint(x: 35, y: 110), withAttributes: [.font: NSFont.systemFont(ofSize: 42), .foregroundColor: NSColor.black])
+            for (text, y) in [("The museum opens at 23:30 on October 15", 160.0), ("and brings together art,", 110.0), ("science and technology.", 60.0)] {
+                (text as NSString).draw(at: NSPoint(x: 35, y: y), withAttributes: [.font: NSFont.systemFont(ofSize: 38), .foregroundColor: NSColor.black])
+            }
             return true
         }
         model.importData(try XCTUnwrap(image.tiffRepresentation))
@@ -649,6 +654,11 @@ final class MacRuntimeTests: XCTestCase {
         await model.translation.waitForIdle()
         XCTAssertNil(model.error)
         XCTAssertTrue(model.translation.complete, model.translation.error ?? "Image translation incomplete")
+        XCTAssertEqual(model.translation.translated.count, 1, "A wrapped sentence must reach translation as one paragraph")
+        let timing = try XCTUnwrap(model.translation.timing)
+        XCTAssertGreaterThan(try XCTUnwrap(timing.recognitionSeconds), 0)
+        XCTAssertGreaterThan(timing.translationSeconds, 0)
+        XCTAssertFalse(model.translatedText.contains("\n"))
         let text = model.translation.translated.map(\.translation).joined(separator: " ")
         XCTAssertTrue(text.contains("23:30"), text)
         XCTAssertTrue(text.contains("15"), text)

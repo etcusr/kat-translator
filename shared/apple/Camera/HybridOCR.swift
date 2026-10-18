@@ -26,7 +26,7 @@ private final class OCRCancellation: @unchecked Sendable {
         if value { throw CancellationError() }
     }
 }
-struct OCRObservation: Sendable { let blocks: [ImageTextBlock]; let engine: String }
+struct OCRObservation: Sendable { let blocks: [ImageTextBlock]; let engine: String; let processingSeconds: Double }
 final class HybridOCR: @unchecked Sendable {
     private let queue = DispatchQueue(label: "org.openoffline.ocr", qos: .userInitiated)
     private var native: UnsafeMutableRawPointer?
@@ -38,7 +38,7 @@ final class HybridOCR: @unchecked Sendable {
     static func supports(_ language: SpeechLanguage) -> Bool {
         recognitionLanguages.contains { $0 == language.rawValue || $0.hasPrefix(language.rawValue + "-") }
     }
-    func recognize(_ image: CGImage, source: SpeechLanguage?, forceOpen: Bool, modelURL: URL?) async throws -> OCRObservation {
+    func recognize(_ image: CGImage, source: SpeechLanguage?, forceOpen: Bool, modelURL: URL?, mergeParagraphs: Bool = false) async throws -> OCRObservation {
         try Task.checkCancellation()
         let cancellation = OCRCancellation()
         return try await withTaskCancellationHandler {
@@ -46,6 +46,7 @@ final class HybridOCR: @unchecked Sendable {
             do {
                 try cancellation.check()
                 var blocks: [ImageTextBlock] = []
+                var recognitionStarted = ProcessInfo.processInfo.systemUptime
                 let useVision = !forceOpen && (source.map(Self.supports) ?? true)
                 if useVision {
                     let request = VNRecognizeTextRequest(); request.recognitionLevel = .accurate
@@ -55,6 +56,7 @@ final class HybridOCR: @unchecked Sendable {
                         request.recognitionLanguages = [supported]
                     }
                     request.usesLanguageCorrection = true
+                    recognitionStarted = ProcessInfo.processInfo.systemUptime
                     try VNImageRequestHandler(cgImage: image).perform([request])
                     blocks = (request.results ?? []).compactMap { result in
                         guard let text = result.topCandidates(1).first?.string, !text.isEmpty else { return nil }
@@ -70,6 +72,7 @@ final class HybridOCR: @unchecked Sendable {
                     guard let native = self.native, let dictURL = Bundle.main.url(forResource: source == .russian ? "ocr-eslav-characters" : "ocr-english-characters", withExtension: "json") else { throw CameraError.recognition }
                     let dictionary = try JSONDecoder().decode([String].self, from: Data(contentsOf: dictURL))
                     let request = VNDetectTextRectanglesRequest(); request.reportCharacterBoxes = false
+                    recognitionStarted = ProcessInfo.processInfo.systemUptime
                     try VNImageRequestHandler(cgImage: image).perform([request])
                     for observation in request.results ?? [] {
                         try cancellation.check()
@@ -103,7 +106,7 @@ final class HybridOCR: @unchecked Sendable {
                     }
                 }
                 try cancellation.check()
-                c.resume(returning: OCRObservation(blocks: Self.group(blocks), engine: useVision ? "Apple Vision" : "PP-OCRv5"))
+                c.resume(returning: OCRObservation(blocks: mergeParagraphs ? ImageTextLayout.paragraphs(blocks) : Self.group(blocks), engine: useVision ? "Apple Vision" : "PP-OCRv5", processingSeconds: ProcessInfo.processInfo.systemUptime - recognitionStarted))
             } catch { c.resume(throwing: error) }
         } }
         } onCancel: { cancellation.cancel() }

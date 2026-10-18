@@ -13,14 +13,62 @@ private actor CameraMT: TranslationBackend {
     func translate(text: String, source: SpeechLanguage, target: SpeechLanguage) async throws -> TranslationResult {
         inputs.append(source.rawValue + ":" + text); targets.append(target)
         if shouldWait { return try await withCheckedThrowingContinuation { pending = $0 } }
-        return TranslationResult(text: "translated " + text, firstTokenSeconds: nil, processingSeconds: 0, fragments: 1)
+        return TranslationResult(text: "translated " + text, firstTokenSeconds: nil, processingSeconds: 0.25, fragments: 1)
     }
-    func finish() { shouldWait = false; pending?.resume(returning: TranslationResult(text: "old translation", firstTokenSeconds: nil, processingSeconds: 0, fragments: 1)); pending = nil }
+    func finish() { shouldWait = false; pending?.resume(returning: TranslationResult(text: "old translation", firstTokenSeconds: nil, processingSeconds: 0.25, fragments: 1)); pending = nil }
     var waiting: Bool { pending != nil }
     nonisolated func cancel() {}
     func unload() async { unloaded = true }
 }
 @MainActor final class ImageTranslationTests: XCTestCase {
+    func testReconstructedParagraphReachesTranslatorAsOneRequest() async {
+        let backend = CameraMT(); await backend.finish()
+        let session = ImageTranslationSession(backend: backend)
+        await session.prepare(URL(fileURLWithPath: "/fixture"))
+        let rows = [ImageTextBlock(text: "A company builds housing,", box: ImageTextBox(x: 0.02, y: 0.3, width: 0.9, height: 0.18)),
+                    ImageTextBlock(text: "community and technology.", box: ImageTextBox(x: 0.02, y: 0.5, width: 0.9, height: 0.18))]
+        session.submit(ImageTextLayout.paragraphs(rows), source: .english, target: .russian)
+        await session.waitForIdle()
+        XCTAssertTrue(session.complete)
+        XCTAssertEqual(session.translated.map(\.original), ["A company builds housing, community and technology."])
+        let inputs = await backend.inputs
+        XCTAssertEqual(inputs, ["en:A company builds housing, community and technology."])
+        await session.close()
+    }
+
+    func testImageTimingSumsCurrentTranslationWorkAndClearsForNewScene() async {
+        let backend = CameraMT(); await backend.finish()
+        let session = ImageTranslationSession(backend: backend)
+        await session.prepare(URL(fileURLWithPath: "/fixture"))
+        XCTAssertNil(session.timing)
+        session.submit([block("first"), block("second", x: 0.5)], source: .english, target: .russian, recognitionSeconds: 0.1)
+        await session.waitForIdle()
+        XCTAssertEqual(session.timing?.recognitionSeconds, 0.1)
+        XCTAssertEqual(session.timing?.translationSeconds, 0.5)
+        session.submit([block("first"), block("second", x: 0.5)], source: .english, target: .russian, recognitionSeconds: 0.2)
+        await session.waitForIdle()
+        XCTAssertEqual(session.timing?.recognitionSeconds, 0.2)
+        XCTAssertEqual(session.timing?.translationSeconds, 0, "Cached translations do not run inference again")
+        await session.close(preservingResult: true)
+        XCTAssertNotNil(session.timing)
+        session.clearScene()
+        XCTAssertNil(session.timing)
+    }
+
+    func testImageTimingIgnoresWorkFromSupersededScene() async {
+        let backend = CameraMT()
+        // A controllable backend keeps the first scene in flight while it is replaced.
+        let active = ImageTranslationSession(backend: backend)
+        await active.prepare(URL(fileURLWithPath: "/fixture"))
+        active.submit([block("old")], source: .english, recognitionSeconds: 9)
+        while !(await backend.waiting) { await Task.yield() }
+        active.submit([block("new")], source: .english, recognitionSeconds: 0.2)
+        await backend.finish(); await active.waitForIdle()
+        XCTAssertEqual(active.timing?.recognitionSeconds, 0.2)
+        XCTAssertEqual(active.timing?.translationSeconds, 0.25)
+        await active.close()
+    }
+
     func testAlreadyInTargetLanguageDoesNotRunTranslation() async {
         let backend = CameraMT(); await backend.finish()
         let session = ImageTranslationSession(backend: backend)

@@ -14,7 +14,7 @@ import OfflineCore
     @Published var image: NSImage?
     @Published var error: String?
     @Published var editedTranslation: String?
-    var translatedText: String { editedTranslation ?? translation.translated.map(\.translation).joined(separator: "\n\n") }
+    var translatedText: String { editedTranslation ?? ImageTextLayout.plainText(translation.translated) }
     @Published private(set) var recognizing = false
     @Published private(set) var opening = false
     private let history: HistoryModel?
@@ -23,6 +23,7 @@ import OfflineCore
     private var archiving: Task<Void, Never>?
     var hasResult: Bool { image != nil }
     private var active = false
+    private var pendingImport = false
     private var revision = 0
     private var job: Task<Void, Never>?
     private let ocr = HybridOCR()
@@ -46,6 +47,7 @@ import OfflineCore
         active = true; self.modelURL = modelURL; translationModel = packages.selectedTranslation
         // Merely switching tabs must not unload or prepare multi-gigabyte models.
         error = nil
+        if pendingImport { recognize() }
     }
     func importData(_ data: Data) {
         do {
@@ -53,11 +55,13 @@ import OfflineCore
                   let source = CGImageSourceCreateWithData(data as CFData, nil),
                   let cg = CGImageSourceCreateThumbnailAtIndex(source, 0, [kCGImageSourceCreateThumbnailFromImageAlways: true, kCGImageSourceCreateThumbnailWithTransform: true, kCGImageSourceThumbnailMaxPixelSize: 3072] as CFDictionary) else { throw CameraError.image }
             pixels = cg; image = NSImage(cgImage: cg, size: NSSize(width: cg.width, height: cg.height))
+            pendingImport = true
             recognize()
         } catch { self.error = error.localizedDescription }
     }
     func recognize() {
         guard let pixels, active, !opening else { return }
+        pendingImport = false
         revision += 1; let id = revision
         job?.cancel(); editedTranslation = nil; translation.clearScene(); recognizing = true; error = nil
         let source = source, target = target, automatic = automaticSource
@@ -77,7 +81,7 @@ import OfflineCore
                     opening = false
                     guard translation.ready else { throw ImagePreparationError.failed(translation.error) }
                 }
-                let result = try await ocr.recognize(pixels, source: automatic ? nil : source, forceOpen: false, modelURL: automatic ? nil : packages.ocr(source)?.installedURL)
+                let result = try await ocr.recognize(pixels, source: automatic ? nil : source, forceOpen: false, modelURL: automatic ? nil : packages.ocr(source)?.installedURL, mergeParagraphs: true)
                 try Task.checkCancellation()
                 guard active, revision == id else { return }
                 guard !result.blocks.isEmpty else { throw CameraError.noText }
@@ -87,7 +91,7 @@ import OfflineCore
                     detected = language; self.source = language
                 } else { detected = source }
                 guard translationModel.supports(source: detected, target: target) else { throw PipelineError.modelLanguageUnavailable }
-                translation.submit(result.blocks, source: detected, target: target)
+                translation.submit(result.blocks, source: detected, target: target, recognitionSeconds: result.processingSeconds)
             } catch is CancellationError {} catch { if revision == id { self.error = error.localizedDescription } }
         }
     }
@@ -106,6 +110,7 @@ import OfflineCore
     }
     func clear() async {
         await close()
+        pendingImport = false
         image = nil; pixels = nil; editedTranslation = nil; translation.clearScene(); archivedRevision = nil; error = nil
         await open(modelURL: modelURL)
     }
@@ -180,6 +185,7 @@ struct CameraView: View {
     @ObservedObject var app: AppModel
     @ObservedObject var model: CameraModel
     @ObservedObject var translation: ImageTranslationSession
+    @AppStorage("showTechnicalInfo") private var showTechnicalInfo = false
     @State private var splitRatio: CGFloat = 0.5
     @State private var dragStart: CGFloat?
     @FocusState private var editingTranslation: Bool
@@ -252,6 +258,11 @@ struct CameraView: View {
                         .accessibilityAdjustableAction { direction in
                             splitRatio = min(1 - minimum, max(minimum, ratio + (direction == .increment ? 0.05 : -0.05)))
                         }
+                    VStack(alignment: .leading, spacing: 0) {
+                        if showTechnicalInfo, let timing = translation.timing {
+                            TranslationTimingView(timing: timing, identifier: "image.timing")
+                                .padding(.horizontal, 12).padding(.top, 12)
+                        }
                     TextEditor(text: Binding(get: { model.translatedText }, set: { model.editedTranslation = $0 }))
                         .focused($editingTranslation)
                         .font(AppPlatform.translationFont).lineSpacing(4)
@@ -264,7 +275,7 @@ struct CameraView: View {
                                     .foregroundStyle(.secondary).padding(16).allowsHitTesting(false)
                             }
                         }
-                        .frame(width: available * (1 - ratio), height: geometry.size.height)
+                    }.frame(width: available * (1 - ratio), height: geometry.size.height)
                 }
             }
 

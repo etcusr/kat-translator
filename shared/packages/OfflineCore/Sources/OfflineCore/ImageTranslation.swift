@@ -24,6 +24,10 @@ public struct TranslatedImageBlock: Sendable {
     @Published public private(set) var working = false
     @Published public private(set) var error: String?
     @Published public private(set) var complete = false
+    @Published public private(set) var timing: TranslationTiming?
+    private var scene = 0
+    private var recognitionSeconds: Double?
+    private var translationSeconds = 0.0
     private let backend: any TranslationBackend
     private var blocks: [ImageTextBlock] = []
     private var source: SpeechLanguage = .russian
@@ -46,8 +50,9 @@ public struct TranslatedImageBlock: Sendable {
         }
         job = task; await task.value
     }
-    public func submit(_ blocks: [ImageTextBlock], source: SpeechLanguage, target: SpeechLanguage? = nil) {
+    public func submit(_ blocks: [ImageTextBlock], source: SpeechLanguage, target: SpeechLanguage? = nil, recognitionSeconds: Double? = nil) {
         guard ready, closing == nil else { return }
+        scene += 1; timing = nil; self.recognitionSeconds = recognitionSeconds; translationSeconds = 0
         self.blocks = blocks.filter { !$0.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && $0.box.width > 0 && $0.box.height > 0 }
         self.source = source; self.target = target ?? source.opposite; error = nil; publish()
         startIfNeeded()
@@ -58,6 +63,7 @@ public struct TranslatedImageBlock: Sendable {
             return TranslatedImageBlock(original: block.text, translation: text, box: block.box)
         }
         complete = !blocks.isEmpty && translated.count == blocks.count
+        timing = complete ? TranslationTiming(recognitionSeconds: recognitionSeconds, translationSeconds: translationSeconds) : nil
     }
     private func startIfNeeded() {
         guard job == nil, ready, !complete, !blocks.isEmpty else { return }
@@ -67,10 +73,11 @@ public struct TranslatedImageBlock: Sendable {
             do {
                 while id == generation, !Task.isCancelled,
                       let block = blocks.first(where: { cache[key($0.text, source, target)] == nil }) {
-                    let language = source, destination = target, cacheKey = key(block.text, source, target)
+                    let language = source, destination = target, cacheKey = key(block.text, source, target), requestScene = scene
                     let result = try await backend.translate(text: block.text, source: language, target: destination)
                     try Task.checkCancellation(); guard id == generation else { return }
                     guard !result.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { throw PipelineError.inference }
+                    if requestScene == scene { translationSeconds += max(0, result.processingSeconds) }
                     cache[cacheKey] = result.text; order.append(cacheKey)
                     // Keep current scene entries while evicting old scenes.
                     if order.count > 256, let victim = order.first(where: { candidate in !blocks.contains { key($0.text, source, target) == candidate } }) {
@@ -81,7 +88,7 @@ public struct TranslatedImageBlock: Sendable {
             } catch is CancellationError {} catch { if id == generation { self.error = error.localizedDescription } }
         }
     }
-    public func clearScene() { blocks = []; publish() }
+    public func clearScene() { scene += 1; blocks = []; recognitionSeconds = nil; translationSeconds = 0; publish() }
     public func waitForIdle() async { await job?.value }
     public func close(preservingResult: Bool = false) async {
         if let closing { await closing.value; return }

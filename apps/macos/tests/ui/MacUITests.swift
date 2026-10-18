@@ -238,6 +238,47 @@ final class MacUITests: XCTestCase {
         let report = XCTAttachment(string: checked.sorted().joined(separator: "\n"))
         report.name = "Voice preview button routes"; report.lifetime = .keepAlways; add(report)
     }
+    @MainActor func testImageTimingVisibility() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication(), board = NSPasteboard.general
+        let saved = (board.pasteboardItems ?? []).map { original in
+            let item = NSPasteboardItem()
+            for type in original.types { if let data = original.data(forType: type) { item.setData(data, forType: type) } }
+            return item
+        }
+        defer { app.terminate(); board.clearContents(); if !saved.isEmpty { board.writeObjects(saved) } }
+        let fixture = NSImage(size: NSSize(width: 1000, height: 220), flipped: false) { rect in
+            NSColor.white.setFill(); rect.fill()
+            for (text, y) in [("The museum brings together art,", 120.0), ("science and technology.", 70.0)] {
+                (text as NSString).draw(at: NSPoint(x: 30, y: y), withAttributes: [.font: NSFont.systemFont(ofSize: 38), .foregroundColor: NSColor.black])
+            }
+            return true
+        }
+        let cg = try XCTUnwrap(fixture.cgImage(forProposedRect: nil, context: nil, hints: nil))
+        let data = try XCTUnwrap(NSBitmapImageRep(cgImage: cg).representation(using: .png, properties: [:]))
+        for enabled in [true, false] {
+            app.launchArguments = ["-languageSetupCompleted", "YES", "-automaticModelLoad", "NO", "-appInterfaceLanguage", "en", "-selectedTranslationModel", "index-translate-9b-q4km", "-translationSource", "en", "-translationTarget", "ru", "-automaticLanguage", "NO", "-historyRecordText", "NO", "-historyRecordAudio", "NO", "-historyRecordImages", "NO", "-showTechnicalInfo", enabled ? "YES" : "NO"]
+            app.launch()
+            XCTAssertTrue(app.buttons["mode.camera"].waitForExistence(timeout: 25)); app.buttons["mode.camera"].click()
+            XCTAssertFalse(app.staticTexts["image.timing"].exists)
+            board.clearContents(); board.setData(data, forType: .png)
+            app.buttons["Paste image"].click()
+            let done = XCTNSPredicateExpectation(predicate: NSPredicate(format: "enabled == true"), object: app.buttons["image.saveTranslation"])
+            XCTAssertEqual(XCTWaiter.wait(for: [done], timeout: 90), .completed)
+            let text = app.textViews["image.translation"].value as? String ?? ""
+            XCTAssertTrue(text.lowercased().contains("музе"), text)
+            XCTAssertFalse(text.contains("\n"), text)
+            XCTAssertEqual(app.staticTexts["image.timing"].exists, enabled)
+            if enabled {
+                let label = (app.staticTexts["image.timing"].value as? String) ?? app.staticTexts["image.timing"].label
+                XCTAssertTrue(label.contains("Recognition:"), label)
+                XCTAssertTrue(label.contains("Translation:"), label)
+            }
+            let screenshot = XCTAttachment(screenshot: app.screenshot()); screenshot.name = enabled ? "Image diagnostics on" : "Image diagnostics off"; screenshot.lifetime = .keepAlways; add(screenshot)
+            app.terminate()
+        }
+    }
+
     @MainActor func testImageTranslationReaderAndActions() throws {
         continueAfterFailure = false
         let previousInput = TISCopyCurrentKeyboardInputSource().takeRetainedValue()
