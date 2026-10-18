@@ -40,3 +40,5 @@ Reproduce synthetic checks with `swift test --package-path shared/packages/Offli
 At the owner's request, the same source fix was built as signed development **1.0 (54)**, identity **ios-ff3ccf9891771b76**, and installed over development53. Signed Release build and deep/strict signature validation passed; the device confirmed installation and build54, then normal launch succeeded. This is a local development build distinct from the previously uploaded Store54. No version bump, Store upload, push or microphone test was performed. The owner will check a new recording; existing history audio is unchanged by the fix.
 
 Optional copying of the device preferences for before/after comparison was rejected by the automatic approval review because preferences may contain private data. It was not retried or bypassed; settings equality is therefore not claimed. Installation succeeded without that optional operation.
+
+The owner subsequently checked the installed development build and reported that it appears correct, then requested a GitHub push and new iOS Store build. This is user-reported acceptance, not another measured acoustic run.

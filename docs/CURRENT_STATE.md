@@ -2,7 +2,9 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
-**Development fix installed on iPhone 1.0 (54), `ios-ff3ccf9891771b76`:** quiet original microphone recordings on iOS/Mac now use separate bounded amplification when saved for playback/export/history. A supplied M4A improved from −44.75 to −16.13 dBFS RMS without duration loss or decoded clipping. Recognition input and TTS are unchanged. Core tests, signed iOS build, signature verification, installation and normal launch passed. The owner will check a new recording; this is not an App Store upload or a fresh acoustic acceptance test. [Checks and limits](benchmarks/apple-original-level-2026-10-18/README.md).
+**iOS 1.0 (55) was verified and uploaded to App Store Connect** with the original-recording volume fix. The owner checked development 54 and reported that it appears correct; that build remains installed on iPhone. Signatures, IPA contents and 143 project checks passed. Apple processing and Store 55 installation through TestFlight are unconfirmed; the owner selects the App Review build. Local Store 53/54/55 distributions are retained. [Checks and upload](publication/ios-original-volume-2026-10-18.md).
+
+**Development fix installed on iPhone 1.0 (54), `ios-ff3ccf9891771b76`:** quiet original microphone recordings on iOS/Mac now use separate bounded amplification when saved for playback/export/history. A supplied M4A improved from −44.75 to −16.13 dBFS RMS without duration loss or decoded clipping. Recognition input and TTS are unchanged. Core tests, signed iOS build, signature verification, installation and normal launch passed. The owner checked the installed development fix and reported that it appears correct; no independent fresh acoustic test is claimed. [Checks and limits](benchmarks/apple-original-level-2026-10-18/README.md).
 
 Local DMG/ZIP packages are updated to **0.6.8 (61)** for macOS 27+ and separately macOS 15–26. Both include the current recognition/speech and Image fixes, including paragraphs and diagnostic timings. Extracted contents, signatures, checksums and library deployment limits passed verification. Keep at most three releases per line: modern 59/60/61, compatible 53/61 (only two exist). The corrected installed copy remains 0.6.7 (60). [Package checks](publication/mac-direct-2026-10-18.md).
 
@@ -129,7 +131,7 @@ The build 45 signing candidate is kept separately in `dist/ios/signing-candidate
 | Platform | Version | Build requirement | Confirmation |
 |---|---|---|---|
 | Android | **0.4.6 / code21**, Debug | API 31+, arm64-v8a (ARMv8.2 dotprod/FP16 for Index); compile/target 36 | Installed on Pixel 9 Pro 13.10; native Auto OPUS→2B→OPUS, EN→EN, manual RU↔DE; voice RU/DE via import/microphone with GigaAM/Parakeet and TTS verified |
-| iPhone | **1.0 / build54** | iOS 18+, iPhone ARM64 | IPA54 verified and uploaded; TestFlight pending. |
+| iPhone | **1.0 / build55** | iOS 18+, iPhone ARM64 | IPA 55 verified and uploaded; development 54 checked by the owner; TestFlight 55 pending. |
 | Mac modern | **0.6.8 / build61** | macOS 27+, Apple Silicon | DMG/ZIP 61 verified; installed corrected copy 0.6.7 (60), `mac-8378c215e7c13deb` |
 | Mac App Store | **1.0 / build76** | macOS 27+, Apple Silicon, sandbox | PKG76 verified and uploaded; Apple processing unconfirmed. |
 | Mac compatible | **0.6.8 / build61 / macos15-26** | binary minimum macOS 15, Apple Silicon | DMG/ZIP 61 and audit verified; two runtime tests on macOS 27; physical macOS 15–26 not tested |

@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "build": 55,
+  "build_identity": "ios-77f05165ef0bac32",
+  "artifact": "Kat-translator-1.0-build55.ipa",
+  "bytes": 68456068,
+  "sha256": "b76ca000da4813673f8aa51c41885f7ff7b97f033c9c0c661305472ef3e59425",
+  "signed_binaries": 72,
+  "distribution_profiles": 2,
+  "privacy_manifests": 9,
+  "notices": 46,
+  "loading_clips": 13,
+  "framework_deployment_checks": 70,
+  "executable_code_matches_archive": true,
+  "project_checks": 143,
+  "uploaded": true,
+  "upload_result": "EXPORT SUCCEEDED",
+  "apple_processing_confirmed": false,
+  "testflight_acceptance": "not performed",
+  "app_review_changed": false,
+  "missing_dsym_warnings": 70,
+  "retained_store_builds": [
+    53,
+    54,
+    55
+  ]
+}
