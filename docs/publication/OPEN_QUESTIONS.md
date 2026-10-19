@@ -2,7 +2,9 @@
 
 **English** | [Русский](OPEN_QUESTIONS.ru.md)
 
-**App Store Connect updated (19 October):** Mac was withdrawn from review; iOS **1.0 (55)** and Mac **1.0 (76)** are selected and both show Prepare for Submission. Corrected Mac copy and all four localized subtitles, saved the Live Activity clarification in iOS reviewer notes, uploaded four Turkish Mac screenshots and disabled Apple Vision Pro availability. Saved fields/builds/settings were verified; neither version was resubmitted. TestFlight acceptance and the iPad review question remain open. [Changes and verification](store-metadata-update-2026-10-19.md).
+**App Review resubmission (19 October):** iOS **1.0 (55)** and macOS **1.0 (76)** are both **Waiting for Review**, confirmed in their submission pages. Checked iOS Device Preview/localizations and available Mac screenshot previews; sent the owner’s saved iOS clarification about Live Activity unchanged. Manual release remains selected. Apple’s decision and TestFlight acceptance remain pending. [Verification and submission](store-resubmission-2026-10-19.md).
+
+**Earlier metadata update (19 October, before resubmission):** Mac was withdrawn from review; iOS **1.0 (55)** and Mac **1.0 (76)** are selected and both show Prepare for Submission. Corrected Mac copy and all four localized subtitles, saved the Live Activity clarification in iOS reviewer notes, uploaded four Turkish Mac screenshots and disabled Apple Vision Pro availability. Saved fields/builds/settings were verified; neither version was resubmitted. TestFlight acceptance and the iPad review question remain open. [Changes and verification](store-metadata-update-2026-10-19.md).
 
 **Update, 19 October:** latest uploaded iOS package is **1.0 (55)** ([release checks](ios-original-volume-2026-10-18.md)). The supplied review message concerns **52** and reports a widget missing from the iPad gallery. The extension provides only a Live Activity, not a gallery widget. [Diagnosis and clarified reviewer notes](ipad-widget-review-2026-10-19.md); fresh iPad Live Activity testing and Apple clarification remain open. No additional iPad/Duo screenshots are required now for builds 52–55, in any RU/EN/ES/TR localization. Duo requirements start in April 2027. [Evidence and scope](screenshot-requirements-2026-10-19.md).
 
@@ -26,9 +28,9 @@ The 14 October release was **iOS 1.0 (51), Mac 1.0 (70)**. It includes the playb
 ## Remaining for the release
 
 1. **iOS55 and Mac76 were uploaded successfully.** Install iOS55 through TestFlight and run the full voice cycle. Upload does not establish TestFlight acceptance.
-2. **Build selection and metadata corrections are complete.** The owner checks Preview and the remaining required fields before resubmission.
+2. **Preview checks and resubmission are complete:** iOS 55 and Mac 76 are Waiting for Review. Await Apple’s decisions, then release manually after approval.
 3. Check the iPhone microphone/permissions and the Mac system features through TestFlight; local checks do not replace this.
-4. **The owner handles App Review.** The supplied Apple message flags the widget on iPad in build 52. The saved iOS reviewer notes now clarify that this is a model-download Live Activity, not a gallery widget. If the finding concerns Live Activity behavior, obtain reproduction steps and verify on iPad. Adding a gallery widget is a separate feature. Builds are selected; resubmission remains with the owner.
+4. **The owner handles App Review.** The supplied Apple message flags the widget on iPad in build 52. The reviewer notes and the owner’s reply sent on 19 October clarify that this is a model-download Live Activity, not a gallery widget. If the finding concerns Live Activity behavior, obtain reproduction steps and verify on iPad. Adding a gallery widget is a separate feature. Both versions have been submitted; Apple’s response is pending.
 
 Separate radio-off, background download and network observation checks were dropped from the queue by the owner's decision; they do not count as passed.
 
