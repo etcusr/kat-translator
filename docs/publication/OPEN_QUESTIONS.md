@@ -2,6 +2,8 @@
 
 **English** | [Русский](OPEN_QUESTIONS.ru.md)
 
+**Update, 19 October:** latest uploaded iOS package is **1.0 (55)** ([release checks](ios-original-volume-2026-10-18.md)). The supplied review message concerns **52** and reports a widget missing from the iPad gallery; investigation remains open. No additional iPad/Duo screenshots are required now for builds 52–55, in any RU/EN/ES/TR localization. Duo requirements start in April 2027. [Evidence and scope](screenshot-requirements-2026-10-19.md).
+
 **iOS 1.0 (54) and Mac App Store 1.0 (76)** were verified and uploaded to App Store Connect. They include recognition preparation before the microphone, recognition release on Text/Camera, and the off-by-default date/time correction setting. iPhone AudioQueue capture reduces first-buffer latency from about 1.40 to 0.28 seconds in development-device measurements. During-recording processing and prior streamed-speech fixes are preserved. Mac also reconstructs OCR paragraphs and shows recognition/translation timings when diagnostics is enabled. Signatures, entitlements, resources and all 143 project checks passed. Apple processing and TestFlight installation are not yet confirmed; the owner selects builds for App Review. [Verification and upload](apple-capture-store-2026-10-18.md).
 
 **Previous upload, 17 October:** **iOS 1.0 (53) and Mac App Store 1.0 (71)** were built from the corrected sources, verified and uploaded to App Store Connect. They include complete streamed speech, exact whitespace handling to avoid replay, contextual Russian ordinals and Mac MLX partial output. Both packages contain the current 13 loading clips. Project validation: 143 PASS. Apple processing, TestFlight installation and build selection for review are not yet confirmed. [Checks and upload result](apple-speech-store-2026-10-17.md).
@@ -21,10 +23,10 @@ The 14 October release was **iOS 1.0 (51), Mac 1.0 (70)**. It includes the playb
 
 ## Remaining for the release
 
-1. **iOS54 and Mac76 were uploaded successfully.** Install iOS54 through TestFlight and run the full voice cycle. Upload does not establish TestFlight acceptance.
+1. **iOS55 and Mac76 were uploaded successfully.** Install iOS55 through TestFlight and run the full voice cycle. Upload does not establish TestFlight acceptance.
 2. **The owner selects the new builds** on the iOS/Mac pages, checks Preview and the remaining required fields.
 3. Check the iPhone microphone/permissions and the Mac system features through TestFlight; local checks do not replace this.
-4. **The owner handles App Review.** The current iOS release is awaiting review according to the owner; replacing its build and resubmitting remain with the owner.
+4. **The owner handles App Review.** The supplied Apple message flags the widget on iPad in build 52. Investigate and verify a resolution before resubmission; build selection and submission remain with the owner.
 
 Separate radio-off, background download and network observation checks were dropped from the queue by the owner's decision; they do not count as passed.
 
