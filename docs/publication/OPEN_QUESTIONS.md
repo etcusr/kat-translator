@@ -2,7 +2,7 @@
 
 **English** | [Русский](OPEN_QUESTIONS.ru.md)
 
-**Update, 19 October:** latest uploaded iOS package is **1.0 (55)** ([release checks](ios-original-volume-2026-10-18.md)). The supplied review message concerns **52** and reports a widget missing from the iPad gallery; investigation remains open. No additional iPad/Duo screenshots are required now for builds 52–55, in any RU/EN/ES/TR localization. Duo requirements start in April 2027. [Evidence and scope](screenshot-requirements-2026-10-19.md).
+**Update, 19 October:** latest uploaded iOS package is **1.0 (55)** ([release checks](ios-original-volume-2026-10-18.md)). The supplied review message concerns **52** and reports a widget missing from the iPad gallery. The extension provides only a Live Activity, not a gallery widget. [Diagnosis and clarified reviewer notes](ipad-widget-review-2026-10-19.md); fresh iPad Live Activity testing and Apple clarification remain open. No additional iPad/Duo screenshots are required now for builds 52–55, in any RU/EN/ES/TR localization. Duo requirements start in April 2027. [Evidence and scope](screenshot-requirements-2026-10-19.md).
 
 **iOS 1.0 (54) and Mac App Store 1.0 (76)** were verified and uploaded to App Store Connect. They include recognition preparation before the microphone, recognition release on Text/Camera, and the off-by-default date/time correction setting. iPhone AudioQueue capture reduces first-buffer latency from about 1.40 to 0.28 seconds in development-device measurements. During-recording processing and prior streamed-speech fixes are preserved. Mac also reconstructs OCR paragraphs and shows recognition/translation timings when diagnostics is enabled. Signatures, entitlements, resources and all 143 project checks passed. Apple processing and TestFlight installation are not yet confirmed; the owner selects builds for App Review. [Verification and upload](apple-capture-store-2026-10-18.md).
 
@@ -26,7 +26,7 @@ The 14 October release was **iOS 1.0 (51), Mac 1.0 (70)**. It includes the playb
 1. **iOS55 and Mac76 were uploaded successfully.** Install iOS55 through TestFlight and run the full voice cycle. Upload does not establish TestFlight acceptance.
 2. **The owner selects the new builds** on the iOS/Mac pages, checks Preview and the remaining required fields.
 3. Check the iPhone microphone/permissions and the Mac system features through TestFlight; local checks do not replace this.
-4. **The owner handles App Review.** The supplied Apple message flags the widget on iPad in build 52. Investigate and verify a resolution before resubmission; build selection and submission remain with the owner.
+4. **The owner handles App Review.** The supplied Apple message flags the widget on iPad in build 52. Before resubmission, clarify to Apple that this is a model-download Live Activity, not a gallery widget. If the finding concerns Live Activity behavior, obtain reproduction steps and verify on iPad. Adding a gallery widget is a separate feature. Build selection and submission remain with the owner.
 
 Separate radio-off, background download and network observation checks were dropped from the queue by the owner's decision; they do not count as passed.
 

@@ -2,6 +2,8 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+**Widget Gallery diagnosis (19 October):** the extension in builds 52/55 is present and correctly signed, but implements only a model-download Live Activity. Kat has no ordinary Home Screen/Lock Screen gallery widget, so gallery absence is expected. Reviewer notes now distinguish these features. No fresh iPad runtime check was possible; Live Activity behavior on iPad and Apple’s response remain open. No runtime change or new build. [Evidence and next steps](publication/ipad-widget-review-2026-10-19.md).
+
 **Store screenshots checked (19 October):** builds 52–55 declare iPhone only (`UIDeviceFamily = [1]`), so a separate native iPad screenshot set is not required. iPhone Duo screenshots become mandatory from April 2027 for iOS 27.1 SDK or later; no extra RU/EN/ES/TR sets are required now. The supplied review message reports a missing widget on iPad in build 52; that issue remains unverified and is separate from screenshots. [Requirements and artifact checks](publication/screenshot-requirements-2026-10-19.md).
 
 **Known image limitation (18 October):** a new multi-post example shows missing lines, sentence fragments, inconsistent spacing and exported overlays, with OCR taking 33.17 s in the supplied screenshot. Root cause is unconfirmed; investigation is deferred in the [future-work list](BACKLOG.md).

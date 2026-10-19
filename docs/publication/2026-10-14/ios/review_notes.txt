@@ -10,3 +10,8 @@ Suggested review steps:
 5. After the required packages are downloaded, disable the network and repeat text and voice translation.
 
 Larger translation models require more device memory. Microphone and photo access are requested for the relevant input features. Speech recordings and translation input are processed locally.
+
+Live Activities and Widget Gallery:
+Kat does not include a Home Screen or Lock Screen widget that users add from the Widget Gallery. The embedded DownloadActivityExtension is used exclusively for an ActivityKit Live Activity showing model-download progress. It is not a gallery widget.
+
+To exercise this feature, allow Live Activities for Kat in system settings, open Kat while connected to the internet, and start downloading a model that is not installed. While the download remains in progress, view the Lock Screen or Notification Center. The activity is requested when the download starts in the foreground; it is not shown just by installing the app, and it ends after the download completes. Tapping the activity opens the Models screen. Updates can be delayed while iOS suspends the app.
