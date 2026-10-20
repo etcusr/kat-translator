@@ -1,0 +1,22 @@
+{
+  "whole": {
+    "seconds": 14.247517604162567,
+    "firstTextSeconds": 1.7059780416602734,
+    "firstChunkSeconds": 14.247445979170152,
+    "fragments": 1.0
+  },
+  "chunks": {
+    "seconds": 14.84081658332434,
+    "firstTextSeconds": 0.6734459791550762,
+    "firstChunkSeconds": 4.082639520827797,
+    "fragments": 4.0
+  },
+  "repeat_outputs_identical": true,
+  "matches_lab_whole_and_plain_chunk_outputs": true,
+  "idle_expiry_test_seconds": 0.1,
+  "cold_reload_after_idle_verified": true,
+  "warm_requests_load_once_verified": true,
+  "cancel_recovery_verified": true,
+  "source_case": "en-extended",
+  "source_words": 363
+}

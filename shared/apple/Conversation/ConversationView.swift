@@ -341,6 +341,10 @@ struct ConversationView: View {
     }
     private var notices: some View {
         Group {
+                    if fields.partialTranslation != nil {
+                        Text(L10n.text("Перевод ещё не завершён")).font(.caption).foregroundStyle(.secondary)
+                            .accessibilityIdentifier("translation.partial.notice")
+                    }
                     if let message = model.message ?? fields.error { Label(message, systemImage: "info.circle").font(.subheadline).foregroundStyle(.orange) }
                     if let notice = fields.speechNotice { Text(notice).font(.caption).foregroundStyle(.secondary) }
                     if let warning = fields.archiveWarning { Text(warning).font(.caption).foregroundStyle(.orange) }
@@ -352,7 +356,7 @@ struct ConversationView: View {
                             Text(L10n.text("Предварительный перевод")).font(.caption).foregroundStyle(.secondary)
                                 .accessibilityIdentifier("recording.preview")
                         }
-                        if !fields.translatedText.isEmpty {
+                        if !fields.displayedTranslation.isEmpty {
                             voiceTranslationCard.id("voice.result")
                         }
                         if !fields.sourceText.isEmpty || session.hasOriginalRecording {
@@ -410,7 +414,7 @@ struct ConversationView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     languageControls
                     if input == .text {
-                        TextTranslationFields(session: session, input: $typedText, output: fields.translatedText,
+                        TextTranslationFields(session: session, input: $typedText, output: fields.displayedTranslation,
                             source: textSource,
                             target: fields.resolvedTarget ?? model.languages.runtimeTarget ?? .english,
                             busy: busy, canSpeakSource: textSource.map { packages.canSpeak($0) } ?? false, canSpeakTarget: packages.canSpeak(fields.resolvedTarget ?? model.languages.runtimeTarget ?? .english), speakingField: speakingField ?? (session.isSpeaking ? "target" : nil),
@@ -445,7 +449,7 @@ struct ConversationView: View {
                 }
     }
     private var voiceShowsResults: Bool {
-        VoiceResultVisibility.shouldShow(hasOriginal: !fields.sourceText.isEmpty || session.hasOriginalRecording, hasTranslation: !fields.translatedText.isEmpty,
+        VoiceResultVisibility.shouldShow(hasOriginal: !fields.sourceText.isEmpty || session.hasOriginalRecording, hasTranslation: !fields.displayedTranslation.isEmpty,
             capturing: recorder.isRecording || recorder.starting || model.preparingRecording || model.importingAudio,
             finishing: model.finishing, processing: session.isBusy && session.activeMode == .voice,
             preview: session.isRecordingPreview, alreadyShown: voiceResultRevealed)
@@ -675,10 +679,10 @@ struct ConversationView: View {
                 Text(status).font(AppPlatform.panelCaption).foregroundStyle(.secondary)
                     .accessibilityIdentifier("voice.result.status")
             }
-            Text(fields.translatedText).font(AppPlatform.voiceTextFont).textSelection(.enabled)
+            Text(fields.displayedTranslation).font(AppPlatform.voiceTextFont).textSelection(.enabled)
                 .frame(minHeight: AppPlatform.voiceResultMinimumHeight, alignment: .topLeading)
                 .accessibilityIdentifier("voice.translation.text")
-            TextCharacterCount(text: fields.translatedText, identifier: "voice.translation.count")
+            TextCharacterCount(text: fields.displayedTranslation, identifier: "voice.translation.count")
         }.frame(maxWidth: .infinity, alignment: .leading).padding(16)
             .background(.white.opacity(0.05), in: RoundedRectangle(cornerRadius: 20))
     }

@@ -72,6 +72,8 @@ public struct TranslationTiming: Sendable, Equatable {
 public struct ConversationFields: Sendable {
     public var sourceText = ""
     public var translatedText = ""
+    public var partialTranslation: String?
+    public var displayedTranslation: String { partialTranslation ?? translatedText }
     public var resolvedSource: SpeechLanguage?
     public var resolvedTarget: SpeechLanguage?
     public var lastHistoryID: UUID?
@@ -154,6 +156,8 @@ public struct ConversationFields: Sendable {
     @Published public private(set) var isRecordingPreview = false
     private var nextSpeech: Task<PreparedSpeech?, Error>?
     private var files: PipelineFiles? { didSet { refreshRecognitionReadiness() } }
+    public var showsTranslationPartials = false
+    private var partialRequest: UUID?
     private var memorySaving = false
     private var recognitionReleasePending = false
     private var recognitionNeeded = true
@@ -329,7 +333,7 @@ public struct ConversationFields: Sendable {
         generation += 1; let id = generation
         activeMode = resultMode ?? (audio == nil ? .text : .voice)
         if activeMode == .voice { voiceRecording.clear(); voiceSpeechShareCache.clear(); hasOriginalRecording = false }
-        currentFields.timing = nil
+        currentFields.timing = nil; currentFields.partialTranslation = nil
         isBusy = true; error = nil; resolvedSource = nil; resolvedTarget = nil; speechNotice = nil; sourceText = ""; translatedText = ""; lastHistoryID = nil; archiveWarning = nil; player.stop()
         let job = Task {
             var files = files
@@ -349,7 +353,7 @@ public struct ConversationFields: Sendable {
             var newText = ""
             var validatedSpeech = verifyPreview ? nil : preview?.firstSpeech
             sourceText = verifyPreview ? "" : (preview?.sourceText ?? ""); translatedText = verifyPreview ? "" : (preview?.translatedText ?? "")
-            defer { earlyPlayback?.cancel(); streamedStart?.cancel(); isSpeaking = false; isSpeechPaused = false; translationProgress = nil; player.stop(); metric.totalSeconds = now - start; samples.append(metric); isBusy = false; stage = ""; active = nil }
+            defer { partialRequest = nil; currentFields.partialTranslation = nil; earlyPlayback?.cancel(); streamedStart?.cancel(); isSpeaking = false; isSpeechPaused = false; translationProgress = nil; player.stop(); metric.totalSeconds = now - start; samples.append(metric); isBusy = false; stage = ""; active = nil }
             do {
                 if activeMode == .voice, let recording = originalRecording {
                     do {
@@ -439,6 +443,9 @@ public struct ConversationFields: Sendable {
                     streamedStart = StreamedSpeechStart()
                 }
                 let streaming = translatedText.isEmpty ? streamedStart : nil
+                let displayParts = showsTranslationPartials && files.translationModel == .index9B
+                let previousTranslation = translatedText, requestID = UUID()
+                partialRequest = requestID
                 let result = try await translator.translate(text: part.source, source: source, target: target, progress: { [weak self] update in
                     Task { @MainActor [weak self] in
                         guard let self, self.generation == id, let current = self.translationProgress,
@@ -449,7 +456,11 @@ public struct ConversationFields: Sendable {
                     }
                 }, partial: { [weak self] text in
                     Task { @MainActor [weak self] in
-                        guard let self, self.generation == id, let streaming else { return }
+                        guard let self, self.generation == id else { return }
+                        if displayParts, self.partialRequest == requestID {
+                            self.currentFields.partialTranslation = [previousTranslation, text].filter { !$0.isEmpty }.joined(separator: " ")
+                        }
+                        guard let streaming else { return }
                         streaming.offer(text, prepare: { sentence in
                             guard let voice = files.voice(target) else { return nil }
                             try self.check(id)
@@ -473,6 +484,7 @@ public struct ConversationFields: Sendable {
                         })
                     }
                 })
+                partialRequest = nil; currentFields.partialTranslation = nil
                 translationProgress = nil
                 try check(id)
                 guard !result.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { throw PipelineError.inference }

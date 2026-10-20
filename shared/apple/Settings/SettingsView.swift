@@ -10,6 +10,10 @@ struct SettingsView: View {
     @AppStorage("whisperDateTimeRepair") private var dateTimeRepair = false
     @AppStorage("recordingPreprocessing") private var preprocessing = true
     @AppStorage("recordingPreviewVerification") private var verification = true
+    #if os(macOS)
+    @AppStorage("macTranslationIdleMinutes") private var translationIdleMinutes = 5.0
+    @AppStorage("macExperimentalTranslationChunks") private var experimentalChunks = false
+    #endif
     @AppStorage("memorySaving") private var memorySaving = false
     @AppStorage("automaticModelLoad") private var automaticModelLoad = true
     @AppStorage("historyRecordText") private var recordText = true
@@ -101,6 +105,13 @@ struct SettingsView: View {
                     Text(L10n.text("Whisper повторно проверяет неоднозначные дату и время в русской речи. Может увеличить ожидание."))
                 }
                 Section {
+                    #if os(macOS)
+                    Toggle(L10n.text("Переводить по частям — тест"), isOn: $experimentalChunks)
+                        .accessibilityIdentifier("settings.translationChunks")
+                        .onChange(of: experimentalChunks) { _, enabled in model.session.showsTranslationPartials = enabled }
+                    Text(L10n.text("Только Index 9B. Первые части могут появляться раньше, но контекст между ними может теряться, а полный перевод — занимать больше времени. Применяется к следующему переводу."))
+                        .font(.footnote).foregroundStyle(.secondary)
+                    #endif
                     Toggle(L10n.text("Обрабатывать во время записи"), isOn: $preprocessing)
                         .accessibilityIdentifier("settings.recordingPreprocessing")
                     if preprocessing {
@@ -129,6 +140,11 @@ struct SettingsView: View {
                 Section {
                     Toggle(L10n.text("Загружать модель при запуске"), isOn: $automaticModelLoad)
                         .accessibilityIdentifier("settings.automaticModelLoad")
+                    #if os(macOS)
+                    Stepper(value: $translationIdleMinutes, in: 1...60, step: 1) {
+                        LabeledContent(L10n.text("Выгружать переводчик после простоя"), value: L10n.text("\(Int(translationIdleMinutes)) мин"))
+                    }.accessibilityIdentifier("settings.translationIdleMinutes").disabled(memorySaving)
+                    #endif
                     Toggle(L10n.text("Экономия памяти"), isOn: $memorySaving)
                         .onChange(of: memorySaving) { _, _ in Task { await model.unload() } }
                 } header: {
@@ -136,6 +152,9 @@ struct SettingsView: View {
                 } footer: {
                     VStack(alignment: .leading, spacing: 8) {
                         Text(L10n.text("Подготовить выбранную скачанную модель при открытии приложения. В режиме экономии памяти перевод загружается только перед запросом."))
+                        #if os(macOS)
+                        Text(L10n.text("Модель перевода остаётся в памяти между запросами. После простоя она выгружается и автоматически загружается при следующем переводе. Экономия памяти выгружает её сразу после этапа перевода."))
+                        #endif
                         Text(L10n.text("Выгружать модели между этапами. Меньше расход памяти, но больше ожидание загрузки."))
                     }
                 }

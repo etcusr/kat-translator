@@ -9,10 +9,11 @@ private final class MLXTranslationFlag: @unchecked Sendable {
 private final class MLXPartialReporter {
     let completed: String
     let report: @Sendable (String) -> Void
-    init(completed: String, report: @escaping @Sendable (String) -> Void) {
-        self.completed = completed; self.report = report
+    let separator: String
+    init(completed: String, separator: String = " ", report: @escaping @Sendable (String) -> Void) {
+        self.completed = completed; self.separator = separator; self.report = report
     }
-    func receive(_ text: String) { report(completed.isEmpty ? text : completed + " " + text) }
+    func receive(_ text: String) { report(completed.isEmpty ? text : completed + separator + text) }
 }
 final class MLXTranslationBackend: TranslationBackend, @unchecked Sendable {
     private let queue = DispatchQueue(label: "org.openoffline.translation", qos: .userInitiated)
@@ -20,6 +21,10 @@ final class MLXTranslationBackend: TranslationBackend, @unchecked Sendable {
     private var model: TranslationModel = .index9B
     private let lock = NSLock()
     private var flag: MLXTranslationFlag?
+    private let chunkingEnabled: @Sendable () -> Bool
+    init(chunkingEnabled: @escaping @Sendable () -> Bool = { UserDefaults.standard.bool(forKey: "macExperimentalTranslationChunks") }) {
+        self.chunkingEnabled = chunkingEnabled
+    }
     func load(modelURL: URL) async throws { try await load(modelURL: modelURL, model: .index9B) }
     func load(modelURL: URL, model: TranslationModel) async throws {
         guard model == .index9B else { throw PipelineError.modelLoad }
@@ -51,13 +56,16 @@ final class MLXTranslationBackend: TranslationBackend, @unchecked Sendable {
         try Task.checkCancellation()
         guard TranslationLanguage.details(source).connected(to: model), TranslationLanguage.details(target).connected(to: model) else { throw PipelineError.modelLanguageUnavailable }
         try TranslationPrompt.validate(text)
+        let useSmallChunks = chunkingEnabled()
         let flag = try MLXTranslationFlag(); setFlag(flag); defer { setFlag(nil) }
         return try await withTaskCancellationHandler {
             try await withCheckedThrowingContinuation { continuation in self.queue.async {
                 do {
                     guard let context = self.context else { throw PipelineError.modelLoad }
                     let started = ProcessInfo.processInfo.systemUptime
-                    let pieces = try TextSegments.split(text) { part in
+                    let planned = useSmallChunks
+                        ? try TranslationChunks.plan(text, count: { Int(kat_mlx_count(context, "", $0, "")) }) : [text]
+                    let pieces = try planned.flatMap { sourcePiece in try TextSegments.split(sourcePiece) { part in
                         let request = self.model.request(text: part.trimmingCharacters(in: .whitespacesAndNewlines), source: source, target: target)
                         let count = kat_mlx_count(context, request.prefix, request.text, request.suffix)
                         // The runtime can use all free response positions. Plan that space
@@ -65,8 +73,9 @@ final class MLXTranslationBackend: TranslationBackend, @unchecked Sendable {
                         guard count > 0 && count <= 1536 else { return false }
                         let sourceCount = kat_mlx_count(context, "", request.text, "")
                         return TranslationPreflight.fits(promptTokens: Int(count), sourceTokens: Int(sourceCount))
-                    }
+                    } }
                     var translated: [String] = []; var first: Double?
+                    var completed = "", separator = " "
                     var work = TranslationWork(pieces: pieces)
                     progress(work.progress)
                     while let part = work.current {
@@ -76,10 +85,10 @@ final class MLXTranslationBackend: TranslationBackend, @unchecked Sendable {
                         let callStart = ProcessInfo.processInfo.systemUptime
                         TranslationMemoryTrace.record("translate.start", model: self.model)
                         let request = self.model.request(text: input, source: source, target: target)
-                        let done = translated.joined(separator: " ")
+                        let done = completed
                         let code: Int32
                         if let partial {
-                            let reporter = MLXPartialReporter(completed: done, report: partial)
+                            let reporter = MLXPartialReporter(completed: done, separator: separator, report: partial)
                             code = withExtendedLifetime(reporter) {
                                 kat_mlx_run_stream(context, request.prefix, request.text, request.suffix,
                                     flag.pointer, &output, output.count, &tokenSeconds, { text, user in
@@ -101,10 +110,16 @@ final class MLXTranslationBackend: TranslationBackend, @unchecked Sendable {
                         if first == nil && tokenSeconds >= 0 { first = callStart - started + tokenSeconds }
                         let result = String(cString: output).trimmingCharacters(in: .whitespacesAndNewlines)
                         guard !result.isEmpty else { throw PipelineError.inference }
+                        completed = done.isEmpty ? result : done + separator + result
+                        if useSmallChunks {
+                            let whitespace = String(part.reversed().prefix(while: { $0.isWhitespace }).reversed())
+                            separator = whitespace.contains("\n\n") ? "\n\n" : (whitespace.contains("\n") ? "\n" : " ")
+                        }
                         translated.append(result); work.completeCurrent(); progress(work.progress)
+                        if useSmallChunks { partial?(completed) }
                     }
                     guard !translated.isEmpty else { throw PipelineError.noSpeech }
-                    continuation.resume(returning: TranslationResult(text: translated.joined(separator: " "), firstTokenSeconds: first,
+                    continuation.resume(returning: TranslationResult(text: completed, firstTokenSeconds: first,
                         processingSeconds: ProcessInfo.processInfo.systemUptime - started, fragments: translated.count))
                 } catch { continuation.resume(throwing: error) }
             } }

@@ -80,3 +80,76 @@ final class MacMLXIntegrationTests: XCTestCase {
         print("MAC_MLX_INTEGRATION_OK count=\(count) mtp2=true cancel=true reuse=true routed=true partials=\(snapshots.count) partialCancel=true")
     }
 }
+
+private final class ResidencyMLXProbe: TranslationBackend, @unchecked Sendable {
+    let backend: MLXTranslationBackend
+    private let lock = NSLock()
+    private var loadCount = 0
+    init(chunks: Bool) { backend = MLXTranslationBackend(chunkingEnabled: { chunks }) }
+    var loads: Int { lock.lock(); defer { lock.unlock() }; return loadCount }
+    private func loaded() { lock.lock(); loadCount += 1; lock.unlock() }
+    func load(modelURL: URL) async throws { try await backend.load(modelURL: modelURL); loaded() }
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage) async throws -> TranslationResult {
+        try await backend.translate(text: text, source: source, target: target)
+    }
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void,
+                   partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult {
+        try await backend.translate(text: text, source: source, target: target, progress: progress, partial: partial)
+    }
+    func cancel() { backend.cancel() }
+    func unload() async { await backend.unload() }
+}
+private final class TranslationArrivalProbe: @unchecked Sendable {
+    private let lock = NSLock()
+    let start = ProcessInfo.processInfo.systemUptime
+    private var firstText: Double?, firstChunk: Double?
+    private var last = ""
+    func partial(_ value: String) { lock.lock(); defer { lock.unlock() }; if firstText == nil && !value.isEmpty { firstText = ProcessInfo.processInfo.systemUptime - start }; last = value }
+    func progress(_ value: TranslationProgress) { lock.lock(); defer { lock.unlock() }; if firstChunk == nil && value.completedParts > 0 { firstChunk = ProcessInfo.processInfo.systemUptime - start } }
+    var values: [String: Any] { lock.lock(); defer { lock.unlock() }; return ["firstTextSeconds": firstText ?? -1, "firstChunkSeconds": firstChunk ?? -1, "lastPartial": last] }
+}
+extension MacMLXIntegrationTests {
+    func testResidentModelAndOptionalChunks() async throws {
+        let env = ProcessInfo.processInfo.environment
+        guard env["KAT_RESIDENCY_INTEGRATION"] == "1" else { throw XCTSkip("Explicit local-model residency test only") }
+        let model = URL(fileURLWithPath: try XCTUnwrap(env["KAT_MLX_MODEL_PATH"]))
+        let fixture = URL(fileURLWithPath: try XCTUnwrap(env["KAT_LONG_FIXTURE"]))
+        let cases = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: fixture)) as? [[String: Any]])
+        let long = try XCTUnwrap(cases.first { $0["id"] as? String == "en-extended" }?["text"] as? String)
+        var measurements: [[String: Any]] = []
+        for chunks in [false, true] {
+            let spy = ResidencyMLXProbe(chunks: chunks)
+            let cached = RetainedTranslationBackend(base: spy, idleSeconds: 300)
+            try await cached.load(modelURL: model, model: .index9B)
+            _ = try await cached.translate(text: "Hello, where is the airport?", source: .english, target: .russian)
+            var outputs: [String] = []
+            for repetition in 0..<2 {
+                let probe = TranslationArrivalProbe()
+                let result = try await cached.translate(text: long, source: .english, target: .russian, progress: { probe.progress($0) }, partial: { probe.partial($0) })
+                XCTAssertEqual(spy.loads, 1, "Warm requests must not reload the model")
+                outputs.append(result.text)
+                var row = probe.values
+                row["mode"] = chunks ? "chunks" : "whole"; row["repetition"] = repetition
+                row["seconds"] = ProcessInfo.processInfo.systemUptime - probe.start; row["fragments"] = result.fragments; row["output"] = result.text
+                measurements.append(row)
+                if chunks { XCTAssertGreaterThan(result.fragments, 1); XCTAssertEqual(row["lastPartial"] as? String, result.text) }
+            }
+            XCTAssertEqual(outputs[0], outputs[1])
+            await cached.setIdleTimeout(0.1)
+            try await Task.sleep(nanoseconds: 300_000_000)
+            _ = try await cached.translate(text: "Hello", source: .english, target: .russian)
+            XCTAssertEqual(spy.loads, 2, "Request after idle unload must reload automatically")
+            await cached.setIdleTimeout(300)
+            do {
+                _ = try await cached.translate(text: long, source: .english, target: .russian, progress: { _ in }, partial: { _ in cached.cancel() })
+                XCTFail("Cancelling partial translation must abort")
+            } catch is CancellationError {} catch { XCTFail("Unexpected cancellation: \(error)") }
+            let recovery = try await cached.translate(text: "Hello", source: .english, target: .russian)
+            XCTAssertFalse(recovery.text.isEmpty)
+            await cached.unload()
+        }
+        let out = URL(fileURLWithPath: try XCTUnwrap(env["KAT_RESIDENCY_OUTPUT"]))
+        try JSONSerialization.data(withJSONObject: measurements, options: [.prettyPrinted, .sortedKeys]).write(to: out)
+        print("MAC_RESIDENCY_OK warmReuse=true idleReload=true chunks=true cancellation=true")
+    }
+}

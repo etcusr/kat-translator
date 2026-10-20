@@ -13,6 +13,13 @@ final class RoutedTranslationBackend: TranslationBackend, @unchecked Sendable {
     private let lock = NSLock()
     private var model: TranslationModel = .index9B
     #if os(macOS)
+    private var residencyObserver: NSObjectProtocol?
+    private static var idleSeconds: Double {
+        let saved = UserDefaults.standard.object(forKey: "macTranslationIdleMinutes") as? Double ?? 5
+        return (saved.isFinite ? min(60, max(1, saved)) : 5) * 60
+    }
+    #endif
+    #if os(macOS)
     private static func indexBackend() -> any TranslationBackend { MLXTranslationBackend() }
     private static func opusBackend() -> any TranslationBackend { OpusGPUTranslationBackend() }
     #else
@@ -20,14 +27,30 @@ final class RoutedTranslationBackend: TranslationBackend, @unchecked Sendable {
     private static func opusBackend() -> any TranslationBackend { OpusTranslationBackend() }
     #endif
     init(llama: (any TranslationBackend)? = nil, opus: (any TranslationBackend)? = nil) {
-        self.llama = llama ?? Self.indexBackend(); self.opus = opus ?? Self.opusBackend()
         #if os(macOS)
-        compact = LlamaTranslationBackend()
+        self.llama = RetainedTranslationBackend(base: llama ?? Self.indexBackend(), idleSeconds: Self.idleSeconds)
+        self.opus = RetainedTranslationBackend(base: opus ?? Self.opusBackend(), idleSeconds: Self.idleSeconds)
+        compact = RetainedTranslationBackend(base: LlamaTranslationBackend(), idleSeconds: Self.idleSeconds)
+        directions = RetainedTranslationBackend(base: OpusTranslationBackend(), idleSeconds: Self.idleSeconds)
+        residencyObserver = NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: nil) { [weak self] _ in
+            guard let self else { return }
+            let seconds = Self.idleSeconds
+            Task { for backend in [self.llama, self.compact, self.opus, self.directions] {
+                await (backend as? RetainedTranslationBackend)?.setIdleTimeout(seconds)
+            } }
+        }
         #else
+        self.llama = llama ?? Self.indexBackend(); self.opus = opus ?? Self.opusBackend()
         compact = self.llama
-        #endif
         directions = OpusTranslationBackend()
+        #endif
     }
+    deinit {
+        #if os(macOS)
+        if let residencyObserver { NotificationCenter.default.removeObserver(residencyObserver) }
+        #endif
+    }
+
     private var active: any TranslationBackend {
         lock.lock(); defer { lock.unlock() }
         switch model {

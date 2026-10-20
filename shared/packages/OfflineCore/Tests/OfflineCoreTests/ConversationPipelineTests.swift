@@ -43,6 +43,13 @@ private actor TestASR: ASRBackend {
     func unload() async { await calls.add("unloadASR") }
 }
 private actor TestMT: TranslationBackend {
+    var partialCallback: (@Sendable (String) -> Void)?
+    func emitPartial(_ text: String) { partialCallback?(text) }
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void,
+                   partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult {
+        partialCallback = partial
+        return try await translate(text: text, source: source, target: target, progress: progress)
+    }
     var translatedInputs: [String] = []
     var progressCallback: (@Sendable (TranslationProgress) -> Void)?
     func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void) async throws -> TranslationResult {
@@ -1932,6 +1939,29 @@ private actor StreamingMT: TranslationBackend {
         let actual = await calls.items
         XCTAssertEqual(actual, ["loadTTS:en", "TTS:Hello", "play"])
         XCTAssertTrue(pipeline.translatedText.isEmpty); XCTAssertTrue(pipeline.samples.isEmpty)
+    }
+
+    func testOptionalPartialsAreNotFinalResultsAndLateCallbacksAreIgnored() async {
+        let calls = Calls(), mt = TestMT(Calls())
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: mt, speech: TestTTS(calls), player: TestPlayer(calls))
+        pipeline.showsTranslationPartials = true
+        await pipeline.prepare(files, memorySaving: false)
+        await mt.delay()
+        let run = Task { await pipeline.run(audio: nil, text: "текст", source: .russian, speakResult: false, inputMode: "text", thermal: "nominal") }
+        for _ in 0..<100 { if await mt.waiting { break }; await Task.yield() }
+        await mt.emitPartial("unfinished")
+        for _ in 0..<100 { if pipeline.textFields.partialTranslation != nil { break }; await Task.yield() }
+        XCTAssertEqual(pipeline.textFields.partialTranslation, "unfinished")
+        XCTAssertTrue(pipeline.textFields.translatedText.isEmpty)
+        XCTAssertNil(pipeline.textFields.lastHistoryID)
+        await mt.resolve(); await run.value
+        XCTAssertNil(pipeline.textFields.partialTranslation)
+        XCTAssertEqual(pipeline.textFields.translatedText, TestMT.result.text)
+        await mt.emitPartial("late callback")
+        for _ in 0..<10 { await Task.yield() }
+        XCTAssertNil(pipeline.textFields.partialTranslation)
+        XCTAssertEqual(pipeline.textFields.translatedText, TestMT.result.text)
+        await pipeline.unload()
     }
 
 }

@@ -19828,6 +19828,151 @@
           }
         }
       }
+    },
+    "Переводить по частям — тест": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переводить по частям — тест"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Translate in chunks — experimental"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traducir por partes — experimental"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parçalar halinde çevir — deneysel"
+          }
+        }
+      }
+    },
+    "Только Index 9B. Первые части могут появляться раньше, но контекст между ними может теряться, а полный перевод — занимать больше времени. Применяется к следующему переводу.": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Только Index 9B. Первые части могут появляться раньше, но контекст между ними может теряться, а полный перевод — занимать больше времени. Применяется к следующему переводу."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Index 9B only. Initial chunks may appear sooner, but context between them may be lost and the full translation may take longer. Applies to the next translation."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo Index 9B. Las primeras partes pueden aparecer antes, pero puede perderse el contexto entre ellas y la traducción completa puede tardar más. Se aplica a la siguiente traducción."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnızca Index 9B. İlk parçalar daha erken görünebilir ancak aralarındaki bağlam kaybolabilir ve çevirinin tamamı daha uzun sürebilir. Sonraki çeviriye uygulanır."
+          }
+        }
+      }
+    },
+    "Выгружать переводчик после простоя": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выгружать переводчик после простоя"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unload translator after idle time"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liberar el traductor tras inactividad"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boşta kaldıktan sonra çevirmeni bellekten kaldır"
+          }
+        }
+      }
+    },
+    "Модель перевода остаётся в памяти между запросами. После простоя она выгружается и автоматически загружается при следующем переводе. Экономия памяти выгружает её сразу после этапа перевода.": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Модель перевода остаётся в памяти между запросами. После простоя она выгружается и автоматически загружается при следующем переводе. Экономия памяти выгружает её сразу после этапа перевода."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The translation model stays in memory between requests. After idle time it unloads and reloads automatically for the next translation. Memory-saving mode unloads it immediately after the translation stage."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El modelo de traducción permanece en memoria entre solicitudes. Tras un periodo de inactividad se libera y se carga automáticamente para la siguiente traducción. El ahorro de memoria lo libera justo después de la etapa de traducción."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çeviri modeli istekler arasında bellekte kalır. Boşta kaldığında bellekten kaldırılır ve sonraki çeviri için otomatik yüklenir. Bellek tasarrufu modu, çeviri aşamasından hemen sonra modeli bellekten kaldırır."
+          }
+        }
+      }
+    },
+    "Перевод ещё не завершён": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевод ещё не завершён"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Translation is still in progress"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La traducción aún no ha terminado"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çeviri henüz tamamlanmadı"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-20",
+  "app_version": "0.6.8",
+  "app_build": "61",
+  "build_identifier": "mac-c1e1bb101392ada8",
+  "checks": {
+    "core_tests": 336,
+    "core_optional_skips": 3,
+    "core_failures": 0,
+    "mlx_real_tests": 2,
+    "compact_opus_real_tests": 2,
+    "route_spy_tests": 1,
+    "python_mlx_tests": 9,
+    "localized_entries": 679,
+    "docs_parity_tests": 2,
+    "final_release_build": true,
+    "codesign_deep_strict": true
+  },
+  "source_sha256": {
+    "apps/macos/MLXTranslationBackend.swift": "1148d797441a82dfaa9e0c9ab775d07bffd5ac17d9ef2066a09859a09cdb7e98",
+    "shared/apple/Translation/RoutedTranslationBackend.swift": "94648d943475e6ea6f432f89c371f44f4996b323e1d817c3c1c63a2cf7594d76",
+    "shared/apple/Settings/SettingsView.swift": "68c68d4161fb4ca070f163916e1a87d03b7c7c956bef97453d2d573f47f87ab3",
+    "shared/apple/Conversation/ConversationView.swift": "270440709b5dd723a7fddc25756ff864007ef6f1ef787566310ab33cc2c2886f",
+    "shared/packages/OfflineCore/Sources/OfflineCore/ConversationPipeline.swift": "52746bafc2bc6635b7833032e1a328c5fd197cc37ceed94a97f1de561f0da0ea",
+    "shared/packages/OfflineCore/Sources/OfflineCore/RetainedTranslationBackend.swift": "c2aa05fe9820307f2fa5f12121f257c61855247f4ee0c95b69a7ca008ab2bc65",
+    "shared/packages/OfflineCore/Sources/OfflineCore/TranslationChunks.swift": "7e9b4953a0e4b5975402d1d5a585e935c4cbf3ba572e892d3560921236f53ee0"
+  },
+  "limits": [
+    "No visual UI automation",
+    "No microphone, speech, OCR or mobile acceptance",
+    "Idle expiry tested with shortened timeout",
+    "No Store upload, packaging or Applications replacement"
+  ]
+}
