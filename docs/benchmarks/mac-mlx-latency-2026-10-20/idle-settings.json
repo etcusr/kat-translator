@@ -1,0 +1,27 @@
+{
+  "default_seconds": 300,
+  "configured_result": {
+    "id": "ru-airport",
+    "source": "ru",
+    "target": "en",
+    "kind": "short",
+    "text": "Подскажите, пожалуйста, как пройти к стойке регистрации?",
+    "code": 0,
+    "output": "Could you please tell me how to get to the registration desk?",
+    "first_token_seconds": 0.34063770801003557,
+    "seconds": 0.6243952920049196,
+    "engine": "index9b",
+    "load_seconds": 0,
+    "model_reused": true,
+    "idle_timeout_seconds": 600
+  },
+  "rejected_timeouts": [
+    0,
+    3601,
+    true,
+    "600"
+  ],
+  "test_idle_seconds": 2,
+  "observed_exit_seconds": 2.189912957997876,
+  "exit_code": 0
+}

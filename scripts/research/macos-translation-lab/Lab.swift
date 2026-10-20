@@ -54,6 +54,11 @@ enum Backend: String, CaseIterable, Identifiable {
     private var task: Task<Void, Never>?
     private var session: TranslationSession?
     private var process: Process?
+    private var workerInput: Pipe?
+    private var workerOutput: Pipe?
+    private var workerBackend: Backend?
+    private var workerIdleSeconds = 300
+    private var idleSeconds = 300
     var target: String { source == "ru" ? "en" : "ru" }
     let samples = (try? JSONDecoder().decode([Sample].self,
         from: Data(contentsOf: Bundle.main.url(forResource: "cases", withExtension: "json")!))) ?? []
@@ -83,9 +88,53 @@ enum Backend: String, CaseIterable, Identifiable {
     func cancel() {
         task?.cancel()
         session?.cancel()
-        process?.terminate()
+        if process?.isRunning == true { process?.terminate() }
+        workerBackend = nil
         // Keep controls locked until the active operation has actually finished.
         status = "Остановка…"
+    }
+
+    func unload() {
+        if process?.isRunning == true { process?.terminate() }
+        workerBackend = nil
+        if !busy { status = "Модель Kat выгружена." }
+    }
+
+    func setIdleMinutes(_ minutes: Int) {
+        idleSeconds = max(1, min(60, minutes)) * 60
+        configureWorkerIfNeeded()
+    }
+
+    private func configureWorkerIfNeeded() {
+        guard !busy, workerBackend != nil, process?.isRunning == true, workerIdleSeconds != idleSeconds else { return }
+        let seconds = idleSeconds
+        busy = true
+        task = Task {
+            var configured = false
+            defer {
+                busy = false
+                task = nil
+                if configured { configureWorkerIfNeeded() }
+            }
+            do {
+                try await configureWorker(seconds: seconds)
+                configured = true
+            } catch {
+                unload()
+                status = "Таймер сохранён; модель загрузится при следующем переводе."
+            }
+        }
+    }
+
+    private func configureWorker(seconds: Int) async throws {
+        let payload = try JSONSerialization.data(withJSONObject:
+            ["command": "configure", "idle_timeout_seconds": seconds])
+        let data = try await exchange(payload)
+        let response = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+        guard response?["idle_timeout_seconds"] as? Int == seconds else {
+            throw NSError(domain: "Kat Lab", code: -4)
+        }
+        workerIdleSeconds = seconds
     }
 
     func translate() {
@@ -100,7 +149,7 @@ enum Backend: String, CaseIterable, Identifiable {
         output = ""
         status = selected.apple ? "Перевод…" : "Загрузка модели Kat и перевод…"
         task = Task {
-            defer { busy = false; session = nil; process = nil; task = nil }
+            defer { busy = false; session = nil; task = nil; configureWorkerIfNeeded() }
             do {
                 if selected.apple {
                     let row = await apple(sample, backend: selected, pass: 0, phase: "manual")
@@ -142,39 +191,36 @@ enum Backend: String, CaseIterable, Identifiable {
         let output: String
         let seconds: Double
         let load_seconds: Double
+        let model_reused: Bool?
+        let idle_timeout_seconds: Double?
     }
 
     func kat(_ sample: Sample, backend: Backend) async throws -> KatResult {
         let root = try String(contentsOf: Bundle.main.url(forResource: "workspace", withExtension: "txt")!, encoding: .utf8)
-        let child = Process()
-        let input = Pipe(), output = Pipe()
-        child.executableURL = URL(fileURLWithPath: root + "/.build/mac-index-mlx-mtp/venv/bin/python")
-        child.arguments = [root + "/scripts/research/macos-translation-lab/kat_runner.py", backend.key]
-        child.currentDirectoryURL = URL(fileURLWithPath: root)
-        child.standardInput = input
-        child.standardOutput = output
-        child.standardError = FileHandle.nullDevice
-        process = child
-        let bytes = try JSONEncoder().encode(sample)
-        let data: Data = try await withCheckedThrowingContinuation { continuation in
-            child.terminationHandler = { process in
-                let data = output.fileHandleForReading.readDataToEndOfFile()
-                if process.terminationStatus == 0 {
-                    continuation.resume(returning: data)
-                } else {
-                    continuation.resume(throwing: NSError(domain: "Kat Lab", code: Int(process.terminationStatus),
-                        userInfo: [NSLocalizedDescriptionKey: "Движок завершился с кодом \(process.terminationStatus)."]))
-                }
+        if workerBackend != backend || process?.isRunning != true {
+            if let previous = process {
+                if previous.isRunning { previous.terminate() }
+                await Task.detached { previous.waitUntilExit() }.value
             }
-            do {
-                try child.run()
-                input.fileHandleForWriting.write(bytes)
-                try input.fileHandleForWriting.close()
-            } catch {
-                child.terminationHandler = nil
-                continuation.resume(throwing: error)
-            }
+            try Task.checkCancellation()
+            let child = Process()
+            let input = Pipe(), output = Pipe()
+            child.executableURL = URL(fileURLWithPath: root + "/.build/mac-index-mlx-mtp/venv/bin/python")
+            child.arguments = [root + "/scripts/research/macos-translation-lab/kat_runner.py",
+                               backend.key, "--serve", "--idle-timeout", String(idleSeconds)]
+            child.currentDirectoryURL = URL(fileURLWithPath: root)
+            child.standardInput = input
+            child.standardOutput = output
+            child.standardError = FileHandle.nullDevice
+            try child.run()
+            process = child
+            workerInput = input
+            workerOutput = output
+            workerBackend = backend
+            workerIdleSeconds = idleSeconds
         }
+        try Task.checkCancellation()
+        let data = try await exchange(JSONEncoder().encode(sample))
         let result = try JSONDecoder().decode(KatResult.self, from: data)
         guard result.code == 0 else {
             throw NSError(domain: "Kat Lab", code: result.code,
@@ -183,11 +229,36 @@ enum Backend: String, CaseIterable, Identifiable {
         return result
     }
 
+    private func exchange(_ payload: Data) async throws -> Data {
+        var bytes = payload
+        bytes.append(10)
+        try workerInput!.fileHandleForWriting.write(contentsOf: bytes)
+        let handle = workerOutput!.fileHandleForReading
+        let data = try await Task.detached {
+            var data = Data()
+            while data.count < 262144 {
+                let chunk = handle.availableData
+                guard !chunk.isEmpty else {
+                    throw NSError(domain: "Kat Lab", code: -1,
+                        userInfo: [NSLocalizedDescriptionKey: "Движок остановлен. Можно запустить перевод снова."])
+                }
+                data.append(chunk)
+                if data.last == 10 { return data }
+            }
+            throw NSError(domain: "Kat Lab", code: -2,
+                userInfo: [NSLocalizedDescriptionKey: "Слишком большой ответ движка."])
+        }.value
+        if let error = (try? JSONSerialization.jsonObject(with: data) as? [String: Any])?["error"] as? String {
+            throw NSError(domain: "Kat Lab", code: -3, userInfo: [NSLocalizedDescriptionKey: error])
+        }
+        return data
+    }
+
     func benchmark(to path: String) {
         guard !busy else { return }
         busy = true
         task = Task {
-            defer { busy = false; task = nil }
+            defer { busy = false; task = nil; configureWorkerIfNeeded() }
             var rows: [Measurement] = []
             let encoder = JSONEncoder()
             encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
@@ -221,19 +292,21 @@ enum Backend: String, CaseIterable, Identifiable {
         guard !busy, let sample = samples.first(where: { $0.id == "en-gender-context" }) else { return }
         busy = true
         task = Task {
-            defer { busy = false; task = nil; process = nil }
+            defer { busy = false; task = nil; configureWorkerIfNeeded() }
             do {
                 var results: [String: KatResult] = [:]
-                for backend in [Backend.small, .large] {
+                for (index, backend) in [Backend.small, .large, .large].enumerated() {
                     try Task.checkCancellation()
+                    if index == 2 { try await configureWorker(seconds: 600) }
                     self.backend = backend
                     source = sample.source
                     text = sample.text
                     status = "Проверка запуска из приложения: \(backend.rawValue)"
                     let result = try await kat(sample, backend: backend)
-                    results[backend.key] = result
+                    results[backend.key + (index == 2 ? "-reused" : "")] = result
                     output = result.output
                 }
+                try await configureWorker(seconds: idleSeconds)
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
                 try encoder.encode(results).write(to: URL(fileURLWithPath: path), options: .atomic)
@@ -245,6 +318,7 @@ enum Backend: String, CaseIterable, Identifiable {
 
 struct LabView: View {
     @StateObject private var lab = Lab()
+    @AppStorage("modelIdleMinutes") private var idleMinutes = 5
     private let lime = Color(red: 0.76, green: 0.95, blue: 0.12)
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -285,16 +359,19 @@ struct LabView: View {
                 Button("Перевести") { lab.translate() }.buttonStyle(.borderedProminent).tint(lime)
                     .disabled(lab.busy || lab.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 Button("Подготовить языки Apple") { lab.prepare() }.disabled(lab.busy || !lab.backend.apple)
+                Button("Выгрузить Kat") { lab.unload() }.disabled(lab.busy)
+                SettingsLink { Label("Настройки", systemImage: "gearshape") }
                 if lab.busy { ProgressView().controlSize(.small); Button("Стоп") { lab.cancel() } }
                 Spacer()
             }
             Text(lab.status).font(.callout).textSelection(.enabled)
-            Text("Apple «качество» — предпочтение: система может использовать обычную модель. В этой лаборатории Kat загружает модель заново при каждом нажатии; это время показано отдельно. Ввод не сохраняется.")
+            Text("Apple «качество» — предпочтение: система может использовать обычную модель. Kat сохраняет модель между переводами и выгружает через \(idleMinutes) мин бездействия. Загрузка показана отдельно. Ввод не сохраняется.")
                 .font(.caption).foregroundStyle(.secondary)
         }
         .padding(24).frame(minWidth: 850, minHeight: 530).preferredColorScheme(.dark)
         .translationTask(lab.configuration) { session in await lab.prepare(using: session) }
         .task {
+            lab.setIdleMinutes(idleMinutes)
             let args = ProcessInfo.processInfo.arguments
             if let index = args.firstIndex(of: "--benchmark"), args.count > index + 1 {
                 lab.benchmark(to: args[index + 1])
@@ -302,10 +379,29 @@ struct LabView: View {
                 lab.probeKat(to: args[index + 1])
             }
         }
-        .onDisappear { if lab.busy { lab.cancel() } }
+        .onChange(of: lab.backend) { _, _ in if !lab.busy { lab.unload() } }
+        .onChange(of: idleMinutes) { _, minutes in lab.setIdleMinutes(minutes) }
+        .onDisappear { lab.cancel() }
     }
 }
 
 @main struct TranslationLabApp: App {
-    var body: some Scene { Window("Kat Translation Lab", id: "main") { LabView() } }
+    init() { signal(SIGPIPE, SIG_IGN) }
+    var body: some Scene {
+        Window("Kat Translation Lab", id: "main") { LabView() }
+        Settings { LabSettings() }
+    }
+}
+
+struct LabSettings: View {
+    @AppStorage("modelIdleMinutes") private var minutes = 5
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Модели перевода").font(.headline)
+            Stepper("Выгружать после \(minutes) мин бездействия",
+                    value: $minutes, in: 1...60)
+            Text("По умолчанию — 5 минут. Настройка сохраняется. Index 9B занимает около 5 ГБ памяти; во время перевода модель не выгружается.")
+                .font(.callout).foregroundStyle(.secondary)
+        }.padding(24).frame(width: 440)
+    }
 }

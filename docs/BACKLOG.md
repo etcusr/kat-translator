@@ -10,7 +10,9 @@ Deferred tasks, not completed changes or release promises.
 
 - [x] Build a separate Mac app with Apple lowLatency/highFidelity and Kat Index 2B/9B; verify both Kat worker bridges.
 - [x] Compare 256 synthetic RU↔EN translations, retain startup/outlier data and manually inspect context, times and pronouns.
-- [ ] Diagnose Index 9B MLX + MTP2 latency outliers (up to 12.49 s here) with memory, scheduling and thermal observations.
+- [x] Profile 192 fresh 9B control requests and compare unchanged outputs; maximum 2.41 s. [Investigation](benchmarks/mac-mlx-latency-2026-10-20/README.md).
+- [x] Remove repeated model loading in the separate Mac Lab using one resident worker, with a saved idle timer (default 5 minutes, Settings 1–60) and 32 matching regression translations.
+- [ ] Capture the historical 12.49 s inference outlier with contemporaneous system traces. It did not recur in the fresh controls; root cause remains unconfirmed.
 - [ ] Evaluate held-out examples and phone performance before selecting/routing engines. Apple was much faster but made meaning errors; highFidelity did not establish use of a different model.
 
 

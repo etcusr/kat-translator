@@ -1,0 +1,73 @@
+{
+  "date": "2026-10-20",
+  "base_commit": "285554a",
+  "unchanged_hashes": {
+    "shared/native/IndexMLX/index_mlx.py": "30db6e4b3695a5faaeb263a17574cbc991389a08fc28d38c41ed55831f1a6179",
+    "Dependencies/index-mlx.lock.json": "e61a73dfb0d1757f92a6373de99348d70a164d33b323cf67854ef0e871a27048",
+    "tests/fixtures/mac-system-translation.json": "59c6ea095cb9f4085b13815b91f5e68411e147dbd560465335024463efa04d0c"
+  },
+  "model_files_sha256_verified": [
+    {
+      "path": "model.safetensors",
+      "sha256": "cdd9bfb2fa7471edb8616b4cb42c2b68bc3b502e5dbde1ba21d8fa9c584ebd05",
+      "bytes": 5223280226
+    },
+    {
+      "path": "config.json",
+      "sha256": "fa8a56873cf965eaabbca9a142cec6ff0e8c5ddac3dace954d66e0db3028cb72",
+      "bytes": 2741
+    },
+    {
+      "path": "tokenizer.json",
+      "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+      "bytes": 19989325
+    },
+    {
+      "path": "tokenizer_config.json",
+      "sha256": "a778ef4fe2a8be4e55782abdaa66dcf66ba7e96828940150607264420fb3a7cf",
+      "bytes": 1164
+    },
+    {
+      "path": "generation_config.json",
+      "sha256": "5b2e05bd687ce6eb52f8beff6d9dc98a0fb1e02ce8898062869218d17264220f",
+      "bytes": 100
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "sha256": "3aa3d264edc9d049fe09c5fba0043cb1f348a52d6141b92f399c0bb9111d8cd7",
+      "bytes": 83549
+    },
+    {
+      "path": "chat_template.jinja",
+      "sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+      "bytes": 7756
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c",
+      "bytes": 11358
+    }
+  ],
+  "research_source_hashes": {
+    "scripts/research/macos-translation-lab/build.py": "6a08c4abee5c98d53746e06d34b4b55b00c8865b141f74255c17c6160e0914fa",
+    "scripts/research/macos-translation-lab/kat_runner.py": "f060789d2c4277d0c85d1ad9f1f8f0978fa1950c10dc0667707633c081a9f702",
+    "scripts/research/macos-translation-lab/Lab.swift": "f98743504ebf5c1a40f7c96b3a23d613154958fca6f1e48f3caa9407613fd43d",
+    "scripts/research/macos-translation-lab/summarize.py": "a47a5f8e22eb16dc74af7df9320644bb8ffbcdd7fc7a365438806f998768f71e",
+    "scripts/research/macos-translation-lab/test_worker.py": "06ed77b5f4a19f0e18e63191582acb58e536020890e2d211ab8283675dfe6b85",
+    "scripts/research/macos-translation-lab/profile_mlx.py": "911a8b8f781e822a21880bef640d548861e8964b450059a85e434ee6a8a19781"
+  },
+  "app_executable_sha256": "a4edcd03c6f49b6c692229082e7b57d517e8b37b6298fdd9676a67a838cc9a07",
+  "control_requests_checked": 192,
+  "regression_requests": 32,
+  "docs_parity_tests": 2,
+  "default_idle_seconds": 300,
+  "configured_idle_seconds": 600,
+  "timer_exit_test_seconds": 2,
+  "swift_app_probe_passed": true,
+  "limitations": [
+    "No production app, Store, phone, voice or OCR validation",
+    "Historical 12.49-second inference outlier remains unexplained",
+    "No full-duration 5/10-minute wait or automated Settings UI clicks; AppStorage wiring and live worker update verified separately"
+  ],
+  "ad_hoc_signature_verified": true
+}

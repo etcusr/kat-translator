@@ -1,0 +1,26 @@
+{
+  "index2b" : {
+    "code" : 0,
+    "idle_timeout_seconds" : 300,
+    "load_seconds" : 0.9470376249955734,
+    "model_reused" : false,
+    "output" : "Меня зовут Анна. Я путешествую со своей сестрой. Вчера я забронировала два билета.",
+    "seconds" : 0.4073629579943372
+  },
+  "index9b" : {
+    "code" : 0,
+    "idle_timeout_seconds" : 300,
+    "load_seconds" : 3.268938375011203,
+    "model_reused" : false,
+    "output" : "Меня зовут Анна. Я путешествую со своей сестрой. Вчера я забронировала два билета.",
+    "seconds" : 1.2833278330072062
+  },
+  "index9b-reused" : {
+    "code" : 0,
+    "idle_timeout_seconds" : 600,
+    "load_seconds" : 0,
+    "model_reused" : true,
+    "output" : "Меня зовут Анна. Я путешествую со своей сестрой. Вчера я забронировала два билета.",
+    "seconds" : 0.8417187500017462
+  }
+}

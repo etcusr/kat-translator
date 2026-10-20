@@ -1,0 +1,12 @@
+{
+  "control_requests": 192,
+  "control_max_seconds": 2.1495741669932613,
+  "profile_max_seconds": 2.1208872920105932,
+  "sequence_max_seconds": 2.407251415992505,
+  "one_shot_e2e_median": 5.457745833002264,
+  "resident_warm_e2e_median": 0.8819624585012207,
+  "e2e_ratio": 6.188183839794027,
+  "first_resident_e2e": 4.780349416992976,
+  "historical_outlier_cause": "unconfirmed; not reproduced in fresh controls",
+  "runtime_unchanged": true
+}

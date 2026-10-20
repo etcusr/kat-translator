@@ -1,0 +1,4555 @@
+{
+  "load_seconds": 2.6564374590088846,
+  "rows": [
+    {
+      "id": "ru-airport",
+      "repeat": 0,
+      "seconds": 1.0821486670029117,
+      "cpu_seconds": 0.5928950000000004,
+      "first": 0.8192597919987747,
+      "code": 0,
+      "output": "Could you please tell me how to get to the registration desk?",
+      "before": {
+        "active": 5223155728,
+        "cache": 83934584,
+        "peak": 5298653352,
+        "rss_peak": 3447750656,
+        "minflt": 365417,
+        "majflt": 1616,
+        "nvcsw": 3451,
+        "nivcsw": 32462
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 224679075,
+        "peak": 5450727278,
+        "rss_peak": 3447750656,
+        "minflt": 366095,
+        "majflt": 1816,
+        "nvcsw": 3488,
+        "nivcsw": 33628
+      },
+      "mtp": [
+        {
+          "cycles": 5,
+          "accepts": 7,
+          "rejects": 2,
+          "init_emits": 2,
+          "draft_emits": 7,
+          "bonus_emits": 3,
+          "verify_emits": 2,
+          "depth_drafted": [
+            5,
+            4
+          ],
+          "depth_accepted": [
+            4,
+            3
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 239.91091796779074,
+          "mtp_head_ms": 3.351709005073644,
+          "sample_ms": 0.31683397537562996,
+          "cache_ops_ms": 1.3012080162297934
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 16,
+          "total_seconds": 0.5814070410124259,
+          "max_seconds": 0.2471399580099387
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010409291004179977,
+          "max_seconds": 0.01040841601206921
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.488524457992753,
+          "max_seconds": 0.488524457992753
+        }
+      }
+    },
+    {
+      "id": "ru-booking",
+      "repeat": 0,
+      "seconds": 0.5784007080073934,
+      "cpu_seconds": 0.08332899999999999,
+      "first": 0.31547250000585336,
+      "code": 0,
+      "output": "I booked a room for two nights, but I'll only arrive tomorrow.",
+      "before": {
+        "active": 5223155730,
+        "cache": 224679075,
+        "peak": 5450727278,
+        "rss_peak": 3447750656,
+        "minflt": 366097,
+        "majflt": 1817,
+        "nvcsw": 3488,
+        "nivcsw": 33628
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 225033010,
+        "peak": 5455188762,
+        "rss_peak": 3447750656,
+        "minflt": 366122,
+        "majflt": 1817,
+        "nvcsw": 3488,
+        "nivcsw": 34188
+      },
+      "mtp": [
+        {
+          "cycles": 5,
+          "accepts": 9,
+          "rejects": 1,
+          "init_emits": 2,
+          "draft_emits": 9,
+          "bonus_emits": 4,
+          "verify_emits": 1,
+          "depth_drafted": [
+            5,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            4
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 241.73666699789464,
+          "mtp_head_ms": 2.122792007867247,
+          "sample_ms": 0.32812599965836853,
+          "cache_ops_ms": 0.7099990179995075
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 18,
+          "total_seconds": 0.5672582090192009,
+          "max_seconds": 0.23632187499606516
+        },
+        "gc0": {
+          "count": 1,
+          "total_seconds": 0.00014612499217037112,
+          "max_seconds": 0.00014612499217037112
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010308959012036212,
+          "max_seconds": 0.01030808400537353
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002594170073280111,
+          "max_seconds": 0.0002594170073280111
+        }
+      }
+    },
+    {
+      "id": "ru-time",
+      "repeat": 0,
+      "seconds": 0.6798357079969719,
+      "cpu_seconds": 0.09776700000000016,
+      "first": 0.31516370800090954,
+      "code": 0,
+      "output": "The meeting has been rescheduled from Friday to Monday at half past eight in the morning.",
+      "before": {
+        "active": 5223155730,
+        "cache": 225033010,
+        "peak": 5455188762,
+        "rss_peak": 3447750656,
+        "minflt": 366123,
+        "majflt": 1817,
+        "nvcsw": 3488,
+        "nivcsw": 34188
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 226597747,
+        "peak": 5463481118,
+        "rss_peak": 3447750656,
+        "minflt": 366152,
+        "majflt": 1818,
+        "nvcsw": 3488,
+        "nivcsw": 34754
+      },
+      "mtp": [
+        {
+          "cycles": 7,
+          "accepts": 10,
+          "rejects": 4,
+          "init_emits": 2,
+          "draft_emits": 10,
+          "bonus_emits": 3,
+          "verify_emits": 4,
+          "depth_drafted": [
+            7,
+            7
+          ],
+          "depth_accepted": [
+            7,
+            3
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 339.28687502339017,
+          "mtp_head_ms": 2.8665819845627993,
+          "sample_ms": 0.3998749889433384,
+          "cache_ops_ms": 2.1972910180920735
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 21,
+          "total_seconds": 0.6683033720619278,
+          "max_seconds": 0.2370650420052698
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010491541019291617,
+          "max_seconds": 0.010490541011677124
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00023795900051482022,
+          "max_seconds": 0.00023795900051482022
+        }
+      }
+    },
+    {
+      "id": "ru-negation",
+      "repeat": 0,
+      "seconds": 0.627423041005386,
+      "cpu_seconds": 0.08723899999999984,
+      "first": 0.31575854199763853,
+      "code": 0,
+      "output": "I didn't ask to cancel the order. I wanted to change the delivery address.",
+      "before": {
+        "active": 5223155730,
+        "cache": 226597747,
+        "peak": 5463481118,
+        "rss_peak": 3447750656,
+        "minflt": 366152,
+        "majflt": 1818,
+        "nvcsw": 3488,
+        "nivcsw": 34754
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 173947733,
+        "peak": 5463481118,
+        "rss_peak": 3447750656,
+        "minflt": 366159,
+        "majflt": 1818,
+        "nvcsw": 3488,
+        "nivcsw": 35270
+      },
+      "mtp": [
+        {
+          "cycles": 6,
+          "accepts": 10,
+          "rejects": 1,
+          "init_emits": 2,
+          "draft_emits": 10,
+          "bonus_emits": 5,
+          "verify_emits": 1,
+          "depth_drafted": [
+            6,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            5
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 288.40770898386836,
+          "mtp_head_ms": 2.347959001781419,
+          "sample_ms": 0.40533200080972165,
+          "cache_ops_ms": 0.755540982936509
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 20,
+          "total_seconds": 0.6153769160300726,
+          "max_seconds": 0.23676116700517014
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010974832999636419,
+          "max_seconds": 0.010973790995194577
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00033066699688788503,
+          "max_seconds": 0.00033066699688788503
+        }
+      }
+    },
+    {
+      "id": "ru-bank-alone",
+      "repeat": 0,
+      "seconds": 0.47790258399618324,
+      "cpu_seconds": 0.07077299999999997,
+      "first": 0.3130667500081472,
+      "code": 0,
+      "output": "She was standing at the spit.",
+      "before": {
+        "active": 5223155730,
+        "cache": 173947733,
+        "peak": 5463481118,
+        "rss_peak": 3447750656,
+        "minflt": 366160,
+        "majflt": 1818,
+        "nvcsw": 3488,
+        "nivcsw": 35270
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 220355233,
+        "peak": 5463481118,
+        "rss_peak": 3447750656,
+        "minflt": 366174,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 35727
+      },
+      "mtp": [
+        {
+          "cycles": 3,
+          "accepts": 3,
+          "rejects": 3,
+          "init_emits": 2,
+          "draft_emits": 3,
+          "bonus_emits": 0,
+          "verify_emits": 3,
+          "depth_drafted": [
+            3,
+            3
+          ],
+          "depth_accepted": [
+            3,
+            0
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 146.84733298781794,
+          "mtp_head_ms": 1.4197500131558627,
+          "sample_ms": 0.1299580035265535,
+          "cache_ops_ms": 1.658625013078563
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 10,
+          "total_seconds": 0.4668994980020216,
+          "max_seconds": 0.23438125000393484
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010186998988501728,
+          "max_seconds": 0.010186290994170122
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002210420061601326,
+          "max_seconds": 0.0002210420061601326
+        }
+      }
+    },
+    {
+      "id": "ru-bank-context",
+      "repeat": 0,
+      "seconds": 0.8857067080098204,
+      "cpu_seconds": 0.1339260000000002,
+      "first": 0.3206064999976661,
+      "code": 0,
+      "output": "The river bends here, and a narrow strip of sand is visible in the middle of the water. She was standing at the spit.",
+      "before": {
+        "active": 5223155730,
+        "cache": 220355233,
+        "peak": 5463481118,
+        "rss_peak": 3447750656,
+        "minflt": 366176,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 35727
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 232949170,
+        "peak": 5497101150,
+        "rss_peak": 3447750656,
+        "minflt": 366211,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 36461
+      },
+      "mtp": [
+        {
+          "cycles": 11,
+          "accepts": 15,
+          "rejects": 5,
+          "init_emits": 2,
+          "draft_emits": 15,
+          "bonus_emits": 6,
+          "verify_emits": 5,
+          "depth_drafted": [
+            11,
+            9
+          ],
+          "depth_accepted": [
+            9,
+            6
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 532.4440819822485,
+          "mtp_head_ms": 4.4586250151041895,
+          "sample_ms": 0.7383330375887454,
+          "cache_ops_ms": 2.8389179933583364
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 30,
+          "total_seconds": 0.8743137489946093,
+          "max_seconds": 0.24171991700131912
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010298667009919882,
+          "max_seconds": 0.0102977920032572
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002339589991606772,
+          "max_seconds": 0.0002339589991606772
+        }
+      }
+    },
+    {
+      "id": "ru-paragraph",
+      "repeat": 0,
+      "seconds": 2.0664971660007723,
+      "cpu_seconds": 0.2807000000000004,
+      "first": 0.5419301249930868,
+      "code": 0,
+      "output": "Our flight has been delayed by two hours. We’ve already completed check-in, but we haven’t checked our luggage yet. An airport staff member told us to go to counter number twelve. I don’t have internet access, so could you please show me the way on the map? If we miss our connecting flight, who will help us rebook our tickets?",
+      "before": {
+        "active": 5223155730,
+        "cache": 232949170,
+        "peak": 5497101150,
+        "rss_peak": 3447750656,
+        "minflt": 366211,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 36461
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 254748389,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366281,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 37755
+      },
+      "mtp": [
+        {
+          "cycles": 30,
+          "accepts": 42,
+          "rejects": 16,
+          "init_emits": 2,
+          "draft_emits": 42,
+          "bonus_emits": 14,
+          "verify_emits": 16,
+          "depth_drafted": [
+            30,
+            28
+          ],
+          "depth_accepted": [
+            28,
+            14
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 1454.1302920115413,
+          "mtp_head_ms": 12.282586001674645,
+          "sample_ms": 1.6369580262107775,
+          "cache_ops_ms": 8.848539931932464
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 76,
+          "total_seconds": 2.054543420992559,
+          "max_seconds": 0.4628949170000851
+        },
+        "gc0": {
+          "count": 1,
+          "total_seconds": 6.841700815130025e-05,
+          "max_seconds": 6.841700815130025e-05
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010183001024415717,
+          "max_seconds": 0.010182292011450045
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002769169950624928,
+          "max_seconds": 0.0002769169950624928
+        }
+      }
+    },
+    {
+      "id": "en-airport",
+      "repeat": 0,
+      "seconds": 0.5286378340097144,
+      "cpu_seconds": 0.07591500000000018,
+      "first": 0.31677124999987427,
+      "code": 0,
+      "output": "Скажите, пожалуйста, где находится стойка регистрации?",
+      "before": {
+        "active": 5223155730,
+        "cache": 254748389,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366281,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 37755
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 174832271,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366306,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 38225
+      },
+      "mtp": [
+        {
+          "cycles": 4,
+          "accepts": 6,
+          "rejects": 1,
+          "init_emits": 2,
+          "draft_emits": 6,
+          "bonus_emits": 3,
+          "verify_emits": 1,
+          "depth_drafted": [
+            4,
+            3
+          ],
+          "depth_accepted": [
+            3,
+            3
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 192.37537399749272,
+          "mtp_head_ms": 1.5933339891489595,
+          "sample_ms": 0.25770800129976124,
+          "cache_ops_ms": 0.6688760040560737
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 14,
+          "total_seconds": 0.5167772079730639,
+          "max_seconds": 0.23792958399280906
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010922167013632134,
+          "max_seconds": 0.010921375011093915
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00024700000358279794,
+          "max_seconds": 0.00024700000358279794
+        }
+      }
+    },
+    {
+      "id": "en-booking",
+      "repeat": 0,
+      "seconds": 0.6281037919980008,
+      "cpu_seconds": 0.09063199999999938,
+      "first": 0.3144740409916267,
+      "code": 0,
+      "output": "Я забронировал номер на две ночи, но приеду только завтра.",
+      "before": {
+        "active": 5223155730,
+        "cache": 174832271,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366306,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 38225
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 225115346,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366316,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 38757
+      },
+      "mtp": [
+        {
+          "cycles": 6,
+          "accepts": 9,
+          "rejects": 2,
+          "init_emits": 2,
+          "draft_emits": 9,
+          "bonus_emits": 4,
+          "verify_emits": 2,
+          "depth_drafted": [
+            6,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            4
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 290.91741802403703,
+          "mtp_head_ms": 2.448917002766393,
+          "sample_ms": 0.3894170076819137,
+          "cache_ops_ms": 1.2475000112317502
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 19,
+          "total_seconds": 0.6168799179868074,
+          "max_seconds": 0.23575112500111572
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010421458006021567,
+          "max_seconds": 0.010417458004667424
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002235830033896491,
+          "max_seconds": 0.0002235830033896491
+        }
+      }
+    },
+    {
+      "id": "en-time",
+      "repeat": 0,
+      "seconds": 0.784595334000187,
+      "cpu_seconds": 0.11761899999999947,
+      "first": 0.31559637500322424,
+      "code": 0,
+      "output": "Встречу перенесли с пятницы на понедельник на полдевятого утра.",
+      "before": {
+        "active": 5223155730,
+        "cache": 225115346,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366316,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 38757
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 225420147,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366326,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 39395
+      },
+      "mtp": [
+        {
+          "cycles": 9,
+          "accepts": 9,
+          "rejects": 7,
+          "init_emits": 2,
+          "draft_emits": 9,
+          "bonus_emits": 2,
+          "verify_emits": 7,
+          "depth_drafted": [
+            9,
+            7
+          ],
+          "depth_accepted": [
+            7,
+            2
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 440.29600100475363,
+          "mtp_head_ms": 3.7697899824706838,
+          "sample_ms": 0.5800829967483878,
+          "cache_ops_ms": 3.664415024104528
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 22,
+          "total_seconds": 0.7734910829894943,
+          "max_seconds": 0.23640883300686255
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010280832997523248,
+          "max_seconds": 0.010280208007316105
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00021154100249987096,
+          "max_seconds": 0.00021154100249987096
+        }
+      }
+    },
+    {
+      "id": "en-negation",
+      "repeat": 0,
+      "seconds": 0.5800199170043925,
+      "cpu_seconds": 0.08553700000000042,
+      "first": 0.31667374999960884,
+      "code": 0,
+      "output": "Я не просил вас отменить заказ. Я хотел изменить адрес доставки.",
+      "before": {
+        "active": 5223155730,
+        "cache": 225420147,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366326,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 39395
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 223378178,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366327,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 39901
+      },
+      "mtp": [
+        {
+          "cycles": 5,
+          "accepts": 9,
+          "rejects": 1,
+          "init_emits": 2,
+          "draft_emits": 9,
+          "bonus_emits": 4,
+          "verify_emits": 1,
+          "depth_drafted": [
+            5,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            4
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 241.58766800246667,
+          "mtp_head_ms": 2.189790000556968,
+          "sample_ms": 0.31937501626089215,
+          "cache_ops_ms": 0.7615850190632045
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 18,
+          "total_seconds": 0.5690615829953458,
+          "max_seconds": 0.23780529099167325
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.01017962499463465,
+          "max_seconds": 0.010178625001572073
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00020358299661893398,
+          "max_seconds": 0.00020358299661893398
+        }
+      }
+    },
+    {
+      "id": "en-bank-alone",
+      "repeat": 0,
+      "seconds": 0.5276777920080349,
+      "cpu_seconds": 0.0777600000000005,
+      "first": 0.3132916250033304,
+      "code": 0,
+      "output": "Она ждала у берега.",
+      "before": {
+        "active": 5223155730,
+        "cache": 223378178,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366327,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 39901
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 219974350,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366344,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 40390
+      },
+      "mtp": [
+        {
+          "cycles": 4,
+          "accepts": 4,
+          "rejects": 3,
+          "init_emits": 2,
+          "draft_emits": 4,
+          "bonus_emits": 1,
+          "verify_emits": 3,
+          "depth_drafted": [
+            4,
+            3
+          ],
+          "depth_accepted": [
+            3,
+            1
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 194.49545899988152,
+          "mtp_head_ms": 1.7637510027270764,
+          "sample_ms": 0.26533499476499856,
+          "cache_ops_ms": 1.5812489873496816
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 12,
+          "total_seconds": 0.5160238740063505,
+          "max_seconds": 0.2345296249986859
+        },
+        "gc0": {
+          "count": 1,
+          "total_seconds": 5.787500413134694e-05,
+          "max_seconds": 5.787500413134694e-05
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.01083945800201036,
+          "max_seconds": 0.010838832997251302
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00021879099949728698,
+          "max_seconds": 0.00021879099949728698
+        }
+      }
+    },
+    {
+      "id": "en-bank-river",
+      "repeat": 0,
+      "seconds": 0.7295738750108285,
+      "cpu_seconds": 0.10861100000000068,
+      "first": 0.31543866600259207,
+      "code": 0,
+      "output": "Река была слишком глубокой, чтобы её пересечь. Она ждала у берега.",
+      "before": {
+        "active": 5223155730,
+        "cache": 219974350,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366344,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 40390
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 224000854,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366353,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 40971
+      },
+      "mtp": [
+        {
+          "cycles": 8,
+          "accepts": 12,
+          "rejects": 4,
+          "init_emits": 2,
+          "draft_emits": 12,
+          "bonus_emits": 4,
+          "verify_emits": 4,
+          "depth_drafted": [
+            8,
+            8
+          ],
+          "depth_accepted": [
+            8,
+            4
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 386.24754099873826,
+          "mtp_head_ms": 3.3754580217646435,
+          "sample_ms": 0.4177089867880568,
+          "cache_ops_ms": 2.4206260131904855
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 24,
+          "total_seconds": 0.7184225860110018,
+          "max_seconds": 0.23653133300831541
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010193915994022973,
+          "max_seconds": 0.010193082998739555
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00021308299619704485,
+          "max_seconds": 0.00021308299619704485
+        }
+      }
+    },
+    {
+      "id": "en-bank-money",
+      "repeat": 0,
+      "seconds": 0.6304343329975381,
+      "cpu_seconds": 0.0946290000000003,
+      "first": 0.3155995409906609,
+      "code": 0,
+      "output": "Банкомат находился внутри здания. Она ждала у банка.",
+      "before": {
+        "active": 5223155730,
+        "cache": 224000854,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366353,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 40971
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 224873237,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366371,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 41499
+      },
+      "mtp": [
+        {
+          "cycles": 6,
+          "accepts": 7,
+          "rejects": 4,
+          "init_emits": 2,
+          "draft_emits": 7,
+          "bonus_emits": 2,
+          "verify_emits": 4,
+          "depth_drafted": [
+            6,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            2
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 290.44041797169484,
+          "mtp_head_ms": 2.5855400162981823,
+          "sample_ms": 0.3839590208372101,
+          "cache_ops_ms": 2.2138740168884397
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 17,
+          "total_seconds": 0.6188334599573864,
+          "max_seconds": 0.23740166699280962
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010685541987186298,
+          "max_seconds": 0.010684749999199994
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00023004200193099678,
+          "max_seconds": 0.00023004200193099678
+        }
+      }
+    },
+    {
+      "id": "en-gender-context",
+      "repeat": 0,
+      "seconds": 0.8312966669909656,
+      "cpu_seconds": 0.12467199999999945,
+      "first": 0.3171976250014268,
+      "code": 0,
+      "output": "Меня зовут Анна. Я путешествую со своей сестрой. Вчера я забронировала два билета.",
+      "before": {
+        "active": 5223155730,
+        "cache": 224873237,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366371,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 41499
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 224525626,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366380,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 42138
+      },
+      "mtp": [
+        {
+          "cycles": 10,
+          "accepts": 16,
+          "rejects": 4,
+          "init_emits": 2,
+          "draft_emits": 16,
+          "bonus_emits": 6,
+          "verify_emits": 4,
+          "depth_drafted": [
+            10,
+            10
+          ],
+          "depth_accepted": [
+            10,
+            6
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 482.24750002555083,
+          "mtp_head_ms": 4.202624986646697,
+          "sample_ms": 0.6307900039246306,
+          "cache_ops_ms": 2.431916000205092
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 30,
+          "total_seconds": 0.8200508769659791,
+          "max_seconds": 0.2385693749965867
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010223292003502138,
+          "max_seconds": 0.010222541997791268
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00022229200112633407,
+          "max_seconds": 0.00022229200112633407
+        }
+      }
+    },
+    {
+      "id": "en-paragraph",
+      "repeat": 0,
+      "seconds": 2.1188565000047674,
+      "cpu_seconds": 0.4705390000000005,
+      "first": 0.4362442919955356,
+      "code": 0,
+      "output": "Наш рейс задержали на два часа. Мы уже прошли регистрацию, но ещё не сдали багаж. Сотрудник аэропорта сказал нам идти к стойке номер двенадцать. У меня нет доступа в интернет, поэтому, пожалуйста, покажите мне дорогу на карте. Если мы опоздаем на стыковочный рейс, кто сможет помочь нам изменить билеты?",
+      "before": {
+        "active": 5223155730,
+        "cache": 224525626,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366380,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 42138
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 250590771,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366403,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 43425
+      },
+      "mtp": [
+        {
+          "cycles": 33,
+          "accepts": 48,
+          "rejects": 15,
+          "init_emits": 2,
+          "draft_emits": 48,
+          "bonus_emits": 18,
+          "verify_emits": 15,
+          "depth_drafted": [
+            33,
+            30
+          ],
+          "depth_accepted": [
+            30,
+            18
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 1553.2532060024096,
+          "mtp_head_ms": 26.29829199577216,
+          "sample_ms": 1.8443280278006569,
+          "cache_ops_ms": 16.748789988923818
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 85,
+          "total_seconds": 2.108889210881898,
+          "max_seconds": 0.3560363340075128
+        },
+        "gc0": {
+          "count": 1,
+          "total_seconds": 9.18340083444491e-05,
+          "max_seconds": 9.18340083444491e-05
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.007786542002577335,
+          "max_seconds": 0.007784000001265667
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002463750133756548,
+          "max_seconds": 0.0002463750133756548
+        }
+      }
+    },
+    {
+      "id": "ru-airport",
+      "repeat": 1,
+      "seconds": 0.5826137910044054,
+      "cpu_seconds": 0.09324399999999944,
+      "first": 0.3195998330047587,
+      "code": 0,
+      "output": "Could you please tell me how to get to the registration desk?",
+      "before": {
+        "active": 5223155730,
+        "cache": 250590771,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366403,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 43425
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 224676531,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366413,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 43918
+      },
+      "mtp": [
+        {
+          "cycles": 5,
+          "accepts": 7,
+          "rejects": 2,
+          "init_emits": 2,
+          "draft_emits": 7,
+          "bonus_emits": 3,
+          "verify_emits": 2,
+          "depth_drafted": [
+            5,
+            4
+          ],
+          "depth_accepted": [
+            4,
+            3
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 241.1838340049144,
+          "mtp_head_ms": 2.1472489897860214,
+          "sample_ms": 0.315792000037618,
+          "cache_ops_ms": 1.2006249744445086
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 16,
+          "total_seconds": 0.5701508730271598,
+          "max_seconds": 0.2398899160034489
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010962333006318659,
+          "max_seconds": 0.01096154200786259
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0006188749975990504,
+          "max_seconds": 0.0006188749975990504
+        }
+      }
+    },
+    {
+      "id": "ru-booking",
+      "repeat": 1,
+      "seconds": 0.5788728750048904,
+      "cpu_seconds": 0.08644699999999972,
+      "first": 0.3155565829947591,
+      "code": 0,
+      "output": "I booked a room for two nights, but I'll only arrive tomorrow.",
+      "before": {
+        "active": 5223155730,
+        "cache": 224676531,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366413,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 43918
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 225032946,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366415,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 44417
+      },
+      "mtp": [
+        {
+          "cycles": 5,
+          "accepts": 9,
+          "rejects": 1,
+          "init_emits": 2,
+          "draft_emits": 9,
+          "bonus_emits": 4,
+          "verify_emits": 1,
+          "depth_drafted": [
+            5,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            4
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 240.8117500017397,
+          "mtp_head_ms": 2.2196659992914647,
+          "sample_ms": 0.29387499671429396,
+          "cache_ops_ms": 0.7490830030292273
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 18,
+          "total_seconds": 0.5679831260058563,
+          "max_seconds": 0.23679949999495875
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010126292007043958,
+          "max_seconds": 0.010125542001333088
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002356670011067763,
+          "max_seconds": 0.0002356670011067763
+        }
+      }
+    },
+    {
+      "id": "ru-time",
+      "repeat": 1,
+      "seconds": 0.6848471249977592,
+      "cpu_seconds": 0.1019110000000003,
+      "first": 0.3180212500010384,
+      "code": 0,
+      "output": "The meeting has been rescheduled from Friday to Monday at half past eight in the morning.",
+      "before": {
+        "active": 5223155730,
+        "cache": 225032946,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366415,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 44417
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 226540667,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366424,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 44974
+      },
+      "mtp": [
+        {
+          "cycles": 7,
+          "accepts": 10,
+          "rejects": 4,
+          "init_emits": 2,
+          "draft_emits": 10,
+          "bonus_emits": 3,
+          "verify_emits": 4,
+          "depth_drafted": [
+            7,
+            7
+          ],
+          "depth_accepted": [
+            7,
+            3
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 340.901165996911,
+          "mtp_head_ms": 3.147998999338597,
+          "sample_ms": 0.35845999082084745,
+          "cache_ops_ms": 2.2899170144228265
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 21,
+          "total_seconds": 0.6737154600414215,
+          "max_seconds": 0.23833437499706633
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.01021324899920728,
+          "max_seconds": 0.010212290988420136
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002277080056956038,
+          "max_seconds": 0.0002277080056956038
+        }
+      }
+    },
+    {
+      "id": "ru-negation",
+      "repeat": 1,
+      "seconds": 0.6270453330071177,
+      "cpu_seconds": 0.08761200000000002,
+      "first": 0.31619145900185686,
+      "code": 0,
+      "output": "I didn't ask to cancel the order. I wanted to change the delivery address.",
+      "before": {
+        "active": 5223155730,
+        "cache": 226540667,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366424,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 44974
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 174963541,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366425,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 45482
+      },
+      "mtp": [
+        {
+          "cycles": 6,
+          "accepts": 10,
+          "rejects": 1,
+          "init_emits": 2,
+          "draft_emits": 10,
+          "bonus_emits": 5,
+          "verify_emits": 1,
+          "depth_drafted": [
+            6,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            5
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 287.4995000020135,
+          "mtp_head_ms": 2.4951259983936325,
+          "sample_ms": 0.37133300793357193,
+          "cache_ops_ms": 0.747832003980875
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 20,
+          "total_seconds": 0.615335996975773,
+          "max_seconds": 0.23709475000214297
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010766707986476831,
+          "max_seconds": 0.010765957995317876
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00025599999935366213,
+          "max_seconds": 0.00025599999935366213
+        }
+      }
+    },
+    {
+      "id": "ru-bank-alone",
+      "repeat": 1,
+      "seconds": 0.47899725000024773,
+      "cpu_seconds": 0.07607399999999931,
+      "first": 0.3138745000032941,
+      "code": 0,
+      "output": "She was standing at the spit.",
+      "before": {
+        "active": 5223155730,
+        "cache": 174963541,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366425,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 45482
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 220355229,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366434,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 45936
+      },
+      "mtp": [
+        {
+          "cycles": 3,
+          "accepts": 3,
+          "rejects": 3,
+          "init_emits": 2,
+          "draft_emits": 3,
+          "bonus_emits": 0,
+          "verify_emits": 3,
+          "depth_drafted": [
+            3,
+            3
+          ],
+          "depth_accepted": [
+            3,
+            0
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 146.8822910101153,
+          "mtp_head_ms": 1.391206998960115,
+          "sample_ms": 0.20625100296456367,
+          "cache_ops_ms": 1.6662080015521497
+        }
+      ],
+      "stages": {
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010158959004911594,
+          "max_seconds": 0.010158250006497838
+        },
+        "next": {
+          "count": 10,
+          "total_seconds": 0.4680400000215741,
+          "max_seconds": 0.2353380420099711
+        },
+        "gc1": {
+          "count": 1,
+          "total_seconds": 0.0027009170007659122,
+          "max_seconds": 0.0027009170007659122
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00022758399427402765,
+          "max_seconds": 0.00022758399427402765
+        }
+      }
+    },
+    {
+      "id": "ru-bank-context",
+      "repeat": 1,
+      "seconds": 0.8869676659960533,
+      "cpu_seconds": 0.13473500000000005,
+      "first": 0.32265837500744965,
+      "code": 0,
+      "output": "The river bends here, and a narrow strip of sand is visible in the middle of the water. She was standing at the spit.",
+      "before": {
+        "active": 5223155730,
+        "cache": 220355229,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366434,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 45936
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 229967280,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366443,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 46630
+      },
+      "mtp": [
+        {
+          "cycles": 11,
+          "accepts": 15,
+          "rejects": 5,
+          "init_emits": 2,
+          "draft_emits": 15,
+          "bonus_emits": 6,
+          "verify_emits": 5,
+          "depth_drafted": [
+            11,
+            9
+          ],
+          "depth_accepted": [
+            9,
+            6
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 531.0189570009243,
+          "mtp_head_ms": 4.779958006110974,
+          "sample_ms": 0.6777500093448907,
+          "cache_ops_ms": 2.9053749894956127
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 30,
+          "total_seconds": 0.8757098759524524,
+          "max_seconds": 0.24198120899382047
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010191501001827419,
+          "max_seconds": 0.010190792003413662
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00023520799004472792,
+          "max_seconds": 0.00023520799004472792
+        }
+      }
+    },
+    {
+      "id": "ru-paragraph",
+      "repeat": 1,
+      "seconds": 2.064977000001818,
+      "cpu_seconds": 0.2853450000000004,
+      "first": 0.5420129590056604,
+      "code": 0,
+      "output": "Our flight has been delayed by two hours. We’ve already completed check-in, but we haven’t checked our luggage yet. An airport staff member told us to go to counter number twelve. I don’t have internet access, so could you please show me the way on the map? If we miss our connecting flight, who will help us rebook our tickets?",
+      "before": {
+        "active": 5223155730,
+        "cache": 229967280,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366443,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 46630
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 254690915,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366453,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 47873
+      },
+      "mtp": [
+        {
+          "cycles": 30,
+          "accepts": 42,
+          "rejects": 16,
+          "init_emits": 2,
+          "draft_emits": 42,
+          "bonus_emits": 14,
+          "verify_emits": 16,
+          "depth_drafted": [
+            30,
+            28
+          ],
+          "depth_accepted": [
+            28,
+            14
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 1450.3902899450622,
+          "mtp_head_ms": 12.583504983922467,
+          "sample_ms": 1.7211230006068945,
+          "cache_ops_ms": 8.975624994491227
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 76,
+          "total_seconds": 2.0535307930840645,
+          "max_seconds": 0.46361695798987057
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.009886125990306027,
+          "max_seconds": 0.009885291990940459
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00019445799989625812,
+          "max_seconds": 0.00019445799989625812
+        }
+      }
+    },
+    {
+      "id": "en-airport",
+      "repeat": 1,
+      "seconds": 0.5265747500088764,
+      "cpu_seconds": 0.07289100000000026,
+      "first": 0.3152574159903452,
+      "code": 0,
+      "output": "Скажите, пожалуйста, где находится стойка регистрации?",
+      "before": {
+        "active": 5223155730,
+        "cache": 254690915,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366453,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 47873
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 175176335,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366471,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 48345
+      },
+      "mtp": [
+        {
+          "cycles": 4,
+          "accepts": 6,
+          "rejects": 1,
+          "init_emits": 2,
+          "draft_emits": 6,
+          "bonus_emits": 3,
+          "verify_emits": 1,
+          "depth_drafted": [
+            4,
+            3
+          ],
+          "depth_accepted": [
+            3,
+            3
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 191.98974902974442,
+          "mtp_head_ms": 1.6512510046595708,
+          "sample_ms": 0.19462501222733408,
+          "cache_ops_ms": 0.6304169946815819
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 14,
+          "total_seconds": 0.514910043013515,
+          "max_seconds": 0.23686708399327472
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010840333008673042,
+          "max_seconds": 0.010839500013389625
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00019845800125040114,
+          "max_seconds": 0.00019845800125040114
+        }
+      }
+    },
+    {
+      "id": "en-booking",
+      "repeat": 1,
+      "seconds": 0.6280786670104135,
+      "cpu_seconds": 0.09197900000000025,
+      "first": 0.3149474999954691,
+      "code": 0,
+      "output": "Я забронировал номер на две ночи, но приеду только завтра.",
+      "before": {
+        "active": 5223155730,
+        "cache": 175176335,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366471,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 48345
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 225115090,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366480,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 48882
+      },
+      "mtp": [
+        {
+          "cycles": 6,
+          "accepts": 9,
+          "rejects": 2,
+          "init_emits": 2,
+          "draft_emits": 9,
+          "bonus_emits": 4,
+          "verify_emits": 2,
+          "depth_drafted": [
+            6,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            4
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 289.5865830068942,
+          "mtp_head_ms": 2.7481670113047585,
+          "sample_ms": 0.3987910022260621,
+          "cache_ops_ms": 1.306999009102583
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 19,
+          "total_seconds": 0.6171095840254566,
+          "max_seconds": 0.23654316700412892
+        },
+        "gc0": {
+          "count": 1,
+          "total_seconds": 6.345799192786217e-05,
+          "max_seconds": 6.345799192786217e-05
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010211082000751048,
+          "max_seconds": 0.010209915999439545
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00020591699285432696,
+          "max_seconds": 0.00020591699285432696
+        }
+      }
+    },
+    {
+      "id": "en-time",
+      "repeat": 1,
+      "seconds": 0.7842289999971399,
+      "cpu_seconds": 0.11915000000000031,
+      "first": 0.3167074590019183,
+      "code": 0,
+      "output": "Встречу перенесли с пятницы на понедельник на полдевятого утра.",
+      "before": {
+        "active": 5223155730,
+        "cache": 225115090,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366480,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 48882
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 225420149,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366489,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 49521
+      },
+      "mtp": [
+        {
+          "cycles": 9,
+          "accepts": 9,
+          "rejects": 7,
+          "init_emits": 2,
+          "draft_emits": 9,
+          "bonus_emits": 2,
+          "verify_emits": 7,
+          "depth_drafted": [
+            9,
+            7
+          ],
+          "depth_accepted": [
+            7,
+            2
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 438.6534999939613,
+          "mtp_head_ms": 3.8931679882807657,
+          "sample_ms": 0.4946250264765695,
+          "cache_ops_ms": 3.672542006825097
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 22,
+          "total_seconds": 0.7733269179734634,
+          "max_seconds": 0.2381863749906188
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010092500015161932,
+          "max_seconds": 0.010091750009451061
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002418329968350008,
+          "max_seconds": 0.0002418329968350008
+        }
+      }
+    },
+    {
+      "id": "en-negation",
+      "repeat": 1,
+      "seconds": 0.5797589169960702,
+      "cpu_seconds": 0.08550900000000006,
+      "first": 0.3173876250075409,
+      "code": 0,
+      "output": "Я не просил вас отменить заказ. Я хотел изменить адрес доставки.",
+      "before": {
+        "active": 5223155730,
+        "cache": 225420149,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366489,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 49521
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 224525122,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366506,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 50026
+      },
+      "mtp": [
+        {
+          "cycles": 5,
+          "accepts": 9,
+          "rejects": 1,
+          "init_emits": 2,
+          "draft_emits": 9,
+          "bonus_emits": 4,
+          "verify_emits": 1,
+          "depth_drafted": [
+            5,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            4
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 241.04875003104098,
+          "mtp_head_ms": 2.092499998980202,
+          "sample_ms": 0.3077079891227186,
+          "cache_ops_ms": 0.70416800735984
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 18,
+          "total_seconds": 0.5686968330410309,
+          "max_seconds": 0.2386877499957336
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.01029687499976717,
+          "max_seconds": 0.0102961249940563
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002226249926025048,
+          "max_seconds": 0.0002226249926025048
+        }
+      }
+    },
+    {
+      "id": "en-bank-alone",
+      "repeat": 1,
+      "seconds": 0.5273732500063488,
+      "cpu_seconds": 0.07858300000000007,
+      "first": 0.3132691250066273,
+      "code": 0,
+      "output": "Она ждала у берега.",
+      "before": {
+        "active": 5223155730,
+        "cache": 224525122,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366506,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 50026
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 219974478,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366507,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 50505
+      },
+      "mtp": [
+        {
+          "cycles": 4,
+          "accepts": 4,
+          "rejects": 3,
+          "init_emits": 2,
+          "draft_emits": 4,
+          "bonus_emits": 1,
+          "verify_emits": 3,
+          "depth_drafted": [
+            4,
+            3
+          ],
+          "depth_accepted": [
+            3,
+            1
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 193.9678329945309,
+          "mtp_head_ms": 1.7658329888945445,
+          "sample_ms": 0.26604102458804846,
+          "cache_ops_ms": 1.63837599393446
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 12,
+          "total_seconds": 0.5155322499922477,
+          "max_seconds": 0.23490191699238494
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.011003915991750546,
+          "max_seconds": 0.011002999992342666
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00023695800337009132,
+          "max_seconds": 0.00023695800337009132
+        }
+      }
+    },
+    {
+      "id": "en-bank-river",
+      "repeat": 1,
+      "seconds": 0.7304628340061754,
+      "cpu_seconds": 0.10887699999999967,
+      "first": 0.3159663330006879,
+      "code": 0,
+      "output": "Река была слишком глубокой, чтобы её пересечь. Она ждала у берега.",
+      "before": {
+        "active": 5223155730,
+        "cache": 219974478,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366507,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 50505
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 224001110,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366516,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 51096
+      },
+      "mtp": [
+        {
+          "cycles": 8,
+          "accepts": 12,
+          "rejects": 4,
+          "init_emits": 2,
+          "draft_emits": 12,
+          "bonus_emits": 4,
+          "verify_emits": 4,
+          "depth_drafted": [
+            8,
+            8
+          ],
+          "depth_accepted": [
+            8,
+            4
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 386.70558198646177,
+          "mtp_head_ms": 3.485416018520482,
+          "sample_ms": 0.43120901682414114,
+          "cache_ops_ms": 2.3220430011861026
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 24,
+          "total_seconds": 0.7191810030199122,
+          "max_seconds": 0.23755383299430832
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.01032374998612795,
+          "max_seconds": 0.010322999994968995
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00022762500157114118,
+          "max_seconds": 0.00022762500157114118
+        }
+      }
+    },
+    {
+      "id": "en-bank-money",
+      "repeat": 1,
+      "seconds": 0.6321189159934875,
+      "cpu_seconds": 0.09459000000000017,
+      "first": 0.31552870900486596,
+      "code": 0,
+      "output": "Банкомат находился внутри здания. Она ждала у банка.",
+      "before": {
+        "active": 5223155730,
+        "cache": 224001110,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366516,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 51096
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 225233681,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366533,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 51639
+      },
+      "mtp": [
+        {
+          "cycles": 6,
+          "accepts": 7,
+          "rejects": 4,
+          "init_emits": 2,
+          "draft_emits": 7,
+          "bonus_emits": 2,
+          "verify_emits": 4,
+          "depth_drafted": [
+            6,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            2
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 292.28704200068023,
+          "mtp_head_ms": 2.788208978017792,
+          "sample_ms": 0.325915971188806,
+          "cache_ops_ms": 2.2665810101898387
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 17,
+          "total_seconds": 0.6202921240183059,
+          "max_seconds": 0.2366567919962108
+        },
+        "gc0": {
+          "count": 1,
+          "total_seconds": 5.354199674911797e-05,
+          "max_seconds": 5.354199674911797e-05
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010885583003982902,
+          "max_seconds": 0.010884792005526833
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00025520799681544304,
+          "max_seconds": 0.00025520799681544304
+        }
+      }
+    },
+    {
+      "id": "en-gender-context",
+      "repeat": 1,
+      "seconds": 0.8323008750012377,
+      "cpu_seconds": 0.12499799999999972,
+      "first": 0.3168607910047285,
+      "code": 0,
+      "output": "Меня зовут Анна. Я путешествую со своей сестрой. Вчера я забронировала два билета.",
+      "before": {
+        "active": 5223155730,
+        "cache": 225233681,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366533,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 51639
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 224525626,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366542,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 52277
+      },
+      "mtp": [
+        {
+          "cycles": 10,
+          "accepts": 16,
+          "rejects": 4,
+          "init_emits": 2,
+          "draft_emits": 16,
+          "bonus_emits": 6,
+          "verify_emits": 4,
+          "depth_drafted": [
+            10,
+            10
+          ],
+          "depth_accepted": [
+            10,
+            6
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 482.7757499879226,
+          "mtp_head_ms": 4.359623009804636,
+          "sample_ms": 0.6070009985705838,
+          "cache_ops_ms": 2.590209012851119
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 30,
+          "total_seconds": 0.8210862499690847,
+          "max_seconds": 0.23750404200109188
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010163792001549155,
+          "max_seconds": 0.010162874998059124
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00023012500605545938,
+          "max_seconds": 0.00023012500605545938
+        }
+      }
+    },
+    {
+      "id": "en-paragraph",
+      "repeat": 1,
+      "seconds": 2.11396912499913,
+      "cpu_seconds": 0.3022210000000003,
+      "first": 0.43546516700007487,
+      "code": 0,
+      "output": "Наш рейс задержали на два часа. Мы уже прошли регистрацию, но ещё не сдали багаж. Сотрудник аэропорта сказал нам идти к стойке номер двенадцать. У меня нет доступа в интернет, поэтому, пожалуйста, покажите мне дорогу на карте. Если мы опоздаем на стыковочный рейс, кто сможет помочь нам изменить билеты?",
+      "before": {
+        "active": 5223155730,
+        "cache": 224525626,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366542,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 52277
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 250668741,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366559,
+        "majflt": 1818,
+        "nvcsw": 3489,
+        "nivcsw": 53528
+      },
+      "mtp": [
+        {
+          "cycles": 33,
+          "accepts": 48,
+          "rejects": 15,
+          "init_emits": 2,
+          "draft_emits": 48,
+          "bonus_emits": 18,
+          "verify_emits": 15,
+          "depth_drafted": [
+            33,
+            30
+          ],
+          "depth_accepted": [
+            30,
+            18
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 1602.2811280126916,
+          "mtp_head_ms": 14.029582976945676,
+          "sample_ms": 1.6980010404950008,
+          "cache_ops_ms": 8.574168008635752
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 85,
+          "total_seconds": 2.1024278330005473,
+          "max_seconds": 0.3555165419966215
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.009975416993256658,
+          "max_seconds": 0.009974625005270354
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002710000117076561,
+          "max_seconds": 0.0002710000117076561
+        }
+      }
+    },
+    {
+      "id": "ru-airport",
+      "repeat": 2,
+      "seconds": 0.5815041250025388,
+      "cpu_seconds": 0.08536300000000008,
+      "first": 0.3172605419968022,
+      "code": 0,
+      "output": "Could you please tell me how to get to the registration desk?",
+      "before": {
+        "active": 5223155730,
+        "cache": 250668741,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366559,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 53528
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 224676531,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366561,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 54023
+      },
+      "mtp": [
+        {
+          "cycles": 5,
+          "accepts": 7,
+          "rejects": 2,
+          "init_emits": 2,
+          "draft_emits": 7,
+          "bonus_emits": 3,
+          "verify_emits": 2,
+          "depth_drafted": [
+            5,
+            4
+          ],
+          "depth_accepted": [
+            4,
+            3
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 242.41354297555517,
+          "mtp_head_ms": 2.1554999984800816,
+          "sample_ms": 0.32033199386205524,
+          "cache_ops_ms": 1.2049180222675204
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 16,
+          "total_seconds": 0.5694748740497744,
+          "max_seconds": 0.23731416701048147
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.01108712499262765,
+          "max_seconds": 0.011086290993262082
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002878340019378811,
+          "max_seconds": 0.0002878340019378811
+        }
+      }
+    },
+    {
+      "id": "ru-booking",
+      "repeat": 2,
+      "seconds": 0.5803089580003871,
+      "cpu_seconds": 0.08561300000000038,
+      "first": 0.31618354200327303,
+      "code": 0,
+      "output": "I booked a room for two nights, but I'll only arrive tomorrow.",
+      "before": {
+        "active": 5223155730,
+        "cache": 224676531,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366561,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 54023
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 222788402,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366562,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 54524
+      },
+      "mtp": [
+        {
+          "cycles": 5,
+          "accepts": 9,
+          "rejects": 1,
+          "init_emits": 2,
+          "draft_emits": 9,
+          "bonus_emits": 4,
+          "verify_emits": 1,
+          "depth_drafted": [
+            5,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            4
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 242.52674900344573,
+          "mtp_head_ms": 2.269957010867074,
+          "sample_ms": 0.3219170175725594,
+          "cache_ops_ms": 0.721042015356943
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 18,
+          "total_seconds": 0.5691579980193637,
+          "max_seconds": 0.23675387499679346
+        },
+        "gc0": {
+          "count": 1,
+          "total_seconds": 6.28749985480681e-05,
+          "max_seconds": 6.28749985480681e-05
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010383707995060831,
+          "max_seconds": 0.0103827909915708
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00024266600667033345,
+          "max_seconds": 0.00024266600667033345
+        }
+      }
+    },
+    {
+      "id": "ru-time",
+      "repeat": 2,
+      "seconds": 0.6844850839988794,
+      "cpu_seconds": 0.10455400000000026,
+      "first": 0.3166953339969041,
+      "code": 0,
+      "output": "The meeting has been rescheduled from Friday to Monday at half past eight in the morning.",
+      "before": {
+        "active": 5223155730,
+        "cache": 222788402,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366562,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 54524
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 226540411,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366579,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 55089
+      },
+      "mtp": [
+        {
+          "cycles": 7,
+          "accepts": 10,
+          "rejects": 4,
+          "init_emits": 2,
+          "draft_emits": 10,
+          "bonus_emits": 3,
+          "verify_emits": 4,
+          "depth_drafted": [
+            7,
+            7
+          ],
+          "depth_accepted": [
+            7,
+            3
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 340.8098749932833,
+          "mtp_head_ms": 3.4298340033274144,
+          "sample_ms": 0.38420900818891823,
+          "cache_ops_ms": 2.3359129845630378
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 21,
+          "total_seconds": 0.6732620419643354,
+          "max_seconds": 0.23724595799285453
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010230917017906904,
+          "max_seconds": 0.010230084008071572
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.000247207994107157,
+          "max_seconds": 0.000247207994107157
+        }
+      }
+    },
+    {
+      "id": "ru-negation",
+      "repeat": 2,
+      "seconds": 0.6290233330073534,
+      "cpu_seconds": 0.08868300000000051,
+      "first": 0.31609170899901073,
+      "code": 0,
+      "output": "I didn't ask to cancel the order. I wanted to change the delivery address.",
+      "before": {
+        "active": 5223155730,
+        "cache": 226540411,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366579,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 55089
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 175684437,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366588,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 55596
+      },
+      "mtp": [
+        {
+          "cycles": 6,
+          "accepts": 10,
+          "rejects": 1,
+          "init_emits": 2,
+          "draft_emits": 10,
+          "bonus_emits": 5,
+          "verify_emits": 1,
+          "depth_drafted": [
+            6,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            5
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 288.8502910063835,
+          "mtp_head_ms": 2.5533739826641977,
+          "sample_ms": 0.3270000161137432,
+          "cache_ops_ms": 0.7671250059502199
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 20,
+          "total_seconds": 0.6171162909740815,
+          "max_seconds": 0.2365998750028666
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010963666994939558,
+          "max_seconds": 0.010962917003780603
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002670419926289469,
+          "max_seconds": 0.0002670419926289469
+        }
+      }
+    },
+    {
+      "id": "ru-bank-alone",
+      "repeat": 2,
+      "seconds": 0.480439374994603,
+      "cpu_seconds": 0.07112300000000005,
+      "first": 0.3148209589999169,
+      "code": 0,
+      "output": "She was standing at the spit.",
+      "before": {
+        "active": 5223155730,
+        "cache": 175684437,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366588,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 55596
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 220355233,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366597,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 56053
+      },
+      "mtp": [
+        {
+          "cycles": 3,
+          "accepts": 3,
+          "rejects": 3,
+          "init_emits": 2,
+          "draft_emits": 3,
+          "bonus_emits": 0,
+          "verify_emits": 3,
+          "depth_drafted": [
+            3,
+            3
+          ],
+          "depth_accepted": [
+            3,
+            0
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 147.45537500130013,
+          "mtp_head_ms": 1.3382080069277436,
+          "sample_ms": 0.14816600014455616,
+          "cache_ops_ms": 1.534499999252148
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 10,
+          "total_seconds": 0.4690536670095753,
+          "max_seconds": 0.23514416700345464
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010592207996523939,
+          "max_seconds": 0.010591457990813069
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00024066600599326193,
+          "max_seconds": 0.00024066600599326193
+        }
+      }
+    },
+    {
+      "id": "ru-bank-context",
+      "repeat": 2,
+      "seconds": 0.8886724170006346,
+      "cpu_seconds": 0.132606,
+      "first": 0.3216689170076279,
+      "code": 0,
+      "output": "The river bends here, and a narrow strip of sand is visible in the middle of the water. She was standing at the spit.",
+      "before": {
+        "active": 5223155730,
+        "cache": 220355233,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366598,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 56053
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 233006898,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366607,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 56720
+      },
+      "mtp": [
+        {
+          "cycles": 11,
+          "accepts": 15,
+          "rejects": 5,
+          "init_emits": 2,
+          "draft_emits": 15,
+          "bonus_emits": 6,
+          "verify_emits": 5,
+          "depth_drafted": [
+            11,
+            9
+          ],
+          "depth_accepted": [
+            9,
+            6
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 534.2145409813384,
+          "mtp_head_ms": 4.691794019890949,
+          "sample_ms": 0.6460449658334255,
+          "cache_ops_ms": 2.929750000475906
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 30,
+          "total_seconds": 0.8775613389880164,
+          "max_seconds": 0.24191762499685865
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010088250011904165,
+          "max_seconds": 0.010087458009365946
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00022908300161361694,
+          "max_seconds": 0.00022908300161361694
+        }
+      }
+    },
+    {
+      "id": "ru-paragraph",
+      "repeat": 2,
+      "seconds": 2.0941152080049505,
+      "cpu_seconds": 0.29327799999999904,
+      "first": 0.5439211659977445,
+      "code": 0,
+      "output": "Our flight has been delayed by two hours. We’ve already completed check-in, but we haven’t checked our luggage yet. An airport staff member told us to go to counter number twelve. I don’t have internet access, so could you please show me the way on the map? If we miss our connecting flight, who will help us rebook our tickets?",
+      "before": {
+        "active": 5223155730,
+        "cache": 233006898,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366608,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 56720
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 255059685,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366635,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 57938
+      },
+      "mtp": [
+        {
+          "cycles": 30,
+          "accepts": 42,
+          "rejects": 16,
+          "init_emits": 2,
+          "draft_emits": 42,
+          "bonus_emits": 14,
+          "verify_emits": 16,
+          "depth_drafted": [
+            30,
+            28
+          ],
+          "depth_accepted": [
+            28,
+            14
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 1475.7750410208246,
+          "mtp_head_ms": 13.832875978550874,
+          "sample_ms": 1.6037109744502231,
+          "cache_ops_ms": 9.407626974279992
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 76,
+          "total_seconds": 2.0824336189689348,
+          "max_seconds": 0.46325891598826274
+        },
+        "gc0": {
+          "count": 1,
+          "total_seconds": 7.120899681467563e-05,
+          "max_seconds": 7.120899681467563e-05
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010075126003357582,
+          "max_seconds": 0.010074459001771174
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00026124999567400664,
+          "max_seconds": 0.00026124999567400664
+        }
+      }
+    },
+    {
+      "id": "en-airport",
+      "repeat": 2,
+      "seconds": 0.5336881669936702,
+      "cpu_seconds": 0.08036399999999944,
+      "first": 0.3178806659998372,
+      "code": 0,
+      "output": "Скажите, пожалуйста, где находится стойка регистрации?",
+      "before": {
+        "active": 5223155730,
+        "cache": 255059685,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366635,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 57938
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 175127183,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366644,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 58488
+      },
+      "mtp": [
+        {
+          "cycles": 4,
+          "accepts": 6,
+          "rejects": 1,
+          "init_emits": 2,
+          "draft_emits": 6,
+          "bonus_emits": 3,
+          "verify_emits": 1,
+          "depth_drafted": [
+            4,
+            3
+          ],
+          "depth_accepted": [
+            3,
+            3
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 195.1770830055466,
+          "mtp_head_ms": 1.7589989874977618,
+          "sample_ms": 0.23783399956300855,
+          "cache_ops_ms": 0.7172920013545081
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 14,
+          "total_seconds": 0.5212325400207192,
+          "max_seconds": 0.23771029101044405
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.01140862499596551,
+          "max_seconds": 0.011407208003220148
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0003091670077992603,
+          "max_seconds": 0.0003091670077992603
+        }
+      }
+    },
+    {
+      "id": "en-booking",
+      "repeat": 2,
+      "seconds": 0.6378892499924405,
+      "cpu_seconds": 0.09569199999999967,
+      "first": 0.31832599999324884,
+      "code": 0,
+      "output": "Я забронировал номер на две ночи, но приеду только завтра.",
+      "before": {
+        "active": 5223155730,
+        "cache": 175127183,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366644,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 58488
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 225115090,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366653,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 59043
+      },
+      "mtp": [
+        {
+          "cycles": 6,
+          "accepts": 9,
+          "rejects": 2,
+          "init_emits": 2,
+          "draft_emits": 9,
+          "bonus_emits": 4,
+          "verify_emits": 2,
+          "depth_drafted": [
+            6,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            4
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 294.6052910119761,
+          "mtp_head_ms": 2.80941701203119,
+          "sample_ms": 0.3816660027951002,
+          "cache_ops_ms": 1.3898329780204222
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 19,
+          "total_seconds": 0.6264702070329804,
+          "max_seconds": 0.2356619159982074
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010553792002610862,
+          "max_seconds": 0.01055274999816902
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002970420027850196,
+          "max_seconds": 0.0002970420027850196
+        }
+      }
+    },
+    {
+      "id": "en-time",
+      "repeat": 2,
+      "seconds": 0.7882764160021907,
+      "cpu_seconds": 0.11965499999999984,
+      "first": 0.3178498749912251,
+      "code": 0,
+      "output": "Встречу перенесли с пятницы на понедельник на полдевятого утра.",
+      "before": {
+        "active": 5223155730,
+        "cache": 225115090,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366653,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 59043
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 225420021,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366670,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 59684
+      },
+      "mtp": [
+        {
+          "cycles": 9,
+          "accepts": 9,
+          "rejects": 7,
+          "init_emits": 2,
+          "draft_emits": 9,
+          "bonus_emits": 2,
+          "verify_emits": 7,
+          "depth_drafted": [
+            9,
+            7
+          ],
+          "depth_accepted": [
+            7,
+            2
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 441.4036639936967,
+          "mtp_head_ms": 3.842332967906259,
+          "sample_ms": 0.5319160118233413,
+          "cache_ops_ms": 3.8616249803453684
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 22,
+          "total_seconds": 0.777031666963012,
+          "max_seconds": 0.23789808400033507
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010399708015029319,
+          "max_seconds": 0.010398875005193986
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002812919992720708,
+          "max_seconds": 0.0002812919992720708
+        }
+      }
+    },
+    {
+      "id": "en-negation",
+      "repeat": 2,
+      "seconds": 0.5821632499864791,
+      "cpu_seconds": 0.08445000000000036,
+      "first": 0.3180449579958804,
+      "code": 0,
+      "output": "Я не просил вас отменить заказ. Я хотел изменить адрес доставки.",
+      "before": {
+        "active": 5223155730,
+        "cache": 225420021,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366670,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 59684
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 224525058,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366687,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 60181
+      },
+      "mtp": [
+        {
+          "cycles": 5,
+          "accepts": 9,
+          "rejects": 1,
+          "init_emits": 2,
+          "draft_emits": 9,
+          "bonus_emits": 4,
+          "verify_emits": 1,
+          "depth_drafted": [
+            5,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            4
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 242.76658297458198,
+          "mtp_head_ms": 2.1956250129733235,
+          "sample_ms": 0.32921001547947526,
+          "cache_ops_ms": 0.7258339901454747
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 18,
+          "total_seconds": 0.5711806260078447,
+          "max_seconds": 0.23827283400169108
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.0101787500170758,
+          "max_seconds": 0.01017800001136493
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002851669996744022,
+          "max_seconds": 0.0002851669996744022
+        }
+      }
+    },
+    {
+      "id": "en-bank-alone",
+      "repeat": 2,
+      "seconds": 0.5291938330046833,
+      "cpu_seconds": 0.07775600000000082,
+      "first": 0.31457054099882953,
+      "code": 0,
+      "output": "Она ждала у берега.",
+      "before": {
+        "active": 5223155730,
+        "cache": 224525058,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366687,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 60181
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 219974478,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366688,
+        "majflt": 1818,
+        "nvcsw": 3491,
+        "nivcsw": 60672
+      },
+      "mtp": [
+        {
+          "cycles": 4,
+          "accepts": 4,
+          "rejects": 3,
+          "init_emits": 2,
+          "draft_emits": 4,
+          "bonus_emits": 1,
+          "verify_emits": 3,
+          "depth_drafted": [
+            4,
+            3
+          ],
+          "depth_accepted": [
+            3,
+            1
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 194.89912599965464,
+          "mtp_head_ms": 1.7303759814240038,
+          "sample_ms": 0.25099999038502574,
+          "cache_ops_ms": 1.5825410082470626
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 12,
+          "total_seconds": 0.5175494180002715,
+          "max_seconds": 0.23508162499638274
+        },
+        "gc0": {
+          "count": 1,
+          "total_seconds": 5.3499999921768904e-05,
+          "max_seconds": 5.3499999921768904e-05
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.01081033299851697,
+          "max_seconds": 0.010809625004185364
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002552090008975938,
+          "max_seconds": 0.0002552090008975938
+        }
+      }
+    },
+    {
+      "id": "en-bank-river",
+      "repeat": 2,
+      "seconds": 0.7305828749958891,
+      "cpu_seconds": 0.111796,
+      "first": 0.3165742919954937,
+      "code": 0,
+      "output": "Река была слишком глубокой, чтобы её пересечь. Она ждала у берега.",
+      "before": {
+        "active": 5223155730,
+        "cache": 219974478,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366688,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 60672
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 224000726,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366697,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 61268
+      },
+      "mtp": [
+        {
+          "cycles": 8,
+          "accepts": 12,
+          "rejects": 4,
+          "init_emits": 2,
+          "draft_emits": 12,
+          "bonus_emits": 4,
+          "verify_emits": 4,
+          "depth_drafted": [
+            8,
+            8
+          ],
+          "depth_accepted": [
+            8,
+            4
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 385.9712910489179,
+          "mtp_head_ms": 3.5513760085450485,
+          "sample_ms": 0.4997500072931871,
+          "cache_ops_ms": 2.3400429636240005
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 24,
+          "total_seconds": 0.7195779980102088,
+          "max_seconds": 0.23808704099792521
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010018499990110286,
+          "max_seconds": 0.010017624997999519
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002565000031609088,
+          "max_seconds": 0.0002565000031609088
+        }
+      }
+    },
+    {
+      "id": "en-bank-money",
+      "repeat": 2,
+      "seconds": 0.630212499992922,
+      "cpu_seconds": 0.09541600000000017,
+      "first": 0.31534395899507217,
+      "code": 0,
+      "output": "Банкомат находился внутри здания. Она ждала у банка.",
+      "before": {
+        "active": 5223155730,
+        "cache": 224000726,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366697,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 61268
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 224873237,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366698,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 61807
+      },
+      "mtp": [
+        {
+          "cycles": 6,
+          "accepts": 7,
+          "rejects": 4,
+          "init_emits": 2,
+          "draft_emits": 7,
+          "bonus_emits": 2,
+          "verify_emits": 4,
+          "depth_drafted": [
+            6,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            2
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 290.73870900901966,
+          "mtp_head_ms": 2.7675009769154713,
+          "sample_ms": 0.3881239827023819,
+          "cache_ops_ms": 2.2209169692359865
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 17,
+          "total_seconds": 0.6185359169903677,
+          "max_seconds": 0.2372719999984838
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010764000006020069,
+          "max_seconds": 0.010763041995232925
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00023670900554861873,
+          "max_seconds": 0.00023670900554861873
+        }
+      }
+    },
+    {
+      "id": "en-gender-context",
+      "repeat": 2,
+      "seconds": 0.8362973330076784,
+      "cpu_seconds": 0.1923200000000005,
+      "first": 0.3162836669944227,
+      "code": 0,
+      "output": "Меня зовут Анна. Я путешествую со своей сестрой. Вчера я забронировала два билета.",
+      "before": {
+        "active": 5223155730,
+        "cache": 224873237,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366698,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 61807
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 223968178,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366705,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 62470
+      },
+      "mtp": [
+        {
+          "cycles": 10,
+          "accepts": 16,
+          "rejects": 4,
+          "init_emits": 2,
+          "draft_emits": 16,
+          "bonus_emits": 6,
+          "verify_emits": 4,
+          "depth_drafted": [
+            10,
+            10
+          ],
+          "depth_accepted": [
+            10,
+            6
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 466.74995696230326,
+          "mtp_head_ms": 9.83212400751654,
+          "sample_ms": 0.6941670144442469,
+          "cache_ops_ms": 5.44587399053853
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 30,
+          "total_seconds": 0.8266303320269799,
+          "max_seconds": 0.23766616699867882
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.007990583995706402,
+          "max_seconds": 0.007988124998519197
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00028141599614173174,
+          "max_seconds": 0.00028141599614173174
+        }
+      }
+    },
+    {
+      "id": "en-paragraph",
+      "repeat": 2,
+      "seconds": 2.1079630000022007,
+      "cpu_seconds": 0.3094739999999998,
+      "first": 0.43633241699717473,
+      "code": 0,
+      "output": "Наш рейс задержали на два часа. Мы уже прошли регистрацию, но ещё не сдали багаж. Сотрудник аэропорта сказал нам идти к стойке номер двенадцать. У меня нет доступа в интернет, поэтому, пожалуйста, покажите мне дорогу на карте. Если мы опоздаем на стыковочный рейс, кто сможет помочь нам изменить билеты?",
+      "before": {
+        "active": 5223155730,
+        "cache": 223968178,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366705,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 62470
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 250611277,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366714,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 63732
+      },
+      "mtp": [
+        {
+          "cycles": 33,
+          "accepts": 48,
+          "rejects": 15,
+          "init_emits": 2,
+          "draft_emits": 48,
+          "bonus_emits": 18,
+          "verify_emits": 15,
+          "depth_drafted": [
+            33,
+            30
+          ],
+          "depth_accepted": [
+            30,
+            18
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 1595.019291009521,
+          "mtp_head_ms": 14.012917061336339,
+          "sample_ms": 1.7147519247373566,
+          "cache_ops_ms": 8.674707016325556
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 85,
+          "total_seconds": 2.0960823830100708,
+          "max_seconds": 0.3568562500004191
+        },
+        "gc0": {
+          "count": 1,
+          "total_seconds": 5.887499719392508e-05,
+          "max_seconds": 5.887499719392508e-05
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.009904083999572322,
+          "max_seconds": 0.00990299999830313
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0004453750007087365,
+          "max_seconds": 0.0004453750007087365
+        }
+      }
+    },
+    {
+      "id": "ru-airport",
+      "repeat": 3,
+      "seconds": 0.5794102079962613,
+      "cpu_seconds": 0.08525099999999952,
+      "first": 0.3154804170044372,
+      "code": 0,
+      "output": "Could you please tell me how to get to the registration desk?",
+      "before": {
+        "active": 5223155730,
+        "cache": 250611277,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366714,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 63732
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 222956211,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366715,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 64233
+      },
+      "mtp": [
+        {
+          "cycles": 5,
+          "accepts": 7,
+          "rejects": 2,
+          "init_emits": 2,
+          "draft_emits": 7,
+          "bonus_emits": 3,
+          "verify_emits": 2,
+          "depth_drafted": [
+            5,
+            4
+          ],
+          "depth_accepted": [
+            4,
+            3
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 242.0334579946939,
+          "mtp_head_ms": 2.3098750098142773,
+          "sample_ms": 0.18820801051333547,
+          "cache_ops_ms": 1.2142489867983386
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 16,
+          "total_seconds": 0.5676043329876848,
+          "max_seconds": 0.23697429099411238
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010922583998763002,
+          "max_seconds": 0.010921875000349246
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00026166700990870595,
+          "max_seconds": 0.00026166700990870595
+        }
+      }
+    },
+    {
+      "id": "ru-booking",
+      "repeat": 3,
+      "seconds": 0.5817268340033479,
+      "cpu_seconds": 0.08503800000000084,
+      "first": 0.3175853339926107,
+      "code": 0,
+      "output": "I booked a room for two nights, but I'll only arrive tomorrow.",
+      "before": {
+        "active": 5223155730,
+        "cache": 222956211,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366715,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 64233
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 225033010,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366724,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 64722
+      },
+      "mtp": [
+        {
+          "cycles": 5,
+          "accepts": 9,
+          "rejects": 1,
+          "init_emits": 2,
+          "draft_emits": 9,
+          "bonus_emits": 4,
+          "verify_emits": 1,
+          "depth_drafted": [
+            5,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            4
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 242.58220997580793,
+          "mtp_head_ms": 2.2012910048943013,
+          "sample_ms": 0.3243750106776133,
+          "cache_ops_ms": 0.7422500057145953
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 18,
+          "total_seconds": 0.5706135440268554,
+          "max_seconds": 0.2380165840004338
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010344665992306545,
+          "max_seconds": 0.010343999994802289
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00024662500072736293,
+          "max_seconds": 0.00024662500072736293
+        }
+      }
+    },
+    {
+      "id": "ru-time",
+      "repeat": 3,
+      "seconds": 0.6828682499908609,
+      "cpu_seconds": 0.0998380000000001,
+      "first": 0.3167631660035113,
+      "code": 0,
+      "output": "The meeting has been rescheduled from Friday to Monday at half past eight in the morning.",
+      "before": {
+        "active": 5223155730,
+        "cache": 225033010,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366724,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 64722
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 226540667,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366733,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 65279
+      },
+      "mtp": [
+        {
+          "cycles": 7,
+          "accepts": 10,
+          "rejects": 4,
+          "init_emits": 2,
+          "draft_emits": 10,
+          "bonus_emits": 3,
+          "verify_emits": 4,
+          "depth_drafted": [
+            7,
+            7
+          ],
+          "depth_accepted": [
+            7,
+            3
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 340.3699989867164,
+          "mtp_head_ms": 2.9320830071810633,
+          "sample_ms": 0.416582974139601,
+          "cache_ops_ms": 2.184751007007435
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 21,
+          "total_seconds": 0.671370747993933,
+          "max_seconds": 0.2373972499917727
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010509665982681327,
+          "max_seconds": 0.010509040992474183
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00025837500288616866,
+          "max_seconds": 0.00025837500288616866
+        }
+      }
+    },
+    {
+      "id": "ru-negation",
+      "repeat": 3,
+      "seconds": 0.6303169159946265,
+      "cpu_seconds": 0.0902700000000003,
+      "first": 0.3175959999935003,
+      "code": 0,
+      "output": "I didn't ask to cancel the order. I wanted to change the delivery address.",
+      "before": {
+        "active": 5223155730,
+        "cache": 226540667,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366733,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 65279
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 175733589,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366751,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 65801
+      },
+      "mtp": [
+        {
+          "cycles": 6,
+          "accepts": 10,
+          "rejects": 1,
+          "init_emits": 2,
+          "draft_emits": 10,
+          "bonus_emits": 5,
+          "verify_emits": 1,
+          "depth_drafted": [
+            6,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            5
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 289.29383399372455,
+          "mtp_head_ms": 2.527208984247409,
+          "sample_ms": 0.38079301884863526,
+          "cache_ops_ms": 0.7604989950777963
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 20,
+          "total_seconds": 0.6185016250383342,
+          "max_seconds": 0.23812454100698233
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010829041988472454,
+          "max_seconds": 0.0108282919973135
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002866660070139915,
+          "max_seconds": 0.0002866660070139915
+        }
+      }
+    },
+    {
+      "id": "ru-bank-alone",
+      "repeat": 3,
+      "seconds": 0.478954791004071,
+      "cpu_seconds": 0.0715489999999992,
+      "first": 0.313744625003892,
+      "code": 0,
+      "output": "She was standing at the spit.",
+      "before": {
+        "active": 5223155730,
+        "cache": 175733589,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366751,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 65801
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 220355233,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366752,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 66253
+      },
+      "mtp": [
+        {
+          "cycles": 3,
+          "accepts": 3,
+          "rejects": 3,
+          "init_emits": 2,
+          "draft_emits": 3,
+          "bonus_emits": 0,
+          "verify_emits": 3,
+          "depth_drafted": [
+            3,
+            3
+          ],
+          "depth_accepted": [
+            3,
+            0
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 147.37570800934918,
+          "mtp_head_ms": 1.2847509933635592,
+          "sample_ms": 0.19870798860210925,
+          "cache_ops_ms": 1.5385819860966876
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 10,
+          "total_seconds": 0.46775658200203907,
+          "max_seconds": 0.23515212500933558
+        },
+        "gc0": {
+          "count": 1,
+          "total_seconds": 5.1125010941177607e-05,
+          "max_seconds": 5.1125010941177607e-05
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010360001004301012,
+          "max_seconds": 0.01035908400081098
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00024595898867119104,
+          "max_seconds": 0.00024595898867119104
+        }
+      }
+    },
+    {
+      "id": "ru-bank-context",
+      "repeat": 3,
+      "seconds": 0.8882682080002269,
+      "cpu_seconds": 0.13598400000000055,
+      "first": 0.3214265830029035,
+      "code": 0,
+      "output": "The river bends here, and a narrow strip of sand is visible in the middle of the water. She was standing at the spit.",
+      "before": {
+        "active": 5223155730,
+        "cache": 220355233,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366752,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 66253
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 232949170,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366761,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 66921
+      },
+      "mtp": [
+        {
+          "cycles": 11,
+          "accepts": 15,
+          "rejects": 5,
+          "init_emits": 2,
+          "draft_emits": 15,
+          "bonus_emits": 6,
+          "verify_emits": 5,
+          "depth_drafted": [
+            11,
+            9
+          ],
+          "depth_accepted": [
+            9,
+            6
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 532.4582510074833,
+          "mtp_head_ms": 5.042707998654805,
+          "sample_ms": 0.5645429628202692,
+          "cache_ops_ms": 2.88803999137599
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 30,
+          "total_seconds": 0.8767937090742635,
+          "max_seconds": 0.24202708300435916
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010389916991698556,
+          "max_seconds": 0.01038904199958779
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00024995899002533406,
+          "max_seconds": 0.00024995899002533406
+        }
+      }
+    },
+    {
+      "id": "ru-paragraph",
+      "repeat": 3,
+      "seconds": 2.087399500000174,
+      "cpu_seconds": 0.48394599999999954,
+      "first": 0.5433343749900814,
+      "code": 0,
+      "output": "Our flight has been delayed by two hours. We’ve already completed check-in, but we haven’t checked our luggage yet. An airport staff member told us to go to counter number twelve. I don’t have internet access, so could you please show me the way on the map? If we miss our connecting flight, who will help us rebook our tickets?",
+      "before": {
+        "active": 5223155730,
+        "cache": 232949170,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366761,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 66921
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 254428499,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366770,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 68147
+      },
+      "mtp": [
+        {
+          "cycles": 30,
+          "accepts": 42,
+          "rejects": 16,
+          "init_emits": 2,
+          "draft_emits": 42,
+          "bonus_emits": 14,
+          "verify_emits": 16,
+          "depth_drafted": [
+            30,
+            28
+          ],
+          "depth_accepted": [
+            28,
+            14
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 1405.955417038058,
+          "mtp_head_ms": 28.58083300816361,
+          "sample_ms": 1.7352499708067626,
+          "cache_ops_ms": 20.277375035220757
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 76,
+          "total_seconds": 2.0768655420542927,
+          "max_seconds": 0.4633987909910502
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.008090041999821551,
+          "max_seconds": 0.008087042006081901
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.000251750010647811,
+          "max_seconds": 0.000251750010647811
+        }
+      }
+    },
+    {
+      "id": "en-airport",
+      "repeat": 3,
+      "seconds": 0.5335391660046298,
+      "cpu_seconds": 0.07935400000000037,
+      "first": 0.32051695899281185,
+      "code": 0,
+      "output": "Скажите, пожалуйста, где находится стойка регистрации?",
+      "before": {
+        "active": 5223155730,
+        "cache": 254428499,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366770,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 68147
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 175127183,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366771,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 68617
+      },
+      "mtp": [
+        {
+          "cycles": 4,
+          "accepts": 6,
+          "rejects": 1,
+          "init_emits": 2,
+          "draft_emits": 6,
+          "bonus_emits": 3,
+          "verify_emits": 1,
+          "depth_drafted": [
+            4,
+            3
+          ],
+          "depth_accepted": [
+            3,
+            3
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 193.4997480129823,
+          "mtp_head_ms": 1.7108759784605354,
+          "sample_ms": 0.2279590116813779,
+          "cache_ops_ms": 0.684083002852276
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 14,
+          "total_seconds": 0.5212153730244609,
+          "max_seconds": 0.23981941600504797
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010988251000526361,
+          "max_seconds": 0.010987583998939954
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0005710420082323253,
+          "max_seconds": 0.0005710420082323253
+        }
+      }
+    },
+    {
+      "id": "en-booking",
+      "repeat": 3,
+      "seconds": 0.6327659170055995,
+      "cpu_seconds": 0.0952680000000008,
+      "first": 0.31627491700055543,
+      "code": 0,
+      "output": "Я забронировал номер на две ночи, но приеду только завтра.",
+      "before": {
+        "active": 5223155730,
+        "cache": 175127183,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366771,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 68617
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 225017046,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366780,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 69144
+      },
+      "mtp": [
+        {
+          "cycles": 6,
+          "accepts": 9,
+          "rejects": 2,
+          "init_emits": 2,
+          "draft_emits": 9,
+          "bonus_emits": 4,
+          "verify_emits": 2,
+          "depth_drafted": [
+            6,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            4
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 292.212375003146,
+          "mtp_head_ms": 2.921085004345514,
+          "sample_ms": 0.34283298009540886,
+          "cache_ops_ms": 1.293791996431537
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 19,
+          "total_seconds": 0.6215776679746341,
+          "max_seconds": 0.23651870799949393
+        },
+        "gc0": {
+          "count": 1,
+          "total_seconds": 6.550000398419797e-05,
+          "max_seconds": 6.550000398419797e-05
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010365498994360678,
+          "max_seconds": 0.01036470799590461
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00025675000506453216,
+          "max_seconds": 0.00025675000506453216
+        }
+      }
+    },
+    {
+      "id": "en-time",
+      "repeat": 3,
+      "seconds": 0.7870918749977136,
+      "cpu_seconds": 0.1207280000000015,
+      "first": 0.31749970800592564,
+      "code": 0,
+      "output": "Встречу перенесли с пятницы на понедельник на полдевятого утра.",
+      "before": {
+        "active": 5223155730,
+        "cache": 225017046,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366780,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 69144
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 225362677,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366790,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 69782
+      },
+      "mtp": [
+        {
+          "cycles": 9,
+          "accepts": 9,
+          "rejects": 7,
+          "init_emits": 2,
+          "draft_emits": 9,
+          "bonus_emits": 2,
+          "verify_emits": 7,
+          "depth_drafted": [
+            9,
+            7
+          ],
+          "depth_accepted": [
+            7,
+            2
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 440.0704589934321,
+          "mtp_head_ms": 3.867831052048132,
+          "sample_ms": 0.4963320097886026,
+          "cache_ops_ms": 3.651541002909653
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 22,
+          "total_seconds": 0.7758724589948542,
+          "max_seconds": 0.23755574999086093
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010376166988862678,
+          "max_seconds": 0.010375249999924563
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00026141600392293185,
+          "max_seconds": 0.00026141600392293185
+        }
+      }
+    },
+    {
+      "id": "en-negation",
+      "repeat": 3,
+      "seconds": 0.5826721250050468,
+      "cpu_seconds": 0.0862179999999988,
+      "first": 0.31839137501083314,
+      "code": 0,
+      "output": "Я не просил вас отменить заказ. Я хотел изменить адрес доставки.",
+      "before": {
+        "active": 5223155730,
+        "cache": 225362677,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366790,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 69782
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 224525122,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366807,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 70279
+      },
+      "mtp": [
+        {
+          "cycles": 5,
+          "accepts": 9,
+          "rejects": 1,
+          "init_emits": 2,
+          "draft_emits": 9,
+          "bonus_emits": 4,
+          "verify_emits": 1,
+          "depth_drafted": [
+            5,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            4
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 242.44666598679032,
+          "mtp_head_ms": 2.283165988046676,
+          "sample_ms": 0.21325000852812082,
+          "cache_ops_ms": 0.7782920001773164
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 18,
+          "total_seconds": 0.5713746650581015,
+          "max_seconds": 0.23861258300894406
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010467083004186861,
+          "max_seconds": 0.010466082996572368
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00027091699303127825,
+          "max_seconds": 0.00027091699303127825
+        }
+      }
+    },
+    {
+      "id": "en-bank-alone",
+      "repeat": 3,
+      "seconds": 0.5297920409939252,
+      "cpu_seconds": 0.07880100000000034,
+      "first": 0.31429166698944755,
+      "code": 0,
+      "output": "Она ждала у берега.",
+      "before": {
+        "active": 5223155730,
+        "cache": 224525122,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366807,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 70279
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 219974350,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366808,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 70759
+      },
+      "mtp": [
+        {
+          "cycles": 4,
+          "accepts": 4,
+          "rejects": 3,
+          "init_emits": 2,
+          "draft_emits": 4,
+          "bonus_emits": 1,
+          "verify_emits": 3,
+          "depth_drafted": [
+            4,
+            3
+          ],
+          "depth_accepted": [
+            3,
+            1
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 195.69145700370427,
+          "mtp_head_ms": 1.7457490175729617,
+          "sample_ms": 0.2650829992489889,
+          "cache_ops_ms": 1.644165997277014
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 12,
+          "total_seconds": 0.517867250033305,
+          "max_seconds": 0.2348796250007581
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.011025331987184472,
+          "max_seconds": 0.011024540988728404
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002808330027619377,
+          "max_seconds": 0.0002808330027619377
+        }
+      }
+    },
+    {
+      "id": "en-bank-river",
+      "repeat": 3,
+      "seconds": 0.7338770000060322,
+      "cpu_seconds": 0.10862999999999978,
+      "first": 0.316447707999032,
+      "code": 0,
+      "output": "Река была слишком глубокой, чтобы её пересечь. Она ждала у берега.",
+      "before": {
+        "active": 5223155730,
+        "cache": 219974350,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366808,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 70759
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 224001110,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366817,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 71340
+      },
+      "mtp": [
+        {
+          "cycles": 8,
+          "accepts": 12,
+          "rejects": 4,
+          "init_emits": 2,
+          "draft_emits": 12,
+          "bonus_emits": 4,
+          "verify_emits": 4,
+          "depth_drafted": [
+            8,
+            8
+          ],
+          "depth_accepted": [
+            8,
+            4
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 389.8860820045229,
+          "mtp_head_ms": 3.4576239995658398,
+          "sample_ms": 0.40437502320855856,
+          "cache_ops_ms": 2.319374034414068
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 24,
+          "total_seconds": 0.7226554560038494,
+          "max_seconds": 0.23643287499726284
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010248374994262122,
+          "max_seconds": 0.010247500002151355
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002641249884618446,
+          "max_seconds": 0.0002641249884618446
+        }
+      }
+    },
+    {
+      "id": "en-bank-money",
+      "repeat": 3,
+      "seconds": 0.633379959006561,
+      "cpu_seconds": 0.09507400000000032,
+      "first": 0.3171544999931939,
+      "code": 0,
+      "output": "Банкомат находился внутри здания. Она ждала у банка.",
+      "before": {
+        "active": 5223155730,
+        "cache": 224001110,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366817,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 71340
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 225233685,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366826,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 71870
+      },
+      "mtp": [
+        {
+          "cycles": 6,
+          "accepts": 7,
+          "rejects": 4,
+          "init_emits": 2,
+          "draft_emits": 7,
+          "bonus_emits": 2,
+          "verify_emits": 4,
+          "depth_drafted": [
+            6,
+            5
+          ],
+          "depth_accepted": [
+            5,
+            2
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 292.03366703586653,
+          "mtp_head_ms": 2.6771250122692436,
+          "sample_ms": 0.36945799365639687,
+          "cache_ops_ms": 2.202375006163493
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 17,
+          "total_seconds": 0.6215438339859247,
+          "max_seconds": 0.23757495899917558
+        },
+        "gc0": {
+          "count": 1,
+          "total_seconds": 6.695899355690926e-05,
+          "max_seconds": 6.695899355690926e-05
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.010911584002315067,
+          "max_seconds": 0.01091091700072866
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.0002732920111157,
+          "max_seconds": 0.0002732920111157
+        }
+      }
+    },
+    {
+      "id": "en-gender-context",
+      "repeat": 3,
+      "seconds": 0.8353680829895893,
+      "cpu_seconds": 0.1235729999999986,
+      "first": 0.3170219160092529,
+      "code": 0,
+      "output": "Меня зовут Анна. Я путешествую со своей сестрой. Вчера я забронировала два билета.",
+      "before": {
+        "active": 5223155730,
+        "cache": 225233685,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366826,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 71870
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 224582970,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366835,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 72501
+      },
+      "mtp": [
+        {
+          "cycles": 10,
+          "accepts": 16,
+          "rejects": 4,
+          "init_emits": 2,
+          "draft_emits": 16,
+          "bonus_emits": 6,
+          "verify_emits": 4,
+          "depth_drafted": [
+            10,
+            10
+          ],
+          "depth_accepted": [
+            10,
+            6
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 486.4245409698924,
+          "mtp_head_ms": 4.329168034018949,
+          "sample_ms": 0.5242489860393107,
+          "cache_ops_ms": 2.4284170067403466
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 30,
+          "total_seconds": 0.8239028340321966,
+          "max_seconds": 0.2372350420046132
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.01033445900247898,
+          "max_seconds": 0.010333416998037137
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.00027754199982155114,
+          "max_seconds": 0.00027754199982155114
+        }
+      }
+    },
+    {
+      "id": "en-paragraph",
+      "repeat": 3,
+      "seconds": 2.1208872920105932,
+      "cpu_seconds": 0.30667000000000044,
+      "first": 0.43672800000058487,
+      "code": 0,
+      "output": "Наш рейс задержали на два часа. Мы уже прошли регистрацию, но ещё не сдали багаж. Сотрудник аэропорта сказал нам идти к стойке номер двенадцать. У меня нет доступа в интернет, поэтому, пожалуйста, покажите мне дорогу на карте. Если мы опоздаем на стыковочный рейс, кто сможет помочь нам изменить билеты?",
+      "before": {
+        "active": 5223155730,
+        "cache": 224582970,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366835,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 72502
+      },
+      "after": {
+        "active": 5223155730,
+        "cache": 250668621,
+        "peak": 5579783230,
+        "rss_peak": 3447750656,
+        "minflt": 366852,
+        "majflt": 1818,
+        "nvcsw": 3493,
+        "nivcsw": 73760
+      },
+      "mtp": [
+        {
+          "cycles": 33,
+          "accepts": 48,
+          "rejects": 15,
+          "init_emits": 2,
+          "draft_emits": 48,
+          "bonus_emits": 18,
+          "verify_emits": 15,
+          "depth_drafted": [
+            33,
+            30
+          ],
+          "depth_accepted": [
+            30,
+            18
+          ],
+          "zero_cycles": 0,
+          "backbone_ms": 1607.205708962283,
+          "mtp_head_ms": 13.989295053761452,
+          "sample_ms": 1.7726250080158934,
+          "cache_ops_ms": 8.762124998611398
+        }
+      ],
+      "stages": {
+        "next": {
+          "count": 85,
+          "total_seconds": 2.109195124983671,
+          "max_seconds": 0.35629441699711606
+        },
+        "close": {
+          "count": 2,
+          "total_seconds": 0.009877916003460996,
+          "max_seconds": 0.009877165997750126
+        },
+        "__init__": {
+          "count": 1,
+          "total_seconds": 0.000450624997029081,
+          "max_seconds": 0.000450624997029081
+        }
+      }
+    }
+  ]
+}

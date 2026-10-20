@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import select
 import sys
 import time
 
@@ -19,12 +20,20 @@ def main():
     parser.add_argument("--fixtures", type=Path)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--repeats", type=int, default=3)
+    parser.add_argument("--serve", action="store_true",
+                        help="Serve newline-delimited requests with idle unloading")
+    parser.add_argument("--idle-timeout", type=float, default=300,
+                        help="Resident worker idle seconds (1–3600, default 300)")
     args = parser.parse_args()
     if bool(args.fixtures) != bool(args.output):
         parser.error("--fixtures and --output must be used together")
     if args.repeats < 1:
         parser.error("--repeats must be positive")
-    cases = json.loads(args.fixtures.read_text()) if args.fixtures else [json.load(sys.stdin)]
+    if args.serve and args.fixtures:
+        parser.error("--serve cannot be combined with --fixtures")
+    if not 1 <= args.idle_timeout <= 3600:
+        parser.error("--idle-timeout must be between 1 and 3600 seconds")
+    cases = json.loads(args.fixtures.read_text()) if args.fixtures else ([] if args.serve else [json.load(sys.stdin)])
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
     started = time.perf_counter()
@@ -56,7 +65,35 @@ def main():
         return {**case, **result, "engine": args.engine, "load_seconds": load_seconds}
 
     try:
-        if not args.fixtures:
+        if args.serve:
+            reused = False
+            idle_timeout = args.idle_timeout
+            while select.select([sys.stdin], [], [], idle_timeout)[0]:
+                line = sys.stdin.readline()
+                if not line:
+                    break
+                try:
+                    case = json.loads(line)
+                    if case.get("command") == "configure":
+                        seconds = case.get("idle_timeout_seconds")
+                        if isinstance(seconds, bool) or not isinstance(seconds, (int, float)) or not 1 <= seconds <= 3600:
+                            raise ValueError("Idle timeout must be between 1 and 3600 seconds")
+                        idle_timeout = seconds
+                        print(json.dumps({"idle_timeout_seconds": idle_timeout}), flush=True)
+                        continue
+                    if not isinstance(case.get("text"), str) or len(case["text"].encode()) > 12000:
+                        raise ValueError("Expected text up to 12 KB")
+                    if case.get("source") not in ("en", "ru") or case.get("target") not in ("en", "ru"):
+                        raise ValueError("Expected RU/EN languages")
+                    result = run(case)
+                    result["model_reused"] = reused
+                    result["load_seconds"] = 0 if reused else load_seconds
+                    result["idle_timeout_seconds"] = idle_timeout
+                    reused = True
+                except (ValueError, KeyError, TypeError, AttributeError) as error:
+                    result = {"error": str(error)}
+                print(json.dumps(result, ensure_ascii=False), flush=True)
+        elif not args.fixtures:
             print(json.dumps(run(cases[0]), ensure_ascii=False))
         else:
             report = dict(engine=args.engine, load_seconds=load_seconds,
