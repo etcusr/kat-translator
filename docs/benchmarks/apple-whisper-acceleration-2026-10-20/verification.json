@@ -1,0 +1,15 @@
+{
+  "allSummaryGroupsComplete": true,
+  "groupCount": 17,
+  "englishReferenceErrors": 0,
+  "q8Agreement": true,
+  "iosCoreMLAgreement": true,
+  "primaryIPhoneThermalState": 1,
+  "productionModelAndLibrariesSHA256Unchanged": true,
+  "whisperVendorClean": true,
+  "researchPhoneAppRemoved": true,
+  "privateTranscriptAndDeviceIDScan": "PASS",
+  "nativeMacBuild": "PASS",
+  "nativePhoneBuild": "PASS",
+  "SwiftMLXPhoneBuild": "PASS"
+}

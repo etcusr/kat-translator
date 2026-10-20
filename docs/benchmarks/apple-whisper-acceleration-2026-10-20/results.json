@@ -1,0 +1,1954 @@
+{
+  "groups": {
+    "mac-f16": {
+      "runs": [
+        "mac-f16",
+        "mac-f16-b"
+      ],
+      "loadSeconds": [
+        0.9287709999916842,
+        0.42971887499152217
+      ],
+      "excludedThermalRows": 0,
+      "cases": {
+        "private-short": {
+          "n": 6,
+          "seconds": [
+            0.7617528749979101,
+            0.7615028333384544,
+            0.7608539583452512,
+            0.7612471666652709,
+            0.7652864583214978,
+            0.7631356666679494
+          ],
+          "medianSeconds": 0.7616278541681822,
+          "minSeconds": 0.7608539583452512,
+          "maxSeconds": 0.7652864583214978,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1970882768,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 6,
+          "seconds": [
+            1.0361688749981113,
+            1.01004050001211,
+            1.0105656666564755,
+            1.0196956250001676,
+            1.0699533750012051,
+            1.0163607916620094
+          ],
+          "medianSeconds": 1.0180282083310885,
+          "minSeconds": 1.01004050001211,
+          "maxSeconds": 1.0699533750012051,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1970882768,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 6,
+          "seconds": [
+            0.799632208319963,
+            0.7871259999956237,
+            0.7863660833390895,
+            0.7951949583220994,
+            0.8300440000020899,
+            0.7966418333235197
+          ],
+          "medianSeconds": 0.7959183958228095,
+          "minSeconds": 0.7863660833390895,
+          "maxSeconds": 0.8300440000020899,
+          "audioSeconds": 11,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1970931920,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "mac-q8": {
+      "runs": [
+        "mac-q8",
+        "mac-q8-b"
+      ],
+      "loadSeconds": [
+        0.26343724998878315,
+        0.30444470833754167
+      ],
+      "excludedThermalRows": 0,
+      "cases": {
+        "private-short": {
+          "n": 6,
+          "seconds": [
+            0.7852701249939855,
+            0.7962873749929713,
+            0.8249332499981392,
+            0.7815473749942612,
+            0.7881092916650232,
+            0.7854745833319612
+          ],
+          "medianSeconds": 0.7867919374984922,
+          "minSeconds": 0.7815473749942612,
+          "maxSeconds": 0.8249332499981392,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1154188872,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 6,
+          "seconds": [
+            0.9686789583356585,
+            0.9890258749946952,
+            0.9798428750073072,
+            0.9526731250080047,
+            0.9809794583416078,
+            0.9487624166649766
+          ],
+          "medianSeconds": 0.9742609166714828,
+          "minSeconds": 0.9487624166649766,
+          "maxSeconds": 0.9890258749946952,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1154188872,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 6,
+          "seconds": [
+            0.8277902916597668,
+            0.8136799999920186,
+            0.8026092083309777,
+            0.7848816666664788,
+            0.7978977916645817,
+            0.8150073333235923
+          ],
+          "medianSeconds": 0.8081446041614981,
+          "minSeconds": 0.7848816666664788,
+          "maxSeconds": 0.8277902916597668,
+          "audioSeconds": 11,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1154303704,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "mac-coreml": {
+      "runs": [
+        "mac-coreml",
+        "mac-coreml-b"
+      ],
+      "loadSeconds": [
+        5.571428041672334,
+        0.8388330833258806
+      ],
+      "excludedThermalRows": 0,
+      "cases": {
+        "private-short": {
+          "n": 6,
+          "seconds": [
+            0.8008890000055544,
+            0.7802612499945099,
+            0.8309123333310708,
+            0.7867370000021765,
+            0.7798892916616751,
+            0.8330559999885736
+          ],
+          "medianSeconds": 0.7938130000038655,
+          "minSeconds": 0.7798892916616751,
+          "maxSeconds": 0.8330559999885736,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 2140097800,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 6,
+          "seconds": [
+            1.0701709583227057,
+            1.0997715416597202,
+            1.0945160833216505,
+            1.0622860416769981,
+            1.0214717500057304,
+            1.0454288333421573
+          ],
+          "medianSeconds": 1.066228499999852,
+          "minSeconds": 1.0214717500057304,
+          "maxSeconds": 1.0997715416597202,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 0,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 2140294408,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 6,
+          "seconds": [
+            0.8171380416606553,
+            0.8534676666749874,
+            0.8738544166699285,
+            0.821468249996542,
+            0.8191259583254578,
+            0.8078650833340362
+          ],
+          "medianSeconds": 0.8202971041609999,
+          "minSeconds": 0.8078650833340362,
+          "maxSeconds": 0.8738544166699285,
+          "audioSeconds": 11,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 2140294408,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "mac-coreml-q8": {
+      "runs": [
+        "mac-coreml-q8",
+        "mac-coreml-q8-b"
+      ],
+      "loadSeconds": [
+        0.6072749166633002,
+        0.7126518750010291
+      ],
+      "excludedThermalRows": 0,
+      "cases": {
+        "private-short": {
+          "n": 6,
+          "seconds": [
+            0.7522098749905126,
+            0.7463138333405368,
+            0.7403754999977536,
+            0.793740125009208,
+            0.7870780000084778,
+            0.7589836249971995
+          ],
+          "medianSeconds": 0.7555967499938561,
+          "minSeconds": 0.7403754999977536,
+          "maxSeconds": 0.793740125009208,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1385548608,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 6,
+          "seconds": [
+            0.9349152083304944,
+            0.9114668333349982,
+            0.9153161249996629,
+            0.9909724583412753,
+            0.9930221666581929,
+            0.988523374995566
+          ],
+          "medianSeconds": 0.9617192916630302,
+          "minSeconds": 0.9114668333349982,
+          "maxSeconds": 0.9930221666581929,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 0,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1380322112,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 6,
+          "seconds": [
+            0.762790374996257,
+            0.7579991249949671,
+            0.7801147916616173,
+            0.8202526666573249,
+            0.8014111250085989,
+            0.8087425416597398
+          ],
+          "medianSeconds": 0.7907629583351081,
+          "minSeconds": 0.7579991249949671,
+          "maxSeconds": 0.8202526666573249,
+          "audioSeconds": 11,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1385401104,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "mac-mlx": {
+      "runs": [
+        "mac-mlx",
+        "mac-mlx-b"
+      ],
+      "loadSeconds": [
+        0.37964391701098066,
+        0.06857870800013188
+      ],
+      "excludedThermalRows": 0,
+      "cases": {
+        "private-short": {
+          "n": 6,
+          "seconds": [
+            0.6853370830067433,
+            0.6816770410077879,
+            0.680685250001261,
+            0.6833987919962965,
+            0.680896624995512,
+            0.7142996249895077
+          ],
+          "medianSeconds": 0.6825379165020422,
+          "minSeconds": 0.680685250001261,
+          "maxSeconds": 0.7142996249895077,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [],
+          "maxSampledFootprintBytes": 0,
+          "maxMLXAllocatedBytes": 2487832882,
+          "peakRSSBytes": 1848246272,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 6,
+          "seconds": [
+            0.8511928750085644,
+            0.8685576249990845,
+            0.8235987090010894,
+            0.8243087500013644,
+            0.8698799999983748,
+            0.8922650839958806
+          ],
+          "medianSeconds": 0.8598752500038245,
+          "minSeconds": 0.8235987090010894,
+          "maxSeconds": 0.8922650839958806,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 0,
+          "normalizedEditsFromF16": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "thermalStates": [],
+          "maxSampledFootprintBytes": 0,
+          "maxMLXAllocatedBytes": 2487832882,
+          "peakRSSBytes": 1848246272,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 6,
+          "seconds": [
+            0.7019500840106048,
+            0.7310788750037318,
+            0.7038220829999773,
+            0.714047124987701,
+            0.7550875839951914,
+            0.752740249998169
+          ],
+          "medianSeconds": 0.7225629999957164,
+          "minSeconds": 0.7019500840106048,
+          "maxSeconds": 0.7550875839951914,
+          "audioSeconds": 11.0,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [],
+          "maxSampledFootprintBytes": 0,
+          "maxMLXAllocatedBytes": 2487832882,
+          "peakRSSBytes": 1848049664,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "mac-coreml-ne": {
+      "runs": [
+        "mac-coreml-ne"
+      ],
+      "loadSeconds": [
+        3.9305921666673385
+      ],
+      "excludedThermalRows": 0,
+      "cases": {
+        "private-short": {
+          "n": 3,
+          "seconds": [
+            1.0375171250052517,
+            1.058537749995594,
+            1.188810541658313
+          ],
+          "medianSeconds": 1.058537749995594,
+          "minSeconds": 1.0375171250052517,
+          "maxSeconds": 1.188810541658313,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1847856296,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 3,
+          "seconds": [
+            1.3105530833418015,
+            1.3633776666538324,
+            1.3308177083381452
+          ],
+          "medianSeconds": 1.3308177083381452,
+          "minSeconds": 1.3105530833418015,
+          "maxSeconds": 1.3633776666538324,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 0,
+          "normalizedEditsFromF16": [
+            1,
+            1,
+            1
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1847856296,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 3,
+          "seconds": [
+            1.0625218333298108,
+            1.3890812500030734,
+            1.1532927916559856
+          ],
+          "medianSeconds": 1.1532927916559856,
+          "minSeconds": 1.0625218333298108,
+          "maxSeconds": 1.3890812500030734,
+          "audioSeconds": 11,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1847856296,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "ios-f16": {
+      "runs": [
+        "ios-f16-matched",
+        "ios-f16-matched-b",
+        "ios-f16-matched-c"
+      ],
+      "loadSeconds": [
+        0.5897766666666939,
+        0.636817874999906,
+        0.39775233333330107
+      ],
+      "excludedThermalRows": 18,
+      "cases": {
+        "private-short": {
+          "n": 3,
+          "seconds": [
+            1.0673182083337451,
+            1.0766509583336301,
+            1.1804247916670647
+          ],
+          "medianSeconds": 1.0766509583336301,
+          "minSeconds": 1.0673182083337451,
+          "maxSeconds": 1.1804247916670647,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 1911377224,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 3,
+          "seconds": [
+            1.4593252083332118,
+            1.5202800833340007,
+            1.5840297083332189
+          ],
+          "medianSeconds": 1.5202800833340007,
+          "minSeconds": 1.4593252083332118,
+          "maxSeconds": 1.5840297083332189,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 1911377224,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 3,
+          "seconds": [
+            1.0400637499997174,
+            1.1769137083329042,
+            1.1799897083328688
+          ],
+          "medianSeconds": 1.1769137083329042,
+          "minSeconds": 1.0400637499997174,
+          "maxSeconds": 1.1799897083328688,
+          "audioSeconds": 11,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 1911426376,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "ios-q8": {
+      "runs": [
+        "ios-q8-matched",
+        "ios-q8-matched-b"
+      ],
+      "loadSeconds": [
+        0.32024491666652466,
+        0.3293412916673333
+      ],
+      "excludedThermalRows": 9,
+      "cases": {
+        "private-short": {
+          "n": 3,
+          "seconds": [
+            1.1682442083338174,
+            1.1636813750001238,
+            1.2689168749993769
+          ],
+          "medianSeconds": 1.1682442083338174,
+          "minSeconds": 1.1636813750001238,
+          "maxSeconds": 1.2689168749993769,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 1092864704,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 3,
+          "seconds": [
+            1.4095786249999946,
+            1.444348541666841,
+            1.4833664583329664
+          ],
+          "medianSeconds": 1.444348541666841,
+          "minSeconds": 1.4095786249999946,
+          "maxSeconds": 1.4833664583329664,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 1102629568,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 3,
+          "seconds": [
+            1.1362087499992413,
+            1.2335403333336217,
+            1.219124291666958
+          ],
+          "medianSeconds": 1.219124291666958,
+          "minSeconds": 1.1362087499992413,
+          "maxSeconds": 1.2335403333336217,
+          "audioSeconds": 11,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 1102695104,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "ios-coreml": {
+      "runs": [
+        "ios-coreml-matched",
+        "ios-coreml-matched-b"
+      ],
+      "loadSeconds": [
+        25.265023499999188,
+        0.7608213749999777
+      ],
+      "excludedThermalRows": 0,
+      "cases": {
+        "private-short": {
+          "n": 6,
+          "seconds": [
+            0.628245166666602,
+            0.6235092083334166,
+            0.6344704166667725,
+            0.6457519999994474,
+            0.6439630416671207,
+            0.6670353333329331
+          ],
+          "medianSeconds": 0.6392167291669466,
+          "minSeconds": 0.6235092083334166,
+          "maxSeconds": 0.6670353333329331,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 3131657448,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 6,
+          "seconds": [
+            1.051407291666692,
+            1.0481207916673156,
+            1.0557042500004172,
+            1.0301944583334262,
+            1.0835826666670982,
+            1.0825699999995777
+          ],
+          "medianSeconds": 1.0535557708335546,
+          "minSeconds": 1.0301944583334262,
+          "maxSeconds": 1.0835826666670982,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 3131657448,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 6,
+          "seconds": [
+            0.6599030416673486,
+            0.6792729583339678,
+            0.6667075833338458,
+            0.6636752916674595,
+            0.6976224583331714,
+            0.7065080416659839
+          ],
+          "medianSeconds": 0.6729902708339068,
+          "minSeconds": 0.6599030416673486,
+          "maxSeconds": 0.7065080416659839,
+          "audioSeconds": 11,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 3131657448,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "ios-coreml-q8": {
+      "runs": [
+        "ios-coreml-q8-matched",
+        "ios-coreml-q8-matched-b"
+      ],
+      "loadSeconds": [
+        0.4079561250000552,
+        0.5459741249997023
+      ],
+      "excludedThermalRows": 0,
+      "cases": {
+        "private-short": {
+          "n": 6,
+          "seconds": [
+            0.5621369166665318,
+            0.5579332500001328,
+            0.5688314166663986,
+            0.5772071250003137,
+            0.572443750000275,
+            0.5918793749997349
+          ],
+          "medianSeconds": 0.5706375833333368,
+          "minSeconds": 0.5579332500001328,
+          "maxSeconds": 0.5918793749997349,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 2351811168,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 6,
+          "seconds": [
+            0.8273558333330584,
+            0.8310417499997129,
+            0.8357359583333164,
+            0.8383990416668894,
+            0.857313124999564,
+            0.8630254999998215
+          ],
+          "medianSeconds": 0.8370675000001029,
+          "minSeconds": 0.8273558333330584,
+          "maxSeconds": 0.8630254999998215,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 2352073312,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 6,
+          "seconds": [
+            0.5789737083332511,
+            0.5927974166661443,
+            0.590040458333533,
+            0.5941088333338485,
+            0.6108140416672541,
+            0.6078112499999406
+          ],
+          "medianSeconds": 0.5934531249999964,
+          "minSeconds": 0.5789737083332511,
+          "maxSeconds": 0.6108140416672541,
+          "audioSeconds": 11,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 2352073312,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "ios-mlx": {
+      "runs": [
+        "ios-mlx-matched"
+      ],
+      "loadSeconds": [
+        0.23906362499928946
+      ],
+      "excludedThermalRows": 0,
+      "cases": {
+        "private-short": {
+          "n": 3,
+          "seconds": [
+            1.8442637916659805,
+            1.815670583332576,
+            1.992086916666267
+          ],
+          "medianSeconds": 1.8442637916659805,
+          "minSeconds": 1.815670583332576,
+          "maxSeconds": 1.992086916666267,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 3272297464,
+          "maxMLXAllocatedBytes": 2727191642,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 3,
+          "seconds": [
+            3.397324041666252,
+            3.248962708333238,
+            3.3186519583332483
+          ],
+          "medianSeconds": 3.3186519583332483,
+          "minSeconds": 3.248962708333238,
+          "maxSeconds": 3.397324041666252,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 0,
+          "normalizedEditsFromF16": [
+            1,
+            1,
+            1
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 3271822328,
+          "maxMLXAllocatedBytes": 2727191642,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 3,
+          "seconds": [
+            1.4928769166672282,
+            2.1107106666668187,
+            2.004217833333314
+          ],
+          "medianSeconds": 2.004217833333314,
+          "minSeconds": 1.4928769166672282,
+          "maxSeconds": 2.1107106666668187,
+          "audioSeconds": 11,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 3272313848,
+          "maxMLXAllocatedBytes": 2727191642,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "ios-mlx-fp16": {
+      "runs": [
+        "ios-mlx-fp16-matched",
+        "ios-mlx-fp16-matched-b"
+      ],
+      "loadSeconds": [
+        0.6428781249996973,
+        0.611793041666715
+      ],
+      "excludedThermalRows": 0,
+      "cases": {
+        "private-short": {
+          "n": 6,
+          "seconds": [
+            0.7387432916666512,
+            0.9119728333334933,
+            0.8094647083335076,
+            0.7213293750000958,
+            0.7127383333336184,
+            0.9224360416665149
+          ],
+          "medianSeconds": 0.7741040000000794,
+          "minSeconds": 0.7127383333336184,
+          "maxSeconds": 0.9224360416665149,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 2460027920,
+          "maxMLXAllocatedBytes": 2306450516,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 6,
+          "seconds": [
+            1.0768346666664002,
+            1.3246890000000349,
+            1.2996868749996793,
+            1.0847673333337298,
+            1.119579541667008,
+            1.5029507083336284
+          ],
+          "medianSeconds": 1.2096332083333436,
+          "minSeconds": 1.0768346666664002,
+          "maxSeconds": 1.5029507083336284,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 0,
+          "normalizedEditsFromF16": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 2460027920,
+          "maxMLXAllocatedBytes": 2306450516,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 6,
+          "seconds": [
+            0.678114166667001,
+            0.8206685416662367,
+            0.9054851666669492,
+            0.714432291666526,
+            0.7767407499995898,
+            1.0325033750004877
+          ],
+          "medianSeconds": 0.7987046458329132,
+          "minSeconds": 0.678114166667001,
+          "maxSeconds": 1.0325033750004877,
+          "audioSeconds": 11,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 2460027920,
+          "maxMLXAllocatedBytes": 2306450516,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "ios-coreml-ne": {
+      "runs": [
+        "ios-coreml-ne-matched"
+      ],
+      "loadSeconds": [
+        31.06203270833339
+      ],
+      "excludedThermalRows": 0,
+      "cases": {
+        "private-short": {
+          "n": 3,
+          "seconds": [
+            1.2040010833334236,
+            1.0901211666669042,
+            0.7960210416667906
+          ],
+          "medianSeconds": 1.0901211666669042,
+          "minSeconds": 0.7960210416667906,
+          "maxSeconds": 1.2040010833334236,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 3143209080,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 3,
+          "seconds": [
+            1.2848073750001276,
+            1.296272333333036,
+            1.1996918749991892
+          ],
+          "medianSeconds": 1.2848073750001276,
+          "minSeconds": 1.1996918749991892,
+          "maxSeconds": 1.296272333333036,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 0,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 3143209080,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 3,
+          "seconds": [
+            0.7219409583331071,
+            0.7898818749999919,
+            0.7912903333335635
+          ],
+          "medianSeconds": 0.7898818749999919,
+          "minSeconds": 0.7219409583331071,
+          "maxSeconds": 0.7912903333335635,
+          "audioSeconds": 11,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 3143209080,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "ios-f16-initial": {
+      "runs": [
+        "ios-f16",
+        "ios-f16-b"
+      ],
+      "loadSeconds": [
+        0.6972082499996759,
+        0.40993045833329234
+      ],
+      "excludedThermalRows": 0,
+      "cases": {
+        "private-short": {
+          "n": 6,
+          "seconds": [
+            1.1156713333330117,
+            1.1116467083329553,
+            1.1934993750001013,
+            1.1575259999999616,
+            1.1491289583336766,
+            1.6538012500004697
+          ],
+          "medianSeconds": 1.153327479166819,
+          "minSeconds": 1.1116467083329553,
+          "maxSeconds": 1.6538012500004697,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 1912687848,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 6,
+          "seconds": [
+            1.5232806666663237,
+            1.563473583333689,
+            1.6007908333331216,
+            1.5519325833329276,
+            1.6120765416662834,
+            2.0483358749997933
+          ],
+          "medianSeconds": 1.5821322083334053,
+          "minSeconds": 1.5232806666663237,
+          "maxSeconds": 2.0483358749997933,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1912245480,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 6,
+          "seconds": [
+            1.1062842499995895,
+            1.2006822916664532,
+            1.1975931666665929,
+            1.1314951666663546,
+            1.2918490000001839,
+            1.464156125000045
+          ],
+          "medianSeconds": 1.199137729166523,
+          "minSeconds": 1.1062842499995895,
+          "maxSeconds": 1.464156125000045,
+          "audioSeconds": 11,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1912704232,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "ios-q8-initial": {
+      "runs": [
+        "ios-q8",
+        "ios-q8-b"
+      ],
+      "loadSeconds": [
+        0.3199508750003588,
+        0.2139574166667444
+      ],
+      "excludedThermalRows": 0,
+      "cases": {
+        "private-short": {
+          "n": 6,
+          "seconds": [
+            1.1128600416668633,
+            1.1097050416665297,
+            1.1643552083332906,
+            0.9556287499999598,
+            0.9800024166661387,
+            1.0786769166670638
+          ],
+          "medianSeconds": 1.0941909791667968,
+          "minSeconds": 0.9556287499999598,
+          "maxSeconds": 1.1643552083332906,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1090423440,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 6,
+          "seconds": [
+            1.3636134583330204,
+            1.3982838749998336,
+            1.4187992083334393,
+            1.1975124583332217,
+            1.2879633749998902,
+            1.3315075416667241
+          ],
+          "medianSeconds": 1.3475604999998723,
+          "minSeconds": 1.1975124583332217,
+          "maxSeconds": 1.4187992083334393,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1093503632,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 6,
+          "seconds": [
+            1.1116175416664191,
+            1.227959833332534,
+            1.2522472083337561,
+            0.941366250000101,
+            1.0671143333329383,
+            1.0737409583334738
+          ],
+          "medianSeconds": 1.0926792499999465,
+          "minSeconds": 0.941366250000101,
+          "maxSeconds": 1.2522472083337561,
+          "audioSeconds": 11,
+          "exactAgreementWithF16": 6,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              0,
+              0
+            ]
+          ],
+          "maxSampledFootprintBytes": 1102793360,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "ios-coreml-initial": {
+      "runs": [
+        "ios-coreml"
+      ],
+      "loadSeconds": [
+        21.682689458333698
+      ],
+      "excludedThermalRows": 0,
+      "cases": {
+        "private-short": {
+          "n": 3,
+          "seconds": [
+            0.5735689166667726,
+            0.5728792499994597,
+            0.5779572916662801
+          ],
+          "medianSeconds": 0.5735689166667726,
+          "minSeconds": 0.5728792499994597,
+          "maxSeconds": 0.5779572916662801,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 3128036632,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 3,
+          "seconds": [
+            0.9751514999998108,
+            0.9811590416666149,
+            0.985525250000137
+          ],
+          "medianSeconds": 0.9811590416666149,
+          "minSeconds": 0.9751514999998108,
+          "maxSeconds": 0.985525250000137,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 3128036632,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 3,
+          "seconds": [
+            0.6056505833339543,
+            0.6141616249997242,
+            0.6147717916664988
+          ],
+          "medianSeconds": 0.6141616249997242,
+          "minSeconds": 0.6056505833339543,
+          "maxSeconds": 0.6147717916664988,
+          "audioSeconds": 11,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 3128036632,
+          "maxMLXAllocatedBytes": 0,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "ios-mlx-initial": {
+      "runs": [
+        "ios-mlx"
+      ],
+      "loadSeconds": [
+        0.6031673333336585
+      ],
+      "excludedThermalRows": 0,
+      "cases": {
+        "private-short": {
+          "n": 3,
+          "seconds": [
+            1.1665917083337263,
+            1.1790034999994532,
+            1.2928541666669844
+          ],
+          "medianSeconds": 1.1790034999994532,
+          "minSeconds": 1.1665917083337263,
+          "maxSeconds": 1.2928541666669844,
+          "audioSeconds": 7.9,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 0,
+          "maxMLXAllocatedBytes": 2727191642,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "private-long": {
+          "n": 3,
+          "seconds": [
+            2.540755208333394,
+            2.601302458333521,
+            2.6624699583335314
+          ],
+          "medianSeconds": 2.601302458333521,
+          "minSeconds": 2.540755208333394,
+          "maxSeconds": 2.6624699583335314,
+          "audioSeconds": 25.179875,
+          "exactAgreementWithF16": 0,
+          "normalizedEditsFromF16": [
+            1,
+            1,
+            1
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 0,
+          "maxMLXAllocatedBytes": 2727191642,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1
+        },
+        "jfk": {
+          "n": 3,
+          "seconds": [
+            1.2558884166674034,
+            1.3708745416670354,
+            1.3775359999999637
+          ],
+          "medianSeconds": 1.3708745416670354,
+          "minSeconds": 1.2558884166674034,
+          "maxSeconds": 1.3775359999999637,
+          "audioSeconds": 11,
+          "exactAgreementWithF16": 3,
+          "normalizedEditsFromF16": [
+            0,
+            0,
+            0
+          ],
+          "thermalStates": [
+            [
+              1,
+              1
+            ]
+          ],
+          "maxSampledFootprintBytes": 0,
+          "maxMLXAllocatedBytes": 2727191642,
+          "peakRSSBytes": 0,
+          "uniqueTranscripts": 1,
+          "referenceWords": 22,
+          "wordErrors": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    }
+  },
+  "qualityMeaning": "Private: agreement with F16, not WER. JFK: known reference WER.",
+  "memoryMeaning": "Max sampled physical footprint, not continuous peak. MLX allocation peak and peak RSS are separate metrics.",
+  "excludedRuns": [
+    {
+      "run": "ios-coreml-cool",
+      "reason": "Nominal thermal state not reached within 300 seconds; no inference results."
+    }
+  ]
+}

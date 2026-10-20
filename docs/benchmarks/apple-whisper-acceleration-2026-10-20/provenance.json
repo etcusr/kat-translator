@@ -1,0 +1,119 @@
+{
+  "whisper_cpp_revision": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+  "mlx_audio_swift_revision": "a5506c1c7978aeea9a3295f83d43beff3f06bcdf",
+  "python_requirements": [
+    "ane_transformers==0.1.1",
+    "annotated-doc==0.0.5",
+    "anyio==4.15.1",
+    "attrs==26.1.0",
+    "cattrs==26.2.1",
+    "certifi==2026.10.19",
+    "charset-normalizer==3.5.2",
+    "click==8.5.0",
+    "coremltools==9.0",
+    "filelock==4.2.4",
+    "fsspec==2026.9.0",
+    "h11==0.16.0",
+    "hf-xet==1.7.0",
+    "httpcore2==2.15.1",
+    "httpx2==2.15.1",
+    "huggingface_hub==2.2.0",
+    "idna==3.20",
+    "Jinja2==3.1.6",
+    "llvmlite==0.50.0",
+    "markdown-it-py==4.2.0",
+    "MarkupSafe==3.0.4",
+    "mdurl==0.1.2",
+    "mlx==0.32.4",
+    "mlx-metal==0.32.4",
+    "mlx-whisper==0.4.3",
+    "more-itertools==11.2.1",
+    "mpmath==1.3.0",
+    "networkx==3.6.1",
+    "numba==0.68.0",
+    "numpy==2.4.6",
+    "openai-whisper==20250625",
+    "packaging==26.3",
+    "protobuf==3.20.1",
+    "pyaml==26.7.0",
+    "Pygments==2.21.0",
+    "PyYAML==6.0.3",
+    "regex==2026.9.29",
+    "requests==2.34.2",
+    "rich==15.0.0",
+    "safetensors==0.8.0",
+    "scipy==1.17.1",
+    "shellingham==1.5.4",
+    "sympy==1.13.1",
+    "tiktoken==0.14.0",
+    "tokenizers==0.23.3",
+    "torch==2.5.1",
+    "tqdm==4.70.1",
+    "transformers==5.20.2",
+    "truststore==0.10.5",
+    "typer==0.27.3",
+    "typing_extensions==4.16.0",
+    "urllib3==2.8.0"
+  ],
+  "models": {
+    "f16": {
+      "bytes": 1624555275,
+      "sha256": "1fc70f774d38eb169993ac391eea357ef47c88757ef72ee5943879b7e8e2bc69"
+    },
+    "q8": {
+      "bytes": 874188075,
+      "sha256": "317eb69c11673c9de1e1f0d459b253999804ec71ac4c23c17ecf5fbe24e259a1"
+    },
+    "mlx-f16": {
+      "bytes": 1613977488,
+      "sha256": "1ea9d2538f4336d91c17e3b9cf5661c821284fc7a61b8d6b287c6ecada6344d4"
+    },
+    "coreml-encoder": {
+      "bytes": 1275120160,
+      "files": {
+        "metadata.json": "609ba562065051c558cdbbba89901431b5f678ff993051cec56682bf49a1e807",
+        "model.mil": "25a5e9b656c13ec6f19a5711055d75affb368d3818f32bc3505c862154462a92",
+        "coremldata.bin": "f51b516738cdf36f468ccfb5ac9bdad8903f32438abcb3dff1f417e16ebf069e",
+        "weights/weight.bin": "fcc450fb244d55335f6df82a41558de1b07d44acaf67c7b7b3040da44f94bdd3",
+        "analytics/coremldata.bin": "5408ed0690d75787546a1e85b447b9bae02742a3c15bbc1f7b8a369886da3b25"
+      }
+    }
+  },
+  "fixtures": [
+    {
+      "id": "private-short",
+      "language": "ru",
+      "path": "fixtures/private-short.f32",
+      "sha256": "b958509a332b806da90dc6c220c729c3ae899970747002acf6bb6db4b20d4612",
+      "duration": 7.9
+    },
+    {
+      "id": "private-long",
+      "language": "ru",
+      "path": "fixtures/private-long.f32",
+      "sha256": "12087e05f495c16c5562961156325c4966ecd1f1e2cdb5a6e46d7774599eb289",
+      "duration": 25.179875
+    },
+    {
+      "id": "jfk",
+      "language": "en",
+      "path": "fixtures/jfk.f32",
+      "sha256": "71161b4ed438f8309a37e882c718dc00f4e75aef193f83de05ae6aebaf45df0f",
+      "duration": 11.0
+    }
+  ],
+  "devices": {
+    "mac": "Apple M3 Pro, 18 GB RAM",
+    "ios": "iPhone 17 Pro, 12 GB RAM"
+  },
+  "sources": [
+    "https://github.com/ggml-org/whisper.cpp/tree/927cfce34f31707e17f2bff35c349632fb9e2c3a",
+    "https://github.com/ml-explore/mlx-examples/tree/main/whisper",
+    "https://github.com/Blaizzy/mlx-audio-swift/tree/a5506c1c7978aeea9a3295f83d43beff3f06bcdf"
+  ],
+  "operatingSystems": {
+    "mac": "Version 27.0.1 (Build 26A434)",
+    "ios": "Version 27.0.1 (Build 24A446)"
+  },
+  "xcode": "Xcode 27.1\nBuild version 27A9275"
+}
