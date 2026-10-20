@@ -8,6 +8,7 @@ Deferred tasks, not completed changes or release promises.
 
 20 October 2026: [separate test application and measurements](benchmarks/mac-system-translation-2026-10-20/README.md), no production integration.
 
+- [x] Fix Mac image progress resetting per OCR block: one scene-wide total, cache-aware monotonic progress, unchanged translation. Core and real OCR/Index regression checks pass. [Evidence](benchmarks/mac-production-residency-2026-10-20/image-progress.md).
 - [x] Main Mac: resident translation model, configurable 5-minute default / 1–60-minute idle timer and Index 9B plain chunks, now enabled by default. Local validation only; no upload. [Evidence](benchmarks/mac-production-residency-2026-10-20/README.md).
 - [x] Enable Mac Index 9B chunks by default across Text/Voice/Image; keep an ordinary off switch. Remove waiting video players/resources from all app targets. All platform builds and Mac runtime/UI checks pass; installed Mac updated with data preserved. [Evidence](benchmarks/mac-production-residency-2026-10-20/default-chunks.md).
 - [x] Mac partial-translation UX: progress and cancellation above the workspace; intermediate text remains visible, without a processing overlay or GIF. Chunking remains optional; translation algorithm unchanged.

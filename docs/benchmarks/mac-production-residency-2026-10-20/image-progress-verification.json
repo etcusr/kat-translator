@@ -1,0 +1,146 @@
+{
+  "blockCharacters": [
+    10,
+    553,
+    842,
+    347,
+    822
+  ],
+  "blocks": 5,
+  "complete": true,
+  "progress": [
+    {
+      "completed": 0,
+      "parts": 0,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 0,
+      "parts": 0,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 10,
+      "parts": 0,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 10,
+      "parts": 1,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 10,
+      "parts": 1,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 494,
+      "parts": 1,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 563,
+      "parts": 1,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 563,
+      "parts": 2,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 563,
+      "parts": 2,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 912,
+      "parts": 2,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 1405,
+      "parts": 2,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 1405,
+      "parts": 3,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 1405,
+      "parts": 3,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 1752,
+      "parts": 3,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 1752,
+      "parts": 4,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 1752,
+      "parts": 4,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 2222,
+      "parts": 4,
+      "total": 2574,
+      "totalParts": 5
+    },
+    {
+      "completed": 2574,
+      "parts": 4,
+      "total": 2574,
+      "totalParts": 5
+    }
+  ],
+  "recognitionSeconds": 0.18617620832810644,
+  "translationSeconds": 18.193494166655,
+  "coreTests": 340,
+  "coreSkipped": 3,
+  "macIntegrationTests": 2,
+  "preferencesUnchangedAfterTests": true,
+  "installation": {
+    "installed": true,
+    "version": "0.6.8",
+    "build": "61",
+    "identity": "mac-17491f3ca1f33c1e",
+    "matching_designated_requirement": true,
+    "app_entries_matched": 25177,
+    "old_app_entries_matched": 25177,
+    "data_entries_unchanged": 2122,
+    "data_bytes": 18670059955,
+    "preferences_unchanged_before_launch": true,
+    "rollback_retained": true
+  },
+  "launch": {
+    "running_from_applications": true,
+    "saved_preference_values_unchanged": true,
+    "all_preference_values_equal": true,
+    "added_preference_keys": []
+  }
+}

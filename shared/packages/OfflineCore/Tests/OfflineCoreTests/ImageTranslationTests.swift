@@ -2,9 +2,14 @@ import XCTest
 @testable import OfflineCore
 
 private actor CameraMT: TranslationBackend {
+    var progressCallback: (@Sendable (TranslationProgress) -> Void)?
+    func emitProgress(_ value: TranslationProgress) { progressCallback?(value) }
+    var holdEveryRequest = false
+    func holdRequests() { holdEveryRequest = true }
     var partial: (@Sendable (String) -> Void)?
     func emitPartial(_ text: String) { partial?(text) }
     func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void, partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult {
+        self.progressCallback = progress
         self.partial = partial
         return try await translate(text: text, source: source, target: target)
     }
@@ -18,7 +23,7 @@ private actor CameraMT: TranslationBackend {
     func load(modelURL: URL, model: TranslationModel) async throws { models.append(model) }
     func translate(text: String, source: SpeechLanguage, target: SpeechLanguage) async throws -> TranslationResult {
         inputs.append(source.rawValue + ":" + text); targets.append(target)
-        if shouldWait { return try await withCheckedThrowingContinuation { pending = $0 } }
+        if shouldWait || holdEveryRequest { return try await withCheckedThrowingContinuation { pending = $0 } }
         return TranslationResult(text: "translated " + text, firstTokenSeconds: nil, processingSeconds: 0.25, fragments: 1)
     }
     func finish() { shouldWait = false; pending?.resume(returning: TranslationResult(text: "old translation", firstTokenSeconds: nil, processingSeconds: 0.25, fragments: 1)); pending = nil }
@@ -27,6 +32,44 @@ private actor CameraMT: TranslationBackend {
     func unload() async { unloaded = true }
 }
 @MainActor final class ImageTranslationTests: XCTestCase {
+    func testWholeImageProgressSurvivesLocalChunkResetsAndCachedBlocks() async throws {
+        let backend = CameraMT(); await backend.holdRequests()
+        let session = ImageTranslationSession(backend: backend)
+        await session.prepare(URL(fileURLWithPath: "/fixture"))
+        session.submit([block("aaaa"), block("bbbbbbbbbbbb", x: 0.5)], source: .english, target: .russian)
+        while !(await backend.waiting) { await Task.yield() }
+        XCTAssertEqual(session.progress?.totalCharacters, 16)
+        XCTAssertEqual(session.progress?.totalParts, 2)
+        await backend.emitProgress(.init(completedCharacters: 2, totalCharacters: 4, completedParts: 1, totalParts: 2, revision: 1))
+        for _ in 0..<20 { await Task.yield() }
+        XCTAssertEqual(session.progress?.completedCharacters, 2)
+        XCTAssertEqual(session.progress?.completedParts, 0, "Inner chunks are not image blocks")
+        await backend.finish()
+        while await backend.inputs.count < 2 { await Task.yield() }
+        XCTAssertEqual(session.progress?.completedCharacters, 4, "Do not hide progress between blocks")
+        await backend.emitProgress(.init(completedCharacters: 0, totalCharacters: 12, completedParts: 0, totalParts: 1, revision: 0))
+        for _ in 0..<20 { await Task.yield() }
+        XCTAssertEqual(session.progress?.completedCharacters, 4, "Next local request must not reset global progress")
+        XCTAssertEqual(session.progress?.completedParts, 1)
+        await backend.emitProgress(.init(completedCharacters: 6, totalCharacters: 12, completedParts: 1, totalParts: 2, revision: 1))
+        for _ in 0..<20 { await Task.yield() }
+        XCTAssertEqual(session.progress?.completedCharacters, 10)
+        await backend.emitProgress(.init(completedCharacters: 0, totalCharacters: 12, completedParts: 0, totalParts: 3, revision: 2))
+        for _ in 0..<20 { await Task.yield() }
+        XCTAssertEqual(session.progress?.completedCharacters, 10, "Retries must not rewind progress")
+        await backend.finish(); await session.waitForIdle()
+        XCTAssertTrue(session.complete)
+        session.submit([block("aaaa"), block("cccccccccccc", x: 0.5)], source: .english, target: .russian)
+        while !(await backend.waiting) { await Task.yield() }
+        XCTAssertEqual(session.progress?.completedCharacters, 4, "Cached work counts immediately")
+        XCTAssertEqual(session.progress?.totalCharacters, 16)
+        session.clearScene()
+        await backend.emitProgress(.init(completedCharacters: 12, totalCharacters: 12, completedParts: 1, totalParts: 1, revision: 1))
+        for _ in 0..<20 { await Task.yield() }
+        XCTAssertNil(session.progress, "Old callbacks must not revive a cleared scene")
+        await backend.finish(); await session.waitForIdle(); await session.close()
+    }
+
     func testImagePartialsNeverBecomeCompletedOrCachedAndIgnoreLateCallbacks() async {
         let backend = CameraMT()
         let active = ImageTranslationSession(backend: backend)

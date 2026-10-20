@@ -70,6 +70,7 @@ public struct TranslatedImageBlock: Sendable {
         timing = nil; self.recognitionSeconds = recognitionSeconds; translationSeconds = 0
         self.blocks = blocks.filter { !$0.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && $0.box.width > 0 && $0.box.height > 0 }
         self.source = source; self.target = target ?? source.opposite; error = nil; publish()
+        updateProgress()
         startIfNeeded()
     }
     private func publish() {
@@ -79,6 +80,24 @@ public struct TranslatedImageBlock: Sendable {
         }
         complete = !blocks.isEmpty && translated.count == blocks.count
         timing = complete ? TranslationTiming(recognitionSeconds: recognitionSeconds, translationSeconds: translationSeconds) : nil
+    }
+    /// Parts are OCR blocks; backend chunks contribute only within their block's character weight.
+    /// Keep one scene-wide denominator even when the backend retries or starts a new request.
+    private func updateProgress(activeText: String? = nil, local: TranslationProgress? = nil) {
+        guard !blocks.isEmpty, !complete else { progress = nil; return }
+        var completed = 0, finished = 0
+        let total = blocks.reduce(0) { $0 + $1.text.count }
+        for block in blocks {
+            if cache[key(block.text, source, target)] != nil {
+                completed += block.text.count; finished += 1
+            } else if block.text == activeText, let local {
+                completed += Int(Double(block.text.count) * min(1, max(0, local.fraction)))
+            }
+        }
+        progress = TranslationProgress(
+            completedCharacters: min(total, max(progress?.completedCharacters ?? 0, completed)),
+            totalCharacters: total, completedParts: finished, totalParts: blocks.count,
+            revision: (progress?.revision ?? 0) + 1)
     }
     private func startIfNeeded() {
         guard job == nil, ready, !complete, !blocks.isEmpty else { return }
@@ -94,7 +113,7 @@ public struct TranslatedImageBlock: Sendable {
                     let result = try await backend.translate(text: block.text, source: language, target: destination, progress: { [weak self] value in
                         Task { @MainActor [weak self] in
                             guard let self, self.generation == id, self.scene == requestScene, self.partialRequest == request else { return }
-                            self.progress = value
+                            self.updateProgress(activeText: block.text, local: value)
                         }
                     }, partial: { [weak self] text in
                         Task { @MainActor [weak self] in
@@ -102,7 +121,7 @@ public struct TranslatedImageBlock: Sendable {
                             self.partialTranslation = TranslatedImageBlock(original: block.text, translation: text, box: block.box)
                         }
                     })
-                    partialRequest = nil; partialTranslation = nil; progress = nil
+                    partialRequest = nil; partialTranslation = nil
                     try Task.checkCancellation(); guard id == generation else { return }
                     guard !result.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { throw PipelineError.inference }
                     if requestScene == scene { translationSeconds += max(0, result.processingSeconds) }
@@ -112,6 +131,7 @@ public struct TranslatedImageBlock: Sendable {
                         cache[victim] = nil; order.removeAll { $0 == victim }
                     }
                     publish()
+                    updateProgress()
                 }
             } catch is CancellationError {} catch { if id == generation { self.error = error.localizedDescription } }
         }

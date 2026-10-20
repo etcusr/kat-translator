@@ -3,6 +3,7 @@ import SwiftUI
 import AppKit
 import AVFoundation
 import Vision
+import Combine
 import OfflineCore
 @testable import Kat_translator
 
@@ -621,6 +622,62 @@ final class MacRuntimeTests: XCTestCase {
         await model.clear()
         XCTAssertNil(model.image); XCTAssertFalse(model.translation.complete); XCTAssertTrue(model.translation.translated.isEmpty)
         await history.refresh(); XCTAssertEqual(history.entries.count, 1, "Clear removes current view only")
+        await model.close()
+    }
+
+    @MainActor func testPrivateImageWholeProgress() async throws {
+        guard let path = ProcessInfo.processInfo.environment["KAT_IMAGE_PROGRESS_FIXTURE"] else {
+            throw XCTSkip("Set KAT_IMAGE_PROGRESS_FIXTURE to run real OCR/Index image progress validation")
+        }
+        let packages = PackageDownloadCoordinator.shared
+        await packages.restore()
+        let previousModel = packages.selectedTranslation
+        let previousPreference = UserDefaults.standard.object(forKey: "selectedTranslationModel")
+        let previousChunks = UserDefaults.standard.object(forKey: "macExperimentalTranslationChunks")
+        packages.selectTranslation(.index9B)
+        UserDefaults.standard.set(true, forKey: "macExperimentalTranslationChunks")
+        defer {
+            packages.selectTranslation(previousModel)
+            if let previousPreference { UserDefaults.standard.set(previousPreference, forKey: "selectedTranslationModel") }
+            else { UserDefaults.standard.removeObject(forKey: "selectedTranslationModel") }
+            if let previousChunks { UserDefaults.standard.set(previousChunks, forKey: "macExperimentalTranslationChunks") }
+            else { UserDefaults.standard.removeObject(forKey: "macExperimentalTranslationChunks") }
+        }
+        let model = CameraModel(packages: packages)
+        model.source = .russian; model.target = .english
+        var events: [TranslationProgress?] = []
+        let observation = model.translation.$progress.sink { events.append($0) }
+        defer { observation.cancel() }
+        await model.open(modelURL: try XCTUnwrap(packages.translationURL(for: .index9B)))
+        model.importData(try Data(contentsOf: URL(fileURLWithPath: path)))
+        let deadline = Date().addingTimeInterval(180)
+        while (model.recognizing || model.translation.working) && Date() < deadline {
+            try await Task.sleep(for: .milliseconds(100))
+        }
+        XCTAssertNil(model.error); XCTAssertNil(model.translation.error)
+        XCTAssertTrue(model.translation.complete)
+        let values = events.compactMap { $0 }
+        let first = try XCTUnwrap(events.firstIndex(where: { $0 != nil }))
+        let last = try XCTUnwrap(events.lastIndex(where: { $0 != nil }))
+        XCTAssertFalse(events[first...last].contains(where: { $0 == nil }), "Progress must not disappear between OCR blocks")
+        XCTAssertGreaterThan(try XCTUnwrap(values.first).totalParts, 1)
+        XCTAssertEqual(Set(values.map(\.totalParts)).count, 1)
+        XCTAssertEqual(Set(values.map(\.totalCharacters)).count, 1)
+        for (before, after) in zip(values, values.dropFirst()) {
+            XCTAssertGreaterThanOrEqual(after.completedCharacters, before.completedCharacters)
+        }
+        XCTAssertEqual(values.first?.totalParts, model.translation.translated.count)
+        if let output = ProcessInfo.processInfo.environment["KAT_IMAGE_PROGRESS_REPORT"] {
+            let report: [String: Any] = [
+                "complete": model.translation.complete,
+                "blocks": model.translation.translated.count,
+                "blockCharacters": model.translation.translated.map { $0.original.count },
+                "progress": values.map { ["completed": $0.completedCharacters, "total": $0.totalCharacters, "parts": $0.completedParts, "totalParts": $0.totalParts] },
+                "recognitionSeconds": model.translation.timing?.recognitionSeconds ?? 0,
+                "translationSeconds": model.translation.timing?.translationSeconds ?? 0
+            ]
+            try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]).write(to: URL(fileURLWithPath: output))
+        }
         await model.close()
     }
 
