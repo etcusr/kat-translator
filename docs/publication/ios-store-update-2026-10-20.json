@@ -414,7 +414,7 @@
   "upload_result": "Upload succeeded / EXPORT SUCCEEDED",
   "framework_metadata_checks": 70,
   "project_tests": 144,
-  "app_store_status": "Processing; iOS 1.0.1 draft metadata saved, build selection pending",
+  "app_store_status": "Processed; build 57 selected and reload-verified for iOS 1.0.1; Prepare for Submission",
   "source_parity": [
     {
       "kind": "archive",
@@ -440,5 +440,8 @@
     "pages_deployment": "https://github.com/etcusr/kat-translator/actions/runs/39464925943",
     "pages_status": "success",
     "public_site_bytes_match": true
-  }
+  },
+  "testflight_build_status": "Ready to Submit",
+  "review_submitted": false,
+  "release_mode": "manual"
 }

@@ -24,7 +24,7 @@ Created iOS version **1.0.1** in App Store Connect. EN/RU/ES/TR descriptions, pr
 
 Mac AI copy is prepared locally in `2026-10-14/macos/`; applying it after the current review/publication is an explicit bilingual BACKLOG item. The current Mac Store submission was left untouched.
 
-TestFlight lists **1.0.1 (57), Processing**; the version has no selectable build yet. All four iOS localizations were reopened and their four text fields exactly matched the prepared files. Manual release remains selected; no App Review submission or automatic release has been requested by this release task.
+Apple processing completed: TestFlight shows **1.0.1 (57), Ready to Submit**. Build **57** is selected and saved for iOS **1.0.1**; selection was verified after reloading the page. The version remains **Prepare for Submission**, with **Add for Review** available. All four iOS localizations were reopened and their four text fields exactly matched the prepared files. Manual release remains selected; no App Review submission or automatic release has been requested by this release task.
 
 Detailed package hashes/checks: [JSON](ios-store-update-2026-10-20.json). Signing/upload logs, full browser snapshots and device identifiers remain private under `.build/ios-store-2026-10-20/`.
 

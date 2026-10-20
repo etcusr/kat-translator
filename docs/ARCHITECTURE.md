@@ -2,7 +2,7 @@
 
 **English** | [Русский](ARCHITECTURE.ru.md)
 
-**iOS Store update, 20 October:** **1.0.1 (57)** was verified and uploaded, with progressive Index 9B Text/Voice output and improved download Live Activity updates. 144 repository checks and distribution-package validation passed; prior device retention/partial-text acceptance is documented separately. Version 1.0.1 is being prepared in App Store Connect, with AI descriptions and release notes in EN/RU/ES/TR. No new macOS Store upload; Mac metadata changes are deferred in BACKLOG. [Release evidence](publication/ios-store-update-2026-10-20.md).
+**iOS Store update, 20 October:** **1.0.1 (57)** was verified and uploaded, with progressive Index 9B Text/Voice output and improved download Live Activity updates. 144 repository checks and distribution-package validation passed; prior device retention/partial-text acceptance is documented separately. Build 57 is processed and selected for version 1.0.1 in App Store Connect, with saved AI descriptions and release notes in EN/RU/ES/TR. Status: Prepare for Submission; manual release, not submitted for review. No new macOS Store upload; Mac metadata changes are deferred in BACKLOG. [Release evidence](publication/ios-store-update-2026-10-20.md).
 
 **iOS partial presentation:** `AppModel` enables `ConversationPipeline.showsTranslationPartials` on iOS; the pipeline still gates it to Index 9B. `ConversationView` uses the same request-lifetime inline presentation as Mac for Text/Voice, suppresses the duplicate bottom Text action/progress, and reveals the result once on the first partial. Final/history fields remain separate. Camera and OPUS are unchanged. [Validation](publication/ios-partial-text-2026-10-20.md).
 
