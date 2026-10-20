@@ -4,6 +4,19 @@
 
 Deferred tasks, not completed changes or release promises.
 
+## Context-aware translation: latency and quality
+
+Research started 20 October 2026; **no production change**. A standalone Mac probe completed 320 synthetic EN→RU translations and 64 memory-generation calls. Short source dialogue improved disambiguation; generating a separate summary before each short translation increased latency and sometimes invented facts. Small-model grammar and fidelity remain limiting. [Method, results and next experiments](benchmarks/context-translation-2026-10-20/README.md).
+
+- [x] Compare current prompts, an instruction-only control, source dialogue, supplied memory and generated memory on the same native backend.
+- [x] Include memory-generation cost and manually inspect failure cases rather than equating pattern checks with translation quality.
+- [ ] Expand to independent dialogues, RU→EN and other languages; measure first complete sentence, full result, memory and thermal behavior on supported devices.
+- [ ] Prototype bounded source-context selection with explicit speaker/session boundaries and corrections; evaluate state reuse without changing the translation.
+- [ ] Compare any draft/verification approach against existing MTP2, including both models' memory and all inference costs.
+- [ ] If compact-model quality remains insufficient, evaluate dialogue-focused distillation/fine-tuning with separate held-out examples.
+
+Context routing, persistent memory, new decoding mechanisms and model training are proposals, not shipped features. Research does not change the builds submitted to App Review.
+
 ## Image translation: completeness, layout and speed
 
 Recorded 18 October 2026. **Deferred at the owner's request; no implementation started.**

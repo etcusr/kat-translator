@@ -1,0 +1,132 @@
+{
+  "scope": "Synthetic EN-RU contrastive probe; pattern checks are NOT general quality scores. Sequential model runs on same Mac/native backend, no MTP. No device or production MLX acceptance.",
+  "environment": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "cpu": "Apple M3 Pro",
+    "memory_bytes": 19327352832,
+    "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n",
+    "note": "Snapshot during probe, not per-request thermal control. Other desktop apps were not stopped."
+  },
+  "models": {
+    "2b": {
+      "metadata": {
+        "type": "metadata",
+        "model": "index-2b",
+        "model_sha256": "044b313d29342bd3b2c77cbb64023ca0d209bd9b3247763f9d162767ef2d746a",
+        "library_sha256": "9e71d5b5a499f13f7c3c35d36fdfcf3c2f82ed844c1517c11a152bf88b301170",
+        "fixture_sha256": "b5fa7addc56d7a84070410668f8c2a59c75261f6a84c793b05c499d5d62dd583",
+        "runner_sha256": "bc1d067d2e99f9f6e49ddea64d3f7db9ee30cc06a5bc0113046e7b147ec19086",
+        "load_seconds": 0.9326366669993149,
+        "backend": "Kat native llama.cpp / Metal; no MTP; not production Mac MLX",
+        "repeats": 2
+      },
+      "metrics": {
+        "baseline": {
+          "observations": 32,
+          "pattern_checks_passed": 18,
+          "median_total_seconds": 0.11601708349917317,
+          "median_translation_seconds": 0.11601708349917317,
+          "median_translation_first_token_seconds": 0.0619792505,
+          "median_prompt_tokens": 34.5,
+          "identical_translations_across_repeats": true
+        },
+        "prompt_control": {
+          "observations": 32,
+          "pattern_checks_passed": 18,
+          "median_total_seconds": 0.16273939600068843,
+          "median_translation_seconds": 0.16273939600068843,
+          "median_translation_first_token_seconds": 0.107309,
+          "median_prompt_tokens": 96.5,
+          "identical_translations_across_repeats": true
+        },
+        "dialogue": {
+          "observations": 32,
+          "pattern_checks_passed": 30,
+          "median_total_seconds": 0.20801500049856259,
+          "median_translation_seconds": 0.20801500049856259,
+          "median_translation_first_token_seconds": 0.11752800050000001,
+          "median_prompt_tokens": 114.0,
+          "identical_translations_across_repeats": true
+        },
+        "oracle_memory": {
+          "observations": 32,
+          "pattern_checks_passed": 26,
+          "median_total_seconds": 0.20489202049793676,
+          "median_translation_seconds": 0.20489202049793676,
+          "median_translation_first_token_seconds": 0.11692641649999999,
+          "median_prompt_tokens": 106.5,
+          "identical_translations_across_repeats": true
+        },
+        "generated_memory": {
+          "observations": 32,
+          "pattern_checks_passed": 28,
+          "median_total_seconds": 0.5788600004962063,
+          "median_translation_seconds": 0.2033652915051789,
+          "median_translation_first_token_seconds": 0.1173396045,
+          "median_prompt_tokens": 111.0,
+          "identical_translations_across_repeats": true
+        }
+      }
+    },
+    "9b": {
+      "metadata": {
+        "type": "metadata",
+        "model": "index-9b",
+        "model_sha256": "9cc6758b0007f4cbf42ea3400768cbff91ae74ef8d640e467158348426d33713",
+        "library_sha256": "9e71d5b5a499f13f7c3c35d36fdfcf3c2f82ed844c1517c11a152bf88b301170",
+        "fixture_sha256": "b5fa7addc56d7a84070410668f8c2a59c75261f6a84c793b05c499d5d62dd583",
+        "runner_sha256": "bc1d067d2e99f9f6e49ddea64d3f7db9ee30cc06a5bc0113046e7b147ec19086",
+        "load_seconds": 3.241927041002782,
+        "backend": "Kat native llama.cpp / Metal; no MTP; not production Mac MLX",
+        "repeats": 2
+      },
+      "metrics": {
+        "baseline": {
+          "observations": 32,
+          "pattern_checks_passed": 18,
+          "median_total_seconds": 0.46582527099963045,
+          "median_translation_seconds": 0.46582527099963045,
+          "median_translation_first_token_seconds": 0.26979004149999997,
+          "median_prompt_tokens": 34.5,
+          "identical_translations_across_repeats": true
+        },
+        "prompt_control": {
+          "observations": 32,
+          "pattern_checks_passed": 18,
+          "median_total_seconds": 0.7251334995089564,
+          "median_translation_seconds": 0.7251334995089564,
+          "median_translation_first_token_seconds": 0.46753116650000004,
+          "median_prompt_tokens": 96.5,
+          "identical_translations_across_repeats": true
+        },
+        "dialogue": {
+          "observations": 32,
+          "pattern_checks_passed": 32,
+          "median_total_seconds": 0.7922056664974662,
+          "median_translation_seconds": 0.7922056664974662,
+          "median_translation_first_token_seconds": 0.524984417,
+          "median_prompt_tokens": 114.0,
+          "identical_translations_across_repeats": true
+        },
+        "oracle_memory": {
+          "observations": 32,
+          "pattern_checks_passed": 32,
+          "median_total_seconds": 0.7948921455026721,
+          "median_translation_seconds": 0.7948921455026721,
+          "median_translation_first_token_seconds": 0.5225247915,
+          "median_prompt_tokens": 106.5,
+          "identical_translations_across_repeats": true
+        },
+        "generated_memory": {
+          "observations": 32,
+          "pattern_checks_passed": 32,
+          "median_total_seconds": 2.229231125493243,
+          "median_translation_seconds": 0.8059211250001681,
+          "median_translation_first_token_seconds": 0.5254106249999999,
+          "median_prompt_tokens": 113.5,
+          "identical_translations_across_repeats": true
+        }
+      }
+    }
+  }
+}

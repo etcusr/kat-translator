@@ -237,6 +237,10 @@ Result of the overnight fixes; details are in the test reports and the [layout](
 5. Index 2B on Android: in-app network download, full multilingual acceptance against 9B (only spot probes were done), devices without Tensor G4. Devices without ARMv8.2 dotprod/FP16 get a clear Index error instead of a crash — not tested on such a device.
 6. Final store/release builds, publisher/contacts, final materials and publication. [Preparation kit](publication/2026-10-12/README.md).
 
+## Context research, 20 October
+
+A standalone Mac/native-backend probe completed 320 synthetic EN→RU translations and 64 memory-generation calls. Two source turns improved context-sensitive choices. Median short-phrase translation with dialogue was 0.208 s for 2B and 0.792 s for 9B; automatic summarization raised total latency to 0.579/2.229 s and sometimes invented facts. Small-model quality is not equivalent to 9B. These are research results, not production MLX/MTP2, phone or end-to-end speech measurements; app behavior and review builds are unchanged. [Method, outputs and limits](benchmarks/context-translation-2026-10-20/README.md) · [next experiments](BACKLOG.md).
+
 ## How to read the history
 
 Priority: current code/catalogs and the version of a specific artifact → the test report of exactly that build → this overview → historical plans/READMEs. Code proves the implementation, not automatically a successful hardware test. `docs/CURRENT_STATE.md` contains accumulated history; new entries may supersede the conclusions of older ones. Test counts refer to a specific run.
