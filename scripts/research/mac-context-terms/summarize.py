@@ -19,14 +19,18 @@ for mode in modes:
  for metric in ['seconds','first_body_part_seconds','first_token_seconds','first_body_token_seconds','first_part_seconds','glossary_seconds']:
   values=[row.get(metric,0) for row in rows]
   result[metric]=dict(median=statistics.median(values),minimum=min(values),maximum=max(values),runs=values)
- if mode=='auto_terms':
+ if mode in ('auto_terms','fast_terms','focused_terms'):
   glossaries=[row['glossary'] for row in rows]
   result['glossary_entries']=[len(item['terms']) for item in glossaries]
   result['rejected_entries']=[item['rejected_entries'] for item in glossaries]
   result['glossary_prompt_tokens']=[item['prompt_tokens'] for item in glossaries]
   result['identical_glossaries']=len({json.dumps(item['terms'],sort_keys=True) for item in glossaries})==1
+  for metric in ['selection_seconds','first_token_seconds']:
+   values=[item.get(metric) for item in glossaries]
+   if all(value is not None for value in values):
+    result['glossary_'+metric]=dict(median=statistics.median(values),minimum=min(values),maximum=max(values),runs=values)
  result['prompt_tokens']=[item['prompt_tokens'] for item in rows[0]['trace']]
- result['term_counts']={term:[row['output'].casefold().count(term) for row in rows] for term in ['long-range drones','long-range aircraft','missiles','offensive','drone attack']}
+ result['term_counts']={term:[row['output'].casefold().count(term) for row in rows] for term in ['long-range drones','long-range aircraft','missiles','offensive','drone attack','raid','direct hits']}
  # Digits are compared separately from terminology; this is not a semantic score.
  result['figures_preserved']=[all(value in row['output'].replace(',','') for value in ['1015','16','250','300']) for row in rows]
  summary['modes'][mode]=result

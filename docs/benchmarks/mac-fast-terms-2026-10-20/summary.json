@@ -1,0 +1,484 @@
+{
+  "fixture_sha256": "466a9d66b26245cce3f710e958a299cea8171d2881bf75eebcfaa4a4bd11309e",
+  "load_seconds": 3.9360963340004673,
+  "planner_parity": {
+    "equal": true,
+    "pieces_per_block": [
+      1,
+      2,
+      2,
+      1,
+      2
+    ]
+  },
+  "modes": {
+    "plain": {
+      "runs": 3,
+      "identical_outputs": true,
+      "output_sha256": [
+        "a9514b1582e9e37317064651f713a9715bd55386b6064dae9c3f3e26a3227b55",
+        "a9514b1582e9e37317064651f713a9715bd55386b6064dae9c3f3e26a3227b55",
+        "a9514b1582e9e37317064651f713a9715bd55386b6064dae9c3f3e26a3227b55"
+      ],
+      "block_characters": [
+        10,
+        553,
+        842,
+        347,
+        822
+      ],
+      "pieces_per_block": [
+        1,
+        2,
+        2,
+        1,
+        2
+      ],
+      "seconds": {
+        "median": 16.897259125005803,
+        "minimum": 16.841959291996318,
+        "maximum": 17.439111457992112,
+        "runs": [
+          16.897259125005803,
+          17.439111457992112,
+          16.841959291996318
+        ]
+      },
+      "first_body_part_seconds": {
+        "median": 3.5065174999908777,
+        "minimum": 3.465068624995183,
+        "maximum": 3.518309708000743,
+        "runs": [
+          3.518309708000743,
+          3.5065174999908777,
+          3.465068624995183
+        ]
+      },
+      "first_token_seconds": {
+        "median": 0.32262000000628177,
+        "minimum": 0.32235649999347515,
+        "maximum": 0.323417707986664,
+        "runs": [
+          0.32262000000628177,
+          0.323417707986664,
+          0.32235649999347515
+        ]
+      },
+      "first_body_token_seconds": {
+        "median": 1.0530169579869835,
+        "minimum": 1.0471697920002043,
+        "maximum": 1.0676929999899585,
+        "runs": [
+          1.0676929999899585,
+          1.0530169579869835,
+          1.0471697920002043
+        ]
+      },
+      "first_part_seconds": {
+        "median": 0.38650458300253376,
+        "minimum": 0.3844327919941861,
+        "maximum": 0.3894251669989899,
+        "runs": [
+          0.3894251669989899,
+          0.38650458300253376,
+          0.3844327919941861
+        ]
+      },
+      "glossary_seconds": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0,
+        "runs": [
+          0,
+          0,
+          0
+        ]
+      },
+      "prompt_tokens": [
+        34,
+        155,
+        50,
+        125,
+        147,
+        111,
+        154,
+        124
+      ],
+      "term_counts": {
+        "long-range drones": [
+          1,
+          1,
+          1
+        ],
+        "long-range aircraft": [
+          1,
+          1,
+          1
+        ],
+        "missiles": [
+          1,
+          1,
+          1
+        ],
+        "offensive": [
+          1,
+          1,
+          1
+        ],
+        "drone attack": [
+          0,
+          0,
+          0
+        ],
+        "raid": [
+          0,
+          0,
+          0
+        ],
+        "direct hits": [
+          0,
+          0,
+          0
+        ]
+      },
+      "figures_preserved": [
+        true,
+        true,
+        true
+      ]
+    },
+    "auto_terms": {
+      "runs": 3,
+      "identical_outputs": true,
+      "output_sha256": [
+        "c5dede0bc5ab21fc8edca2c29e6f4fcaf6688a4c40b6f54ab979c8330c85886b",
+        "c5dede0bc5ab21fc8edca2c29e6f4fcaf6688a4c40b6f54ab979c8330c85886b",
+        "c5dede0bc5ab21fc8edca2c29e6f4fcaf6688a4c40b6f54ab979c8330c85886b"
+      ],
+      "block_characters": [
+        10,
+        553,
+        842,
+        347,
+        822
+      ],
+      "pieces_per_block": [
+        1,
+        2,
+        2,
+        1,
+        2
+      ],
+      "seconds": {
+        "median": 24.374568750004983,
+        "minimum": 24.17121324999607,
+        "maximum": 24.4482441250002,
+        "runs": [
+          24.374568750004983,
+          24.4482441250002,
+          24.17121324999607
+        ]
+      },
+      "first_body_part_seconds": {
+        "median": 10.38794204199803,
+        "minimum": 10.335761207999894,
+        "maximum": 10.456385375000536,
+        "runs": [
+          10.38794204199803,
+          10.456385375000536,
+          10.335761207999894
+        ]
+      },
+      "first_token_seconds": {
+        "median": 7.111770750008873,
+        "minimum": 7.062336666000192,
+        "maximum": 7.156567750018439,
+        "runs": [
+          7.111770750008873,
+          7.156567750018439,
+          7.062336666000192
+        ]
+      },
+      "first_body_token_seconds": {
+        "median": 7.96457929200551,
+        "minimum": 7.929148082999745,
+        "maximum": 8.026285625994205,
+        "runs": [
+          7.96457929200551,
+          8.026285625994205,
+          7.929148082999745
+        ]
+      },
+      "first_part_seconds": {
+        "median": 7.176171833008993,
+        "minimum": 7.124274874993716,
+        "maximum": 7.218761625001207,
+        "runs": [
+          7.176171833008993,
+          7.218761625001207,
+          7.124274874993716
+        ]
+      },
+      "glossary_seconds": {
+        "median": 6.779193916998338,
+        "minimum": 6.728071416990133,
+        "maximum": 6.825006125000073,
+        "runs": [
+          6.779193916998338,
+          6.825006125000073,
+          6.728071416990133
+        ]
+      },
+      "glossary_entries": [
+        9,
+        9,
+        9
+      ],
+      "rejected_entries": [
+        1,
+        1,
+        1
+      ],
+      "glossary_prompt_tokens": [
+        742,
+        742,
+        742
+      ],
+      "identical_glossaries": true,
+      "glossary_first_token_seconds": {
+        "median": 2.9072178339993116,
+        "minimum": 2.874948167009279,
+        "maximum": 2.9400225419958588,
+        "runs": [
+          2.874948167009279,
+          2.9400225419958588,
+          2.9072178339993116
+        ]
+      },
+      "prompt_tokens": [
+        59,
+        182,
+        50,
+        162,
+        147,
+        140,
+        207,
+        157
+      ],
+      "term_counts": {
+        "long-range drones": [
+          2,
+          2,
+          2
+        ],
+        "long-range aircraft": [
+          0,
+          0,
+          0
+        ],
+        "missiles": [
+          1,
+          1,
+          1
+        ],
+        "offensive": [
+          0,
+          0,
+          0
+        ],
+        "drone attack": [
+          0,
+          0,
+          0
+        ],
+        "raid": [
+          1,
+          1,
+          1
+        ],
+        "direct hits": [
+          0,
+          0,
+          0
+        ]
+      },
+      "figures_preserved": [
+        true,
+        true,
+        true
+      ]
+    },
+    "focused_terms": {
+      "runs": 3,
+      "identical_outputs": true,
+      "output_sha256": [
+        "01b220ca449d0eb9214c2324a81f4ac258cb39417269334b005e156ccb00aa4a",
+        "01b220ca449d0eb9214c2324a81f4ac258cb39417269334b005e156ccb00aa4a",
+        "01b220ca449d0eb9214c2324a81f4ac258cb39417269334b005e156ccb00aa4a"
+      ],
+      "block_characters": [
+        10,
+        553,
+        842,
+        347,
+        822
+      ],
+      "pieces_per_block": [
+        1,
+        2,
+        2,
+        1,
+        2
+      ],
+      "seconds": {
+        "median": 20.136419458009186,
+        "minimum": 19.99044354101352,
+        "maximum": 20.50657883399981,
+        "runs": [
+          19.99044354101352,
+          20.136419458009186,
+          20.50657883399981
+        ]
+      },
+      "first_body_part_seconds": {
+        "median": 5.5104362910060445,
+        "minimum": 5.494029709007009,
+        "maximum": 5.57827537500998,
+        "runs": [
+          5.5104362910060445,
+          5.57827537500998,
+          5.494029709007009
+        ]
+      },
+      "first_token_seconds": {
+        "median": 2.290650541006471,
+        "minimum": 2.275236417000997,
+        "maximum": 2.3563664170069387,
+        "runs": [
+          2.290650541006471,
+          2.3563664170069387,
+          2.275236417000997
+        ]
+      },
+      "first_body_token_seconds": {
+        "median": 3.133149499015417,
+        "minimum": 3.1151545839966275,
+        "maximum": 3.2068886250053765,
+        "runs": [
+          3.133149499015417,
+          3.2068886250053765,
+          3.1151545839966275
+        ]
+      },
+      "first_part_seconds": {
+        "median": 2.3533224160055397,
+        "minimum": 2.337225542010856,
+        "maximum": 2.4179622500087135,
+        "runs": [
+          2.3533224160055397,
+          2.4179622500087135,
+          2.337225542010856
+        ]
+      },
+      "glossary_seconds": {
+        "median": 1.9710511250013951,
+        "minimum": 1.9555611660034629,
+        "maximum": 2.026557999997749,
+        "runs": [
+          1.9710511250013951,
+          2.026557999997749,
+          1.9555611660034629
+        ]
+      },
+      "glossary_entries": [
+        7,
+        7,
+        7
+      ],
+      "rejected_entries": [
+        0,
+        0,
+        0
+      ],
+      "glossary_prompt_tokens": [
+        330,
+        330,
+        330
+      ],
+      "identical_glossaries": true,
+      "glossary_selection_seconds": {
+        "median": 0.03797766599745955,
+        "minimum": 0.03570341599697713,
+        "maximum": 0.04664308299834374,
+        "runs": [
+          0.04664308299834374,
+          0.03570341599697713,
+          0.03797766599745955
+        ]
+      },
+      "glossary_first_token_seconds": {
+        "median": 1.3558989159937482,
+        "minimum": 1.3509334999980638,
+        "maximum": 1.3961967909999657,
+        "runs": [
+          1.3558989159937482,
+          1.3961967909999657,
+          1.3509334999980638
+        ]
+      },
+      "prompt_tokens": [
+        34,
+        192,
+        73,
+        174,
+        179,
+        133,
+        189,
+        149
+      ],
+      "term_counts": {
+        "long-range drones": [
+          2,
+          2,
+          2
+        ],
+        "long-range aircraft": [
+          0,
+          0,
+          0
+        ],
+        "missiles": [
+          1,
+          1,
+          1
+        ],
+        "offensive": [
+          0,
+          0,
+          0
+        ],
+        "drone attack": [
+          0,
+          0,
+          0
+        ],
+        "raid": [
+          2,
+          2,
+          2
+        ],
+        "direct hits": [
+          1,
+          1,
+          1
+        ]
+      },
+      "figures_preserved": [
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "scope": "Single private RU\u2192EN image. Manual glossary preparation not timed. Automatic glossary regenerated from source for every request and included in total/first-part latency. Model load and full first pass excluded from warm medians; no OCR/UI/TTS latency claim."
+}

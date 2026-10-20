@@ -4,7 +4,7 @@ import SwiftUI
 @MainActor final class LabModel: ObservableObject {
     @Published var source = ""
     @Published var glossary = ""
-    @Published var automaticTerms = ""
+    @Published var automaticTerms: [String: String] = [:]
     @Published var selected = "plain"
     @Published var outputs: [String: String] = [:]
     @Published var metrics: [String: String] = [:]
@@ -35,18 +35,18 @@ import SwiftUI
     func probeIfRequested() {
         let args = CommandLine.arguments
         guard !probeStarted, let index = args.firstIndex(of: "--probe"), index+1 < args.count else { return }
-        probeStarted = true; probeURL = URL(fileURLWithPath: args[index+1]); selected = args.contains("--auto") ? "auto_terms" : "context_terms"
+        probeStarted = true; probeURL = URL(fileURLWithPath: args[index+1]); selected = args.contains("--focused") ? "focused_terms" : (args.contains("--fast") ? "fast_terms" : (args.contains("--auto") ? "auto_terms" : "context_terms"))
         translate()
     }
     private func acceptResult(_ row: [String: Any]) {
         guard let mode = row["mode"] as? String else { return }
         outputs[mode] = row["output"] as? String ?? ""
-        if let automatic = row["glossary"] as? [String: Any], let terms = automatic["terms"] as? [[String: Any]] { showTerms(terms) }
+        if let automatic = row["glossary"] as? [String: Any], let terms = automatic["terms"] as? [[String: Any]] { showTerms(terms, mode: mode) }
         metrics[mode] = String(format: "Первая содержательная часть: %.2f с • Всё: %.2f с", row["first_body_part_seconds"] as? Double ?? 0, row["seconds"] as? Double ?? 0)
-        if mode == "auto_terms" { metrics[mode, default: ""] += String(format: " • Сбор словаря: %.2f с (включён)", row["glossary_seconds"] as? Double ?? 0) }
+        if ["auto_terms", "fast_terms", "focused_terms"].contains(mode) { metrics[mode, default: ""] += String(format: " • Сбор словаря: %.2f с (включён)", row["glossary_seconds"] as? Double ?? 0) }
     }
-    private func showTerms(_ terms: [[String: Any]]) {
-        automaticTerms = terms.map { "\($0["source"] as? String ?? "") → \($0["target"] as? String ?? "")" }.joined(separator: "\n")
+    private func showTerms(_ terms: [[String: Any]], mode: String) {
+        automaticTerms[mode] = terms.isEmpty ? "Повторяющихся терминов не найдено" : terms.map { "\($0["source"] as? String ?? "") → \($0["target"] as? String ?? "")" }.joined(separator: "\n")
     }
     func stop() {
         generation = UUID()
@@ -66,7 +66,7 @@ import SwiftUI
             guard !blocks.isEmpty else { return }
             let payload: [String: Any] = ["mode": selected, "case": ["blocks": blocks, "glossary": terms]]
             busy = true; fraction = 0; outputs[selected] = ""; metrics[selected] = ""; status = "Перевожу…"
-            if selected == "auto_terms" { automaticTerms = "" }
+            if ["auto_terms", "fast_terms", "focused_terms"].contains(selected) { automaticTerms[selected] = "" }
             if process?.isRunning == true { try send(payload); return }
             request = payload; status = "Загружаю модель…"
             let child = Process(), stdin = Pipe(), stdout = Pipe()
@@ -105,7 +105,7 @@ import SwiftUI
                 if let request { do { try send(request); self.request = nil; status = "Перевожу…" } catch { busy = false; status = error.localizedDescription } }
             case "glossary_start": status = "Собираю словарь из исходного текста…"
             case "glossary":
-                if let terms = event["terms"] as? [[String: Any]] { showTerms(terms); status = "Найдено терминов: \(terms.count). Перевожу…" }
+                if let terms = event["terms"] as? [[String: Any]] { showTerms(terms, mode: selected); status = "Найдено терминов: \(terms.count). Перевожу…" }
             case "partial":
                 outputs[selected] = event["output"] as? String ?? ""
                 fraction = (event["completed"] as? Double ?? 0) / max(1, event["total"] as? Double ?? 1)
@@ -138,9 +138,11 @@ struct LabView: View {
                     Text("Контекст + термины").tag("context_terms")
                     Text("Ручной словарь").tag("terms")
                     Text("Автословарь").tag("auto_terms")
-                }.pickerStyle(.segmented).frame(width: 800).disabled(model.busy)
+                    Text("Быстрый · узкий").tag("fast_terms")
+                    Text("Быстрый · расширенный").tag("focused_terms")
+                }.pickerStyle(.menu).frame(width: 360).disabled(model.busy)
             }
-            Text("Исследовательская сборка. Автословарь создаётся из исходника заново; его подготовка включена во время. Ошибки терминов возможны.").font(.caption).foregroundStyle(.secondary)
+            Text("Исследовательская сборка. Автословари создаются из исходника заново; подготовка включена во время. Быстрый режим отбирает меньше терминов. Ошибки возможны.").font(.caption).foregroundStyle(.secondary)
             HStack {
                 Button("Перевести") { model.translate() }.disabled(model.busy)
                 Button("Отмена / выгрузить") { model.stop() }
@@ -153,12 +155,12 @@ struct LabView: View {
                 VStack(alignment: .leading) { Text("Исходник • пустая строка разделяет OCR-блоки").font(.caption); TextEditor(text: $model.source).disabled(model.busy) }
                 VStack(alignment: .leading) { Text("Перевод • сравните режимы переключателем").font(.caption); TextEditor(text: Binding(get: {model.outputs[model.selected] ?? ""}, set: {_ in})) }
             }
-            if model.selected == "auto_terms" {
-                DisclosureGroup("Автоматически найденные термины") { ScrollView { Text(model.automaticTerms.isEmpty ? "Словарь появится после анализа текста" : model.automaticTerms).textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading) }.frame(height: 150) }
+            if ["auto_terms", "fast_terms", "focused_terms"].contains(model.selected) {
+                DisclosureGroup("Автоматически найденные термины") { ScrollView { Text((model.automaticTerms[model.selected] ?? "").isEmpty ? "Словарь появится после анализа текста" : (model.automaticTerms[model.selected] ?? "")).textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading) }.frame(height: 150) }
             } else if model.selected == "terms" || model.selected == "context_terms" {
                 DisclosureGroup("Ручной словарь — JSON, редактируемый") { TextEditor(text: $model.glossary).font(.system(size: 12, design: .monospaced)).frame(height: 170).disabled(model.busy) }
             }
-        }.padding(18).frame(minWidth: 1200, minHeight: 650).preferredColorScheme(.dark)
+        }.padding(18).frame(minWidth: 1050, minHeight: 650).preferredColorScheme(.dark)
         .onAppear { model.probeIfRequested() }
         .onDisappear { model.stop() }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.willTerminateNotification)) { _ in model.stop() }

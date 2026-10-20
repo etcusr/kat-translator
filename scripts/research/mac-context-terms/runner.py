@@ -16,7 +16,7 @@ from auto_glossary import build_glossary, occurrences
 ROOT = Path(__file__).resolve().parents[3]
 SUFFIX = '<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n'
 BASE = '<|im_start|>user\n请将以下文本翻译为英语，直接输出翻译结果，不要进行任何解释。\n\n'
-MODES = ('plain', 'context', 'context_terms', 'terms', 'auto_terms')
+MODES = ('plain', 'context', 'context_terms', 'terms', 'auto_terms', 'fast_terms', 'focused_terms')
 
 
 def plan(text, count, limit=128):
@@ -74,9 +74,13 @@ class Experiment:
         start = time.perf_counter()
         blocks = case['blocks']
         automatic = None
-        if mode == 'auto_terms':
+        if mode in ('auto_terms', 'fast_terms', 'focused_terms'):
             emit(dict(event='glossary_start'))
-            automatic = build_glossary(self.engine, blocks)
+            if mode in ('fast_terms','focused_terms'):
+                from fast_glossary import build_fast_glossary
+                automatic = build_fast_glossary(self.engine, blocks, include_nouns=mode=='focused_terms')
+            else:
+                automatic = build_glossary(self.engine, blocks)
             glossary = automatic['terms']
             emit(dict(event='glossary', terms=glossary, seconds=automatic['seconds'], rejected=automatic['rejected_entries']))
         else:
@@ -89,7 +93,7 @@ class Experiment:
             translated, separator = '', ' '
             for pi, piece in enumerate(pieces):
                 text = piece.strip()
-                prefix, text, suffix = prompt('terms' if mode == 'auto_terms' else mode, text, previous, glossary)
+                prefix, text, suffix = prompt('terms' if mode in ('auto_terms', 'fast_terms', 'focused_terms') else mode, text, previous, glossary)
                 prompt_tokens = self.engine.count(prefix, text, suffix)
                 if prompt_tokens > 1024:
                     raise ValueError('Context exceeds experiment budget; no silent fallback')

@@ -1,0 +1,28 @@
+{
+  "adapter_tests": 22,
+  "docs_parity_tests": 2,
+  "swift_planner_exact_parity": {
+    "equal": true,
+    "pieces_per_block": [
+      1,
+      2,
+      2,
+      1,
+      2
+    ]
+  },
+  "sparse_phase_requests": 16,
+  "focused_phase_requests": 12,
+  "all_measured_translations": 21,
+  "warmup_translations": 7,
+  "app_bridge_mode": "focused_terms",
+  "app_bridge_matches_benchmark": true,
+  "app_bridge_glossary_matches_benchmark": true,
+  "app_bridge_seconds": 21.0710097909905,
+  "main_app_preferences_unchanged": true,
+  "lab_signature_verified": true,
+  "native_ui_automation": false,
+  "production_changed": false,
+  "model_and_runtime_hashes_match_previous": true,
+  "installed_main_version": "0.6.8 (61)"
+}

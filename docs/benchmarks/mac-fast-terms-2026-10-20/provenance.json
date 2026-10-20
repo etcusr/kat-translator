@@ -1,0 +1,47 @@
+{
+  "model_files": {
+    "config.json": {
+      "size": 2741,
+      "sha256": "fa8a56873cf965eaabbca9a142cec6ff0e8c5ddac3dace954d66e0db3028cb72"
+    },
+    "generation_config.json": {
+      "size": 100,
+      "sha256": "5b2e05bd687ce6eb52f8beff6d9dc98a0fb1e02ce8898062869218d17264220f"
+    },
+    "model.safetensors": {
+      "size": 5223280226,
+      "sha256": "cdd9bfb2fa7471edb8616b4cb42c2b68bc3b502e5dbde1ba21d8fa9c584ebd05"
+    },
+    "model.safetensors.index.json": {
+      "size": 83549,
+      "sha256": "3aa3d264edc9d049fe09c5fba0043cb1f348a52d6141b92f399c0bb9111d8cd7"
+    },
+    "receipt.json": {
+      "size": 1080,
+      "sha256": "3bbbc2ed349d3fb4dd968cc1e2ed37f4eac39aaf1257ff11050a004e1052249f"
+    },
+    "tokenizer.json": {
+      "size": 19989325,
+      "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523"
+    },
+    "tokenizer_config.json": {
+      "size": 1164,
+      "sha256": "a778ef4fe2a8be4e55782abdaa66dcf66ba7e96828940150607264420fb3a7cf"
+    }
+  },
+  "runtime_sha256": "30db6e4b3695a5faaeb263a17574cbc991389a08fc28d38c41ed55831f1a6179",
+  "source_planner_sha256": "7e9b4953a0e4b5975402d1d5a585e935c4cbf3ba572e892d3560921236f53ee0",
+  "fast_selector_sha256": "80a05e2d672e2f500ef76e2cf700ca59caa223b697f5480dbabb5ee63705816a",
+  "runner_sha256": "cb9d544377140bcbd2e6b4d14a357697cb4f45e37cf1d1c4245194756a86404a",
+  "sparse_phase_source_sha256": {
+    "fast_glossary.py": "39aa52d5bfa99f2062667778cb6d11d8cc24559f7ca7a45bc53418e7d901bb93",
+    "runner.py": "431bf0a5af6e370fc00c3a4a6a91b1d8167401ce2d176c806198cd45e400ce18",
+    "auto_glossary.py": "387c5b020da3cdab45ce16bf9a56816c367f6532c30c0d9b54ddf51d987cc75c"
+  },
+  "dependencies": {
+    "pymorphy3": "2.0.6",
+    "DAWG2-Python": "0.9.0",
+    "yake": "0.7.3",
+    "pymorphy3-dicts-ru": "2.4.417150.4580142"
+  }
+}
