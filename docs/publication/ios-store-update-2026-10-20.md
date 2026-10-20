@@ -27,3 +27,7 @@ Mac AI copy is prepared locally in `2026-10-14/macos/`; applying it after the cu
 TestFlight lists **1.0.1 (57), Processing**; the version has no selectable build yet. All four iOS localizations were reopened and their four text fields exactly matched the prepared files. Manual release remains selected; no App Review submission or automatic release has been requested by this release task.
 
 Detailed package hashes/checks: [JSON](ios-store-update-2026-10-20.json). Signing/upload logs, full browser snapshots and device identifiers remain private under `.build/ios-store-2026-10-20/`.
+
+## Source publication
+
+Release commit `2795c25` was pushed to `origin/main`; the remote SHA was verified. GitHub Pages [deployment](https://github.com/etcusr/kat-translator/actions/runs/39464925943) succeeded. The public page at https://etcusr.github.io/kat-translator/ matches committed `site/index.html` byte for byte (SHA-256 `f8ee23b8c2398f06b96a1cc2b4cce13f481067dd2f15917858b11a9e44016f4c`). Unfinished files from other experiments were not staged.

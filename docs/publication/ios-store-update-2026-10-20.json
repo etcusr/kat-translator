@@ -433,5 +433,12 @@
     "es-ES",
     "tr"
   ],
-  "missing_third_party_dsym_warnings": 70
+  "missing_third_party_dsym_warnings": 70,
+  "source_publication": {
+    "release_commit": "2795c25af133b99b103760e2d55cee4308d0913e",
+    "remote_verified": true,
+    "pages_deployment": "https://github.com/etcusr/kat-translator/actions/runs/39464925943",
+    "pages_status": "success",
+    "public_site_bytes_match": true
+  }
 }
