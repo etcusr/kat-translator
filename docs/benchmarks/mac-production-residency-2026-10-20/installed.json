@@ -1,0 +1,26 @@
+{
+  "installed": true,
+  "version": "0.6.8",
+  "build": "61",
+  "identity": "mac-c1e1bb101392ada8",
+  "matching_designated_requirement": true,
+  "app_entries_matched": 25206,
+  "old_app_entries_matched": 25206,
+  "data_entries_unchanged": 2117,
+  "data_bytes": 18664790312,
+  "preferences_unchanged_before_launch": true,
+  "rollback_retained": true,
+  "launch": {
+    "running_from_applications": true,
+    "saved_preference_values_unchanged": true,
+    "all_preference_values_equal": true,
+    "added_preference_keys": []
+  },
+  "bundle_audit": {
+    "machOFiles": 161,
+    "minimumMacOS": "27.0",
+    "externalNonSystemDependencies": [],
+    "externalNonSystemRPaths": [],
+    "librariesExceedingMinimumMacOS": []
+  }
+}
