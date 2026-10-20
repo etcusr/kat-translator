@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-20",
+  "platform": "iOS",
+  "version": "1.0.1",
+  "build": "57",
+  "status": "Developer Rejected",
+  "changed_fields": [
+    "description",
+    "keywords"
+  ],
+  "verification": "Reloaded App Store Connect, reopened all four localizations and compared DOM field values exactly with repository files.",
+  "localizations": [
+    {
+      "locale": "en",
+      "fields": {
+        "description": true,
+        "keywords": true,
+        "promotionalText": true,
+        "whatsNew": true
+      },
+      "reviewCancelled": true
+    },
+    {
+      "locale": "ru",
+      "fields": {
+        "description": true,
+        "keywords": true,
+        "promotionalText": true,
+        "whatsNew": true
+      },
+      "reviewCancelled": true
+    },
+    {
+      "locale": "es",
+      "fields": {
+        "description": true,
+        "keywords": true,
+        "promotionalText": true,
+        "whatsNew": true
+      },
+      "reviewCancelled": true
+    },
+    {
+      "locale": "tr",
+      "fields": {
+        "description": true,
+        "keywords": true,
+        "promotionalText": true,
+        "whatsNew": true
+      },
+      "reviewCancelled": true
+    }
+  ],
+  "name_subtitle": "Not edited",
+  "macos": "Not edited",
+  "review_submitted": false,
+  "release_mode": "Manual; unchanged",
+  "limitations": [
+    "No keyword search-volume or ranking measurement.",
+    "No independent native-speaker review.",
+    "Saved draft metadata is not a published App Store update."
+  ],
+  "local_changed_fields": [
+    "docs/publication/2026-10-14/ios/en/description.txt",
+    "docs/publication/2026-10-14/ios/en/keywords.txt",
+    "docs/publication/2026-10-14/ios/es/description.txt",
+    "docs/publication/2026-10-14/ios/es/keywords.txt",
+    "docs/publication/2026-10-14/ios/ru/description.txt",
+    "docs/publication/2026-10-14/ios/ru/keywords.txt",
+    "docs/publication/2026-10-14/ios/tr/description.txt",
+    "docs/publication/2026-10-14/ios/tr/keywords.txt"
+  ],
+  "other_store_copy_unchanged": true,
+  "keyword_utf8_bytes": {
+    "en": 83,
+    "ru": 84,
+    "es": 91,
+    "tr": 83
+  }
+}

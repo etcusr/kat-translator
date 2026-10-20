@@ -1,1 +1,1 @@
-ai,çeviri,çevirmen,çevrimdışı,ses,metin,fotoğraf,dil,seyahat
+çeviri,çevirmen,ingilizce,türkçe,rusça,kamera,internetsiz,yapay zekâ,telaffuz

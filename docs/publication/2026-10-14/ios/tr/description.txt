@@ -1,15 +1,22 @@
-Kat translator, cihazınızda çalışan yapay zekâ modelleriyle konuşmaları, metinleri ve görsellerdeki yazıları çevirir. Dillerinizi seçin, gerekli modelleri indirin ve internet bağlantısı olmadan çeviri yapın.
+Kat translator konuşmaları, metinleri ve fotoğraflardaki yazıları çevrimdışı çevirir. İhtiyacınız olan modelleri önceden indirin; seyahatte, işte veya internet bağlantısı olmayan yerlerde çeviri yapın. Yapay zekâ modelleri çeviriyi doğrudan cihazınızda gerçekleştirir.
 
-Çeviri almak için bir cümle kaydedin veya metin yazın. Desteklenen dillerde sonucu dinlemek için bir ses paketi indirin. Sonuçları kopyalayabilir ve cihazınızın paylaşım seçenekleriyle paylaşabilirsiniz.
+SESLİ ÇEVİRİ
+Bir cümle kaydedin, kaydı durdurun ve çevirisini alın. Desteklenen dillerde sonucu dinlemek için bir ses paketi indirin.
 
-Kamerayı kullanın veya fotoğraf arşivinizden bir görsel seçin. Kat, desteklenen yazıları tanır ve çeviriyi görsel üzerinde gösterir.
+METİN ÇEVİRİSİ
+Bir mesaj yazın veya yapıştırın, hedef dili seçin ve sonucu kopyalayın. Dil araması ve favoriler, istediğiniz dil çiftini bulmanıza yardımcı olur.
 
-Otomatik mod, cihazınıza ve çeviri yönüne göre yüklü bir model seçer. Küçük OPUS paketleri belirli çeviri yönlerini kapsar. Index 2B ve 9B daha fazla metin dili sunar ve farklı miktarda bellek gerektirir. İndirilebilen paketler uygulamada belirtilir. Ses paketleri ayrı indirilir.
+KAMERA VE FOTOĞRAF ÇEVİRİSİ
+Kamerayı kullanın veya galerinizden bir görsel seçin. Kat menülerdeki, tabelalardaki ve diğer görsellerdeki yazıları tanır ve çeviriyi görselin üzerinde gösterir.
 
-Çevirileri yerel geçmişte saklayın; metinlerin, seslerin ve görsellerin ne kadar süre tutulacağını seçin. Ayarlardan geçmişi kapatabilir veya silebilirsiniz.
+İHTİYACINIZA UYGUN MODELLER
+Daha az yer kaplayan kompakt modelleri veya farklı yeteneklere ve bellek gereksinimlerine sahip daha büyük modelleri seçin. Kullanılabilen diller, modeller ve sesler uygulamada listelenir. Otomatik mod, cihazınıza ve dil çiftine uygun yüklü bir model seçer.
 
-Çeviriler yerel modellerle cihazınızda işlenir. İlk modelleri ve ek paketleri indirmek için internet bağlantısı gerekir.
+YEREL GEÇMİŞ
+İhtiyacınız olan çevirileri cihazınızda saklamak için geçmişi etkinleştirin. Metin, ses veya görsellerden hangilerini saklayacağınızı seçin. Sonuçları kopyalayın ve sistemin paylaşım menüsüyle paylaşın.
 
-Ses girişi, seslendirme ve görsel tanıma desteği dile, modele ve cihaza bağlıdır. Paketler birkaç gigabayt yer kaplayabilir. Çeviriler hata içerebilir; önemli sayıları, adları ve bilgileri özgün metinle karşılaştırın.
+Modelleri ve sesleri indirmek için internet gerekir. Gerekli paketler indirildikten sonra desteklenen özellikler çevrimdışı çalışır. Tanıma ve sesli okuma desteği dile, modele ve cihaza bağlıdır. Paketler birkaç gigabayt yer kaplayabilir.
 
-Arayüz dilleri: Türkçe, İngilizce, Rusça ve İspanyolca.
+Arayüz Türkçe, İngilizce, Rusça ve İspanyolca olarak kullanılabilir.
+
+Çeviriler hata içerebilir. Önemli sayıları, adları ve koşulları orijinal metinle karşılaştırın.

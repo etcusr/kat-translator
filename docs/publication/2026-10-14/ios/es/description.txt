@@ -1,15 +1,22 @@
-Kat translator usa modelos de IA en tu dispositivo para traducir voz, texto y palabras en imágenes. Elige los idiomas, descarga los modelos necesarios y traduce sin conexión a internet.
+Kat translator traduce voz, texto y palabras en fotografías sin conexión. Descarga los modelos que necesitas antes de salir y traduce de viaje, en el trabajo o donde no haya internet. Los modelos de IA realizan la traducción directamente en tu dispositivo.
 
-Graba una frase o escribe un texto para obtener una traducción. Descarga una voz para escuchar el resultado en los idiomas compatibles. Copia y comparte las traducciones mediante las opciones del dispositivo.
+TRADUCCIÓN DE VOZ
+Graba una frase, detén la grabación y obtén la traducción. Descarga una voz para escuchar el resultado en los idiomas compatibles.
 
-Usa la cámara o selecciona una imagen de tu fototeca. Kat reconoce el texto compatible y muestra la traducción sobre la imagen.
+TRADUCCIÓN DE TEXTO
+Escribe o pega un mensaje, elige el idioma de destino y copia el resultado. La búsqueda de idiomas y los favoritos te ayudan a encontrar la combinación que necesitas.
 
-El modo Auto selecciona un modelo instalado según el dispositivo y la dirección de traducción. Los paquetes OPUS son compactos y cubren direcciones concretas. Index 2B y 9B ofrecen más idiomas de texto y requieren distinta cantidad de memoria. La app indica qué paquetes se pueden descargar. Las voces se descargan por separado.
+TRADUCCIÓN CON CÁMARA Y FOTOS
+Usa la cámara o elige una imagen de tu galería. Kat reconoce el texto de menús, carteles y otras imágenes y muestra la traducción sobre la imagen.
 
-Guarda las traducciones en el historial local y elige cuánto tiempo conservar textos, audios e imágenes. Puedes desactivar o borrar el historial desde los ajustes.
+MODELOS SEGÚN TUS NECESIDADES
+Elige modelos compactos que ocupan menos espacio o modelos más grandes con distintas capacidades y requisitos de memoria. Los idiomas, modelos y voces disponibles se indican en la app. El modo Auto elige un modelo instalado adecuado para tu dispositivo y la combinación de idiomas.
 
-Los modelos procesan las traducciones en el dispositivo. Necesitas internet para descargar los modelos iniciales y los paquetes adicionales.
+HISTORIAL LOCAL
+Activa el historial para guardar las traducciones que necesitas en tu dispositivo. Elige si quieres conservar texto, audio o imágenes. Copia los resultados y compártelos con el menú del sistema.
 
-La entrada de voz, la reproducción de voz y el reconocimiento de imágenes dependen del idioma, el modelo y el dispositivo. Los paquetes pueden ocupar varios gigabytes. Las traducciones pueden contener errores: comprueba los números, nombres y datos importantes con el original.
+Necesitas internet para descargar modelos y voces. Una vez descargados los paquetes necesarios, las funciones compatibles trabajan sin conexión. El reconocimiento y la reproducción de voz dependen del idioma, el modelo y el dispositivo. Los paquetes pueden ocupar varios gigabytes.
 
-Interfaz en español, inglés, ruso y turco.
+La interfaz está disponible en español, inglés, ruso y turco.
+
+Las traducciones pueden contener errores. Comprueba los números, nombres y condiciones importantes con el original.

@@ -1,1 +1,1 @@
-ai,ia,traductor,offline,voz,texto,fotos,idiomas,viajes
+traductor,cámara,inglés,español,ruso,turco,offline,pronunciación,privado,reconocimiento

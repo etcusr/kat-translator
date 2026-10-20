@@ -1,1 +1,1 @@
-ai,offline,speech,voice,text,photo,language,pronunciation,travel
+camera,ocr,english,russian,spanish,turkish,pronunciation,private,speech,recognition
