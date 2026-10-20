@@ -1,6 +1,6 @@
 # Optional automatic terminology glossary in the main Mac app
 
-20 October 2026. Local Release development build 0.6.8 (61), Apple Silicon M3 Pro. No installation over Applications, Store upload, submission or push.
+20 October 2026. Local Release development build 0.6.8 (61), Apple Silicon M3 Pro. Initial implementation validation did not replace Applications; the subsequent owner-requested installation is recorded below. No Store upload, submission or push.
 
 ## Behavior
 
@@ -47,3 +47,19 @@ One warmed request per setting on the existing synthetic `cooling` corpus docume
 | Glossary on | 3.19 s | 5.25 s | 12.60 s |
 
 Both outputs cover the input and retain the numerical readings, dates and warnings. The glossary version consistently uses “flow rate”; no broader quality conclusion follows from one document. The prepass still delays useful output. Earlier independent synthetic cases found mixed benefits and a terminology regression; [that report](../mac-glossary-corpus-2026-10-20/README.md) remains the relevant limitation. Semantic filtering, broader languages and default activation are deferred.
+
+## Installed update
+
+Later on 20 October, the verified product was installed at `/Applications/Kat translator.app`, preserving bundle identity `org.openoffline.translator.mac` and Application Support storage. Version remains **0.6.8 (61)**; source build identity is **mac-207575e16807ad2b**, implementing commit `7dd7d2a`. No rebuild or unrelated source changes were included.
+
+The application was not running at replacement time. A local APFS copy-on-write backup of the data/preferences and the previous app was retained under the ignored installation evidence directory. The incoming app was staged and compared with the verified source product before replacement. All **25,248** app files matched, and deep/strict signature verification passed. Before launching, all app data and the preference file matched the saved state exactly.
+
+A normal launch from the installed path succeeded and the process remained running after the data verification. Post-launch checks:
+
+- **2,121** data files before and after; no additions or removals.
+- **1,647** model files, including installed translation/recognition/voice packages, match SHA-256 exactly. No weights were downloaded or migrated.
+- **20** history files preserve their contents; existing preferences are semantically identical, including the glossary remaining off.
+- Of all data files, **1,679** remain byte-identical. The other **442** JSON files (440 download metadata, the transfer-state file and the history index) were reserialized at startup; parsed JSON is identical to the backup. This is not loss of history or model data.
+- Finder's `.DS_Store` changed independently during backup verification. Only that metadata filename is excluded; models, history and preferences are included in the checks.
+
+The updated app was left running for manual testing. This step verifies installation, ordinary launch and data retention, not a new live microphone/OCR or all-language acceptance run. The prior runtime tests above remain the functional evidence. Nothing was uploaded to App Store Connect.

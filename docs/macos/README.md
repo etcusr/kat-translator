@@ -2,6 +2,8 @@
 
 **English** | [Русский](README.ru.md)
 
+**Installed Mac update (20 October):** `/Applications/Kat translator.app` now contains the verified glossary build **0.6.8 (61)**, source ID **mac-207575e16807ad2b**. Ordinary launch succeeded from that path. All 1,647 model files retain their SHA-256 values, settings are unchanged, and all 20 history files retain their contents. The glossary remains off by default: Settings → Experimental → Automatic terminology glossary, Index 9B RU→EN only. The previous app and data snapshot are retained locally for rollback. No Store upload or push. [Installation checks](../benchmarks/mac-production-glossary-2026-10-20/README.md#installed-update).
+
 **Mac experimental glossary (20 October):** Settings → Experimental → Automatic terminology glossary is now available in the main Mac source, **off by default**. It uses the tested fast expanded selector only for Index 9B Russian → English: one dictionary per text/voice request or complete OCR image, shared across its blocks. Selection and generation are cancellable; invalid preparation shows an explicit error, with no silent plain fallback. No candidates means ordinary translation without an extra generation pass. The glossary can add startup latency and choose incorrect terms. Local Release validation only; the installed app and Store builds are not replaced. [Implementation and checks](../benchmarks/mac-production-glossary-2026-10-20/README.md).
 
 Before building this option, run `python3 scripts/prepare-mac-glossary.py`: preparation verifies SHA-256 for three pinned pure-Python packages. The normal Mac bundler includes them in the app; no runtime dependency installation is needed.
