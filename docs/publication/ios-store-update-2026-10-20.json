@@ -414,7 +414,7 @@
   "upload_result": "Upload succeeded / EXPORT SUCCEEDED",
   "framework_metadata_checks": 70,
   "project_tests": 144,
-  "app_store_status": "Waiting for Review; iOS 1.0.1 (57)",
+  "app_store_status": "Developer Rejected; review cancelled by owner for metadata revisions; iOS 1.0.1 (57)",
   "source_parity": [
     {
       "kind": "archive",
@@ -449,6 +449,14 @@
     "time_approx": "20:27 Europe/Moscow",
     "confirmation": "1 Item Submitted",
     "platform": "iOS",
+    "macos_changed": false
+  },
+  "review_active": false,
+  "review_cancellation": {
+    "date": "2026-10-20",
+    "time_approx": "20:36 Europe/Moscow",
+    "reason": "Owner requested metadata revisions",
+    "build_retained": "57",
     "macos_changed": false
   }
 }

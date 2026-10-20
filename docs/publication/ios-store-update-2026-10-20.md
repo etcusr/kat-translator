@@ -31,3 +31,7 @@ Detailed package hashes/checks: [JSON](ios-store-update-2026-10-20.json). Signin
 ## Source publication
 
 Release commit `2795c25` was pushed to `origin/main`; the remote SHA was verified. GitHub Pages [deployment](https://github.com/etcusr/kat-translator/actions/runs/39464925943) succeeded. The public page at https://etcusr.github.io/kat-translator/ matches committed `site/index.html` byte for byte (SHA-256 `f8ee23b8c2398f06b96a1cc2b4cce13f481067dd2f15917858b11a9e44016f4c`). Unfinished files from other experiments were not staged.
+
+## Review cancellation
+
+At approximately 20:36 Moscow time on 20 October, the owner requested cancellation before revising keywords and descriptions. Cancel Submission was confirmed for the iOS-only 1.0.1 (57) submission. The version page now shows **Developer Rejected**; description and keywords are editable, and build 57 remains selected. This is an owner cancellation, not an Apple rejection. Manual release remains unchanged. macOS was not modified. Do not resubmit until the revised metadata is approved by the owner.
