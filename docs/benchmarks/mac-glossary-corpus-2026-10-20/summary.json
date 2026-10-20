@@ -1,0 +1,1308 @@
+{
+  "complete": true,
+  "frozen": {
+    "corpus_sha256": "b222587a186002cf562e359755561f8a223e859a29fa4a79422b0f9c59550e69",
+    "fast_glossary_sha256": "80a05e2d672e2f500ef76e2cf700ca59caa223b697f5480dbabb5ee63705816a"
+  },
+  "load_seconds": 5.163761333009461,
+  "planner_parity": {
+    "cooling": {
+      "equal": true,
+      "pieces_per_block": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "software": {
+      "equal": true,
+      "pieces_per_block": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "logistics": {
+      "equal": true,
+      "pieces_per_block": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "standby": {
+      "equal": true,
+      "pieces_per_block": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "fieldwork": {
+      "equal": true,
+      "pieces_per_block": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "travel_dialogue": {
+      "equal": true,
+      "pieces_per_block": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "support_dialogue": {
+      "equal": true,
+      "pieces_per_block": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "polysemy_dialogue": {
+      "equal": true,
+      "pieces_per_block": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "warmup_attempts": 16,
+  "measured_attempts": 32,
+  "cases": [
+    {
+      "id": "cooling",
+      "title": "Контур охлаждения — без кавычек",
+      "kind": "long_text",
+      "quoted": false,
+      "source_characters": 1609,
+      "modes": {
+        "plain": {
+          "attempts": 2,
+          "succeeded": 2,
+          "errors": [],
+          "seconds": {
+            "median": 10.114464375503303,
+            "min": 9.53218491699954,
+            "max": 10.696743834007066
+          },
+          "first_body_part_seconds": {
+            "median": 3.1850573335032095,
+            "min": 2.9855897500092397,
+            "max": 3.3845249169971794
+          },
+          "glossary_seconds": {
+            "median": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "output_sha256": [
+            "168f2d1d7bbc7517bd448b6a030eed1442dad3627675c317d4791507ca599621"
+          ],
+          "unique_glossaries": 1,
+          "terms": []
+        },
+        "focused_terms": {
+          "attempts": 2,
+          "succeeded": 2,
+          "errors": [],
+          "seconds": {
+            "median": 13.3922953959991,
+            "min": 12.693922582999221,
+            "max": 14.090668208998977
+          },
+          "first_body_part_seconds": {
+            "median": 5.819080853994819,
+            "min": 5.523561957990751,
+            "max": 6.114599749998888
+          },
+          "glossary_seconds": {
+            "median": 2.3092062500072643,
+            "min": 2.179172333009774,
+            "max": 2.4392401670047548
+          },
+          "output_sha256": [
+            "65b819689c3369a74b62dac747702cc0edc3bf08e5b8b361ee48a772e5c8227e"
+          ],
+          "unique_glossaries": 1,
+          "terms": [
+            {
+              "source": "Насос",
+              "aliases": [
+                "Насос",
+                "насоса",
+                "насос"
+              ],
+              "exact": true,
+              "target": "Pump"
+            },
+            {
+              "source": "воду",
+              "aliases": [
+                "воду",
+                "воды"
+              ],
+              "exact": true,
+              "target": "water"
+            },
+            {
+              "source": "расходе",
+              "aliases": [
+                "расходе",
+                "расход"
+              ],
+              "exact": true,
+              "target": "flow rate"
+            },
+            {
+              "source": "Испытание",
+              "aliases": [
+                "Испытание",
+                "испытания",
+                "испытание"
+              ],
+              "exact": true,
+              "target": "test"
+            },
+            {
+              "source": "охлаждения",
+              "aliases": [
+                "охлаждения"
+              ],
+              "exact": true,
+              "target": "cooling"
+            },
+            {
+              "source": "фильтр",
+              "aliases": [
+                "фильтр",
+                "фильтра"
+              ],
+              "exact": true,
+              "target": "filter"
+            },
+            {
+              "source": "теплообменник",
+              "aliases": [
+                "теплообменник",
+                "теплообменником"
+              ],
+              "exact": true,
+              "target": "heat exchanger"
+            },
+            {
+              "source": "минуту",
+              "aliases": [
+                "минуту",
+                "минут"
+              ],
+              "exact": true,
+              "target": "minute"
+            },
+            {
+              "source": "температура",
+              "aliases": [
+                "температура",
+                "температуры"
+              ],
+              "exact": true,
+              "target": "temperature"
+            },
+            {
+              "source": "результат",
+              "aliases": [
+                "результат",
+                "результаты"
+              ],
+              "exact": true,
+              "target": "result"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "software",
+      "title": "Очередь запросов и кеш — без кавычек",
+      "kind": "long_text",
+      "quoted": false,
+      "source_characters": 1651,
+      "modes": {
+        "plain": {
+          "attempts": 2,
+          "succeeded": 2,
+          "errors": [],
+          "seconds": {
+            "median": 10.180613437500142,
+            "min": 9.937236249999842,
+            "max": 10.423990625000442
+          },
+          "first_body_part_seconds": {
+            "median": 2.6533621460039285,
+            "min": 2.5463253750058357,
+            "max": 2.7603989170020213
+          },
+          "glossary_seconds": {
+            "median": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "output_sha256": [
+            "4cba7563ee15cc5f316844e8bfa20d54b62d3895df32f1d01e834d984a98eac7"
+          ],
+          "unique_glossaries": 1,
+          "terms": []
+        },
+        "focused_terms": {
+          "attempts": 2,
+          "succeeded": 2,
+          "errors": [],
+          "seconds": {
+            "median": 12.67929981200723,
+            "min": 12.318019708007341,
+            "max": 13.040579916007118
+          },
+          "first_body_part_seconds": {
+            "median": 4.7959757705029915,
+            "min": 4.78175999999803,
+            "max": 4.810191541007953
+          },
+          "glossary_seconds": {
+            "median": 2.0570724375065765,
+            "min": 2.0550340000045253,
+            "max": 2.0591108750086278
+          },
+          "output_sha256": [
+            "03dd51a1afaff903d67daee9f4e3bc59c6d473a50d11a254fd9d7971df9b2ad4"
+          ],
+          "unique_glossaries": 1,
+          "terms": [
+            {
+              "source": "отчётов",
+              "aliases": [
+                "отчётов",
+                "отчёты",
+                "отчёта",
+                "отчёт"
+              ],
+              "exact": true,
+              "target": "reports"
+            },
+            {
+              "source": "запросы",
+              "aliases": [
+                "запросы",
+                "запрос",
+                "запросов"
+              ],
+              "exact": true,
+              "target": "requests"
+            },
+            {
+              "source": "результат",
+              "aliases": [
+                "результат",
+                "результата",
+                "результатом"
+              ],
+              "exact": true,
+              "target": "result"
+            },
+            {
+              "source": "задания",
+              "aliases": [
+                "задания",
+                "задание"
+              ],
+              "exact": true,
+              "target": "tasks"
+            },
+            {
+              "source": "Обновление",
+              "aliases": [
+                "Обновление",
+                "обновления"
+              ],
+              "exact": true,
+              "target": "Update"
+            },
+            {
+              "source": "сервиса",
+              "aliases": [
+                "сервиса",
+                "Сервис"
+              ],
+              "exact": true,
+              "target": "service"
+            },
+            {
+              "source": "очередь",
+              "aliases": [
+                "очередь",
+                "очереди"
+              ],
+              "exact": true,
+              "target": "queue"
+            },
+            {
+              "source": "сервер",
+              "aliases": [
+                "сервер"
+              ],
+              "exact": true,
+              "target": "server"
+            },
+            {
+              "source": "запись",
+              "aliases": [
+                "запись"
+              ],
+              "exact": true,
+              "target": "entry"
+            },
+            {
+              "source": "отмене",
+              "aliases": [
+                "отмене",
+                "Отмена",
+                "отмену"
+              ],
+              "exact": true,
+              "target": "cancellation"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "logistics",
+      "title": "Перенос поставки — без кавычек",
+      "kind": "long_text",
+      "quoted": false,
+      "source_characters": 1566,
+      "modes": {
+        "plain": {
+          "attempts": 2,
+          "succeeded": 2,
+          "errors": [],
+          "seconds": {
+            "median": 10.463336000510026,
+            "min": 10.202376459012157,
+            "max": 10.724295542007894
+          },
+          "first_body_part_seconds": {
+            "median": 2.5959672085082275,
+            "min": 2.550133000011556,
+            "max": 2.641801417004899
+          },
+          "glossary_seconds": {
+            "median": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "output_sha256": [
+            "50f75d8a98eb66968cd9edb93b587e8355101410064b9647bc2d6d96c593e543"
+          ],
+          "unique_glossaries": 1,
+          "terms": []
+        },
+        "focused_terms": {
+          "attempts": 2,
+          "succeeded": 2,
+          "errors": [],
+          "seconds": {
+            "median": 13.595855250001478,
+            "min": 13.387666541995713,
+            "max": 13.804043958007242
+          },
+          "first_body_part_seconds": {
+            "median": 5.124723250002717,
+            "min": 5.037372124992544,
+            "max": 5.2120743750128895
+          },
+          "glossary_seconds": {
+            "median": 2.185234145501454,
+            "min": 2.1635420829989016,
+            "max": 2.206926208004006
+          },
+          "output_sha256": [
+            "f715c1d102164557327b277c5060bab781e879ed9bef30419538a4be5a1e44aa"
+          ],
+          "unique_glossaries": 1,
+          "terms": [
+            {
+              "source": "деталей",
+              "aliases": [
+                "деталей",
+                "детали"
+              ],
+              "exact": true,
+              "target": "parts"
+            },
+            {
+              "source": "корпусов",
+              "aliases": [
+                "корпусов",
+                "корпуса"
+              ],
+              "exact": true,
+              "target": "housing units"
+            },
+            {
+              "source": "Поставщик",
+              "aliases": [
+                "Поставщик",
+                "поставщик"
+              ],
+              "exact": true,
+              "target": "Supplier"
+            },
+            {
+              "source": "доставки",
+              "aliases": [
+                "доставки"
+              ],
+              "exact": true,
+              "target": "delivery"
+            },
+            {
+              "source": "партии",
+              "aliases": [
+                "партии",
+                "партия"
+              ],
+              "exact": true,
+              "target": "batches"
+            },
+            {
+              "source": "крышек",
+              "aliases": [
+                "крышек",
+                "крышки"
+              ],
+              "exact": true,
+              "target": "covers"
+            },
+            {
+              "source": "складе",
+              "aliases": [
+                "складе",
+                "склад"
+              ],
+              "exact": true,
+              "target": "warehouse"
+            },
+            {
+              "source": "груз",
+              "aliases": [
+                "груз"
+              ],
+              "exact": true,
+              "target": "shipment"
+            },
+            {
+              "source": "перевозчику",
+              "aliases": [
+                "перевозчику",
+                "перевозчика"
+              ],
+              "exact": true,
+              "target": "carrier"
+            },
+            {
+              "source": "заказа",
+              "aliases": [
+                "заказа"
+              ],
+              "exact": true,
+              "target": "order"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "standby",
+      "title": "Горячий резерв — контроль с кавычками",
+      "kind": "long_text",
+      "quoted": true,
+      "source_characters": 1643,
+      "modes": {
+        "plain": {
+          "attempts": 2,
+          "succeeded": 2,
+          "errors": [],
+          "seconds": {
+            "median": 9.924270979499852,
+            "min": 9.802291833999334,
+            "max": 10.04625012500037
+          },
+          "first_body_part_seconds": {
+            "median": 2.6390047500026412,
+            "min": 2.6093718750053085,
+            "max": 2.668637624999974
+          },
+          "glossary_seconds": {
+            "median": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "output_sha256": [
+            "bf7647cf1704300bffa2ca20ba00e0b8d31ef770eb9a94fda295d9f151845f50"
+          ],
+          "unique_glossaries": 1,
+          "terms": []
+        },
+        "focused_terms": {
+          "attempts": 2,
+          "succeeded": 2,
+          "errors": [],
+          "seconds": {
+            "median": 13.33016289549414,
+            "min": 13.167108458001167,
+            "max": 13.493217332987115
+          },
+          "first_body_part_seconds": {
+            "median": 5.316909604000102,
+            "min": 5.210410125000635,
+            "max": 5.423409082999569
+          },
+          "glossary_seconds": {
+            "median": 2.298604499999783,
+            "min": 2.2482193330070004,
+            "max": 2.3489896669925656
+          },
+          "output_sha256": [
+            "ae0acbbda90c22418385054f47f9a514df446f5e9f57ebc6e49eaff53aee7edd"
+          ],
+          "unique_glossaries": 1,
+          "terms": [
+            {
+              "source": "разделением кластера",
+              "aliases": [
+                "разделением кластера",
+                "разделении кластера"
+              ],
+              "exact": true,
+              "target": "cluster split"
+            },
+            {
+              "source": "Резервирование",
+              "aliases": [
+                "Резервирование",
+                "резервирования"
+              ],
+              "exact": true,
+              "target": "reservation"
+            },
+            {
+              "source": "сервера",
+              "aliases": [
+                "сервера",
+                "сервер"
+              ],
+              "exact": true,
+              "target": "server"
+            },
+            {
+              "source": "режиме",
+              "aliases": [
+                "режиме",
+                "режима"
+              ],
+              "exact": true,
+              "target": "mode"
+            },
+            {
+              "source": "резерва",
+              "aliases": [
+                "резерва",
+                "резерв"
+              ],
+              "exact": true,
+              "target": "hot standby"
+            },
+            {
+              "source": "записей",
+              "aliases": [
+                "записей",
+                "запись"
+              ],
+              "exact": true,
+              "target": "records"
+            },
+            {
+              "source": "запросы",
+              "aliases": [
+                "запросы",
+                "запрос",
+                "запроса"
+              ],
+              "exact": true,
+              "target": "requests"
+            },
+            {
+              "source": "данных",
+              "aliases": [
+                "данных"
+              ],
+              "exact": true,
+              "target": "data"
+            },
+            {
+              "source": "секунд",
+              "aliases": [
+                "секунд",
+                "секунды"
+              ],
+              "exact": true,
+              "target": "seconds"
+            },
+            {
+              "source": "покупки",
+              "aliases": [
+                "покупки",
+                "покупка"
+              ],
+              "exact": true,
+              "target": "purchase"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "fieldwork",
+      "title": "Полевой отчёт и местоимения — без кавычек",
+      "kind": "long_text",
+      "quoted": false,
+      "source_characters": 1512,
+      "modes": {
+        "plain": {
+          "attempts": 2,
+          "succeeded": 2,
+          "errors": [],
+          "seconds": {
+            "median": 10.190485666498716,
+            "min": 10.177373333004653,
+            "max": 10.20359799999278
+          },
+          "first_body_part_seconds": {
+            "median": 2.7819698750026873,
+            "min": 2.7272105000010924,
+            "max": 2.836729250004282
+          },
+          "glossary_seconds": {
+            "median": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "output_sha256": [
+            "d0d7abf0cca239197d40cfc43cbde9587306bd1e5d487852ee2d84e249d9861f"
+          ],
+          "unique_glossaries": 1,
+          "terms": []
+        },
+        "focused_terms": {
+          "attempts": 2,
+          "succeeded": 2,
+          "errors": [],
+          "seconds": {
+            "median": 13.084634729006211,
+            "min": 12.74902600000496,
+            "max": 13.420243458007462
+          },
+          "first_body_part_seconds": {
+            "median": 5.427706583002873,
+            "min": 5.302766207998502,
+            "max": 5.552646958007244
+          },
+          "glossary_seconds": {
+            "median": 2.4904655834980076,
+            "min": 2.4349557919922518,
+            "max": 2.5459753750037635
+          },
+          "output_sha256": [
+            "69e698e539ce877900b76fb2e1fced85c160bcd62f389d826a978b30877497f5"
+          ],
+          "unique_glossaries": 1,
+          "terms": [
+            {
+              "source": "Марина",
+              "aliases": [
+                "Марина"
+              ],
+              "exact": true,
+              "target": "Marina"
+            },
+            {
+              "source": "Павел",
+              "aliases": [
+                "Павел"
+              ],
+              "exact": true,
+              "target": "Pavel"
+            },
+            {
+              "source": "станцию",
+              "aliases": [
+                "станцию",
+                "станции"
+              ],
+              "exact": true,
+              "target": "station"
+            },
+            {
+              "source": "Измерения",
+              "aliases": [
+                "Измерения",
+                "измерений",
+                "измерения",
+                "измерение"
+              ],
+              "exact": true,
+              "target": "measurements"
+            },
+            {
+              "source": "реке",
+              "aliases": [
+                "реке",
+                "реку"
+              ],
+              "exact": true,
+              "target": "river"
+            },
+            {
+              "source": "показания",
+              "aliases": [
+                "показания"
+              ],
+              "exact": true,
+              "target": "readings"
+            },
+            {
+              "source": "уровня",
+              "aliases": [
+                "уровня"
+              ],
+              "exact": true,
+              "target": "level"
+            },
+            {
+              "source": "воды",
+              "aliases": [
+                "воды"
+              ],
+              "exact": true,
+              "target": "water"
+            },
+            {
+              "source": "датчиков",
+              "aliases": [
+                "датчиков",
+                "Датчики"
+              ],
+              "exact": true,
+              "target": "sensors"
+            },
+            {
+              "source": "вывод",
+              "aliases": [
+                "вывод"
+              ],
+              "exact": true,
+              "target": "conclusion"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "travel_dialogue",
+      "title": "Диалог в гостинице — без кавычек",
+      "kind": "dialogue",
+      "quoted": false,
+      "source_characters": 1567,
+      "modes": {
+        "plain": {
+          "attempts": 2,
+          "succeeded": 2,
+          "errors": [],
+          "seconds": {
+            "median": 12.033574479501112,
+            "min": 11.838322666997556,
+            "max": 12.228826292004669
+          },
+          "first_body_part_seconds": {
+            "median": 2.226328916993225,
+            "min": 2.1121798339881934,
+            "max": 2.3404779999982566
+          },
+          "glossary_seconds": {
+            "median": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "output_sha256": [
+            "255a3885a0d804eed02bfe270968860eaf0d0cb46c6a4df461ac7c098119c651"
+          ],
+          "unique_glossaries": 1,
+          "terms": []
+        },
+        "focused_terms": {
+          "attempts": 2,
+          "succeeded": 2,
+          "errors": [],
+          "seconds": {
+            "median": 14.24694468749658,
+            "min": 13.800659874992562,
+            "max": 14.693229500000598
+          },
+          "first_body_part_seconds": {
+            "median": 4.1517254165009945,
+            "min": 4.060393457999453,
+            "max": 4.243057375002536
+          },
+          "glossary_seconds": {
+            "median": 1.808600729003956,
+            "min": 1.773070708004525,
+            "max": 1.8441307500033872
+          },
+          "output_sha256": [
+            "c5ca1d3fb36b3e16b71c9f71ab0042f976b81a982f62c5d26e1df7b38877e772"
+          ],
+          "unique_glossaries": 1,
+          "terms": [
+            {
+              "source": "июля",
+              "aliases": [
+                "июля"
+              ],
+              "exact": true,
+              "target": "July"
+            },
+            {
+              "source": "Гость",
+              "aliases": [
+                "Гость",
+                "гостя"
+              ],
+              "exact": true,
+              "target": "Guest"
+            },
+            {
+              "source": "номер",
+              "aliases": [
+                "номер"
+              ],
+              "exact": true,
+              "target": "room"
+            },
+            {
+              "source": "бронирования",
+              "aliases": [
+                "бронирования",
+                "бронировании",
+                "Бронирование",
+                "бронирование"
+              ],
+              "exact": true,
+              "target": "booking"
+            },
+            {
+              "source": "подтверждении",
+              "aliases": [
+                "подтверждении",
+                "подтверждение"
+              ],
+              "exact": true,
+              "target": "confirmation"
+            },
+            {
+              "source": "кровати",
+              "aliases": [
+                "кровати"
+              ],
+              "exact": true,
+              "target": "beds"
+            },
+            {
+              "source": "фотографии",
+              "aliases": [
+                "фотографии",
+                "Фотография"
+              ],
+              "exact": true,
+              "target": "photo"
+            },
+            {
+              "source": "оплаты",
+              "aliases": [
+                "оплаты"
+              ],
+              "exact": true,
+              "target": "payment"
+            },
+            {
+              "source": "остатка",
+              "aliases": [
+                "остатка",
+                "Остаток"
+              ],
+              "exact": true,
+              "target": "balance"
+            },
+            {
+              "source": "коллегой",
+              "aliases": [
+                "коллегой",
+                "коллеги"
+              ],
+              "exact": true,
+              "target": "colleague"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "support_dialogue",
+      "title": "Диалог техподдержки — без кавычек",
+      "kind": "dialogue",
+      "quoted": false,
+      "source_characters": 1634,
+      "modes": {
+        "plain": {
+          "attempts": 2,
+          "succeeded": 2,
+          "errors": [],
+          "seconds": {
+            "median": 11.904478436998033,
+            "min": 11.568601207996835,
+            "max": 12.240355665999232
+          },
+          "first_body_part_seconds": {
+            "median": 2.094391833001282,
+            "min": 2.0331422080053017,
+            "max": 2.1556414579972625
+          },
+          "glossary_seconds": {
+            "median": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "output_sha256": [
+            "2a053ba832a715b2341dcc701e4fc5cb214b58fbe18fe9d9f357bbeff6c2bc65"
+          ],
+          "unique_glossaries": 1,
+          "terms": []
+        },
+        "focused_terms": {
+          "attempts": 2,
+          "succeeded": 2,
+          "errors": [],
+          "seconds": {
+            "median": 15.152008708500944,
+            "min": 14.771087000000989,
+            "max": 15.532930417000898
+          },
+          "first_body_part_seconds": {
+            "median": 4.657666125502146,
+            "min": 4.512952167002368,
+            "max": 4.802380084001925
+          },
+          "glossary_seconds": {
+            "median": 2.292663166495913,
+            "min": 2.2271571659948677,
+            "max": 2.3581691669969587
+          },
+          "output_sha256": [
+            "01577e3e278ab706b4f3ab651d6ce821bb4eb16487d34a29ac2c14e0b5a82863"
+          ],
+          "unique_glossaries": 1,
+          "terms": [
+            {
+              "source": "папка",
+              "aliases": [
+                "папка",
+                "папку",
+                "папке"
+              ],
+              "exact": true,
+              "target": "folder"
+            },
+            {
+              "source": "проекты",
+              "aliases": [
+                "проекты",
+                "проектов",
+                "проекта",
+                "проект"
+              ],
+              "exact": true,
+              "target": "projects"
+            },
+            {
+              "source": "копию",
+              "aliases": [
+                "копию",
+                "копия",
+                "Копия",
+                "Копию"
+              ],
+              "exact": true,
+              "target": "copy"
+            },
+            {
+              "source": "Восстановление",
+              "aliases": [
+                "Восстановление",
+                "восстановление"
+              ],
+              "exact": true,
+              "target": "Recovery"
+            },
+            {
+              "source": "доступа",
+              "aliases": [
+                "доступа",
+                "доступе",
+                "доступ"
+              ],
+              "exact": true,
+              "target": "access"
+            },
+            {
+              "source": "Пользователь",
+              "aliases": [
+                "Пользователь"
+              ],
+              "exact": true,
+              "target": "User"
+            },
+            {
+              "source": "обновления",
+              "aliases": [
+                "обновления",
+                "Обновление",
+                "обновление"
+              ],
+              "exact": true,
+              "target": "update"
+            },
+            {
+              "source": "приложение",
+              "aliases": [
+                "приложение",
+                "приложений",
+                "приложению"
+              ],
+              "exact": true,
+              "target": "application"
+            },
+            {
+              "source": "список",
+              "aliases": [
+                "список"
+              ],
+              "exact": true,
+              "target": "list"
+            },
+            {
+              "source": "файлами",
+              "aliases": [
+                "файлами",
+                "файлы",
+                "файл"
+              ],
+              "exact": true,
+              "target": "files"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "polysemy_dialogue",
+      "title": "Счёт и ключ — смена значений без кавычек",
+      "kind": "dialogue_stress",
+      "quoted": false,
+      "source_characters": 1558,
+      "modes": {
+        "plain": {
+          "attempts": 2,
+          "succeeded": 2,
+          "errors": [],
+          "seconds": {
+            "median": 12.006695458498143,
+            "min": 11.566915666990099,
+            "max": 12.446475250006188
+          },
+          "first_body_part_seconds": {
+            "median": 2.04146212550404,
+            "min": 1.977168666999205,
+            "max": 2.1057555840088753
+          },
+          "glossary_seconds": {
+            "median": 0.0,
+            "min": 0,
+            "max": 0
+          },
+          "output_sha256": [
+            "8c444820b1c237dd700611bbae6e29b5e0a3904eac8a7b8339cb8b53a36aa877"
+          ],
+          "unique_glossaries": 1,
+          "terms": []
+        },
+        "focused_terms": {
+          "attempts": 2,
+          "succeeded": 2,
+          "errors": [],
+          "seconds": {
+            "median": 15.667411374997755,
+            "min": 15.147143750000396,
+            "max": 16.187678999995114
+          },
+          "first_body_part_seconds": {
+            "median": 4.597541146496951,
+            "min": 4.556060458999127,
+            "max": 4.639021833994775
+          },
+          "glossary_seconds": {
+            "median": 2.448120375498547,
+            "min": 2.416411166996113,
+            "max": 2.4798295840009814
+          },
+          "output_sha256": [
+            "8d1f76a4dbf1950eaa328b8feb414d80b29eaccddc58835b69e0ba13431c3baa"
+          ],
+          "unique_glossaries": 1,
+          "terms": [
+            {
+              "source": "счёт",
+              "aliases": [
+                "счёт",
+                "счёта",
+                "Счёт",
+                "счётом"
+              ],
+              "exact": true,
+              "target": "invoice"
+            },
+            {
+              "source": "ключ",
+              "aliases": [
+                "ключ",
+                "ключе",
+                "ключа"
+              ],
+              "exact": true,
+              "target": "key"
+            },
+            {
+              "source": "номер",
+              "aliases": [
+                "номер",
+                "номером",
+                "номера"
+              ],
+              "exact": true,
+              "target": "number"
+            },
+            {
+              "source": "документ",
+              "aliases": [
+                "документ",
+                "документа",
+                "документы"
+              ],
+              "exact": true,
+              "target": "document"
+            },
+            {
+              "source": "Организатор",
+              "aliases": [
+                "Организатор"
+              ],
+              "exact": true,
+              "target": "Organizer"
+            },
+            {
+              "source": "деньги",
+              "aliases": [
+                "деньги",
+                "денег"
+              ],
+              "exact": true,
+              "target": "money"
+            },
+            {
+              "source": "Помощник",
+              "aliases": [
+                "Помощник"
+              ],
+              "exact": true,
+              "target": "Assistant"
+            },
+            {
+              "source": "реквизит",
+              "aliases": [
+                "реквизит"
+              ],
+              "exact": true,
+              "target": "details"
+            },
+            {
+              "source": "сумму",
+              "aliases": [
+                "сумму",
+                "сумма"
+              ],
+              "exact": true,
+              "target": "amount"
+            },
+            {
+              "source": "матч",
+              "aliases": [
+                "матч",
+                "матча",
+                "Матч"
+              ],
+              "exact": true,
+              "target": "match"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

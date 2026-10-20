@@ -1,0 +1,173 @@
+{
+  "method": "Manual unblinded source/output comparison, no independent evaluator and no overall quality score. Outputs in both measured repeats and warmup are byte-identical for each case/mode; criteria fixed before inference. Additional findings outside the five criteria are explicitly identified.",
+  "cases": [
+    {
+      "case_id": "cooling",
+      "verdict": "Небольшое улучшение терминологии",
+      "notes": "Словарь сохраняет flow rate для расхода воды и корректно различает electrical power consumption; обычный режим в итоговом абзаце пишет water consumption. Обычный режим также называет вторую серию episode, расширенный — series. Проверенные числа, отрицания и замена разъёма сохранены в обоих.",
+      "criteria_in_corpus_order": {
+        "plain": [
+          "pass",
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "focused_terms": [
+          "pass",
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ]
+      }
+    },
+    {
+      "case_id": "software",
+      "verdict": "Заметного улучшения смысла нет",
+      "notes": "Оба сохраняют очередь, отмену одного задания, числа 120/17/103 и 8.4/1.2. Дополнительная ошибка за пределами пяти критериев: закончил работу в контексте готового задания оба передают как server has already shut down. Словарь её не исправляет; появляется ненужная прописная Update и An canceled.",
+      "criteria_in_corpus_order": {
+        "plain": [
+          "pass",
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "focused_terms": [
+          "pass",
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ]
+      }
+    },
+    {
+      "case_id": "logistics",
+      "verdict": "Небольшое улучшение согласованности",
+      "notes": "Обычный режим меняет covers/lids и housings/casings/units; расширенный удерживает covers и housing units, в том числе 40 inspected housing units. Числа, отдельные счета, порядок остановок и условие переноса сохранены. При этом накладная всё ещё меняется delivery note/waybills: словарь не охватывает всё.",
+      "criteria_in_corpus_order": {
+        "plain": [
+          "pass",
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "focused_terms": [
+          "pass",
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ]
+      }
+    },
+    {
+      "case_id": "standby",
+      "verdict": "Локальное ухудшение из-за неверного термина",
+      "notes": "Обычный режим ошибается в заголовке Server Reservation, но в первом абзаце даёт backup scheme. Расширенный словарь выбирает резервирование → reservation и распространяет ошибку на первый абзац: reservation scheme. Hot/cold standby и числа сохранены. В обоих a record must be allowed by only one side неясно передаёт разрешение записи только одной стороне; cluster split менее стандартно, чем split-brain.",
+      "criteria_in_corpus_order": {
+        "plain": [
+          "pass",
+          "pass",
+          "pass",
+          "partial",
+          "pass"
+        ],
+        "focused_terms": [
+          "pass",
+          "pass",
+          "pass",
+          "partial",
+          "pass"
+        ]
+      }
+    },
+    {
+      "case_id": "fieldwork",
+      "verdict": "Сопоставимый смысл",
+      "notes": "В обоих Марина остаётся человеком, повторный импорт не становится поломкой датчика, правый берег определён по течению, 2.6/0.4 не превращены в подъём воды, пропуск 12 минут не заменён нулями. Словарь в основном повторяет уже верные имена и общеупотребительные слова.",
+      "criteria_in_corpus_order": {
+        "plain": [
+          "pass",
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "focused_terms": [
+          "pass",
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ]
+      }
+    },
+    {
+      "case_id": "travel_dialogue",
+      "verdict": "Сопоставимый смысл",
+      "notes": "Оба сохраняют две кровати, коллегу, позднее заселение без отмены первой ночи, 180 евро, даты, отсутствие гарантии по аллергенам и один документ. В последней реплике оба передают доплату как additional fee, хотя по контексту точнее remaining balance. Словарь не устраняет эту неоднозначность.",
+      "criteria_in_corpus_order": {
+        "plain": [
+          "pass",
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "focused_terms": [
+          "pass",
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ]
+      }
+    },
+    {
+      "case_id": "support_dialogue",
+      "verdict": "Сопоставимый смысл",
+      "notes": "Оба сохраняют 24/25 проектов, тестирование копии, запрет очистки, доступ только выбранному приложению и запрос подтверждения в финале. Дополнительная потеря: сохраните резервную копию до завершения проверки превращается в Save the backup before completing the verification, вместо keep the backup until verification is complete. У расширенного лишняя прописная Recovery.",
+      "criteria_in_corpus_order": {
+        "plain": [
+          "pass",
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "focused_terms": [
+          "pass",
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ]
+      }
+    },
+    {
+      "case_id": "polysemy_dialogue",
+      "verdict": "Значения различены в обоих режимах",
+      "notes": "Несмотря на словарь счёт → invoice, ключ → key, расширенный перевод правильно выбирает bank account, score, bass/treble clef там, где это требуется. Это означает, что инструкция словаря мягкая и может быть проигнорирована. Все числа, ничья и три папки сохранены. Формулировка there is no need to open it without permission слабее обычного do not open it without permission, но ближе к буквальному не нужно исходника; не считаем доказанной смысловой регрессией.",
+      "criteria_in_corpus_order": {
+        "plain": [
+          "pass",
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "focused_terms": [
+          "pass",
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ]
+      }
+    }
+  ]
+}

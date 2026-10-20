@@ -1,0 +1,55 @@
+{
+  "unit_tests": 25,
+  "docs_parity_tests": 2,
+  "benchmark_requests": 48,
+  "warmup": 16,
+  "measured": 32,
+  "all_successful": true,
+  "planner_parity_cases": 8,
+  "all_repeated_outputs_identical": true,
+  "all_repeated_glossaries_identical": true,
+  "swift_build": true,
+  "adhoc_signature_deep_strict": true,
+  "app_bridge_probes": [
+    {
+      "case_id": "cooling",
+      "seconds": 13.728023625008063,
+      "output_match": true,
+      "glossary_match": true,
+      "visible_window_count": 0
+    },
+    {
+      "case_id": "polysemy_dialogue",
+      "seconds": 16.279374417004874,
+      "output_match": true,
+      "glossary_match": true,
+      "visible_window_count": 0
+    },
+    {
+      "case_id": "cooling",
+      "seconds": 13.92881166699226,
+      "output_match": true,
+      "glossary_match": true,
+      "visible_window_count": 0
+    }
+  ],
+  "main_preferences_unchanged": true,
+  "main_executable_unchanged": true,
+  "model_files_matches_previous": 7,
+  "algorithm_unchanged": true,
+  "source_sha256": {
+    "Lab.swift": "da444e3656954ceb061ee275e074d663d9a0ffd01b0309703eb7744c8da47f67",
+    "build.py": "dd3087611319b2167eea6a21438e3728e7af3b2c65f7fabe07eabd84f2b0130b",
+    "corpus_runner.py": "250cf12dcba69239ea46db611f7ff9ab2b69f41c31745c1a8472b049d3bf90f7",
+    "corpus_summary.py": "ebf380c02bdb026301c92bf4ffa72e5d355a13980578be9f956a4076a0fe1473",
+    "corpus.json": "b222587a186002cf562e359755561f8a223e859a29fa4a79422b0f9c59550e69",
+    "test_corpus.py": "a38c43bfdc6d21db6b70024df544928ed563be74b56ce1b8850c68ddb695562d"
+  },
+  "limits": [
+    "Synthetic RU-to-EN only, 1512–1651 characters; unblinded manual review, no independent quality evaluator.",
+    "Complete dialogue transcripts known in advance, not sequential live voice turns.",
+    "Timing excludes model load, OCR, ASR, UI rendering, TTS; glossary preparation included.",
+    "Initial onAppear-only app probes did not start a worker. Explicit startup probes completed; all recorded zero visible windows. No visual/click acceptance is claimed.",
+    "Two measured repeats per case/mode; no confidence interval or thermal-stability claim."
+  ]
+}

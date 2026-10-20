@@ -53,3 +53,15 @@ The parity probe calls the production Swift planner with the same tokenizer and 
 [Automatic glossary comparison](../../../docs/benchmarks/mac-auto-terms-2026-10-20/README.md).
 
 [Accelerated glossary comparison](../../../docs/benchmarks/mac-fast-terms-2026-10-20/README.md).
+
+## Frozen multi-document comparison
+
+`corpus.json` contains eight new synthetic RU→EN documents (1,512–1,651 characters): five long texts and three dialogues, seven without quoted terminology. One dialogue deliberately mixes invoice/account/score and physical key/musical clef meanings. It is a stress case, not a frequency-representative sample. Each case includes a title and five semantic review criteria fixed before inference; no manual glossary or target translation is sent to the model.
+
+`corpus_runner.py --frozen HASHES.json --output RESULTS.json --swift-planner PATH --repeats 2` checks corpus and `fast_glossary.py` SHA-256 values against the supplied frozen record, checks production planner parity for every case, warms both modes on every document, then alternates paired mode order and rotates case order. Only `plain` and the existing, unchanged `focused_terms` are tested. Failures retain elapsed time and partial events; there is no retry/fallback. `corpus_summary.py --results RESULTS.json --out DIRECTORY` reports timing, failures and repeat hashes, and renders full synthetic comparisons. It does not assign semantic quality scores. Warmup and failed requests are excluded from successful latency medians and counted separately.
+
+Build with `--corpus scripts/research/mac-context-terms/corpus.json --comparison RESULTS.json` in addition to `--fixture FIRST_CASE.json` to show a case selector with saved, measured results in the separate Mac app. Selecting a case clears previous text/terms/metrics before loading that case. App probes accept `--case CASE_ID` and `--plain` or `--focused`. The file-based probe verifies the built app/worker bridge, not visual or mouse interaction acceptance. New inputs can still be edited; switching cases discards edits.
+
+[New-text and dialogue evaluation](../../../docs/benchmarks/mac-glossary-corpus-2026-10-20/README.md).
+
+CLI probes start independently of window restoration and write explicit startup/error/completion states. A completed probe records the selected case and visible window count; zero visible windows is not visual UI acceptance.

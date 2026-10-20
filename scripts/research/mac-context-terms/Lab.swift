@@ -11,6 +11,9 @@ import SwiftUI
     @Published var status = "Отдельный эксперимент • Index 9B MLX + MTP2 • RU → EN"
     @Published var busy = false
     @Published var fraction = 0.0
+    @Published var caseID = ""
+    let cases: [[String: Any]]
+    private var savedResults: [[String: Any]] = []
     private var process: Process?
     private var input: Pipe?
     private var buffer = Data()
@@ -21,6 +24,10 @@ import SwiftUI
     let root: String
     let fixture: URL
     init() {
+        if let url = Bundle.main.url(forResource: "corpus", withExtension: "json"),
+           let corpus = try? JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any] {
+            cases = corpus["cases"] as? [[String: Any]] ?? []
+        } else { cases = [] }
         root = try! String(contentsOf: Bundle.main.url(forResource: "workspace", withExtension: "txt")!, encoding: .utf8)
         fixture = Bundle.main.url(forResource: "fixture", withExtension: "json")!
         if let object = try? JSONSerialization.jsonObject(with: Data(contentsOf: fixture)) as? [String: Any] {
@@ -28,18 +35,43 @@ import SwiftUI
             if let terms = object["glossary"] as? [[String: Any]], let data = try? JSONSerialization.data(withJSONObject: terms, options: [.prettyPrinted, .sortedKeys]), let text = String(data: data, encoding: .utf8) { glossary = text }
         }
         if let url = Bundle.main.url(forResource: "comparison", withExtension: "json"), let report = try? JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any] {
-            for row in report["results"] as? [[String: Any]] ?? [] { acceptResult(row) }
+            savedResults = report["results"] as? [[String: Any]] ?? []
+            if cases.isEmpty { for row in savedResults { acceptResult(row) } }
             status = "Сохранённые результаты сравнения. «Перевести» запускает новый опыт."
         }
+        if let first = cases.first?["id"] as? String { caseID = first; selectCase() }
+    }
+    func selectCase() {
+        guard !busy, let item = cases.first(where: { $0["id"] as? String == caseID }) else { return }
+        source = (item["blocks"] as? [String] ?? []).joined(separator: "\n\n")
+        glossary = "[]"; outputs = [:]; metrics = [:]; automaticTerms = [:]; fraction = 0
+        for row in savedResults where row["case_id"] as? String == caseID && row["phase"] as? String == "warm" {
+            acceptResult(row)
+        }
+        status = "Синтетический пример • сохранённые результаты. «Перевести» запускает новый опыт."
     }
     func probeIfRequested() {
         let args = CommandLine.arguments
         guard !probeStarted, let index = args.firstIndex(of: "--probe"), index+1 < args.count else { return }
-        probeStarted = true; probeURL = URL(fileURLWithPath: args[index+1]); selected = args.contains("--focused") ? "focused_terms" : (args.contains("--fast") ? "fast_terms" : (args.contains("--auto") ? "auto_terms" : "context_terms"))
+        if let position = args.firstIndex(of: "--case"), position+1 < args.count {
+            caseID = args[position+1]; selectCase()
+        }
+        probeStarted = true; probeURL = URL(fileURLWithPath: args[index+1]); selected = args.contains("--plain") ? "plain" : (args.contains("--focused") ? "focused_terms" : (args.contains("--fast") ? "fast_terms" : (args.contains("--auto") ? "auto_terms" : "context_terms")))
+        recordProbe(["event": "starting", "case_id": caseID])
         translate()
+    }
+    private func recordProbe(_ event: [String: Any]) {
+        guard let probeURL else { return }
+        try? JSONSerialization.data(withJSONObject: event, options: [.prettyPrinted, .sortedKeys]).write(to: probeURL)
     }
     private func acceptResult(_ row: [String: Any]) {
         guard let mode = row["mode"] as? String else { return }
+        if row["ok"] as? Bool == false {
+            outputs[mode] = ""
+            automaticTerms.removeValue(forKey: mode)
+            metrics[mode] = "Опыт завершился ошибкой: \(row["error"] as? String ?? "неизвестно")"
+            return
+        }
         outputs[mode] = row["output"] as? String ?? ""
         if let automatic = row["glossary"] as? [String: Any], let terms = automatic["terms"] as? [[String: Any]] { showTerms(terms, mode: mode) }
         metrics[mode] = String(format: "Первая содержательная часть: %.2f с • Всё: %.2f с", row["first_body_part_seconds"] as? Double ?? 0, row["seconds"] as? Double ?? 0)
@@ -49,6 +81,7 @@ import SwiftUI
         automaticTerms[mode] = terms.isEmpty ? "Повторяющихся терминов не найдено" : terms.map { "\($0["source"] as? String ?? "") → \($0["target"] as? String ?? "")" }.joined(separator: "\n")
     }
     func stop() {
+        if busy { recordProbe(["event": "cancelled", "case_id": caseID]) }
         generation = UUID()
         if process?.isRunning == true { process?.terminate() }
         process = nil; input = nil; request = nil; buffer.removeAll()
@@ -84,11 +117,17 @@ import SwiftUI
                 Task { @MainActor in
                     guard let self, self.generation == id else { return }
                     self.process = nil; self.input = nil
-                    if self.busy { self.busy = false; self.status = "Процесс перевода завершился. Нажмите Перевести для повторного запуска." }
+                    if self.busy {
+                        self.busy = false; self.status = "Процесс перевода завершился. Нажмите Перевести для повторного запуска."
+                        self.recordProbe(["event": "error", "error": self.status])
+                    }
                 }
             }
             process = child; input = stdin; try child.run()
-        } catch { busy = false; status = error.localizedDescription }
+        } catch {
+            busy = false; status = error.localizedDescription
+            recordProbe(["event": "error", "error": status])
+        }
     }
     private func send(_ object: [String: Any]) throws {
         var data = try JSONSerialization.data(withJSONObject: object); data.append(10)
@@ -114,11 +153,19 @@ import SwiftUI
                 acceptResult(event); busy = false; fraction = 1; status = "Готово • Модель остаётся в памяти до 5 минут"
                 if let probeURL {
                     do {
-                        try JSONSerialization.data(withJSONObject: event, options: [.prettyPrinted, .sortedKeys]).write(to: probeURL)
+                        var result = event
+                        result["case_id"] = caseID
+                        result["visible_window_count"] = NSApplication.shared.windows.filter(\.isVisible).count
+                        try JSONSerialization.data(withJSONObject: result, options: [.prettyPrinted, .sortedKeys]).write(to: probeURL)
                         NSApplication.shared.terminate(nil)
                     } catch { status = error.localizedDescription }
                 }
-            case "error": busy = false; status = event["error"] as? String ?? "Ошибка"
+            case "error":
+                busy = false; status = event["error"] as? String ?? "Ошибка"
+                if let probeURL {
+                    try? JSONSerialization.data(withJSONObject: event, options: [.prettyPrinted, .sortedKeys]).write(to: probeURL)
+                    NSApplication.shared.terminate(nil)
+                }
             default: break
             }
         }
@@ -143,6 +190,13 @@ struct LabView: View {
                 }.pickerStyle(.menu).frame(width: 360).disabled(model.busy)
             }
             Text("Исследовательская сборка. Автословари создаются из исходника заново; подготовка включена во время. Быстрый режим отбирает меньше терминов. Ошибки возможны.").font(.caption).foregroundStyle(.secondary)
+            if !model.cases.isEmpty {
+                Picker("Пример", selection: $model.caseID) {
+                    ForEach(model.cases.compactMap { $0["id"] as? String }, id: \.self) { id in
+                        Text(model.cases.first(where: { $0["id"] as? String == id })?["title"] as? String ?? id).tag(id)
+                    }
+                }.disabled(model.busy).onChange(of: model.caseID) { model.selectCase() }
+            }
             HStack {
                 Button("Перевести") { model.translate() }.disabled(model.busy)
                 Button("Отмена / выгрузить") { model.stop() }
@@ -167,6 +221,17 @@ struct LabView: View {
     }
 }
 @main struct ContextLab: App {
-    @StateObject private var model = LabModel()
-    var body: some Scene { WindowGroup { LabView(model: model) }.defaultSize(width: 1400, height: 850) }
+    @StateObject private var model: LabModel
+    init() {
+        let instance = LabModel()
+        _model = StateObject(wrappedValue: instance)
+        // A CLI probe must not depend on restoration of an existing SwiftUI window.
+        if CommandLine.arguments.contains("--probe") {
+            Task { @MainActor in instance.probeIfRequested() }
+        }
+    }
+    var body: some Scene {
+        WindowGroup { LabView(model: model) }
+            .defaultSize(width: 1400, height: 850)
+    }
 }
