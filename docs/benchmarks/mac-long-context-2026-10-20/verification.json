@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-20",
+  "base_commit": "611d8a5",
+  "hardware": "Apple M3 Pro",
+  "memory_bytes": 19327352832,
+  "os": "27.0.1",
+  "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+  "swap_before": "2858.06 MiB used; snapshot, not proof of memory bottleneck",
+  "swap_after": "vm.swapusage: total = 4096.00M  used = 2826.06M  free = 1269.94M  (encrypted)",
+  "sha256": {
+    "shared/native/IndexMLX/index_mlx.py": "30db6e4b3695a5faaeb263a17574cbc991389a08fc28d38c41ed55831f1a6179",
+    "Dependencies/index-mlx.lock.json": "e61a73dfb0d1757f92a6373de99348d70a164d33b323cf67854ef0e871a27048",
+    "scripts/research/macos-translation-lab/kat_runner.py": "f060789d2c4277d0c85d1ad9f1f8f0978fa1950c10dc0667707633c081a9f702",
+    "scripts/research/macos-translation-lab/long_context.py": "2c0912d09e0fb7523ef0fc6086c9ae9c92776ef68d5b4c7f865f47f9b016ed27",
+    "scripts/research/macos-translation-lab/summarize_long_context.py": "b8fd1d77cd4eb8250474fb0010a7b6498e7e06b423d6592e18e96ace437d8858",
+    "tests/fixtures/mac-long-context.json": "7a63dc189ba64cb55ea03f17f1f3d38c643f593baf55354f10eaea66822a8f4a"
+  },
+  "model_files_sha256_verified": [
+    {
+      "path": "model.safetensors",
+      "sha256": "cdd9bfb2fa7471edb8616b4cb42c2b68bc3b502e5dbde1ba21d8fa9c584ebd05",
+      "bytes": 5223280226
+    },
+    {
+      "path": "config.json",
+      "sha256": "fa8a56873cf965eaabbca9a142cec6ff0e8c5ddac3dace954d66e0db3028cb72",
+      "bytes": 2741
+    },
+    {
+      "path": "tokenizer.json",
+      "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+      "bytes": 19989325
+    },
+    {
+      "path": "tokenizer_config.json",
+      "sha256": "a778ef4fe2a8be4e55782abdaa66dcf66ba7e96828940150607264420fb3a7cf",
+      "bytes": 1164
+    },
+    {
+      "path": "generation_config.json",
+      "sha256": "5b2e05bd687ce6eb52f8beff6d9dc98a0fb1e02ce8898062869218d17264220f",
+      "bytes": 100
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "sha256": "3aa3d264edc9d049fe09c5fba0043cb1f348a52d6141b92f399c0bb9111d8cd7",
+      "bytes": 83549
+    },
+    {
+      "path": "chat_template.jinja",
+      "sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+      "bytes": 7756
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c",
+      "bytes": 11358
+    }
+  ],
+  "completed_requests": 54,
+  "ordinary_successes": 48,
+  "expected_boundary_failures": 6,
+  "all_outputs_identical_between_repeats": true,
+  "worker_exit_code": 0,
+  "quality_review": "manual; first pass inspected, other passes identical",
+  "limitations": [
+    "Synthetic RU/EN only, three repeats per case",
+    "Single reviewer, no blinded external quality rating",
+    "Resident production engine through lab worker; no SwiftUI clicks, voice, OCR or phones",
+    "No clean boot, network capture or continuous thermal isolation"
+  ]
+}

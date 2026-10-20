@@ -1,0 +1,207 @@
+[
+  {
+    "id": "ru-airport",
+    "source": "ru",
+    "target": "en",
+    "kind": "long_phrase",
+    "text": "Если мой рейс, который первоначально должен был вылететь в 18:40 из терминала 2, перенесут на завтра, пожалуйста, не отменяйте обратный билет и не отправляйте чемодан в гостиницу: внутри находятся документы моей сестры, а она прилетает сегодня другим рейсом и должна забрать его лично. Я согласен на пересадку во Франкфурте только при условии, что между рейсами будет не меньше двух часов, багаж зарегистрируют до конечного пункта и мне не придётся повторно оплачивать место у окна. Если такого варианта нет, верните стоимость только первого перелёта, но сохраните остальные сегменты бронирования. Уведомление пришлите по электронной почте, потому что мой телефон сейчас не принимает звонки; это не означает, что я отказываюсь от поездки. Правильно ли я понимаю, что до моего подтверждения вы ничего менять не будете?",
+    "meaning_checks": [
+      "18:40, terminal 2 retained",
+      "Do not cancel return or send bag to hotel",
+      "Sister arrives today and collects documents/bag herself",
+      "Connection at least two hours, checked through, no second seat fee",
+      "Refund first leg only; preserve rest; email because no calls",
+      "No change before confirmation; not declining journey"
+    ]
+  },
+  {
+    "id": "en-hotel",
+    "source": "en",
+    "target": "ru",
+    "kind": "long_phrase",
+    "text": "Although the booking confirmation lists three adults, only two of us will stay for all four nights; my brother will arrive on Friday and leave before breakfast on Saturday, so please do not charge him for the entire stay or remove his name from the reservation. We need two separate beds, not two separate rooms, and a room without a connecting door because my mother sleeps lightly. The deposit of 120 euros has already been paid, but the local tax has not. If an accessible room is available at the same price, we would prefer it; otherwise, please keep the room we originally booked rather than upgrading us automatically. I am not asking you to cancel breakfast for everyone: only my brother will not need it on Saturday. Could you confirm the remaining amount in writing before taking any additional payment?",
+    "meaning_checks": [
+      "Three listed, two stay four nights; brother Friday to Saturday",
+      "Two beds not two rooms; no connecting door",
+      "120 euros paid; tax unpaid",
+      "Accessible room only at same price; no automatic upgrade",
+      "Breakfast cancelled only for brother Saturday",
+      "Written remaining amount before further payment"
+    ]
+  },
+  {
+    "id": "ru-negotiation",
+    "source": "ru",
+    "target": "en",
+    "kind": "long_phrase",
+    "text": "Мы готовы подписать договор до пятницы, если поставщик письменно подтвердит, что цена 48 500 рублей включает доставку и установку, а гарантия начинается в день приёмки оборудования, а не в день его отправки. Скидка в десять процентов действует только на второй заказ и не должна уменьшать сумму первого счёта. Если первые пять устройств пройдут проверку без замечаний, оставшиеся пятнадцать можно отправить одной партией; если хотя бы одно не пройдёт, отгрузку нужно приостановить, но весь договор расторгать не требуется. Анна согласовала технические характеристики, а Борис отвечает за оплату, поэтому просьбу изменить банковские реквизиты необходимо направить Борису и подтвердить отдельным звонком. Вчера мы не обещали оплатить всю сумму заранее: речь шла об авансе в тридцать процентов после подписания. Пожалуйста, не путайте этот аванс с уже возвращённым залогом за образец.",
+    "meaning_checks": [
+      "48,500 including delivery/install; warranty acceptance not dispatch",
+      "10% second order only",
+      "5 pass then15 ship; one failure pause not terminate",
+      "Anna technical; Boris payment; changed bank details separately confirmed",
+      "30% after signing; not all prepaid; returned sample deposit separate"
+    ]
+  },
+  {
+    "id": "en-directions",
+    "source": "en",
+    "target": "ru",
+    "kind": "long_phrase",
+    "text": "To reach the temporary ticket office, walk past the old station entrance without going inside, turn left at the pharmacy, and follow the covered passage until you see two lifts. Take the one on the right to level minus one; the other lift only serves the car park and will not take you to the platforms. The ticket office is opposite the bakery, but after 19:30 it closes and the staff move to the information desk upstairs. If you are travelling with a bicycle, you must buy a separate bicycle ticket unless it is folded and stored in a bag. Children under six travel free only when accompanied by an adult with a valid ticket. Do not use the blue machine for an international journey, even if it offers the name of your destination: it sells local tickets to a different town with the same name.",
+    "meaning_checks": [
+      "Pass entrance without entering; left pharmacy; right lift to minus1",
+      "Other lift carpark only",
+      "19:30 office closes; upstairs information",
+      "Bicycle separate ticket except folded in bag",
+      "Under6 free only accompanied valid adult",
+      "Blue machine wrong town with same name"
+    ]
+  },
+  {
+    "id": "en-airport-dialogue",
+    "source": "en",
+    "target": "ru",
+    "kind": "dialogue",
+    "text": "Passenger: I booked a flight to Porto, not Paris, and I am travelling with my daughter, Emma.\nAgent: I see a reservation for two adults. How old is she?\nPassenger: She is eleven. My wife booked it for us, but she is staying at home.\nAgent: Thank you. The 14:20 flight is full, but I can offer you the 17:45 service with a change in Madrid.\nPassenger: Does that mean we have to collect our suitcase there?\nAgent: No, it will go straight to Porto. You only need to change planes.\nPassenger: Then please book that one, provided we sit together. Do not cancel the return flight on the 23rd.\nAgent: Agreed. The return remains unchanged, and you will have adjacent seats.\nPassenger: Please send the new confirmation to my wife, not to Emma.",
+    "meaning_checks": [
+      "Porto not Paris",
+      "Emma daughter11; wife booked but stays home",
+      "14:20 full;17:45 viaMadrid",
+      "Bag checkedthrough; collect not required",
+      "Adjacent seats; return23 unchanged",
+      "Confirmation to wife notEmma"
+    ]
+  },
+  {
+    "id": "ru-hotel-dialogue",
+    "source": "ru",
+    "target": "en",
+    "kind": "dialogue",
+    "text": "Гостья: Я вчера оставила у вас синий рюкзак. Внутри лежит зелёная папка с моими документами.\nАдминистратор: У нас есть синий чемодан и чёрный рюкзак. В чемодане папки нет.\nГостья: Значит, это не мой. Мой рюкзак небольшой, с красной лентой на ручке.\nАдминистратор: Подождите, коллега нашёл его в комнате хранения, а папку переложил в сейф.\nГостья: Хорошо. Моя сестра придёт за рюкзаком после шести, но документы я заберу сама завтра утром.\nАдминистратор: Ей отдать и папку?\nГостья: Нет, только рюкзак. Её зовут Ольга, меня — Анна. Пожалуйста, не отдавайте документы даже ей.\nАдминистратор: Понял: сегодня Ольге рюкзак, завтра утром вам папку.\nГостья: Именно. И прошу не звонить на старый номер из бронирования: он больше не мой.",
+    "meaning_checks": [
+      "Blue backpack not suitcase; green document folder; red ribbon",
+      "Folder moved to safe",
+      "Olga sister after6 gets onlybackpack today",
+      "Anna herself folder tomorrow morning; even sister cannot collect",
+      "Old phone no longer hers"
+    ]
+  },
+  {
+    "id": "en-scheduling-dialogue",
+    "source": "en",
+    "target": "ru",
+    "kind": "dialogue",
+    "text": "Alex: Can we move the demonstration from Tuesday to Thursday? The prototype will not be ready on Tuesday.\nMaya: Thursday morning is possible, but the customer is unavailable after noon.\nAlex: Then let us start at 10:15 and finish by 11:00. We still need the internal review on Wednesday.\nMaya: Should I move that review as well?\nAlex: No, keep it at 16:30. Only the customer demonstration is moving.\nMaya: I will tell Daniel that he can skip the review.\nAlex: Please do not. He can skip the demonstration, but he must attend the review because he approved the earlier design.\nMaya: Understood. I will send two invitations and explain which one is mandatory for him.\nAlex: Thanks. Use the revised drawings, not the ones I sent before lunch.",
+    "meaning_checks": [
+      "Tuesday toThursdaymorningdemo10:15-11:00",
+      "Wednesdayreview16:30unchanged",
+      "Daniel may skipdemo mustattendreview",
+      "Revised drawings notprelunch"
+    ]
+  },
+  {
+    "id": "ru-return-dialogue",
+    "source": "ru",
+    "target": "en",
+    "kind": "dialogue",
+    "text": "Покупатель: Я хочу вернуть только наушники из этого заказа. Чехол и зарядное устройство оставляю себе.\nПродавец: Наушники не работают?\nПокупатель: Работают, но давят на уши. Я вскрыл коробку, однако пломбу на запасных амбушюрах не трогал.\nПродавец: Можно обменять их на другую модель с доплатой 2 400 рублей.\nПокупатель: Нет, я предпочитаю возврат денег. Покупку оплачивала моя жена своей картой.\nПродавец: Тогда деньги вернутся на её карту в течение семи рабочих дней, не календарных.\nПокупатель: Хорошо. Доставку тоже вернёте?\nПродавец: Только если вернёте весь заказ. При частичном возврате стоимость доставки не возмещается.\nПокупатель: Понятно. Весь заказ возвращать я не хочу. Оформляйте только наушники, без обмена.",
+    "meaning_checks": [
+      "Onlyheadphones; keepcasecharger",
+      "Workingbutuncomfortable; sparepadssealed",
+      "Rejectexchange2400; refundwife card",
+      "7workingdays notcalendar",
+      "Deliverynotrefundedpartial; nofullreturn"
+    ]
+  },
+  {
+    "id": "en-bank-river",
+    "source": "en",
+    "target": "ru",
+    "kind": "context_contrast",
+    "text": "Guide: The river flooded last night. The path beside the water is muddy, and the ferry cannot stop here.\nVisitor: Can we wait on the bank until the boat returns?",
+    "meaning_checks": [
+      "bank is riverbank, not financial institution"
+    ]
+  },
+  {
+    "id": "en-bank-finance",
+    "source": "en",
+    "target": "ru",
+    "kind": "context_contrast",
+    "text": "Customer: I need to withdraw some cash before the branch closes. The cash machine outside is broken.\nFriend: Can we wait in the bank until the manager returns?",
+    "meaning_checks": [
+      "bank is financial institution, not riverbank"
+    ]
+  },
+  {
+    "id": "en-gender-woman",
+    "source": "en",
+    "target": "ru",
+    "kind": "context_contrast",
+    "text": "Anna: My name is Anna. I am travelling alone; my husband stayed at home.\nAnna: I booked the room yesterday and paid for it myself.",
+    "meaning_checks": [
+      "Russian Anna booked/paid feminine; husband stayedhome; travellingalone"
+    ]
+  },
+  {
+    "id": "en-gender-man",
+    "source": "en",
+    "target": "ru",
+    "kind": "context_contrast",
+    "text": "Anton: My name is Anton. I am travelling alone; my wife stayed at home.\nAnton: I booked the room yesterday and paid for it myself.",
+    "meaning_checks": [
+      "Russian Anton booked/paid masculine; wife stayedhome; travellingalone"
+    ]
+  },
+  {
+    "id": "en-isolated-bank",
+    "source": "en",
+    "target": "ru",
+    "kind": "isolated_control",
+    "text": "We waited on the bank until it got dark.",
+    "meaning_checks": [
+      "bank unresolved without context; record choice not guaranteed error"
+    ]
+  },
+  {
+    "id": "en-isolated-gender",
+    "source": "en",
+    "target": "ru",
+    "kind": "isolated_control",
+    "text": "I booked the room yesterday and paid for it myself.",
+    "meaning_checks": [
+      "speaker gender absent; record choice not guaranteed error"
+    ]
+  },
+  {
+    "id": "en-extended",
+    "source": "en",
+    "target": "ru",
+    "kind": "extended_paragraph",
+    "text": "Before we confirm the group booking, I would like to check several details that were discussed on the phone, because the written offer does not quite match what we agreed. There will be twelve travellers in total, but only ten will arrive on Monday; the other two will join us on Wednesday evening. Please reserve six twin rooms for the first two nights and then keep the same six rooms for the rest of the week. We are not asking for extra rooms when the last two guests arrive: two people who initially occupy rooms alone will share them from Wednesday onward. Breakfast should be included for the people actually staying each night, rather than charged for all twelve people from the start.\n\nOne guest uses a wheelchair and needs a room that can be reached without steps. Another guest can use stairs but cannot carry heavy luggage. These are different people, so assigning a single accessible room does not remove the need for luggage assistance. The wheelchair user is called Daniel, while the guest who needs help with her suitcase is called Sofia. Sofia does not need an adapted bathroom. Please do not put medical details or descriptions of either guest on the public arrival board.\n\nWe have already transferred a deposit of 360 euros. That amount should be deducted from the final bill, not charged again as a security deposit. If the transfer has not appeared in your account yet, please contact me before attempting to charge the card on file. The card belongs to our organisation, but it may only be used for accommodation, not for minibar purchases or individual taxi journeys. Those expenses must be paid by the guests themselves.\n\nFinally, our departure is on Sunday, although the coach will collect our luggage on Saturday afternoon. Please do not interpret the luggage collection as an early checkout. We will still need our rooms on Saturday night, and three guests will need breakfast at 06:30 on Sunday; everyone else will eat at the usual time. If any of these arrangements cannot be met, tell us which ones before confirming the booking, rather than replacing them with alternatives without our agreement.",
+    "meaning_checks": [
+      "12total10Monday2Wednesday; six twinrooms unchanged; noextra rooms",
+      "Breakfastactualstays",
+      "Daniel wheelchair; Sofia luggagehelp noadaptedbathroom; distinctpeople privacy",
+      "360depositdeductnotchargeagain; contactbeforecardcharge",
+      "Organisationcard accommodationonly; personalextras guests",
+      "Sundaydeparture Saturdayluggage notcheckout; Saturdaynight rooms;3breakfast06:30"
+    ]
+  },
+  {
+    "id": "ru-extended",
+    "source": "ru",
+    "target": "en",
+    "kind": "extended_paragraph",
+    "text": "Перед поездкой мы договорились, что Марина забронирует гостиницу, Игорь купит билеты на поезд, а я организую встречу на вокзале. Позже маршрут изменился: вместо прямого поезда мы выбрали пересадку в соседнем городе, потому что так можно было приехать на два часа раньше. Это не значит, что нужно менять гостиницу или отменять встречу. Меняется только время прибытия, которое теперь составляет 09:25 вместо 11:25. Пожалуйста, сообщите водителю новое время, но сохраните прежнее место встречи у восточного выхода.\n\nУ нас четыре больших чемодана и один складной детский велосипед в чехле. Велосипед принадлежит сыну Марины, однако сам мальчик приедет только на следующий день с бабушкой. Поэтому сегодня в машине будут трое взрослых, а не четверо взрослых и ребёнок. Детское кресло понадобится завтра, для отдельной поездки из аэропорта. Водителю сегодняшнего трансфера не нужно ждать бабушку и ребёнка на вокзале, а завтра забирать их должен другой водитель.\n\nМы уже внесли предоплату в размере 6 000 рублей за обе поездки. Остаток за сегодняшний трансфер составляет 1 800 рублей, за завтрашний — 2 200 рублей. Эти суммы не включают ожидание сверх бесплатных тридцати минут. Если поезд задержится, бесплатное ожидание должно отсчитываться от фактического прибытия, а не от времени в первоначальном заказе. Мы не согласны оплачивать задержку, возникшую из-за того, что водитель приехал к старому времени, несмотря на наше уведомление.\n\nВ гостинице Марина попросила два номера: один для себя и сына, второй для меня и Игоря. Бабушка остановится у родственников и не входит в гостиничную бронь. При этом её обратный билет куплен вместе с нашими, и удалять её из транспортного заказа не надо. Завтрак для ребёнка оплачен только начиная со второго дня. Если сотрудник гостиницы спросит, почему сегодня ребёнка нет, объясните, что он приедет завтра, а не что мы отменили его проживание. Все подтверждения отправляйте Марине по электронной почте; Игорю нужна только информация о билетах, а водителям — только время, место встречи и количество пассажиров.",
+    "meaning_checks": [
+      "Marinahotel Igortickets narratorpickup;09:25not11:25 east exitunchanged",
+      "4suitcases foldedbike; today3adults; childgrandmatomorrow airport differentdriver childseat",
+      "6000prepaidboth;1800today2200tomorrow;30minfromactualarrival",
+      "2hotelrooms;grandma relativesnotbookingbutkeepreturnticket",
+      "Childbreakfastsecond day; nochildcancellation",
+      "Marinaallconfirmations Igoronlytickets driversonlypickupdetails"
+    ]
+  }
+]

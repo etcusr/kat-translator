@@ -12,6 +12,8 @@ Deferred tasks, not completed changes or release promises.
 - [x] Compare 256 synthetic RU↔EN translations, retain startup/outlier data and manually inspect context, times and pronouns.
 - [x] Profile 192 fresh 9B control requests and compare unchanged outputs; maximum 2.41 s. [Investigation](benchmarks/mac-mlx-latency-2026-10-20/README.md).
 - [x] Remove repeated model loading in the separate Mac Lab using one resident worker, with a saved idle timer (default 5 minutes, Settings 1–60) and 32 matching regression translations.
+- [x] Test 16 new long/context RU↔EN cases ×3: 48 successes, identical outputs, same-case spread ≤4.7%; manual review retains meaning losses. [Report](benchmarks/mac-long-context-2026-10-20/README.md).
+- [ ] Handle long-input/output budgets with context-preserving segmentation; the current 1536-input/2048-total-token limits caused explicit failures in two boundary probes. Preserve separate beds, overnight stays and other constraints in regression checks.
 - [ ] Capture the historical 12.49 s inference outlier with contemporaneous system traces. It did not recur in the fresh controls; root cause remains unconfirmed.
 - [ ] Evaluate held-out examples and phone performance before selecting/routing engines. Apple was much faster but made meaning errors; highFidelity did not establish use of a different model.
 

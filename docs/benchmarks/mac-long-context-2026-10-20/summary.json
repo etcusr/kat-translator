@@ -1,0 +1,928 @@
+{
+  "startup": {
+    "id": "startup",
+    "source": "en",
+    "target": "ru",
+    "kind": "warmup",
+    "text": "Please keep the return ticket.",
+    "code": 0,
+    "output": "Пожалуйста, сохраните билет на обратный рейс.",
+    "first_token_seconds": 0.8396476250054548,
+    "seconds": 1.1912812079972355,
+    "engine": "index9b",
+    "load_seconds": 3.328565666000941,
+    "model_reused": false,
+    "idle_timeout_seconds": 300,
+    "end_to_end_seconds": 4.54383266599325,
+    "output_tokens": 14
+  },
+  "cases": [
+    {
+      "id": "ru-airport",
+      "kind": "long_phrase",
+      "source": "ru",
+      "words": 122,
+      "input_tokens": 234,
+      "successful": 3,
+      "codes": [
+        0,
+        0,
+        0
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        5.116879749999498,
+        5.153618333002669,
+        5.256164082995383
+      ],
+      "latency": {
+        "n": 3,
+        "minimum": 5.116879749999498,
+        "median": 5.153618333002669,
+        "maximum": 5.256164082995383,
+        "p95_nearest_rank": 5.256164082995383
+      },
+      "max_min_ratio": 1.0272205601462294,
+      "ttft": {
+        "n": 3,
+        "minimum": 1.0469135000021197,
+        "median": 1.0482935829932103,
+        "maximum": 1.0732835000089835,
+        "p95_nearest_rank": 1.0732835000089835
+      },
+      "end_to_end": {
+        "n": 3,
+        "minimum": 5.11712737500784,
+        "median": 5.1538995830051135,
+        "maximum": 5.256388207999407,
+        "p95_nearest_rank": 5.256388207999407
+      },
+      "output_tokens": [
+        185,
+        185,
+        185
+      ]
+    },
+    {
+      "id": "en-hotel",
+      "kind": "long_phrase",
+      "source": "en",
+      "words": 141,
+      "input_tokens": 190,
+      "successful": 3,
+      "codes": [
+        0,
+        0,
+        0
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        5.904877458000556,
+        6.054809584005852,
+        5.989732999994885
+      ],
+      "latency": {
+        "n": 3,
+        "minimum": 5.904877458000556,
+        "median": 5.989732999994885,
+        "maximum": 6.054809584005852,
+        "p95_nearest_rank": 6.054809584005852
+      },
+      "max_min_ratio": 1.0253912341232674,
+      "ttft": {
+        "n": 3,
+        "minimum": 0.8083420839975588,
+        "median": 0.8348341249948135,
+        "maximum": 0.8510507499886444,
+        "p95_nearest_rank": 0.8510507499886444
+      },
+      "end_to_end": {
+        "n": 3,
+        "minimum": 5.9051217079977505,
+        "median": 5.989955541997915,
+        "maximum": 6.055026750007528,
+        "p95_nearest_rank": 6.055026750007528
+      },
+      "output_tokens": [
+        212,
+        212,
+        212
+      ]
+    },
+    {
+      "id": "ru-negotiation",
+      "kind": "long_phrase",
+      "source": "ru",
+      "words": 126,
+      "input_tokens": 228,
+      "successful": 3,
+      "codes": [
+        0,
+        0,
+        0
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        5.419801166994148,
+        5.393813082991983,
+        5.493008916004328
+      ],
+      "latency": {
+        "n": 3,
+        "minimum": 5.393813082991983,
+        "median": 5.419801166994148,
+        "maximum": 5.493008916004328,
+        "p95_nearest_rank": 5.493008916004328
+      },
+      "max_min_ratio": 1.0183906693624838,
+      "ttft": {
+        "n": 3,
+        "minimum": 1.0509548749978421,
+        "median": 1.0530688750004629,
+        "maximum": 1.0643488329951651,
+        "p95_nearest_rank": 1.0643488329951651
+      },
+      "end_to_end": {
+        "n": 3,
+        "minimum": 5.394075791002251,
+        "median": 5.420061500000884,
+        "maximum": 5.493295167005272,
+        "p95_nearest_rank": 5.493295167005272
+      },
+      "output_tokens": [
+        206,
+        206,
+        206
+      ]
+    },
+    {
+      "id": "en-directions",
+      "kind": "long_phrase",
+      "source": "en",
+      "words": 146,
+      "input_tokens": 195,
+      "successful": 3,
+      "codes": [
+        0,
+        0,
+        0
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        5.705994083997211,
+        5.81469204199675,
+        5.854318291996606
+      ],
+      "latency": {
+        "n": 3,
+        "minimum": 5.705994083997211,
+        "median": 5.81469204199675,
+        "maximum": 5.854318291996606,
+        "p95_nearest_rank": 5.854318291996606
+      },
+      "max_min_ratio": 1.0259944552721108,
+      "ttft": {
+        "n": 3,
+        "minimum": 0.9277389159979066,
+        "median": 0.9399550000089221,
+        "maximum": 0.9455730829940876,
+        "p95_nearest_rank": 0.9455730829940876
+      },
+      "end_to_end": {
+        "n": 3,
+        "minimum": 5.706314374998328,
+        "median": 5.814892624999629,
+        "maximum": 5.854570541996509,
+        "p95_nearest_rank": 5.854570541996509
+      },
+      "output_tokens": [
+        204,
+        204,
+        204
+      ]
+    },
+    {
+      "id": "en-airport-dialogue",
+      "kind": "dialogue",
+      "source": "en",
+      "words": 134,
+      "input_tokens": 224,
+      "successful": 3,
+      "codes": [
+        0,
+        0,
+        0
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        6.740277584001888,
+        6.753323875003844,
+        6.809212166001089
+      ],
+      "latency": {
+        "n": 3,
+        "minimum": 6.740277584001888,
+        "median": 6.753323875003844,
+        "maximum": 6.809212166001089,
+        "p95_nearest_rank": 6.809212166001089
+      },
+      "max_min_ratio": 1.0102272615838284,
+      "ttft": {
+        "n": 3,
+        "minimum": 0.9297894590126816,
+        "median": 0.9360083329956979,
+        "maximum": 0.9542839159985306,
+        "p95_nearest_rank": 0.9542839159985306
+      },
+      "end_to_end": {
+        "n": 3,
+        "minimum": 6.740535958000692,
+        "median": 6.75359920799383,
+        "maximum": 6.809441707999213,
+        "p95_nearest_rank": 6.809441707999213
+      },
+      "output_tokens": [
+        257,
+        257,
+        257
+      ]
+    },
+    {
+      "id": "ru-hotel-dialogue",
+      "kind": "dialogue",
+      "source": "ru",
+      "words": 115,
+      "input_tokens": 281,
+      "successful": 3,
+      "codes": [
+        0,
+        0,
+        0
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        5.348087542006397,
+        5.3802707090071635,
+        5.507815874996595
+      ],
+      "latency": {
+        "n": 3,
+        "minimum": 5.348087542006397,
+        "median": 5.3802707090071635,
+        "maximum": 5.507815874996595,
+        "p95_nearest_rank": 5.507815874996595
+      },
+      "max_min_ratio": 1.0298664394955424,
+      "ttft": {
+        "n": 3,
+        "minimum": 1.1673689169983845,
+        "median": 1.1758296670013806,
+        "maximum": 1.194833125002333,
+        "p95_nearest_rank": 1.194833125002333
+      },
+      "end_to_end": {
+        "n": 3,
+        "minimum": 5.348402416988392,
+        "median": 5.380603375000646,
+        "maximum": 5.508064874986303,
+        "p95_nearest_rank": 5.508064874986303
+      },
+      "output_tokens": [
+        192,
+        192,
+        192
+      ]
+    },
+    {
+      "id": "en-scheduling-dialogue",
+      "kind": "dialogue",
+      "source": "en",
+      "words": 129,
+      "input_tokens": 215,
+      "successful": 3,
+      "codes": [
+        0,
+        0,
+        0
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        6.462037125005736,
+        6.5703436250041705,
+        6.526496833001147
+      ],
+      "latency": {
+        "n": 3,
+        "minimum": 6.462037125005736,
+        "median": 6.526496833001147,
+        "maximum": 6.5703436250041705,
+        "p95_nearest_rank": 6.5703436250041705
+      },
+      "max_min_ratio": 1.016760426766867,
+      "ttft": {
+        "n": 3,
+        "minimum": 0.9290087919944199,
+        "median": 0.9366252080071718,
+        "maximum": 0.9493343329959316,
+        "p95_nearest_rank": 0.9493343329959316
+      },
+      "end_to_end": {
+        "n": 3,
+        "minimum": 6.462268374991254,
+        "median": 6.526758167005028,
+        "maximum": 6.5705904999922495,
+        "p95_nearest_rank": 6.5705904999922495
+      },
+      "output_tokens": [
+        242,
+        242,
+        242
+      ]
+    },
+    {
+      "id": "ru-return-dialogue",
+      "kind": "dialogue",
+      "source": "ru",
+      "words": 104,
+      "input_tokens": 245,
+      "successful": 3,
+      "codes": [
+        0,
+        0,
+        0
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        5.050631833000807,
+        5.0319111659919145,
+        5.057032291995711
+      ],
+      "latency": {
+        "n": 3,
+        "minimum": 5.0319111659919145,
+        "median": 5.050631833000807,
+        "maximum": 5.057032291995711,
+        "p95_nearest_rank": 5.057032291995711
+      },
+      "max_min_ratio": 1.0049923627773036,
+      "ttft": {
+        "n": 3,
+        "minimum": 1.0524266670108773,
+        "median": 1.0531521660013823,
+        "maximum": 1.0656639160006307,
+        "p95_nearest_rank": 1.0656639160006307
+      },
+      "end_to_end": {
+        "n": 3,
+        "minimum": 5.032170207996387,
+        "median": 5.050902749993838,
+        "maximum": 5.057240958005423,
+        "p95_nearest_rank": 5.057240958005423
+      },
+      "output_tokens": [
+        194,
+        194,
+        194
+      ]
+    },
+    {
+      "id": "en-bank-river",
+      "kind": "context_contrast",
+      "source": "en",
+      "words": 30,
+      "input_tokens": 67,
+      "successful": 3,
+      "codes": [
+        0,
+        0,
+        0
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        1.6693954579968704,
+        1.6932625000044936,
+        1.7405843750020722
+      ],
+      "latency": {
+        "n": 3,
+        "minimum": 1.6693954579968704,
+        "median": 1.6932625000044936,
+        "maximum": 1.7405843750020722,
+        "p95_nearest_rank": 1.7405843750020722
+      },
+      "max_min_ratio": 1.0426435310244717,
+      "ttft": {
+        "n": 3,
+        "minimum": 0.4489219579991186,
+        "median": 0.45910216600168496,
+        "maximum": 0.4650050409982214,
+        "p95_nearest_rank": 0.4650050409982214
+      },
+      "end_to_end": {
+        "n": 3,
+        "minimum": 1.6695574170007603,
+        "median": 1.6934712919901358,
+        "maximum": 1.7407823329995153,
+        "p95_nearest_rank": 1.7407823329995153
+      },
+      "output_tokens": [
+        55,
+        55,
+        55
+      ]
+    },
+    {
+      "id": "en-bank-finance",
+      "kind": "context_contrast",
+      "source": "en",
+      "words": 28,
+      "input_tokens": 64,
+      "successful": 3,
+      "codes": [
+        0,
+        0,
+        0
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        1.4089634169940837,
+        1.427038249996258,
+        1.4593913749995409
+      ],
+      "latency": {
+        "n": 3,
+        "minimum": 1.4089634169940837,
+        "median": 1.427038249996258,
+        "maximum": 1.4593913749995409,
+        "p95_nearest_rank": 1.4593913749995409
+      },
+      "max_min_ratio": 1.0357908213919715,
+      "ttft": {
+        "n": 3,
+        "minimum": 0.3424997499969322,
+        "median": 0.34658774999843445,
+        "maximum": 0.350080958000035,
+        "p95_nearest_rank": 0.350080958000035
+      },
+      "end_to_end": {
+        "n": 3,
+        "minimum": 1.4091959579964168,
+        "median": 1.4272012090077624,
+        "maximum": 1.459589624995715,
+        "p95_nearest_rank": 1.459589624995715
+      },
+      "output_tokens": [
+        43,
+        43,
+        43
+      ]
+    },
+    {
+      "id": "en-gender-woman",
+      "kind": "context_contrast",
+      "source": "en",
+      "words": 25,
+      "input_tokens": 62,
+      "successful": 3,
+      "codes": [
+        0,
+        0,
+        0
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        1.1134977500041714,
+        1.1181647920020623,
+        1.0983031670039054
+      ],
+      "latency": {
+        "n": 3,
+        "minimum": 1.0983031670039054,
+        "median": 1.1134977500041714,
+        "maximum": 1.1181647920020623,
+        "p95_nearest_rank": 1.1181647920020623
+      },
+      "max_min_ratio": 1.0180839185343862,
+      "ttft": {
+        "n": 3,
+        "minimum": 0.33228474999486934,
+        "median": 0.34967741700529587,
+        "maximum": 0.35580491699511185,
+        "p95_nearest_rank": 0.35580491699511185
+      },
+      "end_to_end": {
+        "n": 3,
+        "minimum": 1.0984596659982344,
+        "median": 1.1137048329983372,
+        "maximum": 1.1183477500017034,
+        "p95_nearest_rank": 1.1183477500017034
+      },
+      "output_tokens": [
+        37,
+        37,
+        37
+      ]
+    },
+    {
+      "id": "en-gender-man",
+      "kind": "context_contrast",
+      "source": "en",
+      "words": 25,
+      "input_tokens": 62,
+      "successful": 3,
+      "codes": [
+        0,
+        0,
+        0
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        1.219032041990431,
+        1.208442584000295,
+        1.255971207996481
+      ],
+      "latency": {
+        "n": 3,
+        "minimum": 1.208442584000295,
+        "median": 1.219032041990431,
+        "maximum": 1.255971207996481,
+        "p95_nearest_rank": 1.255971207996481
+      },
+      "max_min_ratio": 1.0393304776126413,
+      "ttft": {
+        "n": 3,
+        "minimum": 0.3456560000049649,
+        "median": 0.35628275001363363,
+        "maximum": 0.35758974999771453,
+        "p95_nearest_rank": 0.35758974999771453
+      },
+      "end_to_end": {
+        "n": 3,
+        "minimum": 1.2085858750069747,
+        "median": 1.2192760000034468,
+        "maximum": 1.2562158750079107,
+        "p95_nearest_rank": 1.2562158750079107
+      },
+      "output_tokens": [
+        43,
+        43,
+        43
+      ]
+    },
+    {
+      "id": "en-isolated-bank",
+      "kind": "isolated_control",
+      "source": "en",
+      "words": 9,
+      "input_tokens": 40,
+      "successful": 3,
+      "codes": [
+        0,
+        0,
+        0
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        0.6009638749965234,
+        0.6167470840009628,
+        0.6290746669983491
+      ],
+      "latency": {
+        "n": 3,
+        "minimum": 0.6009638749965234,
+        "median": 0.6167470840009628,
+        "maximum": 0.6290746669983491,
+        "p95_nearest_rank": 0.6290746669983491
+      },
+      "max_min_ratio": 1.0467761760255363,
+      "ttft": {
+        "n": 3,
+        "minimum": 0.3340557909978088,
+        "median": 0.3404973750002682,
+        "maximum": 0.3432126249972498,
+        "p95_nearest_rank": 0.3432126249972498
+      },
+      "end_to_end": {
+        "n": 3,
+        "minimum": 0.6010827499994775,
+        "median": 0.6169177499978105,
+        "maximum": 0.6292092080111615,
+        "p95_nearest_rank": 0.6292092080111615
+      },
+      "output_tokens": [
+        13,
+        13,
+        13
+      ]
+    },
+    {
+      "id": "en-isolated-gender",
+      "kind": "isolated_control",
+      "source": "en",
+      "words": 10,
+      "input_tokens": 41,
+      "successful": 3,
+      "codes": [
+        0,
+        0,
+        0
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        0.6914228329987964,
+        0.663168291997863,
+        0.6747671670018462
+      ],
+      "latency": {
+        "n": 3,
+        "minimum": 0.663168291997863,
+        "median": 0.6747671670018462,
+        "maximum": 0.6914228329987964,
+        "p95_nearest_rank": 0.6914228329987964
+      },
+      "max_min_ratio": 1.0426053859056104,
+      "ttft": {
+        "n": 3,
+        "minimum": 0.3342313750035828,
+        "median": 0.33568737500172574,
+        "maximum": 0.344577208001283,
+        "p95_nearest_rank": 0.344577208001283
+      },
+      "end_to_end": {
+        "n": 3,
+        "minimum": 0.6633087079972029,
+        "median": 0.6749568749946775,
+        "maximum": 0.6916345829959027,
+        "p95_nearest_rank": 0.6916345829959027
+      },
+      "output_tokens": [
+        14,
+        14,
+        14
+      ]
+    },
+    {
+      "id": "en-extended",
+      "kind": "extended_paragraph",
+      "source": "en",
+      "words": 363,
+      "input_tokens": 443,
+      "successful": 3,
+      "codes": [
+        0,
+        0,
+        0
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        14.478388207993703,
+        14.556208250010968,
+        14.753549916000338
+      ],
+      "latency": {
+        "n": 3,
+        "minimum": 14.478388207993703,
+        "median": 14.556208250010968,
+        "maximum": 14.753549916000338,
+        "p95_nearest_rank": 14.753549916000338
+      },
+      "max_min_ratio": 1.0190049958637464,
+      "ttft": {
+        "n": 3,
+        "minimum": 1.757409165991703,
+        "median": 1.7644269579905085,
+        "maximum": 1.8009191250021104,
+        "p95_nearest_rank": 1.8009191250021104
+      },
+      "end_to_end": {
+        "n": 3,
+        "minimum": 14.478642874993966,
+        "median": 14.55652712500887,
+        "maximum": 14.75392591599666,
+        "p95_nearest_rank": 14.75392591599666
+      },
+      "output_tokens": [
+        558,
+        558,
+        558
+      ]
+    },
+    {
+      "id": "ru-extended",
+      "kind": "extended_paragraph",
+      "source": "ru",
+      "words": 305,
+      "input_tokens": 564,
+      "successful": 3,
+      "codes": [
+        0,
+        0,
+        0
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        12.41381483299483,
+        12.587460375012597,
+        12.42644416699477
+      ],
+      "latency": {
+        "n": 3,
+        "minimum": 12.41381483299483,
+        "median": 12.42644416699477,
+        "maximum": 12.587460375012597,
+        "p95_nearest_rank": 12.587460375012597
+      },
+      "max_min_ratio": 1.0139880886217372,
+      "ttft": {
+        "n": 3,
+        "minimum": 2.2669255419896217,
+        "median": 2.2812486670009093,
+        "maximum": 2.2817907499993453,
+        "p95_nearest_rank": 2.2817907499993453
+      },
+      "end_to_end": {
+        "n": 3,
+        "minimum": 12.4140567919967,
+        "median": 12.426749332997133,
+        "maximum": 12.58784174999164,
+        "p95_nearest_rank": 12.58784174999164
+      },
+      "output_tokens": [
+        477,
+        477,
+        477
+      ]
+    },
+    {
+      "id": "en-output-budget",
+      "kind": "boundary",
+      "source": "en",
+      "words": 689,
+      "input_tokens": 1409,
+      "successful": 0,
+      "codes": [
+        1,
+        1,
+        1
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        19.291701750000357,
+        19.386229833005928,
+        19.653403958000126
+      ],
+      "latency": null,
+      "max_min_ratio": null,
+      "ttft": null,
+      "end_to_end": {
+        "n": 3,
+        "minimum": 19.291901707998477,
+        "median": 19.386437542008935,
+        "maximum": 19.653630832995987,
+        "p95_nearest_rank": 19.653630832995987
+      },
+      "output_tokens": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "en-input-limit",
+      "kind": "boundary",
+      "source": "en",
+      "words": 767,
+      "input_tokens": 1565,
+      "successful": 0,
+      "codes": [
+        1,
+        1,
+        1
+      ],
+      "identical_outputs": true,
+      "seconds": [
+        0.0023431250010617077,
+        0.0013301660073921084,
+        0.0021704999962821603
+      ],
+      "latency": null,
+      "max_min_ratio": null,
+      "ttft": null,
+      "end_to_end": {
+        "n": 3,
+        "minimum": 0.0014570409985026345,
+        "median": 0.0023832500010030344,
+        "maximum": 0.0025489999970886856,
+        "p95_nearest_rank": 0.0025489999970886856
+      },
+      "output_tokens": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "groups": {
+    "boundary": {
+      "requests": 6,
+      "successful": 0,
+      "latency": null,
+      "ttft": null
+    },
+    "context_contrast": {
+      "requests": 12,
+      "successful": 12,
+      "latency": {
+        "n": 12,
+        "minimum": 1.0983031670039054,
+        "median": 1.3324673124952824,
+        "maximum": 1.7405843750020722,
+        "p95_nearest_rank": 1.7405843750020722
+      },
+      "ttft": {
+        "n": 12,
+        "minimum": 0.33228474999486934,
+        "median": 0.35294293749757344,
+        "maximum": 0.4650050409982214,
+        "p95_nearest_rank": 0.4650050409982214
+      }
+    },
+    "dialogue": {
+      "requests": 12,
+      "successful": 12,
+      "latency": {
+        "n": 12,
+        "minimum": 5.0319111659919145,
+        "median": 5.9849265000011656,
+        "maximum": 6.809212166001089,
+        "p95_nearest_rank": 6.809212166001089
+      },
+      "ttft": {
+        "n": 12,
+        "minimum": 0.9290087919944199,
+        "median": 1.003355291504704,
+        "maximum": 1.194833125002333,
+        "p95_nearest_rank": 1.194833125002333
+      }
+    },
+    "extended_paragraph": {
+      "requests": 6,
+      "successful": 6,
+      "latency": {
+        "n": 6,
+        "minimum": 12.41381483299483,
+        "median": 13.53292429150315,
+        "maximum": 14.753549916000338,
+        "p95_nearest_rank": 14.753549916000338
+      },
+      "ttft": {
+        "n": 6,
+        "minimum": 1.757409165991703,
+        "median": 2.033922333495866,
+        "maximum": 2.2817907499993453,
+        "p95_nearest_rank": 2.2817907499993453
+      }
+    },
+    "isolated_control": {
+      "requests": 6,
+      "successful": 6,
+      "latency": {
+        "n": 6,
+        "minimum": 0.6009638749965234,
+        "median": 0.646121479498106,
+        "maximum": 0.6914228329987964,
+        "p95_nearest_rank": 0.6914228329987964
+      },
+      "ttft": {
+        "n": 6,
+        "minimum": 0.3340557909978088,
+        "median": 0.338092375000997,
+        "maximum": 0.344577208001283,
+        "p95_nearest_rank": 0.344577208001283
+      }
+    },
+    "long_phrase": {
+      "requests": 12,
+      "successful": 12,
+      "latency": {
+        "n": 12,
+        "minimum": 5.116879749999498,
+        "median": 5.59950150000077,
+        "maximum": 6.054809584005852,
+        "p95_nearest_rank": 6.054809584005852
+      },
+      "ttft": {
+        "n": 12,
+        "minimum": 0.8083420839975588,
+        "median": 0.9962432914981036,
+        "maximum": 1.0732835000089835,
+        "p95_nearest_rank": 1.0732835000089835
+      }
+    }
+  },
+  "total_requests": 54,
+  "successful": 48,
+  "no_reload": true,
+  "worker_exit_code": 0,
+  "quality_assessment": "See manual review against predeclared meaning checks; timing and identity are not quality scores."
+}
