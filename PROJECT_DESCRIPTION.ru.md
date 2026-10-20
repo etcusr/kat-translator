@@ -6,7 +6,7 @@
 
 **Короткое описание:** Офлайн-переводчик с ИИ.
 
-Kat translator переводит речь, набранный текст и текст на изображениях на iPhone, Mac с Apple Silicon и Android ARM64. Выберите нужные языки, скачайте модели и пользуйтесь переводчиком без подключения к интернету.
+Kat translator использует локальные ИИ-модели и переводит речь, набранный текст и текст на изображениях на iPhone, Mac с Apple Silicon и Android ARM64. Выберите нужные языки, скачайте модели и пользуйтесь переводчиком без подключения к интернету.
 
 - Голосовой ввод, импорт аудио, текстовый перевод; камера на телефонах, изображения из файлов/галереи и буфера по возможностям платформы.
 - Локальное распознавание речи, перевод и озвучивание для поддерживаемых языков.
@@ -24,10 +24,10 @@ Kat translator переводит речь, набранный текст и т�
 
 Текущие выпуски, различия платформ и границы проверок: [CURRENT_STATE](docs/CURRENT_STATE.ru.md). Это описание продукта не утверждает полного совпадения функций и языков на всех платформах.
 
-Документ включён в навигатор Xcode как **Kat translator — Project Info**. Запись App Store Connect создана для iOS и macOS; локализованные тексты карточек — в `docs/publication/2026-10-14/`. На App Review ничего не отправлялось.
+Документ включён в навигатор Xcode как **Kat translator — Project Info**. Запись App Store Connect создана для iOS и macOS; локализованные тексты карточек — в `docs/publication/2026-10-14/`. iOS 1.0 (55) опубликована; готовится обновление 1.0.1. Подтверждения выпусков — в CURRENT_STATE.
 
 - Отображаемое имя: `Kat translator` (одинаково в RU и EN).
 - Проект/схема iOS: `OfflineTranslator`; macOS: `KatTranslatorMac`; Android: Gradle `app`/`inference`.
-- Bundle ID iOS: `app.kattranslator` (выбран 14.10.2026; расширение `app.kattranslator.downloads`; установленное прежнее приложение использует `org.openoffline.translator.prototype` и требует отдельного переноса данных). Магазинная Mac-сборка использует тот же `app.kattranslator`, прямая Mac-сборка — `org.openoffline.translator.mac`. Android application ID: `org.openoffline.translator.android`.
+- Bundle ID iOS: `app.kattranslator` (выбран 14.10.2026; расширение `app.kattranslator.downloads`; обычные обновления сохраняют идентификатор и скачанные модели). Магазинная Mac-сборка использует тот же `app.kattranslator`, прямая Mac-сборка — `org.openoffline.translator.mac`. Android application ID: `org.openoffline.translator.android`.
 - Визуальное направление и варианты логотипа: [заметки о бренде](docs/branding/README.ru.md).
 - Текущая реализация, зависимости загрузок и проверки: [текущее состояние](docs/CURRENT_STATE.ru.md), [заметки о загрузках](docs/IMPLEMENTATION-language-downloads.md).

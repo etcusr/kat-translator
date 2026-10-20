@@ -1,0 +1,437 @@
+{
+  "platform": "ios",
+  "version": "1.0.1",
+  "build": "57",
+  "artifact_name": "Kat-translator-1.0.1-build57.ipa",
+  "artifact_bytes": 66865402,
+  "artifact_sha256": "e8ee4b3c9317e1def02cb0e8d0d057edfc18f563e98edfdff17a65d4f02caa98",
+  "notice_documents": 46,
+  "notice_sha256": "d180b89902959618c22a5b47c0b822a529fc33e6da9ba1c385198455eeb9a3e5",
+  "privacy_manifests": [
+    "FluidAudio_FluidAudio.bundle/PrivacyInfo.xcprivacy",
+    "Frameworks/OmniVoiceRuntime.framework/PrivacyInfo.xcprivacy",
+    "Frameworks/OpusRuntime.framework/PrivacyInfo.xcprivacy",
+    "Frameworks/Python.framework/PrivacyInfo.xcprivacy",
+    "Frameworks/TranslationRuntime.framework/PrivacyInfo.xcprivacy",
+    "ONNXRuntimePrivacy.bundle/PrivacyInfo.xcprivacy",
+    "OfflineCore_OfflineCore.bundle/PrivacyInfo.xcprivacy",
+    "PrivacyInfo.xcprivacy",
+    "SherpaOnnxPrivacy.bundle/PrivacyInfo.xcprivacy"
+  ],
+  "signature": "PASS",
+  "all_binary_signers_match_app": true,
+  "distribution_profiles": 2,
+  "export_encryption_flag": false,
+  "loading_animations": 0,
+  "loading_resources_absent": true,
+  "no_xctest": true,
+  "no_one_beer": true,
+  "resource_bundles": [],
+  "binary_checks": {
+    "macho_images_checked": 72,
+    "openssl_markers": 0,
+    "openssl_library_dependencies": 0,
+    "hash_fallbacks": [
+      "_md5",
+      "_sha1",
+      "_sha2",
+      "_sha3",
+      "_blake2"
+    ]
+  },
+  "binaries": [
+    {
+      "path": "Frameworks/OmniVoiceRuntime.framework/OmniVoiceRuntime",
+      "bytes": 3957904,
+      "sha256": "98341f11ee3d8219db30981f4fbd1776a621427575cfccdcfd6acea4c5100609"
+    },
+    {
+      "path": "Frameworks/OpusRuntime.framework/OpusRuntime",
+      "bytes": 3499296,
+      "sha256": "b7f92b137ab8b19e09bdd4f1d0c89c5b63a1bdd1baeeffff6446d92fabaf3072"
+    },
+    {
+      "path": "Frameworks/Python.framework/Python",
+      "bytes": 4966592,
+      "sha256": "3278cd32a4eb6c52f48acc66f8625b72f62c7588f3b8ab7f0eeabc119ea895e4"
+    },
+    {
+      "path": "Frameworks/TranslationRuntime.framework/TranslationRuntime",
+      "bytes": 14964928,
+      "sha256": "6361e791bae5f9cbbbfc217366e24998da6bab514c5542fb9bacba8b8b464a62"
+    },
+    {
+      "path": "Frameworks/_asyncio.framework/_asyncio",
+      "bytes": 139872,
+      "sha256": "2b6c6e7383d6da7feaf2f76733914197e32bf3ae8e00d353d01abb0d93069c34"
+    },
+    {
+      "path": "Frameworks/_bisect.framework/_bisect",
+      "bytes": 86976,
+      "sha256": "4de7ff2378e568cd57121ee69624cd01fae1b595488d07e5dcf4c0981641b227"
+    },
+    {
+      "path": "Frameworks/_blake2.framework/_blake2",
+      "bytes": 108288,
+      "sha256": "232c304ea4f238b3bfef259edbfeae142ca48adb89d19329063afce5a29e21b9"
+    },
+    {
+      "path": "Frameworks/_bz2.framework/_bz2",
+      "bytes": 192144,
+      "sha256": "7fb6e7fcf89f6e4178b0190c70d72e5893f21eb453e34d05e4df66e5a1cef053"
+    },
+    {
+      "path": "Frameworks/_codecs_cn.framework/_codecs_cn",
+      "bytes": 202464,
+      "sha256": "8d26a18d52a1c438b099ae9bd30154cb2d81e856833c7eb3ed45a1a61599f2d9"
+    },
+    {
+      "path": "Frameworks/_codecs_hk.framework/_codecs_hk",
+      "bytes": 201920,
+      "sha256": "28923b659614501ff898270b2c93443c9bedf1b76169682f21cf3811769a83ae"
+    },
+    {
+      "path": "Frameworks/_codecs_iso2022.framework/_codecs_iso2022",
+      "bytes": 90224,
+      "sha256": "5673a9a80cb421ae7e946ad0cc5c568193dfc4d87ed5ab1422f45914afd6e94a"
+    },
+    {
+      "path": "Frameworks/_codecs_jp.framework/_codecs_jp",
+      "bytes": 319152,
+      "sha256": "95f0df90e091f5c7496ca67b070cdcdb542e73acb9cd5f00de3d1ff0c99020c1"
+    },
+    {
+      "path": "Frameworks/_codecs_kr.framework/_codecs_kr",
+      "bytes": 185824,
+      "sha256": "85f15cc06e2b2a1167cede649ed3ab7aeee603e71692b3b8354adfaaf3f665f0"
+    },
+    {
+      "path": "Frameworks/_codecs_tw.framework/_codecs_tw",
+      "bytes": 168448,
+      "sha256": "3776586ee1dd0e1f16279f8db0fe657953ff997ba17bf3d6ee99151550299362"
+    },
+    {
+      "path": "Frameworks/_contextvars.framework/_contextvars",
+      "bytes": 84064,
+      "sha256": "757eaa4bd70457820fa01c1ed2f4278333066f2e4fc6b65af23c86d15dd0d6d8"
+    },
+    {
+      "path": "Frameworks/_csv.framework/_csv",
+      "bytes": 109824,
+      "sha256": "1c5933885219d235b0434b585d48871773eff336a5ac3fecb4ccda35a29d34ff"
+    },
+    {
+      "path": "Frameworks/_ctypes.framework/_ctypes",
+      "bytes": 263424,
+      "sha256": "9f5fa80be1b799ae614b431ac189f87b97cf616606779d9ec4af1610a3d63492"
+    },
+    {
+      "path": "Frameworks/_ctypes_test.framework/_ctypes_test",
+      "bytes": 96176,
+      "sha256": "efa419ec48014d3bb7487a41742fed672b4f452e91cc14c18c54c326c4714d63"
+    },
+    {
+      "path": "Frameworks/_datetime.framework/_datetime",
+      "bytes": 178064,
+      "sha256": "2d593b7c4e27377e184e339fe462e2e06e96cd24c1d29b956afe6ac82376f764"
+    },
+    {
+      "path": "Frameworks/_dbm.framework/_dbm",
+      "bytes": 88592,
+      "sha256": "2d5f0065000a2232395e2232e0d81741c357cb6b7f2b39d19206e530e21ccb20"
+    },
+    {
+      "path": "Frameworks/_decimal.framework/_decimal",
+      "bytes": 385136,
+      "sha256": "ecbc6bf43755b42fe6a8ff2827111e1de17f4c2531f8f80a0b014f1376d21813"
+    },
+    {
+      "path": "Frameworks/_elementtree.framework/_elementtree",
+      "bytes": 140320,
+      "sha256": "da8bb2ec3fd57d11637d721375cc072f727a18166263e1e51b9fb2ec3d699e61"
+    },
+    {
+      "path": "Frameworks/_heapq.framework/_heapq",
+      "bytes": 86080,
+      "sha256": "5fee12e2938ee9ebe103c60a14c7c6f5a16d2716e5b43a33412e9a01e8a85b53"
+    },
+    {
+      "path": "Frameworks/_interpchannels.framework/_interpchannels",
+      "bytes": 111744,
+      "sha256": "7c96abc11a0abbb29aae65e4080a192a10d455a797eab3ce0a8f7c4f17d493ea"
+    },
+    {
+      "path": "Frameworks/_interpqueues.framework/_interpqueues",
+      "bytes": 91504,
+      "sha256": "516d58c196561651cad0a5b1a2a1663fb8449e29d21b77aa466a7503ddaca748"
+    },
+    {
+      "path": "Frameworks/_interpreters.framework/_interpreters",
+      "bytes": 94656,
+      "sha256": "46104e8a1f12106d2042c6e8913c6b939bdaea663aeba1f469a0aab2a977461f"
+    },
+    {
+      "path": "Frameworks/_json.framework/_json",
+      "bytes": 108064,
+      "sha256": "f395bc8fae2aa5368bf9df9cb5369788587dfc59d5dc8e35ce34b8c86c2ec5c3"
+    },
+    {
+      "path": "Frameworks/_lsprof.framework/_lsprof",
+      "bytes": 90352,
+      "sha256": "0d405d88c3a9971558cadefd8df8fc8bd98489930bfc05f67533a3c98c78a764"
+    },
+    {
+      "path": "Frameworks/_lzma.framework/_lzma",
+      "bytes": 325200,
+      "sha256": "a472401b69a8f0740955416297bbe3712c7fa66057ae696c95462aa2c9428050"
+    },
+    {
+      "path": "Frameworks/_md5.framework/_md5",
+      "bytes": 89280,
+      "sha256": "b2ca98f4a51fcb3539e7d894818760fe9220f0622866055687ae39dd4004cef3"
+    },
+    {
+      "path": "Frameworks/_multibytecodec.framework/_multibytecodec",
+      "bytes": 115248,
+      "sha256": "8e9c8924a88be3b9d18cef7d6550ac6c69bb3716d17cdc768db7c05788ace4a8"
+    },
+    {
+      "path": "Frameworks/_opcode.framework/_opcode",
+      "bytes": 89264,
+      "sha256": "6ba74668d550411b36c6242e2c47ff9fa43df2870883abcb70dd336ff6f7efa3"
+    },
+    {
+      "path": "Frameworks/_pickle.framework/_pickle",
+      "bytes": 191328,
+      "sha256": "12c93967574c23fe6b5a8d7d9ef66f3a9d55765d74a624239d0ef0b86e166752"
+    },
+    {
+      "path": "Frameworks/_queue.framework/_queue",
+      "bytes": 88512,
+      "sha256": "ca48df6b5d2f913074a9d218f3ce2ab101798594de84c281a09793bddadeda29"
+    },
+    {
+      "path": "Frameworks/_random.framework/_random",
+      "bytes": 88016,
+      "sha256": "ded0b95a7778b935ff93291047c69d3754c2a337df98f3375cb22b892d2d6ce9"
+    },
+    {
+      "path": "Frameworks/_sha1.framework/_sha1",
+      "bytes": 89312,
+      "sha256": "97e7c94684926d609ff9627f24bea4192b09d6a820b49db67386a203df191f23"
+    },
+    {
+      "path": "Frameworks/_sha2.framework/_sha2",
+      "bytes": 128224,
+      "sha256": "6b6facf6b163555e1480b7647c1616d823e5b7e5e3cec403960e46d0d1c75789"
+    },
+    {
+      "path": "Frameworks/_sha3.framework/_sha3",
+      "bytes": 92896,
+      "sha256": "7e190c2d10c1109210d4ec6ff13a3ed67fbce76e0429529a11400481f81faf38"
+    },
+    {
+      "path": "Frameworks/_socket.framework/_socket",
+      "bytes": 155008,
+      "sha256": "46af36b711df134b7f1ff6b36dd99e155c2132ae626dcf5754604636dcc74126"
+    },
+    {
+      "path": "Frameworks/_sqlite3.framework/_sqlite3",
+      "bytes": 191024,
+      "sha256": "c8a4beb7ea2c7fc5036ba255d0f4cce260ac4dd499d12b1a4dc74900f05b962e"
+    },
+    {
+      "path": "Frameworks/_statistics.framework/_statistics",
+      "bytes": 84144,
+      "sha256": "868f6cfc9393aa594f2fe85d3f816d00911a26413dd12df3fa49dd0942445698"
+    },
+    {
+      "path": "Frameworks/_struct.framework/_struct",
+      "bytes": 117136,
+      "sha256": "b3f22d05314eefeca16e7afdde247c781f8ac3b807114a99b96c109cab792cdb"
+    },
+    {
+      "path": "Frameworks/_testbuffer.framework/_testbuffer",
+      "bytes": 110464,
+      "sha256": "9f6e44df961b786d8fada0e3bc49e551e929a6eea91794e2d9ad31bf7b7bc1f3"
+    },
+    {
+      "path": "Frameworks/_testcapi.framework/_testcapi",
+      "bytes": 509568,
+      "sha256": "2d868e4b1bfe2fceae966d28d01d2f1dd5bc26a12ea0dca2788f252984ca2d6e"
+    },
+    {
+      "path": "Frameworks/_testclinic.framework/_testclinic",
+      "bytes": 193744,
+      "sha256": "a5f3c1df1e7a5734f43637d454f829a0db4a98939347034962cb612c1fe35250"
+    },
+    {
+      "path": "Frameworks/_testclinic_limited.framework/_testclinic_limited",
+      "bytes": 84912,
+      "sha256": "c85c100bd71a427863ec41cd25e869e50a5c12bc4636a6524ae5d218751cfa1d"
+    },
+    {
+      "path": "Frameworks/_testexternalinspection.framework/_testexternalinspection",
+      "bytes": 84160,
+      "sha256": "68e08702788da3b4d1aac3a4860232ebb930f67819a0d236b4b5f71a7059f520"
+    },
+    {
+      "path": "Frameworks/_testimportmultiple.framework/_testimportmultiple",
+      "bytes": 83712,
+      "sha256": "e0eb53492451929570fa192b55cdf6382b0a6d06c3d04ca4775b7f217aedbdd9"
+    },
+    {
+      "path": "Frameworks/_testinternalcapi.framework/_testinternalcapi",
+      "bytes": 161984,
+      "sha256": "4d0c2e49cb4d1cda820e4a9228c92227ffbcfe6c8ff3a48565060e3e14bcf388"
+    },
+    {
+      "path": "Frameworks/_testlimitedcapi.framework/_testlimitedcapi",
+      "bytes": 251888,
+      "sha256": "2318feb19ee7fce8449f6cacc90000f2006099d0e0765496fbd88d335ccae63c"
+    },
+    {
+      "path": "Frameworks/_testmultiphase.framework/_testmultiphase",
+      "bytes": 96592,
+      "sha256": "7411fa5c792c04f31e0af965d809592c25e417cc32dd11cde0d8d95df71ecc41"
+    },
+    {
+      "path": "Frameworks/_testsinglephase.framework/_testsinglephase",
+      "bytes": 88240,
+      "sha256": "54aa5e26a71c87a206cb88374aa6df3779f0afa722f0b9eed2ffb23777db803b"
+    },
+    {
+      "path": "Frameworks/_uuid.framework/_uuid",
+      "bytes": 83968,
+      "sha256": "64880203f284d9664c958f32cb21958faa522a16cdb363891cf5d1ecf7385f26"
+    },
+    {
+      "path": "Frameworks/_xxtestfuzz.framework/_xxtestfuzz",
+      "bytes": 90768,
+      "sha256": "34f34c336f7295613a292e68910c76a36ee2c8360011271a6d0e4725df3d5cc1"
+    },
+    {
+      "path": "Frameworks/_zoneinfo.framework/_zoneinfo",
+      "bytes": 110352,
+      "sha256": "3e2bc4a3ddf6c05a93fa704a5a2c7d2696798d983b72eedaba58a03c6cf7dc67"
+    },
+    {
+      "path": "Frameworks/array.framework/array",
+      "bytes": 136656,
+      "sha256": "97e023cb2d13be9db474038b4d03303b8b8e418c4f1bbf816a49f1da0c995590"
+    },
+    {
+      "path": "Frameworks/binascii.framework/binascii",
+      "bytes": 89168,
+      "sha256": "52749c8cab172fec2f3a03b97da08cca7db5e8a7cd4474dbbff3cac71ad2c022"
+    },
+    {
+      "path": "Frameworks/cmath.framework/cmath",
+      "bytes": 106384,
+      "sha256": "da41924f11e80eb632b6d52a8c1f9e3b544d43856524ccfae34b6a0b4f9264e4"
+    },
+    {
+      "path": "Frameworks/fcntl.framework/fcntl",
+      "bytes": 86128,
+      "sha256": "1e82d762713c33e58bd7eb1aaa1125bdc0b536d998ae2563f107d4669bead1ab"
+    },
+    {
+      "path": "Frameworks/math.framework/math",
+      "bytes": 132976,
+      "sha256": "ad32aa5589b13422dcdd66b36e7d8d80f7ef6fc3c95ebebf0049c106a5223d2f"
+    },
+    {
+      "path": "Frameworks/mmap.framework/mmap",
+      "bytes": 91840,
+      "sha256": "24469b714291ddfc5edce8d3174bb99673021f4d097d60191758034199033942"
+    },
+    {
+      "path": "Frameworks/pyexpat.framework/pyexpat",
+      "bytes": 303232,
+      "sha256": "4ac012727ad2ca5479f0f726f593ac466c515c7e0e2e06eaeff9dd5d436da9dd"
+    },
+    {
+      "path": "Frameworks/resource.framework/resource",
+      "bytes": 87168,
+      "sha256": "6f9ece0fe3e8371bfc874ea46dccfd83fb1bcd3fa918868f612bd26788688540"
+    },
+    {
+      "path": "Frameworks/select.framework/select",
+      "bytes": 109696,
+      "sha256": "9caac45dac7117947fed6b8b0fba32d9171a5cf3810c767e02143a717dd105f3"
+    },
+    {
+      "path": "Frameworks/termios.framework/termios",
+      "bytes": 88048,
+      "sha256": "8b64b6efbfef57704d0d9f1135b958d1b5b581fd2812dd0575f25b8920880032"
+    },
+    {
+      "path": "Frameworks/unicodedata.framework/unicodedata",
+      "bytes": 768384,
+      "sha256": "94f08cfa58364cabac23e6c3b338740536bf22e980d3ce1147b32d1235e9380c"
+    },
+    {
+      "path": "Frameworks/xxlimited.framework/xxlimited",
+      "bytes": 87168,
+      "sha256": "57b35a33fd6b8685b8f93b35500fb31432e2dd6066953ce949e086a760b26d79"
+    },
+    {
+      "path": "Frameworks/xxlimited_35.framework/xxlimited_35",
+      "bytes": 86208,
+      "sha256": "0d8e7257c810027a6b3d6c67497d3450b73a41def2f5bc5c7cf028fe76a5eaec"
+    },
+    {
+      "path": "Frameworks/xxsubtype.framework/xxsubtype",
+      "bytes": 85392,
+      "sha256": "71ff2a36217c58e249f1464fc096d952210ea20976d1f9df9aeeb3445021952e"
+    },
+    {
+      "path": "Frameworks/zlib.framework/zlib",
+      "bytes": 111696,
+      "sha256": "74eabcd06ecd55a2498714b16fee02eb282673880764a6354011a76d20be9edd"
+    },
+    {
+      "path": "OfflineTranslator",
+      "bytes": 36888320,
+      "sha256": "f6294e181bee116cf543c8cd6e2d7b9a61411102a3ca873c4d8648818136c73d"
+    },
+    {
+      "path": "PlugIns/DownloadActivityExtension.appex/DownloadActivityExtension",
+      "bytes": 169248,
+      "sha256": "017a7021285db2eb0c3c1d65cca666131ee8b26b18ca5177e0186eaad8648d87"
+    }
+  ],
+  "build_identity": {
+    "configuration": "Release",
+    "identifier": "ios-a91925f4606a1672",
+    "platform": "iphoneos",
+    "schema": 1,
+    "sha256": "a91925f4606a1672c19b575eb0c659fd3fb2e4489cf417f1158ce2a82e749450",
+    "sourceFileCount": 797
+  },
+  "device_test": "Prior development build 57 Text partial/cancel/final acceptance; no new Store-installed acceptance",
+  "uploaded": true,
+  "upload_result": "Upload succeeded / EXPORT SUCCEEDED",
+  "framework_metadata_checks": 70,
+  "project_tests": 144,
+  "app_store_status": "Processing; iOS 1.0.1 draft metadata saved, build selection pending",
+  "source_parity": [
+    {
+      "kind": "archive",
+      "identity": "ios-a91925f4606a1672",
+      "matches_current_sources_and_recorded_settings": true
+    },
+    {
+      "kind": "dev",
+      "identity": "ios-c763ae9b37d31bcf",
+      "matches_current_sources_and_recorded_settings": true
+    }
+  ],
+  "store_metadata_verified_locales": [
+    "en-US",
+    "ru",
+    "es-ES",
+    "tr"
+  ],
+  "missing_third_party_dsym_warnings": 70
+}

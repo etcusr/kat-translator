@@ -1,1 +1,1 @@
-çeviri,çevirmen,çevrimdışı,ses,metin,fotoğraf,dil,seyahat
+ai,çeviri,çevirmen,çevrimdışı,ses,metin,fotoğraf,dil,seyahat

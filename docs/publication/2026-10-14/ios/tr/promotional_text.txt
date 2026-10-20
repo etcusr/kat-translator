@@ -1,1 +1,1 @@
-Konuşmaları, metinleri ve görsellerdeki yazıları cihazınızda çevirin. Gerekli modelleri önceden indirin ve internet bağlantısı olmadan kullanın.
+Cihazınızda yapay zekâ (AI) ile ses, metin ve görsel çevirisi. Modelleri indirin, ardından internet bağlantısı olmadan çevirin.

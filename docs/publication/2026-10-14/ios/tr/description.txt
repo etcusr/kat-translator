@@ -1,4 +1,4 @@
-Kat translator, konuşmaları, metinleri ve görsellerdeki yazıları iPhone üzerinde çevirir. Dillerinizi seçin, gerekli modelleri indirin ve internet bağlantısı olmadan çeviri yapın.
+Kat translator, cihazınızda çalışan yapay zekâ modelleriyle konuşmaları, metinleri ve görsellerdeki yazıları çevirir. Dillerinizi seçin, gerekli modelleri indirin ve internet bağlantısı olmadan çeviri yapın.
 
 Çeviri almak için bir cümle kaydedin veya metin yazın. Desteklenen dillerde sonucu dinlemek için bir ses paketi indirin. Sonuçları kopyalayabilir ve cihazınızın paylaşım seçenekleriyle paylaşabilirsiniz.
 

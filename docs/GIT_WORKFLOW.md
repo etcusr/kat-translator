@@ -30,3 +30,9 @@ Living documentation is kept in two languages: `NAME.md` is English and is the d
 - A catalog or layout migration must restore compatible local assets without deleting the old usable copy before the replacement is verified. Do not add version-triggered model cleanup. Historical, explicitly retired model migrations are separate from routine updates.
 - Before a release that changes storage/catalog/migration logic, test an in-place upgrade with preinstalled models. Compare model hashes, installed status, settings and history before/after; prove reuse without a new download. Store/PackageStore regression tests are necessary but do not replace device upgrade acceptance.
 - A user-requested deletion or an explicitly approved incompatible model replacement is separate from an app update. Explain any required additional download before release.
+
+## App Store versions
+
+Each public App Store update gets a new marketing version (for example 1.0 → 1.0.1 for fixes, 1.1 for a feature release). Increase the build number for each upload; multiple candidate builds may share an unreleased marketing version. Keep the iOS app and extension versions aligned. Set versions explicitly in source; do not let export silently change them.
+
+Uploading a build does not publish an update. Create the matching version in App Store Connect, select the processed build, fill release notes and submit it for App Review. Automatic release means release after Apple approves; changing release mode or submitting for review requires the corresponding owner instruction. iOS and macOS release independently. Record upload, processing, review and publication as separate states.

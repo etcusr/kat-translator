@@ -1,1 +1,1 @@
-traductor,offline,voz,texto,pantalla,idiomas,viajes
+ai,ia,traductor,offline,voz,texto,pantalla,idiomas,viajes

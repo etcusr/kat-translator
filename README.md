@@ -2,7 +2,9 @@
 
 **English** | [Русский](README.ru.md)
 
-**iOS 1.0 (55) was verified and uploaded to App Store Connect** with the original-recording volume fix. The owner checked development 54 and reported that it appears correct; that build remains installed on iPhone. Signatures, IPA contents and 143 project checks passed. Apple processing and Store 55 installation through TestFlight are unconfirmed; the owner selects the App Review build. Local Store 53/54/55 distributions are retained. [Checks and upload](docs/publication/ios-original-volume-2026-10-18.md).
+**iOS Store update, 20 October:** **1.0.1 (57)** was verified and uploaded, with progressive Index 9B Text/Voice output and improved download Live Activity updates. 144 repository checks and distribution-package validation passed; prior device retention/partial-text acceptance is documented separately. Version 1.0.1 is being prepared in App Store Connect, with AI descriptions and release notes in EN/RU/ES/TR. No new macOS Store upload; Mac metadata changes are deferred in BACKLOG. [Release evidence](docs/publication/ios-store-update-2026-10-20.md).
+
+**iOS 1.0 (55) was verified and uploaded to App Store Connect** with the original-recording volume fix. The owner checked development 54 and reported that it appears correct; that was the installed build at that earlier checkpoint. Signatures, IPA contents and 143 project checks passed. Apple processing and Store 55 installation through TestFlight are unconfirmed; the owner selects the App Review build. Local Store 53/54/55 distributions are retained. [Checks and upload](docs/publication/ios-original-volume-2026-10-18.md).
 
 Local DMG/ZIP packages are updated to **0.6.8 (61)** for macOS 27+ and separately macOS 15–26. Both include the current recognition/speech and Image fixes, including paragraphs and diagnostic timings. Extracted contents, signatures, checksums and library deployment limits passed verification. Keep at most three releases per line: modern 59/60/61, compatible 53/61 (only two exist). The corrected installed copy remains 0.6.7 (60). [Package checks](docs/publication/mac-direct-2026-10-18.md).
 
@@ -14,7 +16,7 @@ The microphone defaults to tap to start / tap to stop on iOS, macOS and Android.
 
 **GPL-3.0-or-later.** Copyright (c) 2026 the respective copyright holders of Kat translator. Kat's own code may be used, modified and redistributed under GNU GPL version 3 or any later version, without warranty. Third-party components and models retain their own licenses. [GPL text](LICENSE) · [License scope and distribution terms](docs/LICENSING.md).
 
-An offline voice, text and image-text translator for **iPhone, Apple Silicon Mac and ARM64 Android**. Processing runs on the device after the required models have been downloaded. Speech recognition, translation and speech synthesis are separate stages; availability and quality depend on the language, model and device.
+An offline AI translator for voice, text and image text for **iPhone, Apple Silicon Mac and ARM64 Android**. Processing runs on the device after the required models have been downloaded. Speech recognition, translation and speech synthesis are separate stages; availability and quality depend on the language, model and device.
 
 **Start here:** [current status](docs/CURRENT_STATE.md) · [RU/EN product description](PROJECT_DESCRIPTION.md). This overview was checked against the working tree on October 14, 2026. Dated reports describe the build tested at that time, not necessarily today's code. Living documentation is in English with Russian versions (`*.ru.md`); dated reports stay in their original language. [Documentation index](docs/README.md).
 

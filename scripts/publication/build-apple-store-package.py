@@ -45,7 +45,7 @@ def main():
     out.append("Собрано скриптом scripts/publication/build-apple-store-package.py из docs/publication/2026-10-14/.\n")
     out.append("СОДЕРЖАНИЕ")
     out.append("1. App Information — общее для iPhone и Mac (Name, Subtitle)\n2. App Privacy — Privacy Policy URL\n"
-               "3. iOS App → версия 1.0 — по языкам\n4. macOS App → версия 1.0 — по языкам\n5. App Review Information → Notes\n")
+               "3. iOS App → обновление — по языкам\n4. macOS App → подготовленные тексты — по языкам\n5. App Review Information → Notes\n")
 
     out.append(heading("1. App Information (общее для iPhone и Mac)"))
     out.append("Раздел General → App Information. Заполняется один раз на каждый язык.\n")
@@ -59,8 +59,8 @@ def main():
     out.append(field("Privacy Policy URL", read(COPY / "ios/en/privacy_policy_url.txt")))
 
     for number, (platform, label, section) in enumerate(PLATFORMS, start=3):
-        out.append(heading(f"{number}. {section} → версия 1.0 ({label})"))
-        out.append("Слева в меню выбрать версию 1.0 под этой платформой. Поля идут в том же порядке, что на странице.\n")
+        out.append(heading(f"{number}. {section} → тексты карточки ({label})"))
+        out.append("Выбрать редактируемую версию соответствующей платформы. Mac-тексты пока только подготовлены: применять после текущего ревью и публикации по BACKLOG. Поля идут в порядке страницы.\n")
         for code, name, note in LANGS:
             base = COPY / f"{platform}/{code}"
             out.append(heading(f"{label} · {name} ({code}){' — ' + note if note else ''}", "-"))
@@ -70,7 +70,7 @@ def main():
             out.append(field("Keywords", read(base / "keywords.txt"), 100, "байт"))
             out.append(field("Support URL", read(base / "support_url.txt")))
             out.append(field("Marketing URL", read(base / "marketing_url.txt")))
-            out.append("(What's New для первой версии не нужен — поле появится только у обновлений.)\n")
+            out.append(field("What's New (для обновлений)", read(base / "whats-new.txt"), 4000))
 
     out.append(heading("5. App Review Information → Notes"))
     out.append("Одно поле на платформу, на английском. Sign-in required — выключено (входа нет).\n")

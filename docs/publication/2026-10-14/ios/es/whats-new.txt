@@ -1,1 +1,3 @@
-Primera versión de Kat translator en el App Store: traduce voz, texto y palabras en imágenes con modelos que se ejecutan en tu dispositivo.
+• Las traducciones de Index 9B aparecen a medida que se generan en los modos Texto y Voz.
+• La pantalla de traducción muestra el progreso y la opción de cancelar sin vídeos de espera.
+• Mejoramos el estado de descarga de modelos en Dynamic Island y Live Activities, con una indicación cuando el progreso espera actualizarse.

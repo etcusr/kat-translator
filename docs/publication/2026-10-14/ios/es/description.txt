@@ -1,4 +1,4 @@
-Kat translator traduce voz, texto y palabras en imágenes en tu iPhone. Elige los idiomas, descarga los modelos necesarios y traduce sin conexión a internet.
+Kat translator usa modelos de IA en tu dispositivo para traducir voz, texto y palabras en imágenes. Elige los idiomas, descarga los modelos necesarios y traduce sin conexión a internet.
 
 Graba una frase o escribe un texto para obtener una traducción. Descarga una voz para escuchar el resultado en los idiomas compatibles. Copia y comparte las traducciones mediante las opciones del dispositivo.
 

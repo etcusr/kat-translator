@@ -2,6 +2,8 @@
 
 **English** | [Русский](ARCHITECTURE.ru.md)
 
+**iOS Store update, 20 October:** **1.0.1 (57)** was verified and uploaded, with progressive Index 9B Text/Voice output and improved download Live Activity updates. 144 repository checks and distribution-package validation passed; prior device retention/partial-text acceptance is documented separately. Version 1.0.1 is being prepared in App Store Connect, with AI descriptions and release notes in EN/RU/ES/TR. No new macOS Store upload; Mac metadata changes are deferred in BACKLOG. [Release evidence](publication/ios-store-update-2026-10-20.md).
+
 **iOS partial presentation:** `AppModel` enables `ConversationPipeline.showsTranslationPartials` on iOS; the pipeline still gates it to Index 9B. `ConversationView` uses the same request-lifetime inline presentation as Mac for Text/Voice, suppresses the duplicate bottom Text action/progress, and reveals the result once on the first partial. Final/history fields remain separate. Camera and OPUS are unchanged. [Validation](publication/ios-partial-text-2026-10-20.md).
 
 **Installed iPhone acceptance, 20 October:** development 1.0.1 (56) replaced Store 1.0 (55) in place using the same bundle identity and persistent storage. Existing Index/Whisper readiness and retained model/voice files were verified; Store-container access prevents a full pre/post hash comparison. A 492.7 MB OPUS download finished while Kat remained backgrounded, including the completion notification; percentage pauses remain. At this earlier build-56 checkpoint, waiting clips were removed while partial text remained Mac-only; build 57 above supersedes that UI state. [Evidence and limits](publication/ios-update-acceptance-2026-10-20.md).

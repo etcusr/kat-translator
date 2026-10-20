@@ -1,1 +1,3 @@
-Kat translator App Store’da: konuşmaları, metinleri ve görsellerdeki yazıları cihazınızda çalışan modellerle çevirin.
+• Index 9B çevirileri Metin ve Ses modlarında oluşturuldukça görünür.
+• Bekleme videoları kaldırıldı; ilerleme ve iptal denetimleri çeviri ekranında görünür kalır.
+• Dynamic Island ve Canlı Etkinlikler model indirme durumu iyileştirildi; ilerleme güncellemesi beklenirken bir gösterge görünür.

@@ -2,6 +2,8 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+**iOS Store update, 20 October:** **1.0.1 (57)** was verified and uploaded, with progressive Index 9B Text/Voice output and improved download Live Activity updates. 144 repository checks and distribution-package validation passed; prior device retention/partial-text acceptance is documented separately. Version 1.0.1 is being prepared in App Store Connect, with AI descriptions and release notes in EN/RU/ES/TR. No new macOS Store upload; Mac metadata changes are deferred in BACKLOG. [Release evidence](publication/ios-store-update-2026-10-20.md).
+
 **Faster Mac automatic glossary (20 October, lab only):** CPU morphology/term selection plus a shorter Index prompt reduced preparation **6.78 → 1.97 s**, first substantive piece **10.39 → 5.51 s**, full translation **24.37 → 20.14 s** on the same image (three warm repeats). Both drones mentions and raid remain consistent; a new “direct hits” nuance and missed names prevent a blanket quality-equivalence claim. No production/default change. [Method, libraries and evidence](benchmarks/mac-fast-terms-2026-10-20/README.md).
 
 **Mac automatic glossary experiment (20 October, lab only):** source-only extraction produced 9 accepted terms and stabilized both long-range drone mentions on the same image. Three warm repeats per mode: current **17.38 s**, manual glossary **18.49 s**, automatic **24.35 s**, including **6.81 s** preparation; first substantive piece **3.59 / 3.61 / 10.41 s**. Manual glossary still covers more difficult terms. No production/default change; RU→EN, one document, 1,024-token extraction budget. [Results and limits](benchmarks/mac-auto-terms-2026-10-20/README.md).

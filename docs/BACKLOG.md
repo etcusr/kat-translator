@@ -4,6 +4,10 @@
 
 Deferred tasks, not completed changes or release promises.
 
+## Mac App Store AI copy after publication
+
+- [ ] After the current macOS 1.0 review and publication, apply the prepared EN/RU/ES/TR AI descriptions, promotional text and keywords from `publication/2026-10-14/macos/` in App Store Connect. Description/keywords may require a new editable version; promotional text can be changed separately where allowed. Do not withdraw or edit the current Mac submission for this metadata task. iOS 1.0.1 and the public project page are updated separately.
+
 ## Mac system translation experiment
 
 20 October 2026: [separate test application and measurements](benchmarks/mac-system-translation-2026-10-20/README.md), no production integration.
