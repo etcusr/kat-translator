@@ -1,0 +1,26 @@
+{
+  "adapter_tests": 5,
+  "swift_planner_exact_parity": {
+    "equal": true,
+    "pieces_per_block": [
+      1,
+      2,
+      2,
+      1,
+      2
+    ]
+  },
+  "all_successful_translations": 16,
+  "measured_translations": 12,
+  "warmup_translations": 4,
+  "app_bridge_mode": "context_terms",
+  "app_bridge_matches_benchmark": true,
+  "app_bridge_output_sha256": "f6fd3149fd8d8c41a6d714e5f9e175c84f412741d3db11a108e3164b38143c62",
+  "main_app_preferences_unchanged": true,
+  "lab_signature_verified": true,
+  "native_ui_automation": false,
+  "production_changed": false,
+  "automatic_glossary_extraction": false,
+  "docs_version_parity_against_HEAD": true,
+  "whole_worktree_docs_parity": "Failed only because concurrent iOS 1.0.1(56) draft version is not yet reflected in current-state release table"
+}
