@@ -294,6 +294,9 @@ final class ModelDownloader: NSObject, ObservableObject, URLSessionDownloadDeleg
             await self.verification?.value
             await PackageDownloadCoordinator.shared.finishBackgroundDownload(self)
             self.persist()
+            // Do not relinquish background runtime with a publication still
+            // sleeping in the Live Activity throttle.
+            await DownloadLiveActivity.flush()
             let completion = Self.backgroundCompletions.removeValue(forKey: self.identifier)
             completion?()
         }

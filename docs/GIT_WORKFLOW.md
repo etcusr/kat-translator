@@ -22,3 +22,11 @@ Commit messages are written in English and briefly describe what was added, fixe
 ## Documentation languages
 
 Living documentation is kept in two languages: `NAME.md` is English and is the default; `NAME.ru.md` is the Russian version. Both start with a language switcher and must state the same facts; update both in the same commit. Dated reports, benchmarks and research notes are historical evidence and stay in their original language. See the [documentation index](README.md).
+
+## Preserve downloaded models during updates
+
+- An ordinary application update must retain downloaded models, installed package receipts, settings and history. Never uninstall the app or clear its data container as an update step.
+- Keep the bundle/application identity and persistent model storage location stable. For unchanged weights, keep model/package IDs, content hashes and file layout stable; display names or mirror URLs must not trigger a download.
+- A catalog or layout migration must restore compatible local assets without deleting the old usable copy before the replacement is verified. Do not add version-triggered model cleanup. Historical, explicitly retired model migrations are separate from routine updates.
+- Before a release that changes storage/catalog/migration logic, test an in-place upgrade with preinstalled models. Compare model hashes, installed status, settings and history before/after; prove reuse without a new download. Store/PackageStore regression tests are necessary but do not replace device upgrade acceptance.
+- A user-requested deletion or an explicitly approved incompatible model replacement is separate from an app update. Explain any required additional download before release.

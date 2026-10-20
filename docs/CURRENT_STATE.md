@@ -2,6 +2,8 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+**iOS download activity (20 October, source only):** background download completion now waits for the latest queued Live Activity publication; foreground/background transitions refresh the snapshot. After 60 seconds without fresh data, compact Dynamic Island shows a clock instead of a seemingly current percentage, and the expanded view explains the delay. System downloads can continue while iOS suspends the app; continuous background percentages are not guaranteed. Existing model storage/identity is unchanged, with new relocation/restoration regressions and an explicit release retention rule. No Store upload or installed-app replacement. [Checks and limits](publication/ios-download-activity-2026-10-20.md).
+
 **Mac image progress (20 October):** one progress bar now covers the entire image, with a fixed source-character total and OCR blocks as parts. It stays visible between blocks and does not rewind on retries. Real OCR/Index checks on a five-block image and a synthetic control passed; translation algorithms are unchanged. Installed Mac **0.6.8 (61)**, source ID **mac-17491f3ca1f33c1e**, with settings and all model/data hashes preserved; ordinary launch and signature checks passed. No Store upload. [Validation](benchmarks/mac-production-residency-2026-10-20/image-progress.md).
 
 **Mac partial-translation interface (20 October):** progress and cancellation stay above the workspace; intermediate text is readable without the processing overlay or GIF. The optional translation algorithm is unchanged. [Implementation and validation](benchmarks/mac-production-residency-2026-10-20/inline-progress.md).

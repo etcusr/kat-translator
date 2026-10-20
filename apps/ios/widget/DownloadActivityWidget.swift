@@ -43,12 +43,21 @@ struct ModelDownloadActivity: Widget {
                         Text(context.state.detail).font(.caption).lineLimit(1)
                         DownloadActivityProgress(fraction: context.state.fraction)
                         Text(context.state.bytes).font(.caption2).monospacedDigit()
+                        if context.isStale && !context.state.finished {
+                            Label(context.attributes.staleMessage, systemImage: "clock")
+                                .font(.caption2).foregroundStyle(.secondary)
+                        }
                     }
                 }
             } compactLeading: {
                 Image(systemName: context.state.symbol).foregroundStyle(accent)
             } compactTrailing: {
-                Text(context.state.fraction, format: .percent.precision(.fractionLength(0))).font(.caption2).monospacedDigit()
+                if context.isStale && !context.state.finished {
+                    Image(systemName: "clock")
+                        .accessibilityLabel(context.attributes.staleMessage)
+                } else {
+                    Text(context.state.fraction, format: .percent.precision(.fractionLength(0))).font(.caption2).monospacedDigit()
+                }
             } minimal: {
                 Image(systemName: context.state.symbol).foregroundStyle(accent)
             }.widgetURL(URL(string: "kattranslator://downloads")).keylineTint(accent)

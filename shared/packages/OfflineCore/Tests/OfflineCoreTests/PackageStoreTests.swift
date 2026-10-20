@@ -1,6 +1,20 @@
 import XCTest
 @testable import OfflineCore
 final class PackageStoreTests: XCTestCase {
+    func testUpdateWithRelocatedContainerKeepsInstalledPackage() async throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let oldRoot = root.appendingPathComponent("old-container")
+        let installed = try await PackageStore(root: oldRoot).install(
+            archive: Bundle.module.url(forResource: "valid.tar", withExtension: "bz2")!, package: package)
+        let newRoot = root.appendingPathComponent("updated-container")
+        try FileManager.default.moveItem(at: oldRoot, to: newRoot)
+        let restored = try await PackageStore(root: newRoot).readyDirectory(for: package)
+        let directory = try XCTUnwrap(restored)
+        XCTAssertEqual(directory.lastPathComponent, installed.lastPathComponent)
+        XCTAssertEqual(try Data(contentsOf: directory.appendingPathComponent("a")), Data("abc".utf8))
+        XCTAssertEqual(try Data(contentsOf: directory.appendingPathComponent("b")), Data("def".utf8))
+    }
     func testUnchangedPackageSkipsHashesButChangedFileDoesNot() async throws {
         let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: root) }

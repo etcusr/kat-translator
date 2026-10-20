@@ -2,6 +2,23 @@ import XCTest
 @testable import OfflineCore
 
 final class ModelStoreTests: XCTestCase {
+    func testUpdateWithRelocatedContainerAndChangedDisplayMetadataKeepsModel() async throws {
+        let parent = try directory(), oldRoot = parent.appendingPathComponent("old-container")
+        try FileManager.default.createDirectory(at: oldRoot, withIntermediateDirectories: true)
+        let staging = parent.appendingPathComponent("partial")
+        try Data("abc".utf8).write(to: staging)
+        let old = fixture()
+        _ = try await ModelStore(root: oldRoot).verifyAndInstall(stagingURL: staging, model: old)
+        let newRoot = parent.appendingPathComponent("updated-container")
+        try FileManager.default.moveItem(at: oldRoot, to: newRoot)
+        let updated = ModelDescriptor(id: old.id, title: "Updated name",
+            remoteURL: URL(string: "https://example.com/new-mirror")!,
+            byteCount: old.byteCount, sha256: old.sha256)
+        let restored = try await ModelStore(root: newRoot).installedURL(for: updated)
+        let file = try XCTUnwrap(restored)
+        XCTAssertEqual(try Data(contentsOf: file), Data("abc".utf8))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: newRoot.appendingPathComponent("fixture.json").path))
+    }
     func testUnchangedVerifiedModelRestartsWithoutReadingWeights() async throws {
         let root = try directory(), staging = root.appendingPathComponent("partial")
         try Data("abc".utf8).write(to: staging)

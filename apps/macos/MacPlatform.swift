@@ -7,6 +7,7 @@ import OfflineCore
 @MainActor enum DownloadLiveActivity {
     static func started(_ id: String) {}
     static func changed() {}
+    static func flush() async {}
 }
 
 struct AudioShareSheet: View {

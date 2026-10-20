@@ -9,6 +9,7 @@ import OfflineCore
     private static var ids = Set(UserDefaults.standard.stringArray(forKey: "liveDownloadIDs") ?? [])
     private static var scheduled: Task<Void, Never>?
     private static var revision = 0
+    private static var publishedRevision = 0
     private static var lastUpdate = Date.distantPast
     static func started(_ id: String) {
         if activity == nil { activity = Activity<DownloadActivityAttributes>.activities.first { $0.activityState == .active || $0.activityState == .stale } }
@@ -30,6 +31,7 @@ import OfflineCore
             if delay > 0 { try? await Task.sleep(for: .seconds(delay)) }
             let observedRevision = revision
             defer {
+                publishedRevision = observedRevision
                 scheduled = nil
                 if revision != observedRevision { changed() }
             }
@@ -42,6 +44,26 @@ import OfflineCore
                 activity = nil
                 await current.end(content, dismissalPolicy: .after(Date().addingTimeInterval(300)))
             } else { await current.update(content) }
+        }
+    }
+    /// Drain through this caller's revision, including a newer snapshot queued
+    /// behind an ActivityKit update already in flight. Call before returning a
+    /// background URLSession completion handler, while iOS still grants runtime.
+    static func flush() async {
+        changed()
+        let target = revision
+        while publishedRevision < target, let pending = scheduled {
+            await pending.value
+        }
+    }
+    static func refreshAfterLifecycleChange() {
+        guard !ids.isEmpty else { return }
+        // A short, expiring allowance only to publish the current snapshot.
+        // It does not keep the app alive for the duration of the download.
+        let background = DownloadBackgroundWork()
+        Task {
+            defer { background.end() }
+            await flush()
         }
     }
     private static func snapshot() -> DownloadActivityAttributes.ContentState {

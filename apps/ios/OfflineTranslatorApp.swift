@@ -25,7 +25,15 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
         WindowGroup {
             ConversationView(model: model)
                 .task { delegate.model = model; await model.prepare() }
-                .onChange(of: scenePhase) { _, phase in if phase == .background { model.background() } else if phase == .active { Task { await model.history.refresh(); await model.loadAutomaticallyIfNeeded() } } }
+                .onChange(of: scenePhase) { _, phase in
+                    if phase == .background {
+                        DownloadLiveActivity.refreshAfterLifecycleChange()
+                        model.background()
+                    } else if phase == .active {
+                        DownloadLiveActivity.refreshAfterLifecycleChange()
+                        Task { await model.history.refresh(); await model.loadAutomaticallyIfNeeded() }
+                    }
+                }
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didReceiveMemoryWarningNotification)) { _ in
                     Task { await model.memoryWarning() }
                 }
