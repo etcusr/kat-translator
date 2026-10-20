@@ -83,8 +83,15 @@ struct ConversationView: View {
     private var desktopModeSwitchDisabled: Bool {
         externalTextBusy || recorder.isRecording || recorder.starting || model.preparingRecording || model.importingAudio || model.finishing || model.changingTranslation || (session.isBusy && session.isReady && !session.isPreparingRecognition)
     }
+    private var showInlineTranslationProgress: Bool {
+        #if os(macOS)
+        session.usesPartialTranslationPresentation && ((input == .text && session.activeMode == .text) || (input == .voice && session.activeMode == .voice))
+        #else
+        false
+        #endif
+    }
     private var showWizard: Bool {
-        session.isReady && !session.isPreparingRecognition && (externalTextBusy || session.isBusy || model.finishing || model.importingAudio) && (!session.isSpeaking || session.isWaitingForSpeech) && (!recorder.isRecording || model.finishing) && !recorder.starting && !model.preparingRecording
+        !showInlineTranslationProgress && session.isReady && !session.isPreparingRecognition && (externalTextBusy || session.isBusy || model.finishing || model.importingAudio) && (!session.isSpeaking || session.isWaitingForSpeech) && (!recorder.isRecording || model.finishing) && !recorder.starting && !model.preparingRecording
     }
     private var showProcessingOverlay: Bool {
         input != .camera && session.activeMode != .quick && showWizard && !session.isSpeaking
@@ -137,6 +144,20 @@ struct ConversationView: View {
                 if showTechnicalInfo {
                     Text(L10n.text("Модель: ") + packages.selectedTranslation.title)
                         .font(AppPlatform.secondaryFont).foregroundStyle(.secondary).accessibilityIdentifier("model.current")
+                }
+                if showInlineTranslationProgress {
+                    HStack(spacing: 16) {
+                        if let progress = session.translationProgress {
+                            TranslationProgressPanel(progress: progress)
+                        } else {
+                            ProgressView().controlSize(.small)
+                            Text(status).font(AppPlatform.panelCaption).foregroundStyle(.secondary)
+                            Spacer()
+                        }
+                        Button(L10n.text("Отмена"), action: model.cancel)
+                            .accessibilityIdentifier("translation.inline.cancel")
+                    }
+                    .padding(.horizontal, 20).padding(.vertical, 8)
                 }
                 if input == .camera {
                     #if os(macOS)
@@ -325,8 +346,8 @@ struct ConversationView: View {
                     #if os(iOS)
                     automaticSpeechControl
                     #else
-                    if input == .text { textPrimaryButton.frame(maxWidth: .infinity) }
-                    if input == .text && session.isBusy && !showProcessingOverlay {
+                    if input == .text && !showInlineTranslationProgress { textPrimaryButton.frame(maxWidth: .infinity) }
+                    if input == .text && session.isBusy && !showProcessingOverlay && !showInlineTranslationProgress {
                         HStack(spacing: 12) {
                             if showWizard { CatWizardView().frame(width: 64, height: 58).accessibilityIdentifier("text.processing.cat") }
                             if let progress = session.translationProgress { TranslationProgressPanel(progress: progress) }

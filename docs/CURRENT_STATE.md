@@ -2,6 +2,8 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+**Mac partial-translation interface (20 October):** progress and cancellation stay above the workspace; intermediate text is readable without the processing overlay or GIF. The optional translation algorithm is unchanged. [Implementation and validation](benchmarks/mac-production-residency-2026-10-20/inline-progress.md).
+
 **Mac installation (20 October):** installed and opened **0.6.8 (61)**, source ID **mac-c1e1bb101392ada8**, at `/Applications/Kat translator.app`. The model idle timer and optional chunk mode are ready for local testing. Same signing requirement; all 25,206 bundle entries matched, all 2,117 app-data/model entries and all preferences stayed unchanged. Previous app retained locally for rollback. No Store upload. [Installation verification](benchmarks/mac-production-residency-2026-10-20/installed.md).
 
 **Earlier Mac source update (20 October, before installation):** the main Mac implementation now retains translation weights with a 5-minute idle timeout, configurable from 1–60 minutes in Settings. Idle expiry transparently reloads on the next request; explicit unload and memory-saving mode still release resources. An off-by-default Index 9B “Translate in chunks — experimental” option exposes partial text; on one 363-word example the first complete chunk arrived in 4.00–4.16 s, full output in 14.77–14.91 s. Context errors remain possible. Local build and real-engine checks only; no Store upload or installed-app replacement. [Behavior, evidence and limits](benchmarks/mac-production-residency-2026-10-20/README.md).

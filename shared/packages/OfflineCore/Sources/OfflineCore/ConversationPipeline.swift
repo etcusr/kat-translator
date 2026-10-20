@@ -107,6 +107,8 @@ public struct ConversationFields: Sendable {
     public private(set) var error: String? { get { currentFields.error } set { currentFields.error = newValue } }
     @Published public private(set) var stage = ""
     @Published public private(set) var translationProgress: TranslationProgress?
+    /// Partial-display request from translation load through completion; excludes initial ASR.
+    @Published public private(set) var usesPartialTranslationPresentation = false
     @Published public private(set) var isBusy = false
     @Published public private(set) var isSpeaking = false
     @Published public private(set) var isWaitingForSpeech = false
@@ -331,6 +333,7 @@ public struct ConversationFields: Sendable {
     public func run(audio: CapturedAudio?, text: String = "", source requestedSource: SpeechLanguage?, target requestedTarget: SpeechLanguage? = nil, speakResult: Bool = true, inputMode: String, thermal: String, preview: RecordingPreviewResult? = nil, stoppedAt: Double? = nil, recordedSeconds: Double? = nil, processingMode: String = "after-stop", fallbackReason: String? = nil, verifyPreview: Bool = false, resultMode: ConversationMode? = nil, originalRecording: CapturedAudio? = nil) async {
         guard isReady, !isBusy, unloading == nil, let files else { return }
         generation += 1; let id = generation
+        let displayParts = showsTranslationPartials && files.translationModel == .index9B
         activeMode = resultMode ?? (audio == nil ? .text : .voice)
         if activeMode == .voice { voiceRecording.clear(); voiceSpeechShareCache.clear(); hasOriginalRecording = false }
         currentFields.timing = nil; currentFields.partialTranslation = nil
@@ -353,7 +356,7 @@ public struct ConversationFields: Sendable {
             var newText = ""
             var validatedSpeech = verifyPreview ? nil : preview?.firstSpeech
             sourceText = verifyPreview ? "" : (preview?.sourceText ?? ""); translatedText = verifyPreview ? "" : (preview?.translatedText ?? "")
-            defer { partialRequest = nil; currentFields.partialTranslation = nil; earlyPlayback?.cancel(); streamedStart?.cancel(); isSpeaking = false; isSpeechPaused = false; translationProgress = nil; player.stop(); metric.totalSeconds = now - start; samples.append(metric); isBusy = false; stage = ""; active = nil }
+            defer { usesPartialTranslationPresentation = false; partialRequest = nil; currentFields.partialTranslation = nil; earlyPlayback?.cancel(); streamedStart?.cancel(); isSpeaking = false; isSpeechPaused = false; translationProgress = nil; player.stop(); metric.totalSeconds = now - start; samples.append(metric); isBusy = false; stage = ""; active = nil }
             do {
                 if activeMode == .voice, let recording = originalRecording {
                     do {
@@ -435,15 +438,15 @@ public struct ConversationFields: Sendable {
                         translatedText = [translatedText, cached].filter { !$0.isEmpty }.joined(separator: " ")
                         continue
                     }
+                usesPartialTranslationPresentation = displayParts
                 if !mtLoaded { let t = now; stage = L10n.text("Загружаю перевод…"); try await translator.load(modelURL: files.translation, model: files.translationModel); mtLoaded = true; metric.mtLoadSeconds = now - t }
                 try check(id); stage = L10n.text("Перевожу…")
-                translationProgress = part.source.count >= 1000 ? TranslationWork(pieces: [part.source]).progress : nil
+                translationProgress = displayParts || part.source.count >= 1000 ? TranslationWork(pieces: [part.source]).progress : nil
                 // The first finished sentence is spoken while the rest is generated; the text itself is unchanged.
                 if streamedStart == nil, speakResult, !memorySaving, earlySpeech == nil, translatedText.isEmpty, files.voice(target) != nil {
                     streamedStart = StreamedSpeechStart()
                 }
                 let streaming = translatedText.isEmpty ? streamedStart : nil
-                let displayParts = showsTranslationPartials && files.translationModel == .index9B
                 let previousTranslation = translatedText, requestID = UUID()
                 partialRequest = requestID
                 let result = try await translator.translate(text: part.source, source: source, target: target, progress: { [weak self] update in

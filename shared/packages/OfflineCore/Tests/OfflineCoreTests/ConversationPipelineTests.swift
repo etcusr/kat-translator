@@ -1949,17 +1949,46 @@ private actor StreamingMT: TranslationBackend {
         await mt.delay()
         let run = Task { await pipeline.run(audio: nil, text: "текст", source: .russian, speakResult: false, inputMode: "text", thermal: "nominal") }
         for _ in 0..<100 { if await mt.waiting { break }; await Task.yield() }
+        XCTAssertTrue(pipeline.usesPartialTranslationPresentation, "Inline progress starts before the first partial arrives")
+        pipeline.showsTranslationPartials = false
+        XCTAssertTrue(pipeline.usesPartialTranslationPresentation, "The running request keeps its selected presentation")
         await mt.emitPartial("unfinished")
         for _ in 0..<100 { if pipeline.textFields.partialTranslation != nil { break }; await Task.yield() }
         XCTAssertEqual(pipeline.textFields.partialTranslation, "unfinished")
         XCTAssertTrue(pipeline.textFields.translatedText.isEmpty)
         XCTAssertNil(pipeline.textFields.lastHistoryID)
         await mt.resolve(); await run.value
+        XCTAssertFalse(pipeline.usesPartialTranslationPresentation)
         XCTAssertNil(pipeline.textFields.partialTranslation)
         XCTAssertEqual(pipeline.textFields.translatedText, TestMT.result.text)
         await mt.emitPartial("late callback")
         for _ in 0..<10 { await Task.yield() }
         XCTAssertNil(pipeline.textFields.partialTranslation)
+        XCTAssertEqual(pipeline.textFields.translatedText, TestMT.result.text)
+        await pipeline.unload()
+    }
+
+    func testPartialPresentationDrainsCancellationAndDoesNotLeakIntoNextRequest() async {
+        let calls = Calls(), mt = TestMT(Calls())
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: mt, speech: TestTTS(calls), player: TestPlayer(calls))
+        pipeline.showsTranslationPartials = true
+        await pipeline.prepare(files, memorySaving: false)
+        await mt.delay()
+        let run = Task { await pipeline.run(audio: nil, text: "текст", source: .russian, speakResult: false, inputMode: "text", thermal: "nominal") }
+        for _ in 0..<100 { if await mt.waiting { break }; await Task.yield() }
+        XCTAssertTrue(pipeline.usesPartialTranslationPresentation)
+        XCTAssertNotNil(pipeline.translationProgress, "Even short partial requests have progress")
+        pipeline.cancel()
+        await mt.resolve(); await run.value
+        XCTAssertFalse(pipeline.usesPartialTranslationPresentation)
+        XCTAssertNil(pipeline.translationProgress)
+        XCTAssertNil(pipeline.textFields.partialTranslation)
+        XCTAssertTrue(pipeline.textFields.translatedText.isEmpty)
+        pipeline.showsTranslationPartials = false
+        let next = Task { await pipeline.run(audio: nil, text: "новый текст", source: .russian, speakResult: false, inputMode: "text", thermal: "nominal") }
+        for _ in 0..<100 { if await mt.waiting { break }; await Task.yield() }
+        XCTAssertFalse(pipeline.usesPartialTranslationPresentation)
+        await mt.resolve(); await next.value
         XCTAssertEqual(pipeline.textFields.translatedText, TestMT.result.text)
         await pipeline.unload()
     }

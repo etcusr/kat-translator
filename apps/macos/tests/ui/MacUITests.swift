@@ -969,6 +969,55 @@ final class MacUITests: XCTestCase {
         app.buttons["text.clear.source"].click()
         XCTAssertFalse(timing.exists)
     }
+    /// Opt-in real-model check: partial output stays accessible while the cancel action is visible.
+    func testInlinePartialTranslation() throws {
+        guard let path = ProcessInfo.processInfo.environment["KAT_INLINE_APP"] else {
+            throw XCTSkip("Requires an explicit local app and installed Index 9B model")
+        }
+        continueAfterFailure = false
+        executionTimeAllowance = 240
+        let app = XCUIApplication(url: URL(fileURLWithPath: path))
+        app.launchArguments = ["-languageSetupCompleted", "YES", "-automaticModelLoad", "NO",
+            "-ApplePersistenceIgnoreState", "YES", "-appInterfaceLanguage", "en",
+            "-selectedTranslationModel", "index-translate-9b-q4km", "-translationSource", "en", "-translationTarget", "ru",
+            "-automaticLanguage", "NO", "-automaticSpeechText", "NO", "-memorySaving", "NO",
+            "-historyRecordText", "NO", "-historyRecordAudio", "NO", "-macExperimentalTranslationChunks", "YES"]
+        app.launch(); defer { app.terminate() }
+        XCTAssertTrue(app.buttons["mode.text"].waitForExistence(timeout: 30))
+        app.buttons["mode.text"].click()
+        let editor = app.textViews["Original text"].exists ? app.textViews["Original text"] : app.textViews.firstMatch
+        XCTAssertTrue(editor.waitForExistence(timeout: 10))
+        let fixture = Array(repeating: "The library will open at nine tomorrow. Please return the books to the front desk before Friday. Our visitors can read newspapers in the quiet room and ask the librarian for help.", count: 12).joined(separator: "\n\n")
+        let board = NSPasteboard.general
+        let saved = (board.pasteboardItems ?? []).map { item in
+            let copy = NSPasteboardItem()
+            for type in item.types { if let data = item.data(forType: type) { copy.setData(data, forType: type) } }
+            return copy
+        }
+        defer { if board.string(forType: .string) == fixture { board.clearContents(); board.writeObjects(saved) } }
+        board.clearContents(); XCTAssertTrue(board.setString(fixture, forType: .string))
+        editor.click(); app.menuBars.menuBarItems["Edit"].click(); app.menuItems["Paste"].click()
+        XCTAssertEqual(editor.value as? String, fixture)
+        if app.buttons["Prepare translation"].exists { app.buttons["Prepare translation"].click() }
+        let translate = app.buttons["text.translate"]
+        let ready = XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == 'Translate' AND enabled == true"), object: translate)
+        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 90), .completed)
+        translate.click()
+        let cancel = app.buttons["translation.inline.cancel"]
+        XCTAssertTrue(cancel.waitForExistence(timeout: 30))
+        XCTAssertTrue(app.staticTexts["translation.partial.notice"].waitForExistence(timeout: 30))
+        XCTAssertTrue(cancel.isHittable)
+        XCTAssertFalse(app.otherElements["processing.overlay"].exists)
+        XCTAssertFalse(app.descendants(matching: .any).matching(identifier: "text.processing.cat").firstMatch.exists)
+        XCTAssertTrue(app.staticTexts["text.translation.text"].exists)
+        XCTAssertTrue(app.staticTexts["text.translation.text"].isHittable)
+        let shot = XCTAttachment(screenshot: app.screenshot()); shot.name = "inline-partial-translation"; shot.lifetime = .keepAlways; add(shot)
+        cancel.click()
+        let stopped = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: cancel)
+        XCTAssertEqual(XCTWaiter.wait(for: [stopped], timeout: 30), .completed)
+        XCTAssertFalse(app.staticTexts["translation.partial.notice"].exists)
+    }
+
     /// Opt-in comparison against a packaged binary, without rebuilding or replacing that app.
     func testArchivedBuildArticleBenchmark() throws {
         let environment = ProcessInfo.processInfo.environment

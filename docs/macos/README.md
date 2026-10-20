@@ -2,6 +2,8 @@
 
 **English** | [Русский](README.ru.md)
 
+**Partial-translation interface, 20 October:** optional Index 9B chunks show progress and cancellation above the workspace, without the blocking overlay or GIF. The translation stays visible while it is generated. [Checks](../benchmarks/mac-production-residency-2026-10-20/inline-progress.md).
+
 **Installed update, 20 October:** `/Applications/Kat translator.app` now runs **0.6.8 (61)**, source ID **mac-c1e1bb101392ada8**, with the model idle timer and opt-in Index 9B chunks. Signature, full bundle/data hashes, unchanged preferences and normal launch passed. The previous application is retained for rollback. No Store upload or distribution-package replacement. [Installation details](../benchmarks/mac-production-residency-2026-10-20/installed.md).
 
 **Source update before installation, 20 October:** Settings → Memory now includes a translation idle-unload timer (default 5 minutes, 1–60 minutes). Weights are reused while resident and reload automatically after expiry. Settings → Experimental has an off-by-default Index 9B chunk option: earlier partial text, with possible context errors and longer total time. Manual unload and memory-saving behavior remain. Release test-build and real MLX checks passed; no new Store/direct package or Applications installation. [Results and limits](../benchmarks/mac-production-residency-2026-10-20/README.md).

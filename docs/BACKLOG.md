@@ -9,6 +9,7 @@ Deferred tasks, not completed changes or release promises.
 20 October 2026: [separate test application and measurements](benchmarks/mac-system-translation-2026-10-20/README.md), no production integration.
 
 - [x] Main Mac: resident translation model, configurable 5-minute default / 1–60-minute idle timer and optional Index 9B plain chunks, disabled by default. Local validation only; no upload. [Evidence](benchmarks/mac-production-residency-2026-10-20/README.md).
+- [x] Mac partial-translation UX: progress and cancellation above the workspace; intermediate text remains visible, without a processing overlay or GIF. Chunking remains optional; translation algorithm unchanged.
 - [x] Build a separate Mac app with Apple lowLatency/highFidelity and Kat Index 2B/9B; verify both Kat worker bridges.
 - [x] Compare 256 synthetic RU↔EN translations, retain startup/outlier data and manually inspect context, times and pronouns.
 - [x] Profile 192 fresh 9B control requests and compare unchanged outputs; maximum 2.41 s. [Investigation](benchmarks/mac-mlx-latency-2026-10-20/README.md).
