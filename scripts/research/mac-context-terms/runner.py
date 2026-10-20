@@ -11,11 +11,12 @@ import select
 import sys
 import subprocess
 import time
+from auto_glossary import build_glossary, occurrences
 
 ROOT = Path(__file__).resolve().parents[3]
 SUFFIX = '<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n'
 BASE = '<|im_start|>user\n请将以下文本翻译为英语，直接输出翻译结果，不要进行任何解释。\n\n'
-MODES = ('plain', 'context', 'context_terms', 'terms')
+MODES = ('plain', 'context', 'context_terms', 'terms', 'auto_terms')
 
 
 def plan(text, count, limit=128):
@@ -44,7 +45,7 @@ def plan(text, count, limit=128):
 def prompt(mode, text, previous, glossary):
     prefix = BASE
     if mode in ('context_terms', 'terms'):
-        relevant = [row for row in glossary if any(alias.casefold() in text.casefold() for alias in row['aliases'])]
+        relevant = [row for row in glossary if any(bool(occurrences(alias,text)) if row.get('exact') else alias.casefold() in text.casefold() for alias in row['aliases'])]
         if relevant:
             terms = '\n'.join(f"{row['source']} → {row['target']}" for row in relevant)
             prefix = ('<|im_start|>user\n请将以下文本翻译为英语，直接输出翻译结果，不要进行任何解释。'
@@ -72,6 +73,14 @@ class Experiment:
         if mode not in MODES: raise ValueError('Unknown mode')
         start = time.perf_counter()
         blocks = case['blocks']
+        automatic = None
+        if mode == 'auto_terms':
+            emit(dict(event='glossary_start'))
+            automatic = build_glossary(self.engine, blocks)
+            glossary = automatic['terms']
+            emit(dict(event='glossary', terms=glossary, seconds=automatic['seconds'], rejected=automatic['rejected_entries']))
+        else:
+            glossary = case.get('glossary', [])
         planned = [plan(text, self.count) for text in blocks]
         output, trace, previous = [], [], None
         first_part = first_body_part = first_token = first_body_token = None
@@ -80,7 +89,7 @@ class Experiment:
             translated, separator = '', ' '
             for pi, piece in enumerate(pieces):
                 text = piece.strip()
-                prefix, text, suffix = prompt(mode, text, previous, case.get('glossary', []))
+                prefix, text, suffix = prompt('terms' if mode == 'auto_terms' else mode, text, previous, glossary)
                 prompt_tokens = self.engine.count(prefix, text, suffix)
                 if prompt_tokens > 1024:
                     raise ValueError('Context exceeds experiment budget; no silent fallback')
@@ -107,7 +116,8 @@ class Experiment:
         return dict(mode=mode, seconds=time.perf_counter()-start, first_part_seconds=first_part,
                     first_body_part_seconds=first_body_part, first_token_seconds=first_token,
                     first_body_token_seconds=first_body_token, output='\n\n'.join(output), trace=trace,
-                    block_characters=list(map(len, blocks)), pieces_per_block=list(map(len, planned)))
+                    block_characters=list(map(len, blocks)), pieces_per_block=list(map(len, planned)),
+                    glossary=automatic, glossary_seconds=automatic['seconds'] if automatic else 0)
 
 
 def main():
@@ -117,7 +127,10 @@ def main():
     parser.add_argument('--serve', action='store_true')
     parser.add_argument('--swift-planner', type=Path)
     parser.add_argument('--repeats', type=int, default=3)
+    parser.add_argument('--modes', default='plain,context,context_terms,terms')
     args=parser.parse_args()
+    modes=tuple(args.modes.split(','))
+    if not modes or any(mode not in MODES for mode in modes) or len(set(modes))!=len(modes): parser.error('Invalid modes')
     case=json.loads(args.fixture.read_text())
     experiment=Experiment()
     try:
@@ -149,7 +162,7 @@ def main():
             report=dict(fixture_sha256=hashlib.sha256(args.fixture.read_bytes()).hexdigest(),
                         load_seconds=experiment.load_seconds, planner_parity=parity, results=[])
             for repeat in range(args.repeats+1):
-                order=MODES[repeat%len(MODES):]+MODES[:repeat%len(MODES)]
+                order=modes[repeat%len(modes):]+modes[:repeat%len(modes)]
                 for mode in order:
                     row=experiment.run(case,mode)
                     row.update(repeat=repeat,phase='warmup' if repeat==0 else 'warm')

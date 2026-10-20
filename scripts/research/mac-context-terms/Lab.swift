@@ -4,6 +4,7 @@ import SwiftUI
 @MainActor final class LabModel: ObservableObject {
     @Published var source = ""
     @Published var glossary = ""
+    @Published var automaticTerms = ""
     @Published var selected = "plain"
     @Published var outputs: [String: String] = [:]
     @Published var metrics: [String: String] = [:]
@@ -34,13 +35,18 @@ import SwiftUI
     func probeIfRequested() {
         let args = CommandLine.arguments
         guard !probeStarted, let index = args.firstIndex(of: "--probe"), index+1 < args.count else { return }
-        probeStarted = true; probeURL = URL(fileURLWithPath: args[index+1]); selected = "context_terms"
+        probeStarted = true; probeURL = URL(fileURLWithPath: args[index+1]); selected = args.contains("--auto") ? "auto_terms" : "context_terms"
         translate()
     }
     private func acceptResult(_ row: [String: Any]) {
         guard let mode = row["mode"] as? String else { return }
         outputs[mode] = row["output"] as? String ?? ""
+        if let automatic = row["glossary"] as? [String: Any], let terms = automatic["terms"] as? [[String: Any]] { showTerms(terms) }
         metrics[mode] = String(format: "Первая содержательная часть: %.2f с • Всё: %.2f с", row["first_body_part_seconds"] as? Double ?? 0, row["seconds"] as? Double ?? 0)
+        if mode == "auto_terms" { metrics[mode, default: ""] += String(format: " • Сбор словаря: %.2f с (включён)", row["glossary_seconds"] as? Double ?? 0) }
+    }
+    private func showTerms(_ terms: [[String: Any]]) {
+        automaticTerms = terms.map { "\($0["source"] as? String ?? "") → \($0["target"] as? String ?? "")" }.joined(separator: "\n")
     }
     func stop() {
         generation = UUID()
@@ -51,11 +57,16 @@ import SwiftUI
     func translate() {
         guard !busy else { return }
         do {
-            guard let terms = try JSONSerialization.jsonObject(with: Data(glossary.utf8)) as? [[String: Any]] else { throw NSError(domain: "Словарь должен быть массивом JSON", code: 1) }
+            var terms: [[String: Any]] = []
+            if selected == "terms" || selected == "context_terms" {
+                guard let parsed = try JSONSerialization.jsonObject(with: Data(glossary.utf8)) as? [[String: Any]] else { throw NSError(domain: "Словарь должен быть массивом JSON", code: 1) }
+                terms = parsed
+            }
             let blocks = source.components(separatedBy: "\n\n").filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
             guard !blocks.isEmpty else { return }
             let payload: [String: Any] = ["mode": selected, "case": ["blocks": blocks, "glossary": terms]]
-            busy = true; fraction = 0; outputs[selected] = ""; status = "Перевожу…"
+            busy = true; fraction = 0; outputs[selected] = ""; metrics[selected] = ""; status = "Перевожу…"
+            if selected == "auto_terms" { automaticTerms = "" }
             if process?.isRunning == true { try send(payload); return }
             request = payload; status = "Загружаю модель…"
             let child = Process(), stdin = Pipe(), stdout = Pipe()
@@ -92,6 +103,9 @@ import SwiftUI
             switch event["event"] as? String {
             case "ready":
                 if let request { do { try send(request); self.request = nil; status = "Перевожу…" } catch { busy = false; status = error.localizedDescription } }
+            case "glossary_start": status = "Собираю словарь из исходного текста…"
+            case "glossary":
+                if let terms = event["terms"] as? [[String: Any]] { showTerms(terms); status = "Найдено терминов: \(terms.count). Перевожу…" }
             case "partial":
                 outputs[selected] = event["output"] as? String ?? ""
                 fraction = (event["completed"] as? Double ?? 0) / max(1, event["total"] as? Double ?? 1)
@@ -122,10 +136,11 @@ struct LabView: View {
                     Text("Текущий").tag("plain")
                     Text("Контекст").tag("context")
                     Text("Контекст + термины").tag("context_terms")
-                    Text("Только термины").tag("terms")
-                }.pickerStyle(.segmented).frame(width: 650).disabled(model.busy)
+                    Text("Ручной словарь").tag("terms")
+                    Text("Автословарь").tag("auto_terms")
+                }.pickerStyle(.segmented).frame(width: 800).disabled(model.busy)
             }
-            Text("Исследовательская сборка. Словарь задан вручную; соблюдение терминов моделью не гарантировано.").font(.caption).foregroundStyle(.secondary)
+            Text("Исследовательская сборка. Автословарь создаётся из исходника заново; его подготовка включена во время. Ошибки терминов возможны.").font(.caption).foregroundStyle(.secondary)
             HStack {
                 Button("Перевести") { model.translate() }.disabled(model.busy)
                 Button("Отмена / выгрузить") { model.stop() }
@@ -136,10 +151,14 @@ struct LabView: View {
             Text(model.metrics[model.selected] ?? "").font(.caption.monospacedDigit())
             HSplitView {
                 VStack(alignment: .leading) { Text("Исходник • пустая строка разделяет OCR-блоки").font(.caption); TextEditor(text: $model.source).disabled(model.busy) }
-                VStack(alignment: .leading) { Text("Перевод • сравните четыре режима переключателем").font(.caption); TextEditor(text: Binding(get: {model.outputs[model.selected] ?? ""}, set: {_ in})) }
+                VStack(alignment: .leading) { Text("Перевод • сравните режимы переключателем").font(.caption); TextEditor(text: Binding(get: {model.outputs[model.selected] ?? ""}, set: {_ in})) }
             }
-            DisclosureGroup("Общий словарь документа — JSON, редактируемый") { TextEditor(text: $model.glossary).font(.system(size: 12, design: .monospaced)).frame(height: 170).disabled(model.busy) }
-        }.padding(18).frame(minWidth: 1050, minHeight: 650).preferredColorScheme(.dark)
+            if model.selected == "auto_terms" {
+                DisclosureGroup("Автоматически найденные термины") { ScrollView { Text(model.automaticTerms.isEmpty ? "Словарь появится после анализа текста" : model.automaticTerms).textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading) }.frame(height: 150) }
+            } else if model.selected == "terms" || model.selected == "context_terms" {
+                DisclosureGroup("Ручной словарь — JSON, редактируемый") { TextEditor(text: $model.glossary).font(.system(size: 12, design: .monospaced)).frame(height: 170).disabled(model.busy) }
+            }
+        }.padding(18).frame(minWidth: 1200, minHeight: 650).preferredColorScheme(.dark)
         .onAppear { model.probeIfRequested() }
         .onDisappear { model.stop() }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.willTerminateNotification)) { _ in model.stop() }

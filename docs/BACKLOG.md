@@ -8,7 +8,9 @@ Deferred tasks, not completed changes or release promises.
 
 20 October 2026: [separate test application and measurements](benchmarks/mac-system-translation-2026-10-20/README.md), no production integration.
 
-- [x] Compare Mac neighboring context and a shared document glossary on the same image: 4 modes ×3 measured repeats, separate lab. Hand-prepared glossary is best on this example; automatic term extraction and independent-corpus validation remain open. [Results](benchmarks/mac-context-terms-2026-10-20/README.md).
+- [x] Test source-only automatic glossary against current/manual modes on the same Mac image: 3 measured repeats each, 15 tests and real app bridge. Consistency improved, total 24.35 s vs 17.38/18.49 s; preparation included. [Evidence](benchmarks/mac-auto-terms-2026-10-20/README.md).
+- [ ] Reduce automatic glossary startup cost and validate selection/morphology on independent documents and longer inputs before production use.
+- [x] Compare Mac neighboring context and a shared document glossary on the same image: 4 modes ×3 measured repeats, separate lab. Hand-prepared glossary is best on this example; automatic extraction was deferred at that checkpoint; see the newer experiment above. Independent-corpus validation remains open. [Results](benchmarks/mac-context-terms-2026-10-20/README.md).
 - [x] Fix Mac image progress resetting per OCR block: one scene-wide total, cache-aware monotonic progress, unchanged translation. Core and real OCR/Index regression checks pass. [Evidence](benchmarks/mac-production-residency-2026-10-20/image-progress.md).
 - [x] Main Mac: resident translation model, configurable 5-minute default / 1–60-minute idle timer and Index 9B plain chunks, now enabled by default. Local validation only; no upload. [Evidence](benchmarks/mac-production-residency-2026-10-20/README.md).
 - [x] Enable Mac Index 9B chunks by default across Text/Voice/Image; keep an ordinary off switch. Remove waiting video players/resources from all app targets. All platform builds and Mac runtime/UI checks pass; installed Mac updated with data preserved. [Evidence](benchmarks/mac-production-residency-2026-10-20/default-chunks.md).
