@@ -47,6 +47,7 @@ struct TextTranslationFields: View {
                            busy: busy, canSpeak: canSpeakTarget, speaking: speakingField == "target",
                            speak: { speak(output, target, "target") }, stop: stop,
                            editing: editing, clear: clearTarget, paused: paused, speed: speed, pauseResume: pauseResume, selectSpeed: selectSpeed, expand: expandTarget, editorHeight: editorHeight, timing: timing)
+                .id("text.result")
         }
     }
 }

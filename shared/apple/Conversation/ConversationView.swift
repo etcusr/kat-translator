@@ -84,11 +84,7 @@ struct ConversationView: View {
         externalTextBusy || recorder.isRecording || recorder.starting || model.preparingRecording || model.importingAudio || model.finishing || model.changingTranslation || (session.isBusy && session.isReady && !session.isPreparingRecognition)
     }
     private var showInlineTranslationProgress: Bool {
-        #if os(macOS)
         session.usesPartialTranslationPresentation && ((input == .text && session.activeMode == .text) || (input == .voice && session.activeMode == .voice))
-        #else
-        false
-        #endif
     }
     private var showWizard: Bool {
         !showInlineTranslationProgress && session.isReady && !session.isPreparingRecognition && (externalTextBusy || session.isBusy || model.finishing || model.importingAudio) && (!session.isSpeaking || session.isWaitingForSpeech) && (!recorder.isRecording || model.finishing) && !recorder.starting && !model.preparingRecording
@@ -183,7 +179,7 @@ struct ConversationView: View {
                 .environment(\.locale, L10n.locale)
                 #if os(iOS)
                 .safeAreaInset(edge: .bottom, spacing: 0) {
-                    if input == .text && !preparingModels && !showProcessingOverlay {
+                    if input == .text && !preparingModels && !showProcessingOverlay && !showInlineTranslationProgress {
                     VStack(spacing: 0) {
                         if let progress = session.translationProgress,
                            (input == .text && session.activeMode == .text) || (input == .voice && session.activeMode == .voice) {
@@ -293,6 +289,9 @@ struct ConversationView: View {
         }
         #endif
         .onChange(of: showProcessingOverlay) { _, visible in
+            if visible { editingText = false }
+        }
+        .onChange(of: showInlineTranslationProgress) { _, visible in
             if visible { editingText = false }
         }
         .katTextReader(isPresented: Binding(get: { readingField != nil }, set: { if !$0 { readingField = nil } })) {
@@ -457,6 +456,13 @@ struct ConversationView: View {
 
                 }.padding(20)
                 }.scrollDismissesKeyboard(.interactively)
+                    #if os(iOS)
+                    .onChange(of: fields.partialTranslation != nil) { _, visible in
+                        if input == .text && visible {
+                            scroll.scrollTo("text.result", anchor: .top)
+                        }
+                    }
+                    #endif
                     .onChange(of: fields.translatedText) { _, text in
                         originalExpanded = AppPlatform.expandOriginal
                         if input == .voice, !text.isEmpty {

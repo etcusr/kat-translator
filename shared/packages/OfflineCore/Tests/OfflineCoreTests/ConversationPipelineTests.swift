@@ -1941,9 +1941,12 @@ private actor StreamingMT: TranslationBackend {
         XCTAssertTrue(pipeline.translatedText.isEmpty); XCTAssertTrue(pipeline.samples.isEmpty)
     }
 
-    func testOptionalPartialsAreNotFinalResultsAndLateCallbacksAreIgnored() async {
+    func testOptionalPartialsAreNotFinalResultsAndLateCallbacksAreIgnored() async throws {
         let calls = Calls(), mt = TestMT(Calls())
-        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: mt, speech: TestTTS(calls), player: TestPlayer(calls))
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let archive = TranslationHistory(root: root)
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: mt, speech: TestTTS(calls), player: TestPlayer(calls), archive: archive)
         pipeline.showsTranslationPartials = true
         await pipeline.prepare(files, memorySaving: false)
         await mt.delay()
@@ -1957,10 +1960,15 @@ private actor StreamingMT: TranslationBackend {
         XCTAssertEqual(pipeline.textFields.partialTranslation, "unfinished")
         XCTAssertTrue(pipeline.textFields.translatedText.isEmpty)
         XCTAssertNil(pipeline.textFields.lastHistoryID)
+        let unfinishedHistory = try await archive.list()
+        XCTAssertTrue(unfinishedHistory.isEmpty)
         await mt.resolve(); await run.value
         XCTAssertFalse(pipeline.usesPartialTranslationPresentation)
         XCTAssertNil(pipeline.textFields.partialTranslation)
         XCTAssertEqual(pipeline.textFields.translatedText, TestMT.result.text)
+        let completedHistory = try await archive.list()
+        XCTAssertEqual(completedHistory.count, 1)
+        XCTAssertEqual(completedHistory.first?.text?.translation, TestMT.result.text)
         await mt.emitPartial("late callback")
         for _ in 0..<10 { await Task.yield() }
         XCTAssertNil(pipeline.textFields.partialTranslation)
@@ -1988,9 +1996,12 @@ private actor StreamingMT: TranslationBackend {
         await pipeline.unload()
     }
 
-    func testPartialPresentationDrainsCancellationAndDoesNotLeakIntoNextRequest() async {
+    func testPartialPresentationDrainsCancellationAndDoesNotLeakIntoNextRequest() async throws {
         let calls = Calls(), mt = TestMT(Calls())
-        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: mt, speech: TestTTS(calls), player: TestPlayer(calls))
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let archive = TranslationHistory(root: root)
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: mt, speech: TestTTS(calls), player: TestPlayer(calls), archive: archive)
         pipeline.showsTranslationPartials = true
         await pipeline.prepare(files, memorySaving: false)
         await mt.delay()
@@ -1998,12 +2009,17 @@ private actor StreamingMT: TranslationBackend {
         for _ in 0..<100 { if await mt.waiting { break }; await Task.yield() }
         XCTAssertTrue(pipeline.usesPartialTranslationPresentation)
         XCTAssertNotNil(pipeline.translationProgress, "Even short partial requests have progress")
+        await mt.emitPartial("cancelled fragment")
+        for _ in 0..<100 { if pipeline.textFields.partialTranslation != nil { break }; await Task.yield() }
+        XCTAssertEqual(pipeline.textFields.partialTranslation, "cancelled fragment")
         pipeline.cancel()
         await mt.resolve(); await run.value
         XCTAssertFalse(pipeline.usesPartialTranslationPresentation)
         XCTAssertNil(pipeline.translationProgress)
         XCTAssertNil(pipeline.textFields.partialTranslation)
         XCTAssertTrue(pipeline.textFields.translatedText.isEmpty)
+        let cancelledHistory = try await archive.list()
+        XCTAssertTrue(cancelledHistory.isEmpty)
         pipeline.showsTranslationPartials = false
         let next = Task { await pipeline.run(audio: nil, text: "новый текст", source: .russian, speakResult: false, inputMode: "text", thermal: "nominal") }
         for _ in 0..<100 { if await mt.waiting { break }; await Task.yield() }
