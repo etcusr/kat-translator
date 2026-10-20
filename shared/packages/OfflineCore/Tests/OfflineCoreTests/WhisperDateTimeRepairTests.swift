@@ -2,6 +2,19 @@ import XCTest
 @testable import OfflineCore
 
 final class WhisperDateTimeRepairTests: XCTestCase {
+    func testDefaultAndExplicitDateRepairPreferences() throws {
+        let name = "WhisperDateTimeRepairTests." + UUID().uuidString
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: name))
+        defer { defaults.removePersistentDomain(forName: name) }
+        XCTAssertEqual(WhisperDateTimeRepair.isEnabled(in: defaults), WhisperDateTimeRepair.defaultEnabled)
+        XCTAssertNil(defaults.object(forKey: "whisperDateTimeRepair"))
+        defaults.set(false, forKey: "whisperDateTimeRepair")
+        XCTAssertFalse(WhisperDateTimeRepair.isEnabled(in: defaults))
+        defaults.set(true, forKey: "whisperDateTimeRepair")
+        XCTAssertTrue(WhisperDateTimeRepair.isEnabled(in: defaults))
+        defaults.removeObject(forKey: "whisperDateTimeRepair")
+        XCTAssertEqual(WhisperDateTimeRepair.isEnabled(in: defaults), WhisperDateTimeRepair.defaultEnabled)
+    }
     func testRepairIsDisabledByDefault() {
         XCTAssertFalse(WhisperDateTimeRepair.needsRetry("Поезд прибудет 22.18.16 октября.", language: .russian))
     }

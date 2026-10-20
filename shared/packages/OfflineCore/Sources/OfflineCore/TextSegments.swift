@@ -19,7 +19,11 @@ public enum TextSegments {
     }
 }
 public struct SilenceMonitor {
+    #if os(iOS)
+    public static let defaultTimeout = 3.0
+    #else
     public static let defaultTimeout = 4.0
+    #endif
     public private(set) var heardSpeech = false
     private var quietSeconds = 0.0
     private var stopped = false

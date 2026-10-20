@@ -46,7 +46,7 @@ final class WhisperBackend: ASRBackend, @unchecked Sendable {
         try Task.checkCancellation()
         if let language, language.whisperCode == nil { throw PipelineError.recognitionUnavailable }
         guard !audio.samples.isEmpty else { throw WhisperError.noSpeech }
-        let repairDateTime = UserDefaults.standard.bool(forKey: "whisperDateTimeRepair")
+        let repairDateTime = WhisperDateTimeRepair.isEnabled()
         let flag = try WhisperFlag()
         setActive(flag)
         defer { clearActive(flag) }

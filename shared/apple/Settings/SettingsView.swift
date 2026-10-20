@@ -7,7 +7,7 @@ struct SettingsView: View {
     @AppStorage("recordingMode") private var mode: RecordingMode = .toggle
     @AppStorage("recordingSilenceSeconds") private var silenceSeconds = SilenceMonitor.defaultTimeout
     @AppStorage("recordingLimitMinutes") private var limitMinutes = RecordingPolicy.defaultMinutes
-    @AppStorage("whisperDateTimeRepair") private var dateTimeRepair = false
+    @AppStorage("whisperDateTimeRepair") private var dateTimeRepair = WhisperDateTimeRepair.defaultEnabled
     @AppStorage("recordingPreprocessing") private var preprocessing = true
     @AppStorage("recordingPreviewVerification") private var verification = true
     #if os(macOS)

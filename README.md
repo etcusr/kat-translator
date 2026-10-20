@@ -2,6 +2,8 @@
 
 **English** | [Русский](README.ru.md)
 
+**iOS recording defaults:** Whisper date/time repair is enabled and automatic stop uses 3 seconds of silence when no saved preference exists. Explicit saved choices are preserved. macOS/Android defaults are unchanged.
+
 **iOS Store update, 20 October:** **1.0.1 (57)** was verified and uploaded, with progressive Index 9B Text/Voice output and improved download Live Activity updates. 144 repository checks and distribution-package validation passed; prior device retention/partial-text acceptance is documented separately. Build 57 is processed and selected for version 1.0.1 in App Store Connect, with saved AI descriptions and release notes in EN/RU/ES/TR. Review cancelled on 20 October for metadata revisions: Developer Rejected; build 57 retained, manual release unchanged. No new macOS Store upload; Mac metadata changes are deferred in BACKLOG. [Release evidence](docs/publication/ios-store-update-2026-10-20.md).
 
 **iOS 1.0 (55) was verified and uploaded to App Store Connect** with the original-recording volume fix. The owner checked development 54 and reported that it appears correct; that was the installed build at that earlier checkpoint. Signatures, IPA contents and 143 project checks passed. Apple processing and Store 55 installation through TestFlight are unconfirmed; the owner selects the App Review build. Local Store 53/54/55 distributions are retained. [Checks and upload](docs/publication/ios-original-volume-2026-10-18.md).
@@ -12,7 +14,7 @@ Local DMG/ZIP packages are updated to **0.6.8 (61)** for macOS 27+ and separatel
 
 **Previous upload, 17 October:** **iOS 1.0 (53) and Mac App Store 1.0 (71)** were built from the corrected sources, verified and uploaded to App Store Connect. They include complete streamed speech, exact whitespace handling to avoid replay, contextual Russian ordinals and Mac MLX partial output. Both packages contain the current 13 loading clips. Project validation: 143 PASS. Apple processing, TestFlight installation and build selection for review are not yet confirmed. [Checks and upload result](docs/publication/apple-speech-store-2026-10-17.md).
 
-The microphone defaults to tap to start / tap to stop on iOS, macOS and Android. A saved recording-mode choice is preserved; hold to record remains available in Settings. The current iOS54/Mac76 store packages and refreshed direct Mac build include this default.
+The microphone defaults to tap to start / tap to stop on iOS, macOS and Android. On iOS, first-run language setup recommends Whisper large-v3-turbo Q8 (874.2 MB) for Whisper-supported languages. Updating requires a one-time download of this new asset; previous F16 weights, other models, settings and history are retained. With technical information enabled, Voice offers **Open audio file** for diagnostic recognition/translation, respecting the automatic speech switch. Native Whisper uses Metal without Core ML. A saved recording-mode choice is preserved; hold to record remains available in Settings. The current iOS54/Mac76 store packages and refreshed direct Mac build include this default.
 
 **GPL-3.0-or-later.** Copyright (c) 2026 the respective copyright holders of Kat translator. Kat's own code may be used, modified and redistributed under GNU GPL version 3 or any later version, without warranty. Third-party components and models retain their own licenses. [GPL text](LICENSE) · [License scope and distribution terms](docs/LICENSING.md).
 
@@ -49,9 +51,11 @@ The main voice workflow processes a recording after it stops. Recognition previe
 | Index-Translate 2B | llama.cpp / Metal, Q4_K_M | separate llama.cpp / Metal, Q4_K_M | llama.cpp / Vulkan, Q4_K_M, no MTP |
 | OPUS Big, EN↔RU/UK/BE | CTranslate2 CPU INT8 | separate Python / PyTorch Metal FP16 worker, beam5 | CTranslate2 CPU INT8 |
 | OPUS directions from the catalog | CTranslate2 CPU INT8 | CTranslate2 CPU INT8 | CTranslate2 CPU INT8 |
-| Auto ASR | classic Whisper; Meta for additional languages | classic Whisper; Meta for additional languages | RU → GigaAM v3; other Parakeet-supported languages → Parakeet TDT v3; separate existing paths for others |
+| Auto ASR | Whisper Q8 / Metal; Meta for additional languages | Whisper F16 / Metal; Meta for additional languages | RU → GigaAM v3; other Parakeet-supported languages → Parakeet TDT v3; separate existing paths for others |
 | OCR | Apple Vision + local OCR routing | Apple Vision + local OCR routing | bundled ML Kit for supported scripts; PP-OCR for Russian |
 | Initial MT selection | Auto | Auto | Auto |
+
+On iOS, initial language setup recommends Whisper large-v3-turbo Q8 (874.2 MB) for Whisper-supported languages. Existing installations download this new asset once; old F16 files, other models, settings and history are retained. With technical information enabled, Voice exposes **Open audio file** for diagnostic recognition/translation using the existing automatic-speech switch. The native Whisper runtime uses Metal without Core ML.
 
 Updates preserve the saved model selection. Auto chooses an installed model for the language pair based on the device test: 9B, then 2B on powerful devices; supported OPUS, then 2B and 9B on others. The older OPUS EN package translates **EN↔RU/UK/BE**; the direction catalog adds direct pairs, including pairs without English. There is no hidden pivot translation. Of 54 direction packages, 10 are available for download and 44 require manual installation until hosting is available. Index has broad text-language coverage; this does not establish quality for every pair or equivalent ASR/TTS/OCR coverage. Model and license sources: [assets/catalogs](assets/catalogs), [publication package inventory](docs/publication/2026-10-12/evidence/model-inventory.csv).
 

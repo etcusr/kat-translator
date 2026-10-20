@@ -45,7 +45,9 @@ def validate():
                 text = data.decode('utf-8').removesuffix('\n')
                 units = len(text.encode('utf-16-le')) // 2
                 byte_length = len(text.encode('utf-8'))
-                count = byte_length if filename == 'keywords.txt' else max(len(text), units)
+                # Match the saved ASC field counter and Apple's product-page guidance.
+                # Keep UTF-8 byte length as evidence, not the UI character limit.
+                count = max(len(text), units)
                 if not text or text != text.strip():
                     errors.append(f'Empty value or extra surrounding whitespace: {path.relative_to(ROOT)}')
                 if count > limit:
@@ -60,7 +62,7 @@ def validate():
                         errors.append(f'Invalid HTTPS URL: {path.relative_to(ROOT)}')
                 rows.append({'path': str(path.relative_to(ROOT)), 'app_store_locale': asc_locale,
                              'characters': len(text), 'utf16_units': units, 'utf8_bytes': byte_length,
-                             'limit': limit, 'limit_unit': 'UTF-8 bytes' if filename == 'keywords.txt' else 'characters',
+                             'limit': limit, 'limit_unit': 'characters',
                              'sha256': hashlib.sha256(data).hexdigest()})
         notes = COPY / platform / 'review_notes.txt'
         text = notes.read_text().strip() if notes.exists() else ''

@@ -1,3 +1,6 @@
+• iPhone artık ilk kurulumda önerilen daha küçük Whisper Q8 konuşma tanıma modelini (874 MB) kullanıyor. Güncellemeden sonra yeni modeli bir kez indirmeniz gerekir.
+• Ayarlarda teknik bilgiler etkinleştirildiğinde Ses modunda ses dosyalarını içe aktarabilirsiniz.
+• Tarih ve saat düzeltme varsayılan olarak açık; kayıt 3 saniyelik sessizlikten sonra durur. Kaydedilmiş tercihler korunur.
 • Index 9B çevirileri Metin ve Ses modlarında oluşturuldukça görünür.
 • Bekleme videoları kaldırıldı; ilerleme ve iptal denetimleri çeviri ekranında görünür kalır.
 • Dynamic Island ve Canlı Etkinlikler model indirme durumu iyileştirildi; ilerleme güncellemesi beklenirken bir gösterge görünür.

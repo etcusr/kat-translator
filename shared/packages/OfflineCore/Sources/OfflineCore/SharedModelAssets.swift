@@ -41,7 +41,14 @@ public enum SharedModelAssets {
     public static let balineseTokens = ModelDescriptor(id: "mms-tts-ban-tokens", title: L10n.text("Балийский · словарь голоса"),
         remoteURL: URL(string: "https://huggingface.co/willwade/mms-tts-multilingual-models-onnx/resolve/4f49fc254f11ddb0e35fbf25b6e48b04463a6779/ban/tokens.txt")!,
         byteCount: 211, sha256: "34b76e1a67b961bed6f067d450f4fee1529aef3090fd4dce4b6fb4074dec65a8")
-    public static let turbo = ModelDescriptor(id: "whisper-large-v3-turbo-f16", title: "Whisper large-v3-turbo",
+    public static let turboDefault = ModelDescriptor(id: "whisper-large-v3-turbo-f16", title: "Whisper large-v3-turbo",
         remoteURL: URL(string: "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-large-v3-turbo.bin?download=true")!,
         byteCount: 1624555275, sha256: "1fc70f774d38eb169993ac391eea357ef47c88757ef72ee5943879b7e8e2bc69")
+    #if os(iOS)
+    public static let turbo = ModelDescriptor(id: "whisper-large-v3-turbo-q8_0", title: "Whisper large-v3-turbo · Q8",
+        remoteURL: URL(string: "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-large-v3-turbo-q8_0.bin?download=true")!,
+        byteCount: 874188075, sha256: "317eb69c11673c9de1e1f0d459b253999804ec71ac4c23c17ecf5fbe24e259a1")
+    #else
+    public static let turbo = turboDefault
+    #endif
 }

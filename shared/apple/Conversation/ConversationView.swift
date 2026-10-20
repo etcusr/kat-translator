@@ -249,7 +249,6 @@ struct ConversationView: View {
                     Task { await model.history.refresh(); await resumeImageAfterConfiguration() }
                 }) { SettingsView(model: model) }
                 .sheet(isPresented: $showHistory) { HistoryView(history: history) }
-                #if os(macOS)
                 .fileImporter(isPresented: $showAudioImporter, allowedContentTypes: [.audio], allowsMultipleSelection: false) { result in
                     switch result {
                     case .success(let urls):
@@ -258,7 +257,6 @@ struct ConversationView: View {
                         if (error as NSError).code != NSUserCancelledError { model.message = AudioFileImportError.unreadable.localizedDescription }
                     }
                 }
-                #endif
                 .katFullScreenCover(isPresented: $model.showLanguageSetup, onDismiss: { Task { await model.loadAutomaticallyIfNeeded() } }) { LanguageSetupView(model: model) }
                 .onChange(of: packages.downloadingAll) { _, downloading in if !downloading { Task { await model.loadAutomaticallyIfNeeded() } } }
                 .onOpenURL { url in if url.scheme == "kattranslator", url.host == "downloads" { showModels = true } }

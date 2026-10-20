@@ -1,1 +1,1 @@
-çeviri,çevirmen,ingilizce,türkçe,rusça,kamera,internetsiz,yapay zekâ,telaffuz
+çeviri,çevirmen,çevrimdışı,yapay zeka,sesli,konuşma,fotoğraf,kamera,metin,seyahat,asistan,dil,turizm

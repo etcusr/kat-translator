@@ -2,6 +2,10 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+**iOS recording defaults:** Whisper date/time repair is enabled and automatic stop uses 3 seconds of silence when no saved preference exists. Explicit saved choices are preserved. macOS/Android defaults are unchanged.
+
+**iOS Q8 integration (20 October, development 1.0.1 / 58):** the main iOS catalog and initial language setup now select native Whisper large-v3-turbo Q8 (874.2 MB), using the existing Metal runtime without Core ML. Q8 has separate model/transfer identities; existing F16 files are retained and old background callbacks still use the F16 descriptor. Diagnostic Voice file import reuses the existing decoder and respects the automatic-speech switch. Saved preferences are not reset. Build and iPhone upgrade acceptance passed: four silent imports, recommendation/defaults, retained weights/settings/history. [Checks](benchmarks/ios-native-q8-2026-10-20/README.md). Store packaging is verified; upload/submission follows.
+
 **iPhone diagnostic file comparison (20 October, lab only):** Kat Voice Lab now imports audio files when technical information is enabled; automatic speech is off by default. All 24 silent file → ASR → Index 9B cycles passed with identical decoded PCM and identical texts across F16, native Q8 and Core ML + Q8; date errors remain. Second-pass four-file ASR sums: **4.73 / 4.03 / 3.16 s**; process footprint peaks: **2.42 / 1.60 / 2.86 GB**. F16/Q8 were fair, Core ML serious; an earlier Core ML attempt received a memory warning after one file, so completed-run success is not a general residency guarantee. Main iOS source/app unchanged. [Procedure and limitations](benchmarks/ios-coreml-voice-cycle-2026-10-20/README.md).
 
 **iPhone full voice experiment (20 October, separate lab):** Core ML FP16 encoder + Q8 completed actual microphone → Index 9B → Lessac playback cycles, with memory saving and date/time repair both off. Normal-block process footprint peaked at **3.14 GB vs 2.68 GB for F16**; both received a memory warning and recovered through ASR unloading/reloading. The original date error remains, and additional acoustic controls showed a missing month/spurious tail with Core ML + Q8. No main-app integration or Store update. [Measurements and limits](benchmarks/ios-coreml-voice-cycle-2026-10-20/README.md).
@@ -183,7 +187,7 @@ The build 45 signing candidate is kept separately in `dist/ios/signing-candidate
 | Platform | Version | Build requirement | Confirmation |
 |---|---|---|---|
 | Android | **0.4.6 / code21**, Debug | API 31+, arm64-v8a (ARMv8.2 dotprod/FP16 for Index); compile/target 36 | Installed on Pixel 9 Pro 13.10; native Auto OPUS→2B→OPUS, EN→EN, manual RU↔DE; voice RU/DE via import/microphone with GigaAM/Parakeet and TTS verified |
-| iPhone | **1.0.1 / build57** | iOS 18+, iPhone ARM64 | Development 57 includes partial text; prior 55→56 model retention/background completion checked; 57 not uploaded. |
+| iPhone | **1.0.1 / build58** | iOS 18+, iPhone ARM64 | Native Whisper Q8 and diagnostic file import; development-device acceptance passed; Store package verified, upload pending. |
 | Mac modern | **0.6.8 / build61** | macOS 27+, Apple Silicon | DMG/ZIP 61 verified; installed corrected copy 0.6.7 (60), `mac-8378c215e7c13deb` |
 | Mac App Store | **1.0 / build76** | macOS 27+, Apple Silicon, sandbox | PKG76 verified and uploaded; Apple processing unconfirmed. |
 | Mac compatible | **0.6.8 / build61 / macos15-26** | binary minimum macOS 15, Apple Silicon | DMG/ZIP 61 and audit verified; two runtime tests on macOS 27; physical macOS 15–26 not tested |

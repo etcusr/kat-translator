@@ -2,6 +2,45 @@ import XCTest
 @testable import OfflineCore
 
 final class ModelStoreTests: XCTestCase {
+    func testWhisperTransferIdentityDoesNotReuseF16StateForQ8() {
+        let f16 = SharedModelAssets.turboDefault
+        let q8 = fixture(id: "whisper-large-v3-turbo-q8_0")
+        XCTAssertNil(f16.transferStorageKey)
+        XCTAssertEqual(q8.transferStorageKey, "whisper-large-v3-turbo-q8_0")
+        XCTAssertEqual(SharedModelAssets.indexTranslation.transferStorageKey, "index-translate-9b-q4km")
+        #if os(iOS)
+        XCTAssertEqual(ModelDescriptor.turbo.id, q8.id)
+        XCTAssertEqual(ModelDescriptor.turbo.byteCount, 874_188_075)
+        #else
+        XCTAssertEqual(ModelDescriptor.turbo, f16)
+        #endif
+    }
+    func testInstallingQ8KeepsLegacyF16AndUnrelatedModelsAcrossContainerMove() async throws {
+        let parent = try directory(), root = parent.appendingPathComponent("old-container")
+        let legacy = fixture(id: "whisper-large-v3-turbo-f16")
+        let q8 = fixture(id: "whisper-large-v3-turbo-q8_0")
+        let other = fixture(id: "translation")
+        let store = ModelStore(root: root)
+        for model in [legacy, other, q8] {
+            let staging = parent.appendingPathComponent("staging")
+            try Data("abc".utf8).write(to: staging)
+            _ = try await store.verifyAndInstall(stagingURL: staging, model: model)
+        }
+        let updated = parent.appendingPathComponent("new-container")
+        try FileManager.default.moveItem(at: root, to: updated)
+        let restarted = ModelStore(root: updated)
+        for model in [legacy, other, q8] {
+            let restored = try await restarted.installedURL(for: model)
+            let url = try XCTUnwrap(restored)
+            XCTAssertEqual(url.lastPathComponent, model.id + ".bin")
+            XCTAssertEqual(try Data(contentsOf: url), Data("abc".utf8))
+        }
+        try await restarted.remove(q8)
+        let oldStillInstalled = try await restarted.installedURL(for: legacy)
+        let unrelatedStillInstalled = try await restarted.installedURL(for: other)
+        XCTAssertNotNil(oldStillInstalled)
+        XCTAssertNotNil(unrelatedStillInstalled)
+    }
     func testUpdateWithRelocatedContainerAndChangedDisplayMetadataKeepsModel() async throws {
         let parent = try directory(), oldRoot = parent.appendingPathComponent("old-container")
         try FileManager.default.createDirectory(at: oldRoot, withIntermediateDirectories: true)

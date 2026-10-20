@@ -374,7 +374,6 @@ import OfflineCore
             if id == interactionID, inputMode == .voice { await synchronizeRecognition() }
         } catch is CancellationError {} catch { if id == interactionID { message = error.localizedDescription } }
     }
-    #if os(macOS)
     func importAudioFile(_ url: URL) async {
         guard !isShuttingDown, session.isReady, !usingCamera, !importingAudio, !preparingRecording, !finishing,
               !recorder.isRecording, !recorder.starting, !session.isBusy, !changingTranslation else { return }
@@ -411,9 +410,11 @@ import OfflineCore
             await session.run(audio: audio, source: source, target: target, speakResult: speak,
                               inputMode: "audio-file", thermal: Self.thermalState)
             await history.refresh()
+            #if os(iOS)
+            if id == interactionID, inputMode == .voice { await synchronizeRecognition() }
+            #endif
         } catch is CancellationError {} catch { if id == interactionID { message = error.localizedDescription } }
     }
-    #endif
     func translateText(_ text: String) async {
         guard !isShuttingDown else { return }
         if let languageIssue { message = languageIssue; return }

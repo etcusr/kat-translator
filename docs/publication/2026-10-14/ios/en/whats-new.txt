@@ -1,3 +1,6 @@
+• iPhone now uses the smaller Whisper Q8 speech-recognition model (874 MB), recommended during initial setup. Existing users need to download this new model once.
+• Import audio files from Voice mode when technical information is enabled in Settings.
+• Date and time correction is enabled by default, and recording stops after 3 seconds of silence. Saved preferences are preserved.
 • Watch translations appear as Index 9B works in Text and Voice modes.
 • A simpler translation screen keeps progress and cancellation visible without loading videos.
 • Improved model-download status in Dynamic Island and Live Activities, including an indication when progress is waiting to refresh.

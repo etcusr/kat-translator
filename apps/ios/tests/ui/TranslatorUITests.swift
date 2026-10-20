@@ -1,6 +1,111 @@
 import XCTest
 
 final class TranslatorUITests: XCTestCase {
+    /// Opt-in upgrade acceptance. Uses existing user-selected files; never plays sound.
+    @MainActor func testNativeQ8UpgradeAndDiagnosticFiles() throws {
+        guard ProcessInfo.processInfo.environment["KAT_Q8_UPGRADE"] == "1" else {
+            throw XCTSkip("Requires the prepared physical-device file fixtures and authorized Q8 download")
+        }
+        continueAfterFailure = false
+        let expectedData = try XCTUnwrap(ProcessInfo.processInfo.environment["KAT_Q8_EXPECTED"]?.data(using: .utf8))
+        let expected = try JSONDecoder().decode([[String: String]].self, from: expectedData)
+        XCTAssertEqual(expected.count, 4)
+        let app = XCUIApplication()
+        app.launchArguments = ["-appInterfaceLanguage", "ru", "-automaticModelLoad", "NO",
+            "-automaticSpeechVoice", "NO", "-showTechnicalInfo", "YES", "-whisperDateTimeRepair", "NO",
+            "-recognitionPreference", "whisper", "-translationSource", "ru", "-translationTarget", "en",
+            "-automaticLanguage", "NO"]
+        app.launch()
+        defer { app.terminate() }
+        XCTAssertTrue(app.buttons["Модели"].waitForExistence(timeout: 180))
+        app.buttons["Модели"].tap()
+        let setup = app.buttons["models.languageSetup"]
+        XCTAssertTrue(setup.waitForExistence(timeout: 60)); setup.tap()
+        let q8 = app.staticTexts["setup.asr.whisper-large-v3-turbo-q8_0"]
+        for _ in 0..<8 where !q8.isHittable { app.swipeUp() }
+        XCTAssertTrue(q8.exists); XCTAssertTrue(q8.label.contains("Q8"))
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "874,2")).firstMatch.exists)
+        let setupShot = XCTAttachment(screenshot: app.screenshot())
+        setupShot.name = "q8-recommended-download"; setupShot.lifetime = .keepAlways; add(setupShot)
+        app.buttons["Позже"].tap()
+        let installed = app.descendants(matching: .any).matching(identifier: "model.installed.whisper-large-v3-turbo-q8_0").firstMatch
+        let download = app.buttons["model.download.whisper-large-v3-turbo-q8_0"]
+        for _ in 0..<14 {
+            if installed.isHittable || download.isHittable { break }
+            app.swipeUp()
+        }
+        if !installed.exists {
+            XCTAssertTrue(download.waitForExistence(timeout: 60)); download.tap()
+            print("KAT_Q8_DOWNLOAD_STARTED")
+            XCTAssertTrue(installed.waitForExistence(timeout: 900), app.debugDescription)
+        }
+        print("KAT_Q8_VERIFIED")
+        app.buttons["Готово"].tap()
+        if app.buttons["voice.prepare"].waitForExistence(timeout: 3) { app.buttons["voice.prepare"].tap() }
+        let importer = app.buttons["voice.import"]
+        XCTAssertTrue(importer.waitForExistence(timeout: 240), app.debugDescription)
+        for (index, name) in ["01-date", "02-time-first", "03-date-first", "04-long"].enumerated() {
+            if !importer.waitForExistence(timeout: 2), app.buttons["voice.prepare"].exists {
+                print("KAT_Q8_MANUAL_PREPARE_\(index)")
+                app.buttons["voice.prepare"].tap()
+            }
+            XCTAssertTrue(importer.waitForExistence(timeout: 240))
+            importer.tap()
+            let file = app.cells.matching(NSPredicate(format: "label BEGINSWITH %@", name + ",")).firstMatch
+            if !file.waitForExistence(timeout: 3) {
+                let browse = app.buttons.matching(NSPredicate(format: "label IN %@", ["Browse", "Обзор"])).firstMatch
+                XCTAssertTrue(browse.waitForExistence(timeout: 10), app.debugDescription)
+                browse.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+                let lab = app.cells.matching(NSPredicate(format: "label BEGINSWITH %@", "Kat Voice Lab")).firstMatch
+                if !lab.waitForExistence(timeout: 2) {
+                    let local = app.cells.matching(NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@", "On My iPhone", "На iPhone")).firstMatch
+                    XCTAssertTrue(local.waitForExistence(timeout: 10), app.debugDescription)
+                    local.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+                }
+                for label in ["Kat Voice Lab", "AudioTests"] {
+                    let item = app.cells.matching(NSPredicate(format: "label BEGINSWITH %@", label)).firstMatch
+                    XCTAssertTrue(item.waitForExistence(timeout: 10), app.debugDescription)
+                    item.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+                }
+            }
+            XCTAssertTrue(file.waitForExistence(timeout: 20), app.debugDescription)
+            file.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+            let done = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+                importer.exists && importer.isEnabled
+                    && app.staticTexts["voice.translation.text"].exists
+                    && app.staticTexts["voice.translation.text"].label == expected[index]["translation"]
+            }, object: nil)
+            XCTAssertEqual(XCTWaiter.wait(for: [done], timeout: 240), .completed, app.debugDescription)
+            XCTAssertEqual(app.staticTexts["voice.original.text"].label, expected[index]["source"])
+            XCTAssertFalse(app.buttons["voice.playback.pauseResume"].exists)
+            XCTAssertFalse(app.buttons["voice.translation.shareAudio"].isEnabled)
+            let shot = XCTAttachment(screenshot: app.screenshot()); shot.name = "q8-file-\(index)"
+            shot.lifetime = .keepAlways; add(shot)
+            print("KAT_Q8_FILE_OK_\(index)")
+        }
+        // Verify the production switch hides the diagnostic file action.
+        app.terminate()
+        for key in ["-showTechnicalInfo", "-automaticModelLoad"] {
+            let index = try XCTUnwrap(app.launchArguments.firstIndex(of: key))
+            app.launchArguments[index + 1] = key == "-showTechnicalInfo" ? "NO" : "YES"
+        }
+        let repairIndex = try XCTUnwrap(app.launchArguments.firstIndex(of: "-whisperDateTimeRepair"))
+        app.launchArguments.removeSubrange(repairIndex...(repairIndex + 1))
+        let recognitionIndex = try XCTUnwrap(app.launchArguments.firstIndex(of: "-recognitionPreference"))
+        app.launchArguments[recognitionIndex + 1] = "automatic"
+        app.launch()
+        XCTAssertTrue(app.buttons["voice.record"].waitForExistence(timeout: 240))
+        XCTAssertFalse(app.buttons["voice.import"].exists)
+        print("KAT_Q8_DIAGNOSTIC_GATE_OK")
+        // This prepared device has no saved date-repair or silence override.
+        app.buttons["Настройки"].tap()
+        XCTAssertTrue(app.staticTexts["Остановка после тишины, 3 с"].waitForExistence(timeout: 10))
+        let repair = app.switches["settings.whisperDateTimeRepair"]
+        for _ in 0..<10 where !repair.isHittable { app.swipeUp() }
+        XCTAssertTrue(repair.exists)
+        XCTAssertEqual(repair.value as? String, "1")
+        print("KAT_IOS_RECORDING_DEFAULTS_OK")
+    }
     /// Acoustic end-to-end check: a host speaker supplies the phrase after CAPTURE_READY.
     /// No imported audio or typed source text. Caller snapshots/restores preferences.
     @MainActor func testLiveVoiceCycleWithIndex() throws {
@@ -821,7 +926,7 @@ final class TranslatorUITests: XCTestCase {
             let thai = app.buttons["setup.target.th"]
             XCTAssertTrue(thai.waitForExistence(timeout: 5)); thai.tap()
             app.swipeUp()
-            let kit = app.descendants(matching: .any).matching(identifier: "setup.asr.whisper-large-v3-turbo-f16").firstMatch
+            let kit = app.descendants(matching: .any).matching(identifier: "setup.asr.whisper-large-v3-turbo-q8_0").firstMatch
             for _ in 0..<4 where !kit.isHittable { app.swipeUp() }
             XCTAssertTrue(kit.exists)
             let shot = XCTAttachment(screenshot: app.screenshot()); shot.name = english ? "language-setup-en" : "language-setup-ru"; shot.lifetime = .keepAlways; add(shot)
@@ -982,7 +1087,7 @@ final class TranslatorUITests: XCTestCase {
             XCTAssertTrue(models.waitForExistence(timeout: 120)); models.tap()
             // Restoring every installed voice/model continues after this sheet opens.
             XCTAssertTrue(app.staticTexts[english ? "Translation packages are ready" : "Пакеты для перевода готовы"].waitForExistence(timeout: 180))
-            for id in ["asr-parakeet-ultra", "whisper-large-v3-turbo-f16"] {
+            for id in ["asr-parakeet-ultra", "whisper-large-v3-turbo-q8_0"] {
                 let ready = app.descendants(matching: .any).matching(identifier: "model.installed." + id).firstMatch
                 for _ in 0..<14 { if ready.exists && ready.isHittable { break }; app.swipeUp() }
                 XCTAssertTrue(ready.exists); XCTAssertTrue(ready.isHittable)

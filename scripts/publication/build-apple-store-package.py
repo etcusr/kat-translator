@@ -67,7 +67,7 @@ def main():
             out.append(f"Скриншоты: screenshots/{label}/{code}/ (4 шт., по порядку номеров).\n")
             out.append(field("Promotional Text", read(base / "promotional_text.txt"), 170))
             out.append(field("Description", read(base / "description.txt"), 4000))
-            out.append(field("Keywords", read(base / "keywords.txt"), 100, "байт"))
+            out.append(field("Keywords", read(base / "keywords.txt"), 100))
             out.append(field("Support URL", read(base / "support_url.txt")))
             out.append(field("Marketing URL", read(base / "marketing_url.txt")))
             out.append(field("What's New (для обновлений)", read(base / "whats-new.txt"), 4000))

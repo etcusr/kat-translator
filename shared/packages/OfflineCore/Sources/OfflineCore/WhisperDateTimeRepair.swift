@@ -4,6 +4,16 @@ import Foundation
 /// Never infer its meaning from digits alone: require a second acoustic decoding
 /// with spelled numbers, an ordinal day, and agreement on all surrounding words.
 public enum WhisperDateTimeRepair {
+    #if os(iOS)
+    public static let defaultEnabled = true
+    #else
+    public static let defaultEnabled = false
+    #endif
+    public static func isEnabled(in defaults: UserDefaults = .standard) -> Bool {
+        defaults.object(forKey: "whisperDateTimeRepair") == nil
+            ? defaultEnabled : defaults.bool(forKey: "whisperDateTimeRepair")
+    }
+
     private static let months = ["января", "февраля", "марта", "апреля", "мая", "июня",
                                  "июля", "августа", "сентября", "октября", "ноября", "декабря"]
     private static let days = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]

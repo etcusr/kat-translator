@@ -13,6 +13,9 @@ public struct ModelDescriptor: Codable, Identifiable, Sendable, Equatable {
     }
     public static let turbo = SharedModelAssets.turbo
     public static let revision = "5359861c739e955e79d9a303bcbc70fb988958b1"
+    /// F16 predates per-model transfer storage. Its legacy location must not follow
+    /// the active Whisper descriptor when a platform adopts different weights.
+    public var transferStorageKey: String? { id == "whisper-large-v3-turbo-f16" ? nil : id }
 }
 public enum ModelStoreError: LocalizedError {
     case invalidSize, invalidDigest, insufficientSpace, invalidIdentifier

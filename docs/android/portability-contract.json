@@ -26,7 +26,7 @@
     },
     {
       "source": "shared/packages/OfflineCore/Sources/OfflineCore/SharedModelAssets.swift",
-      "symbol": "turbo",
+      "symbol": "turboDefault",
       "asset": {
         "remoteURL": "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-large-v3-turbo.bin?download=true",
         "byteCount": 1624555275,

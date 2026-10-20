@@ -5,6 +5,10 @@ import OfflineCore
 @MainActor
 final class ModelDownloader: NSObject, ObservableObject, URLSessionDownloadDelegate {
     static let shared = ModelDownloader(model: .turbo)
+    #if os(iOS)
+    // Reconnect on an old background-session callback only; do not start new F16 downloads.
+    static let legacyWhisper = ModelDownloader(model: SharedModelAssets.turboDefault)
+    #endif
     nonisolated static let sessionID = "org.openoffline.translator.models.v1"
     nonisolated static let root = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
         .appendingPathComponent("OfflineTranslator", isDirectory: true)
@@ -37,8 +41,8 @@ final class ModelDownloader: NSObject, ObservableObject, URLSessionDownloadDeleg
     }
     init(model: ModelDescriptor) {
         self.model = model
-        transferRoot = model.id == ModelDescriptor.turbo.id ? Self.root : Self.root.appendingPathComponent("Downloads/" + model.id)
-        identifier = model.id == ModelDescriptor.turbo.id ? Self.sessionID : Self.sessionID + "." + model.id
+        transferRoot = model.transferStorageKey.map { Self.root.appendingPathComponent("Downloads/" + $0) } ?? Self.root
+        identifier = model.transferStorageKey.map { Self.sessionID + "." + $0 } ?? Self.sessionID
         store = ModelStore(root: Self.root.appendingPathComponent("Models", isDirectory: true), onUncachedVerification: ModelVerificationStatus.changed)
         super.init()
         state = TransferState(expectedBytes: model.byteCount)

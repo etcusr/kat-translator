@@ -1,3 +1,6 @@
+• El iPhone utiliza ahora el modelo de reconocimiento de voz Whisper Q8 (874 MB), más compacto y recomendado durante la configuración inicial. Tras actualizar, hay que descargar el nuevo modelo una vez.
+• Importa archivos de audio en el modo Voz al activar la información técnica en Ajustes.
+• La corrección de fecha y hora está activada por defecto y la grabación se detiene tras 3 segundos de silencio. Se conservan las preferencias guardadas.
 • Las traducciones de Index 9B aparecen a medida que se generan en los modos Texto y Voz.
 • La pantalla de traducción muestra el progreso y la opción de cancelar sin vídeos de espera.
 • Mejoramos el estado de descarga de modelos en Dynamic Island y Live Activities, con una indicación cuando el progreso espera actualizarse.

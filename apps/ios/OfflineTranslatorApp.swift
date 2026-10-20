@@ -5,7 +5,10 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) { model?.clearTemporaryAudio() }
     func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String,
                      completionHandler: @escaping () -> Void) {
-        guard let downloader = PackageDownloadCoordinator.shared.downloaders.first(where: { $0.identifier == identifier }) else { completionHandler(); return }
+        let current = PackageDownloadCoordinator.shared.downloaders.first(where: { $0.identifier == identifier })
+        // An update may arrive while the previous F16 download is still in flight.
+        // Deliver it to its original descriptor/storage, never to the new Q8 verifier.
+        guard let downloader = current ?? (identifier == ModelDownloader.sessionID ? ModelDownloader.legacyWhisper : nil) else { completionHandler(); return }
         ModelDownloader.backgroundCompletions[identifier] = completionHandler
         Task { await downloader.restore() }
     }

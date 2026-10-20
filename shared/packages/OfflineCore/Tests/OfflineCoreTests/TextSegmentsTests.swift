@@ -11,16 +11,16 @@ final class TextSegmentsTests: XCTestCase {
     func testImpossibleBudgetThrowsInsteadOfLosingText() {
         XCTAssertThrowsError(try TextSegments.split("Я") { $0.utf8.count <= 1 })
     }
-    func testSilenceStopsAtFourSecondsAndSpeechResetsTimer() {
+    func testDefaultSilenceTimeoutAndSpeechResetsTimer() {
         var monitor = SilenceMonitor()
-        XCTAssertFalse(monitor.observe(speech: false, seconds: 3.9))
+        XCTAssertFalse(monitor.observe(speech: false, seconds: SilenceMonitor.defaultTimeout - 0.1))
         XCTAssertFalse(monitor.observe(speech: true, seconds: 0.1))
-        XCTAssertFalse(monitor.observe(speech: false, seconds: 3.9))
+        XCTAssertFalse(monitor.observe(speech: false, seconds: SilenceMonitor.defaultTimeout - 0.1))
         XCTAssertTrue(monitor.observe(speech: false, seconds: 0.1))
         XCTAssertFalse(monitor.observe(speech: false, seconds: 1))
         XCTAssertTrue(monitor.heardSpeech)
         var empty = SilenceMonitor()
-        XCTAssertTrue(empty.observe(speech: false, seconds: 4))
+        XCTAssertTrue(empty.observe(speech: false, seconds: SilenceMonitor.defaultTimeout))
         XCTAssertFalse(empty.heardSpeech)
     }
     func testCustomSilenceDurationAndInvalidSettings() {
@@ -32,7 +32,7 @@ final class TextSegmentsTests: XCTestCase {
         XCTAssertFalse(short.observe(speech: false, seconds: 1.9))
         XCTAssertTrue(short.observe(speech: false, seconds: 0.1))
         var invalid = SilenceMonitor(timeout: .nan)
-        XCTAssertFalse(invalid.observe(speech: false, seconds: 3.9))
+        XCTAssertFalse(invalid.observe(speech: false, seconds: SilenceMonitor.defaultTimeout - 0.1))
         XCTAssertTrue(invalid.observe(speech: false, seconds: 0.1))
         var zero = SilenceMonitor(timeout: 0)
         XCTAssertFalse(zero.observe(speech: false, seconds: 0.9))

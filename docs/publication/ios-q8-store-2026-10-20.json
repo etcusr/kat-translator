@@ -1,0 +1,58 @@
+{
+  "platform": "ios",
+  "version": "1.0.1",
+  "build": "58",
+  "artifact_bytes": 66900580,
+  "artifact_sha256": "ca15c71a5bd69adeda8d3ae28db917a41068b9b47691be80d8b01923e3a8f6a1",
+  "notice_documents": 47,
+  "privacy_manifests": [
+    "FluidAudio_FluidAudio.bundle/PrivacyInfo.xcprivacy",
+    "Frameworks/OmniVoiceRuntime.framework/PrivacyInfo.xcprivacy",
+    "Frameworks/OpusRuntime.framework/PrivacyInfo.xcprivacy",
+    "Frameworks/Python.framework/PrivacyInfo.xcprivacy",
+    "Frameworks/TranslationRuntime.framework/PrivacyInfo.xcprivacy",
+    "ONNXRuntimePrivacy.bundle/PrivacyInfo.xcprivacy",
+    "OfflineCore_OfflineCore.bundle/PrivacyInfo.xcprivacy",
+    "PrivacyInfo.xcprivacy",
+    "SherpaOnnxPrivacy.bundle/PrivacyInfo.xcprivacy"
+  ],
+  "signature": "PASS",
+  "all_binary_signers_match_app": true,
+  "distribution_profiles": 2,
+  "loading_resources_absent": true,
+  "no_xctest": true,
+  "binary_checks": {
+    "macho_images_checked": 72,
+    "openssl_markers": 0,
+    "openssl_library_dependencies": 0,
+    "hash_fallbacks": [
+      "_md5",
+      "_sha1",
+      "_sha2",
+      "_sha3",
+      "_blake2"
+    ]
+  },
+  "build_identity": {
+    "configuration": "Release",
+    "identifier": "ios-db3ffd879098af85",
+    "platform": "iphoneos",
+    "schema": 1,
+    "sha256": "db3ffd879098af850447019e9209e6e59afec7d35b5a10b68baddd61b415930c",
+    "sourceFileCount": 800
+  },
+  "binary_count": 72,
+  "source_parity": [
+    {
+      "kind": "archive",
+      "identity": "ios-db3ffd879098af85",
+      "matches_current_sources_and_recorded_settings": true
+    },
+    {
+      "kind": "dev",
+      "identity": "ios-feaabe9989d0d2f0",
+      "matches_current_sources_and_recorded_settings": true
+    }
+  ],
+  "uploaded": false
+}

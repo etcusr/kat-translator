@@ -3,6 +3,7 @@ import OfflineCore
 
 /// A single focal point for recording and processing on both platforms.
 struct VoiceStageControls: View {
+    @AppStorage("showTechnicalInfo") private var showTechnicalInfo = false
     @ObservedObject var model: AppModel
     @ObservedObject private var session: ConversationPipeline
     @ObservedObject private var recorder: AudioRecorder
@@ -101,6 +102,16 @@ struct VoiceStageControls: View {
                         }
                     }
                 }
+                #if os(iOS)
+                if showTechnicalInfo && !busy {
+                    Button(action: importAudio) {
+                        Label(L10n.text("Открыть аудиофайл"), systemImage: "doc.badge.plus")
+                    }
+                    .buttonStyle(.bordered)
+                    .disabled(model.voiceLanguageIssue != nil)
+                    .accessibilityIdentifier("voice.import")
+                }
+                #endif
                 if busy {
                     VStack(spacing: 8) {
                         Text(status).font(.system(size: 17, weight: .medium))
