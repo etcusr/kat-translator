@@ -1,0 +1,18 @@
+[
+  {"id":"ru-airport","source":"ru","target":"en","kind":"short","text":"Подскажите, пожалуйста, как пройти к стойке регистрации?"},
+  {"id":"ru-booking","source":"ru","target":"en","kind":"short","text":"Я забронировала номер на две ночи, но приеду только завтра."},
+  {"id":"ru-time","source":"ru","target":"en","kind":"short","text":"Встречу перенесли с пятницы на понедельник, на половину девятого утра."},
+  {"id":"ru-negation","source":"ru","target":"en","kind":"short","text":"Я не просил отменять заказ. Я хотел изменить адрес доставки."},
+  {"id":"ru-bank-alone","source":"ru","target":"en","kind":"short","text":"Она стояла у косы."},
+  {"id":"ru-bank-context","source":"ru","target":"en","kind":"context","text":"Река здесь поворачивает, и посреди воды видна узкая песчаная полоса. Она стояла у косы."},
+  {"id":"ru-paragraph","source":"ru","target":"en","kind":"paragraph","text":"Наш рейс задержали на два часа. Мы уже прошли регистрацию, но ещё не сдали багаж. Сотрудница аэропорта сказала подойти к стойке номер двенадцать. У меня нет интернета, поэтому покажите, пожалуйста, дорогу на карте. Если мы не успеем на пересадку, кто поможет поменять билеты?"},
+  {"id":"en-airport","source":"en","target":"ru","kind":"short","text":"Could you tell me where the check-in desk is, please?"},
+  {"id":"en-booking","source":"en","target":"ru","kind":"short","text":"I booked a room for two nights, but I won't arrive until tomorrow."},
+  {"id":"en-time","source":"en","target":"ru","kind":"short","text":"The meeting has been moved from Friday to Monday at half past eight in the morning."},
+  {"id":"en-negation","source":"en","target":"ru","kind":"short","text":"I didn't ask you to cancel the order. I wanted to change the delivery address."},
+  {"id":"en-bank-alone","source":"en","target":"ru","kind":"short","text":"She waited by the bank."},
+  {"id":"en-bank-river","source":"en","target":"ru","kind":"context","text":"The river was too deep to cross. She waited by the bank."},
+  {"id":"en-bank-money","source":"en","target":"ru","kind":"context","text":"The cash machine was inside the building. She waited by the bank."},
+  {"id":"en-gender-context","source":"en","target":"ru","kind":"context","text":"My name is Anna. I'm travelling with my sister. I booked two tickets yesterday."},
+  {"id":"en-paragraph","source":"en","target":"ru","kind":"paragraph","text":"Our flight has been delayed by two hours. We've already checked in, but we haven't dropped off our luggage yet. The airport employee told us to go to counter twelve. I have no internet connection, so please show me the way on the map. If we miss our connecting flight, who can help us change our tickets?"}
+]

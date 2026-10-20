@@ -1,0 +1,83 @@
+{
+  "date": "2026-10-20",
+  "hardware": "Apple M3 Pro",
+  "memory_bytes": 19327352832,
+  "os": "macOS 27.0.1 (26A434)",
+  "base_commit": "ba3f198",
+  "source_and_model_hashes": {
+    "tests/fixtures/mac-system-translation.json": "59c6ea095cb9f4085b13815b91f5e68411e147dbd560465335024463efa04d0c",
+    "shared/native/IndexMLX/index_mlx.py": "30db6e4b3695a5faaeb263a17574cbc991389a08fc28d38c41ed55831f1a6179",
+    "Dependencies/index-mlx.lock.json": "e61a73dfb0d1757f92a6373de99348d70a164d33b323cf67854ef0e871a27048",
+    "Dependencies/build/translation/macosx/TranslationRuntime.framework/TranslationRuntime": "9e71d5b5a499f13f7c3c35d36fdfcf3c2f82ed844c1517c11a152bf88b301170",
+    "model-store/research/index-2b/Index-Translate-2B.Q4_K_M.gguf": "044b313d29342bd3b2c77cbb64023ca0d209bd9b3247763f9d162767ef2d746a",
+    "scripts/research/macos-translation-lab/Lab.swift": "8175b3b1882b23a88c6e9a54a55b7a87c29ffa23712b3054a683fbcf54350ad6",
+    "scripts/research/macos-translation-lab/build.py": "6a08c4abee5c98d53746e06d34b4b55b00c8865b141f74255c17c6160e0914fa",
+    "scripts/research/macos-translation-lab/kat_runner.py": "32b764b68ecb7330ee7ed0724abfbaae6a35604d9da1980079203812f9de90fd",
+    "scripts/research/macos-translation-lab/summarize.py": "a47a5f8e22eb16dc74af7df9320644bb8ffbcdd7fc7a365438806f998768f71e"
+  },
+  "mlx_package_verification": [
+    {
+      "path": "model.safetensors",
+      "sha256": "cdd9bfb2fa7471edb8616b4cb42c2b68bc3b502e5dbde1ba21d8fa9c584ebd05",
+      "bytes": 5223280226
+    },
+    {
+      "path": "config.json",
+      "sha256": "fa8a56873cf965eaabbca9a142cec6ff0e8c5ddac3dace954d66e0db3028cb72",
+      "bytes": 2741
+    },
+    {
+      "path": "tokenizer.json",
+      "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+      "bytes": 19989325
+    },
+    {
+      "path": "tokenizer_config.json",
+      "sha256": "a778ef4fe2a8be4e55782abdaa66dcf66ba7e96828940150607264420fb3a7cf",
+      "bytes": 1164
+    },
+    {
+      "path": "generation_config.json",
+      "sha256": "5b2e05bd687ce6eb52f8beff6d9dc98a0fb1e02ce8898062869218d17264220f",
+      "bytes": 100
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "sha256": "3aa3d264edc9d049fe09c5fba0043cb1f348a52d6141b92f399c0bb9111d8cd7",
+      "bytes": 83549
+    },
+    {
+      "path": "chat_template.jinja",
+      "sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+      "bytes": 7756
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c",
+      "bytes": 11358
+    }
+  ],
+  "swap_after_benchmarks_mb": 85.94,
+  "network_disconnected": false,
+  "apple_actual_model_id": "not exposed by this probe",
+  "kat_runtime": "Index 2B native Metal; Index 9B current index_mlx.Engine with pinned development venv, MTP2 and native kernels active",
+  "limitations": [
+    "Not a full production UI, OCR, ASR or TTS benchmark",
+    "No clean boot or thermal/power isolation; system translation caches not cleared",
+    "MLX latency outliers retained; cause not diagnosed"
+  ],
+  "verified_runtime_versions": {
+    "mlx": "0.32.2",
+    "mlx_lm_commit": "94cdcae13b266c337bcaca09b97b9c5a9c0e2cde",
+    "transformers": "5.17.0",
+    "omlx_commit": "4d4f5a280bc1739ba2cf39c1cee44fd5cc89cb40"
+  },
+  "test_app_executable_sha256": "d648a2905f456e1b5ef556e009865237e2dc8d770f178de248060fdc35b4bc39",
+  "verification": {
+    "matching_fixture_requests": 256,
+    "apple_outputs_equal_between_requested_strategies": true,
+    "app_kat_bridges": 2,
+    "docs_parity_tests": 2,
+    "ad_hoc_signature_verified": true
+  }
+}

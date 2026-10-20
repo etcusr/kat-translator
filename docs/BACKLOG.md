@@ -4,6 +4,16 @@
 
 Deferred tasks, not completed changes or release promises.
 
+## Mac system translation experiment
+
+20 October 2026: [separate test application and measurements](benchmarks/mac-system-translation-2026-10-20/README.md), no production integration.
+
+- [x] Build a separate Mac app with Apple lowLatency/highFidelity and Kat Index 2B/9B; verify both Kat worker bridges.
+- [x] Compare 256 synthetic RU↔EN translations, retain startup/outlier data and manually inspect context, times and pronouns.
+- [ ] Diagnose Index 9B MLX + MTP2 latency outliers (up to 12.49 s here) with memory, scheduling and thermal observations.
+- [ ] Evaluate held-out examples and phone performance before selecting/routing engines. Apple was much faster but made meaning errors; highFidelity did not establish use of a different model.
+
+
 ## Context-aware translation: latency and quality
 
 Research started 20 October 2026; **no production change**. A standalone Mac probe completed 320 synthetic EN→RU translations and 64 memory-generation calls. Short source dialogue improved disambiguation; generating a separate summary before each short translation increased latency and sometimes invented facts. Small-model grammar and fidelity remain limiting. [Method, results and next experiments](benchmarks/context-translation-2026-10-20/README.md).

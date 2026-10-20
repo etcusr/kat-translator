@@ -2,6 +2,8 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+**Mac translation experiment (20 October):** a separate local Kat Translation Lab compares Apple Translation and Index 2B / Index 9B MLX + MTP2 on 16 synthetic RU↔EN examples (256 successful requests). Warm short-phrase medians: Apple lowLatency **0.023 s**, 2B **0.261 s**, 9B **0.594 s**; Apple made time/context errors, while 9B had latency outliers up to **12.49 s**. Requested highFidelity produced identical text to lowLatency; actual Apple Intelligence model use is unverified. No production integration or Store change. [Build, measurements and limits](benchmarks/mac-system-translation-2026-10-20/README.md).
+
 **App Review resubmission (19 October):** iOS **1.0 (55)** and macOS **1.0 (76)** are both **Waiting for Review**, confirmed in their submission pages. Checked iOS Device Preview/localizations and available Mac screenshot previews; sent the owner’s saved iOS clarification about Live Activity unchanged. Manual release remains selected. Apple’s decision and TestFlight acceptance remain pending. [Verification and submission](publication/store-resubmission-2026-10-19.md).
 
 **Earlier metadata update (19 October, before resubmission):** Mac was withdrawn from review; iOS **1.0 (55)** and Mac **1.0 (76)** are selected and both show Prepare for Submission. Corrected Mac copy and all four localized subtitles, saved the Live Activity clarification in iOS reviewer notes, uploaded four Turkish Mac screenshots and disabled Apple Vision Pro availability. Saved fields/builds/settings were verified; neither version was resubmitted. TestFlight acceptance and the iPad review question remain open. [Changes and verification](publication/store-metadata-update-2026-10-19.md).

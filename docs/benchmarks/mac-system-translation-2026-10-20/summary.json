@@ -1,0 +1,226 @@
+{
+  "apple-lowLatency": {
+    "requests": 64,
+    "explicit_load_seconds": null,
+    "first_pass": {
+      "all": {
+        "n": 16,
+        "median_seconds": 0.0479015,
+        "min_seconds": 0.019189959,
+        "max_seconds": 0.510362167
+      },
+      "short": {
+        "n": 10,
+        "median_seconds": 0.0479015,
+        "min_seconds": 0.019189959,
+        "max_seconds": 0.510362167
+      },
+      "context": {
+        "n": 4,
+        "median_seconds": 0.039534625000000004,
+        "min_seconds": 0.032244708,
+        "max_seconds": 0.062580458
+      },
+      "paragraph": {
+        "n": 2,
+        "median_seconds": 0.11615222950000001,
+        "min_seconds": 0.108969125,
+        "max_seconds": 0.123335334
+      }
+    },
+    "warm": {
+      "all": {
+        "n": 48,
+        "median_seconds": 0.030470583000000002,
+        "min_seconds": 0.016448666,
+        "max_seconds": 0.106346125
+      },
+      "short": {
+        "n": 30,
+        "median_seconds": 0.023228979,
+        "min_seconds": 0.016448666,
+        "max_seconds": 0.042328542
+      },
+      "context": {
+        "n": 12,
+        "median_seconds": 0.036787521000000004,
+        "min_seconds": 0.030337208,
+        "max_seconds": 0.042728208
+      },
+      "paragraph": {
+        "n": 6,
+        "median_seconds": 0.097328458,
+        "min_seconds": 0.090920542,
+        "max_seconds": 0.106346125
+      }
+    }
+  },
+  "apple-highFidelity-requested": {
+    "requests": 64,
+    "explicit_load_seconds": null,
+    "first_pass": {
+      "all": {
+        "n": 16,
+        "median_seconds": 0.0483917705,
+        "min_seconds": 0.037759625,
+        "max_seconds": 0.119681291
+      },
+      "short": {
+        "n": 10,
+        "median_seconds": 0.043339187,
+        "min_seconds": 0.037759625,
+        "max_seconds": 0.054753375
+      },
+      "context": {
+        "n": 4,
+        "median_seconds": 0.057610417000000004,
+        "min_seconds": 0.05059425,
+        "max_seconds": 0.062872916
+      },
+      "paragraph": {
+        "n": 2,
+        "median_seconds": 0.11576737449999999,
+        "min_seconds": 0.111853458,
+        "max_seconds": 0.119681291
+      }
+    },
+    "warm": {
+      "all": {
+        "n": 48,
+        "median_seconds": 0.048263958499999995,
+        "min_seconds": 0.037392292,
+        "max_seconds": 0.123042958
+      },
+      "short": {
+        "n": 30,
+        "median_seconds": 0.0434676665,
+        "min_seconds": 0.037392292,
+        "max_seconds": 0.060097917
+      },
+      "context": {
+        "n": 12,
+        "median_seconds": 0.056729353999999996,
+        "min_seconds": 0.050644209,
+        "max_seconds": 0.06763025
+      },
+      "paragraph": {
+        "n": 6,
+        "median_seconds": 0.1189011875,
+        "min_seconds": 0.112056875,
+        "max_seconds": 0.123042958
+      }
+    }
+  },
+  "index2b": {
+    "requests": 64,
+    "explicit_load_seconds": 0.48732008300430607,
+    "first_pass": {
+      "all": {
+        "n": 16,
+        "median_seconds": 0.293576916497841,
+        "min_seconds": 0.1582764170016162,
+        "max_seconds": 1.1847249999991618
+      },
+      "short": {
+        "n": 10,
+        "median_seconds": 0.2632159999993746,
+        "min_seconds": 0.1582764170016162,
+        "max_seconds": 0.3242891660047462
+      },
+      "context": {
+        "n": 4,
+        "median_seconds": 0.3706053334972239,
+        "min_seconds": 0.2976950829906855,
+        "max_seconds": 0.43192391699994914
+      },
+      "paragraph": {
+        "n": 2,
+        "median_seconds": 1.1279817290051142,
+        "min_seconds": 1.0712384580110665,
+        "max_seconds": 1.1847249999991618
+      }
+    },
+    "warm": {
+      "all": {
+        "n": 48,
+        "median_seconds": 0.29957441649457905,
+        "min_seconds": 0.15520116699917708,
+        "max_seconds": 1.1806158749968745
+      },
+      "short": {
+        "n": 30,
+        "median_seconds": 0.26112166600796627,
+        "min_seconds": 0.15520116699917708,
+        "max_seconds": 0.32806795799115207
+      },
+      "context": {
+        "n": 12,
+        "median_seconds": 0.3722221870048088,
+        "min_seconds": 0.2997329579957295,
+        "max_seconds": 0.43619241600390524
+      },
+      "paragraph": {
+        "n": 6,
+        "median_seconds": 1.1293274585041218,
+        "min_seconds": 1.0535769580019405,
+        "max_seconds": 1.1806158749968745
+      }
+    }
+  },
+  "index9b": {
+    "requests": 64,
+    "explicit_load_seconds": 5.815670041993144,
+    "first_pass": {
+      "all": {
+        "n": 16,
+        "median_seconds": 0.676566249509051,
+        "min_seconds": 0.4889198330056388,
+        "max_seconds": 2.1683825419895584
+      },
+      "short": {
+        "n": 10,
+        "median_seconds": 0.6226672499979031,
+        "min_seconds": 0.4889198330056388,
+        "max_seconds": 1.1583439170062775
+      },
+      "context": {
+        "n": 4,
+        "median_seconds": 0.8087122079959954,
+        "min_seconds": 0.6516826660081279,
+        "max_seconds": 0.9095746249950025
+      },
+      "paragraph": {
+        "n": 2,
+        "median_seconds": 2.1469919169976492,
+        "min_seconds": 2.12560129200574,
+        "max_seconds": 2.1683825419895584
+      }
+    },
+    "warm": {
+      "all": {
+        "n": 48,
+        "median_seconds": 0.6898907290014904,
+        "min_seconds": 0.48310933299944736,
+        "max_seconds": 12.49183479200292
+      },
+      "short": {
+        "n": 30,
+        "median_seconds": 0.5939096659931238,
+        "min_seconds": 0.48310933299944736,
+        "max_seconds": 2.1698276250099298
+      },
+      "context": {
+        "n": 12,
+        "median_seconds": 0.9234217915000045,
+        "min_seconds": 0.6510125830100151,
+        "max_seconds": 7.204286124993814
+      },
+      "paragraph": {
+        "n": 6,
+        "median_seconds": 7.198428937503195,
+        "min_seconds": 2.0560068339982536,
+        "max_seconds": 12.49183479200292
+      }
+    }
+  }
+}
