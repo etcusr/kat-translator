@@ -1,0 +1,87 @@
+{
+  "completedAcousticCycles": 16,
+  "successfulUITestRuns": 4,
+  "repeatedMicCaptureAfterEachRun": true,
+  "excludedQuietRun": 1,
+  "physicalSpeakerCaptureFiles": 16,
+  "speakerEvidence": "Local CPU Whisper base transcripts confirm audible English; not a semantic gold transcription",
+  "mainApp": {
+    "installedIdentityUnchanged": true,
+    "preferencesEqual": false,
+    "changedPreferenceKeys": [
+      "recordingPreviewVerification"
+    ],
+    "unchangedModelAndVoiceMetadataEntries": 846,
+    "removedPaths": 0,
+    "addedHistoryAudioFiles": 1,
+    "otherDifferences": "History index changed and download/package receipts refreshed during the comparison interval; not reverted. Attribution to this lab is not established. Main container was only read by this harness.",
+    "fullDeviceFileHashesCompared": false
+  },
+  "signedLabApp": {
+    "initialProvisioningSignature": true,
+    "increasedMemoryLimit": true,
+    "finalDeepStrictSignature": true
+  },
+  "productionWhisperHashes": "F16 weights and production macOS/iOS archives match pre-experiment SHA256",
+  "tests": {
+    "releaseBuildForTesting": "Passed, including final silent file-input build",
+    "offlineCore": {
+      "executed": 342,
+      "skipped": 3,
+      "failures": 0,
+      "initialFailure": "Frozen snapshot omitted root Android parity fixture; restored exact fixture from source commit and reran complete suite successfully"
+    },
+    "audioFileImport": {
+      "passed": 6,
+      "scope": "WAV/stereo conversion, M4A, MP3, duration bound, empty/invalid input, cancellation"
+    },
+    "pythonSyntax": "All seven Python files parsed",
+    "diagnosticFileInputTDD": "Initial UI test failed for missing import button; implementation exposes existing importer in isolated iOS source",
+    "pickerAutomationFailures": "Three discarded attempts failed before decoding (keyboard focus, remote hitpoint, initial picker location); corrected and successful runs retained separately",
+    "diagnosticHiddenGate": "Physical iPhone UI test passed; import absent with technical information off",
+    "docsAppParity": 2
+  },
+  "limits": [
+    "One iPhone 17 Pro 12 GB",
+    "Acoustic timing and waveform differ between captures",
+    "Process footprint excludes external Core ML services",
+    "UIKit warnings and automatic ASR recovery occurred",
+    "No TestFlight or App Review test",
+    "Xcode ancillary system-diagnostics collection reported a partial bundle; XCTest execution and app traces succeeded",
+    "Silent file-input footprint excludes active TTS; file input bypasses microphone/VAD/recording preview",
+    "Completed Core ML silent run remained thermally serious; earlier interrupted run had a memory warning after one completed file"
+  ],
+  "priorSpokenFileChecks": {
+    "nativeQ8Completed": 8,
+    "f16Completed": 8,
+    "sourceAndTranslationExactBetweenVariants": true,
+    "warningsBoth": 0,
+    "coremlQ8CompletedBeforeOwnerRequestedSilence": 2,
+    "coremlQ8RunInterrupted": true,
+    "role": "Earlier file pipeline and iPhone playback evidence only; excluded from the primary silent comparison"
+  },
+  "interruptedHotCoreMLFileRun": {
+    "completedCycles": 1,
+    "thermalState": "serious",
+    "memoryWarnings": 1,
+    "asrUnloadedAfterCompletedCycle": true,
+    "reasonStopped": "UI automation waited for import after idle ASR unload; subsequent test explicitly uses existing Prepare button and reports intervention",
+    "excludedFromPrimaryComparison": true,
+    "productionRecoveryLogicChanged": false
+  },
+  "silentFileComparison": {
+    "completedCycles": 24,
+    "successfulUITestRuns": 3,
+    "filesPerVariant": 4,
+    "passes": 2,
+    "identicalDecodedPCM": true,
+    "allASRAndTranslationExactAcrossVariantsAndPasses": true,
+    "noMicrophoneCapture": true,
+    "noSynthesisOrPlayback": true,
+    "warningsInCompletedRuns": 0,
+    "manualRecognitionPreparations": 0,
+    "thermal": "F16/Q8 fair; Core ML serious; not thermally matched",
+    "rawEvidence": "Private traces, logs and xcresult retained locally; sanitized per-cycle metrics in file-results.json"
+  },
+  "finalDeviceState": "Kat Voice Lab remains installed, auto-speech defaults off; test processes terminated, lab UI runner removed. Main app and preexisting main UI runner retained."
+}

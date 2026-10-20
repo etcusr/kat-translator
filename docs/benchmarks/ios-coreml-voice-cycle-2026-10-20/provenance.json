@@ -1,0 +1,103 @@
+{
+  "sourceCommit": "341b84594db45d07f995aff4d603870d77582d11",
+  "deviceClass": "iPhone 17 Pro, 12 GB",
+  "os": "iOS 27.0.1",
+  "configuration": "Release, separate bundle app.kattranslator.voicelab",
+  "whisperCppRevision": "927cfce34f31707e17f2bff35c349632fb9e2c3a",
+  "models": {
+    "f16": {
+      "bytes": 1624555275,
+      "sha256": "1fc70f774d38eb169993ac391eea357ef47c88757ef72ee5943879b7e8e2bc69"
+    },
+    "q8": {
+      "bytes": 874188075,
+      "sha256": "317eb69c11673c9de1e1f0d459b253999804ec71ac4c23c17ecf5fbe24e259a1"
+    },
+    "coreml-encoder": {
+      "bytes": 1275120160,
+      "files": {
+        "metadata.json": "609ba562065051c558cdbbba89901431b5f678ff993051cec56682bf49a1e807",
+        "model.mil": "25a5e9b656c13ec6f19a5711055d75affb368d3818f32bc3505c862154462a92",
+        "coremldata.bin": "f51b516738cdf36f468ccfb5ac9bdad8903f32438abcb3dff1f417e16ebf069e",
+        "weights/weight.bin": "fcc450fb244d55335f6df82a41558de1b07d44acaf67c7b7b3040da44f94bdd3",
+        "analytics/coremldata.bin": "5408ed0690d75787546a1e85b447b9bae02742a3c15bbc1f7b8a369886da3b25"
+      }
+    }
+  },
+  "translationModel": {
+    "id": "index-translate-9b-q4km",
+    "bytes": 5780090304,
+    "sha256": "9cc6758b0007f4cbf42ea3400768cbff91ae74ef8d640e467158348426d33713"
+  },
+  "stimuli": {
+    "original-date-audible.wav": {
+      "bytes": 252878,
+      "sha256": "bf05289384f2df32206bfc9b3a0afbefa880107b95e35d68abac70f3366ef424"
+    },
+    "time-first-audible.wav": {
+      "bytes": 116774,
+      "sha256": "89650fee284c384763277d600a184215993f5081abc54a72ac78fe05e950771a"
+    },
+    "date-first-audible.wav": {
+      "bytes": 128506,
+      "sha256": "1a4789505a5cfc4eddc7e98a66daecec9f81b9b6967ddbdcbcb70f4ca013e7d6"
+    },
+    "long-audible.wav": {
+      "bytes": 805834,
+      "sha256": "d4a64131d8fe42f7bb987634a0100c6431ca9c2f1046b7aff88d14ceeba09e09"
+    }
+  },
+  "normalization": "Only external stimuli: loudnorm=I=-18:TP=-2:LRA=11; 16 kHz mono",
+  "dateControlVoice": "macOS say Milena, rate 165",
+  "qualityReference": "Original date semantics from earlier independent consensus; synthetic controls from known input text; no full human-annotated corpus",
+  "isolation": "No main app target/container writes; frozen source, independent catalog identity/checksum, Core ML load failure aborts rather than falling back",
+  "unmodifiedPipelineSourceHashes": {
+    "shared/apple/Audio/AudioRecorder.swift": {
+      "snapshot_sha256": "7d9da8ed59db969c0c81fa259f26393ddd459af6e706f2d2e1b4c7093cd80ed2",
+      "current_equal": true
+    },
+    "shared/apple/Translation/LlamaTranslationBackend.swift": {
+      "snapshot_sha256": "682f26bcd57d616592c12b417f038b796d8f64d6f45597c2e69a895e2e22bb0b",
+      "current_equal": true
+    },
+    "shared/apple/Speech/SherpaSpeechBackend.swift": {
+      "snapshot_sha256": "2d1924ec52f394ed7eaf8f06b535d94561c777214aef2c82953d19733417bb67",
+      "current_equal": true
+    },
+    "shared/packages/OfflineCore/Sources/OfflineCore/ConversationPipeline.swift": {
+      "snapshot_sha256": "63873b3848738f9e6f6e6e401001eac48b385b6fb0e2be7f3b7746b7bd717e2b",
+      "current_equal": true
+    }
+  },
+  "fileInputStimuli": {
+    "01-date.wav": {
+      "bytes": 252878,
+      "sha256": "0d2eb3b6508a75f7435bd36f88fe1a5fd29df3154484f5964b2bb50e06cb8d01"
+    },
+    "02-time-first.wav": {
+      "bytes": 116776,
+      "sha256": "45a151f4818a68a33f2971de3ded95d154dce4aa20bb65ede9964b2d2cfcc92c"
+    },
+    "03-date-first.wav": {
+      "bytes": 128506,
+      "sha256": "cdc33be4987fec8789834041808a5101849b630d8b3e3f74761a85befd16390c"
+    },
+    "04-long.wav": {
+      "bytes": 805800,
+      "sha256": "2be8b6be079f10bbb311442b440caafdb12ed2b7a6ae3908dd168fffb0f35dbc"
+    }
+  },
+  "fileInputConditions": {
+    "normalization": "None in file block; originals converted to mono 16 kHz WAV as needed",
+    "automaticSpeech": false,
+    "dateTimeRepair": false,
+    "memorySaving": false,
+    "variants": [
+      "native F16 / Metal",
+      "native Q8 / Metal",
+      "native Q8 + Core ML FP16 encoder / all compute units"
+    ],
+    "decodedPCMSHA256": "Recorded on iPhone and compared across every case/pass/variant in file-results.json",
+    "order": "q8, f16, coreml-q8; two consecutive four-file passes per variant"
+  }
+}

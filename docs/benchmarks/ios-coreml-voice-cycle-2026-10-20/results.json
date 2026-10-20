@@ -1,0 +1,1030 @@
+{
+  "sourceCommit": "341b84594db45d07f995aff4d603870d77582d11",
+  "scope": "Separate iPhone lab; actual microphone capture, Index 9B, Lessac synthesis/playback; no production change",
+  "runs": {
+    "baseline-a": {
+      "variant": "native F16",
+      "completedCycles": 4,
+      "repeatedLiveCapture": true,
+      "dateTimeRepair": false,
+      "memorySaving": false,
+      "sampleIntervalMilliseconds": 100,
+      "maximumSampledFootprintBytes": 2677448880,
+      "reportedProcessLifetimePeakBytes": 2677907632,
+      "maximumSampledResidentBytes": 6296584192,
+      "minimumProcessAllocationHeadroomBytes": 3765002064,
+      "memoryWarnings": 1,
+      "asrLoadSeconds": [
+        17.29515845833339,
+        0.9273886666669569
+      ],
+      "events": [
+        {
+          "phase": "asr.unload",
+          "sinceLaunchSeconds": 19.310232583333345,
+          "footprintBytes": 424089952,
+          "availableBytes": 6018360992,
+          "thermal": 0
+        },
+        {
+          "phase": "asr.load.begin",
+          "sinceLaunchSeconds": 19.310743208333406,
+          "footprintBytes": 424089952,
+          "availableBytes": 6018360992,
+          "thermal": 0
+        },
+        {
+          "phase": "asr.load.end",
+          "sinceLaunchSeconds": 36.605901666666796,
+          "footprintBytes": 2275073792,
+          "availableBytes": 4167377152,
+          "thermal": 0
+        },
+        {
+          "phase": "memory.warning",
+          "sinceLaunchSeconds": 172.25270429166721,
+          "footprintBytes": 2676367536,
+          "availableBytes": 3766083408,
+          "thermal": 0
+        },
+        {
+          "phase": "asr.unload",
+          "sinceLaunchSeconds": 172.44630741666697,
+          "footprintBytes": 2676400304,
+          "availableBytes": 3766050640,
+          "thermal": 0
+        },
+        {
+          "phase": "asr.unload",
+          "sinceLaunchSeconds": 186.82611304166676,
+          "footprintBytes": 834247464,
+          "availableBytes": 5608203480,
+          "thermal": 0
+        },
+        {
+          "phase": "asr.load.begin",
+          "sinceLaunchSeconds": 186.8267095416668,
+          "footprintBytes": 834247464,
+          "availableBytes": 5608203480,
+          "thermal": 0
+        },
+        {
+          "phase": "asr.load.end",
+          "sinceLaunchSeconds": 187.75409820833374,
+          "footprintBytes": 2662424680,
+          "availableBytes": 3780026264,
+          "thermal": 0
+        }
+      ],
+      "playbackRoutes": [
+        "Speaker"
+      ],
+      "outputVolumes": [
+        0.5
+      ],
+      "cycles": [
+        {
+          "index": 0,
+          "metric": {
+            "asrSeconds": 3.714379166666731,
+            "audioSeconds": 17.8365,
+            "endThermalState": "nominal",
+            "inputKind": "speech",
+            "inputMode": "toggle",
+            "languageMode": "manual",
+            "memorySaving": false,
+            "mtFragments": 0,
+            "mtSeconds": 4.951512333333994,
+            "peakFootprintBytes": 2497028128,
+            "peakResidentBytes": 4414586880,
+            "playbackScheduledSeconds": 3.1661826666668276,
+            "preprocessingSeconds": 7.813913958332705,
+            "previewBlocks": 1,
+            "processingMode": "during-recording-verified",
+            "recognitionModelID": "whisper-large-v3-turbo-q8-lab",
+            "removedSilenceSeconds": 0,
+            "retranslatedParts": 0,
+            "reusedPreviewBlocks": 1,
+            "source": "ru",
+            "speechQueueWaitSeconds": 0.01717129166718223,
+            "spokenSeconds": 2.4663492063492063,
+            "status": "completed",
+            "target": "en",
+            "thermalState": "nominal",
+            "totalSeconds": 6.058699708332824,
+            "translationModelID": "index-translate-9b-q4km",
+            "ttsFragments": 1,
+            "ttsSeconds": 0.2176935000006779,
+            "verificationSeconds": 1.3856742499992833,
+            "voiceModelID": "vits-piper-en_US-lessac-medium"
+          },
+          "readyAfterCycle": true,
+          "voiceReadyAfterCycle": true,
+          "hasUserMessage": false
+        },
+        {
+          "index": 1,
+          "metric": {
+            "asrSeconds": 2.2812922083330704,
+            "audioSeconds": 19.663625,
+            "endThermalState": "nominal",
+            "inputKind": "speech",
+            "inputMode": "toggle",
+            "languageMode": "manual",
+            "memorySaving": false,
+            "mtFragments": 0,
+            "mtSeconds": 1.3270037916663568,
+            "peakFootprintBytes": 2509316152,
+            "peakResidentBytes": 426409984,
+            "playbackScheduledSeconds": 1.2761652500003038,
+            "preprocessingSeconds": 2.7098610000002736,
+            "previewBlocks": 1,
+            "processingMode": "during-recording-verified",
+            "recognitionModelID": "whisper-large-v3-turbo-q8-lab",
+            "removedSilenceSeconds": 0,
+            "retranslatedParts": 0,
+            "reusedPreviewBlocks": 1,
+            "source": "ru",
+            "speechQueueWaitSeconds": 0.015139791666115343,
+            "spokenSeconds": 2.4605895691609976,
+            "status": "completed",
+            "target": "en",
+            "thermalState": "nominal",
+            "totalSeconds": 4.0714591666665,
+            "translationModelID": "index-translate-9b-q4km",
+            "ttsFragments": 1,
+            "ttsSeconds": 0.14762791666726116,
+            "verificationSeconds": 1.0499928333338175,
+            "voiceModelID": "vits-piper-en_US-lessac-medium"
+          },
+          "readyAfterCycle": true,
+          "voiceReadyAfterCycle": true,
+          "hasUserMessage": false
+        },
+        {
+          "index": 2,
+          "metric": {
+            "asrSeconds": 2.2259272916662667,
+            "audioSeconds": 19.65925,
+            "endThermalState": "nominal",
+            "inputKind": "speech",
+            "inputMode": "toggle",
+            "languageMode": "manual",
+            "memorySaving": false,
+            "mtFragments": 0,
+            "mtSeconds": 1.2125637500002995,
+            "peakFootprintBytes": 2511446072,
+            "peakResidentBytes": 500236288,
+            "playbackScheduledSeconds": 1.4306974166665896,
+            "preprocessingSeconds": 2.545297541666514,
+            "previewBlocks": 1,
+            "processingMode": "during-recording-verified",
+            "recognitionModelID": "whisper-large-v3-turbo-q8-lab",
+            "removedSilenceSeconds": 0,
+            "retranslatedParts": 0,
+            "reusedPreviewBlocks": 1,
+            "source": "ru",
+            "speechQueueWaitSeconds": 0.017759208332790877,
+            "spokenSeconds": 2.5651700680272107,
+            "status": "completed",
+            "target": "en",
+            "thermalState": "nominal",
+            "totalSeconds": 4.476955000000089,
+            "translationModelID": "index-translate-9b-q4km",
+            "ttsFragments": 1,
+            "ttsSeconds": 0.3155858749996696,
+            "verificationSeconds": 1.2102375416670839,
+            "voiceModelID": "vits-piper-en_US-lessac-medium"
+          },
+          "readyAfterCycle": true,
+          "voiceReadyAfterCycle": true,
+          "hasUserMessage": false
+        },
+        {
+          "index": 3,
+          "metric": {
+            "asrSeconds": 5.38713000000007,
+            "audioSeconds": 37.6986875,
+            "endThermalState": "nominal",
+            "firstTokenSeconds": 0.9510621253328572,
+            "inputKind": "speech",
+            "inputMode": "toggle",
+            "languageMode": "manual",
+            "memorySaving": false,
+            "mtFragments": 1,
+            "mtSeconds": 15.23909787499997,
+            "peakFootprintBytes": 2677121200,
+            "peakResidentBytes": 431112192,
+            "playbackScheduledSeconds": 5.35905562500011,
+            "preprocessingSeconds": 10.374044875000436,
+            "previewBlocks": 2,
+            "processingMode": "during-recording-verified",
+            "recognitionModelID": "whisper-large-v3-turbo-q8-lab",
+            "removedSilenceSeconds": 0.03151927437641723,
+            "retranslatedParts": 1,
+            "reusedPreviewBlocks": 0,
+            "source": "ru",
+            "speechQueueWaitSeconds": 0.053930625000248256,
+            "spokenSeconds": 18.25605442176871,
+            "status": "completed",
+            "target": "en",
+            "thermalState": "nominal",
+            "totalSeconds": 25.13585950000015,
+            "translationModelID": "index-translate-9b-q4km",
+            "ttsFragments": 2,
+            "ttsSeconds": 1.5177679583330246,
+            "verificationSeconds": 2.8377924166661614,
+            "voiceModelID": "vits-piper-en_US-lessac-medium"
+          },
+          "readyAfterCycle": true,
+          "voiceReadyAfterCycle": true,
+          "hasUserMessage": false
+        }
+      ]
+    },
+    "coreml-q8-a": {
+      "variant": "Core ML FP16 encoder + native Q8",
+      "completedCycles": 4,
+      "repeatedLiveCapture": true,
+      "dateTimeRepair": false,
+      "memorySaving": false,
+      "sampleIntervalMilliseconds": 100,
+      "maximumSampledFootprintBytes": 3143523928,
+      "reportedProcessLifetimePeakBytes": 3143540312,
+      "maximumSampledResidentBytes": 6725091328,
+      "minimumProcessAllocationHeadroomBytes": 3298927016,
+      "memoryWarnings": 1,
+      "asrLoadSeconds": [
+        22.872485875001075,
+        1.2970723750004254
+      ],
+      "events": [
+        {
+          "phase": "asr.unload",
+          "sinceLaunchSeconds": 4.910072250000667,
+          "footprintBytes": 427301264,
+          "availableBytes": 6015149680,
+          "thermal": 0
+        },
+        {
+          "phase": "asr.load.begin",
+          "sinceLaunchSeconds": 4.910492083332429,
+          "footprintBytes": 427301264,
+          "availableBytes": 6015149680,
+          "thermal": 0
+        },
+        {
+          "phase": "asr.load.end",
+          "sinceLaunchSeconds": 27.782977958333504,
+          "footprintBytes": 2660424872,
+          "availableBytes": 3782026072,
+          "thermal": 0
+        },
+        {
+          "phase": "memory.warning",
+          "sinceLaunchSeconds": 156.3625210416667,
+          "footprintBytes": 3041697368,
+          "availableBytes": 3400753576,
+          "thermal": 1
+        },
+        {
+          "phase": "asr.unload",
+          "sinceLaunchSeconds": 162.6731173749995,
+          "footprintBytes": 3130023560,
+          "availableBytes": 3312427384,
+          "thermal": 1
+        },
+        {
+          "phase": "asr.unload",
+          "sinceLaunchSeconds": 176.52951720833335,
+          "footprintBytes": 795515736,
+          "availableBytes": 5646935208,
+          "thermal": 1
+        },
+        {
+          "phase": "asr.load.begin",
+          "sinceLaunchSeconds": 176.52963870833264,
+          "footprintBytes": 795515736,
+          "availableBytes": 5646935208,
+          "thermal": 1
+        },
+        {
+          "phase": "asr.load.end",
+          "sinceLaunchSeconds": 177.82671108333307,
+          "footprintBytes": 3143294528,
+          "availableBytes": 3299156416,
+          "thermal": 1
+        }
+      ],
+      "playbackRoutes": [
+        "Speaker"
+      ],
+      "outputVolumes": [
+        0.5
+      ],
+      "cycles": [
+        {
+          "index": 0,
+          "metric": {
+            "asrSeconds": 1.6136123333326395,
+            "audioSeconds": 19.9234375,
+            "endThermalState": "nominal",
+            "inputKind": "speech",
+            "inputMode": "toggle",
+            "languageMode": "manual",
+            "memorySaving": false,
+            "mtFragments": 0,
+            "mtSeconds": 3.819464624999455,
+            "peakFootprintBytes": 2932596216,
+            "peakResidentBytes": 2364211200,
+            "playbackScheduledSeconds": 1.2207571666676813,
+            "preprocessingSeconds": 5.2813875833326165,
+            "previewBlocks": 1,
+            "processingMode": "during-recording-verified",
+            "recognitionModelID": "whisper-large-v3-turbo-q8-lab",
+            "removedSilenceSeconds": 0,
+            "retranslatedParts": 0,
+            "reusedPreviewBlocks": 1,
+            "source": "ru",
+            "speechQueueWaitSeconds": 0.017793958333641058,
+            "spokenSeconds": 2.62,
+            "status": "completed",
+            "target": "en",
+            "thermalState": "nominal",
+            "totalSeconds": 4.245341166668368,
+            "translationModelID": "index-translate-9b-q4km",
+            "ttsFragments": 1,
+            "ttsSeconds": 0.3159000833329628,
+            "verificationSeconds": 0.7888366250008403,
+            "voiceModelID": "vits-piper-en_US-lessac-medium"
+          },
+          "readyAfterCycle": true,
+          "voiceReadyAfterCycle": true,
+          "hasUserMessage": false
+        },
+        {
+          "index": 1,
+          "metric": {
+            "asrSeconds": 1.4443636250016425,
+            "audioSeconds": 19.783375,
+            "endThermalState": "fair",
+            "inputKind": "speech",
+            "inputMode": "toggle",
+            "languageMode": "manual",
+            "memorySaving": false,
+            "mtFragments": 0,
+            "mtSeconds": 1.8574875833328406,
+            "peakFootprintBytes": 2979225128,
+            "peakResidentBytes": 408043520,
+            "playbackScheduledSeconds": 1.0280525833331922,
+            "preprocessingSeconds": 3.0181066666664265,
+            "previewBlocks": 1,
+            "processingMode": "during-recording-verified",
+            "recognitionModelID": "whisper-large-v3-turbo-q8-lab",
+            "removedSilenceSeconds": 0,
+            "retranslatedParts": 0,
+            "reusedPreviewBlocks": 1,
+            "source": "ru",
+            "speechQueueWaitSeconds": 0.009390208333570627,
+            "spokenSeconds": 2.5235374149659866,
+            "status": "completed",
+            "target": "en",
+            "thermalState": "fair",
+            "totalSeconds": 3.9502557499999966,
+            "translationModelID": "index-translate-9b-q4km",
+            "ttsFragments": 1,
+            "ttsSeconds": 0.4164042499996867,
+            "verificationSeconds": 0.7035578333325248,
+            "voiceModelID": "vits-piper-en_US-lessac-medium"
+          },
+          "readyAfterCycle": true,
+          "voiceReadyAfterCycle": true,
+          "hasUserMessage": false
+        },
+        {
+          "index": 2,
+          "metric": {
+            "asrSeconds": 1.3810576666674024,
+            "audioSeconds": 19.7493125,
+            "endThermalState": "fair",
+            "inputKind": "speech",
+            "inputMode": "toggle",
+            "languageMode": "manual",
+            "memorySaving": false,
+            "mtFragments": 0,
+            "mtSeconds": 1.3802575833324227,
+            "peakFootprintBytes": 2988596776,
+            "peakResidentBytes": 468828160,
+            "playbackScheduledSeconds": 1.058229416667018,
+            "preprocessingSeconds": 2.2540942916657514,
+            "previewBlocks": 1,
+            "processingMode": "during-recording-verified",
+            "recognitionModelID": "whisper-large-v3-turbo-q8-lab",
+            "removedSilenceSeconds": 0,
+            "retranslatedParts": 0,
+            "reusedPreviewBlocks": 1,
+            "source": "ru",
+            "speechQueueWaitSeconds": 0.008571958333050134,
+            "spokenSeconds": 2.46,
+            "status": "completed",
+            "target": "en",
+            "thermalState": "fair",
+            "totalSeconds": 3.902733791666833,
+            "translationModelID": "index-translate-9b-q4km",
+            "ttsFragments": 1,
+            "ttsSeconds": 0.23755033333327447,
+            "verificationSeconds": 0.7497030000013183,
+            "voiceModelID": "vits-piper-en_US-lessac-medium"
+          },
+          "readyAfterCycle": true,
+          "voiceReadyAfterCycle": true,
+          "hasUserMessage": false
+        },
+        {
+          "index": 3,
+          "metric": {
+            "asrSeconds": 3.222019499999078,
+            "audioSeconds": 39.117,
+            "endThermalState": "fair",
+            "firstTokenSeconds": 1.1036159993322576,
+            "inputKind": "speech",
+            "inputMode": "toggle",
+            "languageMode": "manual",
+            "memorySaving": false,
+            "mtFragments": 1,
+            "mtSeconds": 15.978096791664939,
+            "peakFootprintBytes": 3129810568,
+            "peakResidentBytes": 400719872,
+            "playbackScheduledSeconds": 4.277728791666959,
+            "preprocessingSeconds": 9.903201375000208,
+            "previewBlocks": 2,
+            "processingMode": "during-recording-verified",
+            "recognitionModelID": "whisper-large-v3-turbo-q8-lab",
+            "removedSilenceSeconds": 0,
+            "retranslatedParts": 1,
+            "reusedPreviewBlocks": 0,
+            "source": "ru",
+            "speechQueueWaitSeconds": 0.06511758333363105,
+            "spokenSeconds": 17.842494331065758,
+            "status": "completed",
+            "target": "en",
+            "thermalState": "fair",
+            "totalSeconds": 23.662628124999173,
+            "translationModelID": "index-translate-9b-q4km",
+            "ttsFragments": 2,
+            "ttsSeconds": 1.6835464166688325,
+            "verificationSeconds": 1.5951089583340945,
+            "voiceModelID": "vits-piper-en_US-lessac-medium"
+          },
+          "readyAfterCycle": true,
+          "voiceReadyAfterCycle": true,
+          "hasUserMessage": false
+        }
+      ]
+    },
+    "coreml-q8-dates-audible": {
+      "variant": "Core ML FP16 encoder + native Q8",
+      "completedCycles": 4,
+      "repeatedLiveCapture": true,
+      "dateTimeRepair": false,
+      "memorySaving": false,
+      "sampleIntervalMilliseconds": 100,
+      "maximumSampledFootprintBytes": 3154288264,
+      "reportedProcessLifetimePeakBytes": 3154484872,
+      "maximumSampledResidentBytes": 6426607616,
+      "minimumProcessAllocationHeadroomBytes": 3288162680,
+      "memoryWarnings": 2,
+      "asrLoadSeconds": [
+        22.61115245833207,
+        1.2669644166671787
+      ],
+      "events": [
+        {
+          "phase": "asr.unload",
+          "sinceLaunchSeconds": 4.825228416666505,
+          "footprintBytes": 428071264,
+          "availableBytes": 6014379680,
+          "thermal": 1
+        },
+        {
+          "phase": "asr.load.begin",
+          "sinceLaunchSeconds": 4.825341833333368,
+          "footprintBytes": 428071264,
+          "availableBytes": 6014379680,
+          "thermal": 1
+        },
+        {
+          "phase": "asr.load.end",
+          "sinceLaunchSeconds": 27.43649429166544,
+          "footprintBytes": 2677644384,
+          "availableBytes": 3764806560,
+          "thermal": 1
+        },
+        {
+          "phase": "memory.warning",
+          "sinceLaunchSeconds": 162.42299512499994,
+          "footprintBytes": 3021119088,
+          "availableBytes": 3421331856,
+          "thermal": 1
+        },
+        {
+          "phase": "memory.warning",
+          "sinceLaunchSeconds": 172.3135651249995,
+          "footprintBytes": 3140181664,
+          "availableBytes": 3302269280,
+          "thermal": 1
+        },
+        {
+          "phase": "asr.unload",
+          "sinceLaunchSeconds": 172.61044666666567,
+          "footprintBytes": 3141017248,
+          "availableBytes": 3301433696,
+          "thermal": 1
+        },
+        {
+          "phase": "asr.unload",
+          "sinceLaunchSeconds": 186.54834620833208,
+          "footprintBytes": 839392088,
+          "availableBytes": 5603058856,
+          "thermal": 1
+        },
+        {
+          "phase": "asr.load.begin",
+          "sinceLaunchSeconds": 186.54850770833218,
+          "footprintBytes": 839392088,
+          "availableBytes": 5603058856,
+          "thermal": 1
+        },
+        {
+          "phase": "asr.load.end",
+          "sinceLaunchSeconds": 187.81547212499936,
+          "footprintBytes": 3152928368,
+          "availableBytes": 3289522576,
+          "thermal": 1
+        }
+      ],
+      "playbackRoutes": [
+        "Speaker"
+      ],
+      "outputVolumes": [
+        0.5
+      ],
+      "cycles": [
+        {
+          "index": 0,
+          "metric": {
+            "asrSeconds": 1.3757706666656304,
+            "audioSeconds": 21.716375,
+            "endThermalState": "fair",
+            "inputKind": "speech",
+            "inputMode": "toggle",
+            "languageMode": "manual",
+            "memorySaving": false,
+            "mtFragments": 0,
+            "mtSeconds": 4.599372874999972,
+            "peakFootprintBytes": 2974047784,
+            "peakResidentBytes": 2727755776,
+            "playbackScheduledSeconds": 1.2282400416661403,
+            "preprocessingSeconds": 5.837258041665336,
+            "previewBlocks": 1,
+            "processingMode": "during-recording-verified",
+            "recognitionModelID": "whisper-large-v3-turbo-q8-lab",
+            "removedSilenceSeconds": 0,
+            "retranslatedParts": 0,
+            "reusedPreviewBlocks": 1,
+            "source": "ru",
+            "speechQueueWaitSeconds": 0.019326916666614125,
+            "spokenSeconds": 4.06,
+            "status": "completed",
+            "target": "en",
+            "thermalState": "fair",
+            "totalSeconds": 5.652370124998924,
+            "translationModelID": "index-translate-9b-q4km",
+            "ttsFragments": 1,
+            "ttsSeconds": 0.3156751249989611,
+            "verificationSeconds": 0.7760846666678844,
+            "voiceModelID": "vits-piper-en_US-lessac-medium"
+          },
+          "readyAfterCycle": true,
+          "voiceReadyAfterCycle": true,
+          "hasUserMessage": false
+        },
+        {
+          "index": 1,
+          "metric": {
+            "asrSeconds": 1.4010351666656788,
+            "audioSeconds": 21.78425,
+            "endThermalState": "fair",
+            "inputKind": "speech",
+            "inputMode": "toggle",
+            "languageMode": "manual",
+            "memorySaving": false,
+            "mtFragments": 0,
+            "mtSeconds": 2.548578833331703,
+            "peakFootprintBytes": 2990530112,
+            "peakResidentBytes": 400605184,
+            "playbackScheduledSeconds": 1.0498788333334232,
+            "preprocessingSeconds": 3.448383749999266,
+            "previewBlocks": 1,
+            "processingMode": "during-recording-verified",
+            "recognitionModelID": "whisper-large-v3-turbo-q8-lab",
+            "removedSilenceSeconds": 0,
+            "retranslatedParts": 0,
+            "reusedPreviewBlocks": 1,
+            "source": "ru",
+            "speechQueueWaitSeconds": 0.009731833333717077,
+            "spokenSeconds": 2.7747845804988662,
+            "status": "completed",
+            "target": "en",
+            "thermalState": "fair",
+            "totalSeconds": 4.225111791665768,
+            "translationModelID": "index-translate-9b-q4km",
+            "ttsFragments": 1,
+            "ttsSeconds": 0.190911583333218,
+            "verificationSeconds": 0.6977635416660632,
+            "voiceModelID": "vits-piper-en_US-lessac-medium"
+          },
+          "readyAfterCycle": true,
+          "voiceReadyAfterCycle": true,
+          "hasUserMessage": false
+        },
+        {
+          "index": 2,
+          "metric": {
+            "asrSeconds": 1.2745365833343385,
+            "audioSeconds": 21.83875,
+            "endThermalState": "fair",
+            "firstTokenSeconds": 0.6884147500002051,
+            "inputKind": "speech",
+            "inputMode": "toggle",
+            "languageMode": "manual",
+            "memorySaving": false,
+            "mtFragments": 1,
+            "mtSeconds": 3.3710413333319593,
+            "peakFootprintBytes": 3012533872,
+            "peakResidentBytes": 516702208,
+            "playbackScheduledSeconds": 2.7148806666664314,
+            "preprocessingSeconds": 2.456122374998813,
+            "previewBlocks": 1,
+            "processingMode": "during-recording-verified",
+            "recognitionModelID": "whisper-large-v3-turbo-q8-lab",
+            "removedSilenceSeconds": 0,
+            "retranslatedParts": 1,
+            "reusedPreviewBlocks": 0,
+            "source": "ru",
+            "speechQueueWaitSeconds": 0.06280700000024808,
+            "spokenSeconds": 4.18312925170068,
+            "status": "completed",
+            "target": "en",
+            "thermalState": "fair",
+            "totalSeconds": 7.550558083332362,
+            "translationModelID": "index-translate-9b-q4km",
+            "ttsFragments": 2,
+            "ttsSeconds": 0.2409487499990064,
+            "verificationSeconds": 0.6536007499998959,
+            "voiceModelID": "vits-piper-en_US-lessac-medium"
+          },
+          "readyAfterCycle": true,
+          "voiceReadyAfterCycle": true,
+          "hasUserMessage": false
+        },
+        {
+          "index": 3,
+          "metric": {
+            "asrSeconds": 3.8865831666680606,
+            "audioSeconds": 37.756125,
+            "endThermalState": "fair",
+            "fallbackReason": "memory-warning",
+            "firstTokenSeconds": 1.078448375333564,
+            "inputKind": "speech",
+            "inputMode": "toggle",
+            "languageMode": "manual",
+            "memorySaving": false,
+            "mtFragments": 1,
+            "mtSeconds": 14.66444495833457,
+            "peakFootprintBytes": 3140181664,
+            "peakResidentBytes": 506773504,
+            "playbackScheduledSeconds": 4.01540974999989,
+            "preprocessingSeconds": 9.645530624999083,
+            "previewBlocks": 3,
+            "processingMode": "during-recording-verified",
+            "recognitionModelID": "whisper-large-v3-turbo-q8-lab",
+            "removedSilenceSeconds": 0,
+            "retranslatedParts": 1,
+            "reusedPreviewBlocks": 0,
+            "source": "ru",
+            "speechQueueWaitSeconds": 0.06314270833354385,
+            "spokenSeconds": 17.926485260770974,
+            "status": "completed",
+            "target": "en",
+            "thermalState": "fair",
+            "totalSeconds": 23.458410958333843,
+            "translationModelID": "index-translate-9b-q4km",
+            "ttsFragments": 2,
+            "ttsSeconds": 1.2741416250028124,
+            "verificationSeconds": 1.6654180416662712,
+            "voiceModelID": "vits-piper-en_US-lessac-medium"
+          },
+          "readyAfterCycle": true,
+          "voiceReadyAfterCycle": true,
+          "hasUserMessage": true
+        }
+      ]
+    },
+    "baseline-dates-audible": {
+      "variant": "native F16",
+      "completedCycles": 4,
+      "repeatedLiveCapture": true,
+      "dateTimeRepair": false,
+      "memorySaving": false,
+      "sampleIntervalMilliseconds": 100,
+      "maximumSampledFootprintBytes": 2704630032,
+      "reportedProcessLifetimePeakBytes": 2704810256,
+      "maximumSampledResidentBytes": 6646857728,
+      "minimumProcessAllocationHeadroomBytes": 3737820912,
+      "memoryWarnings": 1,
+      "asrLoadSeconds": [
+        0.6918957500001852,
+        0.9482847083327215
+      ],
+      "events": [
+        {
+          "phase": "asr.unload",
+          "sinceLaunchSeconds": 4.785759374999543,
+          "footprintBytes": 422173024,
+          "availableBytes": 6020277920,
+          "thermal": 1
+        },
+        {
+          "phase": "asr.load.begin",
+          "sinceLaunchSeconds": 4.786244583332518,
+          "footprintBytes": 422173024,
+          "availableBytes": 6020277920,
+          "thermal": 1
+        },
+        {
+          "phase": "asr.load.end",
+          "sinceLaunchSeconds": 5.4781403333327034,
+          "footprintBytes": 2273402528,
+          "availableBytes": 4169048416,
+          "thermal": 1
+        },
+        {
+          "phase": "memory.warning",
+          "sinceLaunchSeconds": 152.98468041666638,
+          "footprintBytes": 2697175312,
+          "availableBytes": 3745275632,
+          "thermal": 1
+        },
+        {
+          "phase": "asr.unload",
+          "sinceLaunchSeconds": 166.4542488749994,
+          "footprintBytes": 2671272208,
+          "availableBytes": 3771178736,
+          "thermal": 1
+        },
+        {
+          "phase": "asr.unload",
+          "sinceLaunchSeconds": 166.61622333333253,
+          "footprintBytes": 2665701648,
+          "availableBytes": 3776749296,
+          "thermal": 1
+        },
+        {
+          "phase": "asr.load.begin",
+          "sinceLaunchSeconds": 166.61642841666617,
+          "footprintBytes": 2665701648,
+          "availableBytes": 3776749296,
+          "thermal": 1
+        },
+        {
+          "phase": "asr.load.end",
+          "sinceLaunchSeconds": 167.5647131249989,
+          "footprintBytes": 2703434000,
+          "availableBytes": 3739016944,
+          "thermal": 1
+        }
+      ],
+      "playbackRoutes": [
+        "Speaker"
+      ],
+      "outputVolumes": [
+        0.5
+      ],
+      "cycles": [
+        {
+          "index": 0,
+          "metric": {
+            "asrSeconds": 3.1770345416680357,
+            "audioSeconds": 21.7038125,
+            "endThermalState": "fair",
+            "inputKind": "speech",
+            "inputMode": "toggle",
+            "languageMode": "manual",
+            "memorySaving": false,
+            "mtFragments": 0,
+            "mtSeconds": 4.683640416666094,
+            "peakFootprintBytes": 2533810256,
+            "peakResidentBytes": 5693374464,
+            "playbackScheduledSeconds": 1.5620195833325852,
+            "preprocessingSeconds": 7.181608250000863,
+            "previewBlocks": 1,
+            "processingMode": "during-recording-verified",
+            "recognitionModelID": "whisper-large-v3-turbo-q8-lab",
+            "removedSilenceSeconds": 0,
+            "retranslatedParts": 0,
+            "reusedPreviewBlocks": 1,
+            "source": "ru",
+            "speechQueueWaitSeconds": 0.015001791665781639,
+            "spokenSeconds": 4.1,
+            "status": "completed",
+            "target": "en",
+            "thermalState": "fair",
+            "totalSeconds": 6.0410681666671735,
+            "translationModelID": "index-translate-9b-q4km",
+            "ttsFragments": 1,
+            "ttsSeconds": 0.24926308333306224,
+            "verificationSeconds": 1.2199896666661516,
+            "voiceModelID": "vits-piper-en_US-lessac-medium"
+          },
+          "readyAfterCycle": true,
+          "voiceReadyAfterCycle": true,
+          "hasUserMessage": false
+        },
+        {
+          "index": 1,
+          "metric": {
+            "asrSeconds": 2.1441248749979422,
+            "audioSeconds": 21.6203125,
+            "endThermalState": "fair",
+            "firstTokenSeconds": 1.4822397076668992,
+            "inputKind": "speech",
+            "inputMode": "toggle",
+            "languageMode": "manual",
+            "memorySaving": false,
+            "mtFragments": 1,
+            "mtSeconds": 3.9652009583332983,
+            "peakFootprintBytes": 2557321296,
+            "peakResidentBytes": 1159921664,
+            "playbackScheduledSeconds": 3.988350541665568,
+            "preprocessingSeconds": 2.72405337499913,
+            "previewBlocks": 1,
+            "processingMode": "during-recording-verified",
+            "recognitionModelID": "whisper-large-v3-turbo-q8-lab",
+            "removedSilenceSeconds": 0,
+            "retranslatedParts": 1,
+            "reusedPreviewBlocks": 0,
+            "source": "ru",
+            "speechQueueWaitSeconds": 0.22540687499895284,
+            "spokenSeconds": 3.297233560090703,
+            "status": "completed",
+            "target": "en",
+            "thermalState": "fair",
+            "totalSeconds": 7.690287458333842,
+            "translationModelID": "index-translate-9b-q4km",
+            "ttsFragments": 1,
+            "ttsSeconds": 0.21218779166702006,
+            "verificationSeconds": 1.1824109583321842,
+            "voiceModelID": "vits-piper-en_US-lessac-medium"
+          },
+          "readyAfterCycle": true,
+          "voiceReadyAfterCycle": true,
+          "hasUserMessage": false
+        },
+        {
+          "index": 2,
+          "metric": {
+            "asrSeconds": 2.076730458333259,
+            "audioSeconds": 21.624875,
+            "endThermalState": "fair",
+            "inputKind": "speech",
+            "inputMode": "toggle",
+            "languageMode": "manual",
+            "memorySaving": false,
+            "mtFragments": 0,
+            "mtSeconds": 1.44239266666591,
+            "peakFootprintBytes": 2575425712,
+            "peakResidentBytes": 600555520,
+            "playbackScheduledSeconds": 1.2857157083344646,
+            "preprocessingSeconds": 2.6352002500007075,
+            "previewBlocks": 1,
+            "processingMode": "during-recording-verified",
+            "recognitionModelID": "whisper-large-v3-turbo-q8-lab",
+            "removedSilenceSeconds": 0,
+            "retranslatedParts": 0,
+            "reusedPreviewBlocks": 1,
+            "source": "ru",
+            "speechQueueWaitSeconds": 0.004588541665725643,
+            "spokenSeconds": 3.24,
+            "status": "completed",
+            "target": "en",
+            "thermalState": "fair",
+            "totalSeconds": 4.860227000001032,
+            "translationModelID": "index-translate-9b-q4km",
+            "ttsFragments": 1,
+            "ttsSeconds": 0.17590608333193813,
+            "verificationSeconds": 1.0631579583332496,
+            "voiceModelID": "vits-piper-en_US-lessac-medium"
+          },
+          "readyAfterCycle": true,
+          "voiceReadyAfterCycle": true,
+          "hasUserMessage": false
+        },
+        {
+          "index": 3,
+          "metric": {
+            "asrSeconds": 6.323123624997606,
+            "audioSeconds": 37.7520625,
+            "endThermalState": "fair",
+            "firstTokenSeconds": 1.1377611666655993,
+            "inputKind": "speech",
+            "inputMode": "toggle",
+            "languageMode": "manual",
+            "memorySaving": false,
+            "mtFragments": 1,
+            "mtSeconds": 14.531272624999474,
+            "peakFootprintBytes": 2699141392,
+            "peakResidentBytes": 593477632,
+            "playbackScheduledSeconds": 5.6562133750012435,
+            "preprocessingSeconds": 10.148511458333815,
+            "previewBlocks": 3,
+            "processingMode": "during-recording-verified",
+            "recognitionModelID": "whisper-large-v3-turbo-q8-lab",
+            "removedSilenceSeconds": 0.08263038548752835,
+            "retranslatedParts": 1,
+            "reusedPreviewBlocks": 0,
+            "source": "ru",
+            "speechQueueWaitSeconds": 0.1733132083336386,
+            "spokenSeconds": 16.88,
+            "status": "completed",
+            "target": "en",
+            "thermalState": "fair",
+            "totalSeconds": 24.92935791666787,
+            "translationModelID": "index-translate-9b-q4km",
+            "ttsFragments": 3,
+            "ttsSeconds": 1.29073999999855,
+            "verificationSeconds": 3.154890624999098,
+            "voiceModelID": "vits-piper-en_US-lessac-medium"
+          },
+          "readyAfterCycle": true,
+          "voiceReadyAfterCycle": true,
+          "hasUserMessage": false
+        }
+      ]
+    }
+  },
+  "baselineAgreementNotAccuracy": {
+    "coreml-q8-a": [
+      {
+        "index": 0,
+        "exactSourceAgreement": true,
+        "exactTranslationAgreement": true
+      },
+      {
+        "index": 1,
+        "exactSourceAgreement": true,
+        "exactTranslationAgreement": true
+      },
+      {
+        "index": 2,
+        "exactSourceAgreement": true,
+        "exactTranslationAgreement": true
+      },
+      {
+        "index": 3,
+        "exactSourceAgreement": false,
+        "exactTranslationAgreement": false
+      }
+    ],
+    "coreml-q8-dates-audible": [
+      {
+        "index": 0,
+        "exactSourceAgreement": true,
+        "exactTranslationAgreement": true
+      },
+      {
+        "index": 1,
+        "exactSourceAgreement": false,
+        "exactTranslationAgreement": false
+      },
+      {
+        "index": 2,
+        "exactSourceAgreement": false,
+        "exactTranslationAgreement": false
+      },
+      {
+        "index": 3,
+        "exactSourceAgreement": false,
+        "exactTranslationAgreement": false
+      }
+    ]
+  },
+  "excludedRun": {
+    "name": "coreml-q8-dates",
+    "completedCycles": 0,
+    "reason": "Interrupted after the owner reported low acoustic level; no ASR invocation reached in saved trace",
+    "originalMeanDBFS": -40.1,
+    "originalPeakDBFS": -19.6,
+    "repeatStimulus": "loudnorm=I=-18:TP=-2:LRA=11; same four normalized inputs for both variants"
+  }
+}
