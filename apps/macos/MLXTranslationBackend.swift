@@ -15,7 +15,14 @@ private final class MLXPartialReporter {
     }
     func receive(_ text: String) { report(completed.isEmpty ? text : completed + separator + text) }
 }
+private enum MacGlossaryError: LocalizedError {
+    case preparation
+    var errorDescription: String? { L10n.text("Не удалось подготовить экспериментальный словарь. Отключите его в настройках и повторите перевод.") }
+}
 enum MacTranslationOptions {
+    static func glossaryEnabled(in defaults: UserDefaults = .standard) -> Bool {
+        defaults.object(forKey: "macExperimentalTranslationGlossary") as? Bool ?? false
+    }
     static func chunksEnabled(in defaults: UserDefaults = .standard) -> Bool {
         defaults.object(forKey: "macExperimentalTranslationChunks") as? Bool ?? true
     }
@@ -24,18 +31,20 @@ final class MLXTranslationBackend: TranslationBackend, @unchecked Sendable {
     private let queue = DispatchQueue(label: "org.openoffline.translation", qos: .userInitiated)
     private var context: UnsafeMutableRawPointer?
     private var model: TranslationModel = .index9B
+    private var glossaryDocument: (UUID, Bool)? // Accessed only on the serial engine queue.
     private let lock = NSLock()
     private var flag: MLXTranslationFlag?
     private let chunkingEnabled: @Sendable () -> Bool
-    init(chunkingEnabled: @escaping @Sendable () -> Bool = { MacTranslationOptions.chunksEnabled() }) {
-        self.chunkingEnabled = chunkingEnabled
+    private let glossaryEnabled: @Sendable () -> Bool
+    init(glossaryEnabled: @escaping @Sendable () -> Bool = { MacTranslationOptions.glossaryEnabled() }, chunkingEnabled: @escaping @Sendable () -> Bool = { MacTranslationOptions.chunksEnabled() }) {
+        self.chunkingEnabled = chunkingEnabled; self.glossaryEnabled = glossaryEnabled
     }
     func load(modelURL: URL) async throws { try await load(modelURL: modelURL, model: .index9B) }
     func load(modelURL: URL, model: TranslationModel) async throws {
         guard model == .index9B else { throw PipelineError.modelLoad }
         try await withCheckedThrowingContinuation { (c: CheckedContinuation<Void, Error>) in queue.async {
             if let old = self.context { kat_mlx_free(old); self.context = nil }
-            self.model = model
+            self.model = model; self.glossaryDocument = nil
             TranslationMemoryTrace.record("load.start", model: model)
             let start = ProcessInfo.processInfo.systemUptime
             guard let resources = Bundle.main.resourceURL else { c.resume(throwing: PipelineError.modelLoad); return }
@@ -56,18 +65,37 @@ final class MLXTranslationBackend: TranslationBackend, @unchecked Sendable {
                    partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult {
         try await translate(text: text, source: source, target: target, progress: progress, partial: Optional(partial))
     }
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, document: TranslationDocument,
+                   progress: @escaping @Sendable (TranslationProgress) -> Void,
+                   partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult {
+        try await translate(text: text, source: source, target: target, progress: progress, partial: Optional(partial), document: document)
+    }
     private func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void,
-                           partial: (@Sendable (String) -> Void)?) async throws -> TranslationResult {
+                           partial: (@Sendable (String) -> Void)?, document: TranslationDocument? = nil) async throws -> TranslationResult {
         try Task.checkCancellation()
         guard TranslationLanguage.details(source).connected(to: model), TranslationLanguage.details(target).connected(to: model) else { throw PipelineError.modelLanguageUnavailable }
         try TranslationPrompt.validate(text)
         let useSmallChunks = chunkingEnabled()
+        let requestedGlossary = glossaryEnabled() && source == .russian && target == .english
+        let sharedDocument = document
+        let document = document ?? TranslationDocument(text: text)
+        try TranslationPrompt.validate(document.text)
         let flag = try MLXTranslationFlag(); setFlag(flag); defer { setFlag(nil) }
         return try await withTaskCancellationHandler {
             try await withCheckedThrowingContinuation { continuation in self.queue.async {
                 do {
                     guard let context = self.context else { throw PipelineError.modelLoad }
                     let started = ProcessInfo.processInfo.systemUptime
+                    // Keep the choice stable across a single image, but never enable it
+                    // merely because a caller supplies document context.
+                    if sharedDocument == nil || self.glossaryDocument?.0 != document.id {
+                        self.glossaryDocument = (document.id, requestedGlossary)
+                    }
+                    let useGlossary = self.glossaryDocument?.1 == true && source == .russian && target == .english
+                    if useGlossary { progress(TranslationWork(pieces: [text]).progress) }
+                    let prepared = kat_mlx_prepare_glossary(context, useGlossary ? document.text : "", useGlossary ? document.id.uuidString : "", flag.pointer)
+                    if prepared == 2 { throw CancellationError() }
+                    guard prepared == 0 else { throw MacGlossaryError.preparation }
                     let planned = useSmallChunks
                         ? try TranslationChunks.plan(text, count: { Int(kat_mlx_count(context, "", $0, "")) }) : [text]
                     let pieces = try planned.flatMap { sourcePiece in try TextSegments.split(sourcePiece) { part in

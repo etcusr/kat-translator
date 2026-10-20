@@ -13,6 +13,12 @@ private actor CameraMT: TranslationBackend {
         self.partial = partial
         return try await translate(text: text, source: source, target: target)
     }
+    var documents: [TranslationDocument] = []
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, document: TranslationDocument,
+                   progress: @escaping @Sendable (TranslationProgress) -> Void, partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult {
+        documents.append(document)
+        return try await translate(text: text, source: source, target: target, progress: progress, partial: partial)
+    }
     var inputs: [String] = []
     var targets: [SpeechLanguage] = []
     var models: [TranslationModel] = []
@@ -32,6 +38,33 @@ private actor CameraMT: TranslationBackend {
     func unload() async { unloaded = true }
 }
 @MainActor final class ImageTranslationTests: XCTestCase {
+    func testDocumentContextAcrossBlocksAndNoCacheFromDifferentScene() async throws {
+        let backend = CameraMT(); await backend.finish()
+        let session = ImageTranslationSession(backend: RetainedTranslationBackend(base: backend))
+        await session.prepare(URL(fileURLWithPath: "/synthetic"))
+        session.usesDocumentContext = true
+        let blocks = [ImageTextBlock(text: "Насос работает.", box: .init(x: 0, y: 0, width: 1, height: 0.2)),
+                      ImageTextBlock(text: "Проверка насоса.", box: .init(x: 0, y: 0.3, width: 1, height: 0.2))]
+        session.submit(blocks, source: .russian, target: .english)
+        await session.waitForIdle()
+        var docs = await backend.documents
+        XCTAssertEqual(docs.count, 2)
+        XCTAssertEqual(docs[0].id, docs[1].id)
+        XCTAssertEqual(docs[0].text, "Насос работает.\n\nПроверка насоса.")
+        session.submit(blocks, source: .russian, target: .english)
+        await session.waitForIdle()
+        docs = await backend.documents
+        XCTAssertEqual(docs.count, 4)
+        XCTAssertNotEqual(docs[0].id, docs[2].id)
+        session.usesDocumentContext = false
+        session.submit(blocks, source: .russian, target: .english)
+        await session.waitForIdle()
+        let finalDocs = await backend.documents
+        XCTAssertEqual(finalDocs.count, 4, "Disabled option uses the original overload")
+        XCTAssertTrue(session.complete)
+        await session.close()
+    }
+
     func testWholeImageProgressSurvivesLocalChunkResetsAndCachedBlocks() async throws {
         let backend = CameraMT(); await backend.holdRequests()
         let session = ImageTranslationSession(backend: backend)

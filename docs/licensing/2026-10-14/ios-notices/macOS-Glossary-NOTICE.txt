@@ -1,0 +1,149 @@
+Mac experimental automatic terminology glossary
+
+pymorphy3 2.0.6: https://github.com/no-plagiarism/pymorphy3
+DAWG2-Python 0.9.0: https://github.com/no-plagiarism/DAWG2-Python
+pymorphy3-dicts-ru 2.4.417150.4580142: https://github.com/no-plagiarism/pymorphy3-dicts
+
+Russian morphological dictionary data: OpenCorpora contributors, https://opencorpora.org/
+Source version 0.92, revision 417150; compiled 2022-01-08.
+Dictionary data distributed unmodified from pymorphy3-dicts-ru, under Creative Commons Attribution-ShareAlike 3.0:
+https://creativecommons.org/licenses/by-sa/3.0/
+The package metadata distinguishes its MIT code license from the dictionary data license.
+
+
+pymorphy3-2.0.6.dist-info/licenses/LICENSE.txt
+
+MIT License
+
+Copyright (c) 2022
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+dawg2_python-0.9.0.dist-info/LICENSE
+
+Copyright (c) Mikhail Korobov, 2012
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is furnished
+to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR
+A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+pymorphy3_dicts_ru-2.4.417150.4580142.dist-info/METADATA
+
+Metadata-Version: 2.1
+Name: pymorphy3-dicts-ru
+Version: 2.4.417150.4580142
+Summary: Russian dictionaries for pymorphy2
+Home-page: https://github.com/no-plagiarism/pymorphy3-dicts
+Author: Danylo Halaiko
+Author-email: d9nich@pm.me
+License: MIT license
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Text Processing :: Linguistic
+
+pymorphy3-dicts-ru
+==========================================================
+
+Russian dictionaries for `pymorphy3`_.
+
+.. _pymorphy3: https://github.com/no-plagiarism/pymorphy3
+
+Installation
+------------
+
+Install::
+
+    $ pip install pymorphy3-dicts-ru
+
+Usage
+-----
+
+To use these dictionaries with pymorphy2 create MorphAnalyzer
+with ``lang='ru'`` parameter:
+
+>>> import pymorphy3
+>>> morph = pymorphy3.MorphAnalyzer(lang='ru')
+
+To get a path to the installed dictionary data use
+``pymorphy3_dicts_ru.get_path()`` method.
+
+Development
+-----------
+
+The main repo is https://github.com/no-plagiarism/pymorphy3-dicts. The repository
+doesn't contain the data itself: only package template and update
+scripts are stored in VCS.
+
+License for Python code in this package is MIT.
+The data is licensed under
+`Creative Commons Attribution-Share Alike <http://creativecommons.org/licenses/by-sa/3.0/>`_.
+
+
+
+
+pymorphy3-dicts code license
+Source blob: https://api.github.com/repos/no-plagiarism/pymorphy3-dicts/git/blobs/f0e9f132d45ae1b223e46d2b77ee5d268e28141d
+
+MIT License
+
+Copyright (c) 2022 no-plagiarism
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

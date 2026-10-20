@@ -1,0 +1,23 @@
+[
+  {
+    "name": "pymorphy3",
+    "version": "2.0.6",
+    "file": "pymorphy3-2.0.6-py3-none-any.whl",
+    "url": "https://files.pythonhosted.org/packages/18/4b/59bac03278033e293d1405ed42fb6c6252c25f40c50f509c615caeaa3b71/pymorphy3-2.0.6-py3-none-any.whl",
+    "sha256": "0254317c02ce3ea17e080b7fc9d675e44662b3a5296bae68605b7a41d25b36c3"
+  },
+  {
+    "name": "pymorphy3-dicts-ru",
+    "version": "2.4.417150.4580142",
+    "file": "pymorphy3_dicts_ru-2.4.417150.4580142-py2.py3-none-any.whl",
+    "url": "https://files.pythonhosted.org/packages/b0/67/469e9e52d046863f5959928794d3067d455a77f580bf4a662630a43eb426/pymorphy3_dicts_ru-2.4.417150.4580142-py2.py3-none-any.whl",
+    "sha256": "718bac64c73c10c16073a199402657283d9b64c04188b694f6d3e9b0d85440f4"
+  },
+  {
+    "name": "dawg2-python",
+    "version": "0.9.0",
+    "file": "dawg2_python-0.9.0-py3-none-any.whl",
+    "url": "https://files.pythonhosted.org/packages/84/3b/7fb4c1a8df59cb80f5f7ecb9646280e000f9ba2ccff8710205dc9aa4604f/dawg2_python-0.9.0-py3-none-any.whl",
+    "sha256": "4fab6fc097bd176cd783cd8421b757348ea5a460789e53b0f6bb64831380bab5"
+  }
+]

@@ -3,6 +3,8 @@
 #include <stddef.h>
 void *kat_mlx_load(const char *resources, const char *model_directory);
 void kat_mlx_free(void *engine);
+// Empty identity clears the glossary. Same document identity reuses it. No partial callbacks.
+int kat_mlx_prepare_glossary(void *engine, const char *text, const char *identity, void *flag);
 int kat_mlx_count(void *engine, const char *prefix, const char *text, const char *suffix);
 void *kat_mlx_flag_create(void);
 void kat_mlx_flag_cancel(void *flag);

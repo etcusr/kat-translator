@@ -2,7 +2,9 @@
 
 **English** | [Русский](README.ru.md)
 
-**Current decision (20 October):** keep `focused_terms` as an optional experimental lab mode. Every ordinary app launch selects `plain`; using the expanded glossary requires an explicit mode selection. It is not enabled automatically or integrated into the main Mac app. The UI marks it experimental and explains the startup delay and possible terminology errors. Further optimization is deferred until separately requested.
+**Production port, 20 October:** the tested `focused_terms` selector now also has a separate off-by-default option in main Mac Settings, limited to Index 9B RU→EN. This lab remains isolated with plain launch defaults; its benchmarks below are historical lab evidence. [Main-app validation](../../../docs/benchmarks/mac-production-glossary-2026-10-20/README.md).
+
+**Earlier lab decision (20 October):** keep `focused_terms` as an optional experimental lab mode. Every ordinary app launch selects `plain`; using the expanded glossary requires an explicit mode selection. It is not enabled automatically or integrated into the main Mac app. The UI marks it experimental and explains the startup delay and possible terminology errors. Further optimization is deferred until separately requested.
 
 A separate local **Kat Context Lab** for RU→EN with the existing Index 9B MLX/MTP2 runtime and weights. It never replaces Kat, writes Kat settings/history, or uploads builds. Requires this workspace, the existing research Python environment/model installation and macOS 27 on Apple Silicon. The generated app embeds the explicitly supplied private fixture and comparison results and must not be distributed.
 

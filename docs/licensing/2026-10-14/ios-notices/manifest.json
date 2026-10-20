@@ -249,5 +249,10 @@
     "archiveSHA256": "82fa96f91c4ef8abaae3a14a3f4153facf88bed821d1f7331cec2700f432c427",
     "sha256": "0dfe0d0ba84416fe3879d9a34f4909d8d0137c78d1e95834177b0414ac096fa2",
     "scope": "Original MIT notice from the sherpa Supertonic3 INT8 archive. The official weight license is OpenRAIL-M, preserved separately. Retaining this notice does not resolve the mismatch or relicense model weights."
+  },
+  {
+    "file": "macOS-Glossary-NOTICE.txt",
+    "sha256": "a0650af9d43dc01304744e4bd86d77fd3c67ce914bf6d95df809b33e02b5d05e",
+    "scope": "macOS only: optional experimental automatic terminology glossary; added 20 October 2026."
   }
 ]

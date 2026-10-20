@@ -68,14 +68,39 @@ class Engine:
         import sys
         print("Kat Index: MLX MTP2; native kernels active", file=sys.stderr, flush=True)
 
+    def prepare_glossary(self, text, identity, cancelled):
+        # Empty identity disables the experiment without importing morphology.
+        if not identity:
+            self._glossary = []; self._glossary_identity = None
+            return 2 if cancelled() else 0
+        if cancelled(): return 2
+        if getattr(self, '_glossary_identity', None) == identity: return 0
+        self._glossary = []; self._glossary_identity = None
+        from index_glossary import build_fast_glossary, GlossaryCancelled
+        try:
+            result = build_fast_glossary(self, text.split('\n\n'), cancelled=cancelled)
+            if cancelled(): return 2
+            self._glossary = result['terms']
+            self._glossary_identity = identity
+            return 0
+        except GlossaryCancelled:
+            return 2
+        # Invalid JSON/budget/dependency failures propagate; no silent plain fallback.
+
+    def _prefix(self, prefix, text):
+        terms = getattr(self, '_glossary', [])
+        if not terms or not prefix: return prefix
+        from index_glossary import translation_prefix
+        return translation_prefix(prefix, text, terms)
+
     def count(self, prefix, text, suffix):
-        return len(self.tokenizer.encode(prefix + text + suffix, add_special_tokens=False))
+        return len(self.tokenizer.encode(self._prefix(prefix, text) + text + suffix, add_special_tokens=False))
 
     def run(self, prefix, text, suffix, cancelled, partial=None):
         from mlx_lm.generate import BatchGenerator
         if cancelled(): return (2, '', -1.)
         start = time.perf_counter()
-        tokens = self.tokenizer.encode(prefix + text + suffix, add_special_tokens=False)
+        tokens = self.tokenizer.encode(self._prefix(prefix, text) + text + suffix, add_special_tokens=False)
         if not tokens or len(tokens) > 1536: return (1, '', -1.)
         gen = None
         try:
@@ -108,6 +133,7 @@ class Engine:
             if gen is not None: gen.close()
 
     def close(self):
+        self._glossary = []; self._glossary_identity = None
         self.mx.synchronize()
         self.model = None
         self.tokenizer = None

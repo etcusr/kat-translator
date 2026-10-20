@@ -58,6 +58,24 @@ int kat_mlx_count(void *engine, const char *prefix, const char *text, const char
     if(PyErr_Occurred()) { PyErr_PrintEx(0); count = -1; }
     Py_XDECREF(out); PyGILState_Release(gil); return count > 0 && count < 2147483647 ? (int)count : -1;
 }
+int kat_mlx_prepare_glossary(void *engine, const char *text, const char *identity, void *flag) {
+    if(cancelled(flag)) return 2;
+    if(!engine || !text || !identity || !flag) return -1;
+    PyGILState_STATE gil = PyGILState_Ensure();
+    Request *request = calloc(1, sizeof(Request));
+    if(!request) { PyGILState_Release(gil); return -1; }
+    request->flag = flag;
+    PyObject *capsule = PyCapsule_New(request, "kat.index.request", release_request);
+    PyObject *callback = capsule ? PyCFunction_New(&cancel_method, capsule) : NULL;
+    PyObject *out = callback ? PyObject_CallMethod(engine, "prepare_glossary", "ssO", text, identity, callback) : NULL;
+    request->flag = NULL;
+    if(!capsule) free(request);
+    int result = out ? (int)PyLong_AsLong(out) : -1;
+    if(PyErr_Occurred()) { PyErr_PrintEx(0); result = -1; }
+    if(cancelled(flag)) result = 2;
+    Py_XDECREF(out); Py_XDECREF(callback); Py_XDECREF(capsule);
+    PyGILState_Release(gil); return result;
+}
 int kat_mlx_run(void *engine, const char *prefix, const char *text, const char *suffix,
                 void *flag, char *output, size_t capacity, double *first) {
     return kat_mlx_run_stream(engine, prefix, text, suffix, flag, output, capacity, first, NULL, NULL);

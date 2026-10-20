@@ -12,6 +12,7 @@ struct SettingsView: View {
     @AppStorage("recordingPreviewVerification") private var verification = true
     #if os(macOS)
     @AppStorage("macTranslationIdleMinutes") private var translationIdleMinutes = 5.0
+    @AppStorage("macExperimentalTranslationGlossary") private var experimentalGlossary = false
     @AppStorage("macExperimentalTranslationChunks") private var experimentalChunks = true
     #endif
     @AppStorage("memorySaving") private var memorySaving = false
@@ -111,6 +112,14 @@ struct SettingsView: View {
                         .onChange(of: experimentalChunks) { _, enabled in model.session.showsTranslationPartials = enabled }
                     Text(L10n.text("Только Index 9B. Первые части могут появляться раньше, но контекст между ними может теряться, а полный перевод — занимать больше времени. Применяется к следующему переводу."))
                         .font(.footnote).foregroundStyle(.secondary)
+                }
+                Section {
+                    Toggle(L10n.text("Автоматический словарь терминов"), isOn: $experimentalGlossary)
+                        .accessibilityIdentifier("settings.translationGlossary")
+                } header: {
+                    SettingsSectionHeader(L10n.text("Экспериментально"))
+                } footer: {
+                    Text(L10n.text("Только Index 9B, с русского на английский. Подбирает общие термины для частей текста и изображения. Добавляет ожидание перед переводом и может ошибаться. Применяется к следующему переводу."))
                 }
                 #endif
                 Section {

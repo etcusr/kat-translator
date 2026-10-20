@@ -10,6 +10,17 @@ private final class MLXPartialProbe: @unchecked Sendable {
 }
 
 final class MacMLXIntegrationTests: XCTestCase {
+    func testGlossaryDefaultOffAndSavedChoice() throws {
+        let suite = "kat-glossary-default-" + UUID().uuidString
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        XCTAssertFalse(MacTranslationOptions.glossaryEnabled(in: defaults))
+        defaults.set(true, forKey: "macExperimentalTranslationGlossary")
+        XCTAssertTrue(MacTranslationOptions.glossaryEnabled(in: defaults))
+        defaults.set(false, forKey: "macExperimentalTranslationGlossary")
+        XCTAssertFalse(MacTranslationOptions.glossaryEnabled(in: defaults))
+    }
+
     func testChunksDefaultOnAndPreserveExplicitChoice() throws {
         let suite = "kat-chunk-default-" + UUID().uuidString
         let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
@@ -162,5 +173,60 @@ extension MacMLXIntegrationTests {
         let out = URL(fileURLWithPath: try XCTUnwrap(env["KAT_RESIDENCY_OUTPUT"]))
         try JSONSerialization.data(withJSONObject: measurements, options: [.prettyPrinted, .sortedKeys]).write(to: out)
         print("MAC_RESIDENCY_OK warmReuse=true idleReload=true chunks=true cancellation=true")
+    }
+}
+
+extension MacMLXIntegrationTests {
+    func testExperimentalGlossaryPackagedRuntime() async throws {
+        let env = ProcessInfo.processInfo.environment
+        guard env["KAT_GLOSSARY_INTEGRATION"] == "1" else { throw XCTSkip("Explicit glossary model test only") }
+        let modelURL = URL(fileURLWithPath: try XCTUnwrap(env["KAT_MLX_MODEL_PATH"]))
+        let fixture = URL(fileURLWithPath: try XCTUnwrap(env["KAT_GLOSSARY_FIXTURE"]))
+        let corpus = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: fixture)) as? [String: Any])
+        let cases = try XCTUnwrap(corpus["cases"] as? [[String: Any]])
+        let blocks = try XCTUnwrap(cases[0]["blocks"] as? [String])
+        let text = blocks.joined(separator: "\n\n")
+        var measurements: [[String: Any]] = []
+        var baselineEnglish = ""
+        for enabled in [false, true] {
+            let mlx = MLXTranslationBackend(glossaryEnabled: { enabled })
+            let backend = RoutedTranslationBackend(llama: mlx)
+            try await backend.load(modelURL: modelURL, model: .index9B)
+            let reverse = try await backend.translate(text: "The pump pushes water through the filter. Check the pump and the filter.", source: .english, target: .russian)
+            if enabled { XCTAssertEqual(reverse.text, baselineEnglish, "Unsupported direction must be byte-identical") }
+            else { baselineEnglish = reverse.text }
+            let probe = TranslationArrivalProbe()
+            let translated = try await backend.translate(text: text, source: .russian, target: .english,
+                                                          progress: { probe.progress($0) }, partial: { probe.partial($0) })
+            XCTAssertGreaterThan(translated.fragments, 1)
+            XCTAssertEqual(probe.values["lastPartial"] as? String, translated.text)
+            XCTAssertFalse(translated.text.hasPrefix("["), "Glossary JSON must not enter the result")
+            var row = probe.values
+            row["glossary"] = enabled; row["seconds"] = translated.processingSeconds; row["output"] = translated.text
+            measurements.append(row)
+            if !enabled {
+                let withContext = try await backend.translate(text: text, source: .russian, target: .english,
+                    document: TranslationDocument(text: text), progress: { _ in }, partial: { _ in })
+                XCTAssertEqual(withContext.text, translated.text, "Document context must not enable an off glossary")
+            }
+            if enabled {
+                let task = Task { try await backend.translate(text: text, source: .russian, target: .english) }
+                try await Task.sleep(nanoseconds: 50_000_000)
+                task.cancel()
+                do { _ = try await task.value; XCTFail("Preparation cancellation must abort") } catch is CancellationError {}
+                let recovered = try await backend.translate(text: "Добрый день!", source: .russian, target: .english)
+                XCTAssertFalse(recovered.text.isEmpty)
+                let document = TranslationDocument(text: text)
+                for block in blocks.prefix(2) {
+                    let value = try await backend.translate(text: block, source: .russian, target: .english, document: document,
+                                                            progress: { _ in }, partial: { _ in })
+                    XCTAssertFalse(value.text.isEmpty)
+                }
+            }
+            await backend.unload()
+        }
+        let output = URL(fileURLWithPath: try XCTUnwrap(env["KAT_GLOSSARY_OUTPUT"]))
+        try JSONSerialization.data(withJSONObject: measurements, options: [.prettyPrinted, .sortedKeys]).write(to: output)
+        print("MAC_GLOSSARY_OK off=true on=true unsupportedPairUnchanged=true cancellation=true recovery=true document=true")
     }
 }

@@ -52,6 +52,20 @@ if store_sandbox:
  for omitted in res.glob('IndexPython/*'):
   if omitted.name.split('-')[0] in STORE_OMIT_INDEX: shutil.rmtree(omitted)
 shutil.copy2(root/'shared/native/IndexMLX/index_mlx.py',res/'IndexPython/index_mlx.py')
+shutil.copy2(root/'shared/native/IndexMLX/index_glossary.py',res/'IndexPython/index_glossary.py')
+# Prepared separately; builds never install packages or fetch model/runtime code.
+import hashlib, json
+glossary = root/'Dependencies/build/mac-glossary'
+if not (glossary/'files.json').is_file(): raise RuntimeError('Run python3 scripts/prepare-mac-glossary.py')
+for row in json.loads((glossary/'files.json').read_text()):
+ relative = Path(row['path'])
+ if relative.is_absolute() or '..' in relative.parts: raise RuntimeError('Unsafe glossary path')
+ source = glossary/'libraries'/relative
+ if hashlib.sha256(source.read_bytes()).hexdigest() != row['sha256']: raise RuntimeError('Glossary dependency changed: '+str(relative))
+ target = res/'IndexPython'/relative
+ target.parent.mkdir(parents=True,exist_ok=True)
+ copyfile(source,target)
+
 opus_source=root/'Dependencies/build/opus-gpu/OpusPython'
 if not opus_source.is_dir(): raise RuntimeError('Prepare OPUS GPU runtime: python3 scripts/prepare-opus-gpu.py')
 copytree(opus_source,res/'OpusPython')

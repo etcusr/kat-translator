@@ -23,6 +23,8 @@ public struct TranslatedImageBlock: Sendable {
     @Published public private(set) var partialTranslation: TranslatedImageBlock?
     @Published public private(set) var progress: TranslationProgress?
     public var showsTranslationPartials = false
+    public var usesDocumentContext = false
+    private var document: TranslationDocument?
     private var displayPartials = false
     private var model: TranslationModel = .index9B
     private var partialRequest: UUID?
@@ -51,7 +53,7 @@ public struct TranslatedImageBlock: Sendable {
     private var job: Task<Void, Never>?
     private var closing: Task<Void, Never>?
     public init(backend: any TranslationBackend) { self.backend = backend }
-    private func key(_ text: String, _ source: SpeechLanguage, _ target: SpeechLanguage) -> String { source.rawValue + ">" + target.rawValue + ":" + text }
+    private func key(_ text: String, _ source: SpeechLanguage, _ target: SpeechLanguage) -> String { (document?.id.uuidString ?? "") + source.rawValue + ">" + target.rawValue + ":" + text }
     public func prepare(_ url: URL, model: TranslationModel = .index9B) async {
         if let closing { await closing.value }
         guard job == nil, !ready else { return }
@@ -69,6 +71,7 @@ public struct TranslatedImageBlock: Sendable {
         displayPartials = showsTranslationPartials && model == .index9B
         timing = nil; self.recognitionSeconds = recognitionSeconds; translationSeconds = 0
         self.blocks = blocks.filter { !$0.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && $0.box.width > 0 && $0.box.height > 0 }
+        document = usesDocumentContext ? TranslationDocument(text: self.blocks.map(\.text).joined(separator: "\n\n")) : nil
         self.source = source; self.target = target ?? source.opposite; error = nil; publish()
         updateProgress()
         startIfNeeded()
@@ -110,17 +113,25 @@ public struct TranslatedImageBlock: Sendable {
                     let language = source, destination = target, cacheKey = key(block.text, source, target), requestScene = scene
                     let request = UUID(), display = displayPartials
                     partialRequest = request
-                    let result = try await backend.translate(text: block.text, source: language, target: destination, progress: { [weak self] value in
+                    let document = self.document
+                    let reportProgress: @Sendable (TranslationProgress) -> Void = { [weak self] value in
                         Task { @MainActor [weak self] in
                             guard let self, self.generation == id, self.scene == requestScene, self.partialRequest == request else { return }
                             self.updateProgress(activeText: block.text, local: value)
                         }
-                    }, partial: { [weak self] text in
+                    }
+                    let reportPartial: @Sendable (String) -> Void = { [weak self] text in
                         Task { @MainActor [weak self] in
                             guard display, let self, self.generation == id, self.scene == requestScene, self.partialRequest == request else { return }
                             self.partialTranslation = TranslatedImageBlock(original: block.text, translation: text, box: block.box)
                         }
-                    })
+                    }
+                    let result: TranslationResult
+                    if let document {
+                        result = try await backend.translate(text: block.text, source: language, target: destination, document: document, progress: reportProgress, partial: reportPartial)
+                    } else {
+                        result = try await backend.translate(text: block.text, source: language, target: destination, progress: reportProgress, partial: reportPartial)
+                    }
                     partialRequest = nil; partialTranslation = nil
                     try Task.checkCancellation(); guard id == generation else { return }
                     guard !result.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { throw PipelineError.inference }

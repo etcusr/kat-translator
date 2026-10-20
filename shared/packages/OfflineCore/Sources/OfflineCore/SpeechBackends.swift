@@ -18,6 +18,12 @@ public struct SpeechPCM: Sendable {
     public let sampleRate: Int
     public init(samples: [Float], sampleRate: Int) { self.samples = samples; self.sampleRate = sampleRate }
 }
+/// Complete source known at submission time. A fresh identity prevents cross-document reuse.
+public struct TranslationDocument: Sendable {
+    public let id: UUID
+    public let text: String
+    public init(text: String) { self.id = UUID(); self.text = text }
+}
 public protocol TranslationBackend: AnyObject, Sendable {
     func load(modelURL: URL) async throws
     func load(modelURL: URL, model: TranslationModel) async throws
@@ -26,10 +32,18 @@ public protocol TranslationBackend: AnyObject, Sendable {
     /// `partial` receives the translation generated so far; the returned result stays authoritative.
     func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void,
                    partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, document: TranslationDocument,
+                   progress: @escaping @Sendable (TranslationProgress) -> Void,
+                   partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult
     func cancel()
     func unload() async
 }
 public extension TranslationBackend {
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, document: TranslationDocument,
+                   progress: @escaping @Sendable (TranslationProgress) -> Void,
+                   partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult {
+        try await translate(text: text, source: source, target: target, progress: progress, partial: partial)
+    }
     func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void) async throws -> TranslationResult {
         progress(TranslationWork(pieces: [text]).progress)
         return try await translate(text: text, source: source, target: target)

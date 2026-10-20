@@ -93,6 +93,7 @@ import OfflineCore
                 } else { detected = source }
                 guard translationModel.supports(source: detected, target: target) else { throw PipelineError.modelLanguageUnavailable }
                 translation.showsTranslationPartials = MacTranslationOptions.chunksEnabled()
+                translation.usesDocumentContext = MacTranslationOptions.glossaryEnabled() && translationModel == .index9B && detected == .russian && target == .english
                 translation.submit(result.blocks, source: detected, target: target, recognitionSeconds: result.processingSeconds)
             } catch is CancellationError {} catch { if revision == id { self.error = error.localizedDescription } }
         }

@@ -22,6 +22,11 @@ public final class RetainedTranslationBackend: TranslationBackend, @unchecked Se
                           partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult {
         try await state.translate(text, source, target, progress, partial)
     }
+    public func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, document: TranslationDocument,
+                   progress: @escaping @Sendable (TranslationProgress) -> Void,
+                   partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult {
+        try await state.translate(text, source, target, progress, partial, document: document)
+    }
     public func cancel() { base.cancel() }
     public func unload() async { base.cancel(); await state.unload() }
 
@@ -80,7 +85,7 @@ public final class RetainedTranslationBackend: TranslationBackend, @unchecked Se
         }
         func translate(_ text: String, _ source: SpeechLanguage, _ target: SpeechLanguage,
                        _ progress: @escaping @Sendable (TranslationProgress) -> Void,
-                       _ partial: (@Sendable (String) -> Void)?) async throws -> TranslationResult {
+                       _ partial: (@Sendable (String) -> Void)?, document: TranslationDocument? = nil) async throws -> TranslationResult {
             await acquire(); defer { release() }
             try Task.checkCancellation()
             guard let selected else { throw PipelineError.modelLoad }
@@ -90,6 +95,9 @@ public final class RetainedTranslationBackend: TranslationBackend, @unchecked Se
                     catch { await base.unload(); throw error }
                 }
                 try Task.checkCancellation()
+                if let document {
+                    return try await base.translate(text: text, source: source, target: target, document: document, progress: progress, partial: partial ?? { _ in })
+                }
                 if let partial { return try await base.translate(text: text, source: source, target: target, progress: progress, partial: partial) }
                 return try await base.translate(text: text, source: source, target: target, progress: progress)
             } onCancel: { base.cancel() }

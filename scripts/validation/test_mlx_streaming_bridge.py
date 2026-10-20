@@ -18,6 +18,10 @@ saved = []
 class Engine:
  def __init__(self, path): pass
  def close(self): pass
+ def prepare_glossary(self, text, identity, cancelled):
+  saved.append((cancelled, None))
+  if text == 'error': raise ValueError('synthetic glossary failure')
+  return 2 if cancelled() else 0
  def run(self, prefix, text, suffix, cancelled, partial=None):
   saved.append((cancelled, partial))
   if partial:
@@ -59,6 +63,18 @@ static int saved(void) {
 int main(int argc,char **argv) {
  void *engine=kat_mlx_load(argv[1],"fixture");if(!engine)return 10;
  char out[64];double first;
+ active_flag=kat_mlx_flag_create();
+ int preparation=kat_mlx_prepare_glossary(engine,"source","document",active_flag);
+ kat_mlx_flag_free(active_flag);
+ if(preparation!=0||!saved())return 20;
+ active_flag=kat_mlx_flag_create();
+ preparation=kat_mlx_prepare_glossary(engine,"error","document",active_flag);
+ kat_mlx_flag_free(active_flag);
+ if(preparation!=-1||!saved())return 21;
+ active_flag=kat_mlx_flag_create();kat_mlx_flag_cancel(active_flag);
+ preparation=kat_mlx_prepare_glossary(engine,"source","document",active_flag);
+ kat_mlx_flag_free(active_flag);
+ if(preparation!=2)return 22;
  active_flag=kat_mlx_flag_create();
  int result=kat_mlx_run_stream(engine,"","ok","",active_flag,out,sizeof(out),&first,report,&reports);
  kat_mlx_flag_free(active_flag);
