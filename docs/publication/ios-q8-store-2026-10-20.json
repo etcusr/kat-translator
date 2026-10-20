@@ -54,5 +54,36 @@
       "matches_current_sources_and_recorded_settings": true
     }
   ],
-  "uploaded": false
+  "uploaded": true,
+  "uploaded_at": "2026-10-20T23:03:44+03:00",
+  "upload_result": "Upload succeeded; EXPORT SUCCEEDED",
+  "missing_prebuilt_dsym_warnings": 70,
+  "source_commit": "f24ddb09d1156b2ee9ed7606c8b56e89f656158b",
+  "source_pushed": true,
+  "saved_metadata_verification": {
+    "en": {
+      "notes_exact_after_save": true,
+      "keywords_unchanged": true
+    },
+    "ru": {
+      "notes_exact_after_save": true,
+      "keywords_unchanged": true
+    },
+    "es": {
+      "notes_exact_after_save": true,
+      "keywords_unchanged": true
+    },
+    "tr": {
+      "notes_exact_after_save": true,
+      "keywords_unchanged": true
+    }
+  },
+  "apple_processing": "complete",
+  "testflight_status": "Ready to Submit",
+  "selected_build": "58",
+  "review_status": "Waiting for Review",
+  "review_submitted_at": "2026-10-20T23:23:00+03:00",
+  "review_submission_items": 1,
+  "release_mode": "manual",
+  "testflight_installed_device_acceptance": false
 }

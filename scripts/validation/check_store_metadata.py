@@ -72,7 +72,7 @@ def validate():
         if not legacy.exists() or legacy.read_text().strip() != text:
             errors.append(f'Legacy reviewer-notes link differs: {legacy.relative_to(ROOT)}')
     return {'localizations': 8, 'fields': rows, 'review_notes_checked': 2,
-            'checks': 'Required fields, interface-language parity, lengths, strict keyword UTF-8 limit, HTTPS URL syntax and reviewer-note copies',
+            'checks': 'Required fields, interface-language parity, character limits with UTF-8 byte counts, HTTPS URL syntax and reviewer-note copies',
             'limitations': 'No App Store upload, URL availability test or native-speaker review is implied.',
             'errors': errors}
 
