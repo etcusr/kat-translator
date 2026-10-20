@@ -1,0 +1,1219 @@
+{
+  "requests": 108,
+  "repeats": 2,
+  "cases": [
+    {
+      "id": "ru-airport",
+      "kind": "long_phrase",
+      "words": 122,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 4.90254643750086,
+          "median_first_visible": 4.90254643750086,
+          "e2e": [
+            4.913387124994188,
+            4.891705750007532
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 5.013032165996265,
+          "median_first_visible": 1.936045145492244,
+          "e2e": [
+            5.020270790992072,
+            5.0057935410004575
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 8.172909854496538,
+          "median_first_visible": 3.028062395998859,
+          "e2e": [
+            8.181523084000219,
+            8.164296624992858
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "en-hotel",
+      "kind": "long_phrase",
+      "words": 141,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 5.639690812495246,
+          "median_first_visible": 5.639690812495246,
+          "e2e": [
+            5.630182374996366,
+            5.649199249994126
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 5.741075771002215,
+          "median_first_visible": 4.441878978999739,
+          "e2e": [
+            5.738700625006459,
+            5.743450916997972
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 9.830250979000994,
+          "median_first_visible": 5.99782435400266,
+          "e2e": [
+            9.822894625001936,
+            9.83760733300005
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "ru-negotiation",
+      "kind": "long_phrase",
+      "words": 126,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 5.119346749997931,
+          "median_first_visible": 5.119346749997931,
+          "e2e": [
+            5.121287292000488,
+            5.117406207995373
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 5.503166312504618,
+          "median_first_visible": 3.1631772915061447,
+          "e2e": [
+            5.50095704200794,
+            5.505375583001296
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 8.449504437499854,
+          "median_first_visible": 4.313652916505816,
+          "e2e": [
+            8.420558375000837,
+            8.478450499998871
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "en-directions",
+      "kind": "long_phrase",
+      "words": 146,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 5.428219208493829,
+          "median_first_visible": 5.428219208493829,
+          "e2e": [
+            5.4364068749855505,
+            5.420031542002107
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 5.689141583505261,
+          "median_first_visible": 4.026664562501537,
+          "e2e": [
+            5.687953917004052,
+            5.690329250006471
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 9.580295041494537,
+          "median_first_visible": 5.32014402099594,
+          "e2e": [
+            9.533540999997058,
+            9.627049082992016
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "en-airport-dialogue",
+      "kind": "dialogue",
+      "words": 134,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 6.392154604007374,
+          "median_first_visible": 6.392154604007374,
+          "e2e": [
+            6.392064625004423,
+            6.392244583010324
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 6.530118625007162,
+          "median_first_visible": 3.884404437005287,
+          "e2e": [
+            6.548021583002992,
+            6.512215667011333
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 10.54865425000753,
+          "median_first_visible": 5.539710708500934,
+          "e2e": [
+            10.551645625004312,
+            10.545662875010748
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "ru-hotel-dialogue",
+      "kind": "dialogue",
+      "words": 115,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 5.122160583501682,
+          "median_first_visible": 5.122160583501682,
+          "e2e": [
+            5.131373875003192,
+            5.112947292000172
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 5.2933652290012105,
+          "median_first_visible": 2.37969547900866,
+          "e2e": [
+            5.323494374999427,
+            5.263236083002994
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 7.965558791001968,
+          "median_first_visible": 3.4411890619958285,
+          "e2e": [
+            7.9634876659984,
+            7.967629916005535
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "en-scheduling-dialogue",
+      "kind": "dialogue",
+      "words": 129,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 6.161333291995106,
+          "median_first_visible": 6.161333291995106,
+          "e2e": [
+            6.1727661670011,
+            6.149900416989112
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 6.4185644580065855,
+          "median_first_visible": 4.141692958008207,
+          "e2e": [
+            6.405219958003727,
+            6.431908958009444
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 10.056393958504486,
+          "median_first_visible": 5.446884188000695,
+          "e2e": [
+            10.092596500006039,
+            10.020191417002934
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "ru-return-dialogue",
+      "kind": "dialogue",
+      "words": 104,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 4.781150437498582,
+          "median_first_visible": 4.781150437498582,
+          "e2e": [
+            4.766583834003541,
+            4.7957170409936225
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 4.785900125003536,
+          "median_first_visible": 2.6571107290073996,
+          "e2e": [
+            4.790724125006818,
+            4.781076125000254
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 7.977665457998228,
+          "median_first_visible": 3.758022499998333,
+          "e2e": [
+            8.008654582998133,
+            7.946676332998322
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "en-bank-river",
+      "kind": "context_contrast",
+      "words": 30,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 1.6178853960009292,
+          "median_first_visible": 1.6178853960009292,
+          "e2e": [
+            1.620752791990526,
+            1.6150180000113323
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 1.6179675000021234,
+          "median_first_visible": 1.6179417080056737,
+          "e2e": [
+            1.6161573749996023,
+            1.6197776250046445
+          ],
+          "parts": [
+            1,
+            1
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 1.6163400625009672,
+          "median_first_visible": 1.6163107914981083,
+          "e2e": [
+            1.6165912090073107,
+            1.6160889159946237
+          ],
+          "parts": [
+            1,
+            1
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "en-bank-finance",
+      "kind": "context_contrast",
+      "words": 28,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 1.3625158539944096,
+          "median_first_visible": 1.3625158539944096,
+          "e2e": [
+            1.3566178749897517,
+            1.3684138329990674
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 1.3570192289917031,
+          "median_first_visible": 1.3569740209932206,
+          "e2e": [
+            1.3603875419939868,
+            1.3536509159894194
+          ],
+          "parts": [
+            1,
+            1
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 1.3571518954995554,
+          "median_first_visible": 1.357124374502746,
+          "e2e": [
+            1.3589737080037594,
+            1.3553300829953514
+          ],
+          "parts": [
+            1,
+            1
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "en-gender-woman",
+      "kind": "context_contrast",
+      "words": 25,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 1.0457640624954365,
+          "median_first_visible": 1.0457640624954365,
+          "e2e": [
+            1.0465964999893913,
+            1.0449316250014817
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 1.0470424169980106,
+          "median_first_visible": 1.0470155209986842,
+          "e2e": [
+            1.0490236670011654,
+            1.0450611669948557
+          ],
+          "parts": [
+            1,
+            1
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 1.0452605830068933,
+          "median_first_visible": 1.0450683125018259,
+          "e2e": [
+            1.0473608330066781,
+            1.0431603330071084
+          ],
+          "parts": [
+            1,
+            1
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "en-gender-man",
+      "kind": "context_contrast",
+      "words": 25,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 1.1481895829929272,
+          "median_first_visible": 1.1481895829929272,
+          "e2e": [
+            1.149401290997048,
+            1.1469778749888064
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 1.1481538959997124,
+          "median_first_visible": 1.1481153959975927,
+          "e2e": [
+            1.1516137500002515,
+            1.1446940419991734
+          ],
+          "parts": [
+            1,
+            1
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 1.143934416497359,
+          "median_first_visible": 1.1439042500060168,
+          "e2e": [
+            1.146271165998769,
+            1.1415976669959491
+          ],
+          "parts": [
+            1,
+            1
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "en-isolated-bank",
+      "kind": "isolated_control",
+      "words": 9,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 0.5848134375046357,
+          "median_first_visible": 0.5848134375046357,
+          "e2e": [
+            0.5853864170057932,
+            0.5842404580034781
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 0.5892992080043769,
+          "median_first_visible": 0.5892741665084031,
+          "e2e": [
+            0.5903387080034008,
+            0.5882597080053529
+          ],
+          "parts": [
+            1,
+            1
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 0.587187229495612,
+          "median_first_visible": 0.587163228999998,
+          "e2e": [
+            0.5905359169992153,
+            0.5838385419920087
+          ],
+          "parts": [
+            1,
+            1
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "en-isolated-gender",
+      "kind": "isolated_control",
+      "words": 10,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 0.6347499795010663,
+          "median_first_visible": 0.6347499795010663,
+          "e2e": [
+            0.6344787499983795,
+            0.635021209003753
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 0.6391918329973123,
+          "median_first_visible": 0.6391668329961249,
+          "e2e": [
+            0.6361544999963371,
+            0.6422291659982875
+          ],
+          "parts": [
+            1,
+            1
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 0.6358295414975146,
+          "median_first_visible": 0.6358040420018369,
+          "e2e": [
+            0.6351797499955865,
+            0.6364793329994427
+          ],
+          "parts": [
+            1,
+            1
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "en-extended",
+      "kind": "extended_paragraph",
+      "words": 363,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 13.734841395998956,
+          "median_first_visible": 13.734841395998956,
+          "e2e": [
+            13.708588499997859,
+            13.761094292000053
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 14.70350779149885,
+          "median_first_visible": 3.985095479496522,
+          "e2e": [
+            14.723126374999993,
+            14.683889207997709
+          ],
+          "parts": [
+            4,
+            4
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 25.210967875005736,
+          "median_first_visible": 5.404910562501755,
+          "e2e": [
+            25.22366754199902,
+            25.19826820801245
+          ],
+          "parts": [
+            4,
+            4
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "ru-extended",
+      "kind": "extended_paragraph",
+      "words": 305,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 11.716118083502806,
+          "median_first_visible": 11.716118083502806,
+          "e2e": [
+            11.713498416997027,
+            11.718737750008586
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 12.79409137499897,
+          "median_first_visible": 2.609129895499791,
+          "e2e": [
+            12.795268999994732,
+            12.792913750003208
+          ],
+          "parts": [
+            5,
+            5
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 22.87411929150403,
+          "median_first_visible": 3.5575720414999523,
+          "e2e": [
+            22.87175829100306,
+            22.876480292005
+          ],
+          "parts": [
+            5,
+            5
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "en-output-budget",
+      "kind": "boundary",
+      "words": 689,
+      "modes": {
+        "whole": {
+          "codes": [
+            1,
+            1
+          ],
+          "successes": 0,
+          "identical_outputs": true,
+          "median_e2e": null,
+          "median_first_visible": null,
+          "e2e": [
+            18.21077950000472,
+            18.27416058300878
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": [
+            {
+              "time_0925": 0,
+              "time_1125": 0
+            },
+            {
+              "time_0925": 0,
+              "time_1125": 0
+            }
+          ]
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 42.1516014584995,
+          "median_first_visible": 3.751555458497023,
+          "e2e": [
+            42.16116350000084,
+            42.14203941699816
+          ],
+          "parts": [
+            12,
+            12
+          ],
+          "numeric_repetition": [
+            {
+              "time_0925": 53,
+              "time_1125": 53
+            },
+            {
+              "time_0925": 53,
+              "time_1125": 53
+            }
+          ]
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 74.91705839600036,
+          "median_first_visible": 5.106330249996972,
+          "e2e": [
+            74.96085595899785,
+            74.87326083300286
+          ],
+          "parts": [
+            12,
+            12
+          ],
+          "numeric_repetition": [
+            {
+              "time_0925": 53,
+              "time_1125": 53
+            },
+            {
+              "time_0925": 53,
+              "time_1125": 53
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "en-input-limit",
+      "kind": "boundary",
+      "words": 767,
+      "modes": {
+        "whole": {
+          "codes": [
+            1,
+            1
+          ],
+          "successes": 0,
+          "identical_outputs": true,
+          "median_e2e": null,
+          "median_first_visible": null,
+          "e2e": [
+            0.0014136659883661196,
+            0.002842542002326809
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": [
+            {
+              "time_0925": 0,
+              "time_1125": 0
+            },
+            {
+              "time_0925": 0,
+              "time_1125": 0
+            }
+          ]
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 47.20393102050002,
+          "median_first_visible": 3.7587685829930706,
+          "e2e": [
+            47.28756641599466,
+            47.12029562500538
+          ],
+          "parts": [
+            14,
+            14
+          ],
+          "numeric_repetition": [
+            {
+              "time_0925": 59,
+              "time_1125": 59
+            },
+            {
+              "time_0925": 59,
+              "time_1125": 59
+            }
+          ]
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 84.46006495849724,
+          "median_first_visible": 5.108487583005626,
+          "e2e": [
+            84.7517581669963,
+            84.16837174999819
+          ],
+          "parts": [
+            14,
+            14
+          ],
+          "numeric_repetition": [
+            {
+              "time_0925": 59,
+              "time_1125": 59
+            },
+            {
+              "time_0925": 59,
+              "time_1125": 59
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "successes": {
+    "whole": 32,
+    "chunk_plain": 36,
+    "chunk_context": 36
+  },
+  "no_reload": true,
+  "worker_exit_code": 0
+}

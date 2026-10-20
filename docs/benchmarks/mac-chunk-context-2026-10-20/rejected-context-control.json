@@ -1,0 +1,78 @@
+{
+  "description": "Rejected instruction-only context prompt; no boundary markers. Included following context in the answer and duplicated dialogue turns.",
+  "runner_sha256": "94c3ffbef7dac4a175e108d6cb156ca0d25bbe855326568dc47e5525759a2dea",
+  "chunker_sha256": "81e93b2c39603ebecde2a95b6de8e9e7bbaf0c44bb5697a8a1859d651d615b92",
+  "case": {
+    "id": "ru-hotel-dialogue",
+    "source": "ru",
+    "target": "en",
+    "kind": "dialogue",
+    "text": "Гостья: Я вчера оставила у вас синий рюкзак. Внутри лежит зелёная папка с моими документами.\nАдминистратор: У нас есть синий чемодан и чёрный рюкзак. В чемодане папки нет.\nГостья: Значит, это не мой. Мой рюкзак небольшой, с красной лентой на ручке.\nАдминистратор: Подождите, коллега нашёл его в комнате хранения, а папку переложил в сейф.\nГостья: Хорошо. Моя сестра придёт за рюкзаком после шести, но документы я заберу сама завтра утром.\nАдминистратор: Ей отдать и папку?\nГостья: Нет, только рюкзак. Её зовут Ольга, меня — Анна. Пожалуйста, не отдавайте документы даже ей.\nАдминистратор: Понял: сегодня Ольге рюкзак, завтра утром вам папку.\nГостья: Именно. И прошу не звонить на старый номер из бронирования: он больше не мой.",
+    "meaning_checks": [
+      "Blue backpack not suitcase; green document folder; red ribbon",
+      "Folder moved to safe",
+      "Olga sister after6 gets onlybackpack today",
+      "Anna herself folder tomorrow morning; even sister cannot collect",
+      "Old phone no longer hers"
+    ],
+    "words": 115,
+    "input_tokens": 281
+  },
+  "result": {
+    "id": "ru-hotel-dialogue",
+    "source": "ru",
+    "target": "en",
+    "kind": "dialogue",
+    "words": 115,
+    "input_tokens": 281,
+    "mode": "chunk_context",
+    "progress": true,
+    "code": 0,
+    "output": "Guest: Okay. My sister will come for the backpack after six, but I’ll pick up the documents myself tomorrow morning.  \nAdministrator: Should I give her the folder too?  \nGuest: No,  \n\nGuest: I left a blue backpack with you yesterday. Inside is a green folder with my documents.  \nAdministrator: We have a blue suitcase and a black backpack. There’s no folder in the suitcase.  \nGuest: Then that’s not mine. My backpack is small, with a red ribbon on the handle.  \nAdministrator: Wait, a colleague found it in the storage room and moved the folder to the safe.\nGuest: Alright. My sister will come for the backpack after six, but I’ll pick up the documents myself tomorrow morning.  \nAdministrator: Should I give her the documents too?  \nGuest: No, just the backpack. Her name is Olga, and mine is Anna. Please don’t give the documents to her either.  \nAdministrator: Understood: Olga gets the backpack today, and you’ll get the documents tomorrow morning.  \nGuest: Exactly. And please don’t call the old number from the booking—it’s not mine anymore.",
+    "seconds": 7.324434624999412,
+    "first_token_seconds": 1.127862916997401,
+    "first_chunk_seconds": 3.732777334007551,
+    "chunks": [
+      {
+        "index": 0,
+        "start": 0,
+        "end": 339,
+        "input_tokens": 265,
+        "seconds": 3.731853333010804,
+        "code": 0,
+        "output": "Guest: Okay. My sister will come for the backpack after six, but I’ll pick up the documents myself tomorrow morning.  \nAdministrator: Should I give her the folder too?  \nGuest: No,  \n\nGuest: I left a blue backpack with you yesterday. Inside is a green folder with my documents.  \nAdministrator: We have a blue suitcase and a black backpack. There’s no folder in the suitcase.  \nGuest: Then that’s not mine. My backpack is small, with a red ribbon on the handle.  \nAdministrator: Wait, a colleague found it in the storage room and moved the folder to the safe."
+      },
+      {
+        "index": 1,
+        "start": 339,
+        "end": 727,
+        "input_tokens": 316,
+        "seconds": 3.5901333750080084,
+        "code": 0,
+        "output": "Guest: Alright. My sister will come for the backpack after six, but I’ll pick up the documents myself tomorrow morning.  \nAdministrator: Should I give her the documents too?  \nGuest: No, just the backpack. Her name is Olga, and mine is Anna. Please don’t give the documents to her either.  \nAdministrator: Understood: Olga gets the backpack today, and you’ll get the documents tomorrow morning.  \nGuest: Exactly. And please don’t call the old number from the booking—it’s not mine anymore."
+      }
+    ],
+    "complete": true,
+    "engine": "index9b",
+    "load_seconds": 0,
+    "model_reused": true,
+    "idle_timeout_seconds": 300,
+    "end_to_end_seconds": 7.326144207996549,
+    "first_visible_seconds": 3.7344759999978123,
+    "progress_events": [
+      {
+        "completed": 1,
+        "total": 2,
+        "elapsed": 3.7344759999978123,
+        "output": "Guest: Okay. My sister will come for the backpack after six, but I’ll pick up the documents myself tomorrow morning.  \nAdministrator: Should I give her the folder too?  \nGuest: No,  \n\nGuest: I left a blue backpack with you yesterday. Inside is a green folder with my documents.  \nAdministrator: We have a blue suitcase and a black backpack. There’s no folder in the suitcase.  \nGuest: Then that’s not mine. My backpack is small, with a red ribbon on the handle.  \nAdministrator: Wait, a colleague found it in the storage room and moved the folder to the safe."
+      },
+      {
+        "completed": 2,
+        "total": 2,
+        "elapsed": 7.326095708005596,
+        "output": "Guest: Okay. My sister will come for the backpack after six, but I’ll pick up the documents myself tomorrow morning.  \nAdministrator: Should I give her the folder too?  \nGuest: No,  \n\nGuest: I left a blue backpack with you yesterday. Inside is a green folder with my documents.  \nAdministrator: We have a blue suitcase and a black backpack. There’s no folder in the suitcase.  \nGuest: Then that’s not mine. My backpack is small, with a red ribbon on the handle.  \nAdministrator: Wait, a colleague found it in the storage room and moved the folder to the safe.\nGuest: Alright. My sister will come for the backpack after six, but I’ll pick up the documents myself tomorrow morning.  \nAdministrator: Should I give her the documents too?  \nGuest: No, just the backpack. Her name is Olga, and mine is Anna. Please don’t give the documents to her either.  \nAdministrator: Understood: Olga gets the backpack today, and you’ll get the documents tomorrow morning.  \nGuest: Exactly. And please don’t call the old number from the booking—it’s not mine anymore."
+      }
+    ],
+    "repeat": 0
+  }
+}

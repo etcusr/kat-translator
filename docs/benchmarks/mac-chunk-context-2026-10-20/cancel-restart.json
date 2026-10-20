@@ -1,0 +1,22 @@
+{
+  "cancel_after_part": 1,
+  "total_parts": 4,
+  "partial_chars": 644,
+  "cancel_exit_seconds": 0.022692833008477464,
+  "cancel_exit_code": -15,
+  "restart_result": {
+    "id": "restart",
+    "source": "en",
+    "target": "ru",
+    "text": "Please keep the return ticket.",
+    "code": 0,
+    "output": "Пожалуйста, сохраните билет на обратный рейс.",
+    "first_token_seconds": 0.5917884999944363,
+    "seconds": 0.9084377499966649,
+    "engine": "index9b",
+    "load_seconds": 3.4820944999955827,
+    "model_reused": false,
+    "idle_timeout_seconds": 300
+  },
+  "eof_exit_code": 0
+}

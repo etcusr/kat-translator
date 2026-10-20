@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build a separate local experiment; never replace the installed Kat app."""
 import plistlib
+import json
 from pathlib import Path
 import shutil
 import subprocess
@@ -20,6 +21,9 @@ info = dict(CFBundleIdentifier="app.kattranslator.translationlab",
 (CONTENTS / "Info.plist").write_bytes(plistlib.dumps(info))
 shutil.copy2(ROOT / "apps/macos/KatIcon.icns", CONTENTS / "Resources/KatIcon.icns")
 shutil.copy2(ROOT / "tests/fixtures/mac-system-translation.json", CONTENTS / "Resources/cases.json")
+long_cases = json.loads((ROOT / "tests/fixtures/mac-long-context.json").read_text())
+long_cases += json.loads((ROOT / "tests/fixtures/mac-chunk-boundary-context.json").read_text())
+(CONTENTS / "Resources/long-cases.json").write_text(json.dumps(long_cases, ensure_ascii=False))
 (CONTENTS / "Resources/workspace.txt").write_text(str(ROOT))
 subprocess.run(["xcrun", "swiftc", "-parse-as-library", "-O",
                 "-module-cache-path", str(OUT / "module-cache"),

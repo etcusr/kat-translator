@@ -1,0 +1,141 @@
+{
+  "requests": 12,
+  "repeats": 2,
+  "cases": [
+    {
+      "id": "en-boundary-gender",
+      "kind": "boundary_context",
+      "words": 127,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 4.462685770493408,
+          "median_first_visible": 4.462685770493408,
+          "e2e": [
+            4.475996915993164,
+            4.449374624993652
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 4.73862700000609,
+          "median_first_visible": 3.68306156250037,
+          "e2e": [
+            4.7277490830019815,
+            4.749504917010199
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 8.50485810450482,
+          "median_first_visible": 4.924244229005126,
+          "e2e": [
+            8.512449834001018,
+            8.497266375008621
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        }
+      }
+    },
+    {
+      "id": "en-boundary-bank",
+      "kind": "boundary_context",
+      "words": 126,
+      "modes": {
+        "whole": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 4.574662583494501,
+          "median_first_visible": 4.574662583494501,
+          "e2e": [
+            4.580598041997291,
+            4.56872712499171
+          ],
+          "parts": [
+            0,
+            0
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_plain": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 5.071064541996748,
+          "median_first_visible": 3.9708724999945844,
+          "e2e": [
+            5.1095492919994285,
+            5.032579791994067
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        },
+        "chunk_context": {
+          "codes": [
+            0,
+            0
+          ],
+          "successes": 2,
+          "identical_outputs": true,
+          "median_e2e": 8.31851860399911,
+          "median_first_visible": 4.982829291497183,
+          "e2e": [
+            8.323696916995686,
+            8.313340291002532
+          ],
+          "parts": [
+            2,
+            2
+          ],
+          "numeric_repetition": null
+        }
+      }
+    }
+  ],
+  "successes": {
+    "whole": 4,
+    "chunk_plain": 4,
+    "chunk_context": 4
+  },
+  "no_reload": true,
+  "worker_exit_code": 0
+}

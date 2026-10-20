@@ -81,3 +81,32 @@ for stack sampling. Historical 12-second outliers were not reproduced in
 192 fresh control requests and remain unexplained. The resident worker
 removes repeated loading in the test UI; it is not a fix for those historical
 inference outliers. [Evidence](../../../docs/benchmarks/mac-mlx-latency-2026-10-20/README.md).
+
+## Experimental long-text splitting (Index 9B only)
+
+The Index 9B view offers Whole (default), Chunks, and Chunks with Context.
+The examples menu also contains 16 long/context fixtures and two boundary-context probes. Chunks target
+128 source tokens and prefer sentence/line boundaries, with a word/character
+fallback for oversized sentences. Source spans cover the entire input.
+Context mode translates up to 64 preceding and 32 following source tokens
+alongside the current part, retaining explicit boundary markers. Only the
+translation between the two unique ordered markers is displayed; a malformed
+boundary returns an error rather than accepting an ambiguous result.
+This is a bounded context window, not guaranteed preservation of remote facts.
+
+Each completed part appears immediately with an incomplete-result status.
+Stop terminates the worker; a stopped/failed partial output is not a completed
+translation. No automatic mode switching or cross-request dialogue memory.
+Splitting may improve first-result latency and avoid token-limit failures,
+but can increase total time or alter meaning. Both chunk modes remain explicit
+experiments; compare the output before using it.
+
+```sh
+python3 scripts/research/macos-translation-lab/test_chunking.py
+python3 scripts/research/macos-translation-lab/compare_chunks.py .build/mac-chunks/results.json
+python3 scripts/research/macos-translation-lab/summarize_chunks.py .build/mac-chunks/results.json .build/mac-chunks/report
+```
+
+`--probe-chunks OUTPUT.json` on the app checks a bundled long example in
+whole/context modes through the actual Swift worker bridge, including progress
+messages. [Comparison and limits](../../../docs/benchmarks/mac-chunk-context-2026-10-20/README.md).

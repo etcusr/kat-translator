@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-20",
+  "base_commit": "3c70267",
+  "hardware": "Apple M3 Pro",
+  "memory_bytes": 19327352832,
+  "os": "27.0.1",
+  "source_sha256": {
+    "scripts/research/macos-translation-lab/build.py": "779d4686abc6c4a415e91cbc4efa19927a0ceb2d45d4a73e095635e2e78398d9",
+    "scripts/research/macos-translation-lab/summarize_chunks.py": "0332a08cd4adbb442380c3ded5582800d365f51eada58a1099387f73b6fcbfb8",
+    "scripts/research/macos-translation-lab/chunking.py": "da64b04575b4224b5613bc2dfe50946c14ac7a2ffd3b8270c5dd8541a31554d0",
+    "scripts/research/macos-translation-lab/long_context.py": "2c0912d09e0fb7523ef0fc6086c9ae9c92776ef68d5b4c7f865f47f9b016ed27",
+    "scripts/research/macos-translation-lab/kat_runner.py": "e9e63b7c3ac988a04ef173c614b522447869abe6ca54ad72f8de2d402f7769f4",
+    "scripts/research/macos-translation-lab/test_chunking.py": "c9529b3e89b47e3cfb4485914ab103f5eba22ef08e76cd630020ab641ff6f4b1",
+    "scripts/research/macos-translation-lab/summarize.py": "a47a5f8e22eb16dc74af7df9320644bb8ffbcdd7fc7a365438806f998768f71e",
+    "scripts/research/macos-translation-lab/compare_chunks.py": "974b901baa0aba5bb995bb0a0981bfd01b9aef41682e96764413ce01a78ecb45",
+    "scripts/research/macos-translation-lab/test_worker.py": "06ed77b5f4a19f0e18e63191582acb58e536020890e2d211ab8283675dfe6b85",
+    "scripts/research/macos-translation-lab/profile_mlx.py": "911a8b8f781e822a21880bef640d548861e8964b450059a85e434ee6a8a19781",
+    "scripts/research/macos-translation-lab/summarize_long_context.py": "b8fd1d77cd4eb8250474fb0010a7b6498e7e06b423d6592e18e96ace437d8858",
+    "scripts/research/macos-translation-lab/Lab.swift": "9b1de95882d4a73d9dd8feb4cd74b4df30cb97ec96f68d34e83d21fc0f26dfa4",
+    "tests/fixtures/mac-chunk-boundary-context.json": "5904ce326d624ec5c4034c6a9144710de313e5f514b312119f8761c3cb6fee41"
+  },
+  "native_sha256": {
+    "shared/native/IndexMLX/index_mlx.py": "30db6e4b3695a5faaeb263a17574cbc991389a08fc28d38c41ed55831f1a6179",
+    "Dependencies/index-mlx.lock.json": "e61a73dfb0d1757f92a6373de99348d70a164d33b323cf67854ef0e871a27048"
+  },
+  "model_files_sha256_verified": [
+    {
+      "path": "model.safetensors",
+      "sha256": "cdd9bfb2fa7471edb8616b4cb42c2b68bc3b502e5dbde1ba21d8fa9c584ebd05",
+      "bytes": 5223280226
+    },
+    {
+      "path": "config.json",
+      "sha256": "fa8a56873cf965eaabbca9a142cec6ff0e8c5ddac3dace954d66e0db3028cb72",
+      "bytes": 2741
+    },
+    {
+      "path": "tokenizer.json",
+      "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+      "bytes": 19989325
+    },
+    {
+      "path": "tokenizer_config.json",
+      "sha256": "a778ef4fe2a8be4e55782abdaa66dcf66ba7e96828940150607264420fb3a7cf",
+      "bytes": 1164
+    },
+    {
+      "path": "generation_config.json",
+      "sha256": "5b2e05bd687ce6eb52f8beff6d9dc98a0fb1e02ce8898062869218d17264220f",
+      "bytes": 100
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "sha256": "3aa3d264edc9d049fe09c5fba0043cb1f348a52d6141b92f399c0bb9111d8cd7",
+      "bytes": 83549
+    },
+    {
+      "path": "chat_template.jinja",
+      "sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+      "bytes": 7756
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c",
+      "bytes": 11358
+    }
+  ],
+  "app_executable_sha256": "3cd670952e75bc9a91669088fd8333a03acf6624f58113ba8bf01602e7e0bcd7",
+  "signature_verified": true,
+  "ordinary_regression_matches": 32,
+  "unit_tests": 8,
+  "docs_parity_tests": 2,
+  "main_comparison_requests": 108,
+  "cross_boundary_requests": 12,
+  "first_pass_whole_matches_previous_corpus": 18,
+  "all_repeated_outputs_identical": true,
+  "thermal_after": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+  "swap_after": "vm.swapusage: total = 4096.00M  used = 2738.06M  free = 1357.94M  (encrypted)",
+  "limitations": [
+    "Manual source/output review by one reviewer, synthetic RU/EN only",
+    "Two repeats per method; not a rare-tail latency guarantee",
+    "No visual click automation; actual Swift bridge and progressive parsing exercised",
+    "No production app, Store, phone, voice or OCR acceptance",
+    "No clean boot or thermal isolation"
+  ]
+}

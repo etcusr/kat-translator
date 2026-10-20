@@ -1,0 +1,28 @@
+[
+  {
+    "id": "en-boundary-gender",
+    "source": "en",
+    "target": "ru",
+    "kind": "boundary_context",
+    "text": "The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. My name is Anna, and I am a woman travelling alone. I booked the room yesterday and paid for it myself. I was tired, but I was glad that I had arrived before the reception desk closed.",
+    "words": 127,
+    "input_tokens": 180,
+    "meaning_checks": [
+      "Anna female identity before chunk boundary; feminine booked/paid/tired/glad/arrived after it"
+    ],
+    "split_at": 448
+  },
+  {
+    "id": "en-boundary-bank",
+    "source": "en",
+    "target": "ru",
+    "kind": "boundary_context",
+    "text": "The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. The train is on time. We will spend the evening fishing beside the river, far from any town. We should meet at the bank at seven. I will wait until eight. If you cannot come, please call me before I leave.",
+    "words": 126,
+    "input_tokens": 180,
+    "meaning_checks": [
+      "Bank means riverbank across boundary; meet seven, wait until eight, call before departure"
+    ],
+    "split_at": 467
+  }
+]
