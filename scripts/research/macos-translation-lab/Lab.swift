@@ -45,7 +45,6 @@ enum Backend: String, CaseIterable, Identifiable {
 
 @MainActor final class Lab: ObservableObject {
     @Published var backend: Backend = .fast
-    @Published var translationMode = "whole"
     @Published var source = "ru"
     @Published var text = "Подскажите, пожалуйста, как пройти к стойке регистрации?"
     @Published var output = ""
@@ -63,8 +62,6 @@ enum Backend: String, CaseIterable, Identifiable {
     var target: String { source == "ru" ? "en" : "ru" }
     let samples = (try? JSONDecoder().decode([Sample].self,
         from: Data(contentsOf: Bundle.main.url(forResource: "cases", withExtension: "json")!))) ?? []
-    let longSamples = (try? JSONDecoder().decode([Sample].self,
-        from: Data(contentsOf: Bundle.main.url(forResource: "long-cases", withExtension: "json")!))) ?? []
 
     func prepare() {
         guard !busy, backend.apple else { return }
@@ -163,14 +160,8 @@ enum Backend: String, CaseIterable, Identifiable {
                     guard !Task.isCancelled else { throw CancellationError() }
                     output = result.output
                     status = String(format: "Перевод: %.3f с · загрузка модели: %.2f с", result.seconds, result.load_seconds)
-                    if let first = result.first_chunk_seconds, let count = result.chunk_count {
-                        status += String(format: " · первая часть: %.2f с · частей: %d", first, count)
-                    }
                 }
-            } catch {
-                status = "Перевод: \(error.localizedDescription)"
-                if !output.isEmpty { status += " Показан неполный результат." }
-            }
+            } catch { status = "Перевод: \(error.localizedDescription)" }
         }
     }
 
@@ -202,8 +193,6 @@ enum Backend: String, CaseIterable, Identifiable {
         let load_seconds: Double
         let model_reused: Bool?
         let idle_timeout_seconds: Double?
-        let first_chunk_seconds: Double?
-        let chunk_count: Int?
     }
 
     func kat(_ sample: Sample, backend: Backend) async throws -> KatResult {
@@ -231,16 +220,11 @@ enum Backend: String, CaseIterable, Identifiable {
             workerIdleSeconds = idleSeconds
         }
         try Task.checkCancellation()
-        var payload = try JSONSerialization.jsonObject(with: JSONEncoder().encode(sample)) as! [String: Any]
-        payload["mode"] = backend == .large ? translationMode : "whole"
-        payload["progress"] = true
-        let data = try await exchange(JSONSerialization.data(withJSONObject: payload))
+        let data = try await exchange(JSONEncoder().encode(sample))
         let result = try JSONDecoder().decode(KatResult.self, from: data)
         guard result.code == 0 else {
             throw NSError(domain: "Kat Lab", code: result.code,
-                userInfo: [NSLocalizedDescriptionKey: result.code == -4
-                    ? "Не удалось проверить границы переведённой части. Попробуйте другой режим."
-                    : "Движок не завершил перевод (\(result.code))."])
+                userInfo: [NSLocalizedDescriptionKey: "Движок не завершил перевод (\(result.code))."])
         }
         return result
     }
@@ -250,33 +234,20 @@ enum Backend: String, CaseIterable, Identifiable {
         bytes.append(10)
         try workerInput!.fileHandleForWriting.write(contentsOf: bytes)
         let handle = workerOutput!.fileHandleForReading
-        var buffer = Data()
-        var final: Data?
-        while final == nil {
-            if let newline = buffer.firstIndex(of: 10) {
-                let line = Data(buffer[..<newline])
-                buffer.removeSubrange(...newline)
-                if let event = try JSONSerialization.jsonObject(with: line) as? [String: Any],
-                   event["event"] as? String == "progress" {
-                    output = event["output"] as? String ?? ""
-                    status = "Переведено частей: \(event["completed"] ?? 0) из \(event["total"] ?? 0). Результат пока неполный."
-                    continue
-                }
-                final = line
-            } else {
-                let chunk = await Task.detached { handle.availableData }.value
+        let data = try await Task.detached {
+            var data = Data()
+            while data.count < 262144 {
+                let chunk = handle.availableData
                 guard !chunk.isEmpty else {
                     throw NSError(domain: "Kat Lab", code: -1,
                         userInfo: [NSLocalizedDescriptionKey: "Движок остановлен. Можно запустить перевод снова."])
                 }
-                buffer.append(chunk)
-                guard buffer.count < 262144 else {
-                    throw NSError(domain: "Kat Lab", code: -2,
-                        userInfo: [NSLocalizedDescriptionKey: "Слишком большой ответ движка."])
-                }
+                data.append(chunk)
+                if data.last == 10 { return data }
             }
-        }
-        let data = final!
+            throw NSError(domain: "Kat Lab", code: -2,
+                userInfo: [NSLocalizedDescriptionKey: "Слишком большой ответ движка."])
+        }.value
         if let error = (try? JSONSerialization.jsonObject(with: data) as? [String: Any])?["error"] as? String {
             throw NSError(domain: "Kat Lab", code: -3, userInfo: [NSLocalizedDescriptionKey: error])
         }
@@ -343,27 +314,6 @@ enum Backend: String, CaseIterable, Identifiable {
             } catch { status = "Проверка запуска: \(error.localizedDescription)" }
         }
     }
-
-    func probeChunks(to path: String) {
-        guard !busy, let sample = longSamples.first(where: { $0.id == "en-extended" }) else { return }
-        busy = true
-        let previousMode = translationMode
-        task = Task {
-            defer { translationMode = previousMode; busy = false; task = nil; configureWorkerIfNeeded() }
-            do {
-                var results: [String: KatResult] = [:]
-                backend = .large; source = sample.source; text = sample.text
-                for mode in ["whole", "chunk_context"] {
-                    translationMode = mode
-                    results[mode] = try await kat(sample, backend: .large)
-                }
-                let encoder = JSONEncoder()
-                encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-                try encoder.encode(results).write(to: URL(fileURLWithPath: path), options: .atomic)
-                status = "Сравнение целого текста и частей завершено."
-            } catch { status = "Проверка частей: \(error.localizedDescription)" }
-        }
-    }
 }
 
 struct LabView: View {
@@ -393,18 +343,7 @@ struct LabView: View {
                 ForEach(lab.samples, id: \.id) { sample in
                     Button(sample.id) { lab.source = sample.source; lab.text = sample.text }
                 }
-                Divider()
-                ForEach(lab.longSamples, id: \.id) { sample in
-                    Button(sample.id) { lab.source = sample.source; lab.text = sample.text }
-                }
             }.disabled(lab.busy)
-            if lab.backend == .large {
-                Picker("Длинный текст", selection: $lab.translationMode) {
-                    Text("Целиком").tag("whole")
-                    Text("По частям").tag("chunk_plain")
-                    Text("По частям с контекстом").tag("chunk_context")
-                }.pickerStyle(.segmented).disabled(lab.busy)
-            }
             HStack(alignment: .top, spacing: 14) {
                 VStack(alignment: .leading) {
                     Text("Исходный текст").font(.headline)
@@ -438,8 +377,6 @@ struct LabView: View {
                 lab.benchmark(to: args[index + 1])
             } else if let index = args.firstIndex(of: "--probe-kat"), args.count > index + 1 {
                 lab.probeKat(to: args[index + 1])
-            } else if let index = args.firstIndex(of: "--probe-chunks"), args.count > index + 1 {
-                lab.probeChunks(to: args[index + 1])
             }
         }
         .onChange(of: lab.backend) { _, _ in if !lab.busy { lab.unload() } }

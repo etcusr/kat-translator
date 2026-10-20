@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-20",
+  "restored_source_commit": "3c70267",
+  "experiment_source_commit": "d96931d",
+  "source_sha256": {
+    "Lab.swift": "f98743504ebf5c1a40f7c96b3a23d613154958fca6f1e48f3caa9407613fd43d",
+    "kat_runner.py": "f060789d2c4277d0c85d1ad9f1f8f0978fa1950c10dc0667707633c081a9f702",
+    "build.py": "6a08c4abee5c98d53746e06d34b4b55b00c8865b141f74255c17c6160e0914fa"
+  },
+  "checks": {
+    "swift_optimized_build": true,
+    "codesign_deep_strict": true,
+    "resident_regression_outputs": 32,
+    "resident_regression_seconds": 35.997,
+    "docs_parity_tests": 2,
+    "python_compile": true
+  },
+  "app_probe": {
+    "index2b": {
+      "code": 0,
+      "idle_timeout_seconds": 300,
+      "load_seconds": 0.943014000004041,
+      "model_reused": false,
+      "output": "Меня зовут Анна. Я путешествую со своей сестрой. Вчера я забронировала два билета.",
+      "seconds": 0.4175503330043284
+    },
+    "index9b": {
+      "code": 0,
+      "idle_timeout_seconds": 300,
+      "load_seconds": 3.5496882500010543,
+      "model_reused": false,
+      "output": "Меня зовут Анна. Я путешествую со своей сестрой. Вчера я забронировала два билета.",
+      "seconds": 1.2942807500076015
+    },
+    "index9b-reused": {
+      "code": 0,
+      "idle_timeout_seconds": 600,
+      "load_seconds": 0,
+      "model_reused": true,
+      "output": "Меня зовут Анна. Я путешествую со своей сестрой. Вчера я забронировала два билета.",
+      "seconds": 0.8679487080080435
+    }
+  },
+  "idle_settings": {
+    "default_seconds": 300,
+    "configured_result": {
+      "id": "ru-airport",
+      "source": "ru",
+      "target": "en",
+      "kind": "short",
+      "text": "Подскажите, пожалуйста, как пройти к стойке регистрации?",
+      "code": 0,
+      "output": "Could you please tell me how to get to the registration desk?",
+      "first_token_seconds": 0.3259702499926789,
+      "seconds": 0.6076148340071086,
+      "engine": "index9b",
+      "load_seconds": 0,
+      "model_reused": true,
+      "idle_timeout_seconds": 600
+    },
+    "rejected_timeouts": [
+      0,
+      3601,
+      true,
+      "600"
+    ],
+    "test_idle_seconds": 2,
+    "observed_exit_seconds": 2.267752208004822,
+    "exit_code": 0
+  },
+  "limits": [
+    "App bridge tested, no visual click automation",
+    "No new translation performance benchmark",
+    "Production app, model files and Store untouched"
+  ]
+}

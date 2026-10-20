@@ -53,23 +53,10 @@ def main():
     load_seconds = time.perf_counter() - started
 
     def run(case):
-        mode = case.get("mode", "whole")
-        if mode not in ("whole", "chunk_plain", "chunk_context"):
-            raise ValueError("Unknown translation mode")
-        if mode != "whole" and args.engine != "index9b":
-            raise ValueError("Chunk experiment requires Index 9B")
         target = {"ru": "俄语", "en": "英语"}[case["target"]]
         prefix = f"<|im_start|>user\n请将以下文本翻译为{target}，直接输出翻译结果，不要进行任何解释。\n\n"
-        output_stream = sys.stdout
-        def progress(event):
-            print(json.dumps(event, ensure_ascii=False), file=output_stream, flush=True)
         with contextlib.redirect_stdout(sys.stderr):
-            if mode != "whole":
-                from chunking import translate
-                result = translate(engine, case["text"], case["target"], SUFFIX, mode,
-                                   progress if case.get("progress") is True else None)
-                result["chunk_count"] = len(result["chunks"])
-            elif args.engine == "index2b":
+            if args.engine == "index2b":
                 result = engine.run(prefix, case["text"])
             else:
                 start = time.perf_counter()
