@@ -798,10 +798,9 @@ internal val GroupActionPadding=PaddingValues(horizontal=0.dp,vertical=8.dp)
     BoxWithConstraints(Modifier.fillMaxSize().background(Color.Black).testTag("processing.overlay")) {
     val viewportHeight=maxHeight
     val preparation=checkingPackages || state.preparingModel
-    val videoWidth=minOf(640.dp,(maxWidth-48.dp).coerceAtLeast(0.dp),((maxHeight-if(preparation)300.dp else 180.dp).coerceAtLeast(96.dp))*4/3)
     Box(Modifier.matchParentSize().pointerInput(Unit) { detectTapGestures {} })
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).heightIn(min=viewportHeight).padding(24.dp),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.Center) {
-        if(!preparation) { WizardVideo(Modifier.width(videoWidth));Spacer(Modifier.height(20.dp)) }
+        if(!preparation) { CircularProgressIndicator(color=KatAccent);Spacer(Modifier.height(20.dp)) }
         Text(if(checkingPackages)tr("Проверка моделей","Checking models") else state.status,color=Color.White,fontSize=20.sp,fontWeight=FontWeight.SemiBold,modifier=Modifier.testTag("processing.status"))
         if(preparation) {
             val progress=state.verificationProgress

@@ -2,6 +2,8 @@
 
 **English** | [Русский](README.ru.md)
 
+**Retired from applications, 20 October 2026:** waiting clips and their players are removed from iOS, macOS and Android builds. The source media and gallery below are historical design material only; project generation no longer depends on the gallery. Status/progress/cancellation replace playback.
+
 ## English cat-break caption — 14 October 2026
 
 The `cat-break` clip and its poster now say **CAT BREAK** instead of the two Russian captions. The clip is shared by all iOS/macOS/Android languages; there is no language filter. H.264 384×288, 24 fps, 103 frames / 4.292 seconds, no audio. Black bars cover the former captions; the central area keeps the cat's motion.

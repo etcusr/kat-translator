@@ -1,0 +1,53 @@
+{
+  "installed": true,
+  "version": "0.6.8",
+  "build": "61",
+  "identity": "mac-0fa4ff4d3e7d64e8",
+  "matching_designated_requirement": true,
+  "app_entries_matched": 25177,
+  "old_app_entries_matched": 25206,
+  "data_entries_unchanged": 2117,
+  "data_bytes": 18664836539,
+  "preferences_unchanged_before_launch": true,
+  "rollback_retained": true,
+  "launch": {
+    "running_from_applications": true,
+    "saved_preference_values_unchanged": true,
+    "all_preference_values_equal": true,
+    "added_preference_keys": []
+  },
+  "bundle_audit": {
+    "machOFiles": 161,
+    "minimumMacOS": "27.0",
+    "externalNonSystemDependencies": [],
+    "externalNonSystemRPaths": [],
+    "librariesExceedingMinimumMacOS": []
+  },
+  "checks": {
+    "offline_core": {
+      "tests": 339,
+      "skipped": 3,
+      "failures": 0
+    },
+    "mac_hosted": {
+      "tests": 5,
+      "failures": 0
+    },
+    "mac_ui_real_index9b": {
+      "tests": 1,
+      "failures": 0
+    },
+    "ios_unsigned_debug_build": "passed",
+    "android_debug_build_and_test_compilation": "passed",
+    "packaged_waiting_clips": {
+      "macOS": 0,
+      "iOS": 0,
+      "Android": 0
+    },
+    "localization_entries": 679,
+    "python_mlx_tests": 9,
+    "gallery_archive_tests": 3,
+    "docs_parity_tests": 2,
+    "store_upload": false
+  }
+}

@@ -2,6 +2,12 @@ import XCTest
 @testable import OfflineCore
 
 private actor CameraMT: TranslationBackend {
+    var partial: (@Sendable (String) -> Void)?
+    func emitPartial(_ text: String) { partial?(text) }
+    func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void, partial: @escaping @Sendable (String) -> Void) async throws -> TranslationResult {
+        self.partial = partial
+        return try await translate(text: text, source: source, target: target)
+    }
     var inputs: [String] = []
     var targets: [SpeechLanguage] = []
     var models: [TranslationModel] = []
@@ -21,6 +27,35 @@ private actor CameraMT: TranslationBackend {
     func unload() async { unloaded = true }
 }
 @MainActor final class ImageTranslationTests: XCTestCase {
+    func testImagePartialsNeverBecomeCompletedOrCachedAndIgnoreLateCallbacks() async {
+        let backend = CameraMT()
+        let active = ImageTranslationSession(backend: backend)
+        active.showsTranslationPartials = true
+        await active.prepare(URL(fileURLWithPath: "/fixture"))
+        active.submit([block("first")], source: .english, target: .russian)
+        while !(await backend.waiting) { await Task.yield() }
+        await backend.emitPartial("unfinished")
+        for _ in 0..<100 { if active.partialTranslation != nil { break }; await Task.yield() }
+        XCTAssertEqual(active.displayedBlocks.map(\.translation), ["unfinished"])
+        XCTAssertTrue(active.translated.isEmpty)
+        XCTAssertFalse(active.complete)
+        active.clearScene()
+        await backend.emitPartial("late")
+        for _ in 0..<10 { await Task.yield() }
+        XCTAssertTrue(active.displayedBlocks.isEmpty)
+        XCTAssertNil(active.partialTranslation)
+        await backend.finish(); await active.waitForIdle()
+        active.submit([block("second")], source: .english, target: .russian)
+        await active.waitForIdle()
+        XCTAssertTrue(active.complete)
+        await backend.emitPartial("too late")
+        for _ in 0..<10 { await Task.yield() }
+        XCTAssertNil(active.partialTranslation)
+        await active.close(preservingResult: true)
+        XCTAssertEqual(active.displayedBlocks.map(\.translation), active.translated.map(\.translation))
+        XCTAssertFalse(active.displayedBlocks.isEmpty)
+    }
+
     func testReconstructedParagraphReachesTranslatorAsOneRequest() async {
         let backend = CameraMT(); await backend.finish()
         let session = ImageTranslationSession(backend: backend)

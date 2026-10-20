@@ -10,8 +10,6 @@ android {
         ndk { abiFilters += "arm64-v8a" }
     }
     sourceSets["main"].assets.srcDir("../../../assets/catalogs")
-    sourceSets["main"].assets.srcDir("../../../assets/bundled/CatWizard")
-    sourceSets["main"].assets.srcDir("../../../assets/bundled/LoadingAnimations")
     sourceSets["main"].assets.srcDir("../../../assets/bundled/OCR")
     sourceSets["main"].assets.srcDir(layout.buildDirectory.dir("generated/shared-media-assets").get().asFile)
     sourceSets["androidTest"].assets.srcDir("../../../tests/fixtures/android")

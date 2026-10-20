@@ -12,7 +12,7 @@ struct SettingsView: View {
     @AppStorage("recordingPreviewVerification") private var verification = true
     #if os(macOS)
     @AppStorage("macTranslationIdleMinutes") private var translationIdleMinutes = 5.0
-    @AppStorage("macExperimentalTranslationChunks") private var experimentalChunks = false
+    @AppStorage("macExperimentalTranslationChunks") private var experimentalChunks = true
     #endif
     @AppStorage("memorySaving") private var memorySaving = false
     @AppStorage("automaticModelLoad") private var automaticModelLoad = true
@@ -104,14 +104,16 @@ struct SettingsView: View {
                 } footer: {
                     Text(L10n.text("Whisper повторно проверяет неоднозначные дату и время в русской речи. Может увеличить ожидание."))
                 }
+                #if os(macOS)
                 Section {
-                    #if os(macOS)
-                    Toggle(L10n.text("Переводить по частям — тест"), isOn: $experimentalChunks)
+                    Toggle(L10n.text("Переводить по частям"), isOn: $experimentalChunks)
                         .accessibilityIdentifier("settings.translationChunks")
                         .onChange(of: experimentalChunks) { _, enabled in model.session.showsTranslationPartials = enabled }
                     Text(L10n.text("Только Index 9B. Первые части могут появляться раньше, но контекст между ними может теряться, а полный перевод — занимать больше времени. Применяется к следующему переводу."))
                         .font(.footnote).foregroundStyle(.secondary)
-                    #endif
+                }
+                #endif
+                Section {
                     Toggle(L10n.text("Обрабатывать во время записи"), isOn: $preprocessing)
                         .accessibilityIdentifier("settings.recordingPreprocessing")
                     if preprocessing {

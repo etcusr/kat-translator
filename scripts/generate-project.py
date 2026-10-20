@@ -4,7 +4,6 @@ from pathlib import Path
 import hashlib, json, os, plistlib, subprocess, sys
 root = Path(__file__).resolve().parent.parent
 # The macOS generator executes this shared preamble too. Fail before project writes.
-subprocess.run([sys.executable, str(root / 'scripts/update-animation-gallery.py'), '--check'], check=True)
 subprocess.run([sys.executable, str(root / 'scripts/generate-model-catalog.py'), '--check'], check=True)
 objects = {}
 def uid(name): return hashlib.sha1(name.encode()).hexdigest()[:24].upper()
@@ -23,12 +22,13 @@ def application_files():
             if any(p in {'tests', 'widget', 'Config', 'Shared', 'build'} or p.endswith('.xcodeproj') for p in parts): continue
             yield file
 for file in sorted(application_files()):
+    if file.parent.name in {'CatWizard', 'LoadingAnimations'}: continue
     if not file.is_file() or 'espeak-ng-data' in file.parts or any(part.endswith('.xcassets') for part in file.parts): continue
     rel = file.relative_to(root).as_posix()
     kind = {'.swift':'sourcecode.swift','.c':'sourcecode.c.c','.h':'sourcecode.c.h','.plist':'text.plist.xml','.xcstrings':'text.json.xcstrings','.xcprivacy':'text.xml'}.get(file.suffix,'text')
     ref=obj(rel, isa='PBXFileReference', lastKnownFileType=kind, path=rel, sourceTree='<group>')
     source_refs.append(ref)
-    if file.suffix in ['.json', '.m4a', '.xcstrings', '.xcprivacy'] or rel in ['assets/bundled/ThirdPartyNotices.txt', 'assets/bundled/OCR/LICENSE.txt', 'assets/bundled/CatWizard/cat-wizard.mp4', 'assets/bundled/CatWizard/cat-wizard-poster.jpg'] or (file.parent.name == 'LoadingAnimations' and file.suffix in ['.mp4', '.jpg']): resource_builds.append(obj('resource:'+rel, isa='PBXBuildFile', fileRef=ref))
+    if file.suffix in ['.json', '.m4a', '.xcstrings', '.xcprivacy'] or rel in ['assets/bundled/ThirdPartyNotices.txt', 'assets/bundled/OCR/LICENSE.txt']: resource_builds.append(obj('resource:'+rel, isa='PBXBuildFile', fileRef=ref))
     if file.suffix in ['.swift','.c']: source_builds.append(obj('build:'+rel, isa='PBXBuildFile', fileRef=ref))
 for catalog in sorted((root/'apps/ios/Resources').rglob('*.xcassets')):
     rel = catalog.relative_to(root).as_posix()

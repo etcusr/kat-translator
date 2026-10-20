@@ -20,6 +20,19 @@ public struct TranslatedImageBlock: Sendable {
 /// One translator owns one native context. New scenes replace pending work rather than queueing frames.
 @MainActor public final class ImageTranslationSession: ObservableObject {
     @Published public private(set) var translated: [TranslatedImageBlock] = []
+    @Published public private(set) var partialTranslation: TranslatedImageBlock?
+    @Published public private(set) var progress: TranslationProgress?
+    public var showsTranslationPartials = false
+    private var displayPartials = false
+    private var model: TranslationModel = .index9B
+    private var partialRequest: UUID?
+    public var displayedBlocks: [TranslatedImageBlock] {
+        blocks.compactMap { block in
+            if let finished = translated.first(where: { $0.original == block.text && $0.box == block.box }) { return finished }
+            if let partialTranslation, partialTranslation.original == block.text, partialTranslation.box == block.box { return partialTranslation }
+            return nil
+        }
+    }
     @Published public private(set) var ready = false
     @Published public private(set) var working = false
     @Published public private(set) var error: String?
@@ -42,7 +55,7 @@ public struct TranslatedImageBlock: Sendable {
     public func prepare(_ url: URL, model: TranslationModel = .index9B) async {
         if let closing { await closing.value }
         guard job == nil, !ready else { return }
-        generation += 1; let id = generation; working = true; error = nil
+        generation += 1; let id = generation; working = true; error = nil; self.model = model
         let task = Task {
             defer { working = false; job = nil }
             do { try await backend.load(modelURL: url, model: model); try Task.checkCancellation(); guard id == generation else { return }; ready = true }
@@ -52,7 +65,9 @@ public struct TranslatedImageBlock: Sendable {
     }
     public func submit(_ blocks: [ImageTextBlock], source: SpeechLanguage, target: SpeechLanguage? = nil, recognitionSeconds: Double? = nil) {
         guard ready, closing == nil else { return }
-        scene += 1; timing = nil; self.recognitionSeconds = recognitionSeconds; translationSeconds = 0
+        scene += 1; partialRequest = nil; partialTranslation = nil; progress = nil
+        displayPartials = showsTranslationPartials && model == .index9B
+        timing = nil; self.recognitionSeconds = recognitionSeconds; translationSeconds = 0
         self.blocks = blocks.filter { !$0.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && $0.box.width > 0 && $0.box.height > 0 }
         self.source = source; self.target = target ?? source.opposite; error = nil; publish()
         startIfNeeded()
@@ -69,12 +84,25 @@ public struct TranslatedImageBlock: Sendable {
         guard job == nil, ready, !complete, !blocks.isEmpty else { return }
         let id = generation; working = true
         job = Task {
-            defer { working = false; job = nil }
+            defer { partialRequest = nil; partialTranslation = nil; progress = nil; working = false; job = nil }
             do {
                 while id == generation, !Task.isCancelled,
                       let block = blocks.first(where: { cache[key($0.text, source, target)] == nil }) {
                     let language = source, destination = target, cacheKey = key(block.text, source, target), requestScene = scene
-                    let result = try await backend.translate(text: block.text, source: language, target: destination)
+                    let request = UUID(), display = displayPartials
+                    partialRequest = request
+                    let result = try await backend.translate(text: block.text, source: language, target: destination, progress: { [weak self] value in
+                        Task { @MainActor [weak self] in
+                            guard let self, self.generation == id, self.scene == requestScene, self.partialRequest == request else { return }
+                            self.progress = value
+                        }
+                    }, partial: { [weak self] text in
+                        Task { @MainActor [weak self] in
+                            guard display, let self, self.generation == id, self.scene == requestScene, self.partialRequest == request else { return }
+                            self.partialTranslation = TranslatedImageBlock(original: block.text, translation: text, box: block.box)
+                        }
+                    })
+                    partialRequest = nil; partialTranslation = nil; progress = nil
                     try Task.checkCancellation(); guard id == generation else { return }
                     guard !result.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { throw PipelineError.inference }
                     if requestScene == scene { translationSeconds += max(0, result.processingSeconds) }
@@ -88,11 +116,11 @@ public struct TranslatedImageBlock: Sendable {
             } catch is CancellationError {} catch { if id == generation { self.error = error.localizedDescription } }
         }
     }
-    public func clearScene() { scene += 1; blocks = []; recognitionSeconds = nil; translationSeconds = 0; publish() }
+    public func clearScene() { scene += 1; partialRequest = nil; partialTranslation = nil; progress = nil; blocks = []; recognitionSeconds = nil; translationSeconds = 0; publish() }
     public func waitForIdle() async { await job?.value }
     public func close(preservingResult: Bool = false) async {
         if let closing { await closing.value; return }
-        generation += 1; ready = false; job?.cancel(); backend.cancel(); if !preservingResult { clearScene() }
+        generation += 1; partialRequest = nil; partialTranslation = nil; progress = nil; ready = false; job?.cancel(); backend.cancel(); if !preservingResult { clearScene() }
         let previous = job
         let task = Task { await previous?.value; await backend.unload(); cache = [:]; order = []; closing = nil }
         closing = task; await task.value

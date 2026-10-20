@@ -83,12 +83,6 @@ struct VoiceStageControls: View {
                                  start: { Task { await model.beginRecording() } }, stop: { Task { await model.finishRecording() } })
                         .accessibilityIdentifier("voice.record")
                         .help(recordingMode == .hold ? L10n.text("Удерживайте и говорите") : L10n.text("Нажмите для записи"))
-                        .opacity(showWizard ? 0 : 1).allowsHitTesting(!showWizard).accessibilityHidden(showWizard)
-                    if showWizard {
-                        CatWizardView().frame(width: 216, height: 184)
-                            .accessibilityIdentifier("voice.processing.cat")
-                            .onAppear { RecordingStopTrace.mark("wizard.appear") }
-                    }
                 }.frame(width: stageWidth, height: stageHeight)
                     .overlay(alignment: .trailing) {
                         if canPause {

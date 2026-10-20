@@ -9,16 +9,12 @@ struct ProcessingOverlay: View {
 
     var body: some View {
         GeometryReader { area in
-            let width = min(640, max(0, area.size.width - 48),
-                            max(0, area.size.height - (progress == nil ? 180 : 270)) * 4 / 3)
             ZStack {
                 Color.black.opacity(0.78).ignoresSafeArea()
                     .contentShape(Rectangle())
                 ScrollView {
                     VStack(spacing: 20) {
-                        CatWizardView()
-                            .frame(width: width, height: width * 3 / 4)
-                            .accessibilityIdentifier("processing.animation")
+                        ProgressView().controlSize(.large).tint(KatTheme.accent)
                         Text(status)
                             .font(.system(size: 20, weight: .semibold))
                             .foregroundStyle(.white)

@@ -15,6 +15,7 @@ import OfflineCore
     @Published var error: String?
     @Published var editedTranslation: String?
     var translatedText: String { editedTranslation ?? ImageTextLayout.plainText(translation.translated) }
+    var displayedText: String { editedTranslation ?? ImageTextLayout.plainText(translation.displayedBlocks) }
     @Published private(set) var recognizing = false
     @Published private(set) var opening = false
     private let history: HistoryModel?
@@ -91,6 +92,7 @@ import OfflineCore
                     detected = language; self.source = language
                 } else { detected = source }
                 guard translationModel.supports(source: detected, target: target) else { throw PipelineError.modelLanguageUnavailable }
+                translation.showsTranslationPartials = MacTranslationOptions.chunksEnabled()
                 translation.submit(result.blocks, source: detected, target: target, recognitionSeconds: result.processingSeconds)
             } catch is CancellationError {} catch { if revision == id { self.error = error.localizedDescription } }
         }
@@ -107,6 +109,10 @@ import OfflineCore
             closing = nil
         }
         closing = task; await task.value
+    }
+    func cancelTranslation() async {
+        await close()
+        await open(modelURL: modelURL)
     }
     func clear() async {
         await close()
@@ -231,7 +237,15 @@ struct CameraView: View {
                 }.font(.system(size: 18))
             }.disabled(model.opening)
             if let error = model.error ?? translation.error { Text(error).foregroundStyle(.orange).textSelection(.enabled) }
-            if model.opening || model.recognizing || translation.working { ProgressView(model.opening ? L10n.text("Подготовить перевод") : model.recognizing ? L10n.text("Распознаю текст…") : L10n.text("Перевожу надписи…")) }
+            if model.opening || model.recognizing || translation.working {
+                HStack {
+                    if let progress = translation.progress { TranslationProgressPanel(progress: progress) }
+                    else { ProgressView(model.opening ? L10n.text("Подготовить перевод") : model.recognizing ? L10n.text("Распознаю текст…") : L10n.text("Перевожу надписи…")); Spacer() }
+                    Button(L10n.text("Отмена")) { Task { await model.cancelTranslation() } }
+                        .accessibilityIdentifier("image.translation.cancel")
+                }
+            }
+            if translation.partialTranslation != nil { Text(L10n.text("Перевод ещё не завершён")).font(.caption).foregroundStyle(.secondary) }
             GeometryReader { geometry in
                 let available = max(1, geometry.size.width - 16)
                 let minimum = min(240 / available, 0.4)
@@ -263,14 +277,14 @@ struct CameraView: View {
                             TranslationTimingView(timing: timing, identifier: "image.timing")
                                 .padding(.horizontal, 12).padding(.top, 12)
                         }
-                    TextEditor(text: Binding(get: { model.translatedText }, set: { model.editedTranslation = $0 }))
+                    TextEditor(text: Binding(get: { model.displayedText }, set: { model.editedTranslation = $0 }))
                         .focused($editingTranslation)
                         .font(AppPlatform.translationFont).lineSpacing(4)
                         .scrollContentBackground(.hidden).padding(12)
                         .accessibilityIdentifier("image.translation")
                         .disabled(model.opening || model.recognizing || translation.working || !translation.complete)
                         .overlay(alignment: .topLeading) {
-                            if !translation.complete && translatedText.isEmpty {
+                            if !translation.complete && model.displayedText.isEmpty {
                                 Text(L10n.text("Здесь появится перевод")).font(AppPlatform.translationFont)
                                     .foregroundStyle(.secondary).padding(16).allowsHitTesting(false)
                             }

@@ -122,7 +122,7 @@ import OfflineCore
         history = HistoryModel(store: store)
         self.session = session ?? ConversationPipeline(asr: RoutedASRBackend(), translator: RoutedTranslationBackend(), speech: SherpaSpeechBackend(), player: SpeechPlayer(), archive: store)
         #if os(macOS)
-        self.session.showsTranslationPartials = UserDefaults.standard.bool(forKey: "macExperimentalTranslationChunks")
+        self.session.showsTranslationPartials = MacTranslationOptions.chunksEnabled()
         #endif
         recorder.onLimit = { [weak self] in Task { await self?.finishRecording() } }
         recorder.onBoundary = { [weak self] end in

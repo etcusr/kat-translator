@@ -10,6 +10,17 @@ private final class MLXPartialProbe: @unchecked Sendable {
 }
 
 final class MacMLXIntegrationTests: XCTestCase {
+    func testChunksDefaultOnAndPreserveExplicitChoice() throws {
+        let suite = "kat-chunk-default-" + UUID().uuidString
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        XCTAssertTrue(MacTranslationOptions.chunksEnabled(in: defaults))
+        defaults.set(false, forKey: "macExperimentalTranslationChunks")
+        XCTAssertFalse(MacTranslationOptions.chunksEnabled(in: defaults))
+        defaults.set(true, forKey: "macExperimentalTranslationChunks")
+        XCTAssertTrue(MacTranslationOptions.chunksEnabled(in: defaults))
+    }
+
     func testPackagedRuntimeCancellationLimitsAndRouting() async throws {
         guard ProcessInfo.processInfo.environment["KAT_MLX_INTEGRATION"] == "1" else {
             throw XCTSkip("Explicit local-model test only")

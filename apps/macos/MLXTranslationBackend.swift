@@ -15,6 +15,11 @@ private final class MLXPartialReporter {
     }
     func receive(_ text: String) { report(completed.isEmpty ? text : completed + separator + text) }
 }
+enum MacTranslationOptions {
+    static func chunksEnabled(in defaults: UserDefaults = .standard) -> Bool {
+        defaults.object(forKey: "macExperimentalTranslationChunks") as? Bool ?? true
+    }
+}
 final class MLXTranslationBackend: TranslationBackend, @unchecked Sendable {
     private let queue = DispatchQueue(label: "org.openoffline.translation", qos: .userInitiated)
     private var context: UnsafeMutableRawPointer?
@@ -22,7 +27,7 @@ final class MLXTranslationBackend: TranslationBackend, @unchecked Sendable {
     private let lock = NSLock()
     private var flag: MLXTranslationFlag?
     private let chunkingEnabled: @Sendable () -> Bool
-    init(chunkingEnabled: @escaping @Sendable () -> Bool = { UserDefaults.standard.bool(forKey: "macExperimentalTranslationChunks") }) {
+    init(chunkingEnabled: @escaping @Sendable () -> Bool = { MacTranslationOptions.chunksEnabled() }) {
         self.chunkingEnabled = chunkingEnabled
     }
     func load(modelURL: URL) async throws { try await load(modelURL: modelURL, model: .index9B) }

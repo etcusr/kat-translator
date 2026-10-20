@@ -8,7 +8,8 @@ Deferred tasks, not completed changes or release promises.
 
 20 October 2026: [separate test application and measurements](benchmarks/mac-system-translation-2026-10-20/README.md), no production integration.
 
-- [x] Main Mac: resident translation model, configurable 5-minute default / 1–60-minute idle timer and optional Index 9B plain chunks, disabled by default. Local validation only; no upload. [Evidence](benchmarks/mac-production-residency-2026-10-20/README.md).
+- [x] Main Mac: resident translation model, configurable 5-minute default / 1–60-minute idle timer and Index 9B plain chunks, now enabled by default. Local validation only; no upload. [Evidence](benchmarks/mac-production-residency-2026-10-20/README.md).
+- [x] Enable Mac Index 9B chunks by default across Text/Voice/Image; keep an ordinary off switch. Remove waiting video players/resources from all app targets. All platform builds and Mac runtime/UI checks pass; installed Mac updated with data preserved. [Evidence](benchmarks/mac-production-residency-2026-10-20/default-chunks.md).
 - [x] Mac partial-translation UX: progress and cancellation above the workspace; intermediate text remains visible, without a processing overlay or GIF. Chunking remains optional; translation algorithm unchanged.
 - [x] Build a separate Mac app with Apple lowLatency/highFidelity and Kat Index 2B/9B; verify both Kat worker bridges.
 - [x] Compare 256 synthetic RU↔EN translations, retain startup/outlier data and manually inspect context, times and pronouns.
@@ -16,7 +17,7 @@ Deferred tasks, not completed changes or release promises.
 - [x] Remove repeated model loading in the separate Mac Lab using one resident worker, with a saved idle timer (default 5 minutes, Settings 1–60) and 32 matching regression translations.
 - [x] Test 16 new long/context RU↔EN cases ×3: 48 successes, identical outputs, same-case spread ≤4.7%; manual review retains meaning losses. [Report](benchmarks/mac-long-context-2026-10-20/README.md).
 - [x] Evaluate experimental whole/plain/context chunk modes in Mac Lab: 108 paired + 12 targeted requests. Experiment withdrawn; active app restored to whole-text translation with resident models and the existing timer. [Historical comparison](benchmarks/mac-chunk-context-2026-10-20/README.md).
-- [ ] Preserve document entities and terminology before production chunking: local context fixed cross-boundary gender/bank, but Marina became a hotel name. Total speedup is unproven; investigate context reuse without translating overlap repeatedly.
+- [ ] Further improve document entities and terminology in chunking: local context fixed cross-boundary gender/bank, but Marina became a hotel name. Total speedup is unproven; investigate context reuse without translating overlap repeatedly.
 - [ ] Handle long-input/output budgets with context-preserving segmentation; the current 1536-input/2048-total-token limits caused explicit failures in two boundary probes. Preserve separate beds, overnight stays and other constraints in regression checks.
 - [ ] Capture the historical 12.49 s inference outlier with contemporaneous system traces. It did not recur in the fresh controls; root cause remains unconfirmed.
 - [ ] Evaluate held-out examples and phone performance before selecting/routing engines. Apple was much faster but made meaning errors; highFidelity did not establish use of a different model.

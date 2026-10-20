@@ -734,7 +734,7 @@ final class MacUITests: XCTestCase {
     @MainActor func testCenteredProcessingOverlayCancelsAndRevealsResult() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
-        app.launchArguments = ["-languageSetupCompleted", "YES", "-automaticModelLoad", "NO", "-appInterfaceLanguage", "en", "-ApplePersistenceIgnoreState", "YES", "-selectedTranslationModel", "index-translate-9b-q4km", "-translationSource", "en", "-translationTarget", "ru", "-automaticLanguage", "NO", "-automaticSpeechText", "NO", "-historyRecordText", "NO", "-historyRecordAudio", "NO"]
+        app.launchArguments = ["-macExperimentalTranslationChunks", "NO", "-languageSetupCompleted", "YES", "-automaticModelLoad", "NO", "-appInterfaceLanguage", "en", "-ApplePersistenceIgnoreState", "YES", "-selectedTranslationModel", "index-translate-9b-q4km", "-translationSource", "en", "-translationTarget", "ru", "-automaticLanguage", "NO", "-automaticSpeechText", "NO", "-historyRecordText", "NO", "-historyRecordAudio", "NO"]
         app.launch(); defer { app.terminate() }
         XCTAssertTrue(app.buttons["mode.text"].waitForExistence(timeout: 30)); app.buttons["mode.text"].click()
         let text = "The library opens at nine in the morning. Visitors can read books, use the computers, and ask the staff for help. On Saturday, children and their parents meet in the large room upstairs to discuss stories. Please bring your library card if you want to borrow a book. The cafe across the street serves tea and fresh bread. After the meeting, we will walk through the park and take the bus home."
@@ -981,7 +981,7 @@ final class MacUITests: XCTestCase {
             "-ApplePersistenceIgnoreState", "YES", "-appInterfaceLanguage", "en",
             "-selectedTranslationModel", "index-translate-9b-q4km", "-translationSource", "en", "-translationTarget", "ru",
             "-automaticLanguage", "NO", "-automaticSpeechText", "NO", "-memorySaving", "NO",
-            "-historyRecordText", "NO", "-historyRecordAudio", "NO", "-macExperimentalTranslationChunks", "YES"]
+            "-historyRecordText", "NO", "-historyRecordAudio", "NO"]
         app.launch(); defer { app.terminate() }
         XCTAssertTrue(app.buttons["mode.text"].waitForExistence(timeout: 30))
         app.buttons["mode.text"].click()

@@ -19,7 +19,7 @@ source=(root/'scripts/generate-project.py').read_text().split('# WRITE_IOS_PROJE
 exec(compile(source,ns['__file__'],'exec'),ns)
 objects=ns['objects']; obj=ns['obj']; q=ns['q']; uid=ns['uid']
 # Retain common code/resources, replace UIKit/capture/diagnostic-only surfaces.
-skip={'apps/ios/OfflineTranslatorApp.swift','apps/ios/Camera/CameraCapture.swift','apps/ios/Camera/CameraView.swift','apps/ios/Camera/CameraModel.swift','apps/ios/Camera/CameraOverlay.swift','apps/ios/Conversation/CatWizardView.swift','apps/ios/Models/DownloadLiveActivity.swift','apps/ios/Diagnostics/RecordingPreviewProbe.swift','apps/ios/widget/DownloadActivityAttributes.swift'}
+skip={'apps/ios/OfflineTranslatorApp.swift','apps/ios/Camera/CameraCapture.swift','apps/ios/Camera/CameraView.swift','apps/ios/Camera/CameraModel.swift','apps/ios/Camera/CameraOverlay.swift','apps/ios/Models/DownloadLiveActivity.swift','apps/ios/Diagnostics/RecordingPreviewProbe.swift','apps/ios/widget/DownloadActivityAttributes.swift'}
 def path_for_build(key): return objects.get(objects[key].get('fileRef'),{}).get('path','')
 objects[ns['sources']]['files']=[k for k in objects[ns['sources']]['files'] if path_for_build(k) not in skip]
 objects[ns['resources']]['files']=[k for k in objects[ns['resources']]['files'] if not path_for_build(k).endswith('.xcassets') and path_for_build(k) not in {'apps/ios/Resources/InfoPlist.xcstrings', 'apps/ios/Resources/PrivacyInfo.xcprivacy'}]

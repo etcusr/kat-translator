@@ -1968,6 +1968,26 @@ private actor StreamingMT: TranslationBackend {
         await pipeline.unload()
     }
 
+    func testPartialsAreDisplayedInVoiceModeWithoutWritingTextMode() async {
+        let calls = Calls(), mt = TestMT(Calls())
+        let pipeline = ConversationPipeline(asr: TestASR(calls), translator: mt, speech: TestTTS(calls), player: TestPlayer(calls))
+        pipeline.showsTranslationPartials = true
+        await pipeline.prepare(files, memorySaving: false)
+        await mt.delay()
+        let run = Task { await pipeline.run(audio: nil, text: "текст", source: .russian, speakResult: false, inputMode: "voice", thermal: "nominal", resultMode: .voice) }
+        for _ in 0..<100 { if await mt.waiting { break }; await Task.yield() }
+        await mt.emitPartial("unfinished voice result")
+        for _ in 0..<100 { if pipeline.voiceFields.partialTranslation != nil { break }; await Task.yield() }
+        XCTAssertEqual(pipeline.voiceFields.displayedTranslation, "unfinished voice result")
+        XCTAssertTrue(pipeline.voiceFields.translatedText.isEmpty)
+        XCTAssertTrue(pipeline.textFields.displayedTranslation.isEmpty)
+        XCTAssertTrue(pipeline.usesPartialTranslationPresentation)
+        await mt.resolve(); await run.value
+        XCTAssertFalse(pipeline.usesPartialTranslationPresentation)
+        XCTAssertEqual(pipeline.voiceFields.translatedText, TestMT.result.text)
+        await pipeline.unload()
+    }
+
     func testPartialPresentationDrainsCancellationAndDoesNotLeakIntoNextRequest() async {
         let calls = Calls(), mt = TestMT(Calls())
         let pipeline = ConversationPipeline(asr: TestASR(calls), translator: mt, speech: TestTTS(calls), player: TestPlayer(calls))

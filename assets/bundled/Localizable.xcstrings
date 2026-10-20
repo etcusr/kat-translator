@@ -19829,35 +19829,6 @@
         }
       }
     },
-    "Переводить по частям — тест": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Переводить по частям — тест"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Translate in chunks — experimental"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Traducir por partes — experimental"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Parçalar halinde çevir — deneysel"
-          }
-        }
-      }
-    },
     "Только Index 9B. Первые части могут появляться раньше, но контекст между ними может теряться, а полный перевод — занимать больше времени. Применяется к следующему переводу.": {
       "extractionState": "manual",
       "localizations": {
@@ -19970,6 +19941,35 @@
           "stringUnit": {
             "state": "translated",
             "value": "Çeviri henüz tamamlanmadı"
+          }
+        }
+      }
+    },
+    "Переводить по частям": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переводить по частям"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Translate in parts"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traducir por partes"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parçalar halinde çevir"
           }
         }
       }

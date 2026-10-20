@@ -349,7 +349,6 @@ struct ConversationView: View {
                     if input == .text && !showInlineTranslationProgress { textPrimaryButton.frame(maxWidth: .infinity) }
                     if input == .text && session.isBusy && !showProcessingOverlay && !showInlineTranslationProgress {
                         HStack(spacing: 12) {
-                            if showWizard { CatWizardView().frame(width: 64, height: 58).accessibilityIdentifier("text.processing.cat") }
                             if let progress = session.translationProgress { TranslationProgressPanel(progress: progress) }
                             else { Text(status).font(AppPlatform.panelCaption).foregroundStyle(.secondary) }
                         }
@@ -555,7 +554,6 @@ struct ConversationView: View {
     }
     private var textControls: some View {
         HStack(spacing: 12) {
-            if showWizard { CatWizardView().frame(width: 84, height: 78).accessibilityIdentifier("text.processing.cat") }
             if busy && session.translationProgress == nil { Text(status).font(.caption).foregroundStyle(.secondary).lineLimit(2) }
             Spacer(minLength: 0)
             #if os(iOS)
