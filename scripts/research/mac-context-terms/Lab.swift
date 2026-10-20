@@ -186,10 +186,13 @@ struct LabView: View {
                     Text("Ручной словарь").tag("terms")
                     Text("Автословарь").tag("auto_terms")
                     Text("Быстрый · узкий").tag("fast_terms")
-                    Text("Быстрый · расширенный").tag("focused_terms")
+                    Text("Быстрый · расширенный (эксп.)").tag("focused_terms")
                 }.pickerStyle(.menu).frame(width: 360).disabled(model.busy)
             }
             Text("Исследовательская сборка. Автословари создаются из исходника заново; подготовка включена во время. Быстрый режим отбирает меньше терминов. Ошибки возможны.").font(.caption).foregroundStyle(.secondary)
+            if model.selected == "focused_terms" {
+                Text("Экспериментальный словарь: помогает согласовать термины, но задерживает начало перевода и может ошибаться. Включается только вручную.").font(.caption).foregroundStyle(.secondary)
+            }
             if !model.cases.isEmpty {
                 Picker("Пример", selection: $model.caseID) {
                     ForEach(model.cases.compactMap { $0["id"] as? String }, id: \.self) { id in
