@@ -34,4 +34,12 @@ class RecordingPreviewTest {
         assertFalse(s.commit(next,"Нет.","No.","ru"))
         assertEquals("Hello!",s.prepared().translation)
     }
+    @Test fun unpunctuatedRecognizerUsesSilenceBoundaryAndSentenceForm() {
+        val s=RecordingPreview("ru","en",false,true,punctuated=false);val a=s.next(48000,32000)!!
+        assertTrue(s.commit(a,RecordingPreview.sentence("я бы хотел заселиться"),"I would like to check in.","ru"))
+        assertEquals("Я бы хотел заселиться.",s.prepared().sourceText)
+        assertEquals("Уже готово!",RecordingPreview.sentence("уже готово!"))
+        assertEquals("",RecordingPreview.sentence("  "))
+        assertFalse(s.accepts(" "))
+    }
 }

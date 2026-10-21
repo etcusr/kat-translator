@@ -791,9 +791,10 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             recorder.start();recording=true;recordingPaused=false;recordingMillis=0
             if(recordingPreprocessing) {
                 val thermal=getApplication<Application>().getSystemService(android.os.PowerManager::class.java).currentThermalStatus
-                val compatible=!useSystemRecognition() && runCatching { installedPackage(PackageCategory.RECOGNITION,currentSource,selectedRecognition()).first.backend=="whisper" }.getOrDefault(false)
+                val backend=if(useSystemRecognition())null else runCatching { installedPackage(PackageCategory.RECOGNITION,currentSource,selectedRecognition()).first.backend }.getOrNull()
+                val compatible=backend in setOf("whisper","gigaam","parakeet")
                 if(indexModel && installed && !memorySaving && compatible && thermal<android.os.PowerManager.THERMAL_STATUS_SEVERE) {
-                    recordingPreview=RecordingPreview(currentSource,target,recordingVerification,automaticSpeech)
+                    recordingPreview=RecordingPreview(currentSource,target,recordingVerification,automaticSpeech,punctuated=backend!="gigaam")
                     previewMessage=text("Законченные фразы обрабатываются заранее. Озвучка — после остановки.","Completed phrases are processed now. Speech starts after recording stops.")
                 } else previewMessage=text("Предварительная обработка недоступна для текущих моделей, настроек памяти или температуры. Перевод начнётся после остановки.","Preview is unavailable with these models, memory settings or temperature. Translation starts after recording stops.")
             }
@@ -818,16 +819,22 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             try {
                 checkCancelled();if(session.cancelled || session.suspended)return@execute
                 if(memorySaving)releaseTranslation()
-                val transcript=transcribe(samples,session.prepared().language ?: session.source)
-                checkCancelled();if(session.cancelled || session.suspended || !RecordingPreview.completeSentence(transcript.text))return@execute
-                val translated=if(transcript.language==session.target)transcript.text else translateParts(transcript.text,session.target,transcript.language)
+                val recognized=transcribe(samples,session.prepared().language ?: session.source)
+                checkCancelled();if(session.cancelled || session.suspended || !session.accepts(recognized.text))return@execute
+                val phrase=if(session.punctuated)recognized.text else RecordingPreview.sentence(recognized.text)
+                val earlier=session.prepared()
+                ui { if(recordingPreview===session && !session.cancelled)inputs["voice"]=listOf(earlier.sourceText,phrase).filter { it.isNotBlank() }.joinToString(" ") }
+                // The phrase translation grows after the already committed ones, as in the text workspace.
+                val stream:(String)->Unit={ partial -> ui { if(recordingPreview===session && !session.cancelled)outputs["voice"]=listOf(earlier.translation,partial).filter { it.isNotBlank() }.joinToString(" ") } }
+                val translated=if(recognized.language==session.target)phrase else translateParts(phrase,session.target,recognized.language,stream)
                 checkCancelled()
-                if(session.commit(range,transcript.text,translated,transcript.language)) {
+                if(session.commit(range,phrase,translated,recognized.language)) {
                     val result=session.prepared()
                     ui { if(recordingPreview===session && !session.cancelled) { inputs["voice"]=result.sourceText;outputs["voice"]=result.translation;detectedSource=result.language } }
-                }
+                } else ui { if(recordingPreview===session && !session.cancelled) { val kept=session.prepared();inputs["voice"]=kept.sourceText;outputs["voice"]=kept.translation } }
             } catch(_:Exception) {
                 session.suspend()
+                ui { if(recordingPreview===session && !session.cancelled) { val kept=session.prepared();inputs["voice"]=kept.sourceText;outputs["voice"]=kept.translation } }
                 ui { if(recordingPreview===session && !session.cancelled)previewMessage=text("Предварительная обработка остановлена. Полная запись будет обработана после остановки.","Preview stopped. The full recording will be processed after you stop.") }
             } finally { session.finishAttempt();ui { previewProcessing=false } }
         }
@@ -853,10 +860,13 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
                 val prepared=session?.prepared()
                 if(session!=null && !session.verify && prepared!=null && prepared.end>0) {
                     val tail=if(speechEnd<=prepared.end)FloatArray(0) else samples.copyOfRange(prepared.end.coerceAtMost(samples.size),samples.size)
-                    val recognized=if(tail.size>=4000)transcribe(tail,prepared.language ?: from) else null
+                    val recognized=(if(tail.size>=4000)transcribe(tail,prepared.language ?: from) else null)
+                        ?.let { if(session.punctuated || it.text.isBlank()) it else it.copy(text=RecordingPreview.sentence(it.text)) }
                     checkCancelled()
                     val original=listOf(prepared.sourceText,recognized?.text.orEmpty()).filter { it.isNotBlank() }.joinToString(" ")
-                    val tailTranslation=recognized?.text?.takeIf { it.isNotBlank() }?.let { translateParts(it,language,recognized.language) }.orEmpty()
+                    if(recognized!=null && recognized.text.isNotBlank())ui { inputs["voice"]=original }
+                    val tailStream:(String)->Unit={ partial -> ui { if(!cancelled.get()) { outputs["voice"]=listOf(prepared.translation,partial).filter { it.isNotBlank() }.joinToString(" ");streamingOutput=true } } }
+                    val tailTranslation=recognized?.text?.takeIf { it.isNotBlank() }?.let { if(recognized.language==language) it else translateParts(it,language,recognized.language,tailStream) }.orEmpty()
                     val translated=listOf(prepared.translation,tailTranslation).filter { it.isNotBlank() }.joinToString(" ")
                     finishTranslation(original,prepared.language ?: from,language,"voice",translated,speak)
                 } else {

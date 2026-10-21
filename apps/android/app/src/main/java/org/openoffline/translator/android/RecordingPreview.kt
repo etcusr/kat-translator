@@ -3,8 +3,9 @@ package org.openoffline.translator.android
 /** Phrase ledger shared by the main recording ticker and the one native worker.
  * Like iOS, boundaries need one second of silence and at least two seconds of audio.
  * A snapshot is capped at 30 seconds; a longer unfinished phrase falls back to final ASR.
+ * Recognizers without punctuation (GigaAM) rely on the silence boundary alone: [punctuated] is false.
  */
-class RecordingPreview(val source:String,val target:String,val verify:Boolean,val speak:Boolean) {
+class RecordingPreview(val source:String,val target:String,val verify:Boolean,val speak:Boolean,val punctuated:Boolean=true) {
     data class Block(val source:String,val translation:String)
     data class Prepared(val end:Int,val language:String?,val blocks:List<Block>) {
         val sourceText get()=blocks.joinToString(" ") { it.source }
@@ -25,15 +26,22 @@ class RecordingPreview(val source:String,val target:String,val verify:Boolean,va
     }
     @Synchronized fun commit(range:IntRange,text:String,translated:String,detected:String):Boolean {
         inFlight=false
-        if(cancelled || suspended || range.first!=committed || !completeSentence(text) || translated.isBlank())return false
+        if(cancelled || suspended || range.first!=committed || !accepts(text) || translated.isBlank())return false
         committed=range.last+1;language=language ?: detected
         blocks+=Block(text.trim(),translated.trim());return true
     }
+    fun accepts(text:String)=if(punctuated)completeSentence(text) else text.isNotBlank()
     @Synchronized fun finishAttempt() { inFlight=false }
     @Synchronized fun suspend() { suspended=true }
     @Synchronized fun cancel() { cancelled=true;suspended=true }
     @Synchronized fun prepared()=Prepared(committed,language,blocks.toList())
     companion object {
         fun completeSentence(text:String)=text.trimEnd().lastOrNull() in setOf('.','!','?','。','！','？')
+        /** Unpunctuated phrase text as a sentence: capital first letter and a final period, so the translator sees a boundary. */
+        fun sentence(text:String):String {
+            val trimmed=text.trim();if(trimmed.isEmpty())return trimmed
+            val capital=trimmed.replaceFirstChar { it.titlecase() }
+            return if(completeSentence(capital) || capital.last() in setOf(',',';',':','…'))capital else "$capital."
+        }
     }
 }
