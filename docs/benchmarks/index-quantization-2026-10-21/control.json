@@ -1,0 +1,16 @@
+{
+  "requests": 30,
+  "same_outputs_as_initial": 30,
+  "ordinary29_seconds": 76.82708287602873,
+  "all30_seconds": 97.68899579302524,
+  "ordinary_delta_percent": 5.887689118794359,
+  "max_thermal": 0,
+  "system_before": {
+    "swap": "vm.swapusage: total = 2048.00M  used = 864.12M  free = 1183.88M  (encrypted)",
+    "thermal": 0
+  },
+  "system_after": {
+    "swap": "vm.swapusage: total = 2048.00M  used = 1062.38M  free = 985.62M  (encrypted)",
+    "thermal": 0
+  }
+}

@@ -1,0 +1,998 @@
+{
+  "method": "Source-based single-assistant qualitative review; two blinded pairs, per-case shuffled labels; date/condition baseline smoke known. No independent expert validation. Artificial repetition stress reported separately.",
+  "models": {
+    "Q4_K_M": {
+      "ordinary_cases": 29,
+      "major_error_cases": [
+        "prior-en-time"
+      ],
+      "minor_issue_cases": [],
+      "repetition_stress": [
+        {
+          "severity": "major",
+          "category": "repetition_loss",
+          "source_span": "12 repeated four-sentence blocks",
+          "translation_span": "11 translated blocks",
+          "explanation": "Drops 1 repeated blocks despite successful end-of-generation; evaluate separately as artificial completeness stress."
+        }
+      ],
+      "new_major_error_cases_vs_baseline": [],
+      "fixed_major_error_cases_vs_baseline": []
+    },
+    "IQ4_XS": {
+      "ordinary_cases": 29,
+      "major_error_cases": [
+        "mtp-en02"
+      ],
+      "minor_issue_cases": [],
+      "repetition_stress": [
+        {
+          "severity": "major",
+          "category": "repetition_loss",
+          "source_span": "12 repeated four-sentence blocks",
+          "translation_span": "10 translated blocks",
+          "explanation": "Drops two repeated blocks despite successful end-of-generation; evaluate separately as artificial completeness stress."
+        }
+      ],
+      "new_major_error_cases_vs_baseline": [
+        "mtp-en02"
+      ],
+      "fixed_major_error_cases_vs_baseline": [
+        "prior-en-time"
+      ]
+    },
+    "Q4_K_S": {
+      "ordinary_cases": 29,
+      "major_error_cases": [
+        "prior-en-time"
+      ],
+      "minor_issue_cases": [],
+      "repetition_stress": [
+        {
+          "severity": "major",
+          "category": "repetition_loss",
+          "source_span": "12 repeated four-sentence blocks",
+          "translation_span": "10 translated blocks",
+          "explanation": "Drops two repeated blocks despite successful end-of-generation; evaluate separately as artificial completeness stress."
+        }
+      ],
+      "new_major_error_cases_vs_baseline": [],
+      "fixed_major_error_cases_vs_baseline": []
+    },
+    "Q3_K_M": {
+      "ordinary_cases": 29,
+      "major_error_cases": [
+        "prior-en-time",
+        "mtp-en02"
+      ],
+      "minor_issue_cases": [],
+      "repetition_stress": [
+        {
+          "severity": "major",
+          "category": "repetition_loss",
+          "source_span": "12 repeated four-sentence blocks",
+          "translation_span": "9 translated blocks",
+          "explanation": "Drops 3 repeated blocks despite successful end-of-generation; evaluate separately as artificial completeness stress."
+        }
+      ],
+      "new_major_error_cases_vs_baseline": [
+        "mtp-en02"
+      ],
+      "fixed_major_error_cases_vs_baseline": []
+    }
+  },
+  "annotations": [
+    {
+      "id": "prior-ru-airport",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "prior-ru-airport",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "prior-ru-booking",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "prior-ru-booking",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "prior-ru-time",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "prior-ru-time",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "prior-ru-negation",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "prior-ru-negation",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "prior-ru-bank-alone",
+      "label": "B",
+      "issues": [],
+      "note": "Ambiguous source permits braid or geographical spit; not scored as semantic error.",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "prior-ru-bank-alone",
+      "label": "C",
+      "issues": [],
+      "note": "Ambiguous source permits braid or geographical spit; not scored as semantic error.",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "prior-ru-bank-context",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "prior-ru-bank-context",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "prior-ru-paragraph",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "prior-ru-paragraph",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "prior-en-airport",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "prior-en-airport",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "prior-en-booking",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "prior-en-booking",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "prior-en-time",
+      "label": "A",
+      "issues": [
+        {
+          "severity": "major",
+          "category": "time",
+          "source_span": "half past eight in the morning",
+          "translation_span": "полдесятого утра",
+          "explanation": "08:30 becomes 09:30; wrong meeting time."
+        }
+      ],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "prior-en-time",
+      "label": "C",
+      "issues": [
+        {
+          "severity": "major",
+          "category": "time",
+          "source_span": "half past eight in the morning",
+          "translation_span": "полдесятого утра",
+          "explanation": "08:30 becomes 09:30; wrong meeting time."
+        }
+      ],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "prior-en-negation",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "prior-en-negation",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "prior-en-bank-alone",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "prior-en-bank-alone",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "prior-en-bank-river",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "prior-en-bank-river",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "prior-en-bank-money",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "prior-en-bank-money",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "prior-en-gender-context",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "prior-en-gender-context",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "prior-en-paragraph",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "prior-en-paragraph",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "mtp-en01",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "mtp-en01",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "mtp-en02",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "mtp-en02",
+      "label": "D",
+      "issues": [
+        {
+          "severity": "major",
+          "category": "scientific_entity",
+          "source_span": "nucleobases",
+          "translation_span": "нуклеотидами",
+          "explanation": "Changes nucleobases (азотистые основания) to nucleotides, a different chemical class."
+        }
+      ],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "mtp-ru01",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "mtp-ru01",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "mtp-ru02",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "mtp-ru02",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "mtp-synthetic_long_ru",
+      "label": "B",
+      "issues": [
+        {
+          "severity": "major",
+          "category": "repetition_loss",
+          "source_span": "12 repeated four-sentence blocks",
+          "translation_span": "11 translated blocks",
+          "explanation": "Drops 1 repeated blocks despite successful end-of-generation; evaluate separately as artificial completeness stress."
+        }
+      ],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "mtp-synthetic_long_ru",
+      "label": "D",
+      "issues": [
+        {
+          "severity": "major",
+          "category": "repetition_loss",
+          "source_span": "12 repeated four-sentence blocks",
+          "translation_span": "9 translated blocks",
+          "explanation": "Drops 3 repeated blocks despite successful end-of-generation; evaluate separately as artificial completeness stress."
+        }
+      ],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "mtp-travel_ru",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "mtp-travel_ru",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "technical-cooling",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "technical-cooling",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "technical-software",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "technical-software",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "technical-logistics",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "technical-logistics",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "technical-standby",
+      "label": "A",
+      "issues": [],
+      "note": "Russian «отключили от сети» permits network or mains interpretation without explicit qualifier; power-supply wording not scored as a quantization error.",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "technical-standby",
+      "label": "D",
+      "issues": [],
+      "note": "Russian «отключили от сети» permits network or mains interpretation without explicit qualifier; power-supply wording not scored as a quantization error.",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "challenge-dates",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "challenge-dates",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "challenge-condition",
+      "label": "A",
+      "issues": [],
+      "note": "First sentence has awkward negation scope, but the following either-valve-closed sentence preserves the complete condition; not scored as substantive reversal.",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "challenge-condition",
+      "label": "D",
+      "issues": [],
+      "note": "First sentence has awkward negation scope, but the following either-valve-closed sentence preserves the complete condition; not scored as substantive reversal.",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "challenge-numbers",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "challenge-numbers",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "challenge-roles",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_M"
+    },
+    {
+      "id": "challenge-roles",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q3_K_M"
+    },
+    {
+      "id": "prior-ru-airport",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "prior-ru-airport",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "prior-ru-booking",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "prior-ru-booking",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "prior-ru-time",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "prior-ru-time",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "prior-ru-negation",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "prior-ru-negation",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "prior-ru-bank-alone",
+      "label": "A",
+      "issues": [],
+      "note": "Ambiguous source: a valid dictionary sense is not counted as a semantic error.",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "prior-ru-bank-alone",
+      "label": "D",
+      "issues": [],
+      "note": "Ambiguous source: a valid dictionary sense is not counted as a semantic error.",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "prior-ru-bank-context",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "prior-ru-bank-context",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "prior-ru-paragraph",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "prior-ru-paragraph",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "prior-en-airport",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "prior-en-airport",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "prior-en-booking",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "prior-en-booking",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "prior-en-time",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "prior-en-time",
+      "label": "D",
+      "issues": [
+        {
+          "severity": "major",
+          "category": "time",
+          "source_span": "half past eight in the morning",
+          "translation_span": "полдесятого утра",
+          "explanation": "08:30 becomes 09:30; wrong meeting time."
+        }
+      ],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "prior-en-negation",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "prior-en-negation",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "prior-en-bank-alone",
+      "label": "A",
+      "issues": [],
+      "note": "Ambiguous source: a valid dictionary sense is not counted as a semantic error.",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "prior-en-bank-alone",
+      "label": "B",
+      "issues": [],
+      "note": "Ambiguous source: a valid dictionary sense is not counted as a semantic error.",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "prior-en-bank-river",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "prior-en-bank-river",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "prior-en-bank-money",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "prior-en-bank-money",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "prior-en-gender-context",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "prior-en-gender-context",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "prior-en-paragraph",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "prior-en-paragraph",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "mtp-en01",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "mtp-en01",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "mtp-en02",
+      "label": "A",
+      "issues": [
+        {
+          "severity": "major",
+          "category": "scientific_entity",
+          "source_span": "nucleobases",
+          "translation_span": "нуклеозидов",
+          "explanation": "Changes nucleobases (азотистые основания) to nucleosides, a different chemical class."
+        }
+      ],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "mtp-en02",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "mtp-ru01",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "mtp-ru01",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "mtp-ru02",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "mtp-ru02",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "mtp-travel_ru",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "mtp-travel_ru",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "challenge-dates",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "challenge-dates",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "challenge-condition",
+      "label": "B",
+      "issues": [],
+      "note": "Condition remains clear from the following either-valve-closed sentence.",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "challenge-condition",
+      "label": "C",
+      "issues": [],
+      "note": "Condition remains clear from the following either-valve-closed sentence.",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "challenge-numbers",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "challenge-numbers",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "challenge-roles",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "challenge-roles",
+      "label": "D",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "mtp-synthetic_long_ru",
+      "label": "A",
+      "issues": [
+        {
+          "severity": "major",
+          "category": "repetition_loss",
+          "source_span": "12 repeated four-sentence blocks",
+          "translation_span": "10 translated blocks",
+          "explanation": "Drops two repeated blocks despite successful end-of-generation; evaluate separately as artificial completeness stress."
+        }
+      ],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "mtp-synthetic_long_ru",
+      "label": "C",
+      "issues": [
+        {
+          "severity": "major",
+          "category": "repetition_loss",
+          "source_span": "12 repeated four-sentence blocks",
+          "translation_span": "10 translated blocks",
+          "explanation": "Drops two repeated blocks despite successful end-of-generation; evaluate separately as artificial completeness stress."
+        }
+      ],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "technical-cooling",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "technical-cooling",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "technical-software",
+      "label": "B",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "technical-software",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "technical-logistics",
+      "label": "A",
+      "issues": [],
+      "note": "",
+      "model": "IQ4_XS"
+    },
+    {
+      "id": "technical-logistics",
+      "label": "C",
+      "issues": [],
+      "note": "",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "technical-standby",
+      "label": "B",
+      "issues": [],
+      "note": "Russian «отключили от сети» is ambiguous between mains and network; power-supply wording is not scored as an error.",
+      "model": "Q4_K_S"
+    },
+    {
+      "id": "technical-standby",
+      "label": "C",
+      "issues": [],
+      "note": "Russian «отключили от сети» is ambiguous between mains and network; power-supply wording is not scored as an error.",
+      "model": "IQ4_XS"
+    }
+  ]
+}

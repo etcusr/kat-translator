@@ -1,0 +1,19 @@
+{
+  "measured_requests": 270,
+  "warmup_requests": 10,
+  "excluded_smoke_requests": 4,
+  "main_model_sha256_unchanged": true,
+  "native_library_sha256_unchanged": true,
+  "official_model_hashes_verified": 4,
+  "matched_corpus_and_runtime": true,
+  "all_measured_codes_zero": true,
+  "repeat_exact_cases_per_model": 30,
+  "baseline_control_exact_cases": 30,
+  "reviewed_translation_variants": 120,
+  "independent_timing_recalculation": "PASS",
+  "comparison_html_sections": 30,
+  "comparison_html_translations": 120,
+  "quality_review_limit": "single automated reviewer, partially blinded; no independent expert panel",
+  "timing_limit": "working desktop, changing system swap, baseline drift +5.89%; no small-speedup claim",
+  "production_changed": false
+}

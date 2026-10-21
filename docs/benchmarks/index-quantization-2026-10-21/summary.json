@@ -1,0 +1,170 @@
+{
+  "Q4_K_M": {
+    "model_bytes": 5780090304,
+    "model_sha256": "9cc6758b0007f4cbf42ea3400768cbff91ae74ef8d640e467158348426d33713",
+    "load_seconds": 0.48865799998748116,
+    "corpus_seconds_per_pass": [
+      92.36908437596867,
+      92.33987995810458
+    ],
+    "ordinary29_seconds_per_pass": [
+      72.5824776669615,
+      72.52803237512126
+    ],
+    "repetition_stress_seconds_per_pass": [
+      19.786606709007174,
+      19.81184758298332
+    ],
+    "median_request_seconds": 1.3762884789903183,
+    "median_first_token_seconds": 0.268241437,
+    "loaded_memory": {
+      "footprint": 258577448,
+      "resident": 5928091648,
+      "resident_process_peak": 5968478208,
+      "thermal": 0,
+      "metal_allocated": 5874499584
+    },
+    "sampled_peak": {
+      "footprint": 357848152,
+      "resident": 5885575168,
+      "resident_process_peak": 5968478208,
+      "thermal": 0,
+      "metal_allocated": 5875761152
+    },
+    "unstable_cases": [],
+    "system_before": {
+      "swap": "vm.swapusage: total = 2048.00M  used = 631.94M  free = 1416.06M  (encrypted)",
+      "thermal": 0
+    },
+    "system_after": {
+      "swap": "vm.swapusage: total = 2048.00M  used = 631.94M  free = 1416.06M  (encrypted)",
+      "thermal": 0
+    }
+  },
+  "IQ4_XS": {
+    "model_bytes": 5357874624,
+    "model_sha256": "874e47a25f38c236be8ac5bec03aa9d47432a31036b60a00c8ca381750aaa619",
+    "load_seconds": 1.5591485839977395,
+    "corpus_seconds_per_pass": [
+      91.23257766693132,
+      92.14559675194323
+    ],
+    "ordinary29_seconds_per_pass": [
+      73.02780366694788,
+      73.47022791794734
+    ],
+    "repetition_stress_seconds_per_pass": [
+      18.204773999983445,
+      18.67536883399589
+    ],
+    "median_request_seconds": 1.387338479515165,
+    "median_first_token_seconds": 0.27579325,
+    "loaded_memory": {
+      "footprint": 263623432,
+      "resident": 5257871360,
+      "resident_process_peak": 5442109440,
+      "thermal": 0,
+      "metal_allocated": 5473288192
+    },
+    "sampled_peak": {
+      "footprint": 363107152,
+      "resident": 4949868544,
+      "resident_process_peak": 5442109440,
+      "thermal": 0,
+      "metal_allocated": 5474549760
+    },
+    "unstable_cases": [],
+    "system_before": {
+      "swap": "vm.swapusage: total = 2048.00M  used = 591.88M  free = 1456.12M  (encrypted)",
+      "thermal": 0
+    },
+    "system_after": {
+      "swap": "vm.swapusage: total = 2048.00M  used = 928.12M  free = 1119.88M  (encrypted)",
+      "thermal": 0
+    }
+  },
+  "Q4_K_S": {
+    "model_bytes": 5488553408,
+    "model_sha256": "c4c36b678087908e02f06202eb862d2bbf370252b8e255ed91e316e0f4cb5b0e",
+    "load_seconds": 0.9458580000209622,
+    "corpus_seconds_per_pass": [
+      86.56099166703643,
+      87.38345475090318
+    ],
+    "ordinary29_seconds_per_pass": [
+      69.34412666701246,
+      70.07842600089498
+    ],
+    "repetition_stress_seconds_per_pass": [
+      17.216865000023972,
+      17.305028750008205
+    ],
+    "median_request_seconds": 1.3146608749957522,
+    "median_first_token_seconds": 0.2683305625,
+    "loaded_memory": {
+      "footprint": 255316840,
+      "resident": 5520850944,
+      "resident_process_peak": 5605769216,
+      "thermal": 0,
+      "metal_allocated": 5597020160
+    },
+    "sampled_peak": {
+      "footprint": 354210736,
+      "resident": 5036605440,
+      "resident_process_peak": 5605769216,
+      "thermal": 0,
+      "metal_allocated": 5598281728
+    },
+    "unstable_cases": [],
+    "system_before": {
+      "swap": "vm.swapusage: total = 2048.00M  used = 904.12M  free = 1143.88M  (encrypted)",
+      "thermal": 0
+    },
+    "system_after": {
+      "swap": "vm.swapusage: total = 2048.00M  used = 864.12M  free = 1183.88M  (encrypted)",
+      "thermal": 0
+    }
+  },
+  "Q3_K_M": {
+    "model_bytes": 4737609152,
+    "model_sha256": "7144b4aeb76febd2d6295bbade0f8fa5eb047bb20c11f94bc03ad5fa9a5071c0",
+    "load_seconds": 0.4403349999920465,
+    "corpus_seconds_per_pass": [
+      109.32513666307204,
+      106.66570537706139
+    ],
+    "ordinary29_seconds_per_pass": [
+      88.4058640380681,
+      86.56711633506347
+    ],
+    "repetition_stress_seconds_per_pass": [
+      20.91927262500394,
+      20.09858904199791
+    ],
+    "median_request_seconds": 1.6149133755097864,
+    "median_first_token_seconds": 0.285637562,
+    "loaded_memory": {
+      "footprint": 258101592,
+      "resident": 4922523648,
+      "resident_process_peak": 4925931520,
+      "thermal": 0,
+      "metal_allocated": 4868915200
+    },
+    "sampled_peak": {
+      "footprint": 357831048,
+      "resident": 4913610752,
+      "resident_process_peak": 4932829184,
+      "thermal": 0,
+      "metal_allocated": 4870176768
+    },
+    "unstable_cases": [],
+    "system_before": {
+      "swap": "vm.swapusage: total = 2048.00M  used = 631.94M  free = 1416.06M  (encrypted)",
+      "thermal": 0
+    },
+    "system_after": {
+      "swap": "vm.swapusage: total = 2048.00M  used = 631.94M  free = 1416.06M  (encrypted)",
+      "thermal": 0
+    }
+  }
+}

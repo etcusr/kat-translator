@@ -1,0 +1,255 @@
+{
+  "scope": "30 frozen RU/EN diagnostic cases, selected before outputs; no broad multilingual representativeness claim",
+  "cases": [
+    {
+      "id": "prior-ru-airport",
+      "source": "ru",
+      "target": "en",
+      "text": "Подскажите, пожалуйста, как пройти к стойке регистрации?",
+      "origin": "tests/fixtures/mac-system-translation.json",
+      "kind": "short"
+    },
+    {
+      "id": "prior-ru-booking",
+      "source": "ru",
+      "target": "en",
+      "text": "Я забронировала номер на две ночи, но приеду только завтра.",
+      "origin": "tests/fixtures/mac-system-translation.json",
+      "kind": "short"
+    },
+    {
+      "id": "prior-ru-time",
+      "source": "ru",
+      "target": "en",
+      "text": "Встречу перенесли с пятницы на понедельник, на половину девятого утра.",
+      "origin": "tests/fixtures/mac-system-translation.json",
+      "kind": "short"
+    },
+    {
+      "id": "prior-ru-negation",
+      "source": "ru",
+      "target": "en",
+      "text": "Я не просил отменять заказ. Я хотел изменить адрес доставки.",
+      "origin": "tests/fixtures/mac-system-translation.json",
+      "kind": "short"
+    },
+    {
+      "id": "prior-ru-bank-alone",
+      "source": "ru",
+      "target": "en",
+      "text": "Она стояла у косы.",
+      "origin": "tests/fixtures/mac-system-translation.json",
+      "kind": "short"
+    },
+    {
+      "id": "prior-ru-bank-context",
+      "source": "ru",
+      "target": "en",
+      "text": "Река здесь поворачивает, и посреди воды видна узкая песчаная полоса. Она стояла у косы.",
+      "origin": "tests/fixtures/mac-system-translation.json",
+      "kind": "context"
+    },
+    {
+      "id": "prior-ru-paragraph",
+      "source": "ru",
+      "target": "en",
+      "text": "Наш рейс задержали на два часа. Мы уже прошли регистрацию, но ещё не сдали багаж. Сотрудница аэропорта сказала подойти к стойке номер двенадцать. У меня нет интернета, поэтому покажите, пожалуйста, дорогу на карте. Если мы не успеем на пересадку, кто поможет поменять билеты?",
+      "origin": "tests/fixtures/mac-system-translation.json",
+      "kind": "paragraph"
+    },
+    {
+      "id": "prior-en-airport",
+      "source": "en",
+      "target": "ru",
+      "text": "Could you tell me where the check-in desk is, please?",
+      "origin": "tests/fixtures/mac-system-translation.json",
+      "kind": "short"
+    },
+    {
+      "id": "prior-en-booking",
+      "source": "en",
+      "target": "ru",
+      "text": "I booked a room for two nights, but I won't arrive until tomorrow.",
+      "origin": "tests/fixtures/mac-system-translation.json",
+      "kind": "short"
+    },
+    {
+      "id": "prior-en-time",
+      "source": "en",
+      "target": "ru",
+      "text": "The meeting has been moved from Friday to Monday at half past eight in the morning.",
+      "origin": "tests/fixtures/mac-system-translation.json",
+      "kind": "short"
+    },
+    {
+      "id": "prior-en-negation",
+      "source": "en",
+      "target": "ru",
+      "text": "I didn't ask you to cancel the order. I wanted to change the delivery address.",
+      "origin": "tests/fixtures/mac-system-translation.json",
+      "kind": "short"
+    },
+    {
+      "id": "prior-en-bank-alone",
+      "source": "en",
+      "target": "ru",
+      "text": "She waited by the bank.",
+      "origin": "tests/fixtures/mac-system-translation.json",
+      "kind": "short"
+    },
+    {
+      "id": "prior-en-bank-river",
+      "source": "en",
+      "target": "ru",
+      "text": "The river was too deep to cross. She waited by the bank.",
+      "origin": "tests/fixtures/mac-system-translation.json",
+      "kind": "context"
+    },
+    {
+      "id": "prior-en-bank-money",
+      "source": "en",
+      "target": "ru",
+      "text": "The cash machine was inside the building. She waited by the bank.",
+      "origin": "tests/fixtures/mac-system-translation.json",
+      "kind": "context"
+    },
+    {
+      "id": "prior-en-gender-context",
+      "source": "en",
+      "target": "ru",
+      "text": "My name is Anna. I'm travelling with my sister. I booked two tickets yesterday.",
+      "origin": "tests/fixtures/mac-system-translation.json",
+      "kind": "context"
+    },
+    {
+      "id": "prior-en-paragraph",
+      "source": "en",
+      "target": "ru",
+      "text": "Our flight has been delayed by two hours. We've already checked in, but we haven't dropped off our luggage yet. The airport employee told us to go to counter twelve. I have no internet connection, so please show me the way on the map. If we miss our connecting flight, who can help us change our tickets?",
+      "origin": "tests/fixtures/mac-system-translation.json",
+      "kind": "paragraph"
+    },
+    {
+      "id": "mtp-en01",
+      "source": "en",
+      "target": "ru",
+      "text": "What is important about the Bennu samples is that researchers did not find deoxyribose.",
+      "origin": "tests/fixtures/index-mtp-cases.json",
+      "kind": "excerpt",
+      "reference": "Важно, что в образцах Бенну исследователи не обнаружили дезоксирибозу."
+    },
+    {
+      "id": "mtp-en02",
+      "source": "en",
+      "target": "ru",
+      "text": "Although these sugars are not evidence of life, their detection, along with previous detections of amino acids, nucleobases, and carboxylic acids in Bennu samples, show building blocks of biological molecules were widespread throughout the solar system.",
+      "origin": "tests/fixtures/index-mtp-cases.json",
+      "kind": "excerpt",
+      "reference": "Хотя эти сахара не являются свидетельством жизни, их обнаружение, наряду с ранее обнаруженными в образцах Бенну аминокислотами, азотистыми основаниями и карбоновыми кислотами, показывает, что строительные блоки биологических молекул были широко распространены по всей Солнечной системе."
+    },
+    {
+      "id": "mtp-ru01",
+      "source": "ru",
+      "target": "en",
+      "text": "Работы проходили без остановки движения поездов. Для посадки и высадки пассажиров соорудили временную деревянную платформу.",
+      "origin": "tests/fixtures/index-mtp-cases.json",
+      "kind": "excerpt",
+      "reference": "The work was carried out without suspending train services. A temporary wooden platform was built for passengers to board and leave the trains."
+    },
+    {
+      "id": "mtp-ru02",
+      "source": "ru",
+      "target": "en",
+      "text": "Поездка на поезде от станции Кокошкино до Киевского вокзала занимает примерно 50 минут, тогда как на автомобиле — около 1,5 часа.",
+      "origin": "tests/fixtures/index-mtp-cases.json",
+      "kind": "excerpt",
+      "reference": "The train journey from Kokoshkino station to Kiyevsky railway terminal takes about 50 minutes, compared with around 1.5 hours by car."
+    },
+    {
+      "id": "mtp-synthetic_long_ru",
+      "source": "ru",
+      "target": "en",
+      "text": "Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. Это синтетический тестовый текст. В библиотеке двадцать книг. Десять книг лежат на столе, остальные стоят на полке. Сегодня библиотека открыта до вечера. ",
+      "origin": "tests/fixtures/index-mtp-cases.json",
+      "kind": "prior",
+      "reference": null
+    },
+    {
+      "id": "mtp-travel_ru",
+      "source": "ru",
+      "target": "en",
+      "text": "Это синтетический пример для проверки перевода. Можно ли открыть окно?",
+      "origin": "tests/fixtures/index-mtp-cases.json",
+      "kind": "prior",
+      "reference": null
+    },
+    {
+      "id": "technical-cooling",
+      "source": "ru",
+      "target": "en",
+      "text": "Испытание охлаждения\n\nНа испытательном стенде проверили замкнутый контур охлаждения лазерного станка. Насос подавал воду через фильтр и теплообменник, после чего она возвращалась в резервуар. При расходе 18 литров в минуту температура на выходе держалась на уровне 27 градусов. Это результат лабораторного испытания, а не обещание такой же температуры при любой нагрузке. Оператор записывал показания каждые пять минут и не менял настройки во время серии.\n\nПосле замены фильтра давление перед теплообменником снизилось, однако расход остался прежним. Инженер Анна предположила, что часть воды проходит через обходной клапан. Она попросила техника закрыть его только на время измерения. Техник выполнил просьбу, но затем вернул клапан в исходное положение: оставлять его закрытым при остановке насоса запрещено. Никаких признаков утечки в соединениях не обнаружили.",
+      "origin": "scripts/research/mac-context-terms/corpus.json (first three blocks)",
+      "kind": "technical"
+    },
+    {
+      "id": "technical-software",
+      "source": "ru",
+      "target": "en",
+      "text": "Обновление сервиса\n\nСервис принимает запросы на построение отчётов и помещает их в очередь. Короткие запросы обрабатываются сразу, а большие отчёты выполняются фоновым процессом. Кеш хранит готовый результат только десять минут. Если пользователь повторно отправляет тот же запрос в этот срок, сервер возвращает сохранённый ответ. Это не означает, что новый запрос исчезает: в журнале остаётся отдельная запись с указанием источника результата.\n\nПосле обновления обнаружили ошибку: отменённый запрос иногда оставался в очереди и запускался позже. Программист Олег сначала предложил очищать всю очередь при отмене, но коллега объяснила, что тогда будут потеряны чужие задания. Решили удалять только запись с совпадающим идентификатором. Отмена одного отчёта не должна менять состояние остальных отчётов и не должна очищать их кеш.",
+      "origin": "scripts/research/mac-context-terms/corpus.json (first three blocks)",
+      "kind": "technical"
+    },
+    {
+      "id": "technical-logistics",
+      "source": "ru",
+      "target": "en",
+      "text": "План доставки\n\nПоставщик подготовил три партии деталей для сборочного цеха. Первая партия состоит из 480 корпусов, вторая — из 960 крышек, а третья содержит запасные уплотнения. Наличие деталей на складе ещё не означает, что груз передан перевозчику. Отгрузку подтверждает подписанная накладная; автоматическое уведомление о создании заказа таким подтверждением не считается.\n\nДиспетчер сообщил, что машина прибудет во вторник между девятью и одиннадцатью часами. Однако кладовщик сможет принять груз только после десяти. Поэтому водитель должен сначала доставить крышки на соседний склад, а затем привезти корпуса в цех. Переставлять адреса в накладных не требуется: меняется порядок остановок, а не получатели. Если первая остановка затянется, водитель обязан позвонить диспетчеру.",
+      "origin": "scripts/research/mac-context-terms/corpus.json (first three blocks)",
+      "kind": "technical"
+    },
+    {
+      "id": "technical-standby",
+      "source": "ru",
+      "target": "en",
+      "text": "Резервирование сервера\n\nВ новой схеме резервирования второй сервер работает в режиме «горячего резерва». Он получает копии записей, но не отвечает на пользовательские запросы, пока основной сервер исправен. Термин «горячий резерв» не связан с температурой оборудования. Он означает, что резервный сервер готов быстро принять нагрузку без полной повторной загрузки данных.\n\nПри проверке основной сервер отключили от сети на 90 секунд. Резервный сервер начал отвечать через четыре секунды, а часть клиентов повторила запрос самостоятельно. Два одинаковых запроса не должны создавать две одинаковые покупки. Поэтому каждому заказу присваивается постоянный ключ, который сохраняется при повторной отправке. Ключ используется для распознавания заказа, а не для шифрования его содержимого.",
+      "origin": "scripts/research/mac-context-terms/corpus.json (first three blocks)",
+      "kind": "technical"
+    },
+    {
+      "id": "challenge-dates",
+      "source": "ru",
+      "target": "en",
+      "text": "Заявку подали 3 апреля 2026 года, а не 4 марта. Ответ обещали не позднее 15 мая. Встреча начнётся в половине девятого утра по Москве.",
+      "origin": "synthetic, frozen before outputs",
+      "kind": "challenge",
+      "essential_meaning": "April 3, not March 4; no later than May 15; 08:30 Moscow."
+    },
+    {
+      "id": "challenge-condition",
+      "source": "en",
+      "target": "ru",
+      "text": "Do not restart the pump unless both valves are open. If either valve remains closed, the test must be postponed; this does not mean the pump is defective.",
+      "origin": "synthetic, frozen before outputs",
+      "kind": "challenge",
+      "essential_meaning": "Restart only when both valves open; either closed postpones; not proof of defect."
+    },
+    {
+      "id": "challenge-numbers",
+      "source": "en",
+      "target": "ru",
+      "text": "Revenue fell by 12.5%, from $8 million to $7 million. The forecast was not a loss of $700,000 but a profit of $70,000.",
+      "origin": "synthetic, frozen before outputs",
+      "kind": "challenge",
+      "essential_meaning": "12.5 percent decline; 8 to 7 million; forecast profit 70000, not loss 700000."
+    },
+    {
+      "id": "challenge-roles",
+      "source": "ru",
+      "target": "en",
+      "text": "Анна передала Марии договор, но не подписала его. Мария попросила Анну проверить вторую страницу. Только после проверки директор разрешил отправить копию клиенту.",
+      "origin": "synthetic, frozen before outputs",
+      "kind": "challenge",
+      "essential_meaning": "Anna gives Maria contract and does not sign; Maria asks Anna; director authorizes after review."
+    }
+  ]
+}

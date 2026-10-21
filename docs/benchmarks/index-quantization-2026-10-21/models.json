@@ -1,0 +1,26 @@
+{
+  "repository": "https://huggingface.co/IndexTeam/Index-Translate-9B-GGUF",
+  "revision": "d01404384ba429b93f5f63d43573812d103b5bcd",
+  "models": [
+    {
+      "file": "Index-Translate-9B.IQ4_XS.gguf",
+      "bytes": 5357874624,
+      "sha256": "874e47a25f38c236be8ac5bec03aa9d47432a31036b60a00c8ca381750aaa619"
+    },
+    {
+      "file": "Index-Translate-9B.Q3_K_M.gguf",
+      "bytes": 4737609152,
+      "sha256": "7144b4aeb76febd2d6295bbade0f8fa5eb047bb20c11f94bc03ad5fa9a5071c0"
+    },
+    {
+      "file": "Index-Translate-9B.Q4_K_M.gguf",
+      "bytes": 5780090304,
+      "sha256": "9cc6758b0007f4cbf42ea3400768cbff91ae74ef8d640e467158348426d33713"
+    },
+    {
+      "file": "Index-Translate-9B.Q4_K_S.gguf",
+      "bytes": 5488553408,
+      "sha256": "c4c36b678087908e02f06202eb862d2bbf370252b8e255ed91e316e0f4cb5b0e"
+    }
+  ]
+}

@@ -2,6 +2,8 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+**Index quantization research (21 October, isolated Mac):** 30 frozen RU/EN cases, four official GGUF variants, 240 measured requests plus 30 baseline controls. Ordinary 29-case warm sums: Q4_K_M 72.56 s, IQ4_XS 73.25 s, Q4_K_S 69.71 s, Q3_K_M 87.49 s; final baseline drift +5.89% prevents a small speedup claim. Q4_K_S saves 292 MB with no new major semantic errors found in ordinary cases, but loses more repeated blocks in the separate stress case. IQ4_XS/Q3_K_M introduce a scientific-term error; IQ4_XS also corrects a baseline time error. No main-app/model change; Mac MLX/MTP2 and iPhone not measured. [Quality, memory, full outputs and limits](benchmarks/index-quantization-2026-10-21/README.md).
+
 **iOS 1.0.1 (58), 20 October:** the package with Whisper Q8, diagnostic audio import and updated recording defaults is verified and uploaded to Apple. Four release-note localizations were saved and reread exactly; manually revised keywords were preserved and synchronized to the documentation. Build 58 was processed, selected and submitted: **Waiting for Review**, confirmed at 23:23 Moscow time. Manual release remains selected. Sources, including completed Mac changes, were pushed to GitHub (`f24ddb0`). [Evidence](publication/ios-q8-store-2026-10-20.md).
 
 **iOS recording defaults:** Whisper date/time repair is enabled and automatic stop uses 3 seconds of silence when no saved preference exists. Explicit saved choices are preserved. macOS/Android defaults are unchanged.

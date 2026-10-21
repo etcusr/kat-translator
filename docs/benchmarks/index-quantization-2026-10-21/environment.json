@@ -1,0 +1,10 @@
+{
+  "cpu": "Apple M3 Pro",
+  "physical_memory_bytes": 19327352832,
+  "macos": "27.0.1",
+  "source_commit_before_research": "68811bfb5d501749c3c596847fca0e0a76bad913",
+  "backend": "llama.cpp / Metal via existing native TranslationRuntime, no MTP",
+  "main_mac_backend_not_measured": "MLX + MTP2",
+  "threads": 4,
+  "model_revision": "d01404384ba429b93f5f63d43573812d103b5bcd"
+}
