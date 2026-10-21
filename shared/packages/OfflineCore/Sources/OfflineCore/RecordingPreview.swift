@@ -57,7 +57,9 @@ public struct RecordingPreviewResult: Sendable {
     private var result = RecordingPreviewResult()
     private var pendingEnd: (end: Int, quiet: Bool)?
     private var previousTranscript = ""
-    private var previousSentenceEnds: [(sample: Int, tail: String)] = []
+    private var recognitionStart = 0
+    private var contextText = ""
+    private var usesTimestamps = false
     private var job: Task<Void, Never>?
     private var closed = false, cancelled = false, suspended = false
     public init(source: SpeechLanguage?, target: SpeechLanguage, snapshot: @escaping Snapshot,
@@ -82,41 +84,102 @@ public struct RecordingPreviewResult: Sendable {
     }
     public func cancel() { cancelled = true; closed = true; pendingEnd = nil; job?.cancel() }
     public func waitForIdle() async { await job?.value }
-    public func finish() async -> RecordingPreviewResult { closed = true; await job?.value; return result }
+    public func finish(end: Int? = nil, speechEnd: Int? = nil) async -> RecordingPreviewResult {
+        closed = true
+        await job?.value
+        // Complete only the still-unpublished tail with its retained audio context.
+        // This does not retranslate or replace already committed blocks.
+        if let end, usesTimestamps, !cancelled, !suspended,
+           (speechEnd ?? end) > result.committedSamples, end > result.committedSamples {
+            await process(end: end, quiet: true, final: true)
+        }
+        return result
+    }
     private func check() throws { try Task.checkCancellation(); if cancelled { throw CancellationError() } }
-    /// A brief VAD pause can occur inside a sentence. Commit only a timestamped prefix
-    /// that survived another recognition pass and has audio after its end.
-    private func completedPrefix(_ asr: ASRResult, sampleCount: Int, quiet: Bool) -> (text: String, samples: Int)? {
+    private func words(_ value: String) -> [(key: String, range: Range<String.Index>)] {
+        let regex = try! NSRegularExpression(pattern: "[\\p{L}\\p{M}\\p{N}]+")
+        return regex.matches(in: value, range: NSRange(value.startIndex..., in: value)).compactMap {
+            guard let range = Range($0.range, in: value) else { return nil }
+            return (String(value[range]).lowercased(), range)
+        }
+    }
+    private func key(_ value: String) -> [String] { words(value).map(\.key) }
+    private func complete(_ value: String) -> Bool {
+        let value = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !value.hasSuffix("..."), !value.hasSuffix("…") else { return false }
+        return value.last.map { ".!?。！？".contains($0) } ?? false
+    }
+    private func unpublished(_ text: String) -> String? {
+        guard !contextText.isEmpty else { return text.trimmingCharacters(in: .whitespacesAndNewlines) }
+        let context = key(contextText), tokens = words(text), current = tokens.map(\.key)
+        var offset = context.count
+        if !current.starts(with: context) {
+            // Align only ALREADY committed context. Require a stable three-word
+            // anchor and a unique low-edit-cost prefix; never fuzz-match new words.
+            guard context.count >= 5 else { return nil }
+            let limit = min(current.count, context.count + 5)
+            guard limit >= 3 else { return nil }
+            var costs = Array(0...limit)
+            for (i, word) in context.enumerated() {
+                var next = Array(repeating: 0, count: limit + 1); next[0] = i + 1
+                for j in 1...limit {
+                    next[j] = min(costs[j] + 1, next[j - 1] + 1, costs[j - 1] + (word == current[j - 1] ? 0 : 1))
+                }
+                costs = next
+            }
+            let lower = max(3, context.count - 5)
+            guard lower <= limit else { return nil }
+            let candidates = (lower...limit).filter {
+                Array(current.prefix($0).suffix(3)) == Array(context.suffix(3)) && costs[$0] <= max(1, context.count / 5)
+            }
+            guard let minimum = candidates.map({ costs[$0] }).min() else { return nil }
+            let best = candidates.filter { costs[$0] == minimum }
+            guard best.count == 1, let match = best.first else { return nil }
+            offset = match
+        }
+        guard tokens.count > offset else { return "" }
+        return String(text[tokens[offset].range.lowerBound...]).trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    private func completedPrefix(_ asr: ASRResult, sampleCount: Int, quiet: Bool, final: Bool) -> (full: String, text: String, samples: Int)? {
         let text = asr.text.trimmingCharacters(in: .whitespacesAndNewlines)
-        func complete(_ value: String) -> Bool { value.last.map { ".!?。！？".contains($0) } ?? false }
-        func key(_ value: String) -> String { value.lowercased().split(whereSeparator: \.isWhitespace).joined(separator: " ") }
-        // Backends without timestamps retain their silence-based path; an arbitrary
-        // polling deadline must never consume their whole unfinished audio window.
-        guard !asr.segments.isEmpty else { return quiet && complete(text) ? (text, sampleCount) : nil }
-        let segmentsText = asr.segments.map(\.text).joined()
-        guard key(segmentsText) == key(text) else { return nil }
+        guard !asr.segments.isEmpty else {
+            guard contextText.isEmpty, quiet && complete(text) else { return nil }
+            return (text, text, sampleCount)
+        }
+        usesTimestamps = true
+        guard key(asr.segments.map(\.text).joined()) == key(text) else { return nil }
         var prefix = "", previousEnd = 0
-        var selected: (text: String, samples: Int)?
-        var observed: [(sample: Int, tail: String)] = []
+        var selected: (full: String, text: String, samples: Int)?
         for segment in asr.segments {
             guard segment.endSample > previousEnd, segment.endSample <= sampleCount else { return nil }
-            previousEnd = segment.endSample
-            prefix += segment.text
+            previousEnd = segment.endSample; prefix += segment.text
             let candidate = prefix.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard complete(candidate) else { continue }
-            let tail = key(candidate).split(separator: " ").suffix(3).joined(separator: " ")
-            observed.append((segment.endSample, tail))
-            // Leading words and segment grouping can change with more context.
-            // Confirm the sentence ending, rather than requiring every earlier word
-            // to remain byte-identical. Timestamps stay relative to the same audio start.
-            let stableEnd = previousSentenceEnds.contains { abs($0.sample - segment.endSample) <= 3_200 && $0.tail == tail }
-            if quiet || (segment.endSample <= sampleCount - 16_000 &&
-                         (key(previousTranscript).hasPrefix(key(candidate)) || stableEnd)) {
-                selected = (candidate, segment.endSample)
+            guard recognitionStart + segment.endSample > result.committedSamples,
+                  complete(candidate), let fresh = unpublished(candidate), !fresh.isEmpty else { continue }
+            // LocalAgreement: every word of the prefix must agree across consecutive
+            // hypotheses. A pause or a matching last few words cannot override this.
+            if let previous = unpublished(previousTranscript), key(previous).starts(with: key(fresh)),
+               quiet || segment.endSample <= sampleCount - 16_000 {
+                selected = (candidate, fresh, segment.endSample)
             }
         }
-        previousSentenceEnds = Array((previousSentenceEnds + observed).suffix(64))
+        if final, let fresh = unpublished(text), !fresh.isEmpty {
+            return (text, fresh, sampleCount)
+        }
         return selected
+    }
+    private func trimContext(asr: ASRResult, selectedEnd: Int, full: String, offeredEnd: Int) {
+        contextText = full
+        guard offeredEnd - recognitionStart > 30 * 16_000 else { return }
+        // Trim at an older confirmed sentence, retaining at least the last one.
+        let candidates = asr.segments.filter { recognitionStart + $0.endSample < selectedEnd && complete($0.text) }
+        guard let cut = candidates.last else { return }
+        let removed = asr.segments.prefix { $0.endSample <= cut.endSample }.map(\.text).joined()
+        let tokens = words(full), count = key(removed).count
+        guard count < tokens.count else { return }
+        contextText = String(full[tokens[count].range.lowerBound...])
+        recognitionStart += cut.endSample
+        previousTranscript = ""
     }
     private func drain() async {
         defer { job = nil }
@@ -124,45 +187,58 @@ public struct RecordingPreviewResult: Sendable {
             let end = request.end
             pendingEnd = nil
             guard end > result.committedSamples else { continue }
-            let start = ProcessInfo.processInfo.systemUptime
-            defer { result.processingSeconds += ProcessInfo.processInfo.systemUptime - start }
-            do {
-                let audio = try await snapshot(result.committedSamples..<end)
-                try check()
-                trace("preview.asr.start.samples=\(audio.samples.count)")
-                let asr = try await recognize(audio, result.source ?? requestedSource)
-                try check(); result.asrSeconds += asr.processingSeconds
-                let transcript = asr.text.trimmingCharacters(in: .whitespacesAndNewlines)
-                let selected = completedPrefix(asr, sampleCount: end - result.committedSamples, quiet: request.quiet)
-                trace("preview.asr.end.segments=\(asr.segments.count).selected=\(selected?.samples ?? 0).quiet=\(request.quiet)")
-                previousTranscript = transcript
-                guard let selected else { continue }
-                let text = selected.text
-                let source = result.source ?? requestedSource ?? asr.language
-                let target = requestedTarget
-                trace("preview.mt.start")
-                let mt = source == target ? TranslationResult(text: text, firstTokenSeconds: nil, processingSeconds: 0, fragments: 0)
-                    : try await translate(text, source, target)
-                try check()
-                let translated = mt.text.trimmingCharacters(in: .whitespacesAndNewlines)
-                guard !translated.isEmpty else { throw PipelineError.inference }
-                result.source = source; result.target = target
-                result.sourceText = [result.sourceText, text].filter { !$0.isEmpty }.joined(separator: " ")
-                result.translatedText = [result.translatedText, translated].filter { !$0.isEmpty }.joined(separator: " ")
-                result.committedSamples += selected.samples; previousTranscript = ""; previousSentenceEnds.removeAll(); result.mtSeconds += mt.processingSeconds; result.blocks += 1
-                result.translations.append(RecordingPreviewBlock(source: text, translation: translated))
-                publish(result)
-                trace("preview.publish.blocks=\(result.blocks).samples=\(result.committedSamples)")
-                // Prefer already queued recognition over optional speculative speech.
-                if result.firstSpeech == nil, pendingEnd == nil, !suspended, let prepareSpeech {
-                    do {
-                        let prepared = try await prepareSpeech(result.translatedText, target)
-                        try check(); result.firstSpeech = prepared
-                    } catch is CancellationError { throw CancellationError() }
-                    catch { /* A TTS failure must not discard a valid translation. */ }
-                }
-            } catch is CancellationError { return }
-            catch { trace("preview.error"); result.fallbackReason = "preview-error"; suspended = true; pendingEnd = nil }
+            await process(end: end, quiet: request.quiet, final: false)
         }
+    }
+    private func process(end: Int, quiet: Bool, final: Bool) async {
+        let start = ProcessInfo.processInfo.systemUptime
+        defer { result.processingSeconds += ProcessInfo.processInfo.systemUptime - start }
+        do {
+            let audio = try await snapshot(recognitionStart..<end)
+            try check()
+            trace("preview.asr.start.samples=\(audio.samples.count)")
+            let asr = try await recognize(audio, result.source ?? requestedSource)
+            try check(); result.asrSeconds += asr.processingSeconds
+            let transcript = asr.text.trimmingCharacters(in: .whitespacesAndNewlines)
+            let selected = completedPrefix(asr, sampleCount: end - recognitionStart, quiet: quiet, final: final)
+            trace("preview.asr.end.segments=\(asr.segments.count).selected=\(selected?.samples ?? 0).quiet=\(quiet)")
+            previousTranscript = transcript
+            guard let selected else {
+                if final, !contextText.isEmpty, unpublished(transcript) == "" {
+                    // The context-aware final pass heard no new words. Do not
+                    // send the trailing VAD hangover to a second, contextless ASR.
+                    result.committedSamples = end
+                }
+                return
+            }
+            let text = selected.text
+            let source = result.source ?? requestedSource ?? asr.language
+            let target = requestedTarget
+            trace("preview.mt.start")
+            let mt = source == target ? TranslationResult(text: text, firstTokenSeconds: nil, processingSeconds: 0, fragments: 0)
+                : try await translate(text, source, target)
+            try check()
+            let translated = mt.text.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !translated.isEmpty else { throw PipelineError.inference }
+            result.source = source; result.target = target
+            result.sourceText = [result.sourceText, text].filter { !$0.isEmpty }.joined(separator: " ")
+            result.translatedText = [result.translatedText, translated].filter { !$0.isEmpty }.joined(separator: " ")
+            result.committedSamples = recognitionStart + selected.samples
+            if usesTimestamps { trimContext(asr: asr, selectedEnd: result.committedSamples, full: selected.full, offeredEnd: end) }
+            else { recognitionStart = result.committedSamples; previousTranscript = "" }
+            result.mtSeconds += mt.processingSeconds; result.blocks += 1
+            result.translations.append(RecordingPreviewBlock(source: text, translation: translated))
+            publish(result)
+            trace("preview.publish.blocks=\(result.blocks).samples=\(result.committedSamples)")
+            // Prefer already queued recognition over optional speculative speech.
+            if result.firstSpeech == nil, pendingEnd == nil, !suspended, let prepareSpeech {
+                do {
+                    let prepared = try await prepareSpeech(result.translatedText, target)
+                    try check(); result.firstSpeech = prepared
+                } catch is CancellationError { throw CancellationError() }
+                catch { /* A TTS failure must not discard a valid translation. */ }
+            }
+        } catch is CancellationError { return }
+        catch { trace("preview.error"); result.fallbackReason = "preview-error"; suspended = true; pendingEnd = nil }
     }
 }

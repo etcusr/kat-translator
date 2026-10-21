@@ -49,7 +49,8 @@ import OfflineCore
         let mt = packages.indexTranslation
         guard let mtURL = mt.installedURL, let asrURL = packages.primaryRecognition(for: recognitionPreference) else { throw PipelineError.modelLoad }
         let playback = RecordingProbePlayback()
-        let pipeline = ConversationPipeline(asr: RoutedASRBackend(), translator: LlamaTranslationBackend(), speech: SherpaSpeechBackend(), player: playback)
+        let recognition = RecordingQualityASR(enabled: quality)
+        let pipeline = ConversationPipeline(asr: recognition, translator: LlamaTranslationBackend(), speech: SherpaSpeechBackend(), player: playback)
         await pipeline.prepare(PipelineFiles(asr: asrURL, translation: mtURL, voices: packages.selectedVoiceDirectories,
             voiceModelIDs: packages.selectedVoiceModelIDs, translationModel: model, omnilingual: packages.omnilingualDirectory, ultra: packages.recognition.ultra,
             recognitionPreference: recognitionPreference), memorySaving: false, recognitionLanguage: hint)
@@ -120,6 +121,7 @@ import OfflineCore
                     "peakFootprint": monitor.peakFootprint, "peakResident": peakResident,
                     "availableAtEnd": monitor.availableToApp ?? 0, "minimumHeadroom": minimumHeadroom,
                     "captureWallSeconds": captureWallSeconds, "previews": observations,
+                    "recognitionPasses": await recognition.log.rows,
                     "playbackEvents": playback.events, "maximumPlaybackGapSeconds": playback.maximumGap,
                     "thermalAtEnd": AppModel.thermalState])
             }
@@ -132,6 +134,30 @@ import OfflineCore
         await pipeline.unload()
         report("complete")
     }
+}
+
+/// Private text evidence only in an explicitly requested fixture probe.
+private actor RecordingQualityLog {
+    var rows: [[String: Any]] = []
+    func append(_ result: ASRResult, samples: Int) {
+        guard rows.count < 200 else { return }
+        rows.append(["samples": samples, "seconds": result.processingSeconds, "text": result.text,
+                     "segments": result.segments.map { ["text": $0.text, "end": $0.endSample] as [String: Any] }])
+    }
+}
+private final class RecordingQualityASR: ASRBackend, @unchecked Sendable {
+    private let base = RoutedASRBackend()
+    private let enabled: Bool
+    let log = RecordingQualityLog()
+    init(enabled: Bool) { self.enabled = enabled }
+    func load(modelURL: URL) async throws { try await base.load(modelURL: modelURL) }
+    func transcribe(_ audio: CapturedAudio, language: SpeechLanguage?) async throws -> ASRResult {
+        let result = try await base.transcribe(audio, language: language)
+        if enabled { await log.append(result, samples: audio.samples.count) }
+        return result
+    }
+    func cancel() { base.cancel() }
+    func unload() async { await base.unload() }
 }
 
 /// Measures actual play() calls/completions, not acoustic output. Development probe only.

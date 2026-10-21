@@ -137,7 +137,7 @@ import XCTest
         XCTAssertEqual(result.committedSamples, 32_000)
         XCTAssertEqual(ranges, [0..<128_000, 0..<256_000])
     }
-    func testStableSentenceBoundarySurvivesRevisedLeadingWordsAndMergedSegments() async {
+    func testChangedWordsAreNotConfirmedByAnIdenticalSentenceEnding() async {
         var call = 0
         var texts: [String] = []
         let worker = RecordingPreviewCoordinator(source: .english, target: .russian,
@@ -156,8 +156,110 @@ import XCTest
             prepareSpeech: nil, publish: { _ in })
         for end in [128_000, 256_000, 384_000] { worker.offer(end: end, endsInSilence: false); await worker.waitForIdle() }
         let result = await worker.finish()
-        XCTAssertEqual(texts, ["We were in the garden."])
-        XCTAssertEqual(result.committedSamples, 65_280)
+        XCTAssertTrue(texts.isEmpty)
+        XCTAssertEqual(result.committedSamples, 0)
+    }
+    func testRetainsConfirmedAudioAsContextAndDoesNotDuplicateItsText() async {
+        var ranges: [Range<Int>] = []
+        var call = 0
+        var translated: [String] = []
+        let worker = RecordingPreviewCoordinator(source: .english, target: .russian,
+            snapshot: { range in ranges.append(range); return CapturedAudio(samples: Array(repeating: 0.1, count: range.count)) },
+            recognize: { _, _ in
+                call += 1
+                let first = ASRSegment(text: "Keep every word.", endSample: 32_000)
+                let next = ASRSegment(text: " Next sentence.", endSample: 96_000)
+                return ASRResult(text: call < 3 ? first.text : first.text + next.text, language: .english, processingSeconds: 0,
+                    segments: call < 3 ? [first] : [first, next])
+            }, translate: { text, _, _ in translated.append(text); return TranslationResult(text: text, firstTokenSeconds: nil, processingSeconds: 0, fragments: 1) },
+            prepareSpeech: nil, publish: { _ in })
+        for end in [64_000, 96_000, 128_000, 160_000] { worker.offer(end: end, endsInSilence: false); await worker.waitForIdle() }
+        let result = await worker.finish()
+        XCTAssertEqual(ranges.map(\.lowerBound), [0, 0, 0, 0])
+        XCTAssertEqual(translated, ["Keep every word.", "Next sentence."])
+        XCTAssertEqual(result.sourceText, "Keep every word. Next sentence.")
+    }
+    func testRevisionInsideCommittedContextDoesNotBlockStableNewWords() async {
+        var call = 0
+        var texts: [String] = []
+        let worker = RecordingPreviewCoordinator(source: .english, target: .russian,
+            snapshot: { r in CapturedAudio(samples: Array(repeating: 0.1, count: r.count)) },
+            recognize: { _, _ in
+                call += 1
+                let old = ASRSegment(text: call <= 2 ? "Their house is near the river." : "The house is near the river.", endSample: 32_000)
+                let next = ASRSegment(text: " Do not sell it.", endSample: 96_000)
+                return ASRResult(text: call <= 2 ? old.text : old.text + next.text, language: .english, processingSeconds: 0,
+                    segments: call <= 2 ? [old] : [old, next])
+            }, translate: { text, _, _ in texts.append(text); return TranslationResult(text: text, firstTokenSeconds: nil, processingSeconds: 0, fragments: 1) },
+            prepareSpeech: nil, publish: { _ in })
+        for end in [64_000, 96_000, 128_000, 160_000] { worker.offer(end: end, endsInSilence: false); await worker.waitForIdle() }
+        let result = await worker.finish()
+        XCTAssertEqual(texts, ["Their house is near the river.", "Do not sell it."])
+        XCTAssertEqual(result.committedSamples, 96_000)
+    }
+    func testLongBufferKeepsLastSentenceAfterTrimmingOlderContext() async {
+        var call = 0; var ranges: [Range<Int>] = []
+        let worker = RecordingPreviewCoordinator(source: .english, target: .russian,
+            snapshot: { r in ranges.append(r); return CapturedAudio(samples: Array(repeating: 0.1, count: r.count)) },
+            recognize: { _, _ in
+                call += 1
+                let spans: [ASRSegment] = call <= 2
+                    ? [.init(text: "First sentence ends here.", endSample: 160_000),
+                       .init(text: " Second sentence ends here.", endSample: 320_000),
+                       .init(text: " Third sentence has five different words.", endSample: 480_000)]
+                    : [.init(text: "Third sentence has five different words.", endSample: 160_000),
+                       .init(text: " Fourth sentence.", endSample: 250_000)]
+                return ASRResult(text: spans.map(\.text).joined(), language: .english, processingSeconds: 0, segments: spans)
+            }, translate: { text, _, _ in TranslationResult(text: text, firstTokenSeconds: nil, processingSeconds: 0, fragments: 1) },
+            prepareSpeech: nil, publish: { _ in })
+        for end in [600_000, 640_000, 700_000, 750_000] { worker.offer(end: end, endsInSilence: false); await worker.waitForIdle() }
+        let result = await worker.finish()
+        XCTAssertEqual(ranges.map(\.lowerBound), [0, 0, 320_000, 320_000])
+        XCTAssertEqual(result.sourceText, "First sentence ends here. Second sentence ends here. Third sentence has five different words. Fourth sentence.")
+    }
+    func testFinalTailUsesRetainedContextWithoutRetranslatingConfirmedWords() async {
+        var calls = 0
+        var ranges: [Range<Int>] = []
+        var translations: [String] = []
+        let worker = RecordingPreviewCoordinator(source: .english, target: .russian,
+            snapshot: { r in ranges.append(r); return CapturedAudio(samples: Array(repeating: 0.1, count: r.count)) },
+            recognize: { _, _ in
+                calls += 1
+                let first = ASRSegment(text: "Do not cancel.", endSample: 32_000)
+                let tail = ASRSegment(text: " Thank you", endSample: 112_000)
+                return ASRResult(text: calls < 3 ? first.text : first.text + tail.text, language: .english, processingSeconds: 0,
+                    segments: calls < 3 ? [first] : [first, tail])
+            }, translate: { text, _, _ in translations.append(text); return TranslationResult(text: text, firstTokenSeconds: nil, processingSeconds: 0, fragments: 1) },
+            prepareSpeech: nil, publish: { _ in })
+        for end in [64_000, 96_000] { worker.offer(end: end, endsInSilence: false); await worker.waitForIdle() }
+        let result = await worker.finish(end: 128_000, speechEnd: 120_000)
+        XCTAssertEqual(translations, ["Do not cancel.", "Thank you"])
+        XCTAssertEqual(ranges.last, 0..<128_000)
+        XCTAssertEqual(result.committedSamples, 128_000)
+    }
+    func testFinalContextOnlyDoesNotSendTinySilenceToAnotherRecognizer() async {
+        let worker = RecordingPreviewCoordinator(source: .english, target: .russian,
+            snapshot: { r in CapturedAudio(samples: Array(repeating: 0.1, count: r.count)) },
+            recognize: { _, _ in ASRResult(text: "Finished.", language: .english, processingSeconds: 0,
+                segments: [.init(text: "Finished.", endSample: 32_000)]) },
+            translate: { text, _, _ in TranslationResult(text: text, firstTokenSeconds: nil, processingSeconds: 0, fragments: 1) },
+            prepareSpeech: nil, publish: { _ in })
+        for end in [64_000, 96_000] { worker.offer(end: end, endsInSilence: false); await worker.waitForIdle() }
+        let result = await worker.finish(end: 128_000, speechEnd: 33_000)
+        XCTAssertEqual(result.committedSamples, 128_000)
+        XCTAssertEqual(result.sourceText, "Finished.")
+        XCTAssertEqual(result.blocks, 1)
+    }
+    func testEllipsisCannotConfirmAnUnfinishedSentence() async {
+        let worker = RecordingPreviewCoordinator(source: .english, target: .russian,
+            snapshot: { _ in CapturedAudio(samples: [0.1]) },
+            recognize: { _, _ in ASRResult(text: "Do not...", language: .english, processingSeconds: 0,
+                segments: [.init(text: "Do not...", endSample: 32_000)]) },
+            translate: { _, _, _ in XCTFail("An ellipsis is not a completed sentence"); throw PipelineError.inference },
+            prepareSpeech: nil, publish: { _ in })
+        for end in [64_000, 96_000] { worker.offer(end: end); await worker.waitForIdle() }
+        let result = await worker.finish()
+        XCTAssertEqual(result.committedSamples, 0)
     }
     func testLongInitialSilenceDoesNotTriggerAnImmediateRecognitionWindow() {
         var policy = RecordingPreviewBoundary()

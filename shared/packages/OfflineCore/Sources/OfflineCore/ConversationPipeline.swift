@@ -855,7 +855,7 @@ public extension ConversationPipeline {
                       requestedPreview: Bool, fallbackReason: String?, verifyPreview: Bool = false) async {
         let id = generation
         let preview = recordingPreview
-        let prepared = await preview?.finish()
+        let prepared = await preview?.finish(end: verifyPreview ? nil : audio.samples.count, speechEnd: speechEnd)
         guard id == generation else { return }
         if preview != nil { recordingPreview = nil; isRecordingPreview = false; isBusy = false }
         let committed = min(audio.samples.count, prepared?.committedSamples ?? 0)
