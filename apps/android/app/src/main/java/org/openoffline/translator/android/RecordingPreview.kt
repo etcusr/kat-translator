@@ -4,8 +4,9 @@ package org.openoffline.translator.android
  * Like iOS, boundaries need one second of silence and at least two seconds of audio.
  * A snapshot is capped at 30 seconds; a longer unfinished phrase falls back to final ASR.
  * Recognizers without punctuation (GigaAM) rely on the silence boundary alone: [punctuated] is false.
+ * [recognizer] forces the live package for phrases and the unverified tail; verification keeps the user's choice.
  */
-class RecordingPreview(val source:String,val target:String,val verify:Boolean,val speak:Boolean,val punctuated:Boolean=true) {
+class RecordingPreview(val source:String,val target:String,val verify:Boolean,val speak:Boolean,val punctuated:Boolean=true,val recognizer:String?=null) {
     data class Block(val source:String,val translation:String)
     data class Prepared(val end:Int,val language:String?,val blocks:List<Block>) {
         val sourceText get()=blocks.joinToString(" ") { it.source }

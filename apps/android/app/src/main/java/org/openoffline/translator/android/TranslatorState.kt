@@ -810,10 +810,13 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             recorder.start();recording=true;recordingPaused=false;recordingMillis=0
             if(recordingPreprocessing) {
                 val thermal=getApplication<Application>().getSystemService(android.os.PowerManager::class.java).currentThermalStatus
-                val backend=if(useSystemRecognition())null else runCatching { installedPackage(PackageCategory.RECOGNITION,currentSource,selectedRecognition()).first.backend }.getOrNull()
+                // Russian phrases are recognized live by GigaAM when installed (owner's decision 21.10); Whisper is
+                // too slow on the Pixel to follow speech. Other languages keep the selected recognizer.
+                val live=liveRecognition(currentSource)
+                val backend=if(live!=null)"gigaam" else if(useSystemRecognition())null else runCatching { installedPackage(PackageCategory.RECOGNITION,currentSource,selectedRecognition()).first.backend }.getOrNull()
                 val compatible=backend in setOf("whisper","gigaam")
                 if(indexModel && installed && !memorySaving && compatible && thermal<android.os.PowerManager.THERMAL_STATUS_SEVERE) {
-                    recordingPreview=RecordingPreview(currentSource,target,recordingVerification,automaticSpeech,punctuated=backend!="gigaam")
+                    recordingPreview=RecordingPreview(currentSource,target,recordingVerification,automaticSpeech,punctuated=backend!="gigaam",recognizer=live)
                     previewMessage=text("Законченные фразы обрабатываются заранее. Озвучка — после остановки.","Completed phrases are processed now. Speech starts after recording stops.")
                 } else previewMessage=text("Предварительная обработка недоступна для текущих моделей, настроек памяти или температуры. Перевод начнётся после остановки.","Preview is unavailable with these models, memory settings or temperature. Translation starts after recording stops.")
             }
@@ -838,7 +841,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             try {
                 checkCancelled();if(session.cancelled || session.suspended)return@execute
                 if(memorySaving)releaseTranslation()
-                val recognized=transcribe(samples,session.prepared().language ?: session.source)
+                val recognized=transcribe(samples,session.prepared().language ?: session.source,session.recognizer)
                 checkCancelled();if(session.cancelled || session.suspended || !session.accepts(recognized.text))return@execute
                 val phrase=if(session.punctuated)recognized.text else RecordingPreview.sentence(recognized.text)
                 val earlier=session.prepared()
@@ -879,7 +882,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
                 val prepared=session?.prepared()
                 if(session!=null && !session.verify && prepared!=null && prepared.end>0) {
                     val tail=if(speechEnd<=prepared.end)FloatArray(0) else samples.copyOfRange(prepared.end.coerceAtMost(samples.size),samples.size)
-                    val recognized=(if(tail.size>=4000)transcribe(tail,prepared.language ?: from) else null)
+                    val recognized=(if(tail.size>=4000)transcribe(tail,prepared.language ?: from,session.recognizer) else null)
                         ?.let { if(session.punctuated || it.text.isBlank()) it else it.copy(text=RecordingPreview.sentence(it.text)) }
                     checkCancelled()
                     val original=listOf(prepared.sourceText,recognized?.text.orEmpty()).filter { it.isNotBlank() }.joinToString(" ")
@@ -920,6 +923,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             }
         }
     }
+    private fun liveRecognition(from:String):String?=if(from=="ru" && recognitionPreference=="automatic")packages.catalog.firstOrNull { it.category==PackageCategory.RECOGNITION && it.backend=="gigaam" && it.unavailableReason==null && packages.installedPath(it.id)!=null }?.id else null
     private fun automaticRecognition(from:String)=if(recognitionPreference=="automatic" && selectedRecognition()==null)
         RecognitionRouting.recommended(packages.catalog,from)?.id else null
     val automaticRecognitionPackage get()=automaticRecognition(currentSource)?.let { id -> packages.catalog.first { it.id==id } }
@@ -944,13 +948,14 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             }
         }
     }
-    private fun transcribe(samples:FloatArray,from:String):Transcript = measure(ProcessingStage.RECOGNITION) {
-        try { transcribeImpl(samples,from) } finally { if(!retainMediaModels() || (automaticRecognition(from)==null && useSystemRecognition()))releaseRecognition() }
+    /** [packageId] forces one installed recognizer (Russian live phrases use GigaAM); otherwise the user's choice applies. */
+    private fun transcribe(samples:FloatArray,from:String,packageId:String?=null):Transcript = measure(ProcessingStage.RECOGNITION) {
+        try { transcribeImpl(samples,from,packageId) } finally { if(!retainMediaModels() || (automaticRecognition(from)==null && useSystemRecognition()))releaseRecognition() }
     }
-    private fun transcribeImpl(samples:FloatArray,from:String):Transcript {
+    private fun transcribeImpl(samples:FloatArray,from:String,packageId:String?=null):Transcript {
         checkCancelled();ui { status=text("Распознаю речь…","Recognizing speech…") }
         val automatic=automaticRecognition(from)
-        if(automatic==null && useSystemRecognition()) {
+        if(packageId==null && automatic==null && useSystemRecognition()) {
             ui { recognitionBackend="android";status=text("Распознаю речь на устройстве…","Recognizing speech on device…") }
             try { return systemSpeech.transcribe(samples,from) { cancelled.get() || closed.get() } }
             catch(e:java.util.concurrent.CancellationException) { throw e }
@@ -964,7 +969,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             val title=packages.catalog.first { it.id==automatic }.title
             error(text("Модель распознавания %@ не скачана. Нажмите «Скачать распознавание».", "The %@ recognition model is not downloaded. Tap Download recognition.", (title)))
         }
-        val (pack,path)=installedPackage(PackageCategory.RECOGNITION,from,selectedRecognition() ?: automatic)
+        val (pack,path)=installedPackage(PackageCategory.RECOGNITION,from,packageId ?: selectedRecognition() ?: automatic)
         ui { recognitionBackend=pack.backend }
         return packages.acquire(pack.id).use {
             checkCancelled()
