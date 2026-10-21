@@ -56,6 +56,21 @@ time spent waiting for sentences.
 The first words were lost and several game terms and numbers were wrong where GigaAM was close to Whisper. Usable only
 as a live streaming source, not as a quality improvement for Russian on this sample; other languages not measured.
 
+## Russian live default, dates and times, English Parakeet v2
+
+- `f7f0aba`: Russian live phrases use GigaAM when installed (owner's decision), whatever recognizer is selected,
+  unless the preference forces Whisper or system recognition; verification still uses the selected recognizer.
+- Eight synthetic Russian date/time phrases (macOS Milena, 16 kHz): GigaAM and Whisper Q8 recognized all words.
+  Index 2B on GigaAM's spelled-out text broke two that Whisper's digits translated correctly («до двадцати одного часа» →
+  10:01 PM, «восемнадцатого декабря» → "eighteenth day of the month"). Both inputs failed «в половине восьмого» (8:30)
+  and «без четверти девять» (9:45 / 9:15). Index 9B translated all 16 inputs correctly but took 10–14 s per phrase vs 3–6 s.
+- `RussianSpokenNumbers` (applied to every GigaAM transcript) writes dates, years, clock times and hour counts as
+  digits («23 марта», «2027 года», «7:45», «до 21 часа», «21-го» without a month). With it Index 2B translated the
+  previously broken phrases correctly; the two clock idioms remain 2B errors, as with Whisper.
+- English: 60 LibriSpeech test-clean utterances (first part of the archive, 2 per chapter), Pixel CPU 4 threads.
+  Parakeet TDT 0.6B v2 int8 and Whisper large-v3-turbo Q8 both 1.42% WER (19 errors / 1335 words; 5 better each);
+  compute 64.7 s vs 1429.8 s. Read audiobook speech only; not integrated.
+
 ## Limits
 
 - GigaAM loses question intonation: «У вас есть номер с видом на море?» became a statement. Speaker-to-mic test
