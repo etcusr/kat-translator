@@ -923,6 +923,8 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             }
         }
     }
+    /** GigaAM spells numbers out; dates and clock times become digits, as Whisper writes them, before translation. */
+    private fun spokenNumbers(text:String,language:String)=if(language=="ru")RussianSpokenNumbers.normalize(text) else text
     private fun liveRecognition(from:String):String?=if(from=="ru" && recognitionPreference=="automatic")packages.catalog.firstOrNull { it.category==PackageCategory.RECOGNITION && it.backend=="gigaam" && it.unavailableReason==null && packages.installedPath(it.id)!=null }?.id else null
     private fun automaticRecognition(from:String)=if(recognitionPreference=="automatic" && selectedRecognition()==null)
         RecognitionRouting.recommended(packages.catalog,from)?.id else null
@@ -978,7 +980,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
                 if(!vad.isFile)getApplication<Application>().assets.open("silero_vad.onnx").use { input -> vad.outputStream().use { input.copyTo(it) } }
                 try {
                     if(pack.backend=="parakeet")media.transcribeParakeet(path.path,samples,vad.path,from) { cancelled.get() || closed.get() }
-                    else media.transcribeGigaAM(path.path,samples,vad.path) { cancelled.get() || closed.get() }
+                    else media.transcribeGigaAM(path.path,samples,vad.path) { cancelled.get() || closed.get() }.let { it.copy(text=spokenNumbers(it.text,it.language)) }
                 }
                 finally { if(!retainMediaModels())releaseRecognition() }
             } else if(pack.backend=="omnilingual") {
