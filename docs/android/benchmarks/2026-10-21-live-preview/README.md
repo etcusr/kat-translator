@@ -38,6 +38,17 @@ recording plus about 15 s for Index 2B (Vulkan) translation, all after the recor
   A single-phrase run without preview took 0.25 s recognition + 2.82 s translation.
 - The owner's settings (Whisper Q8, verification default, silence 4 s) were restored after the test.
 
+## Speech from the first finished sentence (`622a519`)
+
+`SentenceFeed` hands finished sentences of the growing Index output to the voice thread, which synthesizes and plays
+them while translation continues (Piper family and Supertonic; OmniVoice/Wayu keep the old path; not in memory-saving
+mode). Pieces concatenate to the final translation; cancellation or failure stops playback. Streamed speech starts
+after 2 s of audio instead of 4 s. Pixel, Text EN→RU, 198 characters, Index 2B Vulkan, Supertonic voice: first audio
+about **5.4 s** after tapping Translate, while translation took 8.1 s; previously speech began only after the whole
+translation and then the whole-text synthesis. Supertonic reloads its model for every sentence (about 0.7 s each)
+and generates more slowly beside Index; pauses between sentences are possible. The «Озвучка» timing now includes
+time spent waiting for sentences.
+
 ## Google on-device recognizer
 
 `PlatformSpeechFileProbe` (opt-in androidTest) on the 35.7 s private recording, Russian, FILE input: 36.1 s, i.e. real time.
@@ -50,5 +61,5 @@ as a live streaming source, not as a quality improvement for Russian on this sam
   audio also produced one recognition error at the end («у реки» → «юрикей»). Not a quality evaluation.
 - With Whisper selected, preview still costs at least about 10 s per phrase and lags behind speech; with
   verification on, the full recording is recognized again after stop.
-- Automatic speech still starts after recording stops. Timing rows show only the post-stop work.
+- Speech starts after recording stops (from the first translated sentence of the remaining work). Timing rows show only the post-stop work.
 - No real microphone session by the owner yet; two synthetic test entries were added to the Pixel history.
