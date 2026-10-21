@@ -79,7 +79,10 @@ as a live streaming source, not as a quality improvement for Russian on this sam
   was translated during recording; **1.24 s** of work remained after stop. Russian dates/times (Milena, three
   sentences): GigaAM + digits, all three translated during recording («March 23rd at 7:45», «December 18th…
   the 21st», «November 1st to November 10th»); **0.11 s** after stop. The first phrase appeared about 5 s after it
-  ended (first Index request).
+  ended: the live recognizer loaded on the first phrase and the first Index prefill took 1.25 s instead of 0.42 s.
+- Recording start now loads the live recognizer and sends one tiny Index request on the worker. First translated
+  text: English 10.7 → **7.4 s**, Russian 9.7 → **7.7 s** after playback start (about 1 s after the pause is detected);
+  after stop 0.31 s / 0.27 s.
   Without verification a recording with no finished phrase now also uses the live recognizer.
 
 ## Limits
