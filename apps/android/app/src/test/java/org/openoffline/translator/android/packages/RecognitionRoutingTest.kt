@@ -23,15 +23,21 @@ class RecognitionRoutingTest {
     }
     @Test fun russianHasPriorityEvenWhenParakeetAlsoSupportsIt() {
         val all=catalog()
-        assertTrue(all.single { it.backend=="parakeet" }.supports("ru"))
+        assertTrue(all.single { it.id=="parakeet-v3-int8" }.supports("ru"))
         assertEquals("gigaam-v3-int8",RecognitionRouting.recommended(all.reversed(),"ru")!!.id)
     }
     @Test fun everyOtherPublishedLanguageChoosesTheSameSharedParakeetPackage() {
         val all=catalog()
         val languages="bg hr cs da nl en et fi fr de el hu it lv lt mt pl pt ro sk sl es sv uk".split(" ")
-        assertEquals(languages.toSet()+"ru",all.single { it.backend=="parakeet" }.languages)
+        assertEquals(languages.toSet()+"ru",all.single { it.id=="parakeet-v3-int8" }.languages)
         for(language in languages)assertEquals(language,"parakeet-v3-int8",RecognitionRouting.recommended(all,language)!!.id)
         assertEquals(24,languages.size)
+    }
+    @Test fun englishParakeetV2IsOptionalAndNotTheAutomaticRecommendation() {
+        val all=catalog()
+        val v2=all.single { it.id=="parakeet-v2-en-int8" }
+        assertEquals("parakeet",v2.backend);assertEquals(setOf("en"),v2.languages)
+        assertEquals("parakeet-v3-int8",RecognitionRouting.recommended(all,"en")!!.id)
     }
     @Test fun unsupportedAndAutomaticLanguageAreNotFalselyAssigned() {
         val all=catalog()
