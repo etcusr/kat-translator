@@ -72,7 +72,14 @@ as a live streaming source, not as a quality improvement for Russian on this sam
   compute 64.7 s vs 1429.8 s. Read audiobook speech only. Added as optional package `parakeet-v2-en-int8`
   (sherpa-onnx int8, pinned HF revision, hashes checked against the measured files); when installed it is the live
   recognizer for English. Automatic recommendation and first-run setup still choose Parakeet v3. Installed in the
-  app on the Pixel; a speaker-to-microphone English test failed to deliver audible speech, so no live English result.
+  app on the Pixel.
+- `LiveSpeakerProbe` (opt-in androidTest) plays a WAV through the phone's own speaker into the real
+  `VOICE_RECOGNITION` microphone recording with preview on and verification off (owner's preferences restored).
+  English (macOS Samantha, three sentences, 2 s pauses): Parakeet v2 recognized all words exactly; the first sentence
+  was translated during recording; **1.24 s** of work remained after stop. Russian dates/times (Milena, three
+  sentences): GigaAM + digits, all three translated during recording («March 23rd at 7:45», «December 18th…
+  the 21st», «November 1st to November 10th»); **0.11 s** after stop. The first phrase appeared about 5 s after it
+  ended (first Index request).
   Without verification a recording with no finished phrase now also uses the live recognizer.
 
 ## Limits
