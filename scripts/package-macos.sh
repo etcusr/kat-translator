@@ -18,22 +18,7 @@ STAGE="$ROOT/.build/macos/dmg-stage${SUFFIX}"
 # Ad-hoc signatures instead bind privacy grants to one executable's cdhash.
 # Keep explicit overrides (including '-' for disposable ad-hoc builds), but do
 # not silently fall back to ad-hoc when the signing key is inaccessible.
-SIGNING_IDENTITY="${KAT_MAC_SIGNING_IDENTITY:-}"
-if [ -z "$SIGNING_IDENTITY" ]; then
-  SIGNING_IDENTITY=$(security find-identity -v -p codesigning | python3 -c '
-import re, sys
-rows = re.findall(r"\) ([0-9A-F]{40}) \"(.*?)\"", sys.stdin.read())
-for prefix in ("Developer ID Application:", "Apple Development:"):
-    matches = [identity for identity, name in rows if name.startswith(prefix)]
-    if matches:
-        if len(matches) != 1:
-            sys.exit("Set KAT_MAC_SIGNING_IDENTITY: multiple suitable certificates found")
-        print(matches[0])
-        break
-else:
-    sys.exit("No signing certificate available. Set KAT_MAC_SIGNING_IDENTITY explicitly; use - only for disposable ad-hoc builds.")
-')
-fi
+SIGNING_IDENTITY=$(python3 "$ROOT/scripts/mac-signing.py")
 mkdir -p "$OUT" "$STAGE"
 # Replace only the previously staged build, never models or source files.
 rsync -a --delete "$APP/" "$STAGE/Kat translator.app/"

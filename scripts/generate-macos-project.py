@@ -3,6 +3,12 @@
 from pathlib import Path
 import plistlib, shutil, sys, subprocess, os, runpy
 root=Path(__file__).resolve().parent.parent
+store_project=os.environ.get('KAT_MAC_STORE_PROJECT')
+if not store_project:
+    signing_identity=runpy.run_path(str(root/'scripts/mac-signing.py'))['resolve_identity']()
+    signing_config=root/'.build/macos-signing.xcconfig'
+    signing_config.parent.mkdir(parents=True,exist_ok=True)
+    signing_config.write_text('// Local signing identity; regenerate with generate-macos-project.py.\nKAT_MAC_SIGNING_IDENTITY = '+signing_identity+'\n')
 profile_name=os.environ.get('KAT_MAC_PROFILE','modern')
 mac_profile=runpy.run_path(str(root/'scripts/mac-build-profile.py'))['profile'](profile_name)
 mac_info='$(KAT_REPO_ROOT)/apps/macos/Info.plist'
@@ -44,11 +50,15 @@ objects[ns['project']]['targets']=[ns['target']]
 objects[ns['products']]['children']=[ns['product']]
 python_include=subprocess.check_output(['/opt/homebrew/opt/python@3.11/bin/python3.11','-c','import sysconfig; print(sysconfig.get_path("include"))'],text=True).strip()
 if profile_name=='macos15':python_include='$(KAT_REPO_ROOT)/Dependencies/build/macos15/StandalonePython/python/include/python3.11'
+if not store_project:
+ signing_ref=obj('mac-signing-config',isa='PBXFileReference',lastKnownFileType='text.xcconfig',path='.build/macos-signing.xcconfig',sourceTree='<group>')
+ objects[ns['main']]['children'].append(signing_ref)
 for name in ['Debug','Release']:
  settings=objects[uid('project'+name)]['buildSettings'];settings.pop('IPHONEOS_DEPLOYMENT_TARGET',None);settings.update(SDKROOT='macosx',MACOSX_DEPLOYMENT_TARGET=mac_profile['deployment'],ARCHS='arm64')
  objects[uid('target'+name)].pop('baseConfigurationReference',None)
+ if not store_project:objects[uid('target'+name)]['baseConfigurationReference']=signing_ref
  objects[uid('target'+name)]['buildSettings']={
- 'PRODUCT_NAME':'Kat translator','PRODUCT_BUNDLE_IDENTIFIER':'org.openoffline.translator.mac','INFOPLIST_FILE':mac_info,'KAT_MAC_PROFILE':profile_name,'GENERATE_INFOPLIST_FILE':'NO','CODE_SIGN_IDENTITY':'-','CODE_SIGN_STYLE':'Manual','ENABLE_HARDENED_RUNTIME':'NO','CODE_SIGN_ENTITLEMENTS':'$(KAT_REPO_ROOT)/apps/macos/KatMac.entitlements','SUPPORTED_PLATFORMS':'macosx','ENABLE_APP_SANDBOX':'NO','SWIFT_OBJC_BRIDGING_HEADER':'$(KAT_REPO_ROOT)/shared/apple/ASR/BridgingHeader.h','ENABLE_USER_SCRIPT_SANDBOXING':'NO',
+ 'PRODUCT_NAME':'Kat translator','PRODUCT_BUNDLE_IDENTIFIER':'org.openoffline.translator.mac','INFOPLIST_FILE':mac_info,'KAT_MAC_PROFILE':profile_name,'GENERATE_INFOPLIST_FILE':'NO','CODE_SIGN_IDENTITY':'$(KAT_MAC_SIGNING_IDENTITY)','CODE_SIGN_STYLE':'Manual','ENABLE_HARDENED_RUNTIME':'NO','CODE_SIGN_ENTITLEMENTS':'$(KAT_REPO_ROOT)/apps/macos/KatMac.entitlements','SUPPORTED_PLATFORMS':'macosx','ENABLE_APP_SANDBOX':'NO','SWIFT_OBJC_BRIDGING_HEADER':'$(KAT_REPO_ROOT)/shared/apple/ASR/BridgingHeader.h','ENABLE_USER_SCRIPT_SANDBOXING':'NO',
  'HEADER_SEARCH_PATHS':['$(inherited)','$(KAT_REPO_ROOT)/Dependencies/build/headers','$(KAT_REPO_ROOT)/shared/native/TranslationRuntime','$(KAT_REPO_ROOT)/Dependencies/build/macos/headers','$(KAT_REPO_ROOT)/Dependencies/build/macos/headers',python_include],
  'LIBRARY_SEARCH_PATHS':['$(inherited)','$(KAT_REPO_ROOT)/Dependencies/build/macos'],
  'GCC_PREPROCESSOR_DEFINITIONS':['$(inherited)','OT_MACOS=1'],
@@ -59,7 +69,6 @@ for name in ['Debug','Release']:
  objects[uid('target'+name)]['buildSettings']['ENABLE_TESTABILITY']='YES'
 # Mac App Store variant: identity, sandbox and Info.plist apply to the app target only.
 # Command-line overrides would also reach SwiftPM resource bundles (duplicate bundle IDs).
-store_project=os.environ.get('KAT_MAC_STORE_PROJECT')
 if store_project:
  for name in ['Debug','Release']:
   objects[uid('target'+name)]['buildSettings'].update({

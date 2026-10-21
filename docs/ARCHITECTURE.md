@@ -2,6 +2,8 @@
 
 **English** | [Русский](ARCHITECTURE.ru.md)
 
+**Mac signing (21 October):** direct Xcode builds and DMG/ZIP packaging now share certificate selection. They reuse the installed app’s certificate when its key is available and fail on a missing key or ambiguous selection; ad-hoc signing requires an explicit disposable-build override. The machine-specific identity lives in ignored `.build/macos-signing.xcconfig`, outside Git. Store signing is unchanged. [Repair and validation](macos/signing-repair-2026-10-21.md).
+
 **Android recognition routing (21 October):** Auto uses GigaAM v3 for Russian, Parakeet v2 for English and Whisper large-v3-turbo Q8 for other supported languages. Preparation, live phrases, file import and full-record verification share this selection; missing weights require a download rather than switching to Parakeet v3 or Android system ASR. Explicit manual selections remain consistent across these paths. The Pixel uses Auto recognition and the existing Index 2B translation selection. [Validation](android/asr-routing-2026-10-21.md).
 
 **iOS recording defaults:** Whisper date/time repair is enabled and automatic stop uses 3 seconds of silence when no saved preference exists. Explicit saved choices are preserved. macOS/Android defaults are unchanged.
