@@ -45,8 +45,9 @@ them while translation continues (Piper family and Supertonic; OmniVoice/Wayu ke
 mode). Pieces concatenate to the final translation; cancellation or failure stops playback. Streamed speech starts
 after 2 s of audio instead of 4 s. Pixel, Text EN→RU, 198 characters, Index 2B Vulkan, Supertonic voice: first audio
 about **5.4 s** after tapping Translate, while translation took 8.1 s; previously speech began only after the whole
-translation and then the whole-text synthesis. Supertonic reloads its model for every sentence (about 0.7 s each)
-and generates more slowly beside Index; pauses between sentences are possible. The «Озвучка» timing now includes
+translation and then the whole-text synthesis. Supertonic first reloaded its model for every sentence (about 0.7 s each); `02f43cf` keeps it in the shared speech
+cache (`supertonicCreate`/`supertonicRun`), and synthesis of the same text finished at 13.1 s instead of 15.5 s.
+It generates more slowly beside Index; pauses between sentences are possible. The «Озвучка» timing now includes
 time spent waiting for sentences.
 
 ## Google on-device recognizer
