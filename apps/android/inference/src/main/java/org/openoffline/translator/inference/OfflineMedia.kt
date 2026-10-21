@@ -37,6 +37,8 @@ internal object MediaNative {
     external fun piperCreate(model:ByteArray,tokens:ByteArray,data:ByteArray):Long
     external fun piperFree(handle:Long)
     external fun piperRun(handle:Long,text:ByteArray,flag:Long,rate:IntArray,timing:DoubleArray,callback:SpeechChunkCallback?):FloatArray?
+    external fun supertonicCreate(model:ByteArray):Long
+    external fun supertonicRun(handle:Long,text:ByteArray,language:ByteArray,flag:Long,rate:IntArray,timing:DoubleArray):FloatArray?
     external fun vadCreate(path: ByteArray): Long
     external fun vadAccept(handle: Long, samples: FloatArray): Boolean
     external fun vadFree(handle: Long)
@@ -243,7 +245,13 @@ class OfflineMedia : AutoCloseable {
         require(text.isNotBlank() && text.length <= 20000)
         require(File(directory, "tts.json").isFile) { "Install the Supertonic voice package" }
         val rate = IntArray(1);val timing=DoubleArray(4);lastSpeechTiming=null
-        val samples = MediaNative.tts(utf8(directory), utf8(""), utf8(""), utf8(text), utf8(language), true, f, rate,timing) ?: throw CancellationException()
+        // Kept in the single speech cache (with Piper) so sentence-by-sentence speech loads the model once.
+        val started=System.nanoTime();val model=utf8(directory)
+        val handle=piperCache.acquire("supertonic:"+identity(File(directory,"tts.json").path)) { MediaNative.supertonicCreate(model) }
+        val load=(System.nanoTime()-started)/1e9
+        checkCancellation()
+        val samples = MediaNative.supertonicRun(handle, utf8(text), utf8(language), f, rate, timing) ?: throw CancellationException()
+        timing[0]=load
         lastSpeechTiming=SpeechSynthesisTiming(timing[0],timing[1],timing[2],timing[3])
         SpeechAudio(samples, rate[0])
     }

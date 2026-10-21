@@ -686,7 +686,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             for(part in texts.flatMap { TextSegments.split(it) { piece -> piece.length<=1500 } }) {
                 checkCancelled()
                 val spoken=if(language=="ru" && pack.backend !in setOf("omnivoice","wayu"))RussianSpeechText.expandOrdinals(part) else part
-                if(pack.backend in setOf("omnivoice","wayu","supertonic"))media.releaseSpeech()
+                if(pack.backend in setOf("omnivoice","wayu"))media.releaseSpeech()
                 when(pack.backend) {
                     "omnivoice" -> deliver(media.synthesizeOmniVoice(path.path,spoken,pack.runtimeLanguage(language)))
                     "wayu" -> deliver(media.synthesizeWayu(WayuAssets.prepare(getApplication()),path.path,spoken,wayuVoice))

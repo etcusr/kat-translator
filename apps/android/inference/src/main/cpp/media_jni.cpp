@@ -75,6 +75,32 @@ JNI(piperRun) jfloatArray JNICALL Java_org_openoffline_translator_inference_Medi
   e->SetDoubleArrayRegion(timing,0,4,times);return result;
  }catch(const std::exception &ex){if(!e->ExceptionCheck())media_error(e,ex.what());return nullptr;}
 }
+// Cached Supertonic handle, owned and serialized by OfflineMedia like Piper; freed with piperFree.
+JNI(supertonicCreate) jlong JNICALL Java_org_openoffline_translator_inference_MediaNative_supertonicCreate(JNIEnv *e,jobject,jbyteArray model) {
+ try {
+  auto m=media_string(e,model);auto *engine=ot_supertonic_create(m.c_str());
+  if(!engine)throw std::runtime_error("Offline voice could not be loaded");
+  return reinterpret_cast<jlong>(engine);
+ }catch(const std::exception &ex){media_error(e,ex.what());return 0;}
+}
+JNI(supertonicRun) jfloatArray JNICALL Java_org_openoffline_translator_inference_MediaNative_supertonicRun(JNIEnv *e,jobject,jlong handle,jbyteArray text,jbyteArray language,jlong flag,jintArray rate,jdoubleArray timing) {
+ try{
+  auto *engine=reinterpret_cast<const SherpaOnnxOfflineTts *>(handle);
+  if(!engine||!rate||e->GetArrayLength(rate)<1||!timing||e->GetArrayLength(timing)<4)throw std::runtime_error("Invalid speech outputs");
+  auto s=media_string(e,text),l=media_string(e,language);void *f=reinterpret_cast<void *>(flag);if(wt_abort(f))return nullptr;
+  const auto start=std::chrono::steady_clock::now();
+  std::unique_ptr<const SherpaOnnxGeneratedAudio,decltype(&SherpaOnnxDestroyOfflineTtsGeneratedAudio)> audio(ot_supertonic_generate(engine,s.c_str(),l.c_str(),f),SherpaOnnxDestroyOfflineTtsGeneratedAudio);
+  if(wt_abort(f))return nullptr;
+  auto generated=std::chrono::steady_clock::now();
+  if(!audio||audio->n<1||audio->sample_rate<8000||audio->sample_rate>192000||audio->n>audio->sample_rate*60*30)throw std::runtime_error("Offline voice returned invalid PCM");
+  for(int i=0;i<audio->n;i++)if(!std::isfinite(audio->samples[i]))throw std::runtime_error("Nonfinite voice PCM");
+  auto result=e->NewFloatArray(audio->n);if(!result)return nullptr;
+  e->SetFloatArrayRegion(result,0,audio->n,audio->samples);if(e->ExceptionCheck())return nullptr;
+  jint sr=audio->sample_rate;e->SetIntArrayRegion(rate,0,1,&sr);if(e->ExceptionCheck())return nullptr;
+  jdouble times[4]{0,std::chrono::duration<double>(generated-start).count(),std::chrono::duration<double>(std::chrono::steady_clock::now()-generated).count(),0};
+  e->SetDoubleArrayRegion(timing,0,4,times);return result;
+ }catch(const std::exception &ex){media_error(e,ex.what());return nullptr;}
+}
 JNI(tts) jfloatArray JNICALL Java_org_openoffline_translator_inference_MediaNative_tts(JNIEnv *e,jobject,jbyteArray model,jbyteArray tokens,jbyteArray data,jbyteArray text,jbyteArray language,jboolean supertonic,jlong flag,jintArray rate,jdoubleArray timing){
  try{
   if(!rate||e->GetArrayLength(rate)<1||!timing||e->GetArrayLength(timing)<4)throw std::runtime_error("Invalid speech outputs");
