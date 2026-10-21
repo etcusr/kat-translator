@@ -63,3 +63,7 @@ A normal launch from the installed path succeeded and the process remained runni
 - Finder's `.DS_Store` changed independently during backup verification. Only that metadata filename is excluded; models, history and preferences are included in the checks.
 
 The updated app was left running for manual testing. This step verifies installation, ordinary launch and data retention, not a new live microphone/OCR or all-language acceptance run. The prior runtime tests above remain the functional evidence. Nothing was uploaded to App Store Connect.
+
+## Subsequent cleanup — 21 October
+
+The local previous-app and data/preferences rollback snapshots described above were removed at the owner’s explicit request during [project cleanup](../../maintenance/cleanup-2026-10-21.md). The installed app, working data, release archives and installation evidence remain. Historical installation checks above are unchanged.

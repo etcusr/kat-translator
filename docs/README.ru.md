@@ -42,5 +42,5 @@
 - `licensing/2026-10-*/` — проверки лицензий, уведомления и комплект исходников зависимостей.
 - `benchmarks/`, `android/benchmarks/` — замеры и прогоны на устройствах.
 - `research/`, `android/ASR-OPTIONS.md`, `android/OCR-OPTIONS.md` — исследования и записи решений.
-- `maintenance/` — очистки, переносы, подпись и аудит исходников. Последняя: [очистка завершённых тестов и сборок, 17 октября](maintenance/cleanup-2026-10-17.md).
+- `maintenance/` — очистки, переносы, подпись и аудит исходников. Последняя: [очистка проекта, 21 октября](maintenance/cleanup-2026-10-21.md).
 - Исторические журналы реализации: [IMPLEMENTATION](IMPLEMENTATION.md) (RU), [кэш проверки при запуске](IMPLEMENTATION-startup-verification-cache.md) (RU), [загрузки языков](IMPLEMENTATION-language-downloads.md) (EN), [протокол испытаний на устройстве](../DEVICE_TESTING.md) (RU), [паритет функций Android](android/FEATURE_PARITY.md) (EN), [паритет интерфейса Android](android/IOS_INTERFACE_PARITY.md) (EN), `macos/2026-10-10-shortcuts.md`, `macos/diagnostics/`, `branding/round-*`, `history/`.
