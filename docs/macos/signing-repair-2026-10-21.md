@@ -35,6 +35,6 @@ Apple documents how [designated requirements identify code across updates](https
 
 No new full compilation, recognition/translation benchmark or App Store upload was performed. Existing distribution packages were not regenerated. No Android source or device changes were made. Temporary staging/rollback app copies are removed after successful installation validation; the existing signed release ZIP is retained.
 
-Screen-capture permission acceptance still requires the normal in-app action. Restoring the prior certificate can reuse a matching grant. If a stale entry still denies access, remove only Kat's old Screen Recording entry and add the current `/Applications/Kat translator.app`, then restart Kat; do not reset all privacy permissions. The screenshots' “Device Control and Data Access” toggle alone is not an acceptance check for the requested Screen Recording operation.
+**Screen-capture acceptance:** after the repaired app restarted, the owner repeated the normal screen-region capture action and confirmed that capture works. This closes the previously pending user-facing permission check. No additional permission reset was performed by the agent.
 
 Signature/trust validation was run against the host keychain; a sandboxed attempt could not resolve certificate trust. Full host validation passed. Local private audit: `.build/mac-signing-2026-10-21/`; it is excluded from Git and contains no new model copies.
