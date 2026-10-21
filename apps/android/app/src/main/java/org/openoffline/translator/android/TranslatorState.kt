@@ -792,7 +792,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             if(recordingPreprocessing) {
                 val thermal=getApplication<Application>().getSystemService(android.os.PowerManager::class.java).currentThermalStatus
                 val backend=if(useSystemRecognition())null else runCatching { installedPackage(PackageCategory.RECOGNITION,currentSource,selectedRecognition()).first.backend }.getOrNull()
-                val compatible=backend in setOf("whisper","gigaam","parakeet")
+                val compatible=backend in setOf("whisper","gigaam")
                 if(indexModel && installed && !memorySaving && compatible && thermal<android.os.PowerManager.THERMAL_STATUS_SEVERE) {
                     recordingPreview=RecordingPreview(currentSource,target,recordingVerification,automaticSpeech,punctuated=backend!="gigaam")
                     previewMessage=text("Законченные фразы обрабатываются заранее. Озвучка — после остановки.","Completed phrases are processed now. Speech starts after recording stops.")
