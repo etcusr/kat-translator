@@ -165,8 +165,8 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
     private val timings=mutableStateMapOf<String,ProcessingTiming>()
     val timing get()=timings[mode]
     val seconds get()=timing?.translation
-    private var activeTiming:ProcessingTimer?=null
-    private var timingWorkspace:String?=null
+    @Volatile private var activeTiming:ProcessingTimer?=null
+    @Volatile private var timingWorkspace:String?=null
     private fun addTiming(stage:ProcessingStage,elapsed:Double) {
         activeTiming?.add(stage,elapsed)
         val snapshot=activeTiming?.snapshot() ?: return
@@ -490,17 +490,31 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         val retain=retainMediaModels()
         if(!retain) { releaseRecognition();media.releaseSpeech() }
         val preload=if(speak && retain)preloadVoice(language) else null
-        val stream:(String)->Unit={ partial -> ui { if(!cancelled.get()) { outputs[workspace]=partial;streamingOutput=true } } }
+        // Finished sentences are spoken while Index writes the rest (Piper family and Supertonic; OmniVoice
+        // and Wayu are too large to run beside Index). Synthesis runs on the voice thread after the preload.
+        val feed=if(speak && preparedTranslation==null && !memorySaving && streamableVoice(language))SentenceFeed() else null
+        val streamKey="$workspace:target:streaming"
+        val speechJob=feed?.let { sentences -> voiceLoader.submit(java.util.concurrent.Callable { synthesizeAndPlay(sentences.sentences(),language,streamKey,false,startSeconds=2) }) }
+        val stream:(String)->Unit={ partial -> feed?.offer(partial);ui { if(!cancelled.get()) { outputs[workspace]=partial;streamingOutput=true } } }
         val translated=try { TranslationRouting.translate(original,resolved ?: from,language) { preparedTranslation ?: translateParts(original,language,resolved ?: from,stream) } }
-            catch(e:Exception) { ui { if(streamingOutput)outputs[workspace]="";streamingOutput=false };throw e }
-            finally { preload?.get() }
+            catch(e:Exception) { feed?.abort();if(feed!=null)ui { stopPlayback() };ui { if(streamingOutput)outputs[workspace]="";streamingOutput=false };throw e }
+            finally { if(feed==null)preload?.get() }
+        if(cancelled.get())feed?.abort() else feed?.finish(translated)
         checkCancelled()
         ui { if(!cancelled.get()) { inputs[workspace]=original;outputs[workspace]=translated;status=text("Готово","Done") } }
         // Commit the completed translation before optional speech, as on iOS.
         val historyId=archive(original,translated,resolved ?: from,language,workspace,null)
         var speech:SpeechAudio?=null
         if(speak) {
-            try { speech=synthesizeAndPlay(translated,language,"$workspace:target:${translated.hashCode()}");checkCancelled();val completed=speech;ui { if(!cancelled.get()) { translatedAudio[workspace]=completed;audioRevision++ } } }
+            val finalKey="$workspace:target:${translated.hashCode()}"
+            try {
+                speech=if(speechJob!=null) {
+                    ui { if(playbackKey==streamKey)playbackKey=finalKey }
+                    try { speechJob.get().also { ui { if(playbackKey==streamKey)playbackKey=finalKey } } }
+                    catch(e:java.util.concurrent.ExecutionException) { throw (e.cause as? Exception) ?: e }
+                } else synthesizeAndPlay(translated,language,finalKey)
+                checkCancelled();val completed=speech;ui { if(!cancelled.get()) { translatedAudio[workspace]=completed;audioRevision++ } }
+            }
             catch(e:Exception) { ui { if(!cancelled.get())showFailure(e) } }
         }
         checkCancelled()
@@ -621,10 +635,16 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             } catch(_:Exception) { /* The ordinary synthesis path reports an unavailable voice. */ }
         }
     }
-    private fun synthesizeAndPlay(text:String,language:String,key:String):SpeechAudio {
+    private fun streamableVoice(language:String):Boolean {
+        val selected=selectedVoice(language)
+        return packages.catalog.any { it.id==selected && it.category==PackageCategory.VOICE && it.supports(language) && it.unavailableReason==null && it.backend in setOf("piper","vits","mms","supertonic") }
+    }
+    private fun synthesizeAndPlay(text:String,language:String,key:String):SpeechAudio=synthesizeAndPlay(sequenceOf(text),language,key,true)
+    /** [texts] may block until the next translated sentence exists; all pieces form one utterance. */
+    private fun synthesizeAndPlay(texts:Sequence<String>,language:String,key:String,showStatus:Boolean,startSeconds:Int=4):SpeechAudio {
         val epoch=playbackEpoch.get()
         var stream:SpeechStream?=null // Accessed only by FIFO main-thread posts.
-        val opening=SpeechStartBuffer()
+        val opening=SpeechStartBuffer(startSeconds)
         ui { if(playbackEpoch.get()==epoch)clearPlayback() }
         fun enqueue(chunk:SpeechAudio) {
             ui {
@@ -637,7 +657,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             }
         }
         return try {
-            val audio=measure(ProcessingStage.SYNTHESIS) { synthesizeImpl(text,language) { chunk ->
+            val audio=measure(ProcessingStage.SYNTHESIS) { synthesizeImpl(texts,language,showStatus) { chunk ->
                 opening.accept(chunk).forEach(::enqueue)
             } }
             checkCancelled();opening.finish().forEach(::enqueue)
@@ -647,13 +667,13 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             ui { if(playbackEpoch.get()==epoch)stopPlayback() };throw e
         }
     }
-    private fun synthesizeImpl(text:String,language:String,onChunk:(SpeechAudio)->Unit):SpeechAudio {
+    private fun synthesizeImpl(texts:Sequence<String>,language:String,showStatus:Boolean,onChunk:(SpeechAudio)->Unit):SpeechAudio {
         checkCancelled()
         val selected=selectedVoice(language)
         val pack=packages.catalog.firstOrNull { it.id==selected && it.category==PackageCategory.VOICE && it.supports(language) && it.unavailableReason==null }
             ?: error(this.text("Для выбранного языка нет доступной озвучки. Выберите другой голос в настройках.","No voice is available for this language. Choose another voice in settings."))
         val path=requireVoicePath(pack.id,language,mode,packages.installedPath(pack.id))
-        ui { status=this.text("Подготовка озвучки…","Preparing speech…") }
+        if(showStatus)ui { status=this.text("Подготовка озвучки…","Preparing speech…") }
         if(memorySaving) { releaseTranslation();releaseRecognition() }
         checkCancelled()
         return packages.acquire(pack.id).use {
@@ -663,8 +683,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
                 checkCancelled()
                 normalizer.accept(raw)?.let { chunks+=it;onChunk(it) }
             }
-            val parts=TextSegments.split(text) { it.length<=1500 }
-            for(part in parts) {
+            for(part in texts.flatMap { TextSegments.split(it) { piece -> piece.length<=1500 } }) {
                 checkCancelled()
                 val spoken=if(language=="ru" && pack.backend !in setOf("omnivoice","wayu"))RussianSpeechText.expandOrdinals(part) else part
                 if(pack.backend in setOf("omnivoice","wayu","supertonic"))media.releaseSpeech()

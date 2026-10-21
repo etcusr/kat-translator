@@ -9,7 +9,7 @@ internal enum class ProcessingStage { RECOGNITION, TRANSLATION, SYNTHESIS, MODEL
 internal class ProcessingTimer(private val previous:ProcessingTiming=ProcessingTiming(),private val clock:()->Long=System::nanoTime) {
     private val start=clock()
     private var value=previous
-    fun add(stage:ProcessingStage,seconds:Double) {
+    @Synchronized fun add(stage:ProcessingStage,seconds:Double) {
         value=when(stage) {
             ProcessingStage.RECOGNITION -> value.copy(recognition=(value.recognition ?: 0.0)+seconds)
             ProcessingStage.TRANSLATION -> value.copy(translation=(value.translation ?: 0.0)+seconds)
@@ -17,5 +17,5 @@ internal class ProcessingTimer(private val previous:ProcessingTiming=ProcessingT
             ProcessingStage.MODEL_LOAD -> value.copy(modelLoad=(value.modelLoad ?: 0.0)+seconds)
         }
     }
-    fun snapshot()=value.copy(total=previous.total+(clock()-start).coerceAtLeast(0)/1e9)
+    @Synchronized fun snapshot()=value.copy(total=previous.total+(clock()-start).coerceAtLeast(0)/1e9)
 }
