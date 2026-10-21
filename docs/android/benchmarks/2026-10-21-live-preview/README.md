@@ -69,7 +69,11 @@ as a live streaming source, not as a quality improvement for Russian on this sam
   previously broken phrases correctly; the two clock idioms remain 2B errors, as with Whisper.
 - English: 60 LibriSpeech test-clean utterances (first part of the archive, 2 per chapter), Pixel CPU 4 threads.
   Parakeet TDT 0.6B v2 int8 and Whisper large-v3-turbo Q8 both 1.42% WER (19 errors / 1335 words; 5 better each);
-  compute 64.7 s vs 1429.8 s. Read audiobook speech only; not integrated.
+  compute 64.7 s vs 1429.8 s. Read audiobook speech only. Added as optional package `parakeet-v2-en-int8`
+  (sherpa-onnx int8, pinned HF revision, hashes checked against the measured files); when installed it is the live
+  recognizer for English. Automatic recommendation and first-run setup still choose Parakeet v3. Installed in the
+  app on the Pixel; a speaker-to-microphone English test failed to deliver audible speech, so no live English result.
+  Without verification a recording with no finished phrase now also uses the live recognizer.
 
 ## Limits
 
