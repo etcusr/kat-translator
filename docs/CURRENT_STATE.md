@@ -2,6 +2,8 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+**Android voice speed (21 October, development build):** Index translation text now grows in place on Android (Text and Voice), with a compact Cancel bar instead of the full-screen «Перевожу 1/1» overlay. Phrase processing during recording now also works with GigaAM and Parakeet, which recognize a phrase in under a second on the Pixel; GigaAM phrases are capitalized and terminated before translation. With GigaAM and post-recording verification off, a three-sentence synthetic test finished 0.18 s after stop. Whisper cannot follow speech on the Pixel (about 10 s per 30 s window); reduced `audio_ctx` was rejected for duplicated/changed text. GigaAM drops question punctuation. [Measurements and limits](android/benchmarks/2026-10-21-live-preview/README.md).
+
 **Index model decision (21 October):** retain the current Q4_K_M. The measured storage savings do not justify the quality risk; IQ4_XS, Q4_K_S and Q3_K_M will not be integrated. The comparison and its results are retained.
 
 **Index quantization research (21 October, isolated Mac):** 30 frozen RU/EN cases, four official GGUF variants, 240 measured requests plus 30 baseline controls. Ordinary 29-case warm sums: Q4_K_M 72.56 s, IQ4_XS 73.25 s, Q4_K_S 69.71 s, Q3_K_M 87.49 s; final baseline drift +5.89% prevents a small speedup claim. Q4_K_S saves 292 MB with no new major semantic errors found in ordinary cases, but loses more repeated blocks in the separate stress case. IQ4_XS/Q3_K_M introduce a scientific-term error; IQ4_XS also corrects a baseline time error. No main-app/model change; Mac MLX/MTP2 and iPhone not measured. [Quality, memory, full outputs and limits](benchmarks/index-quantization-2026-10-21/README.md).

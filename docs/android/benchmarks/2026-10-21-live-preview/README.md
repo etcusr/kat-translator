@@ -1,0 +1,48 @@
+# Android live phrase preview and progressive translation — 21 October 2026
+
+Device: Pixel (Tensor G-series, Mali GPU), development debug build. Commits `d706241`, `8e5455c`.
+
+## Why
+
+On the owner's recordings the Pixel waited about 27 s for Whisper large-v3-turbo Q8 recognition of a 35.7 s
+recording plus about 15 s for Index 2B (Vulkan) translation, all after the recording stopped.
+
+- Whisper encodes every 30-second window in about 10.4 s on the Pixel CPU (2 windows for 35.7 s),
+  regardless of phrase length, so it cannot follow speech phrase by phrase.
+- Reducing `audio_ctx` (encoder 10.4 → 2.5–3 s) is **not quality-safe**: on 9 private history recordings it
+  duplicated sentences (ctx 750, m64, m128) and changed words; even ctx 1000 changed text. Rejected.
+- Fast recognizers already in the catalog, run with the same native code on the same 9 recordings:
+  GigaAM v3 int8 0.33–0.77 s per 5–11 s clip and 3.0 s for 35.7 s; Parakeet v3 int8 0.5–1.8 s and 3.8–4.3 s.
+  GigaAM meaning was close to Whisper but without punctuation/capitals and with numbers as words; Parakeet is
+  punctuated but made more word errors. Private transcripts are kept outside Git.
+
+## Changes
+
+1. **Progressive Index output.** Android MTP adapter publishes text after every token (`kat_mtp_partial`), the
+   non-MTP path uses shared `ot_mt_partial`; JNI `partial` trims to whole UTF-8 characters. `IndexEngine.partial()`
+   is valid only while a translation runs. `PartialPoller` reads it every 120 ms on the main thread. The full-screen
+   processing overlay is replaced by a bottom bar (status + Cancel) once text appears; text and voice workspaces.
+   A failed or cancelled translation clears streamed text. Single-part status is «Перевожу» without «1/1».
+2. **Live phrase preview for GigaAM and Parakeet** (previously Whisper only). GigaAM output has no punctuation, so
+   its phrase boundary is the existing one second of silence; the phrase becomes a sentence (capital letter,
+   final period) before translation. The phrase translation grows during recording. With
+   «Проверять текст после записи» off, only the unprocessed tail is recognized after stop.
+
+## Checks
+
+- `scripts/android/build.sh`: unit tests (new `RecordingPreviewTest` case), lint, debug and androidTest APKs: pass.
+- Text, EN→RU, 148 characters, Index 2B Vulkan: partial text visible after about 3 s with the bottom bar,
+  final text identical to the completed output, 5.43 s translation.
+- Voice, RU→EN, GigaAM, verification off, synthetic Milena speech from Mac speakers (three sentences with
+  2.5 s pauses): source and translation appeared during recording; after stop the remaining work was **0.18 s**.
+  A single-phrase run without preview took 0.25 s recognition + 2.82 s translation.
+- The owner's settings (Whisper Q8, verification default, silence 4 s) were restored after the test.
+
+## Limits
+
+- GigaAM loses question intonation: «У вас есть номер с видом на море?» became a statement. Speaker-to-mic test
+  audio also produced one recognition error at the end («у реки» → «юрикей»). Not a quality evaluation.
+- With Whisper selected, preview still costs at least about 10 s per phrase and lags behind speech; with
+  verification on, the full recording is recognized again after stop.
+- Automatic speech still starts after recording stops. Timing rows show only the post-stop work.
+- No real microphone session by the owner yet; two synthetic test entries were added to the Pixel history.
