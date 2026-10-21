@@ -127,10 +127,11 @@ import OfflineCore
         self.session.showsTranslationPartials = true
         #endif
         recorder.onLimit = { [weak self] in Task { await self?.finishRecording() } }
-        recorder.onBoundary = { [weak self] end in
+        recorder.onBoundary = { [weak self] end, quiet in
             guard let self else { return }
+            RecordingStopTrace.mark("preview.offer.end=\(end).quiet=\(quiet).thermal=\(Self.thermalState)")
             if [.serious, .critical].contains(ProcessInfo.processInfo.thermalState) { self.session.suspendRecordingPreview(reason: "thermal") }
-            else { self.session.offerRecordingBoundary(end) }
+            else { self.session.offerRecordingBoundary(end, endsInSilence: quiet) }
         }
         recorder.onInterruption = { [weak self] message in self?.cancel(); self?.message = message }
         #if os(iOS)
@@ -327,8 +328,9 @@ import OfflineCore
             try await recorder.start(silenceSeconds: silenceSeconds, limitMinutes: limitMinutes)
             if !recordingStart.settle(request, succeeded: true) || id != interactionID || Task.isCancelled { recorder.cancel(); return }
             captureStarted = true
+            RecordingStopTrace.mark("preview.begin.enabled=\(capturedPreview).fallback=\(previewFallback ?? "none")")
             if capturedPreview, previewFallback == nil, let snapshot = recorder.previewSnapshot {
-                if !session.beginRecordingPreview(source: capturedLanguage, target: capturedTarget, speakResult: capturedAutomaticSpeech, snapshot: snapshot) { previewFallback = "busy" }
+                if !session.beginRecordingPreview(source: capturedLanguage, target: capturedTarget, speakResult: capturedAutomaticSpeech, snapshot: snapshot, trace: { RecordingStopTrace.mark($0) }) { previewFallback = "busy" }
             }
             peakRecordingFootprint = 0; peakRecordingResident = 0
             recordingResources = Task { [weak self] in

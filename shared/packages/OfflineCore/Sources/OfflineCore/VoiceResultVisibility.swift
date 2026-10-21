@@ -3,7 +3,10 @@
 public enum VoiceResultVisibility {
     public static func shouldShow(hasOriginal: Bool, hasTranslation: Bool, capturing: Bool,
                                   finishing: Bool, processing: Bool, preview: Bool, alreadyShown: Bool) -> Bool {
-        guard !capturing, hasOriginal || hasTranslation else { return false }
+        guard hasOriginal || hasTranslation else { return false }
+        // A preview belongs to the current capture; stale results do not.
+        if preview { return true }
+        guard !capturing else { return false }
         if alreadyShown { return true }
         if processing { return !preview && hasTranslation }
         // Do not flash the previous recording while stop/normalization is pending.

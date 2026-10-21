@@ -160,13 +160,20 @@ public enum TranslationDirection: String, CaseIterable, Sendable {
     case automatic = "auto", russianToEnglish = "ru", englishToRussian = "en"
     public var source: SpeechLanguage? { SpeechLanguage(rawValue: rawValue) }
 }
+/// A recognized span with an exclusive end in the input's 16 kHz sample coordinates.
+public struct ASRSegment: Sendable {
+    public let text: String
+    public let endSample: Int
+    public init(text: String, endSample: Int) { self.text = text; self.endSample = endSample }
+}
 public struct ASRResult: Sendable {
     public let text: String
     public let language: SpeechLanguage
     public let processingSeconds: Double
     public let engineID: String?
-    public init(text: String, language: SpeechLanguage, processingSeconds: Double, engineID: String? = nil) {
-        self.text = text; self.language = language; self.processingSeconds = processingSeconds; self.engineID = engineID
+    public let segments: [ASRSegment]
+    public init(text: String, language: SpeechLanguage, processingSeconds: Double, engineID: String? = nil, segments: [ASRSegment] = []) {
+        self.text = text; self.language = language; self.processingSeconds = processingSeconds; self.engineID = engineID; self.segments = segments
     }
 }
 public protocol ASRBackend: AnyObject, Sendable {

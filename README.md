@@ -47,6 +47,8 @@ Local runtime checks now include sandboxed Mac inference with network access den
 
 The main voice workflow processes a recording after it stops. Recognition previews do not imply verified simultaneous conversation translation. Speed, quality and features are not guaranteed to be identical across all three platforms.
 
+The experimental Apple phrase-preview path uses speech pauses and confirmed timestamped sentence endings; it is not a fixed-duration chunker. Early results can differ from whole-recording recognition and translation, so it is not yet a quality-equivalent replacement. See the [device checks and limitations](docs/publication/voice-preview-2026-10-22.md).
+
 ## Models and platform differences
 
 | Stage | iPhone | Mac, modern release | Android |

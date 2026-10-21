@@ -113,13 +113,111 @@ import XCTest
         XCTAssertEqual(result.committedSamples, 96_000)
         XCTAssertEqual(result.translatedText, "First. Next.")
     }
+    func testTimedPreviewKeepsUnfinishedTailAndDoesNotTrustWindowEndPunctuation() async {
+        var ranges: [Range<Int>] = []
+        var translated: [String] = []
+        var call = 0
+        let worker = RecordingPreviewCoordinator(source: .english, target: .russian, snapshot: { range in
+            ranges.append(range); return CapturedAudio(samples: Array(repeating: 0.1, count: range.count))
+        }, recognize: { _, _ in
+            call += 1
+            if call == 1 {
+                return ASRResult(text: "First. And then.", language: .english, processingSeconds: 0,
+                    segments: [.init(text: "First.", endSample: 32_000), .init(text: " And then.", endSample: 128_000)])
+            }
+            return ASRResult(text: "First. And then more", language: .english, processingSeconds: 0,
+                segments: [.init(text: "First.", endSample: 32_000), .init(text: " And then more", endSample: 240_000)])
+        }, translate: { text, _, _ in
+            translated.append(text); return TranslationResult(text: "Первая.", firstTokenSeconds: nil, processingSeconds: 0, fragments: 1)
+        }, prepareSpeech: nil, publish: { _ in })
+        worker.offer(end: 128_000, endsInSilence: false); await worker.waitForIdle()
+        worker.offer(end: 256_000, endsInSilence: false); await worker.waitForIdle()
+        let result = await worker.finish()
+        XCTAssertEqual(translated, ["First."])
+        XCTAssertEqual(result.committedSamples, 32_000)
+        XCTAssertEqual(ranges, [0..<128_000, 0..<256_000])
+    }
+    func testStableSentenceBoundarySurvivesRevisedLeadingWordsAndMergedSegments() async {
+        var call = 0
+        var texts: [String] = []
+        let worker = RecordingPreviewCoordinator(source: .english, target: .russian,
+            snapshot: { range in CapturedAudio(samples: Array(repeating: 0.1, count: range.count)) },
+            recognize: { _, _ in
+                call += 1
+                switch call {
+                case 1: return ASRResult(text: "It was in the garden. Next", language: .english, processingSeconds: 0,
+                    segments: [.init(text: "It was in the garden.", endSample: 64_000), .init(text: " Next", endSample: 128_000)])
+                case 2: return ASRResult(text: "They were in the garden. Next words", language: .english, processingSeconds: 0,
+                    segments: [.init(text: "They were in the garden. Next words", endSample: 256_000)])
+                default: return ASRResult(text: "We were in the garden. Next words continue", language: .english, processingSeconds: 0,
+                    segments: [.init(text: "We were in the garden.", endSample: 65_280), .init(text: " Next words continue", endSample: 384_000)])
+                }
+            }, translate: { text, _, _ in texts.append(text); return TranslationResult(text: "В саду.", firstTokenSeconds: nil, processingSeconds: 0, fragments: 1) },
+            prepareSpeech: nil, publish: { _ in })
+        for end in [128_000, 256_000, 384_000] { worker.offer(end: end, endsInSilence: false); await worker.waitForIdle() }
+        let result = await worker.finish()
+        XCTAssertEqual(texts, ["We were in the garden."])
+        XCTAssertEqual(result.committedSamples, 65_280)
+    }
+    func testLongInitialSilenceDoesNotTriggerAnImmediateRecognitionWindow() {
+        var policy = RecordingPreviewBoundary()
+        for _ in 0..<500 { XCTAssertNil(policy.observe(speech: false, sampleCount: 512)) }
+        XCTAssertNil(policy.observe(speech: true, sampleCount: 512))
+    }
+    func testPollingWithoutTimestampsDoesNotConsumeAnArbitraryCut() async {
+        let worker = RecordingPreviewCoordinator(source: .english, target: .russian,
+            snapshot: { _ in CapturedAudio(samples: [0.1]) },
+            recognize: { _, _ in ASRResult(text: "Artificial ending.", language: .english, processingSeconds: 0) },
+            translate: { _, _, _ in XCTFail("Cannot align unfinished audio without timestamps"); throw PipelineError.inference },
+            prepareSpeech: nil, publish: { _ in XCTFail("No safe sentence yet") })
+        worker.offer(end: 128_000, endsInSilence: false)
+        let result = await worker.finish()
+        XCTAssertEqual(result.committedSamples, 0)
+    }
+    func testMalformedTimestampsDoNotDiscardAudio() async {
+        let worker = RecordingPreviewCoordinator(source: .english, target: .russian,
+            snapshot: { _ in CapturedAudio(samples: [0.1]) },
+            recognize: { _, _ in ASRResult(text: "First. Second.", language: .english, processingSeconds: 0,
+                segments: [.init(text: "First.", endSample: 32_000), .init(text: " Second.", endSample: 16_000)]) },
+            translate: { _, _, _ in XCTFail("Invalid timestamp order"); throw PipelineError.inference },
+            prepareSpeech: nil, publish: { _ in XCTFail("No audio may be committed") })
+        worker.offer(end: 128_000)
+        let result = await worker.finish()
+        XCTAssertEqual(result.committedSamples, 0)
+    }
+    func testContinuousSpeechDoesNotSplitAtClockIntervals() {
+        var policy = RecordingPreviewBoundary()
+        var ends: [Int] = []
+        for _ in 0..<750 {
+            if let end = policy.observe(speech: true, sampleCount: 512) { ends.append(end) }
+        }
+        XCTAssertTrue(ends.isEmpty)
+    }
+    func testBriefSpeechPauseOffersRecognitionWithoutWaitingForAFullSecond() {
+        var policy = RecordingPreviewBoundary()
+        for _ in 0..<100 { XCTAssertNil(policy.observe(speech: true, sampleCount: 512)) }
+        for _ in 0..<4 { XCTAssertNil(policy.observe(speech: false, sampleCount: 512)) }
+        XCTAssertEqual(policy.observe(speech: false, sampleCount: 512), 53_760)
+        XCTAssertFalse(policy.endsInSilence, "A short pause alone does not confirm a sentence")
+        for _ in 0..<20 { XCTAssertNil(policy.observe(speech: false, sampleCount: 512)) }
+    }
+    func testSustainedPauseConfirmsOnceWithoutPollingSilenceForever() {
+        var policy = RecordingPreviewBoundary()
+        for _ in 0..<100 { _ = policy.observe(speech: true, sampleCount: 512) }
+        var events: [Bool] = []
+        for _ in 0..<500 {
+            if policy.observe(speech: false, sampleCount: 512) != nil { events.append(policy.endsInSilence) }
+        }
+        XCTAssertEqual(events, [false, true])
+    }
     func testBoundaryOnlyAfterSpeechAndQuietInterval() {
         var policy = RecordingPreviewBoundary()
         for _ in 0..<100 { XCTAssertNil(policy.observe(speech: false, sampleCount: 512)) }
         for _ in 0..<100 { XCTAssertNil(policy.observe(speech: true, sampleCount: 512)) }
         var boundaries: [Int] = []
         for _ in 0..<100 { if let end = policy.observe(speech: false, sampleCount: 512) { boundaries.append(end) } }
-        XCTAssertEqual(boundaries.count, 1)
+        XCTAssertEqual(boundaries.count, 2)
+        XCTAssertTrue(policy.endsInSilence)
         XCTAssertEqual(policy.lastSpeechEnd, 102_400)
         XCTAssertGreaterThan(boundaries[0], policy.lastSpeechEnd)
     }

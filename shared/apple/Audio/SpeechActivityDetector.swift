@@ -6,6 +6,7 @@ final class SpeechActivityDetector: @unchecked Sendable {
     private var monitor: SilenceMonitor
     private var previewBoundary = RecordingPreviewBoundary()
     private(set) var latestBoundary: Int?
+    private(set) var latestBoundaryEndsInSilence = false
     var lastSpeechEnd: Int { previewBoundary.lastSpeechEnd }
     var heardSpeech: Bool { monitor.heardSpeech }
     init(modelURL: URL, silenceSeconds: Double) throws {
@@ -22,7 +23,7 @@ final class SpeechActivityDetector: @unchecked Sendable {
                 SherpaOnnxVoiceActivityDetectorAcceptWaveform(vad, buffer.baseAddress!.advanced(by: offset), 512)
             }
             let speech = SherpaOnnxVoiceActivityDetectorDetected(vad) != 0
-            if let end = previewBoundary.observe(speech: speech, sampleCount: 512) { latestBoundary = end }
+            if let end = previewBoundary.observe(speech: speech, sampleCount: 512) { latestBoundary = end; latestBoundaryEndsInSilence = previewBoundary.endsInSilence }
             if monitor.observe(speech: speech, seconds: 512.0 / 16000) { stop = true }
             while SherpaOnnxVoiceActivityDetectorEmpty(vad) == 0 { SherpaOnnxVoiceActivityDetectorPop(vad) }
             offset += 512

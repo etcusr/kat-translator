@@ -13,7 +13,7 @@ private final class RecordingSink: @unchecked Sendable {
     private var conversionError: Error?
     private let normalizer = AudioNormalizer()
     private let detector: SpeechActivityDetector
-    var onBoundary: (@Sendable (Int) -> Void)?
+    var onBoundary: (@Sendable (Int, Bool) -> Void)?
     private var offeredBoundary = 0
     let onFailure: @Sendable () -> Void
     let onLimit: @Sendable () -> Void
@@ -52,7 +52,7 @@ private final class RecordingSink: @unchecked Sendable {
                 let silence = self.detector.append(converted)
                 let limit = self.buffer.append(converted)
                 if let end = self.detector.latestBoundary, end > self.offeredBoundary {
-                    self.offeredBoundary = end; self.onBoundary?(min(end, self.buffer.samples.count))
+                    self.offeredBoundary = end; self.onBoundary?(min(end, self.buffer.samples.count), self.detector.latestBoundaryEndsInSilence)
                 }
                 if silence || limit { self.onLimit() }
             } catch { self.conversionError = error; self.onFailure() }
@@ -108,7 +108,7 @@ private struct RecordingEngineStartup: @unchecked Sendable {
     @Published private(set) var starting = false
     @Published private(set) var elapsed: Double = 0
     @Published private(set) var limitSeconds = RecordingPolicy.limitSeconds(minutes: RecordingPolicy.defaultMinutes)
-    var onBoundary: ((Int) -> Void)?
+    var onBoundary: ((Int, Bool) -> Void)?
     private(set) var finalSpeechEnd = 0
     var previewSnapshot: RecordingPreviewCoordinator.Snapshot? {
         guard let sink else { return nil }
@@ -211,10 +211,10 @@ private struct RecordingEngineStartup: @unchecked Sendable {
                 self.cancel(); self.onInterruption?(L10n.text("Ошибка обработки записи. Попробуйте снова."))
             }
         }
-        sink.onBoundary = { [weak self] end in
+        sink.onBoundary = { [weak self] end, quiet in
             Task { @MainActor in
                 guard let self, self.generation == operation, self.isRecording else { return }
-                self.onBoundary?(end)
+                self.onBoundary?(end, quiet)
             }
         }
         finalSpeechEnd = 0
@@ -334,13 +334,14 @@ private struct RecordingEngineStartup: @unchecked Sendable {
 extension AudioRecorder {
     static func replayFixture(_ url: URL,
                               started: @MainActor (@escaping RecordingPreviewCoordinator.Snapshot) -> Void,
-                              boundary: @escaping @MainActor (Int) -> Void) async throws -> (CapturedAudio, Int) {
+                              boundary: @escaping @MainActor (Int, Bool) -> Void) async throws -> (CapturedAudio, Int) {
         guard let vadURL = Bundle.main.url(forResource: "silero_vad", withExtension: "onnx") else { throw PipelineError.modelLoad }
         let file = try AVAudioFile(forReading: url)
         let format = file.processingFormat
         let detector = try SpeechActivityDetector(modelURL: vadURL, silenceSeconds: 30)
-        let sink = RecordingSink(detector: detector, maxSeconds: 60, onLimit: {}, onFailure: {})
-        sink.onBoundary = { end in Task { @MainActor in boundary(end) } }
+        guard Double(file.length) / format.sampleRate <= 600 else { throw PipelineError.invalidAudio }
+        let sink = RecordingSink(detector: detector, maxSeconds: 600, onLimit: {}, onFailure: {})
+        sink.onBoundary = { end, quiet in Task { @MainActor in boundary(end, quiet) } }
         started { range in try await sink.snapshot(range) }
         let start = ProcessInfo.processInfo.systemUptime
         var sent: AVAudioFramePosition = 0

@@ -3,7 +3,7 @@ import UIKit
 import AVFoundation
 import OfflineCore
 
-/// Explicit development launch only. Fixed synthetic fixtures; never exports user text.
+/// Explicit development launch only. Reads only a deliberately supplied fixture; normal recordings are never inspected.
 @MainActor enum RecordingPreviewProbe {
     static func run(packages: PackageDownloadCoordinator, progress: (String) -> Void) async throws {
         let environment = ProcessInfo.processInfo.environment
@@ -16,12 +16,22 @@ import OfflineCore
         UIApplication.shared.isIdleTimerDisabled = true
         defer { UIApplication.shared.isIdleTimerDisabled = previousIdleTimer }
         let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        if environment["OT_PREVIEW_QUALITY_CLEANUP"] == "1" {
+            for name in ["DevelopmentFixtures/quality.aiff", "recording-preview-status.txt",
+                         "recording-preview-index-translate-9b-q4km-quality-hybrid-whisper-manual.json"] {
+                let file = documents.appendingPathComponent(name)
+                if FileManager.default.fileExists(atPath: file.path) { try FileManager.default.removeItem(at: file) }
+            }
+            progress("quality-fixture-cleaned")
+            return
+        }
         func report(_ value: String) {
             progress(value)
             print("RecordingPreviewProbe: " + value)
             try? value.write(to: documents.appendingPathComponent("recording-preview-status.txt"), atomically: true, encoding: .utf8)
         }
         report("loading")
+        let quality = environment["OT_PREVIEW_QUALITY"] == "1"
         let verify = environment["OT_PREVIEW_VERIFY"] == "1"
         let engine = environment["OT_HYBRID_ASR_ENGINE"] ?? "automatic"
         guard engine != "apple" else { throw PipelineError.recognitionUnavailable }
@@ -29,10 +39,10 @@ import OfflineCore
         let autoLanguage = environment["OT_HYBRID_AUTO_LANGUAGE"] == "1"
         let suffix = "-hybrid-" + engine + (autoLanguage ? "-auto" : "-manual") + (verify ? "-verified" : "")
         let requestedFixture = environment["OT_PREVIEW_FIXTURE"] ?? "short"
-        let fixtureName = ["short", "medium", "long-ru", "long-en", "thai"].contains(requestedFixture) ? requestedFixture : "short"
+        let fixtureName = quality ? "quality" : (["short", "medium", "long-ru", "long-en", "thai"].contains(requestedFixture) ? requestedFixture : "short")
         guard environment["OT_PREVIEW_MODEL"] != "qwen" else { throw PipelineError.modelLoad }
         let model: TranslationModel = .index9B
-        let source: SpeechLanguage = fixtureName == "thai" ? .thai : (["short", "long-ru"].contains(fixtureName) ? .russian : .english)
+        let source: SpeechLanguage = fixtureName == "thai" ? .thai : (["short", "long-ru", "quality"].contains(fixtureName) ? .russian : .english)
         let hint: SpeechLanguage? = autoLanguage ? nil : source
         let target = source.opposite
         let url = fixtureName == "thai" ? Bundle.main.url(forResource: "wayu-m_elderly_deep", withExtension: "m4a")! : documents.appendingPathComponent("DevelopmentFixtures/" + fixtureName + ".aiff")
@@ -60,7 +70,7 @@ import OfflineCore
         }
         defer { sampling.cancel() }
         // Unmeasured same-fixture warmup establishes ASR/MT/voice residency for both A/B runs.
-        let modes = environment["OT_PREVIEW_SINGLE"] == "1" ? ["after-stop"] : (verify ? ["warmup", "during-recording-verified"] : ["warmup", "after-stop", "during-recording"])
+        let modes = quality ? [environment["OT_PREVIEW_QUALITY_MODE"] == "during-recording" ? "during-recording" : "after-stop"] : (environment["OT_PREVIEW_SINGLE"] == "1" ? ["after-stop"] : (verify ? ["warmup", "during-recording-verified"] : ["warmup", "after-stop", "during-recording"]))
         for mode in modes {
             try Task.checkCancellation()
             if [.serious, .critical].contains(ProcessInfo.processInfo.thermalState) {
@@ -72,20 +82,35 @@ import OfflineCore
             let warmupURL = documents.appendingPathComponent("DevelopmentFixtures/warmup-" + source.rawValue + ".aiff")
             let captureURL = mode == "warmup" && fixtureName.hasPrefix("long-") ? warmupURL : url
             let captureStart = ProcessInfo.processInfo.systemUptime
+            var observations: [[String: Any]] = []
+            var lastSource = ""
+            let observe = Task {
+                while !Task.isCancelled {
+                    let source = pipeline.voiceFields.sourceText
+                    if quality && !source.isEmpty && source != lastSource {
+                        lastSource = source
+                        observations.append(["seconds": ProcessInfo.processInfo.systemUptime - captureStart,
+                            "source": source, "translation": pipeline.voiceFields.translatedText])
+                    }
+                    try? await Task.sleep(nanoseconds: 100_000_000)
+                }
+            }
+            defer { observe.cancel() }
             let captured = try await AudioRecorder.replayFixture(captureURL, started: { snapshot in
                 if mode.hasPrefix("during-recording") {
-                    _ = pipeline.beginRecordingPreview(source: hint, target: target, speakResult: true, snapshot: snapshot)
+                    _ = pipeline.beginRecordingPreview(source: hint, target: target, speakResult: !quality, snapshot: snapshot)
                 }
-            }, boundary: { end in
+            }, boundary: { end, quiet in
                 if [.serious, .critical].contains(ProcessInfo.processInfo.thermalState) { pipeline.suspendRecordingPreview(reason: "thermal") }
-                else { pipeline.offerRecordingBoundary(end) }
+                else { pipeline.offerRecordingBoundary(end, endsInSilence: quiet) }
             })
+            observe.cancel()
             report(model.title + " · " + fixtureName + " · " + mode + " · finalizing")
             let stop = ProcessInfo.processInfo.systemUptime
             let captureWallSeconds = stop - captureStart
             playback.stopTime = stop
             await pipeline.runRecording(audio: captured.0, speechEnd: captured.1, source: hint, target: target,
-                speakResult: true, inputMode: "fixture", thermal: thermal, stoppedAt: stop,
+                speakResult: !quality, inputMode: "fixture", thermal: thermal, stoppedAt: stop,
                 requestedPreview: mode.hasPrefix("during-recording"), fallbackReason: nil, verifyPreview: verify)
             if let metric = pipeline.samples.last {
                 let encoded = try JSONEncoder().encode(metric)
@@ -94,7 +119,7 @@ import OfflineCore
                     "recognitionPreparationSeconds": recognitionPreparationSeconds,
                     "peakFootprint": monitor.peakFootprint, "peakResident": peakResident,
                     "availableAtEnd": monitor.availableToApp ?? 0, "minimumHeadroom": minimumHeadroom,
-                    "captureWallSeconds": captureWallSeconds,
+                    "captureWallSeconds": captureWallSeconds, "previews": observations,
                     "playbackEvents": playback.events, "maximumPlaybackGapSeconds": playback.maximumGap,
                     "thermalAtEnd": AppModel.thermalState])
             }

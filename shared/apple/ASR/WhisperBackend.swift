@@ -91,6 +91,13 @@ final class WhisperBackend: ASRBackend, @unchecked Sendable {
                         return value.trimmingCharacters(in: .whitespacesAndNewlines)
                     }
                     var text = transcript()
+                    let originalText = text
+                    // Whisper timestamps are in 10 ms units; retain the primary pass
+                    // before the optional date/time retry replaces native segment state.
+                    let segments = (0..<whisper_full_n_segments(context)).compactMap { index -> ASRSegment? in
+                        guard let value = whisper_full_get_segment_text(context, index) else { return nil }
+                        return ASRSegment(text: String(cString: value), endSample: Int(whisper_full_get_segment_t1(context, index)) * 160)
+                    }
                     // Only retry a short Russian clip with an ambiguous time/date triple.
                     // The original remains authoritative unless acoustic word evidence agrees.
                     if audio.samples.count <= 30 * 16_000,
@@ -110,7 +117,7 @@ final class WhisperBackend: ASRBackend, @unchecked Sendable {
                         if retryCode == 0 { text = WhisperDateTimeRepair.repair(text, retry: transcript()) }
                     }
                     let result = ASRResult(text: text.trimmingCharacters(in: .whitespacesAndNewlines), language: detectedLanguage,
-                        processingSeconds: ProcessInfo.processInfo.systemUptime - start, engineID: ModelDescriptor.turbo.id)
+                        processingSeconds: ProcessInfo.processInfo.systemUptime - start, engineID: ModelDescriptor.turbo.id, segments: text == originalText ? segments : [])
                     continuation.resume(returning: result)
                 }
             }

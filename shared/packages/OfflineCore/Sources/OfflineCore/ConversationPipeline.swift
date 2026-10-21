@@ -804,7 +804,8 @@ public extension ConversationPipeline {
         return nil
     }
     func beginRecordingPreview(source: SpeechLanguage?, target: SpeechLanguage, speakResult: Bool,
-                               snapshot: @escaping RecordingPreviewCoordinator.Snapshot) -> Bool {
+                               snapshot: @escaping RecordingPreviewCoordinator.Snapshot,
+                               trace: @escaping @MainActor (String) -> Void = { _ in }) -> Bool {
         guard isReady, !isBusy, unloading == nil, recordingPreviewUnavailable(source: source) == nil, let files else { return false }
         generation += 1; let id = generation
         isBusy = true; isRecordingPreview = true; activeMode = .voice
@@ -844,10 +845,10 @@ public extension ConversationPipeline {
                 guard let self, self.generation == id else { return }
                 self.voiceFields.sourceText = result.sourceText; self.voiceFields.translatedText = result.translatedText
                 self.voiceFields.resolvedSource = result.source; self.voiceFields.resolvedTarget = result.target
-            })
+            }, trace: trace)
         return true
     }
-    func offerRecordingBoundary(_ end: Int) { recordingPreview?.offer(end: end) }
+    func offerRecordingBoundary(_ end: Int, endsInSilence: Bool = true) { recordingPreview?.offer(end: end, endsInSilence: endsInSilence) }
     func suspendRecordingPreview(reason: String) { recordingPreview?.suspend(reason: reason) }
     func runRecording(audio: CapturedAudio, speechEnd: Int, source: SpeechLanguage?, target: SpeechLanguage,
                       speakResult: Bool, inputMode: String, thermal: String, stoppedAt: Double,

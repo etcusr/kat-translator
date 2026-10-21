@@ -480,10 +480,11 @@ struct ConversationView: View {
     }
     private var voiceWorkspace: some View {
         GeometryReader { area in
-            let playbackInCard = voiceShowsResults && (session.isBusy || model.finishing)
-            let hideMicrophone = showProcessingOverlay || playbackInCard || (voiceShowsResults && voiceReadingScroll.isHidden)
+            let recordingActive = recorder.isRecording || recorder.starting || model.preparingRecording
+            let playbackInCard = !recordingActive && voiceShowsResults && (session.isBusy || model.finishing)
+            let hideMicrophone = !recordingActive && (showProcessingOverlay || playbackInCard || (voiceShowsResults && voiceReadingScroll.isHidden))
             let headerHeight = min(area.size.height, voiceHeaderHeight)
-            let actionHeight = voiceShowsResults ? min(area.size.height, 80) : max(0, area.size.height - headerHeight)
+            let actionHeight = voiceShowsResults ? min(area.size.height, recordingActive ? 160 : 80) : max(0, area.size.height - headerHeight)
             ZStack(alignment: .bottom) {
                 ScrollViewReader { scroll in
                     ScrollView {
@@ -498,7 +499,7 @@ struct ConversationView: View {
                                     .padding(.horizontal, 20).padding(.top, 4)
                                     // End padding lets the last line scroll above the floating mic.
                                     // It does not reserve a fixed strip across the reading viewport.
-                                    .padding(.bottom, 96)
+                                    .padding(.bottom, recordingActive ? 176 : 96)
                             }
                         }
                     }.frame(height: voiceShowsResults ? area.size.height : headerHeight)
