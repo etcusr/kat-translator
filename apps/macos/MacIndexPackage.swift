@@ -96,4 +96,8 @@ import OfflineCore
             error = nil
         } catch { self.error = error.localizedDescription }
     }
+    func discardAssembly() async throws {
+        assembly?.cancel(); await assembly?.value
+        try await store.remove(Self.manifest); directory = nil; error = nil
+    }
 }

@@ -166,6 +166,14 @@ final class ModelDownloader: NSObject, ObservableObject, URLSessionDownloadDeleg
         isManaging = true
         let old = state.generation
         state.cancel(); persist()
+        if currentTask == nil, let resume = try? Data(contentsOf: resumeURL) {
+            // Resume data owns a system-managed partial file. Give it back to
+            // URLSession for cancellation; deleting only the receipt leaks it.
+            // Never start the task, and ignore its callbacks via the old generation.
+            let abandoned = session.downloadTask(withResumeData: resume)
+            abandoned.taskDescription = String(old)
+            abandoned.cancel()
+        }
         currentTask?.cancel(); currentTask = nil; storedTaskID = nil
         let pending = verification; pending?.cancel(); await pending?.value; verification = nil
         try? FileManager.default.removeItem(at: resumeURL)

@@ -204,6 +204,19 @@ import OfflineCore
     @Published private(set) var installing = Set<String>()
     @Published private(set) var errors: [String: String] = [:]
     @Published private(set) var downloadingAll = false
+    @Published private(set) var cancellingBatch = false
+    @Published private(set) var currentBatch: DownloadBatch = {
+        guard let data = UserDefaults.standard.data(forKey: "currentDownloadBatch"),
+              let value = try? JSONDecoder().decode(DownloadBatch.self, from: data) else { return DownloadBatch() }
+        return value
+    }()
+    var canCancelBatch: Bool { !currentBatch.ids.isEmpty && !cancellingBatch }
+    var batchTitles: String {
+        Set(downloaders.filter { currentBatch.ids.contains($0.model.id) }.map { $0.model.title }).sorted().joined(separator: "\n")
+    }
+    private func persistBatch() {
+        UserDefaults.standard.set(try? JSONEncoder().encode(currentBatch), forKey: "currentDownloadBatch")
+    }
     @Published private(set) var downloadingVoices = false
     @Published private(set) var voiceQueueItems: [ModelDownloader] = []
     var voiceQueueTotalBytes: Int64 { voiceQueueItems.reduce(0) { $0 + $1.model.byteCount } }
@@ -333,6 +346,7 @@ import OfflineCore
         DownloadLiveActivity.changed()
     }
     private func prepareVoice(_ downloader: ModelDownloader) {
+        guard !cancellingBatch else { return }
         #if os(macOS)
         if indexMLX.contains(downloader) { Task { await indexMLX.assembleIfComplete() }; return }
         #endif
@@ -429,9 +443,10 @@ import OfflineCore
         for package in packages { package.start() }
     }
     func startAll() {
-        guard translationTermsAccepted, !downloadingAll, restored else { return }
+        guard translationTermsAccepted, !downloadingAll, !cancellingBatch, restored else { return }
         let setup = activeDownloadSetup
         guard checkDownloadSpace(setupRequirements(setup, model: selectedTranslation)) else { return }
+        currentBatch.include(setupRequirements(setup, model: selectedTranslation)); persistBatch()
         downloadingAll = true; UserDefaults.standard.set(true, forKey: "downloadAllPending")
         let required = setupFiles(setup, model: selectedTranslation)
         if required.contains(where: opus.contains) { DownloadNotifications.started(TranslationModel.opusBig.rawValue) }
@@ -441,7 +456,12 @@ import OfflineCore
         }
         recognition.start(ids: Array(setup.recognitionIDs))
         queueTask = Task {
-            defer { downloadingAll = false; queueTask = nil; UserDefaults.standard.set(false, forKey: "downloadAllPending") }
+            defer {
+                downloadingAll = false; queueTask = nil; UserDefaults.standard.set(false, forKey: "downloadAllPending")
+                if !Task.isCancelled, !cancellingBatch, setupReady(setup, model: selectedTranslation) {
+                    currentBatch = DownloadBatch(); persistBatch()
+                }
+            }
             await recognition.waitForDownloads()
             guard !Task.isCancelled, setup.recognitionIDs.filter({ $0 != LanguageSetup.omnilingualID && $0 != ModelDescriptor.turbo.id }).allSatisfy({ recognition.directories[$0] != nil }) else { return }
             for downloader in required {
@@ -535,6 +555,47 @@ import OfflineCore
     func cancelOpus() async {
         queueTask?.cancel(); await queueTask?.value
         await opus.cancel()
+    }
+    /// Delete only files absent when the current batch began. In particular,
+    /// never pass a partial package to the ordinary whole-package remove API.
+    func cancelCurrentBatch() async {
+        guard canCancelBatch else { return }
+        cancellingBatch = true
+        defer { cancellingBatch = false; DownloadLiveActivity.changed() }
+        let ids = currentBatch.ids
+        errors["downloadBatch"] = nil
+        await pauseAll()
+        let items = downloaders.filter { ids.contains($0.model.id) }
+        let owners = Set(items.map { packageOwner($0).model.id })
+        for owner in owners { jobs[owner]?.cancel() }
+        for owner in owners { await jobs[owner]?.value }
+        // Stop verification before touching files; clear source references before
+        // invalidating assembled packages so an observer cannot rebuild them.
+        do {
+            for item in items {
+                // A separate Pause action may still be receiving resume data.
+                // Let it finish before cancel consumes that data and its partial file.
+                while item.isManaging { try await Task.sleep(for: .milliseconds(20)) }
+                try Task.checkCancellation()
+                await item.cancel()
+                try await item.store.remove(item.model)
+                await item.clearInstalledReference()
+            }
+            if opus.downloaders.contains(where: { ids.contains($0.model.id) }) { try await opus.discardAssembly() }
+            for package in opusDirections.packages where package.downloaders.contains(where: { ids.contains($0.model.id) }) { try await package.discardAssembly() }
+            for definition in RecognitionPackages.definitions where definition.parts.contains(where: { ids.contains($0.id) }) { try await recognition.discardAssembly(definition) }
+            #if os(macOS)
+            if indexMLX.downloaders.contains(where: { ids.contains($0.model.id) }) { try await indexMLX.discardAssembly() }
+            #endif
+            for owner in owners {
+                if let package = manifests[owner] { try await store.remove(package) }
+                if let item = downloaders.first(where: { $0.model.id == owner }) {
+                    for part in components(item) { voiceDirectories[part.model.id] = nil }
+                }
+                errors[owner] = nil
+            }
+            currentBatch = DownloadBatch(); persistBatch()
+        } catch { errors["downloadBatch"] = error.localizedDescription }
     }
     func cancel(_ downloader: ModelDownloader) async {
         #if os(macOS)

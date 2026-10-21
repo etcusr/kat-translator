@@ -2,6 +2,8 @@
 
 **English** | [Русский](README.ru.md)
 
+**Development download update (iOS 1.0.1 (59), not published):** iOS 26+ uses system continued processing for foreground-started model downloads, with the existing Live Activity fallback. **Cancel all** deletes only the current batch's completed and incomplete files after confirmation; earlier models and voices are retained. [Device checks and limits](docs/publication/ios-continued-download-2026-10-22.md).
+
 **iOS 1.0.1 (58), 20 October:** the package with Whisper Q8, diagnostic audio import and updated recording defaults is verified and uploaded to Apple. Four release-note localizations were saved and reread exactly; manually revised keywords were preserved and synchronized to the documentation. Build 58 was processed, selected and submitted: **Waiting for Review**, confirmed at 23:23 Moscow time. Manual release remains selected. Sources, including completed Mac changes, were pushed to GitHub (`f24ddb0`). [Evidence](docs/publication/ios-q8-store-2026-10-20.md).
 
 **iOS recording defaults:** Whisper date/time repair is enabled and automatic stop uses 3 seconds of silence when no saved preference exists. Explicit saved choices are preserved. macOS/Android defaults are unchanged.

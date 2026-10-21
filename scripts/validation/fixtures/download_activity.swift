@@ -12,6 +12,7 @@ struct State { var receivedBytes: Int64 = 0; var phase = TransferPhase.downloadi
     var downloaders = [Downloader()]
     func downloadReady(_ item: Downloader) -> Bool { item.ready }
     func downloadPackageFailed(_ item: Downloader) -> Bool { false }
+    func pauseAll() async {}
 }
 @MainActor final class UIApplication {
     static let shared = UIApplication()
@@ -22,7 +23,7 @@ struct State { var receivedBytes: Int64 = 0; var phase = TransferPhase.downloadi
 @MainActor final class DownloadBackgroundWork { func end() {} }
 struct ActivityContent<State> { var state: State; var staleDate: Date? }
 enum ActivityState { case active, stale, ended }
-enum DismissalPolicy { case after(Date) }
+enum DismissalPolicy { case after(Date), immediate }
 @MainActor final class Activity<Attributes> {
     // Swift disallows generic static stored properties; the registry is outside the double.
     static var activities: [Activity<Attributes>] { registry.compactMap { $0 as? Activity<Attributes> } }
@@ -40,11 +41,17 @@ enum DismissalPolicy { case after(Date) }
         }
         updates.append(content.state)
     }
-    func end(_ content: ActivityContent<DownloadActivityAttributes.ContentState>, dismissalPolicy: DismissalPolicy) async {
-        updates.append(content.state); activityState = .ended
+    func end(_ content: ActivityContent<DownloadActivityAttributes.ContentState>?, dismissalPolicy: DismissalPolicy) async {
+        if let content { updates.append(content.state) }; activityState = .ended
     }
 }
 @MainActor var registry: [Any] = []
+
+@MainActor enum DownloadContinuedTask {
+    static var ownsPresentation = false
+    static func start(onChange: @escaping () -> Void, onExpiration: @escaping () async -> Void) -> Bool { false }
+    static func publish(_ value: DownloadProgress, title: String, detail: String) {}
+}
 
 @main struct Probe {
     @MainActor static func main() async {

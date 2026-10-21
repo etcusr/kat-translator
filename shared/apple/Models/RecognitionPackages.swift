@@ -122,4 +122,12 @@ struct RecognitionPackage: Decodable, Identifiable {
             if FileManager.default.fileExists(atPath: staged.path) { try FileManager.default.removeItem(at: staged) }
         } catch { errors[definition.id] = error.localizedDescription }
     }
+    func discardAssembly(_ definition: RecognitionPackage) async throws {
+        assemblies[definition.id]?.cancel()
+        _ = try? await assemblies[definition.id]?.value
+        try await store.remove(definition.manifest)
+        directories[definition.id] = nil; errors[definition.id] = nil
+        let pending = UserDefaults.standard.stringArray(forKey: pendingKey) ?? []
+        UserDefaults.standard.set(pending.filter { $0 != definition.id }, forKey: pendingKey)
+    }
 }

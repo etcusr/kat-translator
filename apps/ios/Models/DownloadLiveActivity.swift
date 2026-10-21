@@ -2,8 +2,8 @@ import ActivityKit
 import UIKit
 import OfflineCore
 
-/// Local ActivityKit updates only. System-owned transfers can continue while the
-/// app is suspended; their next callback refreshes this last-known progress.
+/// Prefer system continued processing for a user-started batch on iOS 26+.
+/// The custom ActivityKit presentation remains the fallback when unavailable.
 @MainActor enum DownloadLiveActivity {
     private static var activity: Activity<DownloadActivityAttributes>?
     private static var ids = Set(UserDefaults.standard.stringArray(forKey: "liveDownloadIDs") ?? [])
@@ -11,12 +11,22 @@ import OfflineCore
     private static var revision = 0
     private static var publishedRevision = 0
     private static var lastUpdate = Date.distantPast
+    private static var systemPresentation: Bool {
+        if #available(iOS 26.0, *) { return DownloadContinuedTask.ownsPresentation }
+        return false
+    }
     static func started(_ id: String) {
         if activity == nil { activity = Activity<DownloadActivityAttributes>.activities.first { $0.activityState == .active || $0.activityState == .stale } }
-        if activity == nil { ids.removeAll() }
+        if activity == nil && !systemPresentation { ids.removeAll() }
         ids.insert(id)
         UserDefaults.standard.set(Array(ids), forKey: "liveDownloadIDs")
-        if activity == nil, UIApplication.shared.applicationState == .active, ActivityAuthorizationInfo().areActivitiesEnabled {
+        if #available(iOS 26.0, *), UIApplication.shared.applicationState == .active, !systemPresentation {
+            if DownloadContinuedTask.start(onChange: { changed() }, onExpiration: { await PackageDownloadCoordinator.shared.pauseAll() }), let previous = activity {
+                activity = nil
+                Task { await previous.end(nil, dismissalPolicy: .immediate) }
+            }
+        }
+        if activity == nil, !systemPresentation, UIApplication.shared.applicationState == .active, ActivityAuthorizationInfo().areActivitiesEnabled {
             let content = snapshot()
             activity = try? Activity.request(attributes: DownloadActivityAttributes(staleMessage: L10n.text("Прогресс обновится, когда iOS передаст новые данные."), catCoat: Int.random(in: 0..<CatCoat.allCases.count)), content: ActivityContent(state: content, staleDate: Date().addingTimeInterval(60)), pushType: nil)
         }
@@ -34,6 +44,13 @@ import OfflineCore
                 publishedRevision = observedRevision
                 scheduled = nil
                 if revision != observedRevision { changed() }
+            }
+            if #available(iOS 26.0, *), systemPresentation {
+                let progress = aggregateProgress()
+                let state = snapshot(progress)
+                lastUpdate = Date()
+                DownloadContinuedTask.publish(progress, title: state.title, detail: state.bytes)
+                return
             }
             if activity == nil { activity = Activity<DownloadActivityAttributes>.activities.first { $0.activityState == .active || $0.activityState == .stale } }
             guard let current = activity, !ids.isEmpty else { return }
@@ -66,10 +83,14 @@ import OfflineCore
             await flush()
         }
     }
-    private static func snapshot() -> DownloadActivityAttributes.ContentState {
+    private static func aggregateProgress() -> DownloadProgress {
         let coordinator = PackageDownloadCoordinator.shared
         let items = coordinator.downloaders.filter { ids.contains($0.model.id) }
-        let progress = DownloadProgress(items.map { .init(id: $0.model.id, expected: $0.model.byteCount, received: $0.state.receivedBytes, phase: $0.state.phase, ready: coordinator.downloadReady($0), packageFailed: coordinator.downloadPackageFailed($0)) })
+        return DownloadProgress(items.map { .init(id: $0.model.id, expected: $0.model.byteCount, received: $0.state.receivedBytes, phase: $0.state.phase, ready: coordinator.downloadReady($0), packageFailed: coordinator.downloadPackageFailed($0)) })
+    }
+    private static func snapshot(_ input: DownloadProgress? = nil) -> DownloadActivityAttributes.ContentState {
+        let items = PackageDownloadCoordinator.shared.downloaders.filter { ids.contains($0.model.id) }
+        let progress = input ?? aggregateProgress()
         let title: String
         switch progress.status {
         case .ready: title = L10n.text("Пакеты для перевода готовы")

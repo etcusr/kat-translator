@@ -15,6 +15,7 @@
         "apps/ios/Camera/CameraOverlay.swift",
         "apps/ios/Camera/CameraView.swift",
         "apps/ios/Diagnostics/RecordingPreviewProbe.swift",
+        "apps/ios/Models/DownloadContinuedTask.swift",
         "apps/ios/Models/DownloadLiveActivity.swift",
         "apps/ios/OfflineTranslatorApp.swift",
         "apps/ios/widget/DownloadActivityAttributes.swift",

@@ -20060,6 +20060,151 @@
           }
         }
       }
+    },
+    "Отменить всё": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отменить всё"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel all"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelar todo"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tümünü iptal et"
+          }
+        }
+      }
+    },
+    "Отменить текущую загрузку?": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отменить текущую загрузку?"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel this download batch?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cancelar esta descarga?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu indirme grubu iptal edilsin mi?"
+          }
+        }
+      }
+    },
+    "Удалить файлы этой загрузки": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить файлы этой загрузки"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete this batch’s files"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar los archivos de esta descarga"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu indirme grubunun dosyalarını sil"
+          }
+        }
+      }
+    },
+    "Будут удалены готовые и незавершённые файлы этой загрузки. Ранее установленные модели и голоса сохранятся.": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Будут удалены готовые и незавершённые файлы этой загрузки. Ранее установленные модели и голоса сохранятся."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Completed and incomplete files from this download batch will be deleted. Previously installed models and voices will be kept."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se eliminarán los archivos completos e incompletos de esta descarga. Se conservarán los modelos y las voces instalados anteriormente."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu indirme grubundaki tamamlanmış ve tamamlanmamış dosyalar silinecek. Önceden yüklenen modeller ve sesler korunacak."
+          }
+        }
+      }
+    },
+    "Продолжить загрузку": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продолжить загрузку"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep downloading"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continuar descargando"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İndirmeye devam et"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

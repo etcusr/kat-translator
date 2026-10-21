@@ -1,0 +1,71 @@
+{
+  "parakeetComponents": {
+    "activityCount": 0,
+    "beforePauseBytes": 331331,
+    "bytes": [
+      23604992,
+      12642764
+    ],
+    "finishedInBackground": true,
+    "pausePhase": "paused",
+    "phases": [
+      "installed",
+      "installed"
+    ],
+    "resumePreservedBytes": true,
+    "systemTaskCompleted": true,
+    "systemTaskStarted": true,
+    "verifiedFiles": 2
+  },
+  "voiceAndParakeet": {
+    "activityCount": 0,
+    "beforePauseBytes": 325926,
+    "bytes": [
+      67190991,
+      12642764
+    ],
+    "expectedBytes": [
+      67190991,
+      12642764
+    ],
+    "fileBytes": [
+      67190991,
+      12642764
+    ],
+    "finishedInBackground": true,
+    "pausePhase": "paused",
+    "phases": [
+      "installed",
+      "installed"
+    ],
+    "resumePreservedBytes": true,
+    "sources": [
+      "vits-piper-ru_RU-denis-medium",
+      "asr-parakeet-ultra-part-11"
+    ],
+    "systemTaskCompleted": true,
+    "systemTaskStarted": true,
+    "verifiedFiles": 2
+  },
+  "cleanup": {
+    "cleaned": true,
+    "sources": [
+      "vits-piper-ru_RU-denis-medium",
+      "asr-parakeet-ultra-part-11"
+    ]
+  },
+  "retention": {
+    "priorFiles": 732,
+    "byteIdentical": 727,
+    "verificationReceiptsOnlyChangedFileChangeTimes": 5,
+    "missingAfterNormalInstall": 0,
+    "remainingResumeOrTemporaryFiles": 0
+  },
+  "ordinaryBuild": {
+    "version": "1.0.1",
+    "build": 59,
+    "identifier": "ios-7bb43c40cf4734f7",
+    "inPlaceInstall": true,
+    "normalLaunch": true
+  }
+}

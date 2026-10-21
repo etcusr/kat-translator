@@ -151,7 +151,7 @@ import OfflineCore
     func prepare() async {
         guard !isShuttingDown else { return }
         #if DOWNLOAD_VALIDATION
-        if ["1", "cleanup"].contains(ProcessInfo.processInfo.environment["OT_DOWNLOAD_VALIDATION"] ?? "") {
+        if ["1", "voice", "cleanup", "cleanup-voice"].contains(ProcessInfo.processInfo.environment["OT_DOWNLOAD_VALIDATION"] ?? "") {
             automaticLoadAttempted = true
             await DownloadValidationProbe.run { [weak self] in self?.message = $0 }
             return

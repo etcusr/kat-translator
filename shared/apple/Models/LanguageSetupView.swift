@@ -157,11 +157,14 @@ struct LanguageSetupView: View {
                             .disabled(!setup.isValid || !packages.restored || applying || probe == nil)
                             .accessibilityIdentifier("setup.download")
                     }
+                    CancelDownloadBatchButton(model: model, packages: packages)
+                    if let error = packages.errors["downloadBatch"] { Text(error).foregroundStyle(.red) }
                 }.frame(maxWidth: .infinity).padding().background(AppPlatform.badgeBackground)
                     .overlay(alignment: .top) { Divider() }
                     .accessibilityElement(children: .contain).accessibilityIdentifier("setup.bar")
             }
-        }.task { if probe == nil { await runProbe() } }
+        }.disabled(packages.cancellingBatch)
+        .task { if probe == nil { await runProbe() } }
         .katSheetClose(enabled: !applying, identifier: "setup.close") { dismiss() }.interactiveDismissDisabled(packages.downloadingAll).preferredColorScheme(.dark).tint(KatTheme.accent)
     }
     /// Step 1: 3–5 s memory and GPU check before languages, so the plan fits this device.

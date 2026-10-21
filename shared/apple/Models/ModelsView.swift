@@ -38,7 +38,9 @@ struct ModelsView: View {
                             coordinator.startAll()
                         }.disabled(!coordinator.translationTermsAccepted)
                     } else { Label(L10n.text("Пакеты для перевода готовы"), systemImage: "checkmark.circle.fill").foregroundStyle(.green) }
+                    CancelDownloadBatchButton(model: model, packages: coordinator)
                     if let error = coordinator.errors["downloadSpace"] { Text(error).foregroundStyle(.red) }
+                    if let error = coordinator.errors["downloadBatch"] { Text(error).foregroundStyle(.red) }
                     if let error = coordinator.errors["catalog"] { Text(error).foregroundStyle(.red) }
                     if let error = coordinator.errors["retiredTranslationModels"] { Text(error).foregroundStyle(.red) }
                 }
@@ -194,7 +196,8 @@ struct ModelsView: View {
                             .katDoneToolbar(identifier: "model.info.close") { details = nil }
                     }.katSheetClose(identifier: "model.info.close") { details = nil }
                 }
-        }.katSheetClose(identifier: "models.close") { dismiss() }
+        }.disabled(coordinator.cancellingBatch)
+        .katSheetClose(identifier: "models.close") { dismiss() }
     }
 }
 private struct ModelLanguagesView: View {
@@ -245,6 +248,26 @@ private struct ModelLanguagesView: View {
         }.background(background).katPanelTypography().navigationTitle(L10n.text("Доступные языки")).katInlineTitle()
     }
 }
+struct CancelDownloadBatchButton: View {
+    @ObservedObject var model: AppModel
+    @ObservedObject var packages: PackageDownloadCoordinator
+    @State private var confirming = false
+    var body: some View {
+        if packages.canCancelBatch {
+            Button(L10n.text("Отменить всё"), role: .destructive) { confirming = true }
+                .accessibilityIdentifier("download.batch.cancel")
+                .alert(L10n.text("Отменить текущую загрузку?"), isPresented: $confirming) {
+                    Button(L10n.text("Удалить файлы этой загрузки"), role: .destructive) {
+                        Task { await model.unload(); await packages.cancelCurrentBatch() }
+                    }.accessibilityIdentifier("download.batch.confirm")
+                    Button(L10n.text("Продолжить загрузку"), role: .cancel) {}
+                } message: {
+                    Text(L10n.text("Будут удалены готовые и незавершённые файлы этой загрузки. Ранее установленные модели и голоса сохранятся.") + "\n\n" + packages.batchTitles)
+                }
+        }
+    }
+}
+
 private struct PackageRow: View {
     @ObservedObject var downloader: ModelDownloader
     @ObservedObject var coordinator: PackageDownloadCoordinator

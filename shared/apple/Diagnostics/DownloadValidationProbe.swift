@@ -13,11 +13,18 @@ import OfflineCore
         func save() { if let data = try? JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]) { try? data.write(to: output, options: .atomic) } }
         do {
             let parts = RecognitionPackages.definitions.first { $0.id == RecognitionCatalog.ultraID }!.parts.filter { ["Decoder.mlmodelc/weights/weight.bin", "JointDecisionv3.mlmodelc/weights/weight.bin"].contains($0.path) }
-            items = parts.enumerated().map { index, part in
-                ModelDownloader(model: ModelDescriptor(id: "download-validation-\(index)", title: "Download validation \(index + 1)", remoteURL: part.remoteURL, byteCount: part.byteCount, sha256: part.sha256))
+            var descriptors = parts.map { ModelDescriptor(id: $0.id, title: $0.path, remoteURL: $0.remoteURL, byteCount: $0.byteCount, sha256: $0.sha256) }
+            let mode = ProcessInfo.processInfo.environment["OT_DOWNLOAD_VALIDATION"] ?? "1"
+            if mode.contains("voice") { descriptors[0] = ModelCatalog.russianVoice }
+            items = descriptors.enumerated().map { index, part in
+                ModelDownloader(model: ModelDescriptor(id: "download-validation-\(mode.contains("voice") ? "voice-" : "")\(index)", title: "Download validation \(index + 1)", remoteURL: part.remoteURL, byteCount: part.byteCount, sha256: part.sha256))
             }
-            if ProcessInfo.processInfo.environment["OT_DOWNLOAD_VALIDATION"] == "cleanup" {
-                for item in items {
+            report["sources"] = descriptors.map { $0.id }
+            if mode.hasPrefix("cleanup") {
+                let legacy = parts.enumerated().map { index, part in
+                    ModelDownloader(model: ModelDescriptor(id: "download-validation-\(index)", title: part.path, remoteURL: part.remoteURL, byteCount: part.byteCount, sha256: part.sha256))
+                }
+                for item in items + legacy {
                     await item.restore(); await item.cancel()
                     try await item.store.remove(item.model)
                     try? FileManager.default.removeItem(at: item.transferRoot)
@@ -26,6 +33,7 @@ import OfflineCore
                     await activity.end(nil, dismissalPolicy: .immediate)
                 }
                 UserDefaults.standard.removeObject(forKey: "liveDownloadIDs")
+                report["cleaned"] = true; save()
                 progress("download-probe-cleaned")
                 return
             }
@@ -48,6 +56,7 @@ import OfflineCore
             report["resumePreservedBytes"] = first.state.receivedBytes == received
             items[1].start()
             report["activityCount"] = Activity<DownloadActivityAttributes>.activities.count
+            if #available(iOS 26.0, *) { report["systemTaskStarted"] = DownloadContinuedTask.ownsPresentation }
             progress("download-probe-running"); save()
             let deadline = Date().addingTimeInterval(180)
             while items.contains(where: { $0.installedURL == nil }) && Date() < deadline {
@@ -58,7 +67,14 @@ import OfflineCore
             report["finishedInBackground"] = UIApplication.shared.applicationState == .background
             report["phases"] = items.map { $0.state.phase.rawValue }
             report["bytes"] = items.map { $0.state.receivedBytes }
-            save(); DownloadLiveActivity.changed()
+            report["expectedBytes"] = items.map { $0.model.byteCount }
+            report["fileBytes"] = try items.map { item -> Int64 in
+                guard let url = item.installedURL else { return 0 }
+                return Int64(try url.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0)
+            }
+            await DownloadLiveActivity.flush()
+            if #available(iOS 26.0, *) { report["systemTaskCompleted"] = !DownloadContinuedTask.ownsPresentation }
+            save()
             progress("download-probe-complete")
         } catch { report["error"] = error.localizedDescription; save(); progress("download-probe-error") }
     }

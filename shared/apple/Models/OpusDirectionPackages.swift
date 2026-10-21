@@ -67,6 +67,10 @@ import OfflineCore
     }
     func pause() async { for item in downloaders where item.state.phase == .downloading { await item.pause() } }
     func cancel() async { assembly?.cancel(); await assembly?.value; for item in downloaders { await item.cancel() } }
+    func discardAssembly() async throws {
+        assembly?.cancel(); await assembly?.value
+        try await store.remove(manifest); directory = nil; error = nil
+    }
 }
 
 /// All direction packages; the same TranslationPackages store as the English OPUS package.
