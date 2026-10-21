@@ -87,6 +87,26 @@ extern "C" JNIEXPORT jbyteArray JNICALL JNI(run)(JNIEnv *e,jobject,jlong h,jbyte
         auto result=e->NewByteArray(static_cast<jsize>(n));if(result)e->SetByteArrayRegion(result,0,n,reinterpret_cast<jbyte *>(output.data()));return result;
     } catch (...) { error(e,"Native inference failure");return nullptr; }
 }
+// Partial output of the run in progress, trimmed to whole UTF-8 characters. Safe to poll from another thread.
+extern "C" JNIEXPORT jbyteArray JNICALL JNI(partial)(JNIEnv *e,jobject,jlong h) {
+    auto *handle=static_cast<EngineHandle *>(ptr(h));if(!handle)return nullptr;
+    std::vector<char> output(4096);int n=-1;
+    for(int attempt=0;attempt<3;++attempt) {
+        n=handle->mtp?kat_mtp_partial(handle->value,output.data(),output.size()):ot_mt_partial(handle->value,output.data(),output.size());
+        if(n<0)return nullptr;
+        if(size_t(n)+1<=output.size())break;
+        output.resize(n+1024);n=-1;
+    }
+    if(n<0)return nullptr;
+    size_t end=n,lead=end;
+    while(lead>0 && (static_cast<unsigned char>(output[lead-1])&0xC0)==0x80)--lead;
+    if(lead>0) {
+        auto c=static_cast<unsigned char>(output[lead-1]);
+        size_t need=c>=0xF0?4:c>=0xE0?3:c>=0xC0?2:1;
+        if(end-(lead-1)<need)end=lead-1;
+    }
+    auto result=e->NewByteArray(static_cast<jsize>(end));if(result)e->SetByteArrayRegion(result,0,end,reinterpret_cast<jbyte *>(output.data()));return result;
+}
 extern "C" JNIEXPORT jbyteArray JNICALL JNI(echo)(JNIEnv *e,jobject,jbyteArray value) {
     try {auto v=bytes(e,value);auto out=e->NewByteArray(v.size());if(out)e->SetByteArrayRegion(out,0,v.size(),reinterpret_cast<const jbyte *>(v.data()));return out;}
     catch (...) {error(e,"Invalid UTF-8 input");return nullptr;}

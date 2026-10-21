@@ -12,6 +12,7 @@ internal object NativeBridge {
     external fun flagFree(flag: Long)
     external fun tokens(handle: Long, prefix: ByteArray, text: ByteArray, suffix: ByteArray): IntArray
     external fun run(handle: Long, prefix: ByteArray, text: ByteArray, suffix: ByteArray, flag: Long, outputBytes: Int, stats: DoubleArray): ByteArray
+    external fun partial(handle: Long): ByteArray?
     external fun echo(text: ByteArray): ByteArray
 }
 sealed class TranslationResult {
@@ -50,6 +51,11 @@ class IndexEngine private constructor(private var handle: Long, val mtpEnabled: 
                 else->TranslationResult.Failure(stats[0].toInt())
             }
         } finally { synchronized(flagLock) { activeFlag=0L;NativeBridge.flagFree(flag) } }
+    }
+    /** Text generated so far by the running translation; null when idle. Callable from any thread. */
+    fun partial(): String? = synchronized(flagLock) {
+        // activeFlag is set only inside translate, which holds the monitor close needs: the handle stays valid.
+        if(activeFlag==0L) null else NativeBridge.partial(handle)?.let { String(it,Charsets.UTF_8) }
     }
     fun cancel(): Boolean = synchronized(flagLock) { if(activeFlag==0L) false else { NativeBridge.flagCancel(activeFlag); true } }
     @Synchronized override fun close() { if(handle!=0L) { NativeBridge.free(handle);handle=0L } }

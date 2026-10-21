@@ -158,6 +158,8 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
     /** MTP measured faster only for 9B; Index 2B on Pixel 9 Pro was not faster with its draft block. */
     val mtpActive get()=effectiveModel=="index" && mtp
     var status by mutableStateOf(""); private set
+    /** Index output is growing in place: the full-screen progress overlay gives way to a compact bar. */
+    var streamingOutput by mutableStateOf(false); private set
     var error by mutableStateOf<String?>(null); private set
     var missingVoice by mutableStateOf<MissingVoice?>(null);private set
     private val timings=mutableStateMapOf<String,ProcessingTiming>()
@@ -358,7 +360,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
                     if(!keepPreparedRecognition || !recognitionReady)releaseRecognition()
                 }
                 ui {
-                    busy=false;preparingModel=false;verificationProgress=null
+                    busy=false;streamingOutput=false;preparingModel=false;verificationProgress=null
                     if(cancelled.get())status=text("Отменено","Cancelled")
                     if(recognitionPreparation.consumeDeferred(recognitionKey()) && inForeground && mode=="voice")prepare()
                 } } }
@@ -454,7 +456,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         ui { opusReady=true;preparingModel=false }
         return runtime to route
     }
-    private fun translateParts(text:String,language:String,from:String=currentSource):String {
+    private fun translateParts(text:String,language:String,from:String=currentSource,progress:((String)->Unit)?=null):String {
         val model=resolveModel(from,language) ?: error(text("Для этой пары не установлена модель перевода. Откройте «Настроить языки и загрузку».","No translation model is installed for this pair. Open language setup."))
         if(model=="opus")return translateOpus(text,from,language)
         val runtime=ensureEngine(model);checkCancelled();ui { status=this.text("Подготовка текста…","Preparing text…") }
@@ -462,9 +464,13 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         ui { segmentCount=parts.size;segmentIndex=0 }
         val result=StringBuilder();val start=System.nanoTime()
         parts.forEachIndexed { index,part ->
-            checkCancelled();ui { segmentIndex=index+1;status=text("Перевожу","Translating")+" · ${index+1}/${parts.size}" }
-            when(val translated=runtime.translate(IndexRequest(part,language))) {
-                is TranslationResult.Success -> { if(index==0)ui { firstToken=translated.firstTokenSeconds };if(result.isNotEmpty())result.append(if(part.startsWith("\n"))"\n" else " ");result.append(translated.text) }
+            checkCancelled();ui { segmentIndex=index+1;status=text("Перевожу","Translating")+(if(parts.size>1)" · ${index+1}/${parts.size}" else "") }
+            val separator=if(result.isEmpty())"" else if(part.startsWith("\n"))"\n" else " "
+            val committed=result.toString()
+            val poller=progress?.let { publish -> PartialPoller(main,{ runtime.partial() }) { if(it.isNotBlank())publish(committed+separator+it) } }
+            val translated=try { runtime.translate(IndexRequest(part,language)) } finally { poller?.stop() }
+            when(translated) {
+                is TranslationResult.Success -> { if(index==0)ui { firstToken=translated.firstTokenSeconds };result.append(separator);result.append(translated.text);progress?.invoke(result.toString()) }
                 TranslationResult.Cancelled -> error(text("Отменено","Cancelled"))
                 TranslationResult.Limit -> error(text("Модель остановилась по лимиту. Результат не сохранён.","Model reached its output limit. Result was not saved."))
                 else -> error(text("Не удалось выполнить перевод.","Translation failed."))
@@ -484,7 +490,9 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         val retain=retainMediaModels()
         if(!retain) { releaseRecognition();media.releaseSpeech() }
         val preload=if(speak && retain)preloadVoice(language) else null
-        val translated=try { TranslationRouting.translate(original,resolved ?: from,language) { preparedTranslation ?: translateParts(original,language,resolved ?: from) } }
+        val stream:(String)->Unit={ partial -> ui { if(!cancelled.get()) { outputs[workspace]=partial;streamingOutput=true } } }
+        val translated=try { TranslationRouting.translate(original,resolved ?: from,language) { preparedTranslation ?: translateParts(original,language,resolved ?: from,stream) } }
+            catch(e:Exception) { ui { if(streamingOutput)outputs[workspace]="";streamingOutput=false };throw e }
             finally { preload?.get() }
         checkCancelled()
         ui { if(!cancelled.get()) { inputs[workspace]=original;outputs[workspace]=translated;status=text("Готово","Done") } }

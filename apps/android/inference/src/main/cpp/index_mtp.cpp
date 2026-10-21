@@ -23,6 +23,9 @@ struct Engine {
     llama_model_ptr model;
     llama_context_ptr target;
     common_speculative_init_result_ptr draft;
+    std::mutex partial_mutex;
+    std::string partial;
+    void publish(const std::string &text) {std::lock_guard<std::mutex> lock(partial_mutex);partial=text;}
 };
 std::vector<llama_token> tokenize(const llama_vocab *v,const char *text,bool controls) {
     int n=llama_tokenize(v,text,(int)std::strlen(text),nullptr,0,false,controls);
@@ -83,6 +86,12 @@ void *kat_mtp_load(const char *path,int threads,bool flash) {
     } catch(const std::exception &ex) {__android_log_print(ANDROID_LOG_ERROR,"KatMTP","load: %s",ex.what());return nullptr;}
 }
 void kat_mtp_free(void *handle) {delete static_cast<Engine *>(handle);}
+int kat_mtp_partial(void *handle,char *out,size_t capacity) {
+    if(!handle || !out || capacity<1)return -1;
+    auto &e=*static_cast<Engine *>(handle);std::lock_guard<std::mutex> lock(e.partial_mutex);
+    if(e.partial.size()+1>capacity)return e.partial.size();
+    std::memcpy(out,e.partial.c_str(),e.partial.size()+1);return e.partial.size();
+}
 int kat_mtp_tokens(void *handle,const char *prefix,const char *text,const char *suffix,int *out,size_t capacity) {
     try {auto values=prompt(*static_cast<Engine *>(handle),prefix,text,suffix);if(out && capacity>=values.size())std::copy(values.begin(),values.end(),out);return values.size();}catch(...){return -1;}
 }
@@ -91,6 +100,7 @@ int kat_mtp_run(void *handle,const char *prefix,const char *text,const char *suf
     out[0]=0;*first=-1;*drafted=*accepted=0;
     try {
         auto &e=*static_cast<Engine *>(handle);auto *target=e.target.get(),*draft=e.draft->context();
+        e.publish({});
         auto tokens=prompt(e,prefix,text,suffix);if(tokens.empty() || tokens.size()>1536)return 1;
         if(cancelled(flag))return 2;
         RunScope scope(target,draft,flag);
@@ -121,6 +131,7 @@ int kat_mtp_run(void *handle,const char *prefix,const char *text,const char *suf
             if(generated>=budget)return 1;
             if(*first<0)*first=std::chrono::duration<double>(std::chrono::steady_clock::now()-start).count();
             result+=common_token_to_piece(target,token,false);++generated;
+            e.publish(result);
             return result.size()+1>capacity?1:3;
         };
         int status=emit(last);if(status!=3)return status;

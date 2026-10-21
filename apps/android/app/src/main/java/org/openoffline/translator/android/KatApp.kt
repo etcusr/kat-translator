@@ -214,7 +214,8 @@ internal fun shareFile(context:Context,file:File,mime:String) {
                 }
             }
         }
-        if(!restored || state.busy && (state.mode!="camera" || sheet.isNotEmpty()))Processing(state,checkingPackages=!restored)
+        if(restored && state.busy && state.streamingOutput && sheet.isEmpty() && state.mode!="camera")StreamingBar(state)
+        else if(!restored || state.busy && (state.mode!="camera" || sheet.isNotEmpty()))Processing(state,checkingPackages=!restored)
         if(confirmation.isNotEmpty())AlertDialog(onDismissRequest={confirmation=""},title={Text(if(confirmation=="history")tr("Очистить всю историю?") else tr("Удалить запись?","Delete entry?"))},text={Text(tr("Это действие нельзя отменить.","This cannot be undone."))},confirmButton={TextButton(onClick={if(confirmation=="history")state.clearHistory() else state.deleteHistory(confirmation);confirmation=""}) { Text(tr("Удалить"),color=Color(0xFFFF6961)) }},dismissButton={TextButton(onClick={confirmation=""}) { Text(tr("Отменить")) }})
     } }
 }
@@ -788,6 +789,18 @@ internal val GroupActionPadding=PaddingValues(horizontal=0.dp,vertical=8.dp)
         BoxWithConstraints(Modifier.width(imageWidth).aspectRatio(ratio).graphicsLayer(scaleX=scale,scaleY=scale,translationX=offset.x,translationY=offset.y)) {
             Image(bitmap.asImageBitmap(),tr("Изображение с переводом"),modifier=Modifier.fillMaxSize())
             blocks.zip(translations).forEach { (block,text) -> Text(text,fontSize=12.sp,color=Color.Black,modifier=Modifier.offset(x=maxWidth*block.left,y=maxHeight*block.top).width((maxWidth*(block.right-block.left)).coerceAtLeast(24.dp)).background(Color.White.copy(alpha=.93f))) }
+        }
+    }
+}
+/** Compact progress while the translation grows in place, so the text stays visible. */
+@Composable private fun StreamingBar(state:TranslatorState) {
+    BackHandler { state.cancel() }
+    Box(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing),contentAlignment=Alignment.BottomCenter) {
+        Row(Modifier.padding(16.dp).widthIn(max=560.dp).fillMaxWidth().clip(RoundedCornerShape(20.dp)).background(Color(0xFF2C2C2E)).padding(horizontal=16.dp,vertical=8.dp).testTag("processing.streaming"),verticalAlignment=Alignment.CenterVertically) {
+            CircularProgressIndicator(Modifier.size(20.dp),color=KatAccent,strokeWidth=2.dp)
+            Spacer(Modifier.width(12.dp))
+            Text(state.status,color=Color.White,fontSize=15.sp,maxLines=1,modifier=Modifier.weight(1f).testTag("processing.status"))
+            TextButton(onClick=state::cancel,modifier=Modifier.testTag("processing.cancel")) { Text(tr("Отменить"),fontSize=16.sp) }
         }
     }
 }
