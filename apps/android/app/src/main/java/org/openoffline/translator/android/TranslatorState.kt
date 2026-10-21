@@ -810,11 +810,10 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             recorder.start();recording=true;recordingPaused=false;recordingMillis=0
             if(recordingPreprocessing) {
                 val thermal=getApplication<Application>().getSystemService(android.os.PowerManager::class.java).currentThermalStatus
-                // Russian and English phrases use a fast live recognizer when installed; Whisper is too slow on
-                // the Pixel to follow speech. Other languages keep the selected recognizer.
+                // Use the same selected package for live phrases and the complete recording.
                 val live=liveRecognition(currentSource)
-                val backend=if(live!=null)packages.catalog.first { it.id==live }.backend else if(useSystemRecognition())null else runCatching { installedPackage(PackageCategory.RECOGNITION,currentSource,selectedRecognition()).first.backend }.getOrNull()
-                val compatible=live!=null || backend in setOf("whisper","gigaam")
+                val backend=live?.let { id -> packages.catalog.first { it.id==id }.backend }
+                val compatible=live!=null
                 if(indexModel && installed && !memorySaving && compatible && thermal<android.os.PowerManager.THERMAL_STATUS_SEVERE) {
                     recordingPreview=RecordingPreview(currentSource,target,recordingVerification,automaticSpeech,punctuated=backend!="gigaam",recognizer=live)
                     recordingPreview?.let { session -> worker.execute { warmLiveSession(session) } }
@@ -896,7 +895,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
                     // Verification uses the complete recording and replaces provisional text.
                     // Re-translation is deliberate; no stale neighboring phrase is reused.
                     // Without verification the live recognizer also handles a recording with no finished phrase.
-                    val live=session?.takeIf { !it.verify }?.recognizer
+                    val live=session?.recognizer
                     val transcript=transcribe(samples,from,live).let { if(live==null || session.punctuated || it.text.isBlank()) it else it.copy(text=RecordingPreview.sentence(it.text)) }
                     checkCancelled()
                     check(transcript.text.isNotBlank()) { text("Речь не распознана.","No speech recognized.") }
@@ -933,10 +932,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
     private fun warmLiveSession(session:RecordingPreview) {
         try {
             if(session.cancelled || session.suspended)return
-            session.recognizer?.let { id ->
-                val pack=packages.catalog.first { it.id==id };val path=packages.installedPath(id) ?: return@let
-                packages.acquire(id).use { media.preloadNemo(path.path,pack.backend=="parakeet") { cancelled.get() || closed.get() || session.cancelled } }
-            }
+            prepareRecognition(session.source)
             val model=resolveModel(session.source,session.target)?.takeIf { it!="opus" } ?: return
             val runtime=ensureEngine(model)
             if(warmedEngine!==runtime && !session.cancelled) { runtime.translate(IndexRequest("Hello.",session.target));warmedEngine=runtime }
@@ -944,15 +940,19 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
     }
     /** GigaAM spells numbers out; dates and clock times become digits, as Whisper writes them, before translation. */
     private fun spokenNumbers(text:String,language:String)=if(language=="ru")RussianSpokenNumbers.normalize(text) else text
-    /** Fast live recognizer for the language, when installed: GigaAM for Russian, Parakeet v2 for English (owner's
-     * decisions 21.10; both matched Whisper on test sets at a fraction of the Pixel CPU time). Other languages: none. */
-    private fun liveRecognition(from:String):String?=LIVE_RECOGNIZERS[from]?.takeIf { id ->
-        recognitionPreference=="automatic" && packages.catalog.any { it.id==id && it.category==PackageCategory.RECOGNITION && it.unavailableReason==null } && packages.installedPath(id)!=null }
+    private fun recognitionPackageId(from:String):String?=when(recognitionPreference) {
+        "system" -> null
+        "whisper" -> RecognitionRouting.requiredId("auto")
+        else -> selectedRecognition() ?: RecognitionRouting.requiredId(from)
+    }
+    /** The live path never overrides the model used for import or complete-record verification. */
+    private fun liveRecognition(from:String):String?=recognitionPackageId(from)?.takeIf { id ->
+        packages.catalog.any { it.id==id && it.category==PackageCategory.RECOGNITION && it.unavailableReason==null &&
+            it.supports(from) && (it.backend in setOf("whisper","gigaam") || it.id=="parakeet-v2-en-int8") } && packages.installedPath(id)!=null }
     private fun automaticRecognition(from:String)=if(recognitionPreference=="automatic" && selectedRecognition()==null)
-        RecognitionRouting.recommended(packages.catalog,from)?.id else null
+        RecognitionRouting.requiredId(from) else null
     val automaticRecognitionPackage get()=automaticRecognition(currentSource)?.let { id -> packages.catalog.first { it.id==id } }
-    private fun useSystemRecognition()=recognitionPreference=="system" ||
-        (recognitionPreference=="automatic" && selectedRecognition()==null && systemRecognitionAvailable)
+    private fun useSystemRecognition()=recognitionPreference=="system"
     private fun prepareRecognition(from:String) {
         val automatic=automaticRecognition(from)
         if(automatic==null && useSystemRecognition()) {
@@ -961,7 +961,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             return
         }
         systemSpeech.releasePrepared()
-        val (pack,path)=installedPackage(PackageCategory.RECOGNITION,from,selectedRecognition() ?: automatic)
+        val (pack,path)=installedPackage(PackageCategory.RECOGNITION,from,recognitionPackageId(from))
         packages.acquire(pack.id).use {
             checkCancelled()
             when(pack.backend) {
@@ -972,7 +972,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             }
         }
     }
-    /** [packageId] forces one installed recognizer (Russian live phrases use GigaAM); otherwise the user's choice applies. */
+    /** [packageId] pins a recording session; all other paths resolve the same language policy/manual choice. */
     private fun transcribe(samples:FloatArray,from:String,packageId:String?=null):Transcript = measure(ProcessingStage.RECOGNITION) {
         try { transcribeImpl(samples,from,packageId) } finally { if(!retainMediaModels() || (automaticRecognition(from)==null && useSystemRecognition()))releaseRecognition() }
     }
@@ -993,7 +993,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             val title=packages.catalog.first { it.id==automatic }.title
             error(text("Модель распознавания %@ не скачана. Нажмите «Скачать распознавание».", "The %@ recognition model is not downloaded. Tap Download recognition.", (title)))
         }
-        val (pack,path)=installedPackage(PackageCategory.RECOGNITION,from,packageId ?: selectedRecognition() ?: automatic)
+        val (pack,path)=installedPackage(PackageCategory.RECOGNITION,from,packageId ?: recognitionPackageId(from))
         ui { recognitionBackend=pack.backend }
         return packages.acquire(pack.id).use {
             checkCancelled()
@@ -1269,5 +1269,3 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
     }
     override fun onCleared() { closed.set(true);cancelled.set(true);systemSpeech.close();mlKitOcr.close();recordingPreview?.cancel();main.removeCallbacks(ticker);main.removeCallbacks(playbackTicker);main.removeCallbacks(memoryTicker);recorder.stop();player.stop();filePlayer?.release();engine?.cancel();opus?.cancel();media.cancel();worker.execute { releaseTranslation();media.close() };worker.shutdown();voiceLoader.shutdownNow() }
 }
-
-private val LIVE_RECOGNIZERS=mapOf("ru" to "gigaam-v3-int8","en" to "parakeet-v2-en-int8")

@@ -508,7 +508,7 @@ internal val GroupActionPadding=PaddingValues(horizontal=0.dp,vertical=8.dp)
         ToggleRow(tr("Исправлять дату и время"),state.whisperDateTimeRepair,tag="settings.whisperDateTimeRepair",action=state::changeWhisperDateTimeRepair)
         TextButton(contentPadding=GroupActionPadding,onClick={navigate("models")},modifier=Modifier.testTag("settings.recognition.models")) { Text(tr("Модели распознавания")) }
     }
-    Note(tr("Авто выбирает модель по исходному языку: русский — GigaAM, остальные поддерживаемые языки — Parakeet. Если модель не скачана, приложение предложит её загрузить. Для других языков остаётся встроенное распознавание Android; Whisper и Meta можно выбрать вручную.","Auto selects by source language: Russian uses GigaAM; other supported languages use Parakeet. If the model is missing, the app offers a download. Other languages retain Android on-device recognition; Whisper and Meta can be selected manually."))
+    Note(tr("Авто: русский — GigaAM, английский — Parakeet v2, остальные языки — Whisper Q8. Один и тот же выбор используется при записи, импорте и повторной проверке. Если модель не скачана, приложение предложит её загрузить. Ручной выбор модели действует во всех режимах.","Auto: Russian uses GigaAM, English uses Parakeet v2, other languages use Whisper Q8. Recording, import and verification use the same selection. If the model is missing, the app offers a download. A manual model selection applies to every mode."))
     Note(tr("Whisper повторно проверяет неоднозначные дату и время в русской речи. Может увеличить ожидание."))
     Note(tr("Parakeet Ultra использует Apple CoreML и недоступен на Android.","Parakeet Ultra requires Apple CoreML and is unavailable on Android."))
     SettingsGroup(tr("Экспериментально")) {

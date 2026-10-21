@@ -64,10 +64,7 @@ data class PackageLanguageSetup(
         val missingSpeech = mutableListOf<String>()
         for (language in languages) {
             if (recognition) {
-                val candidates = available.filter { it.category == PackageCategory.RECOGNITION && it.supports(language) }
                 val model = RecognitionRouting.recommended(available,language)
-                    ?: candidates.firstOrNull { it.backend == "whisper" }
-                    ?: candidates.firstOrNull { it.backend == "omnilingual" }
                 if (model == null) missingRecognition += language else selected[model.id] = model
             }
             if (speech) {

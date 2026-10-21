@@ -329,11 +329,6 @@
     "es": "Android — en el dispositivo",
     "tr": "Android — cihazda"
   },
-  "Авто выбирает модель по исходному языку: русский — GigaAM, остальные поддерживаемые языки — Parakeet. Если модель не скачана, приложение предложит её загрузить. Для других языков остаётся встроенное распознавание Android; Whisper и Meta можно выбрать вручную.": {
-    "en": "Auto selects by source language: Russian uses GigaAM; other supported languages use Parakeet. If the model is missing, the app offers a download. Other languages retain Android on-device recognition; Whisper and Meta can be selected manually.",
-    "es": "Auto elige según el idioma de origen: GigaAM para ruso y Parakeet para los demás idiomas compatibles. Si falta el modelo, la app ofrece descargarlo. Los otros idiomas usan el reconocimiento local de Android; Whisper y Meta se pueden elegir manualmente.",
-    "tr": "Otomatik, kaynak dile göre seçer: Rusça için GigaAM, desteklenen diğer diller için Parakeet. Model eksikse uygulama indirmeyi önerir. Diğer dillerde Android'in cihaz üzerinde tanıması kullanılır; Whisper ve Meta elle seçilebilir."
-  },
   "Parakeet Ultra использует Apple CoreML и недоступен на Android.": {
     "en": "Parakeet Ultra requires Apple CoreML and is unavailable on Android.",
     "es": "Parakeet Ultra requiere Apple CoreML y no está disponible en Android.",
@@ -933,5 +928,10 @@
     "en": "This Core ML package requires Apple. Use Whisper on Android",
     "es": "Este paquete Core ML requiere Apple. Use Whisper en Android",
     "tr": "Bu Core ML paketi Apple içindir. Android’de Whisper kullanın"
+  },
+  "Авто: русский — GigaAM, английский — Parakeet v2, остальные языки — Whisper Q8. Один и тот же выбор используется при записи, импорте и повторной проверке. Если модель не скачана, приложение предложит её загрузить. Ручной выбор модели действует во всех режимах.": {
+    "en": "Auto: Russian uses GigaAM, English uses Parakeet v2, other languages use Whisper Q8. Recording, import and verification use the same selection. If the model is missing, the app offers a download. A manual model selection applies to every mode.",
+    "es": "Auto: ruso con GigaAM, inglés con Parakeet v2 y los demás idiomas con Whisper Q8. La grabación, la importación y la verificación usan la misma selección. Si falta el modelo, la aplicación ofrece descargarlo. La selección manual se aplica a todos los modos.",
+    "tr": "Otomatik: Rusça için GigaAM, İngilizce için Parakeet v2, diğer diller için Whisper Q8 kullanılır. Kayıt, içe aktarma ve doğrulama aynı seçimi kullanır. Model eksikse uygulama indirmeyi önerir. Elle seçilen model tüm modlarda geçerlidir."
   }
 }

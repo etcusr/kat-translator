@@ -77,11 +77,12 @@ internal object UiStringsEs {
         "Whisper повторно проверяет неоднозначные дату и время в русской речи. Может увеличить ожидание." to "Whisper vuelve a comprobar fechas y horas ambiguas en el habla rusa. Puede aumentar la espera.",
         "Авто" to "Auto",
         "Авто выбирает GigaAM для русского и Parakeet для остальных 24 поддерживаемых языков. Скачайте нужные пакеты один раз; затем распознавание работает без интернета." to "Auto elige GigaAM para ruso y Parakeet para los otros 24 idiomas compatibles. Descargue una vez los paquetes necesarios; después el reconocimiento funciona sin conexión.",
-        "Авто выбирает модель по исходному языку: русский — GigaAM, остальные поддерживаемые языки — Parakeet. Если модель не скачана, приложение предложит её загрузить. Для других языков остаётся встроенное распознавание Android; Whisper и Meta можно выбрать вручную." to "Auto elige según el idioma de origen: GigaAM para ruso y Parakeet para los demás idiomas compatibles. Si falta el modelo, la app ofrece descargarlo. Los otros idiomas usan el reconocimiento local de Android; Whisper y Meta se pueden elegir manualmente.",
         "Авто выбирает распознаватель по языку. В ручном режиме используется только выбранный движок; его пакет нужно скачать в разделе моделей. Выбор применяется со следующей записи и не меняет модель перевода." to "Auto selecciona un reconocedor según el idioma. El modo manual usa solo el motor elegido; descargue su paquete en Modelos. Los cambios se aplican a la siguiente grabación y no cambian el modelo de traducción.",
         "Авто недоступно для этой пары" to "Auto no está disponible para este par",
         "Авто: обычный Whisper для поддерживаемых им языков, включая русский и английский; Meta — для дополнительных. Ultra доступен вручную в настройках. Скачиваются только пакеты для выбранных языков." to "Auto: Whisper clásico para los idiomas que admite, incluidos ruso e inglés; Meta para los adicionales. Ultra se puede elegir manualmente en Ajustes. Solo se descargan los paquetes de los idiomas elegidos.",
+        "Авто: русский — GigaAM, английский — Parakeet v2, остальные языки — Whisper Q8. Один и тот же выбор используется при записи, импорте и повторной проверке. Если модель не скачана, приложение предложит её загрузить. Ручной выбор модели действует во всех режимах." to "Auto: ruso con GigaAM, inglés con Parakeet v2 y los demás idiomas con Whisper Q8. La grabación, la importación y la verificación usan la misma selección. Si falta el modelo, la aplicación ofrece descargarlo. La selección manual se aplica a todos los modos.",
         "Автоматически озвучивать" to "Leer automáticamente",
+        "Автоматический словарь терминов" to "Glosario automático de términos",
         "Автоопределение языка" to "Detectar idioma automáticamente",
         "Альтернатива Index · сравните качество" to "Alternativa a Index · compare la calidad",
         "Английский голос · LJ Speech" to "Voz inglesa · LJ Speech",
@@ -113,9 +114,9 @@ internal object UiStringsEs {
         "В открывшемся мессенджере выберите чат и вставьте файл сочетанием ⌘V." to "Elija un chat en la aplicación de mensajería y pegue el archivo con ⌘V.",
         "В отчёте только показатели и версии, без голоса и текста." to "El informe solo incluye métricas y versiones, sin grabaciones de voz ni texto.",
         "В очереди" to "En cola",
-        "В пакете отсутствует нужный файл." to "Falta un archivo necesario en el paquete.",
     )
     private fun part1() = mapOf(
+        "В пакете отсутствует нужный файл." to "Falta un archivo necesario en el paquete.",
         "В приложениях с поддержкой служб: выделите текст → правый клик → Службы → Перевести в Kat translator." to "En apps que admiten Servicios: seleccione texto → clic derecho → Servicios → Traducir en Kat translator.",
         "Ваши языки" to "Sus idiomas",
         "Введите текст" to "Escriba texto",
@@ -149,6 +150,7 @@ internal object UiStringsEs {
         "Выбрать скорость" to "Elegir velocidad",
         "Выбрать язык перевода" to "Elegir idioma de destino",
         "Выгружать модели между этапами. Меньше расход памяти, но больше ожидание загрузки." to "Descarga los modelos de la memoria entre etapas. Usa menos memoria, pero añade tiempo de carga.",
+        "Выгружать переводчик после простоя" to "Liberar el traductor tras inactividad",
         "Выгрузить из памяти" to "Descargar de la memoria",
         "Выделенный текст" to "Texto seleccionado",
         "Выделенный текст недоступен." to "El texto seleccionado no está disponible.",
@@ -214,10 +216,10 @@ internal object UiStringsEs {
         "Женский · молодой" to "Femenina · joven",
         "Женский · мягкий" to "Femenina · suave",
         "Женский · нейтральный" to "Femenina · neutra",
-        "Женский · тёплый" to "Femenina · cálida",
-        "Женский · яркий" to "Femenina · brillante",
     )
     private fun part2() = mapOf(
+        "Женский · тёплый" to "Femenina · cálida",
+        "Женский · яркий" to "Femenina · brillante",
         "Завершаю запись…" to "Finalizando grabación…",
         "Завершаю работу…" to "Saliendo…",
         "Завершить запись" to "Finalizar grabación",
@@ -316,10 +318,10 @@ internal object UiStringsEs {
         "Много памяти · лучше начать с 4B" to "Uso intensivo de memoria · empiece con 4B",
         "Мобильный интернет для OCR" to "Datos móviles para OCR",
         "Модели" to "Modelos",
-        "Модели выгружены для освобождения памяти. Включите экономию памяти в настройках и подготовьте перевод снова." to "Los modelos se han descargado de la memoria para liberarla. Active el ahorro de memoria en Ajustes y prepare de nuevo la traducción.",
-        "Модели выполняют перевод на Android. После скачивания сеть для перевода не нужна." to "Los modelos traducen en Android. Tras descargarlos, no se necesita internet para traducir.",
     )
     private fun part3() = mapOf(
+        "Модели выгружены для освобождения памяти. Включите экономию памяти в настройках и подготовьте перевод снова." to "Los modelos se han descargado de la memoria para liberarla. Active el ahorro de memoria en Ajustes y prepare de nuevo la traducción.",
+        "Модели выполняют перевод на Android. После скачивания сеть для перевода не нужна." to "Los modelos traducen en Android. Tras descargarlos, no se necesita internet para traducir.",
         "Модели выполняют перевод на Mac. После скачивания сеть для перевода не нужна." to "Los modelos traducen en su Mac. Una vez descargados, no necesitan conexión a internet.",
         "Модели выполняют перевод на iPhone. После скачивания сеть для перевода не нужна." to "Los modelos traducen en su iPhone. Tras descargarlos, puede traducir sin conexión a internet.",
         "Модели распознавания" to "Modelos de reconocimiento de voz",
@@ -328,6 +330,7 @@ internal object UiStringsEs {
         "Модель используется. Сначала остановите перевод или озвучку" to "El modelo está en uso. Detenga primero la traducción o la voz",
         "Модель остановилась по лимиту. Результат не сохранён." to "El modelo ha alcanzado su límite de salida. No se ha guardado el resultado.",
         "Модель перевода" to "Modelo de traducción",
+        "Модель перевода остаётся в памяти между запросами. После простоя она выгружается и автоматически загружается при следующем переводе. Экономия памяти выгружает её сразу после этапа перевода." to "El modelo de traducción permanece en memoria entre solicitudes. Tras un periodo de inactividad se libera y se carga automáticamente para la siguiente traducción. El ahorro de memoria lo libera justo después de la etapa de traducción.",
         "Модель распознавания %@ не скачана. Нажмите «Скачать распознавание»." to "El modelo de reconocimiento %@ no está descargado. Pulse Descargar reconocimiento.",
         "Модель: " to "Modelo: ",
         "Можно свернуть окно: загрузка продолжится. Разрешите уведомления, чтобы узнать о готовности моделей." to "Puede minimizar la ventana: la descarga continúa. Permita las notificaciones para saber cuándo están listos los modelos.",
@@ -381,6 +384,7 @@ internal object UiStringsEs {
         "Не удалось открыть файл" to "No se ha podido abrir el archivo",
         "Не удалось открыть файл лицензий." to "No se pudo abrir el archivo de licencias.",
         "Не удалось подготовить перевод." to "No se ha podido preparar la traducción.",
+        "Не удалось подготовить экспериментальный словарь. Отключите его в настройках и повторите перевод." to "No se pudo preparar el glosario experimental. Desactívalo en los ajustes y vuelve a traducir.",
         "Не удалось полностью очистить историю: " to "No se ha podido borrar todo el historial: ",
         "Не удалось получить снимок области экрана." to "No se ha podido capturar el área de pantalla seleccionada.",
         "Не удалось проверить пакет распознавания. Скачайте его заново." to "No se ha podido verificar el paquete de reconocimiento de voz. Descárguelo de nuevo.",
@@ -416,12 +420,12 @@ internal object UiStringsEs {
         "Недостаточно свободного места для модели." to "No hay espacio suficiente para el modelo.",
         "Недостаточно свободного места. Нужно ещё %@ МБ" to "Espacio insuficiente. Se necesitan %@ MB más",
         "Недоступно" to "No disponible",
+    )
+    private fun part4() = mapOf(
         "Неизвестный файл в архиве" to "Archivo desconocido en el archivo comprimido",
         "Некорректный идентификатор модели." to "Identificador de modelo no válido.",
         "Неполный пакет" to "Paquete incompleto",
         "Нет адреса перенаправления" to "Falta la dirección de redirección",
-    )
-    private fun part4() = mapOf(
         "Нет данных" to "Sin datos",
         "Нет доступа к %@. Нажмите, чтобы разрешить в настройках Android." to "Sin acceso a %@. Toque para permitirlo en los ajustes de Android.",
         "Нет подключения к интернету" to "Sin conexión a internet",
@@ -518,12 +522,12 @@ internal object UiStringsEs {
         "Пакет изменяется" to "El paquete se está modificando",
         "Пакет не установлен" to "El paquete no está instalado",
         "Пакет проверен и установлен" to "Paquete verificado e instalado",
+    )
+    private fun part5() = mapOf(
         "Пакетов: " to "Paquetes: ",
         "Пакеты для перевода готовы" to "Paquetes de traducción listos",
         "Память" to "Memoria",
         "Память и скачивание" to "Memoria y descargas",
-    )
-    private fun part5() = mapOf(
         "Память приложения (footprint)" to "Memoria de la app (footprint)",
         "Память: %.0f ГБ/с · GPU: %s · Index 9B с учётом нагрева: ~%.1f ток/с" to "Memoria: %.0f GB/s · GPU: %s · Index 9B con margen térmico: ~%.1f tokens/s",
         "Память: %@ ГБ/с · GPU: %@ ГБ/с · Index 9B: ~%@ ток/с" to "Memoria: %@ GB/s · GPU: %@ GB/s · Index 9B: ~%@ tokens/s",
@@ -538,11 +542,13 @@ internal object UiStringsEs {
         "Перевести текст" to "Traducir texto",
         "Перевести текст из буфера" to "Traducir texto del portapapeles",
         "Перевод" to "Traducción",
+        "Перевод ещё не завершён" to "La traducción aún no ha terminado",
         "Перевод изображения" to "Traducción de imágenes",
         "Перевод обновляется при изменении текста" to "La traducción se actualiza al cambiar el texto",
         "Перевод снимка" to "Traducción de fotos",
         "Перевод снимка готов" to "Traducción de foto lista",
         "Перевод: %@" to "Traducción: %@",
+        "Переводить по частям" to "Traducir por partes",
         "Перевожу" to "Traduciendo…",
         "Перевожу надписи…" to "Traduciendo texto…",
         "Перевожу часть %@ из %@" to "Traduciendo parte %@ de %@",
@@ -618,14 +624,14 @@ internal object UiStringsEs {
         "Проверка Index не пройдена. Установите модель заново." to "La verificación de Index ha fallado. Reinstale el modelo.",
         "Проверка SHA-256" to "Verificando SHA-256",
         "Проверка SHA-256 не пройдена. Скачайте файл заново" to "La verificación SHA-256 ha fallado. Descargue el archivo de nuevo",
+    )
+    private fun part6() = mapOf(
         "Проверка моделей" to "Comprobando modelos",
         "Проверка моделей обычно занимает около 30 секунд. При следующих запусках неизменённые файлы будут проверяться быстрее." to "La comprobación de modelos suele tardar unos 30 segundos. Los archivos sin cambios se comprobarán más rápido en los próximos inicios.",
         "Проверка модели…" to "Comprobando modelo…",
         "Проверка пакета не пройдена" to "La verificación del paquete ha fallado",
         "Проверка повторно распознаёт запись и обновляет изменившиеся фразы перед озвучкой. Увеличивает ожидание и не гарантирует точность перевода." to "La verificación transcribe de nuevo la grabación y actualiza las frases modificadas antes de reproducirlas. Añade tiempo de espera y no garantiza la precisión de la traducción.",
         "Проверка устройства" to "Comprobación del dispositivo",
-    )
-    private fun part6() = mapOf(
         "Проверка целостности не пройдена. Скачайте модель заново." to "La verificación de integridad ha fallado. Descargue el modelo de nuevo.",
         "Проверка целостности…" to "Verificando integridad…",
         "Проверяем системные и известные стандартные сочетания браузеров и Telegram. Пользовательские сочетания и расширения других приложений могут потребовать переназначения." to "Comprueba los atajos del sistema y los predeterminados conocidos de navegadores y Telegram. Los atajos personalizados y las extensiones de otras apps pueden requerir reasignación.",
@@ -720,14 +726,14 @@ internal object UiStringsEs {
         "Скачайте дополнительное распознавание Meta в разделе «Модели»." to "Descargue el reconocimiento de voz adicional Meta desde Modelos.",
         "Скачайте распознавание для выбранного языка в разделе «Модели»." to "Descargue el reconocimiento de voz para el idioma elegido desde Modelos.",
         "Скачан и проверен" to "Descargado y verificado",
+    )
+    private fun part7() = mapOf(
         "Скачано и проверено" to "Descargado y verificado",
         "Скачать" to "Descargar",
         "Скачать OCR-пакет" to "Descargar paquete OCR",
         "Скачать голос" to "Descargar voz",
         "Скачать голос: " to "Descargar voz: ",
         "Скачать модели" to "Descargar modelos",
-    )
-    private fun part7() = mapOf(
         "Скачать модели · " to "Descargar modelos · ",
         "Скачать модели для перевода" to "Descargar modelos de traducción",
         "Скачать недостающие голоса" to "Descargar voces que faltan",
@@ -790,6 +796,8 @@ internal object UiStringsEs {
         "Текстовая история" to "Historial de texto",
         "Телефон не успевает обработать запись. Попробуйте снова." to "El teléfono no ha podido procesar la grabación a tiempo. Inténtelo de nuevo.",
         "Тишина до остановки записи в секундах" to "Tiempo de silencio en segundos",
+        "Только Index 9B, с русского на английский. Подбирает общие термины для частей текста и изображения. Добавляет ожидание перед переводом и может ошибаться. Применяется к следующему переводу." to "Solo Index 9B, de ruso a inglés. Elige términos comunes para las partes del texto y de las imágenes. Añade una espera antes de traducir y puede cometer errores. Se aplica a la próxima traducción.",
+        "Только Index 9B. Первые части могут появляться раньше, но контекст между ними может теряться, а полный перевод — занимать больше времени. Применяется к следующему переводу." to "Solo Index 9B. Las primeras partes pueden aparecer antes, pero puede perderse el contexto entre ellas y la traducción completa puede tardar más. Se aplica a la siguiente traducción.",
         "Точность перевода" to "Precisión de la traducción",
         "Убрать из избранных: " to "Quitar de favoritos: ",
         "Увеличение %@ крат" to "Ampliación de %@ veces",
@@ -820,6 +828,8 @@ internal object UiStringsEs {
         "Установка" to "Instalando",
         "Установленные пакеты не скачиваются повторно. При продолжении прерванной загрузки может потребоваться скачать файл заново." to "Los paquetes instalados no se vuelven a descargar. Una descarga interrumpida puede tener que empezar desde el principio.",
         "Установлено" to "Instalado",
+    )
+    private fun part8() = mapOf(
         "Установлено %@ из %@" to "Instalados %@ de %@",
         "Установлено %@ из %@ направлений. Выберите нужные языки и скачайте их одной кнопкой." to "Instaladas %@ de %@ direcciones. Elija los idiomas y descárguelos con un botón.",
         "Устройство среднего класса%@: перевод — компактные модели OPUS для каждой пары; для пар без OPUS — Index 2B." to "Dispositivo de gama media%@: modelos OPUS compactos para cada par; Index 2B para los pares sin OPUS.",
@@ -828,8 +838,6 @@ internal object UiStringsEs {
         "Файл больше ожидаемого пакета" to "El archivo supera el tamaño esperado del paquete",
         "Файл готов к отправке" to "Archivo listo para compartir",
         "Файл модели" to "Archivo del modelo",
-    )
-    private fun part8() = mapOf(
         "Файл не соответствует SHA-256 пакета" to "El archivo no coincide con el SHA-256 del paquete",
         "Файл скачан не полностью" to "El archivo está incompleto",
         "Файл скачан не полностью. Попробуйте скачать модель заново." to "El archivo no se ha descargado por completo. Descargue el modelo de nuevo.",

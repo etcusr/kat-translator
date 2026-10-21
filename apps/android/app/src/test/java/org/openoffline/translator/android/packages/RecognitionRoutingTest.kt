@@ -26,28 +26,30 @@ class RecognitionRoutingTest {
         assertTrue(all.single { it.id=="parakeet-v3-int8" }.supports("ru"))
         assertEquals("gigaam-v3-int8",RecognitionRouting.recommended(all.reversed(),"ru")!!.id)
     }
-    @Test fun everyOtherPublishedLanguageChoosesTheSameSharedParakeetPackage() {
+    @Test fun englishAlwaysUsesV2RegardlessOfCatalogOrder() {
         val all=catalog()
-        val languages="bg hr cs da nl en et fi fr de el hu it lv lt mt pl pt ro sk sl es sv uk".split(" ")
-        assertEquals(languages.toSet()+"ru",all.single { it.id=="parakeet-v3-int8" }.languages)
-        for(language in languages)assertEquals(language,"parakeet-v3-int8",RecognitionRouting.recommended(all,language)!!.id)
-        assertEquals(24,languages.size)
+        assertEquals(setOf("en"),all.single { it.id=="parakeet-v2-en-int8" }.languages)
+        for(order in listOf(all,all.reversed()))assertEquals("parakeet-v2-en-int8",RecognitionRouting.recommended(order,"en")!!.id)
     }
-    @Test fun englishParakeetV2IsOptionalAndNotTheAutomaticRecommendation() {
+    @Test fun everyOtherWhisperLanguageUsesQ8IncludingAuto() {
         val all=catalog()
-        val v2=all.single { it.id=="parakeet-v2-en-int8" }
-        assertEquals("parakeet",v2.backend);assertEquals(setOf("en"),v2.languages)
-        assertEquals("parakeet-v3-int8",RecognitionRouting.recommended(all,"en")!!.id)
+        val whisper=all.single { it.id=="whisper-large-v3-turbo-q8_0" }
+        for(language in (whisper.languages-setOf("ru","en"))+"auto") {
+            assertEquals(language,whisper.id,RecognitionRouting.recommended(all.reversed(),language)!!.id)
+        }
+        assertNull(RecognitionRouting.recommended(all,"invalid"))
     }
-    @Test fun unsupportedAndAutomaticLanguageAreNotFalselyAssigned() {
+    @Test fun missingOrUnavailableRequiredModelNeverSubstitutesAnotherEngine() {
         val all=catalog()
-        for(language in listOf("auto","zh","ja","ar","be","invalid"))assertNull(language,RecognitionRouting.recommended(all,language))
+        for((language,id) in listOf("ru" to "gigaam-v3-int8","en" to "parakeet-v2-en-int8","de" to "whisper-large-v3-turbo-q8_0")) {
+            val missing=all.filter { it.id!=id }
+            assertNull(RecognitionRouting.recommended(missing,language))
+            assertTrue(PackageLanguageSetup(language,listOf("en"),true,false).plan(missing,translationId=PackageCatalog.INDEX2B_ID).missingRecognition.contains(language))
+            assertNull(RecognitionRouting.recommended(all.map { if(it.id==id)it.copy(unavailableReason="Unavailable") else it },language))
+        }
     }
-    @Test fun readinessDoesNotChangeTheRequiredModelAndUnavailableBackendIsNotSelected() {
-        val all=catalog()
-        assertEquals("parakeet-v3-int8",RecognitionRouting.recommended(all,"en")!!.id)
-        assertNull(RecognitionRouting.recommended(all.map { if(it.backend=="parakeet")it.copy(unavailableReason="Unavailable") else it },"en"))
-        val setup=PackageLanguageSetup("ru",listOf("en","de","fr"),true,false).plan(all,translationId=PackageCatalog.INDEX_ID)
-        assertEquals(listOf("gigaam-v3-int8","parakeet-v3-int8"),setup.packages.filter { it.category==PackageCategory.RECOGNITION }.map { it.id })
+    @Test fun setupUsesTheSameThreeModelsWithoutDuplicates() {
+        val setup=PackageLanguageSetup("ru",listOf("en","de","fr"),true,false).plan(catalog(),translationId=PackageCatalog.INDEX2B_ID)
+        assertEquals(listOf("gigaam-v3-int8","parakeet-v2-en-int8","whisper-large-v3-turbo-q8_0"),setup.packages.filter { it.category==PackageCategory.RECOGNITION }.map { it.id })
     }
 }

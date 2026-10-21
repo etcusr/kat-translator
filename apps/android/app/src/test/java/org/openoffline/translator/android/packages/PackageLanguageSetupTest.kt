@@ -38,7 +38,7 @@ class PackageLanguageSetupTest {
         val plan = PackageLanguageSetup("ru", listOf("en", "de", "en")).plan(catalog,
             mapOf("ru" to shared.id, "en" to shared.id, "de" to shared.id), translationId = PackageCatalog.INDEX_ID)
         assertTrue(plan.isValid)
-        assertEquals(listOf("index", "gigaam", "supertonic", "parakeet"), plan.packages.map { it.backend })
+        assertEquals(listOf("index", "gigaam", "supertonic", "parakeet", "whisper"), plan.packages.map { it.backend })
         assertTrue(plan.missingRecognition.isEmpty())
         assertTrue(plan.missingSpeech.isEmpty())
     }

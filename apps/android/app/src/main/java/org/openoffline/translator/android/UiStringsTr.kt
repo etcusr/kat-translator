@@ -77,11 +77,12 @@ internal object UiStringsTr {
         "Whisper повторно проверяет неоднозначные дату и время в русской речи. Может увеличить ожидание." to "Whisper, Rusça konuşmadaki belirsiz tarih ve saatleri yeniden kontrol eder. Bekleme süresini artırabilir.",
         "Авто" to "Otomatik",
         "Авто выбирает GigaAM для русского и Parakeet для остальных 24 поддерживаемых языков. Скачайте нужные пакеты один раз; затем распознавание работает без интернета." to "Otomatik, Rusça için GigaAM'i, desteklenen diğer 24 dil için Parakeet'i seçer. Gerekli paketleri bir kez indirin; ardından tanıma çevrimdışı çalışır.",
-        "Авто выбирает модель по исходному языку: русский — GigaAM, остальные поддерживаемые языки — Parakeet. Если модель не скачана, приложение предложит её загрузить. Для других языков остаётся встроенное распознавание Android; Whisper и Meta можно выбрать вручную." to "Otomatik, kaynak dile göre seçer: Rusça için GigaAM, desteklenen diğer diller için Parakeet. Model eksikse uygulama indirmeyi önerir. Diğer dillerde Android'in cihaz üzerinde tanıması kullanılır; Whisper ve Meta elle seçilebilir.",
         "Авто выбирает распознаватель по языку. В ручном режиме используется только выбранный движок; его пакет нужно скачать в разделе моделей. Выбор применяется со следующей записи и не меняет модель перевода." to "Otomatik, dile göre bir tanıma motoru seçer. Elle seçimde yalnızca seçilen motor kullanılır; paketini Modeller'den indirin. Değişiklikler sonraki kayıtta uygulanır ve çeviri modelini değiştirmez.",
         "Авто недоступно для этой пары" to "Bu dil çifti için Otomatik kullanılamıyor",
         "Авто: обычный Whisper для поддерживаемых им языков, включая русский и английский; Meta — для дополнительных. Ultra доступен вручную в настройках. Скачиваются только пакеты для выбранных языков." to "Otomatik: Rusça ve İngilizce dahil desteklenen diller için klasik Whisper; ek diller için Meta. Ultra, Ayarlar'dan elle seçilebilir. Yalnızca seçtiğiniz dillerin paketleri indirilir.",
+        "Авто: русский — GigaAM, английский — Parakeet v2, остальные языки — Whisper Q8. Один и тот же выбор используется при записи, импорте и повторной проверке. Если модель не скачана, приложение предложит её загрузить. Ручной выбор модели действует во всех режимах." to "Otomatik: Rusça için GigaAM, İngilizce için Parakeet v2, diğer diller için Whisper Q8 kullanılır. Kayıt, içe aktarma ve doğrulama aynı seçimi kullanır. Model eksikse uygulama indirmeyi önerir. Elle seçilen model tüm modlarda geçerlidir.",
         "Автоматически озвучивать" to "Otomatik seslendir",
+        "Автоматический словарь терминов" to "Otomatik terim sözlüğü",
         "Автоопределение языка" to "Dili otomatik algıla",
         "Альтернатива Index · сравните качество" to "Index alternatifi · kaliteyi karşılaştırın",
         "Английский голос · LJ Speech" to "İngilizce ses · LJ Speech",
@@ -113,9 +114,9 @@ internal object UiStringsTr {
         "В открывшемся мессенджере выберите чат и вставьте файл сочетанием ⌘V." to "Mesajlaşma uygulamasında bir sohbet seçip dosyayı ⌘V ile yapıştırın.",
         "В отчёте только показатели и версии, без голоса и текста." to "Rapor yalnızca ölçümleri ve sürümleri içerir; ses kaydı veya metin içermez.",
         "В очереди" to "Sırada",
-        "В пакете отсутствует нужный файл." to "Pakette gerekli bir dosya eksik.",
     )
     private fun part1() = mapOf(
+        "В пакете отсутствует нужный файл." to "Pakette gerekli bir dosya eksik.",
         "В приложениях с поддержкой служб: выделите текст → правый клик → Службы → Перевести в Kat translator." to "Servisler'i destekleyen uygulamalarda: metni seçin → sağ tıklayın → Servisler → Kat translator ile çevir.",
         "Ваши языки" to "Dilleriniz",
         "Введите текст" to "Metin girin",
@@ -149,6 +150,7 @@ internal object UiStringsTr {
         "Выбрать скорость" to "Hız seç",
         "Выбрать язык перевода" to "Hedef dili seç",
         "Выгружать модели между этапами. Меньше расход памяти, но больше ожидание загрузки." to "Aşamalar arasında modelleri bellekten çıkarır. Daha az bellek kullanır ancak yükleme süresi ekler.",
+        "Выгружать переводчик после простоя" to "Boşta kaldıktan sonra çevirmeni bellekten kaldır",
         "Выгрузить из памяти" to "Bellekten çıkar",
         "Выделенный текст" to "Seçili metin",
         "Выделенный текст недоступен." to "Seçili metne erişilemiyor.",
@@ -214,10 +216,10 @@ internal object UiStringsTr {
         "Женский · молодой" to "Kadın · genç",
         "Женский · мягкий" to "Kadın · yumuşak",
         "Женский · нейтральный" to "Kadın · nötr",
-        "Женский · тёплый" to "Kadın · sıcak",
-        "Женский · яркий" to "Kadın · parlak",
     )
     private fun part2() = mapOf(
+        "Женский · тёплый" to "Kadın · sıcak",
+        "Женский · яркий" to "Kadın · parlak",
         "Завершаю запись…" to "Kayıt tamamlanıyor…",
         "Завершаю работу…" to "Kapatılıyor…",
         "Завершить запись" to "Kaydı bitir",
@@ -316,10 +318,10 @@ internal object UiStringsTr {
         "Много памяти · лучше начать с 4B" to "Yüksek bellek gereksinimi · 4B ile başlayın",
         "Мобильный интернет для OCR" to "OCR için mobil veri",
         "Модели" to "Modeller",
-        "Модели выгружены для освобождения памяти. Включите экономию памяти в настройках и подготовьте перевод снова." to "Belleği boşaltmak için modeller bellekten çıkarıldı. Ayarlar'dan bellek tasarrufunu açıp çeviriyi yeniden hazırlayın.",
-        "Модели выполняют перевод на Android. После скачивания сеть для перевода не нужна." to "Modeller Android'de çeviri yapar. İndirildikten sonra çeviri için internet gerekmez.",
     )
     private fun part3() = mapOf(
+        "Модели выгружены для освобождения памяти. Включите экономию памяти в настройках и подготовьте перевод снова." to "Belleği boşaltmak için modeller bellekten çıkarıldı. Ayarlar'dan bellek tasarrufunu açıp çeviriyi yeniden hazırlayın.",
+        "Модели выполняют перевод на Android. После скачивания сеть для перевода не нужна." to "Modeller Android'de çeviri yapar. İndirildikten sonra çeviri için internet gerekmez.",
         "Модели выполняют перевод на Mac. После скачивания сеть для перевода не нужна." to "Modeller Mac'inizde çeviri yapar. İndirildikten sonra internet bağlantısı gerekmez.",
         "Модели выполняют перевод на iPhone. После скачивания сеть для перевода не нужна." to "Modeller iPhone'unuzda çeviri yapar. İndirdikten sonra internet bağlantısı olmadan çevirebilirsiniz.",
         "Модели распознавания" to "Konuşma tanıma modelleri",
@@ -328,6 +330,7 @@ internal object UiStringsTr {
         "Модель используется. Сначала остановите перевод или озвучку" to "Model kullanımda. Önce çeviriyi veya seslendirmeyi durdurun",
         "Модель остановилась по лимиту. Результат не сохранён." to "Model çıktı sınırına ulaştı. Sonuç kaydedilmedi.",
         "Модель перевода" to "Çeviri modeli",
+        "Модель перевода остаётся в памяти между запросами. После простоя она выгружается и автоматически загружается при следующем переводе. Экономия памяти выгружает её сразу после этапа перевода." to "Çeviri modeli istekler arasında bellekte kalır. Boşta kaldığında bellekten kaldırılır ve sonraki çeviri için otomatik yüklenir. Bellek tasarrufu modu, çeviri aşamasından hemen sonra modeli bellekten kaldırır.",
         "Модель распознавания %@ не скачана. Нажмите «Скачать распознавание»." to "%@ tanıma modeli indirilmemiş. Tanıma modelini indir'e dokunun.",
         "Модель: " to "Model: ",
         "Можно свернуть окно: загрузка продолжится. Разрешите уведомления, чтобы узнать о готовности моделей." to "Pencereyi küçültebilirsiniz; indirme devam eder. Modeller hazır olduğunda haber almak için bildirimlere izin verin.",
@@ -381,6 +384,7 @@ internal object UiStringsTr {
         "Не удалось открыть файл" to "Dosya açılamadı",
         "Не удалось открыть файл лицензий." to "Lisans dosyası açılamadı.",
         "Не удалось подготовить перевод." to "Çeviri hazırlanamadı.",
+        "Не удалось подготовить экспериментальный словарь. Отключите его в настройках и повторите перевод." to "Deneysel sözlük hazırlanamadı. Ayarlardan kapatıp çeviriyi yeniden deneyin.",
         "Не удалось полностью очистить историю: " to "Geçmiş tamamen temizlenemedi: ",
         "Не удалось получить снимок области экрана." to "Seçili ekran alanı yakalanamadı.",
         "Не удалось проверить пакет распознавания. Скачайте его заново." to "Konuşma tanıma paketi doğrulanamadı. Yeniden indirin.",
@@ -416,12 +420,12 @@ internal object UiStringsTr {
         "Недостаточно свободного места для модели." to "Model için yeterli depolama alanı yok.",
         "Недостаточно свободного места. Нужно ещё %@ МБ" to "Boş alan yetersiz. %@ MB daha gerekiyor",
         "Недоступно" to "Kullanılamıyor",
+    )
+    private fun part4() = mapOf(
         "Неизвестный файл в архиве" to "Arşivde bilinmeyen dosya",
         "Некорректный идентификатор модели." to "Geçersiz model kimliği.",
         "Неполный пакет" to "Paket eksik",
         "Нет адреса перенаправления" to "Yönlendirme adresi eksik",
-    )
-    private fun part4() = mapOf(
         "Нет данных" to "Veri yok",
         "Нет доступа к %@. Нажмите, чтобы разрешить в настройках Android." to "%@ erişimi yok. Android ayarlarından izin vermek için dokunun.",
         "Нет подключения к интернету" to "İnternet bağlantısı yok",
@@ -518,12 +522,12 @@ internal object UiStringsTr {
         "Пакет изменяется" to "Paket değiştiriliyor",
         "Пакет не установлен" to "Paket yüklü değil",
         "Пакет проверен и установлен" to "Paket doğrulandı ve yüklendi",
+    )
+    private fun part5() = mapOf(
         "Пакетов: " to "Paketler: ",
         "Пакеты для перевода готовы" to "Çeviri paketleri hazır",
         "Память" to "Bellek",
         "Память и скачивание" to "Bellek ve indirmeler",
-    )
-    private fun part5() = mapOf(
         "Память приложения (footprint)" to "Uygulama belleği (footprint)",
         "Память: %.0f ГБ/с · GPU: %s · Index 9B с учётом нагрева: ~%.1f ток/с" to "Bellek: %.0f GB/sn · GPU: %s · ısınma payıyla Index 9B: ~%.1f belirteç/sn",
         "Память: %@ ГБ/с · GPU: %@ ГБ/с · Index 9B: ~%@ ток/с" to "Bellek: %@ GB/sn · GPU: %@ GB/sn · Index 9B: ~%@ belirteç/sn",
@@ -538,11 +542,13 @@ internal object UiStringsTr {
         "Перевести текст" to "Metni çevir",
         "Перевести текст из буфера" to "Pano metnini çevir",
         "Перевод" to "Çeviri",
+        "Перевод ещё не завершён" to "Çeviri henüz tamamlanmadı",
         "Перевод изображения" to "Görüntü çevirisi",
         "Перевод обновляется при изменении текста" to "Metin değiştiğinde çeviri güncellenir",
         "Перевод снимка" to "Fotoğraf çevirisi",
         "Перевод снимка готов" to "Fotoğraf çevirisi hazır",
         "Перевод: %@" to "Çeviri: %@",
+        "Переводить по частям" to "Parçalar halinde çevir",
         "Перевожу" to "Çevriliyor…",
         "Перевожу надписи…" to "Metin çevriliyor…",
         "Перевожу часть %@ из %@" to "Çevrilen bölüm: %@ / %@",
@@ -618,14 +624,14 @@ internal object UiStringsTr {
         "Проверка Index не пройдена. Установите модель заново." to "Index doğrulaması başarısız. Modeli yeniden yükleyin.",
         "Проверка SHA-256" to "SHA-256 doğrulanıyor",
         "Проверка SHA-256 не пройдена. Скачайте файл заново" to "SHA-256 doğrulaması başarısız. Dosyayı yeniden indirin",
+    )
+    private fun part6() = mapOf(
         "Проверка моделей" to "Modeller kontrol ediliyor",
         "Проверка моделей обычно занимает около 30 секунд. При следующих запусках неизменённые файлы будут проверяться быстрее." to "Modelleri kontrol etmek genellikle yaklaşık 30 saniye sürer. Değişmeyen dosyalar sonraki açılışlarda daha hızlı kontrol edilir.",
         "Проверка модели…" to "Model kontrol ediliyor…",
         "Проверка пакета не пройдена" to "Paket doğrulaması başarısız",
         "Проверка повторно распознаёт запись и обновляет изменившиеся фразы перед озвучкой. Увеличивает ожидание и не гарантирует точность перевода." to "Doğrulama, kaydı yeniden yazıya döker ve oynatmadan önce değişen cümleleri günceller. Bekleme süresini artırır ve çevirinin doğruluğunu garanti etmez.",
         "Проверка устройства" to "Cihaz kontrolü",
-    )
-    private fun part6() = mapOf(
         "Проверка целостности не пройдена. Скачайте модель заново." to "Bütünlük doğrulaması başarısız. Modeli yeniden indirin.",
         "Проверка целостности…" to "Bütünlük doğrulanıyor…",
         "Проверяем системные и известные стандартные сочетания браузеров и Telegram. Пользовательские сочетания и расширения других приложений могут потребовать переназначения." to "Sistem kısayollarını ve tarayıcılarla Telegram'ın bilinen varsayılanlarını kontrol eder. Diğer uygulamaların özel kısayolları ve eklentileri yeniden atama gerektirebilir.",
@@ -720,14 +726,14 @@ internal object UiStringsTr {
         "Скачайте дополнительное распознавание Meta в разделе «Модели»." to "Modeller'den ek Meta konuşma tanıma paketini indirin.",
         "Скачайте распознавание для выбранного языка в разделе «Модели»." to "Modeller'den seçili dilin konuşma tanıma paketini indirin.",
         "Скачан и проверен" to "İndirildi ve doğrulandı",
+    )
+    private fun part7() = mapOf(
         "Скачано и проверено" to "İndirildi ve doğrulandı",
         "Скачать" to "İndir",
         "Скачать OCR-пакет" to "OCR paketini indir",
         "Скачать голос" to "Ses indir",
         "Скачать голос: " to "Ses indir: ",
         "Скачать модели" to "Modelleri indir",
-    )
-    private fun part7() = mapOf(
         "Скачать модели · " to "Modelleri indir · ",
         "Скачать модели для перевода" to "Çeviri modellerini indir",
         "Скачать недостающие голоса" to "Eksik sesleri indir",
@@ -790,6 +796,8 @@ internal object UiStringsTr {
         "Текстовая история" to "Metin geçmişi",
         "Телефон не успевает обработать запись. Попробуйте снова." to "Telefon kaydı zamanında işleyemedi. Yeniden deneyin.",
         "Тишина до остановки записи в секундах" to "Sessizlik süresi (saniye)",
+        "Только Index 9B, с русского на английский. Подбирает общие термины для частей текста и изображения. Добавляет ожидание перед переводом и может ошибаться. Применяется к следующему переводу." to "Yalnızca Index 9B, Rusçadan İngilizceye. Metin ve görsel bölümleri için ortak terimler seçer. Çeviri öncesinde bekleme süresi ekler ve hata yapabilir. Sonraki çeviride uygulanır.",
+        "Только Index 9B. Первые части могут появляться раньше, но контекст между ними может теряться, а полный перевод — занимать больше времени. Применяется к следующему переводу." to "Yalnızca Index 9B. İlk parçalar daha erken görünebilir ancak aralarındaki bağlam kaybolabilir ve çevirinin tamamı daha uzun sürebilir. Sonraki çeviriye uygulanır.",
         "Точность перевода" to "Çeviri doğruluğu",
         "Убрать из избранных: " to "Favorilerden çıkar: ",
         "Увеличение %@ крат" to "%@ kat yakınlaştırma",
@@ -820,6 +828,8 @@ internal object UiStringsTr {
         "Установка" to "Yükleniyor",
         "Установленные пакеты не скачиваются повторно. При продолжении прерванной загрузки может потребоваться скачать файл заново." to "Yüklü paketler yeniden indirilmez. Kesilen bir indirme baştan başlamak zorunda kalabilir.",
         "Установлено" to "Yüklü",
+    )
+    private fun part8() = mapOf(
         "Установлено %@ из %@" to "Yüklü: %@ / %@",
         "Установлено %@ из %@ направлений. Выберите нужные языки и скачайте их одной кнопкой." to "%@ / %@ yön yüklü. Dilleri seçip tek düğmeyle indirin.",
         "Устройство среднего класса%@: перевод — компактные модели OPUS для каждой пары; для пар без OPUS — Index 2B." to "Orta sınıf cihaz%@: her dil çifti için küçük OPUS modelleri; OPUS'un kapsamadığı çiftler için Index 2B.",
@@ -828,8 +838,6 @@ internal object UiStringsTr {
         "Файл больше ожидаемого пакета" to "Dosya beklenen paket boyutunu aşıyor",
         "Файл готов к отправке" to "Dosya paylaşılmaya hazır",
         "Файл модели" to "Model dosyası",
-    )
-    private fun part8() = mapOf(
         "Файл не соответствует SHA-256 пакета" to "Dosya paketin SHA-256 değeriyle eşleşmiyor",
         "Файл скачан не полностью" to "Dosya eksik",
         "Файл скачан не полностью. Попробуйте скачать модель заново." to "Dosya tamamen indirilmedi. Modeli yeniden indirin.",
