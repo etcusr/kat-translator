@@ -23,7 +23,7 @@ recording plus about 15 s for Index 2B (Vulkan) translation, all after the recor
    is valid only while a translation runs. `PartialPoller` reads it every 120 ms on the main thread. The full-screen
    processing overlay is replaced by a bottom bar (status + Cancel) once text appears; text and voice workspaces.
    A failed or cancelled translation clears streamed text. Single-part status is «Перевожу» without «1/1».
-2. **Live phrase preview for GigaAM and Parakeet** (previously Whisper only). GigaAM output has no punctuation, so
+2. **Live phrase preview for GigaAM** (previously Whisper only; Parakeet was briefly enabled in `8e5455c` and excluded in `f3ba723` after the owner judged its quality unacceptable). GigaAM output has no punctuation, so
    its phrase boundary is the existing one second of silence; the phrase becomes a sentence (capital letter,
    final period) before translation. The phrase translation grows during recording. With
    «Проверять текст после записи» off, only the unprocessed tail is recognized after stop.
@@ -37,6 +37,12 @@ recording plus about 15 s for Index 2B (Vulkan) translation, all after the recor
   2.5 s pauses): source and translation appeared during recording; after stop the remaining work was **0.18 s**.
   A single-phrase run without preview took 0.25 s recognition + 2.82 s translation.
 - The owner's settings (Whisper Q8, verification default, silence 4 s) were restored after the test.
+
+## Google on-device recognizer
+
+`PlatformSpeechFileProbe` (opt-in androidTest) on the 35.7 s private recording, Russian, FILE input: 36.1 s, i.e. real time.
+The first words were lost and several game terms and numbers were wrong where GigaAM was close to Whisper. Usable only
+as a live streaming source, not as a quality improvement for Russian on this sample; other languages not measured.
 
 ## Limits
 
