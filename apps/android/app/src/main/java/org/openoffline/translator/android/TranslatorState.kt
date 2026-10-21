@@ -817,6 +817,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
                 val compatible=live!=null || backend in setOf("whisper","gigaam")
                 if(indexModel && installed && !memorySaving && compatible && thermal<android.os.PowerManager.THERMAL_STATUS_SEVERE) {
                     recordingPreview=RecordingPreview(currentSource,target,recordingVerification,automaticSpeech,punctuated=backend!="gigaam",recognizer=live)
+                    recordingPreview?.let { session -> worker.execute { warmLiveSession(session) } }
                     previewMessage=text("Законченные фразы обрабатываются заранее. Озвучка — после остановки.","Completed phrases are processed now. Speech starts after recording stops.")
                 } else previewMessage=text("Предварительная обработка недоступна для текущих моделей, настроек памяти или температуры. Перевод начнётся после остановки.","Preview is unavailable with these models, memory settings or temperature. Translation starts after recording stops.")
             }
@@ -925,6 +926,21 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
                 throw e
             }
         }
+    }
+    private var warmedEngine:IndexEngine?=null
+    /** Runs on the worker while the first phrase is still being spoken: loads the live recognizer and sends one tiny
+     * Index request, so neither the first recognizer load nor the slower first GPU prefill delays the first phrase. */
+    private fun warmLiveSession(session:RecordingPreview) {
+        try {
+            if(session.cancelled || session.suspended)return
+            session.recognizer?.let { id ->
+                val pack=packages.catalog.first { it.id==id };val path=packages.installedPath(id) ?: return@let
+                packages.acquire(id).use { media.preloadNemo(path.path,pack.backend=="parakeet") { cancelled.get() || closed.get() || session.cancelled } }
+            }
+            val model=resolveModel(session.source,session.target)?.takeIf { it!="opus" } ?: return
+            val runtime=ensureEngine(model)
+            if(warmedEngine!==runtime && !session.cancelled) { runtime.translate(IndexRequest("Hello.",session.target));warmedEngine=runtime }
+        } catch(_:Exception) { /* The phrase path reports real failures. */ }
     }
     /** GigaAM spells numbers out; dates and clock times become digits, as Whisper writes them, before translation. */
     private fun spokenNumbers(text:String,language:String)=if(language=="ru")RussianSpokenNumbers.normalize(text) else text
