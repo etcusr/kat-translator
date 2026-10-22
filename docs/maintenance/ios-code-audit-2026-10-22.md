@@ -5,7 +5,7 @@
 - **подтверждено** — путь прослежен по коду, проявление следует из написанного;
 - **на устройстве** — путь в коде есть, проявление зависит от времени/памяти/ОС и требует воспроизведения на iPhone.
 
-Охват: `apps/ios` (кроме `CameraModel/CameraView/CameraOverlay.swift`), `shared/apple`, `shared/packages/OfflineCore/Sources`, собственный C/C++ в `shared/native` (`TranslationRuntime`, `OpusRuntime`, `app/**`). Не смотрелись: три файла экрана камеры, JSON-каталоги `assets/catalogs`, vendor-библиотеки (llama.cpp, whisper.cpp, CTranslate2, sherpa). Номера строк — по `97aef9d`.
+Охват: `apps/ios` (включая экран камеры — дочитан после первой версии отчёта, см. раздел 6), `shared/apple`, `shared/packages/OfflineCore/Sources`, собственный C/C++ в `shared/native` (`TranslationRuntime`, `OpusRuntime`, `app/**`). Не смотрелись: JSON-каталоги `assets/catalogs`, vendor-библиотеки (llama.cpp, whisper.cpp, CTranslate2, sherpa). Номера строк — по `97aef9d`.
 
 Проверено и признано защищённым (не ошибки): сериализация unload/inference на очередях бэкендов Llama/Opus/Whisper/Sherpa/Omni/OCR; атомарные флаги отмены и очистка abort-callback; `llama_memory_clear` на каждый запрос; перехват C++-исключений на всех `extern "C"`; ограничения 1536/output budget/MTP; zip-slip и очистка частичной распаковки в `PackageArchive`; SHA вне главного потока и с отменой; перенос временного файла внутри `didFinishDownloadingTo`; защита повторного task id по `taskDescription`; `@Published` обновляются на главном акторе; стабильные id в `ForEach`; generation-guard в `publish`.
 
@@ -76,8 +76,8 @@
 - `isExcludedFromBackup` ставится на корень данных, когда `transferRoot == root` (`ModelDownloader.swift:44, 51`; legacy F16 на iOS, всегда на Mac) — история исключается из резервной копии.
 - Live Activity: берётся только `.activities.first` (`DownloadLiveActivity.swift:142, 178`), старые не закрываются.
 
-**M9. Камера не восстанавливается после прерывания** — подтверждено отсутствие обработки.
-`apps/ios/Camera/CameraCapture.swift:36, 80, 82`: защёлка `configured`; в `apps/ios` и `shared/apple` нет подписки на `AVCaptureSession.wasInterruptedNotification`, `runtimeErrorNotification`, `AVAudioSession.mediaServicesWereResetNotification`. После сброса медиасервисов — чёрный экран до перезапуска.
+**M9. Камера не восстанавливается после ошибки сессии** — подтверждено отсутствие обработки (уточнено).
+В `apps/ios` и `shared/apple` нет подписки на `AVCaptureSession.runtimeErrorNotification` и `AVAudioSession.mediaServicesWereResetNotification`. Обычные прерывания (звонок и т. п.) `AVCaptureSession` снимает сама, а при уходе в фон камера закрывается (`CameraView.swift:128-130`), поэтому они не проблема. После runtime-ошибки или сброса медиасервисов `CameraModel` остаётся `active`, а `CameraCapture.start()` (`:32-86`, защёлка `configured`) вызывается только при открытии/«Ещё фото» — превью чёрное до закрытия и повторного открытия камеры. Приоритет — низкий/средний.
 
 **M10. Тест устройства сохраняет неверный класс** — подтверждено по коду.
 `DeviceProbe.swift:47-52`: при неудаче GPU-прохода (`gpu = -1`, например приложение свернули) сохраняется оценка только по CPU — мощный iPhone навсегда «слабый», «Авто» выбирает OPUS/2B. `DeviceProbe.c:136`: не проверяется результат `pthread_create`, затем `pthread_join` по неинициализированному дескриптору.
@@ -133,10 +133,34 @@
 
 ---
 
+## 6. Экран камеры (дочитан 22.10 после первой версии)
+
+Файлы: `apps/ios/Camera/CameraModel.swift`, `CameraView.swift`, `CameraOverlay.swift` (+ ранее `CameraCapture.swift`). Проверено и защищено: кадры для OCR прореживаются (не чаще ~3 в секунду, `CameraCapture.swift:149`) и уменьшаются до 1600 px; одна доставка кадра за раз (`delivering`); снимок и импорт декодируются с ограничением 3072 px вне главного потока (`CameraOverlay.decode`, `Task.detached`); устаревшие OCR-результаты отбрасываются по `generation/scene` и сигнатуре кадра; временный файл «Поделиться» удаляется (`CameraView.swift:250`); закрытие камеры дожидается OCR, перевода и архивации.
+
+**C1. Кодирование PNG снимка на главном потоке; большой PNG в истории** — подтверждено (производительность).
+`CameraModel` — `@MainActor`. `archiveResultIfNeeded()` (`CameraModel.swift:165-174`) после каждого готового перевода снимка делает `CameraOverlay.composite(...)` и `.pngData()` для изображения до 3072 px по длинной стороне — на главном потоке; то же в `savePicture`/`sharePicture` (`:175-192`). Ожидаемый подвис интерфейса — сотни миллисекунд (на устройстве), а запись истории — PNG фотографии порядка 10+ МБ. Исправление: композитинг и кодирование в фоне; для истории и «Поделиться» — HEIC/JPEG.
+
+**C2. Отрисовка оверлея перевода на главном потоке** — подтверждено (производительность).
+`translation.$translated` → `CameraOverlay.render` (`CameraModel.swift:59-62`, `CameraOverlay.swift:7-23`) на каждое обновление блоков: полный растр размера кадра (до 3072 px, ~28 МБ) и линейный подбор шрифта с шагом 0,5 (до ~58 вызовов `boundingRect` на блок). На снимке с десятками блоков — тысячи измерений текста на главном потоке при каждом обновлении. Исправление: двоичный поиск размера шрифта, отрисовка вне главного потока или только изменившихся блоков.
+
+**C3. Сигнатура кадра на главном потоке** — подтверждено, низкий.
+`receive` (`CameraModel.swift:95`) и проверка результата OCR (`:112`) рисуют кадр 1600 px в 16×16 на главном акторе — дважды на кадр. Считать в `CameraCapture` на очереди кадров и передавать вместе с изображением.
+
+**C4. Тупик при ошибке подготовки перевода** — подтверждено, низкий.
+`open()` (`CameraModel.swift:82-89`): `active = true`, а при неудачном `translation.prepare` (`translation.ready == false`) выходит без запуска камеры и без сброса `active`. Ошибка показывается, но «Снять» и «Галерея» заблокированы (`canCapture`, `!translation.ready`), повторный `open()` отсекается `guard !active`. Выход — только закрыть и открыть камеру. Исправление: при неудаче сбрасывать `active` или показывать кнопку повтора.
+
+**C5. Импорт больших изображений** — низкий.
+`CameraOverlay.decode` отклоняет данные больше 50 МБ общей ошибкой `CameraError.image` (`CameraOverlay.swift:32`); `PhotosPicker` грузит полный `Data` (`CameraView.swift:126`). Для панорам/ProRAW — непонятное сообщение. Нужен отдельный текст ошибки или загрузка через файл/`CGImageSourceCreateWithURL`.
+
+**C6. Перерисовки экрана камеры** — оптимизация.
+`CameraView` наблюдает `AppModel`, `PackageDownloadCoordinator`, `ImageTranslationSession` и `CameraModel`, который сам пересылает `objectWillChange` перевода (`CameraModel.swift:55`) — двойная инвалидация; экран пересчитывается на каждый чанк загрузки (см. п. 4.1). `model.status` (`:67-77`) при каждом пересчёте заново проверяет поддержку языков моделью (см. п. 4.7, `OpusDirectionRoutes.languages`).
+
+---
+
 ## Предлагаемый порядок работ
 
 1. P1–P6 отдельными небольшими коммитами; для P3–P5 и M1, M2, M4 — unit-тесты в `OfflineCore` (логика группы, декодирование истории, порог 60 с, порядок «Авто»).
-2. Перерисовки (п. 4.1) и отпечаток без ctime (п. 4.2) — заметный выигрыш при малом риске.
+2. Перерисовки (п. 4.1, C6), отпечаток без ctime (п. 4.2), PNG/оверлей камеры вне главного потока (C1, C2) — заметный выигрыш при малом риске.
 3. M3, M7, M8 — с проверкой на iPhone (память при смене модели, прерывания записи, фоновые загрузки малыми файлами).
 4. Рефакторинг конвейера в единый исполнитель операций — после покрытия тестами.
 
