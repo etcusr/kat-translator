@@ -25,6 +25,8 @@ import OfflineCore
     private var archiving: Task<Void, Never>?
     var hasResult: Bool { frozen != nil }
     private var frame: CGImage?
+    /// Signature of `frame`, so checks against the latest frame do not redraw it on the main actor (audit 22.10, iOS C3).
+    private var frameSignature: [UInt8] = []
     private var anchor: [UInt8] = []
     private var ocrTask: Task<Void, Never>?
     private var startup: Task<Void, Never>?
@@ -40,7 +42,7 @@ import OfflineCore
     private var overlayRevision = 0
     private var pendingOverlay: (blocks: [TranslatedImageBlock], size: CGSize, revision: Int, scene: Int)?
     private var overlayTask: Task<Void, Never>?
-    lazy var capture = CameraCapture { [weak self] image, revision in await self?.receive(image, revision: revision) }
+    lazy var capture = CameraCapture { [weak self] image, signature, revision in await self?.receive(image, signature: signature, revision: revision) }
     func orient(_ value: CameraFrameOrientation) {
         guard value != orientation else { return }
         orientation = value; orientationRevision += 1
@@ -109,10 +111,9 @@ import OfflineCore
         }
         startup = task; await task.value
     }
-    private func receive(_ image: CGImage, revision: Int) {
+    private func receive(_ image: CGImage, signature: [UInt8], revision: Int) {
         guard revision == orientationRevision, active, !opening, !takingPhoto, frozen == nil else { return }
-        frame = image
-        let signature = CameraOverlay.signature(image)
+        frame = image; frameSignature = signature
         if !anchor.isEmpty && CameraOverlay.distance(signature,anchor) > 0.025 { scene += 1; translation.clearScene(); overlay = nil; anchor = signature }
         guard ocrTask == nil, translation.ready, ProcessInfo.processInfo.systemUptime-lastOCR >= 0.8 else { return }
         if needsOpenModel && packages.ocr(source)?.installedURL == nil { return }
@@ -129,7 +130,7 @@ import OfflineCore
                 let result = try await ocr.recognize(image, source: automatic ? nil : language, forceOpen: force, modelURL: modelURL)
                 try Task.checkCancellation()
                 guard id == generation, sceneID == scene, active, automatic == automaticSource, (automatic || language == source), destination == target else { return }
-                if frozen == nil, let latest = frame, CameraOverlay.distance(signature,CameraOverlay.signature(latest)) > 0.025 { return }
+                if frozen == nil, frame != nil, CameraOverlay.distance(signature,frameSignature) > 0.025 { return }
                 anchor = signature; engine = result.engine
                 if !result.blocks.isEmpty {
                     let resolved: SpeechLanguage
@@ -163,18 +164,23 @@ import OfflineCore
     }
     private func usePicture(_ image: CGImage) async {
         guard active else { return }
-        scene += 1; let sceneID = scene; frozen = UIImage(cgImage: image); frame = image; overlay = nil; message = nil; translation.clearScene()
+        scene += 1; let sceneID = scene; frozen = UIImage(cgImage: image); frame = image; frameSignature = []; overlay = nil; message = nil; translation.clearScene()
         ocrTask?.cancel(); await ocrTask?.value
         guard active, sceneID == scene else { return }
         await capture.stop()
+        let signature = await Task.detached(priority: .userInitiated) { CameraOverlay.signature(image) }.value
         guard active, sceneID == scene else { return }
-        recognize(image,signature:CameraOverlay.signature(image))
+        frameSignature = signature
+        recognize(image,signature:signature)
     }
     func changedOptions() async {
         scene += 1; let sceneID = scene; translation.clearScene(); overlay = nil; error = nil; message = nil; anchor = []
         ocrTask?.cancel(); await ocrTask?.value
         guard active, sceneID == scene else { return }
-        if let frozen = frozen?.cgImage { recognize(frozen,signature:CameraOverlay.signature(frozen)) }
+        guard let frozen = frozen?.cgImage else { return }
+        let signature = await Task.detached(priority: .userInitiated) { CameraOverlay.signature(frozen) }.value
+        guard active, sceneID == scene else { return }
+        recognize(frozen,signature:signature)
     }
     func resume() async {
         scene += 1; let sceneID = scene; ocrTask?.cancel(); await ocrTask?.value

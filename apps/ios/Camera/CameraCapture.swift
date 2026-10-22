@@ -7,7 +7,8 @@ final class CameraCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
     private let queue = DispatchQueue(label: "org.openoffline.camera")
     private let frames = DispatchQueue(label: "org.openoffline.camera.frames", qos: .userInitiated)
     private let context = CIContext(options: [.cacheIntermediates: false])
-    private let onFrame: @Sendable (CGImage, Int) async -> Void
+    /// Frame, its 16×16 scene signature (computed here, off the main actor: audit 22.10, iOS C3) and orientation revision.
+    private let onFrame: @Sendable (CGImage, [UInt8], Int) async -> Void
     private let deliveryLock = NSLock()
     private var delivering = false
     // Shared with frame delivery; each image carries the revision it was rotated for.
@@ -32,7 +33,7 @@ final class CameraCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
     private var wantsRunning = false
     private var lastRuntimeRestart = -Double.infinity
     private var normalZoom: CGFloat = 1
-    init(onFrame: @escaping @Sendable (CGImage, Int) async -> Void) { self.onFrame = onFrame; super.init() }
+    init(onFrame: @escaping @Sendable (CGImage, [UInt8], Int) async -> Void) { self.onFrame = onFrame; super.init() }
     func start() async throws {
         guard await AVCaptureDevice.requestAccess(for: .video) else { throw CameraError.cameraDenied }
         try await withCheckedThrowingContinuation { (c: CheckedContinuation<Void, Error>) in queue.async {
@@ -171,7 +172,10 @@ final class CameraCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
         let original = orientation.upright(CIImage(cvPixelBuffer: buffer))
         let scale = min(1, 1600 / max(original.extent.width, original.extent.height))
         let image = original.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
-        if let cg = context.createCGImage(image, from: image.extent) { Task { await onFrame(cg, revision); finishDelivery() } }
+        if let cg = context.createCGImage(image, from: image.extent) {
+            let signature = CameraOverlay.signature(cg)
+            Task { await onFrame(cg, signature, revision); finishDelivery() }
+        }
         else { finishDelivery() }
     }
     deinit {
