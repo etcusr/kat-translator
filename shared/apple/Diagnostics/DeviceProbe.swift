@@ -41,6 +41,10 @@ enum DeviceProbe {
         estimate9B >= strongTokensPerSecond && ProcessInfo.processInfo.physicalMemory >= strongMemoryBytes
     }
 
+    /// A failed pass (GPU work is refused while the app is in the background) must not be saved: a CPU-only
+    /// estimate would mark a strong iPhone weak until the check is re-run (audit 22.10, iOS M10).
+    static func shouldSave(cpuGbps: Double, gpuGbps: Double, hasGPU: Bool) -> Bool { cpuGbps > 0 && (gpuGbps > 0 || !hasGPU) }
+
     static func run() async -> DeviceProbeResult {
         await Task.detached(priority: .userInitiated) {
             let cpu = kat_apple_read_bandwidth_gbps(4, 32 << 20, 1.5)
@@ -49,7 +53,8 @@ enum DeviceProbe {
             let estimate = thermalMargin * best / index9BGigabytes
             let result = DeviceProbeResult(cpuGbps: cpu, gpuGbps: gpu, estimate9B: estimate,
                 strong: isStrong(estimate))
-            if let data = try? JSONEncoder().encode(result) { UserDefaults.standard.set(data, forKey: key) }
+            if shouldSave(cpuGbps: cpu, gpuGbps: gpu, hasGPU: MTLCreateSystemDefaultDevice() != nil),
+               let data = try? JSONEncoder().encode(result) { UserDefaults.standard.set(data, forKey: key) }
             return result
         }.value
     }

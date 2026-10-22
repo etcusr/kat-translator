@@ -32,14 +32,16 @@ double kat_apple_read_bandwidth_gbps(int threads, size_t bytes_per_thread, doubl
     }
     if (started == threads) {
         struct timespec a, b; clock_gettime(CLOCK_MONOTONIC, &a);
-        for (int t = 0; t < threads; ++t) pthread_create(&ids[t], NULL, reader, &jobs[t]);
-        usleep((useconds_t)(seconds * 1e6));
+        int created = 0;
+        while (created < threads && pthread_create(&ids[created], NULL, reader, &jobs[created]) == 0) created++;
+        if (created == threads) usleep((useconds_t)(seconds * 1e6));
         atomic_store(&stop, true);
         uint64_t bytes = 0, sink = 0;
-        for (int t = 0; t < threads; ++t) { pthread_join(ids[t], NULL); bytes += jobs[t].bytes; sink += jobs[t].sink; }
+        // Join only threads that exist; fewer readers would understate bandwidth, so that run fails.
+        for (int t = 0; t < created; ++t) { pthread_join(ids[t], NULL); bytes += jobs[t].bytes; sink += jobs[t].sink; }
         clock_gettime(CLOCK_MONOTONIC, &b);
         const double elapsed = (b.tv_sec - a.tv_sec) + (b.tv_nsec - a.tv_nsec) / 1e9;
-        result = sink == 42 ? -2 : bytes / elapsed / 1e9;
+        if (created == threads) result = sink == 42 ? -2 : bytes / elapsed / 1e9;
     }
     for (int t = 0; t < started; ++t) free((void *)jobs[t].data);
     return result;

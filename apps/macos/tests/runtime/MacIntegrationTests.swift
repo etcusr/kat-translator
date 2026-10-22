@@ -507,6 +507,13 @@ import SwiftUI
         defaults.set(1.0, forKey: "historyTextDays"); await history.confirmPolicy()
         XCTAssertEqual(history.entries.count, 0)
     }
+    // Audit 22.10 (iOS M10): a failed GPU pass (app in background) is not saved as a CPU-only "weak" result.
+    func testDeviceProbeDoesNotSaveFailedPass() {
+        XCTAssertFalse(DeviceProbe.shouldSave(cpuGbps: 60, gpuGbps: -1, hasGPU: true))
+        XCTAssertFalse(DeviceProbe.shouldSave(cpuGbps: -1, gpuGbps: 100, hasGPU: true))
+        XCTAssertTrue(DeviceProbe.shouldSave(cpuGbps: 60, gpuGbps: 100, hasGPU: true))
+        XCTAssertTrue(DeviceProbe.shouldSave(cpuGbps: 60, gpuGbps: -1, hasGPU: false))
+    }
     // Audit 22.10 (B20): pasting an image file copied in Finder translates the file, not its icon.
     func testPastedFinderImageUsesFileInsteadOfIcon() throws {
         let board = NSPasteboard.withUniqueName(); defer { board.releaseGlobally() }
