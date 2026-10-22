@@ -11,6 +11,14 @@ case "$PROFILE" in
   macos15) SUFFIX="-macos15-26" ;;
   *) echo "Unknown Mac profile: $PROFILE" >&2; exit 1 ;;
 esac
+# The app must have been built for the requested profile (minimum macOS and runtime differ).
+APP_PROFILE=$(/usr/libexec/PlistBuddy -c 'Print :KatBuildProfile' "$APP/Contents/Info.plist" 2>/dev/null || echo modern)
+APP_MINIMUM=$(/usr/libexec/PlistBuddy -c 'Print :LSMinimumSystemVersion' "$APP/Contents/Info.plist")
+EXPECTED_MINIMUM=$(python3 -c 'import runpy,sys; print(runpy.run_path(sys.argv[1])["profile"](sys.argv[2])["minimum"])' "$ROOT/scripts/mac-build-profile.py" "$PROFILE")
+if [ "$APP_PROFILE" != "$PROFILE" ] || [ "$APP_MINIMUM" != "$EXPECTED_MINIMUM" ]; then
+  echo "App profile $APP_PROFILE (macOS $APP_MINIMUM) does not match requested $PROFILE (macOS $EXPECTED_MINIMUM): $APP" >&2
+  exit 1
+fi
 NAME="Kat-translator-${VERSION}-build${BUILD}-mac-arm64${SUFFIX}"
 OUT="$ROOT/dist/macos"
 STAGE="$ROOT/.build/macos/dmg-stage${SUFFIX}"

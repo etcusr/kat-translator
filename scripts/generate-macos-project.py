@@ -38,7 +38,7 @@ for p in sorted((root/'apps/macos').rglob('*')):
  objects[phase]['files'].append(obj('macbuild:'+rel,isa='PBXBuildFile',fileRef=ref))
 frameworks=[]
 for name,path in [('Whisper','macos/libwhisper.a'),('Translation','macos/libTranslationRuntime.dylib'),('Sherpa','speech-macos/sherpa-onnx.xcframework'),('Onnx','macos/libonnxruntime.dylib'),('Python','macos/libpython3.11.dylib'),('Omni','omnivoice/OmniVoiceRuntime.xcframework'),('Opus','opus/OpusRuntime.xcframework')]:
- if name=='Python' and profile_name=='macos15':path='macos15/StandalonePython/python/lib/libpython3.11.dylib'
+ if name=='Python':path=mac_profile['python'].removeprefix('Dependencies/build/')+'/lib/libpython3.11.dylib'
  ref=obj('macfw:'+name,isa='PBXFileReference',lastKnownFileType='wrapper.xcframework' if path.endswith('.xcframework') else 'archive.ar' if path.endswith('.a') else 'compiled.mach-o.dylib',path='Dependencies/build/'+path,sourceTree='<group>')
  objects[ns['main']]['children'].append(ref);frameworks.append(obj('maclink:'+name,isa='PBXBuildFile',fileRef=ref))
 objects[ns['frameworks']]['files']=[ns['packagebuild'],uid('recognition-build')]+frameworks
@@ -48,8 +48,7 @@ objects[ns['target']]['dependencies']=[];objects[ns['target']]['name']='KatTrans
 objects[ns['product']]['path']='Kat translator.app'
 objects[ns['project']]['targets']=[ns['target']]
 objects[ns['products']]['children']=[ns['product']]
-python_include=subprocess.check_output(['/opt/homebrew/opt/python@3.11/bin/python3.11','-c','import sysconfig; print(sysconfig.get_path("include"))'],text=True).strip()
-if profile_name=='macos15':python_include='$(KAT_REPO_ROOT)/Dependencies/build/macos15/StandalonePython/python/include/python3.11'
+python_include='$(KAT_REPO_ROOT)/'+mac_profile['python']+'/include/python3.11'
 if not store_project:
  signing_ref=obj('mac-signing-config',isa='PBXFileReference',lastKnownFileType='text.xcconfig',path='.build/macos-signing.xcconfig',sourceTree='<group>')
  objects[ns['main']]['children'].append(signing_ref)

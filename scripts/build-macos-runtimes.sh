@@ -25,11 +25,12 @@ for ENGINE in whisper llama; do
 done
 
 # Reuse the pinned runtime/header inputs already prepared for the project.
-PYTHON_ROOT=/opt/homebrew/opt/python@3.11/Frameworks/Python.framework/Versions/3.11
+PYTHON_ROOT="$ROOT/Dependencies/build/macos15/StandalonePython/python" # pinned python-build-standalone, not Homebrew
+[ -f "$PYTHON_ROOT/lib/libpython3.11.dylib" ] || python3 "$ROOT/scripts/prepare-macos15-runtime.py"
 mkdir -p "$OUT/headers/onnxruntime" "$OUT/headers/sherpa-onnx"
 rsync -a "$ROOT/Dependencies/build/speech/onnxruntime.xcframework/ios-arm64/onnxruntime.framework/Headers/" "$OUT/headers/onnxruntime/"
 rsync -a "$ROOT/Dependencies/build/speech-macos/sherpa-onnx.xcframework/macos-arm64_x86_64/Headers/sherpa-onnx/" "$OUT/headers/sherpa-onnx/"
 cp "$ROOT/.build/wayu-env/lib/python3.11/site-packages/onnxruntime/capi/libonnxruntime.1.30.0.dylib" "$OUT/libonnxruntime.dylib"
-cp "$PYTHON_ROOT/Python" "$OUT/libpython3.11.dylib"
+cp "$PYTHON_ROOT/lib/libpython3.11.dylib" "$OUT/libpython3.11.dylib"
 install_name_tool -id @rpath/libonnxruntime.dylib "$OUT/libonnxruntime.dylib"
 install_name_tool -id @rpath/libpython3.11.dylib "$OUT/libpython3.11.dylib"

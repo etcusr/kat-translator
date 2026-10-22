@@ -18,15 +18,14 @@ def copytree(a,b):
  b.mkdir(parents=True,exist_ok=True)
  # Do not copy protected provenance xattrs onto an already signed build product.
  excludes=['__pycache__','*.pyc','site-packages','test','tests','idlelib','tkinter','ensurepip','config-*-darwin']
- subprocess.run(['rsync','-aL','--chmod=u+w',*[arg for item in excludes for arg in ('--exclude',item)],str(a)+'/',str(b)+'/'],check=True)
-py=Path('/opt/homebrew/opt/python@3.11/Frameworks/Python.framework/Versions/3.11')
-py_library=py/'Python'
-if mac_profile['suffix']:
- py=root/'Dependencies/build/macos15/StandalonePython/python'
- py_library=py/'lib/libpython3.11.dylib'
- # Drop libraries/extensions retained by an earlier host-Python build.
- if (res/'python').exists(): shutil.rmtree(res/'python')
- for previous in fw.glob('*.dylib'): previous.unlink()
+  # --delete: files removed upstream must not keep shipping from an earlier incremental build.
+ subprocess.run(['rsync','-aL','--delete','--chmod=u+w',*[arg for item in excludes for arg in ('--exclude',item)],str(a)+'/',str(b)+'/'],check=True)
+py=root/mac_profile['python']
+py_library=py/'lib/libpython3.11.dylib'
+if not py_library.is_file(): raise RuntimeError('Prepare the pinned standalone Python: python3 scripts/prepare-macos15-runtime.py')
+# Drop libraries/extensions retained by an earlier (host or standalone) build; inputs are copied again below.
+if (res/'python').exists(): shutil.rmtree(res/'python')
+for previous in fw.glob('*.dylib'): previous.unlink()
 copytree(py/'lib/python3.11',res/'python/lib/python3.11')
 for extension in (res/'python/lib/python3.11/lib-dynload').glob('_tkinter*.so'):
  extension.unlink()  # GUI toolkit is unused; do not carry its optional dependencies.
@@ -112,6 +111,8 @@ while queue:
  commands=subprocess.check_output(['otool','-l',str(dst)],text=True)
  if dst == helper and '@executable_path/../Frameworks' not in commands:
   subprocess.run(['install_name_tool','-add_rpath','@executable_path/../Frameworks',str(dst)],check=True)
+ if len(subprocess.check_output(['lipo','-archs',str(dst)],text=True).split()) > 1:
+  thin=str(dst)+'.arm64'; subprocess.run(['lipo',str(dst),'-thin','arm64','-output',thin],check=True); os.replace(thin,dst)
  import re
  for rpath in re.findall(r'cmd LC_RPATH\n.*?\n\s*path (.*?) \(offset',commands):
   if rpath.startswith('/') and not rpath.startswith(('/System/','/usr/lib/')):
@@ -143,6 +144,17 @@ while queue:
  subprocess.run(['codesign','--force','--sign',os.environ.get('EXPANDED_CODE_SIGN_IDENTITY') or '-',*helper_entitlements,str(dst)],check=True,capture_output=True)
 subprocess.run(['codesign','--force','--sign',os.environ.get('EXPANDED_CODE_SIGN_IDENTITY') or '-',str(fw/'OmniVoiceRuntime.framework')],check=True,capture_output=True)
 subprocess.run(['codesign','--force','--sign',os.environ.get('EXPANDED_CODE_SIGN_IDENTITY') or '-',str(fw/'OpusRuntime.framework')],check=True,capture_output=True)
+
+# Precompile every bundled Python tree once at build time. The embedded interpreter and the OPUS
+# helper never write bytecode, so without this every launch recompiled the stdlib, mlx_lm, torch and
+# transformers from source. checked-hash .pyc files are validated against their source at import,
+# so a stale file is never used; they are sealed by the app signature like other resources.
+compile_env=dict(os.environ, PYTHONHOME=str(py), PYTHONNOUSERSITE='1')
+compiled=subprocess.run([str(py/'bin/python3.11'),'-S','-m','compileall','-q','-j0','--invalidation-mode','checked-hash',
+  str(res/'python/lib/python3.11'),str(res/'IndexPython'),str(res/'WayuPython'),str(res/'OpusPython')],
+  env=compile_env,capture_output=True,text=True)
+# Third-party trees contain a few intentionally invalid test/template files; report, do not fail.
+if compiled.returncode: print('compileall: some files were skipped\n'+compiled.stdout[-2000:]+compiled.stderr[-2000:])
 
 # Declare repackaged SDKs after all runtime copies, before the app is signed.
 subprocess.run([sys.executable, str(root/"scripts/install-sdk-privacy-manifests.py"),
