@@ -35,7 +35,12 @@ final class WhisperBackend: ASRBackend, @unchecked Sendable {
                 // Do not write model output or intermediate tokens into system logs.
                 whisper_log_set({ _, _, _ in }, nil)
                 var params = whisper_context_default_params()
+                #if targetEnvironment(simulator)
+                // Simulator Metal rejects the mapped buffer path; use CPU for UI fixtures.
+                params.use_gpu = false
+                #else
                 params.use_gpu = true
+                #endif
                 self.context = whisper_init_from_file_with_params(modelURL.path, params)
                 if self.context == nil { continuation.resume(throwing: WhisperError.load) }
                 else { continuation.resume() }

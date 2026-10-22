@@ -13,7 +13,14 @@ final class SettingsNavigationUITests: XCTestCase {
         let app = XCUIApplication(bundleIdentifier: "app.kattranslator")
         #endif
         continueAfterFailure = false
+        #if targetEnvironment(simulator)
+        // Dedicated UI fixture only; physical-device checks preserve launch defaults.
+        app.launchArguments = ["-languageSetupCompleted", "YES", "-automaticModelLoad", "NO",
+                               "-appInterfaceLanguage", "en", "-showTechnicalInfo", "NO"]
+        app.launch()
+        #else
         app.activate()
+        #endif
         let close = element("settings.close", in: app)
         let done = element("sheet.done", in: app)
         if close.exists { click(close) }

@@ -15,6 +15,8 @@ Living documentation exists in two languages: `NAME.md` is English and is the de
 | [Publication queue](publication/OPEN_QUESTIONS.md) | What remains before App Store / Google Play publication |
 | [Project description](../PROJECT_DESCRIPTION.md) | Product description and identifiers |
 
+[iPhone Simulator checks](../scripts/simulator/README.md) — repeatable settings and navigation tests without a physical phone.
+
 ## Platforms
 
 | Document | Purpose |

@@ -1,3 +1,6 @@
+#if defined(__APPLE__)
+#include <TargetConditionals.h>
+#endif
 #include "TranslationRuntime.h"
 #include "llama.h"
 #ifdef KAT_IOS_MTP
@@ -62,7 +65,15 @@ struct Engine {
 using Flag = std::atomic_bool;
 static bool abort_run(void *flag) { return static_cast<Flag *>(flag)->load(std::memory_order_relaxed); }
 static std::once_flag init_once;
-void *ot_mt_load(const char *path) { return ot_mt_load_config(path, 4, 99, 1); }
+void *ot_mt_load(const char *path) {
+#if defined(__APPLE__) && TARGET_OS_SIMULATOR
+    // MTLSimDevice rejects the mapped-buffer path used by ggml. Physical devices
+    // keep their existing GPU/MTP configuration; Simulator is for UI checks.
+    return ot_mt_load_config(path, 4, 0, 0);
+#else
+    return ot_mt_load_config(path, 4, 99, 1);
+#endif
+}
 void *ot_mt_load_config(const char *path, int threads, int gpu_layers, int flash_attention) {
     if (!path || !*path || threads < 1 || threads > 32 || gpu_layers < 0 || (flash_attention != 0 && flash_attention != 1)) return nullptr;
     try {

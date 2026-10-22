@@ -15,6 +15,8 @@
 | [Очередь публикации](publication/OPEN_QUESTIONS.ru.md) | Что осталось до публикации в App Store / Google Play |
 | [Описание проекта](../PROJECT_DESCRIPTION.ru.md) | Описание продукта и идентификаторы |
 
+[Проверки iPhone Simulator](../scripts/simulator/README.ru.md) — повторяемые проверки настроек и переходов без физического телефона.
+
 ## Платформы
 
 | Документ | Назначение |
