@@ -20355,6 +20355,258 @@
           }
         }
       }
+    },
+    "Модели и голоса": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Модели и голоса"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Models and voices"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modelos y voces"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modeller ve sesler"
+          }
+        }
+      }
+    },
+    "Запись речи": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запись речи"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voice recording"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grabación de voz"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ses kaydı"
+          }
+        }
+      }
+    },
+    "Языки": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Языки"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Languages"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Idiomas"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diller"
+          }
+        }
+      }
+    },
+    "Языки не найдены": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Языки не найдены"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No languages found"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontraron idiomas"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dil bulunamadı"
+          }
+        }
+      }
+    },
+    "На Mac используется встроенное офлайн-распознавание Apple Vision. Дополнительные OCR-пакеты не требуются.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На Mac используется встроенное офлайн-распознавание Apple Vision. Дополнительные OCR-пакеты не требуются."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mac uses built-in offline text recognition with Apple Vision. No additional OCR packages are needed."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mac utiliza el reconocimiento de texto integrado sin conexión de Apple Vision. No se necesitan paquetes OCR adicionales."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mac, Apple Vision ile yerleşik çevrimdışı metin tanımayı kullanır. Ek OCR paketleri gerekmez."
+          }
+        }
+      }
+    },
+    "Офлайн-переводчик голоса, текста и изображений. ИИ-модели работают на вашем устройстве после скачивания нужных пакетов.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Офлайн-переводчик голоса, текста и изображений. ИИ-модели работают на вашем устройстве после скачивания нужных пакетов."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offline voice, text and image translator. AI models run on your device after you download the required packages."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traductor de voz, texto e imágenes sin conexión. Los modelos de IA funcionan en tu dispositivo tras descargar los paquetes necesarios."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çevrimdışı ses, metin ve görüntü çevirmeni. Gerekli paketleri indirdikten sonra yapay zekâ modelleri cihazınızda çalışır."
+          }
+        }
+      }
+    },
+    "Приостановленную загрузку можно продолжить, если сервер сохранил данные. Изменение мобильной сети применяется только к новой загрузке. Выбор, скачивание и удаление голосов доступны в разделе «Модели и голоса» → «Голоса и образцы».": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приостановленную загрузку можно продолжить, если сервер сохранил данные. Изменение мобильной сети применяется только к новой загрузке. Выбор, скачивание и удаление голосов доступны в разделе «Модели и голоса» → «Голоса и образцы»."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A paused download can resume if the server still has the data. Cellular network changes apply only to new downloads. Select, download and remove voices in Models and voices → Voices and samples."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una descarga pausada puede reanudarse si el servidor conserva los datos. Los cambios de red móvil solo se aplican a nuevas descargas. Selecciona, descarga y elimina voces en Modelos y voces → Voces y muestras."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucu verileri koruyorsa duraklatılan indirme sürdürülebilir. Hücresel ağ değişiklikleri yalnızca yeni indirmelere uygulanır. Sesleri Modeller ve sesler → Sesler ve örnekler bölümünden seçin, indirin veya silin."
+          }
+        }
+      }
+    },
+    "Загрузки": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Загрузки"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Downloads"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descargas"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İndirmeler"
+          }
+        }
+      }
+    },
+    "Быстрая настройка": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Быстрая настройка"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quick setup"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configuración rápida"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hızlı kurulum"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

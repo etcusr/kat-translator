@@ -4,6 +4,10 @@
 
 Deferred tasks, not completed changes or release promises.
 
+## Next release: screenshots, GitHub and App Store Connect
+
+- [ ] Follow the [release presentation and publication plan](publication/next-apple-release-plan.md): refresh screenshots for every OS/interface language, synchronize documentation and descriptions, present galleries in the repository/site, prepare localized release notes and new iOS/macOS versions/builds, then record a short iOS demonstration. This is planned work; no upload or review submission has started.
+
 ## iOS history: collapsible long text
 
 Planned 22 October 2026. **Backlog only; not implemented on iOS yet.**
@@ -23,13 +27,11 @@ Planned on 2026-10-22 at the owner's request; not implemented by the Settings re
 
 ## Unified settings and model management
 
-Planned 22 October 2026. **Backlog only; no interface changes yet.** Applies to iOS/iPadOS, macOS and Android.
+Apple navigation implemented on 22 October 2026: Quick setup and Models and voices share the first Settings group; models, recognition, OCR, voices and downloads have separate destinations. The original wizard stays directly accessible. [Design](design/apple-settings-2026-10-22.md).
 
-- [ ] Move model management into a dedicated Settings section. Bring translation, speech recognition, OCR and voice downloads into one coherent navigation structure instead of separate top-level Models and voice settings destinations.
-- [ ] Redesign Settings as a whole using Apple's iOS Settings as the visual and navigation reference: clearly grouped sections, consistent rows, icons, spacing, typography, switches and detail screens. Keep the same terminology and grouping across platforms while adapting layout and input to phones, tablets and desktop windows.
-- [ ] Use consistent download controls and status presentation for models and voices: installed/selected status, download size, progress, pause/resume, cancellation and deletion. Preserve the current rule that cancelling a batch removes only that batch's downloads, not previously installed packages.
-- [ ] Update onboarding, missing-model download actions and other entry points to open the relevant Settings section. Remove the redundant standalone Models entry once its replacement is available.
-- [ ] Validate navigation, accessibility, long localized labels and compact/large layouts on every platform. Verify that moving the UI preserves model files, selected models/voices, settings, history and active/resumable downloads without downloading assets again.
+- [ ] Apply the same categories and terminology to Android, adapting controls and layout to its native UI.
+- [ ] Extend acceptance to iPad, compact desktop windows, large accessibility text and all long localized labels.
+- [ ] Check a live or paused network download while navigating the redesigned screens. Download ownership, consent, cancellation scope and model storage are unchanged; navigation checks alone do not prove network-transfer acceptance.
 
 ## Mac App Store AI copy after publication
 

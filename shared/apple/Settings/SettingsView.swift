@@ -3,7 +3,6 @@ import OfflineCore
 struct SettingsView: View {
     @ObservedObject var model: AppModel
     @Bindable private var interfaceLanguage = AppInterfaceLanguage.shared
-    @AppStorage("recognitionPreference") private var recognitionPreference: RecognitionPreference = .automatic
     @AppStorage("recordingMode") private var mode: RecordingMode = .toggle
     @AppStorage("recordingSilenceSeconds") private var silenceSeconds = SilenceMonitor.defaultTimeout
     @AppStorage("recordingLimitMinutes") private var limitMinutes = RecordingPolicy.defaultMinutes
@@ -21,8 +20,6 @@ struct SettingsView: View {
     @AppStorage("historyRecordAudio") private var recordAudio = true
     @AppStorage("historyRecordImages") private var recordImages = true
     @AppStorage("showTechnicalInfo") private var showTechnicalInfo = false
-    @State private var showRecognitionModels = false
-    @State private var modelsFocus: PackageShortcut?
     @State private var confirmClear = false
     @State private var clearing = false
     @State private var clearMessage: String?
@@ -35,24 +32,110 @@ struct SettingsView: View {
     @AppStorage("historyTextDays") private var textDays = 30.0
     @AppStorage("historyAudioDays") private var audioDays = 30.0
     @Environment(\.dismiss) private var dismiss
+    private let requestedPath: [SettingsPage]
+    private let focus: PackageShortcut?
+    private let initialVoiceLanguage: SpeechLanguage?
+    @State private var path: [SettingsPage]
+    @State private var showLanguageSetup = false
+
+    init(model: AppModel, initialPage: SettingsPage? = nil, focus: PackageShortcut? = nil,
+         initialVoiceLanguage: SpeechLanguage? = nil) {
+        self.model = model
+        self.focus = focus
+        self.initialVoiceLanguage = initialVoiceLanguage
+        requestedPath = SettingsPage.initialPath(page: initialPage, focus: focus)
+        _path = State(initialValue: requestedPath)
+    }
+
     var body: some View {
-        NavigationStack {
-            Form {
+        NavigationStack(path: $path) {
+            List {
                 Section {
-                    Picker(L10n.text("Язык приложения"), selection: $interfaceLanguage.preference) {
-                        Text(L10n.text("Как в системе")).tag("system")
-                        Text(L10n.text("Русский")).tag("ru")
-                        Text("English").tag("en")
-                        Text("Español").tag("es")
-                        Text("Türkçe").tag("tr")
-                    }.pickerStyle(.menu).accessibilityIdentifier("settings.interfaceLanguage")
+                    Button { showLanguageSetup = true } label: {
+                        SettingsCategoryLabel(title: L10n.text("Быстрая настройка"), symbol: "wand.and.stars", color: .indigo)
+                    }
+                    #if os(iOS)
+                    .buttonStyle(.automatic)
+                    #else
+                    .buttonStyle(.plain)
+                    #endif
+                    .accessibilityIdentifier("settings.setup")
+                    category(.models)
                 }
-                #if os(macOS)
                 Section {
-                    NavigationLink(L10n.text("Горячие клавиши")) { HotkeySettingsView() }
-                        .accessibilityIdentifier("settings.shortcuts")
+                    category(.recording)
+                    category(.interface)
+                    #if os(macOS)
+                    category(.shortcuts)
+                    #endif
+                    category(.memory)
+                    category(.history)
                 }
-                #endif
+                Section {
+                    category(.experimental)
+                    category(.about)
+                }
+            }
+            .katSettingsList()
+            .navigationTitle(L10n.text("Настройки"))
+            .navigationDestination(for: SettingsPage.self) { page in
+                destination(page)
+                    .navigationTitle(page.title)
+                    .katDoneToolbar { dismiss() }
+            }
+            .katDoneToolbar { dismiss() }
+        }
+        .katFullScreenCover(isPresented: $showLanguageSetup) { LanguageSetupView(model: model) }
+        .onChange(of: requestedPath) { _, route in path = route }
+        .environment(\.locale, L10n.locale)
+        .katSheetClose(identifier: "settings.close", maxWidth: 860) { dismiss() }
+        .onDisappear { if !showLanguageSetup { saveRetention() } }
+    }
+
+    private func category(_ page: SettingsPage) -> some View {
+        NavigationLink(value: page) { SettingsCategoryLabel(page: page) }
+            .buttonStyle(.automatic)
+            .accessibilityIdentifier("settings.category." + page.rawValue)
+    }
+
+    @ViewBuilder private func destination(_ page: SettingsPage) -> some View {
+        switch page {
+        case .models:
+            List {
+                Section {
+                    category(.translationModels)
+                    category(.recognitionModels)
+                    category(.ocr)
+                    category(.voices)
+                }
+                Section { category(.downloads) }
+            }.katSettingsList()
+        case .translationModels, .recognitionModels, .downloads:
+            ModelsView(coordinator: model.packages, session: model.session, model: model,
+                       category: page == .translationModels ? .translation : page == .recognitionModels ? .recognition : .downloads,
+                       focus: focus) { await model.removeModel($0) }
+        case .ocr: OCRSettingsView(model: model)
+        case .voices:
+            VoiceSettingsView(model: model, initialLanguage: voiceLanguage)
+        case .recording: recordingSettings
+        case .interface: interfaceSettings
+        case .memory: memorySettings
+        case .history: historySettings
+        case .experimental: experimentalSettings
+        case .about: aboutSettings
+        #if os(macOS)
+        case .shortcuts: HotkeySettingsView()
+        #endif
+        }
+    }
+
+    private var voiceLanguage: SpeechLanguage? {
+        if case .voice(let language) = focus { return language }
+        return initialVoiceLanguage
+    }
+
+    private var recordingSettings: some View {
+        Form {
                 Section {
                     Picker(L10n.text("Кнопка микрофона"), selection: $mode) {
                         Text(L10n.text("Удерживать для записи")).tag(RecordingMode.hold)
@@ -74,85 +157,40 @@ struct SettingsView: View {
                     }
                 }
                 Section {
-                    ForEach(RecognitionPreference.allCases, id: \.self) { choice in
-                        Button {
-                            recognitionPreference = choice
-                            model.objectWillChange.send()
-                        } label: {
-                            HStack {
-                                Text(recognitionTitle(choice)).foregroundStyle(.primary)
-                                Spacer()
-                                if recognitionPreference == choice {
-                                    Image(systemName: "checkmark").foregroundStyle(KatTheme.accent)
-                                }
-                            }.frame(minHeight: 28).contentShape(Rectangle())
-                        }.buttonStyle(.plain)
-                            .accessibilityIdentifier("settings.recognition." + choice.rawValue)
-                            .accessibilityAddTraits(recognitionPreference == choice ? .isSelected : [])
-                    }
-                    Button(L10n.text("Модели распознавания")) { modelsFocus = nil; showRecognitionModels = true }
-                } header: {
-                    SettingsSectionHeader(L10n.text("Распознавание речи"))
-                } footer: {
-                    Text(L10n.text("Авто выбирает распознаватель по языку. В ручном режиме используется только выбранный движок; его пакет нужно скачать в разделе моделей. Выбор применяется со следующей записи и не меняет модель перевода."))
-                    if recognitionPreference == .ultra {
-                        Text(L10n.text("Ultra поддерживает 25 языков, включая русский и английский. Для остальных выберите Авто или Whisper."))
-                    }
-                    if let issue = model.voiceLanguageIssue {
-                        if let shortcut = model.voiceIssueShortcut {
-                            PackageHintButton(text: issue, shortcut: shortcut, packages: model.packages) { modelsFocus = $0; showRecognitionModels = true }
-                        } else { Text(issue) }
-                    }
-                }
-                Section {
                     Toggle(L10n.text("Исправлять дату и время"), isOn: $dateTimeRepair)
                         .accessibilityIdentifier("settings.whisperDateTimeRepair")
                 } footer: {
                     Text(L10n.text("Whisper повторно проверяет неоднозначные дату и время в русской речи. Может увеличить ожидание."))
                 }
-                #if os(macOS)
+
+        }.formStyle(.grouped).katSettingsBackground()
+    }
+
+    private var interfaceSettings: some View {
+        Form {
                 Section {
-                    Toggle(L10n.text("Переводить по частям"), isOn: $experimentalChunks)
-                        .accessibilityIdentifier("settings.translationChunks")
-                        .onChange(of: experimentalChunks) { _, enabled in model.session.showsTranslationPartials = enabled }
-                    Text(L10n.text("Только Index 9B. Первые части могут появляться раньше, но контекст между ними может теряться, а полный перевод — занимать больше времени. Применяется к следующему переводу."))
-                        .font(.footnote).foregroundStyle(.secondary)
+                    Picker(L10n.text("Язык приложения"), selection: $interfaceLanguage.preference) {
+                        Text(L10n.text("Как в системе")).tag("system")
+                        Text(L10n.text("Русский")).tag("ru")
+                        Text("English").tag("en")
+                        Text("Español").tag("es")
+                        Text("Türkçe").tag("tr")
+                    }.pickerStyle(.menu).accessibilityIdentifier("settings.interfaceLanguage")
                 }
                 Section {
-                    Toggle(L10n.text("Автоматический словарь терминов"), isOn: $experimentalGlossary)
-                        .accessibilityIdentifier("settings.translationGlossary")
+                    Toggle(L10n.text("Показывать диагностику"), isOn: $showTechnicalInfo)
+                        .accessibilityIdentifier("settings.showTechnicalInfo")
                 } header: {
-                    SettingsSectionHeader(L10n.text("Экспериментально"))
+                    SettingsSectionHeader(L10n.text("Интерфейс"))
                 } footer: {
-                    Text(L10n.text("Только Index 9B, с русского на английский. Подбирает общие термины для частей текста и изображения. Добавляет ожидание перед переводом и может ошибаться. Применяется к следующему переводу."))
+                    Text(L10n.text("Показывать на главном экране значок с расходом памяти и времени обработки."))
                 }
-                #endif
-                Section {
-                    Toggle(L10n.text("Переводить во время записи"), isOn: $preprocessing)
-                        .accessibilityIdentifier("settings.recordingPreprocessing")
-                    if preprocessing {
-                        Toggle(L10n.text("Проверять текст после записи"), isOn: $verification)
-                            .accessibilityIdentifier("settings.recordingPreviewVerification")
-                    }
-                } header: {
-                    SettingsSectionHeader(L10n.text("Экспериментально"))
-                } footer: {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(L10n.text("Оригинал и перевод законченных фраз появляются во время записи. Озвучка начнётся после остановки. Для Whisper с Index без экономии памяти. Экспериментальный режим: возможны пропуски, повторы и ошибки распознавания."))
-                        if preprocessing {
-                            Text(L10n.text("Проверка повторно распознаёт запись и обновляет изменившиеся фразы перед озвучкой. Увеличивает ожидание и не гарантирует точность перевода."))
-                        }
-                    }
-                }
-                Section {
-                    NavigationLink(L10n.text("Голоса и образцы")) { VoiceSettingsView(model: model) }
-                } header: {
-                    SettingsSectionHeader(L10n.text("Озвучка"))
-                } footer: {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(L10n.text("Образцы доступны до скачивания и смены голоса."))
-                    }
-                }
+
+        }.formStyle(.grouped).katSettingsBackground()
+    }
+
+    private var memorySettings: some View {
+        Form {
                 Section {
                     Toggle(L10n.text("Загружать модель при запуске"), isOn: $automaticModelLoad)
                         .accessibilityIdentifier("settings.automaticModelLoad")
@@ -174,6 +212,12 @@ struct SettingsView: View {
                         Text(L10n.text("Выгружать модели между этапами. Меньше расход памяти, но больше ожидание загрузки."))
                     }
                 }
+
+        }.formStyle(.grouped).katSettingsBackground()
+    }
+
+    private var historySettings: some View {
+        Form {
                 Section {
                     Toggle(L10n.text("Сохранять текст переводов"), isOn: $recordText).accessibilityIdentifier("history.recordText")
                         .onChange(of: recordText) { _, _ in Task { await model.history.applyRecordingSettings() } }
@@ -223,18 +267,67 @@ struct SettingsView: View {
                 } footer: {
                     Text(L10n.text("Удалить все сохранённые переводы, аудиофайлы и изображения. Настройки сохранения останутся прежними."))
                 }
+
+        }.formStyle(.grouped).katSettingsBackground()
+                .alert(L10n.text("Очистить всю историю?"), isPresented: $confirmClear) {
+                    Button(L10n.text("Удалить весь текст и аудио"), role: .destructive) {
+                        clearing = true; clearMessage = nil
+                        Task {
+                            await model.history.clear()
+                            clearMessage = model.history.error.map { L10n.text("Не удалось полностью очистить историю: ") + $0 } ?? L10n.text("История очищена")
+                            clearing = false
+                        }
+                    }
+                    Button(L10n.text("Отмена"), role: .cancel) {}
+                } message: { Text(L10n.text("Все записи истории будут удалены без возможности восстановления.")) }
+    }
+
+    private var experimentalSettings: some View {
+        Form {
+            #if os(macOS)
                 Section {
-                    Toggle(L10n.text("Показывать диагностику"), isOn: $showTechnicalInfo)
-                        .accessibilityIdentifier("settings.showTechnicalInfo")
-                } header: {
-                    SettingsSectionHeader(L10n.text("Интерфейс"))
-                } footer: {
-                    Text(L10n.text("Показывать на главном экране значок с расходом памяти и времени обработки."))
+                    Toggle(L10n.text("Переводить по частям"), isOn: $experimentalChunks)
+                        .accessibilityIdentifier("settings.translationChunks")
+                        .onChange(of: experimentalChunks) { _, enabled in model.session.showsTranslationPartials = enabled }
+                    Text(L10n.text("Только Index 9B. Первые части могут появляться раньше, но контекст между ними может теряться, а полный перевод — занимать больше времени. Применяется к следующему переводу."))
+                        .font(.footnote).foregroundStyle(.secondary)
                 }
+                Section {
+                    Toggle(L10n.text("Автоматический словарь терминов"), isOn: $experimentalGlossary)
+                        .accessibilityIdentifier("settings.translationGlossary")
+                } header: {
+                    SettingsSectionHeader(L10n.text("Экспериментально"))
+                } footer: {
+                    Text(L10n.text("Только Index 9B, с русского на английский. Подбирает общие термины для частей текста и изображения. Добавляет ожидание перед переводом и может ошибаться. Применяется к следующему переводу."))
+                }
+            #endif
+                Section {
+                    Toggle(L10n.text("Переводить во время записи"), isOn: $preprocessing)
+                        .accessibilityIdentifier("settings.recordingPreprocessing")
+                    if preprocessing {
+                        Toggle(L10n.text("Проверять текст после записи"), isOn: $verification)
+                            .accessibilityIdentifier("settings.recordingPreviewVerification")
+                    }
+                } header: {
+                    SettingsSectionHeader(L10n.text("Экспериментально"))
+                } footer: {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(L10n.text("Оригинал и перевод законченных фраз появляются во время записи. Озвучка начнётся после остановки. Для Whisper с Index без экономии памяти. Экспериментальный режим: возможны пропуски, повторы и ошибки распознавания."))
+                        if preprocessing {
+                            Text(L10n.text("Проверка повторно распознаёт запись и обновляет изменившиеся фразы перед озвучкой. Увеличивает ожидание и не гарантирует точность перевода."))
+                        }
+                    }
+                }
+
+        }.formStyle(.grouped).katSettingsBackground()
+    }
+
+    private var aboutSettings: some View {
+        Form {
                 Section {
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Kat translator").font(.headline)
-                        Text(L10n.text("Офлайн-переводчик голоса, текста и изображений. ИИ-модели работают на вашем iPhone после скачивания нужных пакетов."))
+                        Text(L10n.text("Офлайн-переводчик голоса, текста и изображений. ИИ-модели работают на вашем устройстве после скачивания нужных пакетов."))
                             .font(.subheadline).foregroundStyle(.secondary)
                     }
                     versionInformation
@@ -249,27 +342,7 @@ struct SettingsView: View {
                 } header: {
                     SettingsSectionHeader(L10n.text("О приложении"))
                 }
-            }
-                .sheet(isPresented: $showRecognitionModels, onDismiss: { modelsFocus = nil }) {
-                    ModelsView(coordinator: model.packages, session: model.session, model: model, focus: modelsFocus) { await model.removeModel($0) }
-                }
-                .katSectionSpacing().katDesktopPanelSurface()
-                .navigationTitle(L10n.text("Настройки"))
-                .alert(L10n.text("Очистить всю историю?"), isPresented: $confirmClear) {
-                    Button(L10n.text("Удалить весь текст и аудио"), role: .destructive) {
-                        clearing = true; clearMessage = nil
-                        Task {
-                            await model.history.clear()
-                            clearMessage = model.history.error.map { L10n.text("Не удалось полностью очистить историю: ") + $0 } ?? L10n.text("История очищена")
-                            clearing = false
-                        }
-                    }
-                    Button(L10n.text("Отмена"), role: .cancel) {}
-                } message: { Text(L10n.text("Все записи истории будут удалены без возможности восстановления.")) }
-                .katDoneToolbar { saveRetention(); dismiss() }
-        }.environment(\.locale, L10n.locale)
-            .katSheetClose(identifier: "settings.close", maxWidth: 860) { saveRetention(); dismiss() }
-            .onDisappear { saveRetention() } // swipe-dismissed sheet; Mac Settings window closed from its title bar
+        }.formStyle(.grouped).katSettingsBackground()
     }
     private var appVersion: String { Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "—" }
     private var appBuild: String { Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "—" }
@@ -300,13 +373,6 @@ struct SettingsView: View {
                 guard versionCopied else { return }
                 do { try await Task.sleep(for: .seconds(3)); versionCopied = false } catch {}
             }
-    }
-    private func recognitionTitle(_ preference: RecognitionPreference) -> String {
-        switch preference {
-        case .automatic: return L10n.text("Авто")
-        case .ultra: return "Parakeet Ultra"
-        case .whisper: return L10n.text("Whisper (классический)")
-        }
     }
     @ViewBuilder private func countPicker(_ title: String, value: Binding<Int>) -> some View {
         #if os(macOS)

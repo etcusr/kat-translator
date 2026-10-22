@@ -31,7 +31,7 @@ struct ConversationView: View {
     @AppStorage("showTechnicalInfo") private var showTechnicalInfo = false
     @State private var input: TranslatorInput = .voice
     @State private var previousInput: TranslatorInput = .voice
-    @State private var showModels = false
+    @State private var settingsPage: SettingsPage?
     @State private var modelsFocus: PackageShortcut?
     @State private var showHistory = false
     @State private var showAudioImporter = false
@@ -202,8 +202,7 @@ struct ConversationView: View {
                             .accessibilityIdentifier("toolbar.diagnostics")
                     }
                     Button { showHistory = true } label: { Image(systemName: "clock").katToolbarIcon() }.accessibilityLabel(L10n.text("История переводов")).accessibilityIdentifier("toolbar.history").disabled(speechBusy)
-                    Button { showSettings = true } label: { Image(systemName: "gearshape").katToolbarIcon() }.accessibilityLabel(L10n.text("Настройки")).disabled(configurationBusy)
-                    Button { modelsFocus = nil; showModels = true } label: { Image(systemName: "square.stack.3d.up").katToolbarIcon() }.accessibilityLabel(L10n.text("Модели")).disabled(configurationBusy)
+                    Button { settingsPage = nil; modelsFocus = nil; showSettings = true } label: { Image(systemName: "gearshape").katToolbarIcon() }.accessibilityLabel(L10n.text("Настройки")).accessibilityIdentifier("settings.open").disabled(configurationBusy)
                 }
                 .onChange(of: input) { old, new in
                     if new == .camera { previousInput = old }
@@ -251,7 +250,7 @@ struct ConversationView: View {
                 }
                 .sheet(isPresented: $showSettings, onDismiss: {
                     Task { await model.history.refresh(); await resumeImageAfterConfiguration() }
-                }) { SettingsView(model: model) }
+                }) { SettingsView(model: model, initialPage: settingsPage, focus: modelsFocus) }
                 .sheet(isPresented: $showHistory) { HistoryView(history: history) }
                 .fileImporter(isPresented: $showAudioImporter, allowedContentTypes: [.audio], allowsMultipleSelection: false) { result in
                     switch result {
@@ -263,11 +262,14 @@ struct ConversationView: View {
                 }
                 .katFullScreenCover(isPresented: $model.showLanguageSetup, onDismiss: { Task { await model.loadAutomaticallyIfNeeded() } }) { LanguageSetupView(model: model) }
                 .onChange(of: packages.downloadingAll) { _, downloading in if !downloading { Task { await model.loadAutomaticallyIfNeeded() } } }
-                .onOpenURL { url in if url.scheme == "kattranslator", url.host == "downloads" { showModels = true } }
-                .sheet(isPresented: $showModels, onDismiss: {
-                    modelsFocus = nil
-                    Task { await resumeImageAfterConfiguration() }
-                }) { ModelsView(coordinator: packages, session: session, model: model, focus: modelsFocus) { await model.removeModel($0) } }
+                .onOpenURL { url in
+                    if url.scheme == "kattranslator", url.host == "downloads" {
+                        #if os(iOS)
+                        guard input != .camera else { return }
+                        #endif
+                        modelsFocus = nil; settingsPage = .downloads; showSettings = true
+                    }
+                }
         }.preferredColorScheme(.dark).tint(accent).katDesktopControls()
         .disabled(showProcessingOverlay)
         .accessibilityHidden(showProcessingOverlay)
@@ -281,7 +283,7 @@ struct ConversationView: View {
         .onChange(of: integration.textRequestID, initial: true) { _, value in
             if value > 0 && integration.working {
                 typedText = integration.text; input = .text; readingField = nil; editingText = false
-                showSettings = false; showModels = false; showHistory = false; showReport = false
+                showSettings = false; showHistory = false; showReport = false
             }
         }
         .onReceive(permissionTimer) { _ in integration.refreshPermissions() }
@@ -307,7 +309,7 @@ struct ConversationView: View {
     /// A package hint leads to its card in Models; configuration stays locked while work is running.
     private func openModels(_ shortcut: PackageShortcut) {
         guard !configurationBusy else { return }
-        modelsFocus = shortcut; showModels = true
+        modelsFocus = shortcut; settingsPage = .models; showSettings = true
     }
     private var shownIssue: String? { input == .voice ? model.voiceLanguageIssue : model.languageIssue }
     private var targetVoiceMissing: Bool {
@@ -571,7 +573,7 @@ struct ConversationView: View {
     }
     private func voiceAction(compact: Bool, availableSize: CGSize) -> some View {
         VoiceStageControls(model: model, recordingMode: recordingMode, status: status,
-                         showWizard: showWizard && !voiceResultRevealed && !showProcessingOverlay, compact: compact, availableSize: availableSize, showModels: { showModels = true }, importAudio: { showAudioImporter = true })
+                         showWizard: showWizard && !voiceResultRevealed && !showProcessingOverlay, compact: compact, availableSize: availableSize, showModels: { modelsFocus = nil; settingsPage = .models; showSettings = true }, importAudio: { showAudioImporter = true })
     }
     private func clearFields() {
         model.cancel()
@@ -624,7 +626,7 @@ struct ConversationView: View {
         guard !textPrimaryDisabled else { return }
         editingText = false
         if busy { model.cancel(); return }
-        if !packages.ready { showModels = true; return }
+        if !packages.ready { modelsFocus = nil; settingsPage = .models; showSettings = true; return }
         #if os(macOS)
         if !session.isReady { Task { await model.load(resultMode: .text) }; return }
         #endif

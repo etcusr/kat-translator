@@ -46,13 +46,13 @@ struct CameraView: View, Equatable {
     @State private var photoOffset: CGSize = .zero
     @GestureState private var dragging: CGSize = .zero
     @State private var showHistory = false
-    @State private var showOCR = false
-    @State private var showModels = false
+    @State private var showSettings = false
+    @State private var settingsPage: SettingsPage = .ocr
     @State private var showText = false
     /// Missing OCR leads to the OCR settings card, a missing translation model to Models.
     private func packageHint(_ text: String, _ shortcut: PackageShortcut) -> some View {
         PackageHintButton(text: text, shortcut: shortcut, packages: packages) {
-            if case .translation = $0 { showModels = true } else { showOCR = true }
+            settingsPage = $0 == .translation ? .translationModels : .ocr; showSettings = true
         }.font(.caption)
     }
     @ViewBuilder private func errorText(_ error: String) -> some View {
@@ -112,25 +112,12 @@ struct CameraView: View, Equatable {
             }.frame(width: geometry.size.width, height: geometry.size.height)
         }.background(.black).preferredColorScheme(.dark).tint(KatTheme.accent)
         .sheet(isPresented: $showHistory) { HistoryView(history: app.history) }
-        // Opened from the missing-translation hint; reopening binds the camera to a newly installed model.
-        .sheet(isPresented: $showModels, onDismiss: { Task { await app.openCamera() } }) {
-            ModelsView(coordinator: packages, session: app.session, model: app, focus: .translation) { await app.removeModel($0) }
+        .sheet(isPresented: $showSettings, onDismiss: { Task { await app.openCamera() } }) {
+            SettingsView(model: app, initialPage: settingsPage)
         }
-        .sheet(isPresented: $showOCR) {
-            NavigationStack {
-                Form {
-                    Section(L10n.text("Распознавание текста")) {
-                        Toggle(L10n.text("Использовать открытый OCR"), isOn: $model.forceOpenOCR).disabled(model.automaticSource || packages.ocr(model.source) == nil)
-                        Text(L10n.text("По умолчанию используется Apple Vision, если он поддерживает язык. Открытый OCR-пакет нужен для неподдерживаемого языка или проверки резервной модели.")).font(.footnote)
-                        if !model.engine.isEmpty { Text(L10n.text("Сейчас: ") + model.engine) }
-                        if let item = packages.ocr(model.source) {
-                            OCRPackageRow(item: item) { Task { await model.changedOptions() } }
-                        } else { Text(HybridOCR.supports(model.source) ? L10n.text("Для этого языка используется встроенное офлайн-распознавание. Открытый OCR-пакет пока не подключён.") : L10n.text("Распознавание этого языка камерой пока не подключено. Выберите другой исходный язык или воспользуйтесь текстом/голосом.")).font(.footnote) }
-                    }
-                    Section {
-                        Text(L10n.text("Наведите камеру на текст и нажмите «Снять». После перевода зафиксированного кадра его можно сохранить или отправить. Обработка выполняется на iPhone."))
-                    }
-                }.navigationTitle(L10n.text("Распознавание")).toolbar { Button(L10n.text("Готово")) { showOCR = false } }
+        .onOpenURL { url in
+            if url.scheme == "kattranslator", url.host == "downloads" {
+                settingsPage = .downloads; showSettings = true
             }
         }
         .sheet(isPresented: $showText) {
@@ -164,7 +151,12 @@ struct CameraView: View, Equatable {
         // Each render subscribes anew and @Published replays its current value on subscription: drop it, or the
         // state change re-renders, resubscribes and replays forever (a 100% CPU loop seen on iPhone).
         .onReceive(packages.$selectedTranslation.dropFirst().removeDuplicates()) { _ in packageState &+= 1 }
-        .onReceive(packages.ocrRussian.$installedURL.dropFirst().merge(with: packages.ocrEnglish.$installedURL.dropFirst())) { _ in packageState &+= 1 }
+        .onReceive(packages.ocrRussian.$installedURL.dropFirst().map { (SpeechLanguage.russian, $0) }
+            .merge(with: packages.ocrEnglish.$installedURL.dropFirst().map { (SpeechLanguage.english, $0) })) { language, url in
+            packageState &+= 1
+            // @Published emits before the stored URL changes; use the emitted language/value.
+            if url != nil, language == model.source { Task { await model.changedOptions() } }
+        }
         .onChange(of:selectedPhoto) { _,item in
             importError = nil
             guard let item else { importer.cancel(); return }
@@ -189,7 +181,7 @@ struct CameraView: View, Equatable {
                 Spacer()
                 Button { showHistory = true } label: { Image(systemName: "clock").frame(width: 44, height: 44) }
                     .accessibilityLabel(L10n.text("История переводов")).accessibilityIdentifier("camera.history")
-                Button { showOCR = true } label: { Image(systemName: "slider.horizontal.3").frame(width: 44, height: 44) }
+                Button { settingsPage = .ocr; showSettings = true } label: { Image(systemName: "slider.horizontal.3").frame(width: 44, height: 44) }
                     .accessibilityLabel(L10n.text("Настройки распознавания"))
             }
             LanguagePairPicker(selection: $app.languages, mode: .camera, model: packages.selectedTranslation, app: app, packages: packages, compact: true, showsDetails: false, detectedSource: translation.complete ? model.source : nil)
@@ -225,7 +217,7 @@ struct CameraView: View, Equatable {
                 .disabled(importer.busy || model.opening || model.takingPhoto)
             Button { showHistory = true } label: { Image(systemName: "clock").frame(width: 44, height: 44) }
                     .accessibilityLabel(L10n.text("История переводов")).accessibilityIdentifier("camera.history")
-                Button { showOCR = true } label: { Image(systemName: "slider.horizontal.3").frame(width: 44, height: 44) }
+                Button { settingsPage = .ocr; showSettings = true } label: { Image(systemName: "slider.horizontal.3").frame(width: 44, height: 44) }
                 .accessibilityLabel(L10n.text("Настройки распознавания"))
         }.padding(4).background(.black.opacity(0.75), in: RoundedRectangle(cornerRadius: 14))
     }
@@ -297,24 +289,6 @@ struct CameraView: View, Equatable {
         }.fixedSize(horizontal: false, vertical: true)
     }
     private func clearShare() { if let share {try? FileManager.default.removeItem(at:share.url)};share=nil }
-}
-private struct OCRPackageRow: View {
-    @ObservedObject private var downloadAccess = DownloadAccessSettings.shared
-    @ObservedObject var item: ModelDownloader
-    let installed: () -> Void
-    var body: some View {
-        VStack(alignment:.leading) {
-            Text(item.model.title+" · "+L10n.bytes(item.model.byteCount))
-            if item.installedURL != nil { Label(L10n.text("Скачан и проверен"),systemImage:"checkmark.circle") }
-            else if item.state.phase == .downloading {
-                ProgressView(value:Double(item.state.receivedBytes),total:Double(item.model.byteCount))
-                Button(L10n.text("Пауза")) { Task { await item.pause() } }
-            } else if item.isManaging || item.state.phase == .checking { ProgressView(L10n.text("Проверяю пакет…")) }
-            else { DownloadButton(item.state.phase == .paused ? L10n.text("Продолжить") : L10n.text("Скачать OCR-пакет"), items: [item]) { item.start(resuming:item.state.phase == .paused) }.disabled(!item.restored) }
-            Toggle(L10n.text("Разрешить мобильный интернет"), isOn: $downloadAccess.allowCellular)
-            if let error = item.state.error { Text(error).font(.footnote).foregroundStyle(.orange) }
-        }.onChange(of:item.installedURL) { _,url in if url != nil { installed() } }
-    }
 }
 private final class PreviewView: UIView {
     var capture: CameraCapture?

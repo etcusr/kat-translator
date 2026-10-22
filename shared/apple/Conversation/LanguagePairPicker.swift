@@ -221,13 +221,11 @@ private struct LanguageSearchSheet: View {
             #if os(iOS)
             .searchable(text: $query, placement: AppPlatform.searchPlacement, prompt: L10n.text("Название или код языка"))
             #endif
-            .navigationDestination(item: $voiceLanguage) { language in
-                VoiceSettingsView(model: app, initialLanguage: language)
-                    .katDoneToolbar(identifier: "language.close") { dismiss() }
+            .sheet(isPresented: Binding(get: { voiceLanguage != nil }, set: { if !$0 { voiceLanguage = nil } })) {
+                SettingsView(model: app, initialPage: .voices, initialVoiceLanguage: voiceLanguage)
             }
             .katDoneToolbar(identifier: "language.close") { dismiss() }
-        }.katSheetClose(identifier: "language.close", maxWidth: voiceLanguage == nil ? 560 : 860,
-                        maxHeight: voiceLanguage == nil ? 640 : 960) { dismiss() }
+        }.katSheetClose(identifier: "language.close", maxWidth: 560, maxHeight: 640) { dismiss() }
     }
     private func voiceReady(_ language: TranslationLanguage) -> Bool {
         guard let runtime = SpeechLanguage(rawValue: language.id) else { return false }

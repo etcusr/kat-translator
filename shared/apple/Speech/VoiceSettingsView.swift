@@ -34,13 +34,29 @@ struct VoiceSettingsView: View {
     let model: AppModel
     @ObservedObject var packages: PackageDownloadCoordinator
     @ObservedObject var preview: VoicePreviewPlayer
-    @State private var applying = false
+    @State private var query = ""
+    @State private var destination: SpeechLanguage?
+    @State private var openedInitialLanguage = false
     private let initialLanguage: SpeechLanguage?
     init(model: AppModel, initialLanguage: SpeechLanguage? = nil) {
         self.model = model; packages = model.packages; preview = model.voicePreview; self.initialLanguage = initialLanguage
     }
+    private var languages: [SpeechLanguage] {
+        SpeechLanguage.allCases.filter { $0.hasVoice && TranslationLanguage.details($0).matches(query) }.sorted {
+            TranslationLanguage.name($0.rawValue).compare(TranslationLanguage.name($1.rawValue), locale: L10n.locale) == .orderedAscending
+        }
+    }
     var body: some View {
-        ScrollViewReader { proxy in
+        VStack(spacing: 0) {
+            #if os(macOS)
+            HStack(spacing: 8) {
+                Image(systemName: "magnifyingglass").foregroundStyle(.secondary)
+                TextField(L10n.text("Название или код языка"), text: $query)
+                    .textFieldStyle(.plain).accessibilityIdentifier("voices.search")
+            }.padding(12)
+                .background(.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 10))
+                .padding(.horizontal, 16).padding(.top, 12)
+            #endif
         List {
             Section(L10n.text("Все языки")) {
                 Text(L10n.text("Готово языков: \(packages.readyVoiceLanguageCount) из \(SpeechLanguage.allCases.filter(\.hasVoice).count)"))
@@ -60,28 +76,80 @@ struct VoiceSettingsView: View {
                 Text(L10n.text("Supertonic и OmniVoice — общие пакеты для нескольких языков. Остальные голоса скачиваются отдельно. Ваш выбор голоса сохраняется."))
                     .font(.footnote).foregroundStyle(.secondary)
             }
-            if let error = preview.error { Text(error).foregroundStyle(.orange) }
-            ForEach(SpeechLanguage.allCases.filter(\.hasVoice), id: \.self) { language in
-                Section(TranslationLanguage.name(language.rawValue)) {
-                    // Shared packages appear in multiple sections. List row identity
-                    // must include the language or SwiftUI reuses the first row's actions.
-                    ForEach(packages.voices(language).map { (id: language.rawValue + "." + $0.model.id, item: $0) }, id: \.id) { choice in
-                        let item = choice.item
-                        VoiceChoiceRow(item: item, packages: packages, preview: preview, language: language, applying: applying, modelBusy: model.session.isBusy, chooseWayu: { voice in
-                            applying = true; await model.selectWayuVoice(voice); applying = false
-                        }, apply: {
-                            applying = true; await model.selectVoice(item, language: language); applying = false
-                        }, remove: {
-                            applying = true; await model.removeModel(item); applying = false
-                        })
-                    }
-                }.id(language)
+            Section(L10n.text("Языки")) {
+                if languages.isEmpty {
+                    Text(L10n.text("Языки не найдены")).foregroundStyle(.secondary)
+                }
+                ForEach(languages, id: \.self) { language in
+                    NavigationLink {
+                        VoiceLanguageSettingsView(model: model, language: language)
+                    } label: {
+                        let selected = packages.selectedVoice(language)
+                        let ready = packages.canSpeak(language)
+                        HStack(spacing: 12) {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(TranslationLanguage.name(language.rawValue))
+                                Text(selected.model.title).font(.caption).foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            Image(systemName: ready ? "checkmark.circle.fill" : "arrow.down.circle")
+                                .foregroundStyle(ready ? Color.green : Color.secondary)
+                                .accessibilityLabel(ready ? L10n.text("Озвучка готова") : L10n.text("Озвучка доступна — голос нужно скачать"))
+                        }.frame(maxWidth: .infinity, alignment: .leading)
+                            .contentShape(Rectangle())
+                    }.buttonStyle(.automatic)
+                        .accessibilityIdentifier("voices.language." + language.rawValue)
+                }
             }
-            Text(L10n.text("Голос скачивается только по нажатию. Образец создан этой же моделью заранее; время синтеза на вашем телефоне измеряется отдельно.")).font(.footnote).foregroundStyle(.secondary)
-        }.navigationTitle(L10n.text("Голоса")).katInlineTitle()
-            .onAppear { if let initialLanguage { proxy.scrollTo(initialLanguage, anchor: .top) } }
+        }.katSettingsList()
+        }.katSettingsBackground()
+            .navigationTitle(L10n.text("Голоса")).katInlineTitle()
+            #if os(iOS)
+            .searchable(text: $query, placement: AppPlatform.searchPlacement, prompt: L10n.text("Название или код языка"))
+            #endif
+            .navigationDestination(item: $destination) { language in
+                VoiceLanguageSettingsView(model: model, language: language)
+            }
+            .onAppear {
+                guard !openedInitialLanguage else { return }
+                openedInitialLanguage = true
+                if let initialLanguage, initialLanguage.hasVoice { destination = initialLanguage }
+            }
             .onDisappear { preview.stop() }
-        }
+    }
+}
+private struct VoiceLanguageSettingsView: View {
+    let model: AppModel
+    let language: SpeechLanguage
+    @ObservedObject var packages: PackageDownloadCoordinator
+    @ObservedObject var preview: VoicePreviewPlayer
+    @ObservedObject var session: ConversationPipeline
+    @State private var applying = false
+    init(model: AppModel, language: SpeechLanguage) {
+        self.model = model; self.language = language
+        packages = model.packages; preview = model.voicePreview; session = model.session
+    }
+    var body: some View {
+        List {
+            if let error = preview.error { Text(error).foregroundStyle(.orange) }
+            Section {
+                // Multilingual packages keep language-specific identities and sample selection.
+                ForEach(packages.voices(language).map { (id: language.rawValue + "." + $0.model.id, item: $0) }, id: \.id) { choice in
+                    let item = choice.item
+                    VoiceChoiceRow(item: item, packages: packages, preview: preview, language: language, applying: applying, modelBusy: session.isBusy, chooseWayu: { voice in
+                        applying = true; await model.selectWayuVoice(voice); applying = false
+                    }, apply: {
+                        applying = true; await model.selectVoice(item, language: language); applying = false
+                    }, remove: {
+                        applying = true; await model.removeModel(item); applying = false
+                    })
+                }
+            } footer: {
+                Text(L10n.text("Голос скачивается только по нажатию. Образец создан этой же моделью заранее; время синтеза на вашем телефоне измеряется отдельно."))
+            }
+        }.katSettingsList()
+            .navigationTitle(TranslationLanguage.name(language.rawValue)).katInlineTitle()
+            .onDisappear { preview.stop() }
     }
 }
 private struct VoiceChoiceRow: View {

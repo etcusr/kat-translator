@@ -4,165 +4,46 @@ import AppKit
 #endif
 import OfflineCore
 
+enum ModelSettingsCategory: Hashable {
+    case translation, recognition, downloads
+    var title: String {
+        switch self {
+        case .translation: return L10n.text("Перевод")
+        case .recognition: return L10n.text("Распознавание речи")
+        case .downloads: return L10n.text("Загрузки")
+        }
+    }
+}
+
+/// Embedded destinations; the shared Settings navigation owns back and close controls.
 struct ModelsView: View {
     @ObservedObject var coordinator: PackageDownloadCoordinator
     @ObservedObject var session: ConversationPipeline
     @ObservedObject var model: AppModel
-    /// A package hint opens Models on its card.
+    var category: ModelSettingsCategory = .translation
+    /// A package hint opens its existing card inside the selected category.
     var focus: PackageShortcut? = nil
     let remove: (ModelDownloader) async -> Void
-    @Environment(\.dismiss) private var dismiss
     @ObservedObject private var downloadAccess = DownloadAccessSettings.shared
-    @State private var showLanguageSetup = false
+    @AppStorage("recognitionPreference") private var recognitionPreference: RecognitionPreference = .automatic
     @State private var details: TranslationModel?
     private let memory = ProcessInfo.processInfo.physicalMemory
     var body: some View {
-        NavigationStack {
-            ScrollViewReader { proxy in
+        ScrollViewReader { proxy in
             List {
-                Section {
-                    #if os(macOS)
-                    Text(L10n.text("Модели выполняют перевод на Mac. После скачивания сеть для перевода не нужна."))
-                    #else
-                    Text(L10n.text("Модели выполняют перевод на iPhone. После скачивания сеть для перевода не нужна."))
-                    #endif
-                    Button(L10n.text("Настроить языки и загрузку")) { showLanguageSetup = true }
-                        .accessibilityIdentifier("models.languageSetup")
-                    Toggle(L10n.text("Разрешить мобильный интернет"), isOn: $downloadAccess.allowCellular)
-                        .accessibilityIdentifier("models.allowCellular")
-                    if !coordinator.restored { CatPreparationProgressView(label: L10n.text("Проверяю модели…")) }
-                    else if coordinator.downloadingAll {
-                        let progress = coordinator.setupProgress(coordinator.activeDownloadSetup, model: coordinator.selectedTranslation)
-                        CatDownloadProgressView(value: Double(progress.received), total: Double(progress.total), isActive: progress.status == .downloading)
-                        Button(L10n.text("Приостановить скачивание")) { Task { await coordinator.pauseAll() } }
-                    } else if !coordinator.setupReady(coordinator.activeDownloadSetup, model: coordinator.selectedTranslation) {
-                        let bytes = coordinator.setupBytes(coordinator.activeDownloadSetup, model: coordinator.selectedTranslation)
-                        DownloadButton(L10n.text("Скачать модели · ") + L10n.bytes(bytes), items: coordinator.setupDownloadFiles(coordinator.activeDownloadSetup, model: coordinator.selectedTranslation)) {
-                            coordinator.startAll()
-                        }.disabled(!coordinator.translationTermsAccepted)
-                    } else { Label(L10n.text("Пакеты для перевода готовы"), systemImage: "checkmark.circle.fill").foregroundStyle(.green) }
-                    CancelDownloadBatchButton(model: model, packages: coordinator)
-                    if let error = coordinator.errors["downloadSpace"] { Text(error).foregroundStyle(.red) }
-                    if let error = coordinator.errors["downloadBatch"] { Text(error).foregroundStyle(.red) }
-                    if let error = coordinator.errors["catalog"] { Text(error).foregroundStyle(.red) }
-                    if let error = coordinator.errors["retiredTranslationModels"] { Text(error).foregroundStyle(.red) }
+                switch category {
+                case .translation: translationSections
+                case .recognition: recognitionSections
+                case .downloads: downloadSections
                 }
-                KatPanelSection(L10n.text("Модель перевода")) {
-                    Text(ModelAdvice.startingPoint(memory: memory))
-                        .font(AppPlatform.panelFootnote).foregroundStyle(.secondary)
-                        .id(PackageShortcut.translationCardID)
-                    Button {
-                        coordinator.setAutoTranslation(true); Task { await model.applyAutoTranslation() }
-                    } label: {
-                        VStack(alignment: .leading, spacing: 5) {
-                            HStack { Text(L10n.text("Авто")).font(AppPlatform.panelHeading); Spacer(minLength: 4)
-                                if coordinator.autoTranslation { Image(systemName: "checkmark.circle.fill") } }
-                            Text(coordinator.strongDevice ? L10n.text("Мощное устройство: Index 9B для всех языков.")
-                                 : L10n.text("Для каждой пары — установленная модель OPUS, иначе Index 2B или 9B."))
-                                .font(AppPlatform.panelCaption).foregroundStyle(.secondary)
-                            Label(L10n.text("Рекомендуется"), systemImage: "checkmark.seal.fill").font(AppPlatform.panelCaption).foregroundStyle(.tint)
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                    }.buttonStyle(.plain).accessibilityIdentifier("model.select.auto")
-                        .disabled(session.isBusy || model.changingTranslation || !coordinator.restored)
-                    // Direction packages are chosen per pair by Auto; they are not a manual model.
-                    ForEach(TranslationModel.selectable.filter { $0 != .opusDirections }) { choice in
-                        HStack(alignment: .top, spacing: 8) {
-                            Button {
-                                Task { await model.selectTranslation(choice) }
-                            } label: {
-                                VStack(alignment: .leading, spacing: 5) {
-                                    HStack {
-                                        Text(choice.title).font(AppPlatform.panelHeading)
-                                        Spacer(minLength: 4)
-                                        if !coordinator.autoTranslation && coordinator.selectedTranslation == choice { Image(systemName: "checkmark.circle.fill") }
-                                    }
-                                    Text(L10n.bytes(coordinator.translationBytes(choice)) + L10n.text(" скачать · заявлено: ") + ModelAdvice.languages(choice))
-                                        .font(AppPlatform.panelCaption).foregroundStyle(.secondary)
-                                    Text(ModelMemoryAdvice.approximateRAM(choice)).font(AppPlatform.panelCaption).foregroundStyle(.secondary)
-                                    if !coordinator.autoTranslation && ModelMemoryAdvice.recommended(choice, physicalMemory: memory) {
-                                        Label(L10n.text("Рекомендуется для вашего устройства"), systemImage: "checkmark.seal.fill")
-                                            .font(AppPlatform.panelCaption).foregroundStyle(.tint)
-                                            .accessibilityIdentifier("model.recommended." + choice.rawValue)
-                                    }
-                                    Text(ModelAdvice.recommendation(choice, memory: memory))
-                                        .font(AppPlatform.panelCaption)
-                                        .foregroundStyle(choice == .mil12B || (memory < 10_500_000_000 && choice.defersRecognitionLoading) ? Color.orange : Color.primary)
-                                }.frame(maxWidth: .infinity, alignment: .leading)
-                            }.buttonStyle(.plain)
-                                .accessibilityIdentifier("model.select." + choice.rawValue)
-                                .accessibilityValue(coordinator.selectedTranslation == choice ? L10n.text("Выбрана") : L10n.text("Не выбрана"))
-                                .disabled(session.isBusy || model.changingTranslation || !coordinator.restored)
-                            Button { details = choice } label: {
-                                Image(systemName: "info.circle").frame(width: 44, height: 44)
-                            }.buttonStyle(.borderless)
-                                .accessibilityLabel(L10n.text("Подробнее о ") + choice.title)
-                                .accessibilityIdentifier("model.info." + choice.rawValue)
-                        }.padding(.vertical, 4)
-                    }
-                    Text(L10n.text("Число языков заявлено авторами моделей. Для выбранной модели в приложении доступны \(TranslationLanguage.supported(by: coordinator.selectedTranslation).count); озвучка и камера имеют отдельные ограничения."))
-                        .font(AppPlatform.panelFootnote).foregroundStyle(.secondary)
-                    Link(L10n.text("О модели и лицензии"), destination: coordinator.selectedTranslation.modelCardURL)
-                    Button(L10n.text("Выгрузить из памяти")) { Task { await model.unload() } }
-                        .disabled(!session.isReady || session.isBusy || model.changingTranslation)
-                        .accessibilityIdentifier("model.unload").katStableAction()
-                    Text(L10n.text("Выбор другой модели освобождает память предыдущей. Скачанные файлы остаются на телефоне; удалить их можно отдельной кнопкой ниже."))
-                        .font(AppPlatform.panelFootnote).foregroundStyle(.secondary)
+            }.katSettingsList()
+                .task(id: focus) {
+                    guard let focus, let id = coordinator.modelsCardID(for: focus) else { return }
+                    do { try await Task.sleep(for: .milliseconds(350)) } catch { return }
+                    withAnimation { proxy.scrollTo(id, anchor: .top) }
                 }
-                KatPanelSection(L10n.text("Распознавание речи")) {
-                    Text(L10n.text("Авто: обычный Whisper для поддерживаемых им языков, включая русский и английский; Meta — для дополнительных. Ultra доступен вручную в настройках. Скачиваются только пакеты для выбранных языков."))
-                        .font(AppPlatform.panelFootnote).foregroundStyle(.secondary)
-                    Text(L10n.text("Первая подготовка распознавания может занять несколько минут. При смене языка может понадобиться загрузка другого распознавания."))
-                        .font(AppPlatform.panelFootnote).foregroundStyle(.secondary)
-                }
-                ForEach(RecognitionPackages.definitions) { definition in
-                    RecognitionPackageRow(definition: definition, packages: coordinator.recognition, remove: {
-                        await model.unload(); await coordinator.recognition.remove(definition)
-                    })
-                }
-                OpusPackageRow(package: coordinator.opus, coordinator: coordinator, remove: {
-                    await model.closeCamera(); await model.unload(); await coordinator.pauseAll(); await coordinator.opus.remove()
-                })
-                KatPanelSection(L10n.text("OPUS · направления перевода")) {
-                    let installed = coordinator.opusDirections.packages.filter { $0.directory != nil }.count
-                    Text(L10n.text("Установлено \(installed) из \(coordinator.opusDirections.packages.count)"))
-                        .accessibilityIdentifier("opus.directions.summary")
-                    Text(L10n.text("Отдельные модели для пар языков без английского пакета. В режиме «Авто» нужные направления добавляются при настройке языков."))
-                        .font(AppPlatform.panelCaption).foregroundStyle(.secondary)
-                    NavigationLink(L10n.text("Выбрать направления")) {
-                        OpusDirectionsView(coordinator: coordinator, directions: coordinator.opusDirections)
-                    }.accessibilityIdentifier("opus.directions.open")
-                }
-                #if os(macOS)
-                MacIndexPackageRow(package: coordinator.indexMLX, coordinator: coordinator, remove: {
-                    await model.closeCamera(); await model.unload(); await coordinator.pauseAll(); await coordinator.indexMLX.remove()
-                })
-                ForEach([coordinator.whisper, coordinator.index2B], id: \.model.id) {
-                    item in PackageRow(downloader: item, coordinator: coordinator, remove: { await remove(item) })
-                }
-                #else
-                ForEach([coordinator.whisper] + coordinator.translationDownloaders, id: \.model.id) { item in
-                    PackageRow(downloader: item, coordinator: coordinator, remove: { await remove(item) })
-                }
-                #endif
-                KatPanelSection(L10n.text("Дополнительное распознавание")) {
-                    Text(L10n.text("Meta Omnilingual добавляет голосовой ввод для 39 языков и вариантов из нашего списка, включая балийский. Для остальных остаётся Whisper. Новые направления экспериментальные; язык выбирается вручную."))
-                        .font(AppPlatform.panelFootnote).foregroundStyle(.secondary)
-                    Link("Meta Omnilingual · Apache 2.0", destination: URL(string: "https://huggingface.co/facebook/omniASR-CTC-300M-v2")!)
-                }
-                PackageRow(downloader: coordinator.omnilingual, coordinator: coordinator, remove: { await remove(coordinator.omnilingual) })
-                KatPanelSection(L10n.text("Офлайн и восстановление")) {
-                    Text(L10n.text("Приостановленную загрузку можно продолжить, если сервер сохранил данные. Изменение мобильной сети применяется только к новой загрузке. Выбор, скачивание и удаление голосов доступны в настройках → Голоса и образцы."))
-                        .font(AppPlatform.panelFootnote).foregroundStyle(.secondary)
-                }
-            }.task {
-                // Rows exist only after the first layout pass; scroll once they do.
-                guard let focus, let id = coordinator.modelsCardID(for: focus) else { return }
-                try? await Task.sleep(for: .milliseconds(350))
-                withAnimation { proxy.scrollTo(id, anchor: .top) }
-            }
-            }.katScreenSurface().katPanelTypography().navigationTitle(L10n.text("Модели"))
-                .katDoneToolbar { dismiss() }
-                .katFullScreenCover(isPresented: $showLanguageSetup) { LanguageSetupView(model: model) }
+        }.navigationTitle(category.title).katInlineTitle()
+            .disabled(coordinator.cancellingBatch)
                 .sheet(item: $details) { choice in
                     NavigationStack {
                         List {
@@ -202,12 +83,182 @@ struct ModelsView: View {
                                 Text(L10n.text("Размер файла — место в хранилище, а не расход RAM. При работе нужна дополнительная память для перевода, распознавания и озвучки. Общая RAM телефона не равна лимиту приложения."))
                                 Text(L10n.text("Рекомендация предварительная: учитывает общий объём RAM и наши проверки, но не гарантирует стабильность при любой нагрузке. На непроверенном устройстве начните с короткой фразы."))
                             }
-                        }.katScreenSurface().katPanelTypography().navigationTitle(choice.title).katInlineTitle()
+                        }.katSettingsList().navigationTitle(choice.title).katInlineTitle()
                             .katDoneToolbar(identifier: "model.info.close") { details = nil }
                     }.katSheetClose(identifier: "model.info.close") { details = nil }
                 }
-        }.disabled(coordinator.cancellingBatch)
-        .katSheetClose(identifier: "models.close") { dismiss() }
+    }
+    @ViewBuilder private var translationSections: some View {
+        KatPanelSection(L10n.text("Модель перевода")) {
+            Text(ModelAdvice.startingPoint(memory: memory))
+                .font(AppPlatform.panelFootnote).foregroundStyle(.secondary)
+                .id(PackageShortcut.translationCardID)
+            Button {
+                coordinator.setAutoTranslation(true); Task { await model.applyAutoTranslation() }
+            } label: {
+                VStack(alignment: .leading, spacing: 5) {
+                    HStack { Text(L10n.text("Авто")).font(AppPlatform.panelHeading); Spacer(minLength: 4)
+                        if coordinator.autoTranslation { Image(systemName: "checkmark.circle.fill") } }
+                    Text(coordinator.strongDevice ? L10n.text("Мощное устройство: Index 9B для всех языков.")
+                         : L10n.text("Для каждой пары — установленная модель OPUS, иначе Index 2B или 9B."))
+                        .font(AppPlatform.panelCaption).foregroundStyle(.secondary)
+                    Label(L10n.text("Рекомендуется"), systemImage: "checkmark.seal.fill").font(AppPlatform.panelCaption).foregroundStyle(.tint)
+                }.frame(maxWidth: .infinity, alignment: .leading)
+            }.buttonStyle(.plain).accessibilityIdentifier("model.select.auto")
+                .disabled(session.isBusy || model.changingTranslation || !coordinator.restored)
+            // Direction packages are chosen per pair by Auto; they are not a manual model.
+            ForEach(TranslationModel.selectable.filter { $0 != .opusDirections }) { choice in
+                HStack(alignment: .top, spacing: 8) {
+                    Button {
+                        Task { await model.selectTranslation(choice) }
+                    } label: {
+                        VStack(alignment: .leading, spacing: 5) {
+                            HStack {
+                                Text(choice.title).font(AppPlatform.panelHeading)
+                                Spacer(minLength: 4)
+                                if !coordinator.autoTranslation && coordinator.selectedTranslation == choice { Image(systemName: "checkmark.circle.fill") }
+                            }
+                            Text(L10n.bytes(coordinator.translationBytes(choice)) + L10n.text(" скачать · заявлено: ") + ModelAdvice.languages(choice))
+                                .font(AppPlatform.panelCaption).foregroundStyle(.secondary)
+                            Text(ModelMemoryAdvice.approximateRAM(choice)).font(AppPlatform.panelCaption).foregroundStyle(.secondary)
+                            if !coordinator.autoTranslation && ModelMemoryAdvice.recommended(choice, physicalMemory: memory) {
+                                Label(L10n.text("Рекомендуется для вашего устройства"), systemImage: "checkmark.seal.fill")
+                                    .font(AppPlatform.panelCaption).foregroundStyle(.tint)
+                                    .accessibilityIdentifier("model.recommended." + choice.rawValue)
+                            }
+                            Text(ModelAdvice.recommendation(choice, memory: memory))
+                                .font(AppPlatform.panelCaption)
+                                .foregroundStyle(choice == .mil12B || (memory < 10_500_000_000 && choice.defersRecognitionLoading) ? Color.orange : Color.primary)
+                        }.frame(maxWidth: .infinity, alignment: .leading)
+                    }.buttonStyle(.plain)
+                        .accessibilityIdentifier("model.select." + choice.rawValue)
+                        .accessibilityValue(coordinator.selectedTranslation == choice ? L10n.text("Выбрана") : L10n.text("Не выбрана"))
+                        .disabled(session.isBusy || model.changingTranslation || !coordinator.restored)
+                    Button { details = choice } label: {
+                        Image(systemName: "info.circle").frame(width: 44, height: 44)
+                    }.buttonStyle(.borderless)
+                        .accessibilityLabel(L10n.text("Подробнее о ") + choice.title)
+                        .accessibilityIdentifier("model.info." + choice.rawValue)
+                }.padding(.vertical, 4)
+            }
+            Text(L10n.text("Число языков заявлено авторами моделей. Для выбранной модели в приложении доступны \(TranslationLanguage.supported(by: coordinator.selectedTranslation).count); озвучка и камера имеют отдельные ограничения."))
+                .font(AppPlatform.panelFootnote).foregroundStyle(.secondary)
+            Link(L10n.text("О модели и лицензии"), destination: coordinator.selectedTranslation.modelCardURL)
+            Button(L10n.text("Выгрузить из памяти")) { Task { await model.unload() } }
+                .disabled(!session.isReady || session.isBusy || model.changingTranslation)
+                .accessibilityIdentifier("model.unload").katStableAction()
+            Text(L10n.text("Выбор другой модели освобождает память предыдущей. Скачанные файлы остаются на телефоне; удалить их можно отдельной кнопкой ниже."))
+                .font(AppPlatform.panelFootnote).foregroundStyle(.secondary)
+        }
+        OpusPackageRow(package: coordinator.opus, coordinator: coordinator, remove: {
+            await model.closeCamera(); await model.unload(); await coordinator.pauseAll(); await coordinator.opus.remove()
+        })
+        KatPanelSection(L10n.text("OPUS · направления перевода")) {
+            let installed = coordinator.opusDirections.packages.filter { $0.directory != nil }.count
+            Text(L10n.text("Установлено \(installed) из \(coordinator.opusDirections.packages.count)"))
+                .accessibilityIdentifier("opus.directions.summary")
+            Text(L10n.text("Отдельные модели для пар языков без английского пакета. В режиме «Авто» нужные направления добавляются при настройке языков."))
+                .font(AppPlatform.panelCaption).foregroundStyle(.secondary)
+            NavigationLink(L10n.text("Выбрать направления")) {
+                OpusDirectionsView(coordinator: coordinator, directions: coordinator.opusDirections)
+            }.accessibilityIdentifier("opus.directions.open")
+        }
+        #if os(macOS)
+        MacIndexPackageRow(package: coordinator.indexMLX, coordinator: coordinator, remove: {
+            await model.closeCamera(); await model.unload(); await coordinator.pauseAll(); await coordinator.indexMLX.remove()
+        })
+        ForEach([coordinator.index2B], id: \.model.id) {
+            item in PackageRow(downloader: item, coordinator: coordinator, remove: { await remove(item) })
+        }
+        #else
+        ForEach(coordinator.translationDownloaders, id: \.model.id) { item in
+            PackageRow(downloader: item, coordinator: coordinator, remove: { await remove(item) })
+        }
+        #endif
+    }
+    @ViewBuilder private var recognitionSections: some View {
+        Section {
+            ForEach(RecognitionPreference.allCases, id: \.self) { choice in
+                Button {
+                    recognitionPreference = choice
+                    model.objectWillChange.send()
+                } label: {
+                    HStack {
+                        Text(recognitionTitle(choice)).foregroundStyle(.primary)
+                        Spacer()
+                        if recognitionPreference == choice { Image(systemName: "checkmark").foregroundStyle(KatTheme.accent) }
+                    }.frame(minHeight: 28).contentShape(Rectangle())
+                }.buttonStyle(.plain)
+                    .accessibilityIdentifier("settings.recognition." + choice.rawValue)
+                    .accessibilityAddTraits(recognitionPreference == choice ? .isSelected : [])
+            }
+        } header: { Text(L10n.text("Распознавание речи")) } footer: {
+            Text(L10n.text("Авто выбирает распознаватель по языку. В ручном режиме используется только выбранный движок; его пакет нужно скачать в разделе моделей. Выбор применяется со следующей записи и не меняет модель перевода."))
+            if recognitionPreference == .ultra {
+                Text(L10n.text("Ultra поддерживает 25 языков, включая русский и английский. Для остальных выберите Авто или Whisper."))
+            }
+            if let issue = model.voiceLanguageIssue {
+                if let shortcut = model.voiceIssueShortcut, case .recognition = shortcut {
+                    PackageHintButton(text: issue, shortcut: shortcut, packages: coordinator)
+                } else { Text(issue) }
+            }
+        }
+        KatPanelSection(L10n.text("Распознавание речи")) {
+            Text(L10n.text("Авто: обычный Whisper для поддерживаемых им языков, включая русский и английский; Meta — для дополнительных. Ultra доступен вручную в настройках. Скачиваются только пакеты для выбранных языков."))
+                .font(AppPlatform.panelFootnote).foregroundStyle(.secondary)
+            Text(L10n.text("Первая подготовка распознавания может занять несколько минут. При смене языка может понадобиться загрузка другого распознавания."))
+                .font(AppPlatform.panelFootnote).foregroundStyle(.secondary)
+        }
+        ForEach(RecognitionPackages.definitions) { definition in
+            RecognitionPackageRow(definition: definition, packages: coordinator.recognition, remove: {
+                await model.unload(); await coordinator.recognition.remove(definition)
+            })
+        }
+        PackageRow(downloader: coordinator.whisper, coordinator: coordinator, remove: { await remove(coordinator.whisper) })
+        KatPanelSection(L10n.text("Дополнительное распознавание")) {
+            Text(L10n.text("Meta Omnilingual добавляет голосовой ввод для 39 языков и вариантов из нашего списка, включая балийский. Для остальных остаётся Whisper. Новые направления экспериментальные; язык выбирается вручную."))
+                .font(AppPlatform.panelFootnote).foregroundStyle(.secondary)
+            Link("Meta Omnilingual · Apache 2.0", destination: URL(string: "https://huggingface.co/facebook/omniASR-CTC-300M-v2")!)
+        }
+        PackageRow(downloader: coordinator.omnilingual, coordinator: coordinator, remove: { await remove(coordinator.omnilingual) })
+    }
+    @ViewBuilder private var downloadSections: some View {
+        Section {
+            #if os(macOS)
+            Text(L10n.text("Модели выполняют перевод на Mac. После скачивания сеть для перевода не нужна."))
+            #else
+            Text(L10n.text("Модели выполняют перевод на iPhone. После скачивания сеть для перевода не нужна."))
+            #endif
+            Toggle(L10n.text("Разрешить мобильный интернет"), isOn: $downloadAccess.allowCellular)
+                .accessibilityIdentifier("models.allowCellular")
+            if !coordinator.restored { CatPreparationProgressView(label: L10n.text("Проверяю модели…")) }
+            else if coordinator.downloadingAll {
+                let progress = coordinator.setupProgress(coordinator.activeDownloadSetup, model: coordinator.selectedTranslation)
+                CatDownloadProgressView(value: Double(progress.received), total: Double(progress.total), isActive: progress.status == .downloading)
+                Button(L10n.text("Приостановить скачивание")) { Task { await coordinator.pauseAll() } }
+            } else if !coordinator.setupReady(coordinator.activeDownloadSetup, model: coordinator.selectedTranslation) {
+                let bytes = coordinator.setupBytes(coordinator.activeDownloadSetup, model: coordinator.selectedTranslation)
+                DownloadButton(L10n.text("Скачать модели · ") + L10n.bytes(bytes), items: coordinator.setupDownloadFiles(coordinator.activeDownloadSetup, model: coordinator.selectedTranslation)) {
+                    coordinator.startAll()
+                }.disabled(!coordinator.translationTermsAccepted)
+            } else { Label(L10n.text("Пакеты для перевода готовы"), systemImage: "checkmark.circle.fill").foregroundStyle(.green) }
+            CancelDownloadBatchButton(model: model, packages: coordinator)
+            if let error = coordinator.errors["downloadSpace"] { Text(error).foregroundStyle(.red) }
+            if let error = coordinator.errors["downloadBatch"] { Text(error).foregroundStyle(.red) }
+            if let error = coordinator.errors["catalog"] { Text(error).foregroundStyle(.red) }
+            if let error = coordinator.errors["retiredTranslationModels"] { Text(error).foregroundStyle(.red) }
+        }
+        KatPanelSection(L10n.text("Офлайн и восстановление")) {
+            Text(L10n.text("Приостановленную загрузку можно продолжить, если сервер сохранил данные. Изменение мобильной сети применяется только к новой загрузке. Выбор, скачивание и удаление голосов доступны в разделе «Модели и голоса» → «Голоса и образцы»."))
+                .font(AppPlatform.panelFootnote).foregroundStyle(.secondary)
+        }
+    }
+    private func recognitionTitle(_ preference: RecognitionPreference) -> String {
+        switch preference {
+        case .automatic: return L10n.text("Авто")
+        case .ultra: return "Parakeet Ultra"
+        case .whisper: return L10n.text("Whisper (классический)")
+        }
     }
 }
 private struct ModelLanguagesView: View {
@@ -278,7 +329,7 @@ struct CancelDownloadBatchButton: View {
     }
 }
 
-private struct PackageRow: View {
+struct PackageRow: View {
     @ObservedObject var downloader: ModelDownloader
     @ObservedObject var coordinator: PackageDownloadCoordinator
     let remove: () async -> Void
