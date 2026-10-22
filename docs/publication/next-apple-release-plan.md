@@ -1,0 +1,36 @@
+# Next Apple release: presentation and publication plan
+
+**English** | [Русский](next-apple-release-plan.ru.md)
+
+Requested on 22 October 2026. **Planned work, not completed publication.** The current task does not upload builds, change App Store Connect or submit a review. Choose the new public versions when preparing the release; increasing only the build number is not a new public version.
+
+## 1. Freeze the release scope
+
+- [ ] Review changes since the last published iOS and macOS versions separately. Include only features and fixes actually shipped on each platform; label experimental features honestly.
+- [ ] Update the repository documentation and product descriptions wherever behavior, supported features or limitations have changed. Keep English/Russian living documentation consistent and review store copy in EN/RU/ES/TR.
+- [ ] Select new marketing versions for iOS/macOS and unique build numbers; record the exact source commit and validated artifacts.
+
+## 2. Refresh screenshots for every platform and language
+
+- [ ] Capture the final interface on iOS/iPadOS, macOS and Android in all supported interface languages: English, Russian, Spanish and Turkish. Cover translation modes, Settings/Quick setup and Models and voices where available on that platform; do not imply unreleased parity.
+- [ ] Use consistent, representative examples and clean UI states. Exclude personal data, device identifiers, debug overlays and private recordings. Verify long labels, actual language, translation content and platform-specific layout.
+- [ ] Retain selected source screenshots and optimized presentation assets in a clearly indexed repository directory by platform/language. Record capture version and generation/editing steps. Avoid redundant large binaries.
+- [ ] Present a compact, attractive screenshot gallery on the GitHub repository front page (both README languages), with links to the full platform/language sets. Add the same approved assets to the GitHub-based project website.
+
+## 3. Prepare App Store Connect
+
+- [ ] Replace iOS/macOS screenshots for each store localization and required device size, using the validated release UI.
+- [ ] Review descriptions and other metadata; update only where necessary and preserve deliberate keyword/title decisions unless separately revised.
+- [ ] Write concise general release notes for the new update, localized in EN/RU/ES/TR, with platform-specific differences where needed. Match the final shipped changes; do not describe planned work as released.
+- [ ] Create/select the new iOS/macOS public versions and upload their tested builds. Wait for processing, verify the selected build numbers, screenshots, metadata and release notes in each version.
+- [ ] Check an in-place upgrade preserves existing models, voices, settings and history. Keep upload, review submission and public release as separate recorded steps; submit/release when authorized.
+
+## 4. Record a short iOS demonstration
+
+- [ ] After the release interface is stable, record a short real-device demonstration of navigation and a complete translation workflow. Include Quick setup/model management only as useful context; avoid long downloads and loading pauses.
+- [ ] Use non-private sample text/audio. Keep actual app behavior and timing clear; label any cuts or accelerated sequences rather than implying instantaneous processing.
+- [ ] Export a compact web-compatible video with a poster image and short captions. Publish on the GitHub-based website and link/embed an appropriate preview from the repository README; keep the source/hosting location documented.
+
+## Completion evidence
+
+The release record should link the screenshot matrix/gallery, updated descriptions and release notes, source commit, uploaded build identifiers and processing/selection status. Video publication is a separate follow-up and must not be marked complete merely because screenshots or builds are ready.
