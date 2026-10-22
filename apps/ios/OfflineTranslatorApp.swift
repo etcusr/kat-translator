@@ -34,7 +34,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
                         model.background()
                     } else if phase == .active {
                         DownloadLiveActivity.refreshAfterLifecycleChange()
-                        Task { await model.history.refresh(); await model.loadAutomaticallyIfNeeded() }
+                        Task { await model.history.refresh(); await model.loadAutomaticallyIfNeeded(); await model.processDeferredRecording() }
                     }
                 }
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didReceiveMemoryWarningNotification)) { _ in

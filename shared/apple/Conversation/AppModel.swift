@@ -145,14 +145,25 @@ import OfflineCore
         }
         recorder.onInterruption = { [weak self] message in self?.cancel(); self?.message = message }
         #if os(iOS)
+        // A call, Siri or lost headphones end the recording with what was captured. A call or Siri defers its
+        // processing until the app is active again; a route change on screen processes it now (audit 22.10, iOS P2).
+        recorder.onCaptureLost = { [weak self] interrupted in
+            Task { await self?.finishRecording(deferProcessing: interrupted || UIApplication.shared.applicationState != .active) }
+        }
         for name in [AVAudioSession.interruptionNotification, AVAudioSession.routeChangeNotification] {
             observers.append(NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { [weak self] note in
                 if name == AVAudioSession.interruptionNotification {
-                    guard (note.userInfo?[AVAudioSessionInterruptionTypeKey] as? NSNumber)?.uintValue == AVAudioSession.InterruptionType.began.rawValue else { return }
+                    let type = (note.userInfo?[AVAudioSessionInterruptionTypeKey] as? NSNumber)?.uintValue
+                    if type == AVAudioSession.InterruptionType.ended.rawValue {
+                        Task { @MainActor in if UIApplication.shared.applicationState == .active { await self?.processDeferredRecording() } }
+                        return
+                    }
+                    guard type == AVAudioSession.InterruptionType.began.rawValue else { return }
                 } else {
                     guard (note.userInfo?[AVAudioSessionRouteChangeReasonKey] as? NSNumber)?.uintValue == AVAudioSession.RouteChangeReason.oldDeviceUnavailable.rawValue else { return }
                 }
-                Task { @MainActor in self?.cancel() }
+                // Speech stops; a running translation does not need audio and continues.
+                Task { @MainActor in self?.pauseSpeechForAudioChange() }
             })
         }
         #endif
@@ -356,7 +367,28 @@ import OfflineCore
         } catch is CancellationError { recordingStart.settle(request, succeeded: false) }
         catch { recordingStart.settle(request, succeeded: false); if id == interactionID { message = error.localizedDescription } }
     }
-    func finishRecording() async {
+    /// A recording stopped by backgrounding, a call or Siri. GPU inference is unavailable in the background, so it
+    /// is recognized and translated when the app is active again instead of being discarded (audit 22.10, iOS P1/P2).
+    private struct DeferredRecording {
+        let audio: CapturedAudio, speechEnd: Int, stoppedAt: Double, source: SpeechLanguage?, target: SpeechLanguage
+        let speak: Bool, mode: String, preview: Bool, fallback: String?, verify: Bool
+    }
+    private var deferredRecording: DeferredRecording?
+    func processDeferredRecording() async {
+        guard let recording = deferredRecording, !isShuttingDown, !finishing, !recorder.isRecording, !recorder.starting,
+              !session.isBusy, !importingAudio, !usingCamera else { return }
+        deferredRecording = nil
+        finishing = true; interactionID += 1; let id = interactionID
+        defer { finishing = false }
+        await refreshVoiceFiles(); await history.applyRecordingSettings()
+        guard id == interactionID else { return }
+        await session.runRecording(audio: recording.audio, speechEnd: recording.speechEnd, source: recording.source, target: recording.target,
+            speakResult: recording.speak, inputMode: recording.mode, thermal: Self.thermalState, stoppedAt: recording.stoppedAt,
+            requestedPreview: recording.preview, fallbackReason: recording.fallback ?? "background", verifyPreview: false)
+        await history.refresh()
+        if id == interactionID, inputMode == .voice { await synchronizeRecognition() }
+    }
+    func finishRecording(deferProcessing: Bool = false) async {
         guard !isShuttingDown else { return }
         RecordingStopTrace.mark("finish.request")
         recordingStart.cancel()
@@ -373,6 +405,12 @@ import OfflineCore
             RecordingStopTrace.mark("finish.audioReady")
             guard id == interactionID else { return }
             guard audio.durationSeconds >= 0.25 else { message = L10n.text("Запись слишком короткая. Попробуйте ещё раз."); return }
+            if deferProcessing {
+                deferredRecording = DeferredRecording(audio: audio, speechEnd: recorder.finalSpeechEnd, stoppedAt: stoppedAt,
+                    source: capturedLanguage, target: capturedTarget, speak: capturedAutomaticSpeech, mode: capturedMode,
+                    preview: capturedPreview, fallback: previewFallback, verify: capturedVerification)
+                return
+            }
             await refreshVoiceFiles()
             await history.applyRecordingSettings()
             guard id == interactionID, !usingCamera else { return }
@@ -555,7 +593,24 @@ import OfflineCore
         session.clearTemporarySpeech()
         TemporarySpeechFiles.removeExports()
     }
-    func background() { cancel() }
+    func background() {
+        #if os(iOS)
+        // Keep an ongoing recording: stop capture with background time and process it on return.
+        if recorder.isRecording, !finishing {
+            session.cancel() // recording preview inference must not run on the GPU in the background
+            let work = DownloadBackgroundWork()
+            Task { await finishRecording(deferProcessing: true); work.end() }
+            return
+        }
+        #endif
+        cancel()
+    }
+    #if os(iOS)
+    private func pauseSpeechForAudioChange() {
+        voicePreview.stop(); history.stopPlayback()
+        if session.isSpeaking && !session.isSpeechPaused { session.toggleSpeechPause() }
+    }
+    #endif
     func unload() async {
         #if os(iOS)
         restoreConversationAfterCamera = false

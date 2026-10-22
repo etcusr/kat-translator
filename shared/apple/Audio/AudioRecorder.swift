@@ -120,6 +120,9 @@ private struct RecordingEngineStartup: @unchecked Sendable {
     }
     var onLimit: (() -> Void)?
     var onInterruption: ((String) -> Void)?
+    /// Capture stopped being usable during a recording (a call, Siri, a lost or new audio route). The owner finishes
+    /// the recording with what was captured instead of discarding it; `true` for an interruption (audit 22.10, iOS P2).
+    var onCaptureLost: ((Bool) -> Void)?
     private var engineStartInFlight = false
     private var engine: AVAudioEngine?
     #if os(iOS)
@@ -151,6 +154,9 @@ private struct RecordingEngineStartup: @unchecked Sendable {
                 }
                 Task { @MainActor in
                     guard let self, self.isRecording || self.starting else { return }
+                    if self.isRecording, let onCaptureLost = self.onCaptureLost {
+                        onCaptureLost(name == AVAudioSession.interruptionNotification); return
+                    }
                     self.cancel(); self.onInterruption?(L10n.text("Запись прервана. Нажмите кнопку, чтобы начать снова."))
                 }
             })
