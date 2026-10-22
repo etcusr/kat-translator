@@ -78,18 +78,7 @@ struct PackageHintButton: View {
                 Task { await request.request(missing.map(\.downloadAccessItem)) { packages.start(shortcut); open?(shortcut) } }
             } else { open?(shortcut) }
         } label: {
-            VStack(alignment: .leading, spacing: 6) {
-                Label(text, systemImage: "info.circle").foregroundStyle(.orange)
-                    .fixedSize(horizontal: false, vertical: true)
-                if let progress {
-                    CatDownloadProgressView(value: Double(progress.received), total: Double(max(1, progress.total)))
-                    Text(open == nil ? L10n.text("Скачиваю: \(title)") : L10n.text("Показать загрузку"))
-                        .foregroundStyle(open == nil ? Color.secondary : KatTheme.accent)
-                } else {
-                    Text(missing.isEmpty ? L10n.text("Открыть в «Моделях»") : L10n.text("Скачать"))
-                        .fontWeight(.semibold).foregroundStyle(KatTheme.accent)
-                }
-            }.frame(maxWidth: .infinity, alignment: .leading).contentShape(Rectangle())
+            PackageHintLabel(text: text, progress: progress, opensCard: open != nil, downloadable: !missing.isEmpty, title: title)
         }
         .buttonStyle(.plain)
         .disabled(request.checking || !packages.restored || (open == nil && (progress != nil || missing.isEmpty)))
@@ -97,5 +86,28 @@ struct PackageHintButton: View {
         .sheet(item: Binding(get: { request.prompt }, set: { if $0 == nil && request.prompt != nil { request.cancel() } }), onDismiss: request.didDismiss) { prompt in
             DownloadAccessPrompt(request: request, maximumBytes: prompt.maximumBytes)
         }
+    }
+}
+
+/// The hint's look, separate from its actions so every state can be rendered without a download.
+struct PackageHintLabel: View {
+    let text: String
+    let progress: (received: Int64, total: Int64)?
+    let opensCard: Bool
+    let downloadable: Bool
+    let title: String
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Label(text, systemImage: "info.circle").foregroundStyle(.orange)
+                .fixedSize(horizontal: false, vertical: true)
+            if let progress {
+                CatDownloadProgressView(value: Double(progress.received), total: Double(max(1, progress.total)))
+                Text(opensCard ? L10n.text("Показать загрузку") : L10n.text("Скачиваю: \(title)"))
+                    .foregroundStyle(opensCard ? KatTheme.accent : Color.secondary)
+            } else {
+                Text(downloadable ? L10n.text("Скачать") : L10n.text("Открыть в «Моделях»"))
+                    .fontWeight(.semibold).foregroundStyle(KatTheme.accent)
+            }
+        }.frame(maxWidth: .infinity, alignment: .leading).contentShape(Rectangle())
     }
 }
