@@ -12,6 +12,15 @@ Planned 22 October 2026. **Backlog only; not implemented on iOS yet.**
 - [ ] Match the existing macOS history behaviour (`HistoryView.desktopEntry` and `HistoryPreview`) where appropriate. Keep full text in storage and in copy actions; truncation is presentation only.
 - [ ] Check both original and translation, independent expansion of entries, long paragraphs/line breaks, Dynamic Type and VoiceOver. Preserve access to audio/image actions and deletion, and prevent scrolling jumps when entries expand or collapse.
 
+## Microphone activity during voice recording
+
+Planned on 2026-10-22 at the owner's request; not implemented by the Settings redesign.
+
+- [ ] Add a Voice Activity Indicator to the Voice recording interface on iOS and macOS, with Android kept in the cross-platform plan. Show input level and detected speech, with a clear quiet state; do not imply that recognition or translation has finished.
+- [ ] Animate the indicator in Kat’s visual style: lime accents on a dark surface and smooth responses to voice level, with a reduced-motion alternative.
+- [ ] Use the existing audio capture/VAD signal without starting a second microphone session. Keep Pause, Stop and Cancel accessible and support compact windows, VoiceOver and reduced motion.
+- [ ] Check silence, normal/quiet speech, background noise, pause/resume and background/foreground transitions on devices. The indicator must not affect the recording, saved audio, phrase boundaries or battery/thermal behavior.
+
 ## Unified settings and model management
 
 Planned 22 October 2026. **Backlog only; no interface changes yet.** Applies to iOS/iPadOS, macOS and Android.
