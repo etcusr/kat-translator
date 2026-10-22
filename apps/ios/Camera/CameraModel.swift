@@ -83,7 +83,10 @@ import OfflineCore
         let task = Task {
             defer { opening = false; startup = nil }
             await translation.prepare(modelURL, model: packages.selectedTranslation)
-            guard id == generation, !Task.isCancelled, translation.ready else { return }
+            guard id == generation, !Task.isCancelled else { return }
+            // A failed preparation keeps its error but leaves the camera inactive, so the shutter offers
+            // "Start" again instead of staying disabled until the camera is closed (audit 22.10, iOS C4).
+            guard translation.ready else { active = false; return }
             do { if frozen == nil { try await capture.start() }; if id != generation || Task.isCancelled { await capture.stop() } }
             catch { if id == generation { self.error = error.localizedDescription } }
         }
