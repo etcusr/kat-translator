@@ -76,6 +76,10 @@ struct VoiceStageControls: View {
                     if !busy { audioImportButton }
                     #endif
                 ZStack {
+                    if recorder.isRecording && !model.finishing {
+                        MicrophoneActivityBackdrop(activity: recorder.microphoneActivity,
+                                               paused: recorder.isPaused, diameter: actionDiameter)
+                    }
                     RecordButton(mode: recordingMode, enabled: !busy && model.isVoiceReady && model.voiceLanguageIssue == nil,
                                  recording: recorder.isRecording, starting: recorder.starting || model.preparingRecording,
                                  processing: session.isBusy && !recorder.isRecording || model.finishing || model.importingAudio,
@@ -92,7 +96,7 @@ struct VoiceStageControls: View {
                             } label: {
                                 Image(systemName: (recorder.isRecording ? recorder.isPaused : session.isSpeechPaused) ? "play.fill" : "pause.fill")
                                     .font(.system(size: 20, weight: .medium)).frame(width: 44, height: 44)
-                                    .background(.white.opacity(0.07), in: Circle())
+                                    .background(Color(white: 0.07), in: Circle())
                             }.buttonStyle(.plain).foregroundStyle(KatTheme.accent)
                                 .accessibilityIdentifier("voice.pauseResume")
                                 .accessibilityLabel(recorder.isRecording
@@ -114,8 +118,12 @@ struct VoiceStageControls: View {
                 #endif
                 if busy {
                     VStack(spacing: 8) {
-                        Text(status).font(.system(size: 17, weight: .medium))
-                            .accessibilityIdentifier("voice.processing.status")
+                        if recorder.isRecording && !model.finishing {
+                            MicrophoneActivityStatus(activity: recorder.microphoneActivity, paused: recorder.isPaused, status: status)
+                        } else {
+                            Text(status).font(.system(size: 17, weight: .medium))
+                                .accessibilityIdentifier("voice.processing.status")
+                        }
                         if recorder.isRecording && !model.finishing {
                             Text(String(format: "%d:%02d / %d:00", Int(recorder.elapsed) / 60, Int(recorder.elapsed) % 60, recorder.limitSeconds / 60))
                                 .font(.system(size: 15)).foregroundStyle(.secondary).monospacedDigit()

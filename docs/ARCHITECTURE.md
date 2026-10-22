@@ -2,6 +2,12 @@
 
 **English** | [Русский](ARCHITECTURE.ru.md)
 
+## Microphone activity
+
+Apple microphone metering and background bars share the existing recording pipeline.
+
+`RecordingSink` measures a read-only RMS display level from already converted PCM and uses `SpeechActivityDetector.isSpeechDetected` from the existing Silero VAD. A lock protects the latest snapshot; the recorder’s existing 100 ms timer polls it. Pause/stop/cancel reset it, and readings older than 350 ms expire. `MicrophoneActivityState` is observed only by the small indicator/status views; 25 recent level samples drive rounded background bars behind the opaque record button. These are loudness history, not frequency bands. Their fixed layout does not move controls; Reduce Motion fixes their height and disables interpolation. No new capture session, VAD model, inference, persistent key or audio mutation is introduced.
+
 ## Apple Settings navigation
 
 `SettingsView` owns one navigation stack for iOS and macOS. `SettingsPage` maps package shortcuts and download URLs into a path through the Models and voices hub. `ModelsView` embeds translation, recognition or download categories; `OCRSettingsView` uses the existing camera/coordinator; `VoiceSettingsView` provides a language search and per-language detail. Views retain the same persisted keys and download objects. History pruning happens when Settings closes, not when a category is pushed. Camera settings dismissal rebinds the camera after model changes. No model migration or automatic download is introduced.

@@ -18,11 +18,11 @@ Planned 22 October 2026. **Backlog only; not implemented on iOS yet.**
 
 ## Microphone activity during voice recording
 
-Planned on 2026-10-22 at the owner's request; not implemented by the Settings redesign.
+Apple implementation: lime background bars driven by existing PCM/VAD metering; device acceptance is pending. Android remains planned.
 
-- [ ] Add a Voice Activity Indicator to the Voice recording interface on iOS and macOS, with Android kept in the cross-platform plan. Show input level and detected speech, with a clear quiet state; do not imply that recognition or translation has finished.
-- [ ] Animate the indicator in Kat’s visual style: lime accents on a dark surface and smooth responses to voice level, with a reduced-motion alternative.
-- [ ] Use the existing audio capture/VAD signal without starting a second microphone session. Keep Pause, Stop and Cancel accessible and support compact windows, VoiceOver and reduced motion.
+- [x] Add a Voice Activity Indicator to the Voice recording interface on iOS and macOS, with Android kept in the cross-platform plan. Show input level and detected speech, with a clear quiet state; do not imply that recognition or translation has finished.
+- [x] Animate the indicator in Kat’s visual style: lime accents on a dark surface and smooth responses to voice level, with a reduced-motion alternative.
+- [x] Use the existing audio capture/VAD signal without starting a second microphone session. Keep Pause, Stop and Cancel accessible and support compact windows, VoiceOver and reduced motion.
 - [ ] Check silence, normal/quiet speech, background noise, pause/resume and background/foreground transitions on devices. The indicator must not affect the recording, saved audio, phrase boundaries or battery/thermal behavior.
 
 ## Unified settings and model management

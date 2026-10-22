@@ -23,11 +23,12 @@ struct RecordButton: View {
     }
     private var face: some View {
         ZStack {
-            Circle().fill(recording ? Color.red.opacity(0.15) : accent.opacity(0.12))
-            Circle().stroke(recording ? Color.red : accent, lineWidth: 2).padding(ringInset)
+            Circle().fill(.black)
+            Circle().fill(accent.opacity(0.12))
+            Circle().stroke(accent, lineWidth: 2).padding(ringInset)
             if speaking { Image(systemName: "stop.fill").font(.system(size: diameter * 0.32)).foregroundStyle(accent) }
             else if processing || starting { ProgressView().scaleEffect(1.5) }
-            else { Image(systemName: recording ? "stop.fill" : "mic.fill").font(.system(size: diameter * 0.32)).foregroundStyle(recording ? .red : accent) }
+            else { Image(systemName: recording ? "stop.fill" : "mic.fill").font(.system(size: diameter * 0.32)).foregroundStyle(accent) }
         }.frame(width: diameter, height: diameter).contentShape(Circle())
     }
     private func handle(_ event: RecordingInputEvent) {

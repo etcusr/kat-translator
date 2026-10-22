@@ -15,6 +15,8 @@ final class RecordingSink: @unchecked Sendable {
     private let queue = DispatchQueue(label: "org.openoffline.audio-conversion", qos: .userInteractive)
     private let lock = NSLock()
     private var paused = false
+    private var activity = MicrophoneActivity.quiet
+    private var activityUpdatedAt = 0.0
     private var pendingSeconds = 0.0
     private var tracedFirstBuffer = false
     private var failed = false
@@ -30,7 +32,13 @@ final class RecordingSink: @unchecked Sendable {
         self.detector = detector; buffer = BoundedRecordingBuffer(maxSeconds: maxSeconds)
         self.onLimit = onLimit; self.onFailure = onFailure
     }
-    func setPaused(_ value: Bool) { lock.lock(); paused = value; lock.unlock() }
+    func setPaused(_ value: Bool) {
+        lock.lock(); paused = value; activity = .quiet; activityUpdatedAt = 0; lock.unlock()
+    }
+    func microphoneActivity(at time: Double) -> MicrophoneActivity {
+        lock.lock(); defer { lock.unlock() }
+        return !paused && time - activityUpdatedAt < 0.35 ? activity : .quiet
+    }
     func append(_ buffer: AVAudioPCMBuffer) {
         lock.lock()
         guard !paused else { lock.unlock(); return }
@@ -60,6 +68,13 @@ final class RecordingSink: @unchecked Sendable {
             do {
                 let converted = try self.normalizer.convert(copy)
                 let silence = self.detector.append(converted)
+                let measured = MicrophoneActivity(samples: converted, speechDetected: self.detector.isSpeechDetected)
+                self.lock.lock()
+                if !self.paused {
+                    self.activity = measured
+                    self.activityUpdatedAt = ProcessInfo.processInfo.systemUptime
+                }
+                self.lock.unlock()
                 let limit = self.buffer.append(converted)
                 if let end = self.detector.latestBoundary, end > self.offeredBoundary {
                     self.offeredBoundary = end; self.onBoundary?(min(end, self.buffer.samples.count), self.detector.latestBoundaryEndsInSilence)
@@ -113,6 +128,7 @@ private struct RecordingEngineStartup: @unchecked Sendable {
 }
 
 @MainActor final class AudioRecorder: ObservableObject {
+    let microphoneActivity = MicrophoneActivityState()
     @Published private(set) var isRecording = false
     @Published private(set) var isPaused = false
     @Published private(set) var starting = false
@@ -189,6 +205,7 @@ private struct RecordingEngineStartup: @unchecked Sendable {
         try Task.checkCancellation()
         guard !isRecording, !starting else { return }
         RecordingStopTrace.mark("start.recorder")
+        microphoneActivity.update(.quiet)
         starting = true; generation += 1; let operation = generation
         defer { starting = false }
         #if os(macOS)
@@ -297,6 +314,7 @@ private struct RecordingEngineStartup: @unchecked Sendable {
                 try? await Task.sleep(nanoseconds: 100_000_000)
                 guard let self, self.isRecording, !Task.isCancelled else { return }
                 guard !self.isPaused else { continue }
+                self.microphoneActivity.update(self.sink?.microphoneActivity(at: ProcessInfo.processInfo.systemUptime) ?? .quiet)
                 self.elapsed = min(Double(limit), self.clock?.elapsed(at: ProcessInfo.processInfo.systemUptime) ?? 0)
                 if self.elapsed >= Double(limit) { self.onLimit?(); return }
             }
@@ -305,6 +323,7 @@ private struct RecordingEngineStartup: @unchecked Sendable {
     func togglePause() {
         guard isRecording else { return }
         let now = ProcessInfo.processInfo.systemUptime
+        microphoneActivity.update(.quiet)
         if isPaused {
             do {
                 #if os(iOS)
@@ -347,6 +366,7 @@ private struct RecordingEngineStartup: @unchecked Sendable {
     private func stopEngine() {
         sink?.setPaused(true)
         timer?.cancel(); timer = nil
+        microphoneActivity.update(.quiet)
         #if os(iOS)
         inputQueue?.stop(); inputQueue = nil
         #else
