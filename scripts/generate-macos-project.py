@@ -10,6 +10,11 @@ if not store_project:
     signing_config.parent.mkdir(parents=True,exist_ok=True)
     signing_config.write_text('// Local signing identity; regenerate with generate-macos-project.py.\nKAT_MAC_SIGNING_IDENTITY = '+signing_identity+'\n')
 profile_name=os.environ.get('KAT_MAC_PROFILE','modern')
+project_dir=os.environ.get('KAT_MAC_PROJECT_DIR')
+# The tracked project is always the modern one; other profiles are generated into an untracked directory,
+# so an interrupted compatibility build cannot leave apps/macos modified.
+if profile_name != 'modern' and not store_project and not project_dir:
+    raise SystemExit('KAT_MAC_PROFILE='+profile_name+' requires KAT_MAC_PROJECT_DIR (for example .build/macos15-project)')
 mac_profile=runpy.run_path(str(root/'scripts/mac-build-profile.py'))['profile'](profile_name)
 mac_info='$(KAT_REPO_ROOT)/apps/macos/Info.plist'
 if profile_name != 'modern':
@@ -110,6 +115,9 @@ for name,folder,kind in [('MacRuntimeTests','runtime','unit-test'),('MacUITests'
  target=obj(name+'target',isa='PBXNativeTarget',buildConfigurationList=cl,buildPhases=phases,buildRules=[],dependencies=[obj(name+'dependency',isa='PBXTargetDependency',target=ns['target'])],name=name,productName=name,productReference=product,productType='com.apple.product-type.bundle.'+kind)
  objects[ns['project']]['targets'].append(target);test_targets.append((name,target))
 out=root/'apps/macos/KatTranslatorMac.xcodeproj'
+if project_dir and not store_project:
+ out=Path(project_dir).resolve()/'KatTranslatorMac.xcodeproj'
+ if out.parent.parent.parent != root: raise RuntimeError('KAT_MAC_PROJECT_DIR must be two levels below the repository root')
 if store_project:
  # Relative references ('../..') require the same depth below the repository as apps/macos.
  out=Path(store_project).resolve()/'KatTranslatorMac.xcodeproj'
