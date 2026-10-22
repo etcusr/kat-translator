@@ -205,8 +205,8 @@ The build 45 signing candidate is kept separately in `dist/ios/signing-candidate
 | Platform | Version | Build requirement | Confirmation |
 |---|---|---|---|
 | Android | **0.4.6 / code21**, Debug | API 31+, arm64-v8a (ARMv8.2 dotprod/FP16 for Index); compile/target 36 | Installed on Pixel 9 Pro 13.10; native Auto OPUS→2B→OPUS, EN→EN, manual RU↔DE; voice RU/DE via import/microphone with GigaAM/Parakeet and TTS verified |
-| iPhone | **1.0.1 / build67** | iOS 18+, iPhone ARM64 | Development build: continued background progress and scoped Cancel all validated on a physical iPhone; small-file completion verified. Store remains 1.0.1 (58), reported published by the owner. |
-| Mac modern | **0.6.9 / build62** | macOS 27+, Apple Silicon | Installed and launched; models, settings and history preserved. Modern local DMG/ZIP 62; compatibility and Store builds unchanged. |
+| iPhone | **1.0.1 / build68** | iOS 18+, iPhone ARM64 | Local 22 Oct build with the audit fixes, installed over 67: all 1,681 container files kept unchanged, normal launch. Manual checks of the fixes are pending with the owner; earlier build-67 checks do not carry over. |
+| Mac modern | **0.6.9 / build63** | macOS 27+, Apple Silicon | Local 22 Oct build with the audit fixes, installed in /Applications with the same certificate; 2,124 data files (18.67 GB) and 107 preferences kept (only 442 download JSON files rewritten at launch); rollback 62 in `.build/install-2026-10-22`. DMG/ZIP not rebuilt (still 62). |
 | Mac App Store | **1.0 / build76** | macOS 27+, Apple Silicon, sandbox | PKG76 verified and uploaded; Apple processing unconfirmed. |
 | Mac compatible | **0.6.8 / build61 / macos15-26** | binary minimum macOS 15, Apple Silicon | DMG/ZIP 61 and audit verified; two runtime tests on macOS 27; physical macOS 15–26 not tested |
 
