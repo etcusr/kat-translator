@@ -409,6 +409,41 @@ import SwiftUI
         XCTAssertFalse(recorder.engineConfigurationChanged(nil))
         XCTAssertEqual(finished, 0)
     }
+    // Audit 22.10 (B19): restoring the clipboard keeps the preferred (first) representation.
+    func testClipboardRestorePreservesTypeOrder() throws {
+        let board = NSPasteboard.withUniqueName(); defer { board.releaseGlobally() }
+        let item = NSPasteboardItem()
+        let types = ["com.example.kat.a", "com.example.kat.b", "com.example.kat.c", "com.example.kat.d", "com.example.kat.e", "com.example.kat.f"].map { NSPasteboard.PasteboardType(rawValue: $0) }
+        for (index, type) in types.enumerated() { item.setData(Data("value \(index)".utf8), forType: type) }
+        board.clearContents(); board.writeObjects([item])
+        let original = try XCTUnwrap(board.pasteboardItems?.first?.types)
+        let snapshot = try XCTUnwrap(MacClipboardSnapshot.capture(board))
+        board.clearContents(); board.setString("Selection", forType: .string)
+        snapshot.restore(board, ifUnchangedSince: board.changeCount)
+        XCTAssertEqual(board.pasteboardItems?.first?.types, original)
+    }
+    // Audit 22.10 (B28): the test host must not auto-load the owner's models while tests run.
+    func testHostedTestsDisableAutomaticModelLoad() {
+        XCTAssertTrue(KatMacApp.isHostingTests)
+        XCTAssertNotNil(UserDefaults.standard.object(forKey: "automaticModelLoad"))
+        XCTAssertFalse(UserDefaults.standard.bool(forKey: "automaticModelLoad"))
+    }
+    // Audit 22.10 (B20): pasting an image file copied in Finder translates the file, not its icon.
+    func testPastedFinderImageUsesFileInsteadOfIcon() throws {
+        let board = NSPasteboard.withUniqueName(); defer { board.releaseGlobally() }
+        let folder = FileManager.default.temporaryDirectory.appendingPathComponent("kat-paste-" + UUID().uuidString)
+        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: folder) }
+        let file = folder.appendingPathComponent("photo.png")
+        let image = NSImage(size: NSSize(width: 8, height: 8)); image.lockFocus(); NSColor.red.setFill(); NSRect(x: 0, y: 0, width: 8, height: 8).fill(); image.unlockFocus()
+        let png = try XCTUnwrap(NSBitmapImageRep(data: try XCTUnwrap(image.tiffRepresentation))?.representation(using: .png, properties: [:]))
+        try png.write(to: file)
+        let item = NSPasteboardItem()
+        item.setString(file.absoluteString, forType: .fileURL)
+        item.setData(Data("icon".utf8), forType: .tiff)
+        board.clearContents(); board.writeObjects([item])
+        XCTAssertEqual(try MacImagePasteboard.imageData(board), png)
+    }
 }
 
 private actor IntegrationASR: ASRBackend {

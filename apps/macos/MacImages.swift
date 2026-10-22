@@ -313,8 +313,27 @@ struct CameraView: View {
         } catch { model.error = error.localizedDescription }
     }
     private func paste() {
-        let board = NSPasteboard.general
-        if let data = board.data(forType: .png) ?? board.data(forType: .tiff) { model.importData(data) }
-        else { model.error = L10n.text("В буфере обмена нет изображения.") }
+        do {
+            if let data = try MacImagePasteboard.imageData(NSPasteboard.general) { model.importData(data) }
+            else { model.error = L10n.text("В буфере обмена нет изображения.") }
+        } catch { model.error = error.localizedDescription }
+    }
+}
+
+/// A file copied in Finder also puts its icon on the pasteboard as TIFF; read the image file itself first.
+enum MacImagePasteboard {
+    static func imageData(_ board: NSPasteboard) throws -> Data? {
+        let options: [NSPasteboard.ReadingOptionKey: Any] = [.urlReadingFileURLsOnly: true,
+            .urlReadingContentsConformToTypes: [UTType.image.identifier]]
+        if let url = (board.readObjects(forClasses: [NSURL.self], options: options) as? [URL])?.first {
+            let size = try url.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
+            guard size <= 50 * 1024 * 1024 else { throw CameraError.image }
+            return try Data(contentsOf: url)
+        }
+        for type in [NSPasteboard.PasteboardType.png, .tiff, NSPasteboard.PasteboardType(UTType.jpeg.identifier),
+                     NSPasteboard.PasteboardType(UTType.heic.identifier)] {
+            if let data = board.data(forType: type) { return data }
+        }
+        return nil
     }
 }

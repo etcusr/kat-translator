@@ -287,16 +287,17 @@ enum QuickTranslationLanguage {
 }
 
 @MainActor struct MacClipboardSnapshot {
-    let items: [[NSPasteboard.PasteboardType: Data]]
+    /// Types keep their original order: the first type is the representation other apps prefer.
+    let items: [[(type: NSPasteboard.PasteboardType, data: Data)]]
     static func capture(_ board: NSPasteboard) -> Self? {
-        var items: [[NSPasteboard.PasteboardType: Data]] = [], size = 0
+        var items: [[(type: NSPasteboard.PasteboardType, data: Data)]] = [], size = 0
         for item in board.pasteboardItems ?? [] {
-            var values: [NSPasteboard.PasteboardType: Data] = [:]
+            var values: [(type: NSPasteboard.PasteboardType, data: Data)] = []
             for type in item.types {
                 guard let data = item.data(forType: type) else { return nil }
                 size += data.count
                 guard size <= 64 * 1024 * 1024 else { return nil }
-                values[type] = data
+                values.append((type, data))
             }
             items.append(values)
         }
@@ -307,7 +308,7 @@ enum QuickTranslationLanguage {
         guard board.changeCount == version else { return }
         let restored = items.map { values in
             let item = NSPasteboardItem()
-            for (type, data) in values { item.setData(data, forType: type) }
+            for value in values { item.setData(value.data, forType: value.type) }
             return item
         }
         board.clearContents()
