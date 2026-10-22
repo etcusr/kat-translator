@@ -2,9 +2,10 @@
 import gc
 import os
 import time
-os.environ['HF_HUB_OFFLINE'] = '1'
-os.environ['TRANSFORMERS_OFFLINE'] = '1'
-os.environ['HF_HUB_DISABLE_TELEMETRY'] = '1'
+# Kat sets these before starting threads; setdefault avoids putenv() in its multithreaded process
+# and still keeps research harnesses that import this module offline.
+for _name in ('HF_HUB_OFFLINE', 'TRANSFORMERS_OFFLINE', 'HF_HUB_DISABLE_TELEMETRY'):
+    os.environ.setdefault(_name, '1')
 
 
 def _install_offline_ssl():

@@ -50,8 +50,22 @@ import OfflineCore
         icon.isTemplate = false
         return icon
     }()
+    nonisolated static var isHostingTests: Bool {
+        let environment = ProcessInfo.processInfo.environment
+        return ["XCTestConfigurationFilePath", "XCTestBundlePath", "XCTestSessionIdentifier"].contains { environment[$0] != nil }
+    }
     init() {
+        // The embedded Index runtime must stay offline. Set these before any inference thread exists:
+        // assigning os.environ later calls putenv() inside an already multithreaded process.
+        for name in ["HF_HUB_OFFLINE", "TRANSFORMERS_OFFLINE", "HF_HUB_DISABLE_TELEMETRY"] { setenv(name, "1", 1) }
         UserDefaults.standard.register(defaults: ["recordingMode": "toggle"])
+        // Hosted unit tests run inside this app with the owner's real settings: never auto-load models there
+        // (it competes with the tests for GPU and memory and leaves Metal buffers alive at exit).
+        if Self.isHostingTests {
+            var arguments = UserDefaults.standard.volatileDomain(forName: UserDefaults.argumentDomain)
+            arguments["automaticModelLoad"] = false
+            UserDefaults.standard.setVolatileDomain(arguments, forName: UserDefaults.argumentDomain)
+        }
         let appModel = AppModel()
         _model = StateObject(wrappedValue: appModel)
         delegate.model = appModel
@@ -74,6 +88,11 @@ import OfflineCore
                     model.integration.showSettings = { openSettings(); NSApp.activate(ignoringOtherApps: true) }
                 }
                 .task { await model.prepare() }
+                // Automatic loading is skipped while Kat is inactive at launch; retry when it becomes active
+                // (iOS does the same on scene activation).
+                .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+                    Task { await model.loadAutomaticallyIfNeeded() }
+                }
         }
         .defaultSize(width: 1040, height: 820)
         .windowIdealSize(.maximum)
