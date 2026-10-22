@@ -428,6 +428,20 @@ import SwiftUI
         XCTAssertNotNil(UserDefaults.standard.object(forKey: "automaticModelLoad"))
         XCTAssertFalse(UserDefaults.standard.bool(forKey: "automaticModelLoad"))
     }
+    // Audit 22.10 (B29): stopping the OPUS worker is bounded, also when the worker ignores SIGTERM.
+    func testOpusWorkerStopIsBoundedAndKills() throws {
+        for script in ["exec sleep 30", "trap '' TERM; exec sleep 30"] {
+            let process = Process()
+            process.executableURL = URL(fileURLWithPath: "/bin/sh")
+            process.arguments = ["-c", script]
+            try process.run()
+            usleep(300_000)
+            let start = ProcessInfo.processInfo.systemUptime
+            OpusGPUTranslationBackend.stop(process, grace: 0.5)
+            XCTAssertLessThan(ProcessInfo.processInfo.systemUptime - start, 5, script)
+            XCTAssertEqual(kill(process.processIdentifier, 0), -1, script)
+        }
+    }
     // Audit 22.10 (B20): pasting an image file copied in Finder translates the file, not its icon.
     func testPastedFinderImageUsesFileInsteadOfIcon() throws {
         let board = NSPasteboard.withUniqueName(); defer { board.releaseGlobally() }

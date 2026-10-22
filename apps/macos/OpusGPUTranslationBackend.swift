@@ -31,8 +31,30 @@ final class OpusGPUTranslationBackend: TranslationBackend, @unchecked Sendable {
     private func setJob(_ value: OpusGPUJob?) { lock.lock(); defer { lock.unlock() }; job = value }
     func cancel() { lock.lock(); defer { lock.unlock() }; job?.cancel() }
     private func closeWorker() {
-        if let process { if process.isRunning { process.terminate() }; process.waitUntilExit() }
+        if let process { Self.stop(process) }
         try? input?.close(); try? output?.close(); input = nil; output = nil; process = nil; pending = Data()
+    }
+    /// Process.waitUntilExit() could wait forever here: after a cancelled request the next worker had exited,
+    /// yet unload() never returned (sample: closeWorker → -[NSConcreteTask waitUntilExit], no worker process left).
+    /// Wait with waitpid(WNOHANG) instead and escalate to SIGKILL; an unreaped child's pid cannot be reused.
+    static func stop(_ process: Process, grace: TimeInterval = 3) {
+        guard process.processIdentifier > 0 else { return }
+        let pid = process.processIdentifier
+        if process.isRunning { process.terminate() }
+        func reaped(within seconds: TimeInterval) -> Bool {
+            let end = ProcessInfo.processInfo.systemUptime + seconds
+            while true {
+                var status: Int32 = 0
+                let result = waitpid(pid, &status, WNOHANG)
+                if result == pid || (result == -1 && errno == ECHILD) || !process.isRunning { return true }
+                if result == -1 && errno != EINTR { return true }
+                if ProcessInfo.processInfo.systemUptime >= end { return false }
+                usleep(10_000)
+            }
+        }
+        if reaped(within: grace) { return }
+        kill(pid, SIGKILL)
+        _ = reaped(within: grace)
     }
     private func response(_ job: OpusGPUJob) throws -> [String: Any] {
         while true {
