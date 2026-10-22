@@ -183,32 +183,42 @@ import OfflineCore
         do { try await capture.start(); if !active { await capture.stop() } } catch { self.error = error.localizedDescription }
     }
     private func archiveResultIfNeeded() {
-        guard let history, frozen != nil, translation.complete, archivedScene != scene,
-              let frame, let overlay, let png = CameraOverlay.composite(frame, overlay: overlay).pngData() else { return }
-        let id = scene, blocks = translation.translated, source = source, target = target
+        guard let history, frozen != nil, translation.complete, archivedScene != scene, let frame, !translation.translated.isEmpty else { return }
+        let id = scene, blocks = translation.translated, source = source, target = target, previous = archiving
         archivedScene = id
         archiving = Task {
+            // Compositing and PNG encoding of a photo up to 3072 px held the main actor for hundreds of ms.
+            // Render from the final blocks (the shown overlay may still be rendering) and keep archive order (audit 22.10, iOS C1).
+            await previous?.value
+            let png = await Task.detached(priority: .utility) {
+                CameraOverlay.composite(frame, overlay: CameraOverlay.render(size: CGSize(width: frame.width, height: frame.height), blocks: blocks)).pngData()
+            }.value
+            guard let png else { return }
             do { try await history.saveImage(png, blocks: blocks, source: source, target: target) }
             catch { if scene == id { self.error = error.localizedDescription } }
         }
     }
-    func renderedPicture() throws -> UIImage {
+    /// The picture as shown, composited off the main actor (audit 22.10, iOS C1).
+    func renderedPicture() async throws -> UIImage {
         guard canSave, let frame, let overlay else { throw CameraError.image }
-        return CameraOverlay.composite(frame,overlay:overlay)
+        return await Task.detached(priority: .userInitiated) { CameraOverlay.composite(frame, overlay: overlay) }.value
     }
     func savePicture() async {
         do {
-            let image = try renderedPicture()
+            let image = try await renderedPicture()
             let permission = await PHPhotoLibrary.requestAuthorization(for:.addOnly)
             guard permission == .authorized || permission == .limited else { error = L10n.text("Разрешите добавление снимков в Фото в настройках iPhone."); return }
             try await PHPhotoLibrary.shared().performChanges { PHAssetChangeRequest.creationRequestForAsset(from: image) }
             message = L10n.text("Картинка с переводом сохранена в Фото.")
         } catch { self.error = error.localizedDescription }
     }
-    func sharePicture() throws -> URL {
-        guard let data = try renderedPicture().pngData() else { throw CameraError.image }
-        let url = FileManager.default.temporaryDirectory.appendingPathComponent("Translated-"+UUID().uuidString+".png")
-        try data.write(to:url,options:[.atomic,.completeFileProtection]); return url
+    func sharePicture() async throws -> URL {
+        guard canSave, let frame, let overlay else { throw CameraError.image }
+        return try await Task.detached(priority: .userInitiated) {
+            guard let data = CameraOverlay.composite(frame, overlay: overlay).pngData() else { throw CameraError.image }
+            let url = FileManager.default.temporaryDirectory.appendingPathComponent("Translated-"+UUID().uuidString+".png")
+            try data.write(to:url,options:[.atomic,.completeFileProtection]); return url
+        }.value
     }
     func close() async {
         activation.invalidate()

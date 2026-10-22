@@ -204,7 +204,7 @@ struct CameraView: View {
                     Button { Task { await model.savePicture() } } label: { Label(L10n.text("Сохранить"), systemImage: "square.and.arrow.down") }.disabled(!model.canSave)
                     Spacer()
                     Button {
-                        do { share = SharedAudio(url: try model.sharePicture()) } catch { importError = error.localizedDescription }
+                        Task { do { share = SharedAudio(url: try await model.sharePicture()) } catch { importError = error.localizedDescription } }
                     } label: { Image(systemName: "square.and.arrow.up").frame(width: 44, height: 44) }.disabled(!model.canSave).accessibilityLabel(L10n.text("Поделиться снимком"))
                     Button { showText = true } label: { Image(systemName: "text.alignleft").frame(width: 44, height: 44) }
                         .disabled(translation.translated.isEmpty).accessibilityLabel(L10n.text("Текст перевода"))
