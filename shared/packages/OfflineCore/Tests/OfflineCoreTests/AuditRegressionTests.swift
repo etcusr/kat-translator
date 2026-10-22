@@ -170,3 +170,27 @@ final class AuditChunkEquivalenceTests: XCTestCase {
         XCTAssertLessThanOrEqual(calls, 5)
     }
 }
+
+// Audit 22.10 (B22): pieces split for the model budget keep the source paragraph and line breaks.
+final class AuditTranslationJoinTests: XCTestCase {
+    func testJoinerRestoresSourceBoundaries() throws {
+        let source = "Первый абзац. Второе предложение.\n\nВторой абзац\nс переносом строки. Конец."
+        let pieces = try TextSegments.split(source) { $0.count <= 20 }
+        XCTAssertGreaterThan(pieces.count, 2)
+        var joiner = TranslationJoiner()
+        for piece in pieces {
+            let text = piece.trimmingCharacters(in: .whitespacesAndNewlines)
+            if text.isEmpty { joiner.skip(piece) } else { joiner.append("[" + text + "]", for: piece) }
+        }
+        XCTAssertTrue(joiner.text.contains("\n\n"), "paragraph break lost: \(joiner.text)")
+        XCTAssertEqual(joiner.text.components(separatedBy: "\n\n").count, 2)
+        XCTAssertFalse(joiner.text.hasPrefix(" ") || joiner.text.hasPrefix("\n"))
+    }
+    func testSkippedWhitespacePieceStillSeparatesParagraphs() {
+        var joiner = TranslationJoiner()
+        joiner.append("A", for: "A.")
+        joiner.skip("\n\n")
+        joiner.append("B", for: "B.")
+        XCTAssertEqual(joiner.text, "A\n\nB")
+    }
+}

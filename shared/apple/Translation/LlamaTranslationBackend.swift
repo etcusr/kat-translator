@@ -77,18 +77,18 @@ final class LlamaTranslationBackend: TranslationBackend, @unchecked Sendable {
                         let sourceCount = ot_mt_count(context, "", request.text, "")
                         return TranslationPreflight.fits(promptTokens: Int(count), sourceTokens: Int(sourceCount))
                     }
-                    var translated: [String] = []; var first: Double?
+                    var translated: [String] = []; var first: Double?; var joiner = TranslationJoiner()
                     var work = TranslationWork(pieces: pieces)
                     progress(work.progress)
                     while let part = work.current {
                         let input = part.trimmingCharacters(in: .whitespacesAndNewlines)
-                        if input.isEmpty { work.completeCurrent(); progress(work.progress); continue }
+                        if input.isEmpty { joiner.skip(part); work.completeCurrent(); progress(work.progress); continue }
                         var output = [CChar](repeating: 0, count: 65_536); var tokenSeconds = -1.0
                         let callStart = ProcessInfo.processInfo.systemUptime
                         TranslationMemoryTrace.record("translate.start", model: self.model)
                         let request = self.model.request(text: input, source: source, target: target)
-                        let done = translated.joined(separator: " ")
-                        let watcher = partial.map { report in PartialWatcher(context: context) { report(done.isEmpty ? $0 : done + " " + $0) } }
+                        let done = joiner.text, separator = joiner.separator(before: part)
+                        let watcher = partial.map { report in PartialWatcher(context: context) { report(done.isEmpty ? $0 : done + separator + $0) } }
                         let code = ot_mt_run(context, request.prefix, request.text, request.suffix, flag.pointer, &output, output.count, &tokenSeconds)
                         watcher?.stop()
                         TranslationMemoryTrace.record("translate.complete", model: self.model, seconds: ProcessInfo.processInfo.systemUptime - callStart, code: code)
@@ -100,10 +100,11 @@ final class LlamaTranslationBackend: TranslationBackend, @unchecked Sendable {
                         if first == nil && tokenSeconds >= 0 { first = callStart - started + tokenSeconds }
                         let result = String(cString: output).trimmingCharacters(in: .whitespacesAndNewlines)
                         guard !result.isEmpty else { throw PipelineError.inference }
+                        joiner.append(result, for: part)
                         translated.append(result); work.completeCurrent(); progress(work.progress)
                     }
                     guard !translated.isEmpty else { throw PipelineError.noSpeech }
-                    continuation.resume(returning: TranslationResult(text: translated.joined(separator: " "), firstTokenSeconds: first,
+                    continuation.resume(returning: TranslationResult(text: joiner.text, firstTokenSeconds: first,
                         processingSeconds: ProcessInfo.processInfo.systemUptime - started, fragments: translated.count))
                 } catch { continuation.resume(throwing: error) }
             } }

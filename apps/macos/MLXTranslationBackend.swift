@@ -111,17 +111,17 @@ final class MLXTranslationBackend: TranslationBackend, @unchecked Sendable {
                         return TranslationPreflight.fits(promptTokens: Int(count), sourceTokens: Int(sourceCount))
                     } }
                     var translated: [String] = []; var first: Double?
-                    var completed = "", separator = " "
+                    var joiner = TranslationJoiner()
                     var work = TranslationWork(pieces: pieces)
                     progress(work.progress)
                     while let part = work.current {
                         let input = part.trimmingCharacters(in: .whitespacesAndNewlines)
-                        if input.isEmpty { work.completeCurrent(); progress(work.progress); continue }
+                        if input.isEmpty { joiner.skip(part); work.completeCurrent(); progress(work.progress); continue }
                         var output = [CChar](repeating: 0, count: 65_536); var tokenSeconds = -1.0
                         let callStart = ProcessInfo.processInfo.systemUptime
                         TranslationMemoryTrace.record("translate.start", model: self.model)
                         let request = self.model.request(text: input, source: source, target: target)
-                        let done = completed
+                        let done = joiner.text, separator = joiner.separator(before: part)
                         let code: Int32
                         if let partial {
                             let reporter = MLXPartialReporter(completed: done, separator: separator, report: partial)
@@ -146,16 +146,12 @@ final class MLXTranslationBackend: TranslationBackend, @unchecked Sendable {
                         if first == nil && tokenSeconds >= 0 { first = callStart - started + tokenSeconds }
                         let result = String(cString: output).trimmingCharacters(in: .whitespacesAndNewlines)
                         guard !result.isEmpty else { throw PipelineError.inference }
-                        completed = done.isEmpty ? result : done + separator + result
-                        if useSmallChunks {
-                            let whitespace = String(part.reversed().prefix(while: { $0.isWhitespace }).reversed())
-                            separator = whitespace.contains("\n\n") ? "\n\n" : (whitespace.contains("\n") ? "\n" : " ")
-                        }
+                        joiner.append(result, for: part)
                         translated.append(result); work.completeCurrent(); progress(work.progress)
-                        if useSmallChunks { partial?(completed) }
+                        if useSmallChunks { partial?(joiner.text) }
                     }
                     guard !translated.isEmpty else { throw PipelineError.noSpeech }
-                    continuation.resume(returning: TranslationResult(text: completed, firstTokenSeconds: first,
+                    continuation.resume(returning: TranslationResult(text: joiner.text, firstTokenSeconds: first,
                         processingSeconds: ProcessInfo.processInfo.systemUptime - started, fragments: translated.count))
                 } catch { continuation.resume(throwing: error) }
             } }

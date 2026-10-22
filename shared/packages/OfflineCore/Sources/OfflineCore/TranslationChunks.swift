@@ -47,3 +47,23 @@ public enum TranslationChunks {
         return parts
     }
 }
+
+/// Joins translated pieces with the boundary the source had between them: a paragraph, a line or a space.
+/// Long texts are split for the model budget; joining every piece with a space lost all paragraphs.
+public struct TranslationJoiner: Sendable {
+    public private(set) var text = ""
+    private var pendingWhitespace = ""
+    public init() {}
+    /// The separator that will precede the translation of `piece`.
+    public func separator(before piece: String) -> String {
+        guard !text.isEmpty else { return "" }
+        let newlines = (pendingWhitespace + piece.prefix(while: \.isWhitespace)).filter(\.isNewline).count
+        return newlines >= 2 ? "\n\n" : newlines == 1 ? "\n" : " "
+    }
+    public mutating func append(_ translation: String, for piece: String) {
+        text += separator(before: piece) + translation
+        pendingWhitespace = String(piece.reversed().prefix(while: \.isWhitespace).reversed())
+    }
+    /// A whitespace-only piece is not translated, but its line breaks still separate its neighbours.
+    public mutating func skip(_ piece: String) { pendingWhitespace += piece }
+}
