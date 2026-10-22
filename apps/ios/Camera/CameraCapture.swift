@@ -27,6 +27,10 @@ final class CameraCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
     private var pendingPhoto: CheckedContinuation<CGImage, Error>?
     private var pendingPhotoID: Int64?
     private var subjectObserver: NSObjectProtocol?
+    private var runtimeObserver: NSObjectProtocol?
+    /// Set on the session queue between start() and stop(); a runtime error restarts only a wanted session.
+    private var wantsRunning = false
+    private var lastRuntimeRestart = -Double.infinity
     private var normalZoom: CGFloat = 1
     init(onFrame: @escaping @Sendable (CGImage, Int) async -> Void) { self.onFrame = onFrame; super.init() }
     func start() async throws {
@@ -77,8 +81,20 @@ final class CameraCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
                     camera.isSubjectAreaChangeMonitoringEnabled = true
                     camera.unlockForConfiguration()
                     self.subjectObserver = NotificationCenter.default.addObserver(forName: AVCaptureDevice.subjectAreaDidChangeNotification, object: camera, queue: nil) { [weak self] _ in self?.focus(at: CGPoint(x: 0.5, y: 0.5), continuous: true) }
+                    // After a runtime error or a media services reset the session stops and the preview stays
+                    // black until the camera is reopened; restart it like Apple's AVCam (audit 22.10, iOS M9).
+                    self.runtimeObserver = NotificationCenter.default.addObserver(forName: AVCaptureSession.runtimeErrorNotification, object: self.session, queue: nil) { [weak self] _ in
+                        guard let self else { return }
+                        self.queue.async {
+                            // A failure that repeats immediately must not become a restart loop.
+                            let now = ProcessInfo.processInfo.systemUptime
+                            guard self.wantsRunning, !self.session.isRunning, now - self.lastRuntimeRestart >= 5 else { return }
+                            self.lastRuntimeRestart = now; self.session.startRunning()
+                        }
+                    }
                     self.configured = true
                 }
+                self.wantsRunning = true
                 if !self.session.isRunning { self.session.startRunning() }
                 c.resume()
             } catch { c.resume(throwing: error) }
@@ -140,6 +156,7 @@ final class CameraCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
     func stop() async {
         await withCheckedContinuation { c in queue.async {
             self.pendingPhoto?.resume(throwing: CancellationError()); self.pendingPhoto = nil; self.pendingPhotoID = nil
+            self.wantsRunning = false
             if self.session.isRunning { self.session.stopRunning() }; c.resume()
         } }
     }
@@ -157,5 +174,8 @@ final class CameraCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
         if let cg = context.createCGImage(image, from: image.extent) { Task { await onFrame(cg, revision); finishDelivery() } }
         else { finishDelivery() }
     }
-    deinit { if let subjectObserver { NotificationCenter.default.removeObserver(subjectObserver) } }
+    deinit {
+        if let subjectObserver { NotificationCenter.default.removeObserver(subjectObserver) }
+        if let runtimeObserver { NotificationCenter.default.removeObserver(runtimeObserver) }
+    }
 }
