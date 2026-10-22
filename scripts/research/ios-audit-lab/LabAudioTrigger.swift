@@ -8,7 +8,7 @@ import os
 /// picker is not used: the host writes Documents/AudioTests/trigger.txt and the lab acts on it:
 /// - "<name>": import Documents/AudioTests/<name> through the ordinary audio-file path;
 /// - "image:<name>": the camera's Gallery path (the camera must be open);
-/// - "tail:<name>:<ms>": record from the microphone while the iPhone speaker plays <name>, and stop the
+/// - "tail:<name>:<ms>[:<AVAudioSession mode>]": record from the microphone while the iPhone speaker plays <name>, and stop the
 ///   recording <ms> after playback ends (recording-tail check, audit O14).
 /// Memory is sampled every 0.5 s to Documents/lab-memory.jsonl together with memory warnings and events.
 @MainActor enum LabAudioTrigger {
@@ -46,8 +46,8 @@ import os
                         }
                     } else if parts.first == "play", parts.count == 2 { // playback alone, no recording
                         Task { await play(parts[1]) }
-                    } else if parts.first == "tail", parts.count == 3 {
-                        Task { await tail(model, file: parts[1], delay: Double(parts[2]) ?? 0) }
+                    } else if parts.first == "tail", parts.count >= 3 {
+                        Task { await tail(model, file: parts[1], delay: Double(parts[2]) ?? 0, mode: parts.count > 3 ? parts[3] : "") }
                     } else {
                         Task { await model.importAudioFile(documents.appendingPathComponent("AudioTests/" + name)) }
                     }
@@ -67,7 +67,7 @@ import os
         write(["event": "play", "started": started, "outputVolume": audio.outputVolume,
                "route": audio.currentRoute.outputs.map(\.portType.rawValue).joined(separator: ",")])
     }
-    private static func tail(_ model: AppModel, file: String, delay: Double) async {
+    private static func tail(_ model: AppModel, file: String, delay: Double, mode: String) async {
         await model.beginRecording()
         for _ in 0..<100 where !model.recorder.isRecording { try? await Task.sleep(nanoseconds: 50_000_000) }
         guard model.recorder.isRecording else { write(["event": "tail.error", "reason": "not recording"]); return }
@@ -77,6 +77,8 @@ import os
         }
         // The recorder's .measurement mode can route output to the receiver; the check needs the loudspeaker.
         let audio = AVAudioSession.sharedInstance()
+        // During recording (.measurement) the lab's playback was inaudible; switch only the mode for the playback.
+        if !mode.isEmpty { do { try audio.setMode(AVAudioSession.Mode(rawValue: mode)) } catch { write(["event": "tail.modeError", "reason": error.localizedDescription]) } }
         try? audio.overrideOutputAudioPort(.speaker)
         player.volume = 1
         // Diagnostic copy of what the microphone hears during playback (analysed on the host, never played).
@@ -91,6 +93,6 @@ import os
         capture?.stop()
         try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000))
         await model.finishRecording()
-        write(["event": "tail.stop", "delayMs": delay])
+        write(["event": "tail.stop", "delayMs": delay, "mode": mode])
     }
 }
