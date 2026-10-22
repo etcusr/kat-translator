@@ -7,10 +7,16 @@ import os
 /// Kat Audit Lab only (copied in by prepare.py). Test speech is never played from the Mac and the Files
 /// picker is not used: the host writes Documents/AudioTests/trigger.txt and the lab acts on it:
 /// - "<name>": import Documents/AudioTests/<name> through the ordinary audio-file path;
-/// - "image:<name>": the camera's Gallery path (the camera must be open);
+/// - "image:<name>": the camera's former in-memory Gallery path; "imagefile:<name>": the file path (camera open);
 /// - "tail:<name>:<ms>[:<AVAudioSession mode>]": record from the microphone while the iPhone speaker plays <name>, and stop the
 ///   recording <ms> after playback ends (recording-tail check, audit O14).
 /// Memory is sampled every 0.5 s to Documents/lab-memory.jsonl together with memory warnings and events.
+/// Counts CameraView body evaluations; prepare.py inserts `let _ = LabRenderCounter.tick()` (audit 22.10, iOS C6).
+@MainActor enum LabRenderCounter {
+    static var count = 0
+    static func tick() -> Int { count += 1; return count }
+}
+
 @MainActor enum LabAudioTrigger {
     private static let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     private static func write(_ row: [String: Any]) {
@@ -35,7 +41,8 @@ import os
                     $0.withMemoryRebound(to: integer_t.self, capacity: capacity) { task_info(mach_task_self_, task_flavor_t(TASK_VM_INFO), $0, &count) }
                 } == KERN_SUCCESS
                 write(["footprint": ok ? info.phys_footprint : 0, "peak": ok ? info.ledger_phys_footprint_peak : 0,
-                       "available": os_proc_available_memory(), "busy": model.session.isBusy, "importing": model.importingAudio])
+                       "available": os_proc_available_memory(), "busy": model.session.isBusy, "importing": model.importingAudio,
+                       "cameraRenders": LabRenderCounter.count])
                 if let name = try? String(contentsOf: trigger, encoding: .utf8).trimmingCharacters(in: .whitespacesAndNewlines), !name.isEmpty {
                     try? FileManager.default.removeItem(at: trigger)
                     write(["event": "import", "file": name])
@@ -43,6 +50,11 @@ import os
                     if parts.first == "image", parts.count == 2 {
                         if let data = try? Data(contentsOf: documents.appendingPathComponent("AudioTests/" + parts[1])) {
                             Task { await model.camera.importData(data) }
+                        }
+                    } else if parts.first == "imagefile", parts.count == 2 { // camera, Photos file path (C5); importFile deletes its input
+                        let copy = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + "-" + parts[1])
+                        if (try? FileManager.default.copyItem(at: documents.appendingPathComponent("AudioTests/" + parts[1]), to: copy)) != nil {
+                            Task { await model.camera.importFile(copy) }
                         }
                     } else if parts.first == "play", parts.count == 2 { // playback alone, no recording
                         Task { await play(parts[1]) }

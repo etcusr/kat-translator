@@ -57,5 +57,11 @@ entry = app_entry.read_text()
 hook = ".task { delegate.model = model; await model.prepare() }"
 assert entry.count(hook) == 1
 app_entry.write_text(entry.replace(hook, ".task { delegate.model = model; LabAudioTrigger.start(model); await model.prepare() }"))
+camera_view = src / "apps/ios/Camera/CameraView.swift"
+camera = camera_view.read_text()
+body = "struct CameraView: View {"
+hook = "    var body: some View {\n"  # the first body in the file is CameraView's
+assert camera.count(body) == 1 and camera.index(hook) > camera.index(body)
+camera_view.write_text(camera.replace(hook, hook + "        let _ = LabRenderCounter.tick()\n", 1))
 subprocess.run([sys.executable, str(generator)], cwd=src, check=True)
 print("Prepared", src, "from", commit)
