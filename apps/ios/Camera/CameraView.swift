@@ -1,6 +1,7 @@
 import SwiftUI
 import AVFoundation
 import PhotosUI
+import Combine
 import OfflineCore
 
 /// Photos hands the picked image over as a file copy instead of one Data blob (audit 22.10, iOS C5).
@@ -16,17 +17,24 @@ struct PickedImageFile: Transferable {
     }
 }
 
-struct CameraView: View {
+struct CameraView: View, Equatable {
+    /// The presenting view re-renders on every download progress tick, and the `close` closure made each new value
+    /// look different, so the camera body ran again each time. All camera state comes from `app` (audit 22.10, iOS C6).
+    nonisolated static func == (lhs: CameraView, rhs: CameraView) -> Bool { lhs.appID == rhs.appID }
+    private let appID: ObjectIdentifier
     @ObservedObject var app: AppModel
     @ObservedObject var model: CameraModel
     @ObservedObject var translation: ImageTranslationSession
-    @ObservedObject var packages: PackageDownloadCoordinator
+    /// Not observed: the coordinator republishes every download progress tick, which re-rendered the camera about
+    /// 80 times a second during any download. Only the package state the camera shows is followed (audit 22.10, iOS C6).
+    let packages: PackageDownloadCoordinator
+    @State private var packageState = 0
     @Environment(\.scenePhase) private var scenePhase
     @State private var selectedPhoto: PhotosPickerItem?
     @StateObject private var importer = ImageImportSession()
     @State private var importError: String?
     @State private var share: SharedAudio?
-    init(app: AppModel) { self.app = app; model = app.camera; translation = app.camera.translation; packages = app.packages }
+    init(app: AppModel) { self.app = app; appID = ObjectIdentifier(app); model = app.camera; translation = app.camera.translation; packages = app.packages }
     var close: () -> Void = {}
     func withClose(_ action: @escaping () -> Void) -> CameraView { var copy = self; copy.close = action; return copy }
     @State private var zoom: CGFloat = 1
@@ -38,6 +46,7 @@ struct CameraView: View {
     @State private var showOCR = false
     @State private var showText = false
     var body: some View {
+        let _ = packageState
         GeometryReader { geometry in
             ZStack {
                 Color.black.ignoresSafeArea()
@@ -133,6 +142,10 @@ struct CameraView: View {
             }
         }
         .onChange(of:model.forceOpenOCR) { _,_ in Task { await model.changedOptions() } }
+        // Each render subscribes anew and @Published replays its current value on subscription: drop it, or the
+        // state change re-renders, resubscribes and replays forever (a 100% CPU loop seen on iPhone).
+        .onReceive(packages.$selectedTranslation.dropFirst().removeDuplicates()) { _ in packageState &+= 1 }
+        .onReceive(packages.ocrRussian.$installedURL.dropFirst().merge(with: packages.ocrEnglish.$installedURL.dropFirst())) { _ in packageState &+= 1 }
         .onChange(of:selectedPhoto) { _,item in
             importError = nil
             guard let item else { importer.cancel(); return }

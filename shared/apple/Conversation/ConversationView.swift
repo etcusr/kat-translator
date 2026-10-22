@@ -207,7 +207,7 @@ struct ConversationView: View {
                 }
                 #if os(iOS)
                 .katFullScreenCover(isPresented: Binding(get: { input == .camera }, set: { if !$0 { input = previousInput } })) {
-                    CameraView(app: model).withClose { input = previousInput }
+                    CameraView(app: model).withClose { input = previousInput }.equatable()
                 }
                 #endif
                 .task(id: cameraActivationID) {
