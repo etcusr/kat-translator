@@ -11,4 +11,12 @@ final class DownloadBatchTests: XCTestCase {
         XCTAssertEqual(batch.ids,["new-voice","mt"])
         XCTAssertFalse(batch.ids.contains("old-voice")); XCTAssertFalse(batch.ids.contains("shared"))
     }
+    // Audit 22.10 (B5): a batch completed outside the queue must end, so Cancel all cannot delete it later.
+    func testBatchIsCompleteOnlyWhenEveryOwnedFileIsInstalled() {
+        var batch = DownloadBatch()
+        XCTAssertFalse(batch.isComplete(installed: { _ in true }), "an empty batch owns nothing")
+        batch.include([.init(id: "index", bytes: 5, installed: false), .init(id: "voice", bytes: 1, installed: false), .init(id: "old", bytes: 1, installed: true)])
+        XCTAssertFalse(batch.isComplete(installed: { $0 == "index" }))
+        XCTAssertTrue(batch.isComplete(installed: { ["index", "voice"].contains($0) }))
+    }
 }

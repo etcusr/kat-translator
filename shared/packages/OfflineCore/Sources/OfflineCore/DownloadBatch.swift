@@ -8,4 +8,7 @@ public struct DownloadBatch: Codable, Sendable {
     public mutating func include(_ requirements: [DownloadRequirement]) {
         ids.formUnion(requirements.filter { !$0.installed }.map(\.id))
     }
+    /// Every owned file is installed, by whatever path (queue, row button, relaunch). The batch is then
+    /// finished: keeping it would let a later "Cancel all" delete models the user has long been using.
+    public func isComplete(installed: (String) -> Bool) -> Bool { !ids.isEmpty && ids.allSatisfy(installed) }
 }

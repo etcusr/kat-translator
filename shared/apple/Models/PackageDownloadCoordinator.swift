@@ -217,6 +217,12 @@ import OfflineCore
     private func persistBatch() {
         UserDefaults.standard.set(try? JSONEncoder().encode(currentBatch), forKey: "currentDownloadBatch")
     }
+    /// Ends the current batch once all its files are installed, even if they completed outside the queue.
+    func releaseCompletedBatch() {
+        guard !cancellingBatch, !currentBatch.ids.isEmpty else { return }
+        let installed = Set(downloaders.filter { $0.installedURL != nil }.map(\.model.id))
+        if currentBatch.isComplete(installed: { installed.contains($0) }) { currentBatch = DownloadBatch(); persistBatch() }
+    }
     @Published private(set) var downloadingVoices = false
     @Published private(set) var voiceQueueItems: [ModelDownloader] = []
     var voiceQueueTotalBytes: Int64 { voiceQueueItems.reduce(0) { $0 + $1.model.byteCount } }
@@ -286,6 +292,7 @@ import OfflineCore
                 Task { @MainActor [weak self, weak downloader] in
                     guard let self, let downloader else { return }
                     self.prepareVoice(downloader)
+                    self.releaseCompletedBatch()
                 }
             }.store(in: &observers)
         }
@@ -316,6 +323,7 @@ import OfflineCore
             await indexMLX.restore()
             #endif
             restored = true
+            releaseCompletedBatch()
             if UserDefaults.standard.bool(forKey: "downloadAllPending") { startAll() }
             if let pending = UserDefaults.standard.stringArray(forKey: "pendingVoiceIDs") {
                 startVoiceQueue(pending.compactMap { id in downloaders.first { $0.model.id == id } })
