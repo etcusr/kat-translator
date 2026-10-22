@@ -1,0 +1,47 @@
+[
+  {
+    "kind": "baseline67",
+    "run": "quality67",
+    "firstCompletedTranslation": 15.240038083327818,
+    "afterStop": 8.292184958336293,
+    "asrCompute": 24.15216620831052,
+    "mtCompute": 21.643848791645723,
+    "translationBlocks": 7,
+    "recognitionPasses": 16,
+    "peakFootprint": 1599855976,
+    "thermalStart": "nominal",
+    "thermalEnd": "nominal"
+  },
+  {
+    "kind": "baseline67",
+    "run": "quality67-repeat",
+    "firstCompletedTranslation": 12.899703041664907,
+    "afterStop": 9.259171166660963,
+    "asrCompute": 24.417881624947768,
+    "mtCompute": 20.174168375015142,
+    "translationBlocks": 7,
+    "recognitionPasses": 16,
+    "peakFootprint": 1598184880,
+    "thermalStart": "fair",
+    "thermalEnd": "fair"
+  },
+  {
+    "kind": "whisperkit",
+    "run": "run-exact",
+    "firstDraft": 2.002219000001787,
+    "firstConfirmedASR": 7.807692999995197,
+    "firstCompletedTranslation": 12.255382166666095,
+    "afterStop": 8.639394041674677,
+    "asrAfterStop": 0.8434344166744268,
+    "asrCompute": 67.3553926666209,
+    "mtCompute": 31.250649124980555,
+    "translationBlocks": 10,
+    "recognitionPasses": 54,
+    "peakFootprint": 1485396464,
+    "thermalStart": 0,
+    "thermalEnd": 1,
+    "thermalMax": 1,
+    "tailClipStart": 65.9000015258789,
+    "loadASR": 70.5857878333336
+  }
+]
