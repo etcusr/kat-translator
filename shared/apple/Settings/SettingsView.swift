@@ -123,7 +123,7 @@ struct SettingsView: View {
                 }
                 #endif
                 Section {
-                    Toggle(L10n.text("Обрабатывать во время записи"), isOn: $preprocessing)
+                    Toggle(L10n.text("Переводить во время записи"), isOn: $preprocessing)
                         .accessibilityIdentifier("settings.recordingPreprocessing")
                     if preprocessing {
                         Toggle(L10n.text("Проверять текст после записи"), isOn: $verification)
@@ -133,7 +133,7 @@ struct SettingsView: View {
                     SettingsSectionHeader(L10n.text("Экспериментально"))
                 } footer: {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text(L10n.text("Готовить перевод законченных фраз заранее. Озвучка начнётся после остановки. Пока для Whisper с Index или Qwen без экономии памяти; возможны ошибки на стыках фраз."))
+                        Text(L10n.text("Оригинал и перевод законченных фраз появляются во время записи. Озвучка начнётся после остановки. Для Whisper с Index без экономии памяти. Экспериментальный режим: возможны пропуски, повторы и ошибки распознавания."))
                         if preprocessing {
                             Text(L10n.text("Проверка повторно распознаёт запись и обновляет изменившиеся фразы перед озвучкой. Увеличивает ожидание и не гарантирует точность перевода."))
                         }

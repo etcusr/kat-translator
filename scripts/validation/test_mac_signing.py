@@ -52,6 +52,21 @@ class IdentityTests(unittest.TestCase):
 
 
 class ProjectSigningTests(unittest.TestCase):
+    def test_mac_sources_exclude_ios_background_task_and_keep_shared_downloads(self):
+        with tempfile.TemporaryDirectory(dir=ROOT / ".build", prefix="mac-sources-test-") as folder:
+            with patch.dict(os.environ, {"KAT_MAC_STORE_PROJECT": folder,
+                                         "KAT_MAC_STORE_INFOPLIST": "StoreInfo.plist",
+                                         "KAT_APPLE_TEAM_ID": "TESTTEAM",
+                                         "KAT_MAC_PROFILE": "modern"}), \
+                    contextlib.redirect_stdout(io.StringIO()):
+                result = runpy.run_path(str(ROOT / "scripts/generate-macos-project.py"))
+            phase = result["objects"][result["ns"]["sources"]]
+            paths = {result["path_for_build"](key) for key in phase["files"]}
+            self.assertNotIn("apps/ios/Models/DownloadContinuedTask.swift", paths)
+            self.assertNotIn("apps/ios/Models/DownloadLiveActivity.swift", paths)
+            self.assertIn("shared/apple/Models/PackageDownloadCoordinator.swift", paths)
+            self.assertIn("shared/apple/Settings/SettingsView.swift", paths)
+
     def test_store_project_keeps_automatic_signing_without_direct_key(self):
         with tempfile.TemporaryDirectory(dir=ROOT / ".build", prefix="signing-store-test-") as folder:
             with patch.dict(os.environ, {"KAT_MAC_STORE_PROJECT": folder,

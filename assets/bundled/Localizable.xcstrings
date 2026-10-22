@@ -3387,31 +3387,31 @@
         }
       }
     },
-    "Готовить перевод законченных фраз заранее. Озвучка начнётся после остановки. Пока для Whisper с Index или Qwen без экономии памяти; возможны ошибки на стыках фраз.": {
+    "Оригинал и перевод законченных фраз появляются во время записи. Озвучка начнётся после остановки. Для Whisper с Index без экономии памяти. Экспериментальный режим: возможны пропуски, повторы и ошибки распознавания.": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Prepare translations of completed phrases in advance. Playback starts after recording stops. Currently for Whisper with Index or Qwen, without memory saving; phrase boundaries may introduce errors."
+            "value": "Original text and translations of completed phrases appear during recording. Playback starts after recording stops. For Whisper with Index, without memory saving. Experimental mode: words may be omitted, repeated or recognized incorrectly."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Готовить перевод законченных фраз заранее. Озвучка начнётся после остановки. Пока для Whisper с Index или Qwen без экономии памяти; возможны ошибки на стыках фраз."
+            "value": "Оригинал и перевод законченных фраз появляются во время записи. Озвучка начнётся после остановки. Для Whisper с Index без экономии памяти. Экспериментальный режим: возможны пропуски, повторы и ошибки распознавания."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Prepara de antemano la traducción de frases completas. La reproducción empieza al detener la grabación. Actualmente para Whisper con Index o Qwen, sin ahorro de memoria; los límites entre frases pueden introducir errores."
+            "value": "El texto original y la traducción de las frases completas aparecen durante la grabación. La reproducción comienza al detenerla. Para Whisper con Index, sin ahorro de memoria. Modo experimental: puede omitir o repetir palabras y cometer errores de reconocimiento."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tamamlanan cümlelerin çevirisini önceden hazırlar. Oynatma, kayıt durduktan sonra başlar. Şu anda bellek tasarrufu kapalıyken Whisper ile Index veya Qwen için kullanılabilir; cümle sınırları hatalara neden olabilir."
+            "value": "Tamamlanan cümlelerin özgün metni ve çevirisi kayıt sırasında görünür. Seslendirme kayıt durduktan sonra başlar. Bellek tasarrufu kapalıyken Whisper ve Index ile çalışır. Deneysel mod: sözcükler atlanabilir, tekrarlanabilir veya yanlış tanınabilir."
           }
         }
       }
@@ -8972,31 +8972,31 @@
         }
       }
     },
-    "Обрабатывать во время записи": {
+    "Переводить во время записи": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Process while recording"
+            "value": "Translate during recording"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Обрабатывать во время записи"
+            "value": "Переводить во время записи"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Procesar durante la grabación"
+            "value": "Traducir durante la grabación"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kayıt sırasında işle"
+            "value": "Kayıt sırasında çevir"
           }
         }
       }
