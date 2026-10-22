@@ -62,9 +62,21 @@ public actor PackageStore {
         try? FileVerificationCache.save(cacheURL(package), identity: FileVerificationCache.identity(package),
                                         files: snapshot(package, directory: directory))
     }
+    /// Temporary folders of an assembly interrupted by process termination are never reached by its `defer`.
+    /// A running assembly keeps writing into its folder, so only folders untouched for a day are removed.
+    private func removeStaleTemporaries(now: Date = Date()) {
+        let names = (try? FileManager.default.contentsOfDirectory(atPath: root.path)) ?? []
+        for name in names where name.hasPrefix("staging-") || name.hasPrefix("piper-") {
+            let url = root.appendingPathComponent(name)
+            guard let modified = (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate,
+                  now.timeIntervalSince(modified) > 86_400 else { continue }
+            try? FileManager.default.removeItem(at: url)
+        }
+    }
     public func install(archive: URL, package: ModelPackage) throws -> URL {
         let final = try directory(package)
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        removeStaleTemporaries()
         var excluded = root; var values = URLResourceValues(); values.isExcludedFromBackup = true; try excluded.setResourceValues(values)
         let staging = root.appendingPathComponent("staging-" + UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: staging) }
@@ -83,6 +95,7 @@ public actor PackageStore {
               Set(files.keys) == Set(package.files.map(\.path)),
               package.files.allSatisfy({ PackageArchive.safePath($0.path) && $0.path != "receipt.json" && $0.byteCount >= 0 }) else { throw PackageError.unsafePath }
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        removeStaleTemporaries()
         var excluded = root; var values = URLResourceValues(); values.isExcludedFromBackup = true; try excluded.setResourceValues(values)
         let staging = root.appendingPathComponent("staging-" + UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: staging) }
@@ -117,6 +130,7 @@ public actor PackageStore {
     /// the usual package hashes verify the complete derived files before publication.
     public func installPiper(model: URL, preparation: PiperPreparation, package: ModelPackage) throws -> URL {
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        removeStaleTemporaries()
         let temporary = root.appendingPathComponent("piper-" + UUID().uuidString)
         try FileManager.default.createDirectory(at: temporary, withIntermediateDirectories: true)
         defer { try? FileManager.default.removeItem(at: temporary) }

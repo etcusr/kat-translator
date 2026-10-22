@@ -194,3 +194,50 @@ final class AuditTranslationJoinTests: XCTestCase {
         XCTAssertEqual(joiner.text, "A\n\nB")
     }
 }
+
+final class AuditDownloadTests: XCTestCase {
+    private let abc = "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+    // Audit 22.10 (iOS M8): a read failure during startup verification (e.g. a protected file before first
+    // unlock) must not delete the receipt of a verified model; only an integrity failure does.
+    func testUnreadableModelKeepsReceiptButCorruptionRemovesIt() async throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("audit-model-" + UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let model = ModelDescriptor(id: "audit-model", title: "Audit", remoteURL: URL(string: "https://example.invalid/m.bin")!, byteCount: 3, sha256: abc)
+        let staged = root.appendingPathComponent("staged.bin"); try Data("abc".utf8).write(to: staged)
+        let store = ModelStore(root: root.appendingPathComponent("Models"))
+        let file = try await store.verifyAndInstall(stagingURL: staged, model: model)
+        let receipt = root.appendingPathComponent("Models/audit-model.json"), cache = root.appendingPathComponent("Models/audit-model.verified.json")
+        try? FileManager.default.removeItem(at: cache)
+        try FileManager.default.setAttributes([.posixPermissions: 0], ofItemAtPath: file.path)
+        defer { try? FileManager.default.setAttributes([.posixPermissions: 0o644], ofItemAtPath: file.path) }
+        _ = try? await store.installedURL(for: model)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: receipt.path), "A read error deleted the receipt")
+        try FileManager.default.setAttributes([.posixPermissions: 0o644], ofItemAtPath: file.path)
+        let readable = try await store.installedURL(for: model)
+        XCTAssertEqual(readable, file)
+        try? FileManager.default.removeItem(at: cache); try Data("abd".utf8).write(to: file)
+        let corrupt = try await store.installedURL(for: model)
+        XCTAssertNil(corrupt); XCTAssertFalse(FileManager.default.fileExists(atPath: receipt.path))
+    }
+    // Audit 22.10 (iOS M8): temporary assembly folders left by a killed process are removed later.
+    func testPackageAssemblyRemovesStaleTemporaryFolders() async throws {
+        let parent = FileManager.default.temporaryDirectory.appendingPathComponent("audit-package-" + UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: parent) }
+        let root = parent.appendingPathComponent("packages")
+        let stale = root.appendingPathComponent("staging-" + UUID().uuidString), piper = root.appendingPathComponent("piper-" + UUID().uuidString)
+        let fresh = root.appendingPathComponent("staging-" + UUID().uuidString)
+        for folder in [stale, piper, fresh] {
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+            try Data(count: 1024).write(to: folder.appendingPathComponent("part.bin"))
+        }
+        let old = Date().addingTimeInterval(-2 * 86_400)
+        for folder in [stale, piper] { try FileManager.default.setAttributes([.modificationDate: old], ofItemAtPath: folder.path) }
+        let a = parent.appendingPathComponent("a.bin"); try Data("abc".utf8).write(to: a)
+        let package = ModelPackage(id: "audit-package", archiveRoot: "audit", files: [PackageFile(path: "a", byteCount: 3, sha256: abc)])
+        _ = try await PackageStore(root: root).install(files: ["a": a], package: package)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: stale.path))
+        XCTAssertFalse(FileManager.default.fileExists(atPath: piper.path))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: fresh.path), "A folder of a running assembly was removed")
+    }
+}

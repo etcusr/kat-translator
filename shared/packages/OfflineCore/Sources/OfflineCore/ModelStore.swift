@@ -87,7 +87,9 @@ public actor ModelStore {
             return file
         }
         catch is CancellationError { throw CancellationError() }
-        catch { try? FileManager.default.removeItem(at: receipt); return nil }
+        // Only a size or digest mismatch disproves the download. A read failure (for example a protected file
+        // before the first unlock) keeps the receipt and is reported, instead of forcing a re-download (audit 22.10, iOS M8).
+        catch ModelStoreError.invalidSize, ModelStoreError.invalidDigest { try? FileManager.default.removeItem(at: receipt); return nil }
     }
     public func verifyAndInstall(stagingURL: URL, model: ModelDescriptor) throws -> URL {
         try prepare()
