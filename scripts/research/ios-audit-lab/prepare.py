@@ -45,5 +45,7 @@ replace("objects[project]['targets'].append(widget_target)\n", "")
 replace("objects[target]['dependencies'].append(obj('widget-dependency',isa='PBXTargetDependency',target=widget_target))\n", "")
 replace("objects[target]['buildPhases'].append(widget_embed)\n", "")
 generator.write_text(s)
+# The UI test target becomes a remote control for the running lab (see LabDriverUITests.swift).
+shutil.copy2(Path(__file__).with_name("LabDriverUITests.swift"), src / "apps/ios/tests/ui/TranslatorUITests.swift")
 subprocess.run([sys.executable, str(generator)], cwd=src, check=True)
 print("Prepared", src, "from", commit)
