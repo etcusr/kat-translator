@@ -496,6 +496,7 @@ internal object UiStringsTr {
         "Открыть" to "Aç",
         "Открыть аудиофайл" to "Ses dosyası aç",
         "Открыть аудиофайл…" to "Ses dosyası aç",
+        "Открыть в «Моделях»" to "Modeller'de aç",
         "Открыть изображение" to "Görüntü aç",
         "Открыть изображение…" to "Görüntü aç…",
         "Отмена" to "İptal",
@@ -521,9 +522,9 @@ internal object UiStringsTr {
         "Ошибка обработки" to "İşleme başarısız",
         "Ошибка обработки записи. Попробуйте снова." to "Kayıt işlenemedi. Yeniden deneyin.",
         "Ошибка перевода OPUS." to "OPUS çevirisi başarısız.",
-        "Пакет Core ML предназначен для Apple. На Android используйте Whisper" to "Bu Core ML paketi Apple içindir. Android’de Whisper kullanın",
     )
     private fun part5() = mapOf(
+        "Пакет Core ML предназначен для Apple. На Android используйте Whisper" to "Bu Core ML paketi Apple içindir. Android’de Whisper kullanın",
         "Пакет изменяется" to "Paket değiştiriliyor",
         "Пакет не установлен" to "Paket yüklü değil",
         "Пакет проверен и установлен" to "Paket doğrulandı ve yüklendi",
@@ -594,6 +595,7 @@ internal object UiStringsTr {
         "Подробнее о " to "Daha fazla bilgi: ",
         "Позже" to "Daha sonra",
         "Поиск языка" to "Dil bul",
+        "Показать загрузку" to "İndirmeyi göster",
         "Показать полностью" to "Metnin tamamını göster",
         "Показывать диагностику" to "Tanılamayı göster",
         "Показывать на главном экране значок с расходом памяти и времени обработки." to "Ana ekranda bellek kullanımı ve işlem süreleri için bir simge gösterir.",
@@ -622,10 +624,10 @@ internal object UiStringsTr {
         "Приостановить озвучку" to "Oynatmayı duraklat",
         "Приостановить скачивание" to "İndirmeyi duraklat",
         "Приостановить скачивание голосов" to "Ses indirmelerini duraklat",
-        "Приостановленную загрузку можно продолжить, если сервер сохранил данные. Изменение мобильной сети применяется только к новой загрузке. Выбор, скачивание и удаление голосов доступны в настройках → Голоса и образцы." to "Sunucuda veriler duruyorsa duraklatılan indirmeler sürdürülebilir. Mobil veri erişimindeki değişiklikler yalnızca yeni indirmeleri etkiler. Ses seçmek, indirmek veya silmek için Ayarlar → Sesler ve örnekler'i açın.",
-        "Проверить снова" to "Yeniden kontrol et",
     )
     private fun part6() = mapOf(
+        "Приостановленную загрузку можно продолжить, если сервер сохранил данные. Изменение мобильной сети применяется только к новой загрузке. Выбор, скачивание и удаление голосов доступны в настройках → Голоса и образцы." to "Sunucuda veriler duruyorsa duraklatılan indirmeler sürdürülebilir. Mobil veri erişimindeki değişiklikler yalnızca yeni indirmeleri etkiler. Ses seçmek, indirmek veya silmek için Ayarlar → Sesler ve örnekler'i açın.",
+        "Проверить снова" to "Yeniden kontrol et",
         "Проверка" to "Doğrulanıyor",
         "Проверка Index не пройдена. Установите модель заново." to "Index doğrulaması başarısız. Modeli yeniden yükleyin.",
         "Проверка SHA-256" to "SHA-256 doğrulanıyor",
@@ -724,10 +726,10 @@ internal object UiStringsTr {
         "Сервер вернул HTTP %@" to "Sunucu HTTP %@ döndürdü",
         "Сервер вернул HTTP %@. Попробуйте позже." to "Sunucu HTTP %@ döndürdü. Daha sonra yeniden deneyin.",
         "Сервер вернул другой файл" to "Sunucu farklı bir dosya döndürdü",
-        "Сервер вернул неверный диапазон" to "Sunucu geçersiz bir bayt aralığı döndürdü",
-        "Символов: %@" to "Karakter: %@",
     )
     private fun part7() = mapOf(
+        "Сервер вернул неверный диапазон" to "Sunucu geçersiz bir bayt aralığı döndürdü",
+        "Символов: %@" to "Karakter: %@",
         "Скачайте OCR-пакет в настройках распознавания" to "OCR paketini tanıma ayarlarından indirin",
         "Скачайте голос в настройках, чтобы озвучить перевод." to "Çeviriyi dinlemek için Ayarlar'dan bir ses indirin.",
         "Скачайте голос для этого языка в настройках. Текстовый перевод доступен." to "Bu dil için Ayarlar'dan bir ses indirin. Metin çevirisi kullanılabilir.",
@@ -747,10 +749,12 @@ internal object UiStringsTr {
         "Скачивание" to "İndiriliyor",
         "Скачивание направлений…" to "Yönler indiriliyor…",
         "Скачивание этого направления пока недоступно; установите файлы вручную" to "Bu yön henüz indirilemiyor; dosyaları elle yükleyin",
+        "Скачиваю %@ · %@%" to "%@ indiriliyor · %@%",
         "Скачиваю выбранные пакеты…" to "Seçili paketler indiriliyor…",
         "Скачиваю голоса…" to "Sesler indiriliyor…",
         "Скачиваю озвучку: %@ · %@%" to "%@ sesi indiriliyor · %@%",
         "Скачиваю распознавание: %@ · %@%" to "Konuşma tanıma indiriliyor: %@ · %@%",
+        "Скачиваю: %@" to "İndiriliyor: %@",
         "Скопировано" to "Kopyalandı",
         "Скопировать" to "Kopyala",
         "Скопировать версию и сборку" to "Sürüm ve derlemeyi kopyala",
@@ -824,12 +828,12 @@ internal object UiStringsTr {
         "Удерживайте и говорите" to "Basılı tutup konuşun",
         "Удерживать для записи" to "Kaydetmek için basılı tut",
         "Уже установленные файлы не скачиваются повторно." to "Yüklü dosyalar yeniden indirilmez.",
+    )
+    private fun part8() = mapOf(
         "Уменьшить" to "Uzaklaştır",
         "Управление записью" to "Kayıt kontrolleri",
         "Установите %@ в разделе «Модели»." to "Modeller'den %@ yükleyin.",
         "Установите Index 2B в разделе «Модели»." to "Modeller'den Index 2B'yi yükleyin.",
-    )
-    private fun part8() = mapOf(
         "Установите Index в разделе «Модели»." to "Modeller'den Index'i yükleyin.",
         "Установите OCR-пакет в разделе «Модели»." to "Modeller'den bir OCR paketi yükleyin.",
         "Установите выбранную модель в разделе «Модели» или выберите другую." to "Seçili modeli Modeller'den yükleyin veya başka bir model seçin.",

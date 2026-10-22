@@ -47,6 +47,12 @@ public struct PipelineFiles: Sendable {
         guard let omnilingual else { throw RecognitionError.downloadRequired }
         return omnilingual
     }
+    /// The package to download when recognition of `language` needs one; nil when ready or unsupported.
+    public func missingRecognitionPackage(for language: SpeechLanguage?) -> RecognitionPackageKind? {
+        do { _ = try recognitionURL(for: language); return nil }
+        catch RecognitionError.downloadRequired { return RecognitionCatalog.package(for: language, preference: recognitionPreference) }
+        catch { return nil }
+    }
     public let translationModel: TranslationModel
     public let voices: [SpeechLanguage: URL]
     public let voiceModelIDs: [SpeechLanguage: String]

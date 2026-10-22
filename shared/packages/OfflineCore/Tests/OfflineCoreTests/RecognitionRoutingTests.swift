@@ -74,6 +74,32 @@ final class RecognitionRoutingTests: XCTestCase {
         XCTAssertFalse(SpeechLanguage.lang_hi_Latn.supportsRecognition)
         XCTAssertEqual(RecognitionCatalog.omnilingualCodes["ban"], "ban_Latn")
     }
+    /// The "download recognition" hint names the exact package the route would read (iPhone EN→RU without Whisper).
+    func testMissingRecognitionHintNamesTheRoutedPackage() {
+        let url = URL(fileURLWithPath: "/mt")
+        let classic = URL(fileURLWithPath: "/Models/" + ModelDescriptor.turbo.id + ".bin")
+        let empty = PipelineFiles(asr: nil, translation: url, voices: [:])
+        XCTAssertEqual(empty.missingRecognitionPackage(for: .english), .whisper)
+        XCTAssertEqual(empty.missingRecognitionPackage(for: nil), .whisper)
+        XCTAssertEqual(empty.missingRecognitionPackage(for: .lang_ban), .omnilingual)
+        XCTAssertNil(empty.missingRecognitionPackage(for: .lang_sr_Latn), "unsupported voice input is not a download")
+        let whisperOnly = PipelineFiles(asr: classic, translation: url, voices: [:])
+        XCTAssertNil(whisperOnly.missingRecognitionPackage(for: .russian))
+        XCTAssertEqual(whisperOnly.missingRecognitionPackage(for: .lang_ban), .omnilingual)
+        let ultra = PipelineFiles(asr: classic, translation: url, voices: [:], recognitionPreference: .ultra)
+        XCTAssertEqual(ultra.missingRecognitionPackage(for: .russian), .ultra)
+        XCTAssertNil(ultra.missingRecognitionPackage(for: .japanese))
+        let manualWhisper = PipelineFiles(asr: URL(fileURLWithPath: "/other.bin"), translation: url, voices: [:], recognitionPreference: .whisper)
+        XCTAssertEqual(manualWhisper.missingRecognitionPackage(for: .english), .whisper)
+        for preference in RecognitionPreference.allCases {
+            for language in SpeechLanguage.allCases.map(Optional.some) + [nil] {
+                let files = PipelineFiles(asr: nil, translation: url, voices: [:], recognitionPreference: preference)
+                let kind = RecognitionCatalog.package(for: language, preference: preference)
+                XCTAssertEqual(files.missingRecognitionPackage(for: language), kind)
+                if kind == nil { XCTAssertThrowsError(try files.recognitionURL(for: language)) }
+            }
+        }
+    }
 }
 
 final class RecognitionChunksTests: XCTestCase {

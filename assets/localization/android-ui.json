@@ -933,5 +933,10 @@
     "en": "Auto: Russian uses GigaAM, English uses Parakeet v2, other languages use Whisper Q8. Recording, import and verification use the same selection. If the model is missing, the app offers a download. A manual model selection applies to every mode.",
     "es": "Auto: ruso con GigaAM, inglés con Parakeet v2 y los demás idiomas con Whisper Q8. La grabación, la importación y la verificación usan la misma selección. Si falta el modelo, la aplicación ofrece descargarlo. La selección manual se aplica a todos los modos.",
     "tr": "Otomatik: Rusça için GigaAM, İngilizce için Parakeet v2, diğer diller için Whisper Q8 kullanılır. Kayıt, içe aktarma ve doğrulama aynı seçimi kullanır. Model eksikse uygulama indirmeyi önerir. Elle seçilen model tüm modlarda geçerlidir."
+  },
+  "Скачиваю %@ · %@%": {
+    "en": "Downloading %@ · %@%",
+    "es": "Descargando %@ · %@%",
+    "tr": "%@ indiriliyor · %@%"
   }
 }

@@ -94,6 +94,10 @@ import OfflineCore
         if translation.complete { return frozen == nil ? L10n.text("Перевод обновляется при изменении текста") : L10n.text("Перевод снимка готов") }
         return frozen == nil ? L10n.text("Наведите камеру на текст") : L10n.text("Текст не найден")
     }
+    /// The OCR package behind the status hint, so the camera can download it in place.
+    var statusShortcut: PackageShortcut? {
+        status == L10n.text("Скачайте OCR-пакет в настройках распознавания") ? .ocr(source) : nil
+    }
     func open(modelURL: URL?) async {
         guard await activation.waitForClose(closing) else { return }
         guard !active, startup == nil else { return }

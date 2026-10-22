@@ -65,6 +65,21 @@ public enum RecognitionPreference: String, CaseIterable, Sendable {
     }
 }
 
+/// The package a recognition route reads; lets a "download recognition" hint start that exact package.
+public enum RecognitionPackageKind: String, Sendable { case whisper, ultra, omnilingual }
+extension RecognitionCatalog {
+    /// Same routing as `PipelineFiles.recognitionURL(for:)`; nil when voice input is unavailable for the language.
+    public static func package(for language: SpeechLanguage?, preference: RecognitionPreference) -> RecognitionPackageKind? {
+        switch preference {
+        case .whisper: return language == nil || language?.whisperCode != nil ? .whisper : nil
+        case .ultra: return prefersUltra(language) ? .ultra : nil
+        case .automatic:
+            guard let language, language.whisperCode == nil else { return .whisper }
+            return omnilingualCodes[language.rawValue] != nil ? .omnilingual : nil
+        }
+    }
+}
+
 public enum RecognitionError: LocalizedError {
     case downloadRequired
     public var errorDescription: String? { L10n.text("Скачайте распознавание для выбранного языка в разделе «Модели».") }

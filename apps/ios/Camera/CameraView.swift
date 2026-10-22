@@ -44,7 +44,19 @@ struct CameraView: View, Equatable {
     @GestureState private var dragging: CGSize = .zero
     @State private var showHistory = false
     @State private var showOCR = false
+    @State private var showModels = false
     @State private var showText = false
+    /// Missing OCR leads to the OCR settings card, a missing translation model to Models.
+    private func packageHint(_ text: String, _ shortcut: PackageShortcut) -> some View {
+        PackageHintButton(text: text, shortcut: shortcut, packages: packages) {
+            if case .translation = $0 { showModels = true } else { showOCR = true }
+        }.font(.caption)
+    }
+    @ViewBuilder private func errorText(_ error: String) -> some View {
+        if error == L10n.text("Сначала скачайте модель перевода в разделе «Модели».") { packageHint(error, .translation) }
+        else if error == CameraError.modelNeeded.localizedDescription { packageHint(error, .ocr(model.source)) }
+        else { Text(error).foregroundStyle(.orange).font(.caption) }
+    }
     var body: some View {
         let _ = packageState
         GeometryReader { geometry in
@@ -97,6 +109,10 @@ struct CameraView: View, Equatable {
             }.frame(width: geometry.size.width, height: geometry.size.height)
         }.background(.black).preferredColorScheme(.dark).tint(KatTheme.accent)
         .sheet(isPresented: $showHistory) { HistoryView(history: app.history) }
+        // Opened from the missing-translation hint; reopening binds the camera to a newly installed model.
+        .sheet(isPresented: $showModels, onDismiss: { Task { await app.openCamera() } }) {
+            ModelsView(coordinator: packages, session: app.session, model: app, focus: .translation) { await app.removeModel($0) }
+        }
         .sheet(isPresented: $showOCR) {
             NavigationStack {
                 Form {
@@ -189,8 +205,9 @@ struct CameraView: View, Equatable {
                     }
                 }
             } else { Text(L10n.text("Разведите пальцы, чтобы увеличить снимок")).font(.caption2) }
-            Text(importer.busy ? L10n.text("Открываю изображение…") : model.status).font(.caption).lineLimit(2).frame(maxWidth: .infinity, alignment: .leading)
-            if let error = importError ?? importer.error ?? model.error ?? translation.error { Text(error).foregroundStyle(.orange).font(.caption).lineLimit(3) }
+            if !importer.busy, let shortcut = model.statusShortcut { packageHint(model.status, shortcut) }
+            else { Text(importer.busy ? L10n.text("Открываю изображение…") : model.status).font(.caption).lineLimit(2).frame(maxWidth: .infinity, alignment: .leading) }
+            if let error = importError ?? importer.error ?? model.error ?? translation.error { errorText(error).lineLimit(3) }
             if let message = model.message { Text(message).foregroundStyle(.green).font(.caption).lineLimit(2) }
             captureControls
         }.padding(.horizontal, 20).padding(.vertical, 10).background(.black.opacity(0.8))
@@ -217,11 +234,12 @@ struct CameraView: View, Equatable {
                                 .background(zoom == factor ? Color.white.opacity(0.25) : Color.clear, in: Circle())
                         }.accessibilityLabel(L10n.text("Увеличение \(Int(factor)) крат"))
                     }
-                    Text(importer.busy ? L10n.text("Открываю изображение…") : model.status).font(.caption).lineLimit(2)
+                    if !importer.busy, let shortcut = model.statusShortcut { packageHint(model.status, shortcut) }
+                    else { Text(importer.busy ? L10n.text("Открываю изображение…") : model.status).font(.caption).lineLimit(2) }
                     Spacer(minLength: 0)
                 } else { pictureActions }
             }
-            if let error = importError ?? importer.error ?? model.error ?? translation.error { Text(error).foregroundStyle(.orange).font(.caption).lineLimit(2) }
+            if let error = importError ?? importer.error ?? model.error ?? translation.error { errorText(error).lineLimit(2) }
             if let message = model.message { Text(message).foregroundStyle(.green).font(.caption).lineLimit(1) }
         }.padding(8).background(.black.opacity(0.7), in: RoundedRectangle(cornerRadius: 14))
     }

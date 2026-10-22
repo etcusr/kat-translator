@@ -496,6 +496,7 @@ internal object UiStringsEn {
         "Открыть" to "Open",
         "Открыть аудиофайл" to "Open audio file",
         "Открыть аудиофайл…" to "Open audio file…",
+        "Открыть в «Моделях»" to "Open in Models",
         "Открыть изображение" to "Open image",
         "Открыть изображение…" to "Open image…",
         "Отмена" to "Cancel",
@@ -521,9 +522,9 @@ internal object UiStringsEn {
         "Ошибка обработки" to "Processing failed",
         "Ошибка обработки записи. Попробуйте снова." to "Could not process the recording. Try again.",
         "Ошибка перевода OPUS." to "OPUS translation failed.",
-        "Пакет Core ML предназначен для Apple. На Android используйте Whisper" to "This Core ML package requires Apple. Use Whisper on Android",
     )
     private fun part5() = mapOf(
+        "Пакет Core ML предназначен для Apple. На Android используйте Whisper" to "This Core ML package requires Apple. Use Whisper on Android",
         "Пакет изменяется" to "Package is being changed",
         "Пакет не установлен" to "Package is not installed",
         "Пакет проверен и установлен" to "Package verified and installed",
@@ -594,6 +595,7 @@ internal object UiStringsEn {
         "Подробнее о " to "More about ",
         "Позже" to "Later",
         "Поиск языка" to "Find a language",
+        "Показать загрузку" to "Show download",
         "Показать полностью" to "Show full text",
         "Показывать диагностику" to "Show diagnostics",
         "Показывать на главном экране значок с расходом памяти и времени обработки." to "Show an icon on the main screen for memory usage and processing times.",
@@ -622,10 +624,10 @@ internal object UiStringsEn {
         "Приостановить озвучку" to "Pause playback",
         "Приостановить скачивание" to "Pause download",
         "Приостановить скачивание голосов" to "Pause voice downloads",
-        "Приостановленную загрузку можно продолжить, если сервер сохранил данные. Изменение мобильной сети применяется только к новой загрузке. Выбор, скачивание и удаление голосов доступны в настройках → Голоса и образцы." to "Paused downloads can resume if the server still has the data. Changes to cellular access apply only to new downloads. To choose, download or delete voices, open Settings → Voices and samples.",
-        "Проверить снова" to "Check again",
     )
     private fun part6() = mapOf(
+        "Приостановленную загрузку можно продолжить, если сервер сохранил данные. Изменение мобильной сети применяется только к новой загрузке. Выбор, скачивание и удаление голосов доступны в настройках → Голоса и образцы." to "Paused downloads can resume if the server still has the data. Changes to cellular access apply only to new downloads. To choose, download or delete voices, open Settings → Voices and samples.",
+        "Проверить снова" to "Check again",
         "Проверка" to "Verifying",
         "Проверка Index не пройдена. Установите модель заново." to "Index verification failed. Reinstall the model.",
         "Проверка SHA-256" to "Verifying SHA-256",
@@ -724,10 +726,10 @@ internal object UiStringsEn {
         "Сервер вернул HTTP %@" to "Server returned HTTP %@",
         "Сервер вернул HTTP %@. Попробуйте позже." to "The server returned HTTP %@. Try again later.",
         "Сервер вернул другой файл" to "Server returned a different file",
-        "Сервер вернул неверный диапазон" to "Server returned an invalid byte range",
-        "Символов: %@" to "Characters: %@",
     )
     private fun part7() = mapOf(
+        "Сервер вернул неверный диапазон" to "Server returned an invalid byte range",
+        "Символов: %@" to "Characters: %@",
         "Скачайте OCR-пакет в настройках распознавания" to "Download the OCR package in recognition settings",
         "Скачайте голос в настройках, чтобы озвучить перевод." to "Download a voice in Settings to hear the translation.",
         "Скачайте голос для этого языка в настройках. Текстовый перевод доступен." to "Download a voice for this language in Settings. Text translation is available.",
@@ -747,10 +749,12 @@ internal object UiStringsEn {
         "Скачивание" to "Downloading",
         "Скачивание направлений…" to "Downloading directions…",
         "Скачивание этого направления пока недоступно; установите файлы вручную" to "Downloading this direction is not available yet; install the files manually",
+        "Скачиваю %@ · %@%" to "Downloading %@ · %@%",
         "Скачиваю выбранные пакеты…" to "Downloading selected packages…",
         "Скачиваю голоса…" to "Downloading voices…",
         "Скачиваю озвучку: %@ · %@%" to "Downloading %@ voice · %@%",
         "Скачиваю распознавание: %@ · %@%" to "Downloading recognition: %@ · %@%",
+        "Скачиваю: %@" to "Downloading: %@",
         "Скопировано" to "Copied",
         "Скопировать" to "Copy",
         "Скопировать версию и сборку" to "Copy version and build",
@@ -824,12 +828,12 @@ internal object UiStringsEn {
         "Удерживайте и говорите" to "Hold to speak",
         "Удерживать для записи" to "Hold to record",
         "Уже установленные файлы не скачиваются повторно." to "Installed files are not downloaded again.",
+    )
+    private fun part8() = mapOf(
         "Уменьшить" to "Zoom out",
         "Управление записью" to "Recording controls",
         "Установите %@ в разделе «Модели»." to "Install %@ in Models.",
         "Установите Index 2B в разделе «Модели»." to "Install Index 2B in Models.",
-    )
-    private fun part8() = mapOf(
         "Установите Index в разделе «Модели»." to "Install Index in Models.",
         "Установите OCR-пакет в разделе «Модели»." to "Install an OCR package in Models.",
         "Установите выбранную модель в разделе «Модели» или выберите другую." to "Install the selected model in Models or choose another one.",

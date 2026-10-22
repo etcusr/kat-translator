@@ -22,6 +22,7 @@ struct SettingsView: View {
     @AppStorage("historyRecordImages") private var recordImages = true
     @AppStorage("showTechnicalInfo") private var showTechnicalInfo = false
     @State private var showRecognitionModels = false
+    @State private var modelsFocus: PackageShortcut?
     @State private var confirmClear = false
     @State private var clearing = false
     @State private var clearMessage: String?
@@ -89,7 +90,7 @@ struct SettingsView: View {
                             .accessibilityIdentifier("settings.recognition." + choice.rawValue)
                             .accessibilityAddTraits(recognitionPreference == choice ? .isSelected : [])
                     }
-                    Button(L10n.text("Модели распознавания")) { showRecognitionModels = true }
+                    Button(L10n.text("Модели распознавания")) { modelsFocus = nil; showRecognitionModels = true }
                 } header: {
                     SettingsSectionHeader(L10n.text("Распознавание речи"))
                 } footer: {
@@ -97,7 +98,11 @@ struct SettingsView: View {
                     if recognitionPreference == .ultra {
                         Text(L10n.text("Ultra поддерживает 25 языков, включая русский и английский. Для остальных выберите Авто или Whisper."))
                     }
-                    if let issue = model.voiceLanguageIssue { Text(issue) }
+                    if let issue = model.voiceLanguageIssue {
+                        if let shortcut = model.voiceIssueShortcut {
+                            PackageHintButton(text: issue, shortcut: shortcut, packages: model.packages) { modelsFocus = $0; showRecognitionModels = true }
+                        } else { Text(issue) }
+                    }
                 }
                 Section {
                     Toggle(L10n.text("Исправлять дату и время"), isOn: $dateTimeRepair)
@@ -245,8 +250,8 @@ struct SettingsView: View {
                     SettingsSectionHeader(L10n.text("О приложении"))
                 }
             }
-                .sheet(isPresented: $showRecognitionModels) {
-                    ModelsView(coordinator: model.packages, session: model.session, model: model) { await model.removeModel($0) }
+                .sheet(isPresented: $showRecognitionModels, onDismiss: { modelsFocus = nil }) {
+                    ModelsView(coordinator: model.packages, session: model.session, model: model, focus: modelsFocus) { await model.removeModel($0) }
                 }
                 .katSectionSpacing().katDesktopPanelSurface()
                 .navigationTitle(L10n.text("Настройки"))

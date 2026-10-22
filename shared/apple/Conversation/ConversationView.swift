@@ -32,6 +32,7 @@ struct ConversationView: View {
     @State private var input: TranslatorInput = .voice
     @State private var previousInput: TranslatorInput = .voice
     @State private var showModels = false
+    @State private var modelsFocus: PackageShortcut?
     @State private var showHistory = false
     @State private var showAudioImporter = false
     @State private var showSettings = false
@@ -125,7 +126,10 @@ struct ConversationView: View {
                 }.padding(.horizontal, 20).padding(.vertical, 12)
                 if let message = integration.message {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text(message).foregroundStyle(.orange).textSelection(.enabled).accessibilityIdentifier("integration.message")
+                        if message == L10n.text("Сначала скачайте модель перевода в разделе «Модели».") {
+                            PackageHintButton(text: message, shortcut: .translation, packages: packages, open: openModels)
+                                .accessibilityIdentifier("integration.message")
+                        } else { Text(message).foregroundStyle(.orange).textSelection(.enabled).accessibilityIdentifier("integration.message") }
                         if integration.needsAccessibility { Button(L10n.text("Разрешить доступ к выделенному тексту…"), action: integration.requestAccessibility) }
                         if integration.needsScreenCapture { Button(L10n.text("Разрешить запись экрана…"), action: integration.requestScreenCapture) }
                     }.frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal, 20)
@@ -157,7 +161,7 @@ struct ConversationView: View {
                 }
                 if input == .camera {
                     #if os(macOS)
-                    CameraView(app: model, expandTranslation: { readingField = .imageTranslation }).withClose { input = previousInput }
+                    CameraView(app: model, expandTranslation: { readingField = .imageTranslation }, openModels: openModels).withClose { input = previousInput }
                     #else
                     Color.black
                     #endif
@@ -199,7 +203,7 @@ struct ConversationView: View {
                     }
                     Button { showHistory = true } label: { Image(systemName: "clock").katToolbarIcon() }.accessibilityLabel(L10n.text("История переводов")).accessibilityIdentifier("toolbar.history").disabled(speechBusy)
                     Button { showSettings = true } label: { Image(systemName: "gearshape").katToolbarIcon() }.accessibilityLabel(L10n.text("Настройки")).disabled(configurationBusy)
-                    Button { showModels = true } label: { Image(systemName: "square.stack.3d.up").katToolbarIcon() }.accessibilityLabel(L10n.text("Модели")).disabled(configurationBusy)
+                    Button { modelsFocus = nil; showModels = true } label: { Image(systemName: "square.stack.3d.up").katToolbarIcon() }.accessibilityLabel(L10n.text("Модели")).disabled(configurationBusy)
                 }
                 .onChange(of: input) { old, new in
                     if new == .camera { previousInput = old }
@@ -261,8 +265,9 @@ struct ConversationView: View {
                 .onChange(of: packages.downloadingAll) { _, downloading in if !downloading { Task { await model.loadAutomaticallyIfNeeded() } } }
                 .onOpenURL { url in if url.scheme == "kattranslator", url.host == "downloads" { showModels = true } }
                 .sheet(isPresented: $showModels, onDismiss: {
+                    modelsFocus = nil
                     Task { await resumeImageAfterConfiguration() }
-                }) { ModelsView(coordinator: packages, session: session, model: model) { await model.removeModel($0) } }
+                }) { ModelsView(coordinator: packages, session: session, model: model, focus: modelsFocus) { await model.removeModel($0) } }
         }.preferredColorScheme(.dark).tint(accent).katDesktopControls()
         .disabled(showProcessingOverlay)
         .accessibilityHidden(showProcessingOverlay)
@@ -298,6 +303,16 @@ struct ConversationView: View {
         #if os(macOS)
         .onGeometryChange(for: CGFloat.self) { max(300, $0.size.height - 390) } action: { desktopEditorHeight = $0 }
         #endif
+    }
+    /// A package hint leads to its card in Models; configuration stays locked while work is running.
+    private func openModels(_ shortcut: PackageShortcut) {
+        guard !configurationBusy else { return }
+        modelsFocus = shortcut; showModels = true
+    }
+    private var shownIssue: String? { input == .voice ? model.voiceLanguageIssue : model.languageIssue }
+    private var targetVoiceMissing: Bool {
+        let target = model.languages.runtimeTarget ?? .english
+        return target.hasVoice && !packages.canSpeak(target)
     }
     private func resumeImageAfterConfiguration() async {
         #if os(macOS)
@@ -337,8 +352,10 @@ struct ConversationView: View {
                     #else
                     LanguagePairPicker(selection: $model.languages, mode: input == .voice ? .voice : .text, model: packages.selectedTranslation, app: model, packages: packages, compact: true).disabled(busy)
                     #endif
-                    if let issue = input == .voice ? model.voiceLanguageIssue : model.languageIssue {
-                        Text(issue).font(.caption).foregroundStyle(.orange)
+                    if let issue = shownIssue {
+                        if let shortcut = input == .voice ? model.voiceIssueShortcut : PackageShortcut.translation {
+                            PackageHintButton(text: issue, shortcut: shortcut, packages: packages, open: openModels).font(.caption)
+                        } else { Text(issue).font(.caption).foregroundStyle(.orange) }
                     }
                     #if os(iOS)
                     automaticSpeechControl
@@ -351,8 +368,10 @@ struct ConversationView: View {
                         }
                     }
                     #endif
-                    if !packages.canSpeak(model.languages.runtimeTarget ?? .english) {
-                        Text((model.languages.runtimeTarget?.hasVoice ?? false) ? L10n.text("Для озвучки скачайте голос в настройках. Перевод доступен без него.") : L10n.text("Для этого языка пока доступен перевод без озвучки.")).font(.caption).foregroundStyle(.secondary)
+                    if targetVoiceMissing, let target = model.languages.runtimeTarget {
+                        PackageHintButton(text: L10n.text("Для озвучки скачайте голос в настройках. Перевод доступен без него."), shortcut: .voice(target), packages: packages).font(.caption)
+                    } else if !packages.canSpeak(model.languages.runtimeTarget ?? .english) {
+                        Text(L10n.text("Для этого языка пока доступен перевод без озвучки.")).font(.caption).foregroundStyle(.secondary)
                     }
         }
     }
@@ -362,8 +381,11 @@ struct ConversationView: View {
                         Text(L10n.text("Перевод ещё не завершён")).font(.caption).foregroundStyle(.secondary)
                             .accessibilityIdentifier("translation.partial.notice")
                     }
-                    if let message = model.message ?? fields.error { Label(message, systemImage: "info.circle").font(.subheadline).foregroundStyle(.orange) }
-                    if let notice = fields.speechNotice { Text(notice).font(.caption).foregroundStyle(.secondary) }
+                    // The language-control hint above already shows (and acts on) the same missing package.
+                    if let message = model.message ?? fields.error, message != shownIssue { Label(message, systemImage: "info.circle").font(.subheadline).foregroundStyle(.orange) }
+                    if let notice = fields.speechNotice, !(targetVoiceMissing && notice == L10n.text("Скачайте голос в настройках, чтобы озвучить перевод.")) {
+                        Text(notice).font(.caption).foregroundStyle(.secondary)
+                    }
                     if let warning = fields.archiveWarning { Text(warning).font(.caption).foregroundStyle(.orange) }
         }
     }

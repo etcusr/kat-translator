@@ -8,6 +8,8 @@ struct ModelsView: View {
     @ObservedObject var coordinator: PackageDownloadCoordinator
     @ObservedObject var session: ConversationPipeline
     @ObservedObject var model: AppModel
+    /// A package hint opens Models on its card.
+    var focus: PackageShortcut? = nil
     let remove: (ModelDownloader) async -> Void
     @Environment(\.dismiss) private var dismiss
     @ObservedObject private var downloadAccess = DownloadAccessSettings.shared
@@ -16,6 +18,7 @@ struct ModelsView: View {
     private let memory = ProcessInfo.processInfo.physicalMemory
     var body: some View {
         NavigationStack {
+            ScrollViewReader { proxy in
             List {
                 Section {
                     #if os(macOS)
@@ -47,6 +50,7 @@ struct ModelsView: View {
                 KatPanelSection(L10n.text("Модель перевода")) {
                     Text(ModelAdvice.startingPoint(memory: memory))
                         .font(AppPlatform.panelFootnote).foregroundStyle(.secondary)
+                        .id(PackageShortcut.translationCardID)
                     Button {
                         coordinator.setAutoTranslation(true); Task { await model.applyAutoTranslation() }
                     } label: {
@@ -150,6 +154,12 @@ struct ModelsView: View {
                     Text(L10n.text("Приостановленную загрузку можно продолжить, если сервер сохранил данные. Изменение мобильной сети применяется только к новой загрузке. Выбор, скачивание и удаление голосов доступны в настройках → Голоса и образцы."))
                         .font(AppPlatform.panelFootnote).foregroundStyle(.secondary)
                 }
+            }.task {
+                // Rows exist only after the first layout pass; scroll once they do.
+                guard let focus, let id = coordinator.modelsCardID(for: focus) else { return }
+                try? await Task.sleep(for: .milliseconds(350))
+                withAnimation { proxy.scrollTo(id, anchor: .top) }
+            }
             }.katScreenSurface().katPanelTypography().navigationTitle(L10n.text("Модели"))
                 .katDoneToolbar { dismiss() }
                 .katFullScreenCover(isPresented: $showLanguageSetup) { LanguageSetupView(model: model) }
@@ -276,6 +286,7 @@ private struct PackageRow: View {
     var body: some View {
         KatPanelSection(downloader.model.title) {
             LabeledContent(L10n.text("Загрузка"), value: L10n.bytes(downloader.model.byteCount))
+                .id(PackageShortcut.cardID(downloader.model.id))
             if downloader.model.id == TranslationModel.mil12B.rawValue {
                 Label(L10n.text("Не рекомендуется: на iPhone 17 Pro приложение закрывалось из-за нехватки памяти."), systemImage: "exclamationmark.triangle")
                     .font(AppPlatform.panelFootnote).foregroundStyle(.orange)
@@ -373,6 +384,7 @@ private struct RecognitionPackageRow: View {
     var body: some View {
         KatPanelSection(definition.title) {
             LabeledContent(L10n.text("Загрузка"), value: L10n.bytes(definition.manifest.expandedBytes))
+                .id(PackageShortcut.cardID(definition.id))
             if packages.directories[definition.id] != nil {
                 Label(L10n.text("Скачано и проверено"), systemImage: "checkmark.circle.fill")
                     .accessibilityIdentifier("model.installed." + definition.id)

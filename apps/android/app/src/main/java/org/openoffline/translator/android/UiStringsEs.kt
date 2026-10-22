@@ -496,6 +496,7 @@ internal object UiStringsEs {
         "Открыть" to "Abrir",
         "Открыть аудиофайл" to "Abrir archivo de audio",
         "Открыть аудиофайл…" to "Abrir archivo de audio",
+        "Открыть в «Моделях»" to "Abrir en Modelos",
         "Открыть изображение" to "Abrir imagen",
         "Открыть изображение…" to "Abrir imagen…",
         "Отмена" to "Cancelar",
@@ -521,9 +522,9 @@ internal object UiStringsEs {
         "Ошибка обработки" to "Error de procesamiento",
         "Ошибка обработки записи. Попробуйте снова." to "No se ha podido procesar la grabación. Inténtelo de nuevo.",
         "Ошибка перевода OPUS." to "La traducción OPUS ha fallado.",
-        "Пакет Core ML предназначен для Apple. На Android используйте Whisper" to "Este paquete Core ML requiere Apple. Use Whisper en Android",
     )
     private fun part5() = mapOf(
+        "Пакет Core ML предназначен для Apple. На Android используйте Whisper" to "Este paquete Core ML requiere Apple. Use Whisper en Android",
         "Пакет изменяется" to "El paquete se está modificando",
         "Пакет не установлен" to "El paquete no está instalado",
         "Пакет проверен и установлен" to "Paquete verificado e instalado",
@@ -594,6 +595,7 @@ internal object UiStringsEs {
         "Подробнее о " to "Más sobre ",
         "Позже" to "Más tarde",
         "Поиск языка" to "Buscar un idioma",
+        "Показать загрузку" to "Ver la descarga",
         "Показать полностью" to "Mostrar texto completo",
         "Показывать диагностику" to "Mostrar diagnóstico",
         "Показывать на главном экране значок с расходом памяти и времени обработки." to "Muestra un icono en la pantalla principal con el uso de memoria y los tiempos de procesamiento.",
@@ -622,10 +624,10 @@ internal object UiStringsEs {
         "Приостановить озвучку" to "Pausar reproducción",
         "Приостановить скачивание" to "Pausar descarga",
         "Приостановить скачивание голосов" to "Pausar descargas de voces",
-        "Приостановленную загрузку можно продолжить, если сервер сохранил данные. Изменение мобильной сети применяется только к новой загрузке. Выбор, скачивание и удаление голосов доступны в настройках → Голоса и образцы." to "Las descargas pausadas se pueden reanudar si el servidor conserva los datos. Los cambios de acceso móvil solo afectan a nuevas descargas. Para elegir, descargar o eliminar voces, abra Ajustes → Voces y muestras.",
-        "Проверить снова" to "Comprobar de nuevo",
     )
     private fun part6() = mapOf(
+        "Приостановленную загрузку можно продолжить, если сервер сохранил данные. Изменение мобильной сети применяется только к новой загрузке. Выбор, скачивание и удаление голосов доступны в настройках → Голоса и образцы." to "Las descargas pausadas se pueden reanudar si el servidor conserva los datos. Los cambios de acceso móvil solo afectan a nuevas descargas. Para elegir, descargar o eliminar voces, abra Ajustes → Voces y muestras.",
+        "Проверить снова" to "Comprobar de nuevo",
         "Проверка" to "Verificando",
         "Проверка Index не пройдена. Установите модель заново." to "La verificación de Index ha fallado. Reinstale el modelo.",
         "Проверка SHA-256" to "Verificando SHA-256",
@@ -724,10 +726,10 @@ internal object UiStringsEs {
         "Сервер вернул HTTP %@" to "El servidor ha devuelto HTTP %@",
         "Сервер вернул HTTP %@. Попробуйте позже." to "El servidor ha devuelto HTTP %@. Inténtelo más tarde.",
         "Сервер вернул другой файл" to "El servidor ha devuelto un archivo diferente",
-        "Сервер вернул неверный диапазон" to "El servidor ha devuelto un intervalo de bytes no válido",
-        "Символов: %@" to "Caracteres: %@",
     )
     private fun part7() = mapOf(
+        "Сервер вернул неверный диапазон" to "El servidor ha devuelto un intervalo de bytes no válido",
+        "Символов: %@" to "Caracteres: %@",
         "Скачайте OCR-пакет в настройках распознавания" to "Descargue el paquete OCR en los ajustes de reconocimiento",
         "Скачайте голос в настройках, чтобы озвучить перевод." to "Descargue una voz en Ajustes para escuchar la traducción.",
         "Скачайте голос для этого языка в настройках. Текстовый перевод доступен." to "Descargue una voz para este idioma en Ajustes. La traducción de texto está disponible.",
@@ -747,10 +749,12 @@ internal object UiStringsEs {
         "Скачивание" to "Descargando",
         "Скачивание направлений…" to "Descargando direcciones…",
         "Скачивание этого направления пока недоступно; установите файлы вручную" to "La descarga de esta dirección aún no está disponible; instale los archivos manualmente",
+        "Скачиваю %@ · %@%" to "Descargando %@ · %@%",
         "Скачиваю выбранные пакеты…" to "Descargando paquetes elegidos…",
         "Скачиваю голоса…" to "Descargando voces…",
         "Скачиваю озвучку: %@ · %@%" to "Descargando voz de %@ · %@%",
         "Скачиваю распознавание: %@ · %@%" to "Descargando reconocimiento: %@ · %@%",
+        "Скачиваю: %@" to "Descargando: %@",
         "Скопировано" to "Copiado",
         "Скопировать" to "Copiar",
         "Скопировать версию и сборку" to "Copiar versión y compilación",
@@ -824,12 +828,12 @@ internal object UiStringsEs {
         "Удерживайте и говорите" to "Mantenga pulsado y hable",
         "Удерживать для записи" to "Mantener pulsado para grabar",
         "Уже установленные файлы не скачиваются повторно." to "Los archivos instalados no se vuelven a descargar.",
+    )
+    private fun part8() = mapOf(
         "Уменьшить" to "Reducir",
         "Управление записью" to "Controles de grabación",
         "Установите %@ в разделе «Модели»." to "Instale %@ desde Modelos.",
         "Установите Index 2B в разделе «Модели»." to "Instale Index 2B desde Modelos.",
-    )
-    private fun part8() = mapOf(
         "Установите Index в разделе «Модели»." to "Instale Index desde Modelos.",
         "Установите OCR-пакет в разделе «Модели»." to "Instale un paquete OCR desde Modelos.",
         "Установите выбранную модель в разделе «Модели» или выберите другую." to "Instale el modelo elegido desde Modelos o elija otro.",

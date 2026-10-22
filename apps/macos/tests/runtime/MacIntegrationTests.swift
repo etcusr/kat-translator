@@ -8,6 +8,24 @@ import SwiftUI
 @testable import Kat_translator
 
 @MainActor final class MacIntegrationTests: XCTestCase {
+    /// A "download … in Models" hint names the exact package and its card; showing it downloads nothing.
+    func testPackageHintLeadsToTheRoutedPackageAndCard() throws {
+        let packages = PackageDownloadCoordinator.shared
+        XCTAssertEqual(packages.files(for: .recognition(.whisper)).map(\.model.id), [ModelDescriptor.turbo.id])
+        XCTAssertEqual(packages.modelsCardID(for: .recognition(.whisper)), PackageShortcut.cardID(ModelDescriptor.turbo.id))
+        XCTAssertEqual(packages.files(for: .recognition(.omnilingual)).map(\.model.id), [packages.omnilingual.model.id])
+        XCTAssertEqual(packages.modelsCardID(for: .recognition(.omnilingual)), PackageShortcut.cardID(packages.omnilingual.model.id))
+        let ultra = try XCTUnwrap(RecognitionPackages.definitions.first { $0.id == RecognitionCatalog.ultraID })
+        XCTAssertEqual(packages.files(for: .recognition(.ultra)).map(\.model.id), ultra.parts.map(\.id))
+        XCTAssertEqual(packages.modelsCardID(for: .recognition(.ultra)), PackageShortcut.cardID(RecognitionCatalog.ultraID))
+        XCTAssertTrue(packages.files(for: .translation).isEmpty)
+        XCTAssertEqual(packages.modelsCardID(for: .translation), PackageShortcut.translationCardID)
+        XCTAssertEqual(packages.files(for: .voice(.russian)).map(\.model.id), packages.components(packages.selectedVoice(.russian)).map(\.model.id))
+        XCTAssertNil(packages.modelsCardID(for: .voice(.russian)))
+        XCTAssertEqual(packages.files(for: .ocr(.english)).map(\.model.id), [packages.ocrEnglish.model.id])
+        XCTAssertTrue(packages.files(for: .ocr(.japanese)).isEmpty)
+        XCTAssertNil(packages.downloadProgress(for: .translation))
+    }
     func testSelectionClipboardFallbackRestoresRichDataButPreservesNewerCopies() throws {
         let board = NSPasteboard.withUniqueName()
         defer { board.releaseGlobally() }

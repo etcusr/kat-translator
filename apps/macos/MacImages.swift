@@ -197,11 +197,12 @@ struct CameraView: View {
     @State private var dragStart: CGFloat?
     @FocusState private var editingTranslation: Bool
     let expandTranslation: () -> Void
+    let openModels: (PackageShortcut) -> Void
     var close: () -> Void = {}
     private var translatedText: String { model.translatedText }
-    init(app: AppModel, expandTranslation: @escaping () -> Void) {
+    init(app: AppModel, expandTranslation: @escaping () -> Void, openModels: @escaping (PackageShortcut) -> Void = { _ in }) {
         self.app = app; model = app.camera; translation = app.camera.translation
-        self.expandTranslation = expandTranslation
+        self.expandTranslation = expandTranslation; self.openModels = openModels
     }
     func withClose(_ action: @escaping () -> Void) -> Self { var copy = self; copy.close = action; return copy }
     var body: some View {
@@ -237,7 +238,11 @@ struct CameraView: View {
                         .disabled(!translation.complete)
                 }.font(.system(size: 18))
             }.disabled(model.opening)
-            if let error = model.error ?? translation.error { Text(error).foregroundStyle(.orange).textSelection(.enabled) }
+            if let error = model.error ?? translation.error {
+                if error == ImagePreparationError.missingModel.localizedDescription {
+                    PackageHintButton(text: error, shortcut: .translation, packages: app.packages, open: openModels)
+                } else { Text(error).foregroundStyle(.orange).textSelection(.enabled) }
+            }
             if model.opening || model.recognizing || translation.working {
                 HStack {
                     if let progress = translation.progress { TranslationProgressPanel(progress: progress) }

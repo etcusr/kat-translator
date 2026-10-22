@@ -306,14 +306,22 @@ import OfflineCore
         }
         return languages.connected(to: packages.selectedTranslation) ? nil : PipelineError.modelLanguageUnavailable.localizedDescription
     }
+    private var recognitionCheckFiles: PipelineFiles {
+        PipelineFiles(asr: packages.primaryRecognition(for: recognitionPreference), translation: URL(fileURLWithPath: "/unused"), voices: [:], omnilingual: packages.omnilingualDirectory, ultra: packages.recognition.ultra, recognitionPreference: recognitionPreference)
+    }
     var voiceLanguageIssue: String? {
         if let languageIssue { return languageIssue }
         guard let source = languages.runtimeSource,
               languages.automaticActive(in: .voice) || source.supportsRecognition else { return PipelineError.recognitionUnavailable.localizedDescription }
-        let files = PipelineFiles(asr: packages.primaryRecognition(for: recognitionPreference), translation: URL(fileURLWithPath: "/unused"), voices: [:], omnilingual: packages.omnilingualDirectory, ultra: packages.recognition.ultra, recognitionPreference: recognitionPreference)
-        do { _ = try files.recognitionURL(for: languages.automaticActive(in: .voice) ? nil : source) }
+        do { _ = try recognitionCheckFiles.recognitionURL(for: languages.automaticActive(in: .voice) ? nil : source) }
         catch { return error.localizedDescription }
         return nil
+    }
+    /// The package behind `voiceLanguageIssue`, so its hint can download it or open its card.
+    var voiceIssueShortcut: PackageShortcut? {
+        if languageIssue != nil { return .translation }
+        guard let source = languages.runtimeSource else { return nil }
+        return recognitionCheckFiles.missingRecognitionPackage(for: languages.automaticActive(in: .voice) ? nil : source).map { .recognition($0) }
     }
     func beginRecording() async {
         RecordingStopTrace.mark("start.request")
