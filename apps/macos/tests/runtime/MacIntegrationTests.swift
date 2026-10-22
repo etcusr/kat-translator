@@ -442,6 +442,51 @@ import SwiftUI
             XCTAssertEqual(kill(process.processIdentifier, 0), -1, script)
         }
     }
+    // Audit 22.10 (B25): cancel stops the request inside the OPUS worker and keeps the warm worker;
+    // a worker that ignores cancel is killed after the grace period and replaced on the next request.
+    func testOpusCancellationKeepsWarmWorker() async throws {
+        let folder = FileManager.default.temporaryDirectory.appendingPathComponent("kat-opus-" + UUID().uuidString)
+        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: folder) }
+        let script = folder.appendingPathComponent("fake_opus.py")
+        try """
+        import sys, time
+        import opus_gpu  # the bundled worker protocol, with a model-free engine
+        class Fake:
+            stopped = staticmethod(lambda: False)
+            def count(self, request): return {"code": 0, "count": 3}
+            def run(self, request):
+                end = time.monotonic() + 20
+                while request["text"] == "slow" and not self.stopped() and time.monotonic() < end: time.sleep(0.01)
+                while request["text"] == "stuck" and time.monotonic() < end: time.sleep(0.01)
+                return {"code": 2} if self.stopped() else {"code": 0, "text": "ok " + request["text"], "device": "mps:0"}
+        opus_gpu.serve(Fake(), sys.stdin.buffer, sys.stdout)
+        """.write(to: script, atomically: true, encoding: .utf8)
+        let backend = OpusGPUTranslationBackend(script: script)
+        try await backend.load(modelURL: folder)
+        let first = try await backend.translate(text: "Hello.", source: .english, target: .russian)
+        XCTAssertEqual(first.text, "ok Hello.")
+        let pid = try XCTUnwrap(backend.workerProcessIdentifier)
+        func cancelled(_ text: String) async throws -> TimeInterval {
+            let task = Task { try await backend.translate(text: text, source: .english, target: .russian) }
+            try await Task.sleep(nanoseconds: 500_000_000)
+            let start = ProcessInfo.processInfo.systemUptime; task.cancel()
+            do { _ = try await task.value; XCTFail("Cancellation ignored") } catch is CancellationError {} catch { XCTFail("Wrong cancellation: \(error)") }
+            return ProcessInfo.processInfo.systemUptime - start
+        }
+        let slow = try await cancelled("slow"); XCTAssertLessThan(slow, 1)
+        XCTAssertEqual(backend.workerProcessIdentifier, pid)
+        let again = try await backend.translate(text: "Bye.", source: .english, target: .russian)
+        XCTAssertEqual(again.text, "ok Bye.")
+        XCTAssertEqual(backend.workerProcessIdentifier, pid)
+        let stuck = try await cancelled("stuck"); XCTAssertLessThan(stuck, OpusGPUTranslationBackend.cancelGrace + 4)
+        XCTAssertEqual(kill(pid, 0), -1)
+        let replaced = try await backend.translate(text: "Again.", source: .english, target: .russian)
+        XCTAssertEqual(replaced.text, "ok Again.")
+        XCTAssertNotEqual(backend.workerProcessIdentifier, pid)
+        await backend.unload()
+        XCTAssertNil(backend.workerProcessIdentifier)
+    }
     // Audit 22.10 (B20): pasting an image file copied in Finder translates the file, not its icon.
     func testPastedFinderImageUsesFileInsteadOfIcon() throws {
         let board = NSPasteboard.withUniqueName(); defer { board.releaseGlobally() }
