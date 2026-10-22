@@ -47,9 +47,7 @@ final class ModelDownloader: NSObject, ObservableObject, URLSessionDownloadDeleg
         super.init()
         state = TransferState(expectedBytes: model.byteCount)
         do {
-            try FileManager.default.createDirectory(at: transferRoot, withIntermediateDirectories: true)
-            var root = transferRoot; var values = URLResourceValues(); values.isExcludedFromBackup = true
-            try root.setResourceValues(values)
+            try Self.prepareTransferRoot(transferRoot, dataRoot: Self.root)
             if let data = try? Data(contentsOf: recordURL), let record = try? JSONDecoder().decode(Record.self, from: data) {
                 state = record.state; storedTaskID = record.taskID; taskAllowsCellular = record.taskAllowsCellular
             }
@@ -77,6 +75,27 @@ final class ModelDownloader: NSObject, ObservableObject, URLSessionDownloadDeleg
     nonisolated private func stagingURL(generation: Int) -> URL {
         transferRoot.appendingPathComponent("staging-\(generation).bin")
     }
+    /// The legacy Whisper transfer folder is the data root itself, which also holds History. Excluding it
+    /// removed history from backups (always on the Mac); exclude only per-model transfer folders and undo the
+    /// old root exclusion. Model and package stores exclude their own folders (audit 22.10, iOS M8).
+    nonisolated static func prepareTransferRoot(_ transferRoot: URL, dataRoot: URL) throws {
+        try FileManager.default.createDirectory(at: transferRoot, withIntermediateDirectories: true)
+        let exclude = transferRoot.standardizedFileURL.path != dataRoot.standardizedFileURL.path
+        // A fresh URL: a cached value on a reused URL object can make the write a no-op.
+        var folder = URL(fileURLWithPath: transferRoot.path, isDirectory: true); var values = URLResourceValues()
+        values.isExcludedFromBackup = exclude
+        try folder.setResourceValues(values)
+        if !exclude { removexattr(transferRoot.path, backupExclusionAttribute, 0) }
+    }
+    nonisolated static let backupExclusionAttribute = "com.apple.metadata:com_apple_backup_excludeItem"
+    /// Staged downloads of earlier generations are orphans once their generation is gone.
+    private func removeOrphanedStaging() {
+        let current = stagingURL(generation: state.generation).lastPathComponent
+        let names = (try? FileManager.default.contentsOfDirectory(atPath: transferRoot.path)) ?? []
+        for name in names where name.hasPrefix("staging-") && name.hasSuffix(".bin") && name != current {
+            try? FileManager.default.removeItem(at: transferRoot.appendingPathComponent(name))
+        }
+    }
     func restore() async {
         guard !restoreStarted else { return }; restoreStarted = true
         let tasks = await session.allTasks
@@ -86,6 +105,7 @@ final class ModelDownloader: NSObject, ObservableObject, URLSessionDownloadDeleg
                 currentTask = download; download.resume()
             } else { task.cancel() }
         }
+        removeOrphanedStaging()
         // Delegate delivery can begin verification while allTasks is suspended.
         if verificationGeneration == state.generation { restored = true; return }
         if currentTask != nil { restored = true; return }
@@ -257,11 +277,14 @@ final class ModelDownloader: NSObject, ObservableObject, URLSessionDownloadDeleg
             // URLSession removes location after this callback; transfer ownership synchronously.
             if FileManager.default.fileExists(atPath: staging.path) { try FileManager.default.removeItem(at: staging) }
             try FileManager.default.moveItem(at: location, to: staging)
+            var file = staging; var values = URLResourceValues(); values.isExcludedFromBackup = true
+            try? file.setResourceValues(values) // the legacy transfer folder itself is backed up
             Task { @MainActor in
                 guard generation == self.state.generation else {
                     try? FileManager.default.removeItem(at: staging); return
                 }
-                guard self.state.phase == .downloading else { return }
+                // Paused or cancelled at the moment of completion: nothing will verify this file later.
+                guard self.state.phase == .downloading else { try? FileManager.default.removeItem(at: staging); return }
                 self.state.finished(generation: generation); self.verify(staging, generation: generation)
             }
         } catch {

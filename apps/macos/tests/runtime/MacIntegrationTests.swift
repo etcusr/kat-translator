@@ -550,6 +550,24 @@ import SwiftUI
         // Silent input completes as "no speech"; a backlog failure would throw the conversion error instead.
         do { _ = try await sink.finish(); XCTFail("Silence reported as speech") } catch PipelineError.noSpeech {}
     }
+    // Audit 22.10 (iOS M8): the legacy transfer folder is the data root that holds History; it must stay in backups.
+    func testLegacyTransferRootKeepsHistoryInBackups() throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("kat-backup-" + UUID().uuidString)
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+        var folder = root; var values = URLResourceValues(); values.isExcludedFromBackup = true
+        try folder.setResourceValues(values) // as left by older builds
+        // Read the stored attribute: URL resource values may come from a process-wide cache.
+        func excluded(_ url: URL) throws -> Bool? {
+            getxattr(url.path, ModelDownloader.backupExclusionAttribute, nil, 0, 0, 0) >= 0
+        }
+        try ModelDownloader.prepareTransferRoot(root, dataRoot: root)
+        XCTAssertEqual(try excluded(root), false, "History stays excluded from backups")
+        let keyed = root.appendingPathComponent("Downloads/audit-model")
+        try ModelDownloader.prepareTransferRoot(keyed, dataRoot: root)
+        XCTAssertEqual(try excluded(keyed), true)
+        XCTAssertEqual(try excluded(root), false)
+    }
     // Audit 22.10 (B20): pasting an image file copied in Finder translates the file, not its icon.
     func testPastedFinderImageUsesFileInsteadOfIcon() throws {
         let board = NSPasteboard.withUniqueName(); defer { board.releaseGlobally() }
