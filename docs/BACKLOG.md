@@ -4,6 +4,16 @@
 
 Deferred tasks, not completed changes or release promises.
 
+## Unified settings and model management
+
+Planned 22 October 2026. **Backlog only; no interface changes yet.** Applies to iOS/iPadOS, macOS and Android.
+
+- [ ] Move model management into a dedicated Settings section. Bring translation, speech recognition, OCR and voice downloads into one coherent navigation structure instead of separate top-level Models and voice settings destinations.
+- [ ] Redesign Settings as a whole using Apple's iOS Settings as the visual and navigation reference: clearly grouped sections, consistent rows, icons, spacing, typography, switches and detail screens. Keep the same terminology and grouping across platforms while adapting layout and input to phones, tablets and desktop windows.
+- [ ] Use consistent download controls and status presentation for models and voices: installed/selected status, download size, progress, pause/resume, cancellation and deletion. Preserve the current rule that cancelling a batch removes only that batch's downloads, not previously installed packages.
+- [ ] Update onboarding, missing-model download actions and other entry points to open the relevant Settings section. Remove the redundant standalone Models entry once its replacement is available.
+- [ ] Validate navigation, accessibility, long localized labels and compact/large layouts on every platform. Verify that moving the UI preserves model files, selected models/voices, settings, history and active/resumable downloads without downloading assets again.
+
 ## Mac App Store AI copy after publication
 
 - [ ] After the current macOS 1.0 review and publication, apply the prepared EN/RU/ES/TR AI descriptions, promotional text and keywords from `publication/2026-10-14/macos/` in App Store Connect. Description/keywords may require a new editable version; promotional text can be changed separately where allowed. Do not withdraw or edit the current Mac submission for this metadata task. iOS 1.0.1 and the public project page are updated separately.
