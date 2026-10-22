@@ -1,26 +1,30 @@
 import Foundation
 import UIKit
+import AVFoundation
 import Darwin
 import os
 
 /// Kat Audit Lab only (copied in by prepare.py). Test speech is never played from the Mac and the Files
-/// picker is not used: the host writes Documents/AudioTests/trigger.txt with a file name, and the lab imports
-/// Documents/AudioTests/<name> through the ordinary audio-file path ("image:<name>": the camera's Gallery path). Memory is sampled every 0.5 s to
-/// Documents/lab-memory.jsonl together with memory warnings.
+/// picker is not used: the host writes Documents/AudioTests/trigger.txt and the lab acts on it:
+/// - "<name>": import Documents/AudioTests/<name> through the ordinary audio-file path;
+/// - "image:<name>": the camera's Gallery path (the camera must be open);
+/// - "tail:<name>:<ms>": record from the microphone while the iPhone speaker plays <name>, and stop the
+///   recording <ms> after playback ends (recording-tail check, audit O14).
+/// Memory is sampled every 0.5 s to Documents/lab-memory.jsonl together with memory warnings and events.
 @MainActor enum LabAudioTrigger {
-    static func start(_ model: AppModel) {
-        let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let trigger = documents.appendingPathComponent("AudioTests/trigger.txt")
+    private static let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    private static func write(_ row: [String: Any]) {
         let log = documents.appendingPathComponent("lab-memory.jsonl")
-        func write(_ row: [String: Any]) {
-            var row = row; row["t"] = Date().timeIntervalSince1970
-            guard var data = try? JSONSerialization.data(withJSONObject: row, options: [.sortedKeys]) else { return }
-            data.append(10)
-            if !FileManager.default.fileExists(atPath: log.path) { FileManager.default.createFile(atPath: log.path, contents: nil) }
-            if let handle = try? FileHandle(forWritingTo: log) { _ = try? handle.seekToEnd(); try? handle.write(contentsOf: data); try? handle.close() }
-        }
+        var row = row; row["t"] = Date().timeIntervalSince1970
+        guard var data = try? JSONSerialization.data(withJSONObject: row, options: [.sortedKeys]) else { return }
+        data.append(10)
+        if !FileManager.default.fileExists(atPath: log.path) { FileManager.default.createFile(atPath: log.path, contents: nil) }
+        if let handle = try? FileHandle(forWritingTo: log) { _ = try? handle.seekToEnd(); try? handle.write(contentsOf: data); try? handle.close() }
+    }
+    static func start(_ model: AppModel) {
+        let trigger = documents.appendingPathComponent("AudioTests/trigger.txt")
         NotificationCenter.default.addObserver(forName: UIApplication.didReceiveMemoryWarningNotification, object: nil, queue: .main) { _ in
-            write(["event": "memoryWarning"])
+            Task { @MainActor in write(["event": "memoryWarning"]) }
         }
         Task { @MainActor in
             while true {
@@ -35,9 +39,13 @@ import os
                 if let name = try? String(contentsOf: trigger, encoding: .utf8).trimmingCharacters(in: .whitespacesAndNewlines), !name.isEmpty {
                     try? FileManager.default.removeItem(at: trigger)
                     write(["event": "import", "file": name])
-                    if name.hasPrefix("image:") { // camera picture, the same path as Gallery (camera must be open)
-                        let url = documents.appendingPathComponent("AudioTests/" + name.dropFirst(6))
-                        if let data = try? Data(contentsOf: url) { Task { await model.camera.importData(data) } }
+                    let parts = name.split(separator: ":").map(String.init)
+                    if parts.first == "image", parts.count == 2 {
+                        if let data = try? Data(contentsOf: documents.appendingPathComponent("AudioTests/" + parts[1])) {
+                            Task { await model.camera.importData(data) }
+                        }
+                    } else if parts.first == "tail", parts.count == 3 {
+                        Task { await tail(model, file: parts[1], delay: Double(parts[2]) ?? 0) }
                     } else {
                         Task { await model.importAudioFile(documents.appendingPathComponent("AudioTests/" + name)) }
                     }
@@ -45,5 +53,31 @@ import os
                 try? await Task.sleep(nanoseconds: 500_000_000)
             }
         }
+    }
+    private static func tail(_ model: AppModel, file: String, delay: Double) async {
+        await model.beginRecording()
+        for _ in 0..<100 where !model.recorder.isRecording { try? await Task.sleep(nanoseconds: 50_000_000) }
+        guard model.recorder.isRecording else { write(["event": "tail.error", "reason": "not recording"]); return }
+        try? await Task.sleep(nanoseconds: 1_000_000_000)
+        guard let player = try? AVAudioPlayer(contentsOf: documents.appendingPathComponent("AudioTests/" + file)) else {
+            write(["event": "tail.error", "reason": "player"]); return
+        }
+        // The recorder's .measurement mode can route output to the receiver; the check needs the loudspeaker.
+        let audio = AVAudioSession.sharedInstance()
+        try? audio.overrideOutputAudioPort(.speaker)
+        player.volume = 1
+        // Diagnostic copy of what the microphone hears during playback (analysed on the host, never played).
+        let capture = try? AVAudioRecorder(url: documents.appendingPathComponent("tail-capture.wav"),
+            settings: [AVFormatIDKey: kAudioFormatLinearPCM, AVSampleRateKey: 16_000, AVNumberOfChannelsKey: 1, AVLinearPCMBitDepthKey: 16])
+        capture?.record()
+        player.play()
+        write(["event": "tail.play", "file": file, "duration": player.duration, "outputVolume": audio.outputVolume,
+               "route": audio.currentRoute.outputs.map(\.portType.rawValue).joined(separator: ","), "category": audio.category.rawValue, "mode": audio.mode.rawValue])
+        while player.isPlaying { try? await Task.sleep(nanoseconds: 5_000_000) }
+        write(["event": "tail.playEnd"])
+        capture?.stop()
+        try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000))
+        await model.finishRecording()
+        write(["event": "tail.stop", "delayMs": delay])
     }
 }
