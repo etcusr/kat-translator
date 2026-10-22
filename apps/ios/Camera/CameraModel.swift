@@ -37,6 +37,9 @@ import OfflineCore
     private var observers = Set<AnyCancellable>()
     private var orientation: CameraFrameOrientation = .portrait
     private var orientationRevision = 0
+    private var overlayRevision = 0
+    private var pendingOverlay: (blocks: [TranslatedImageBlock], size: CGSize, revision: Int, scene: Int)?
+    private var overlayTask: Task<Void, Never>?
     lazy var capture = CameraCapture { [weak self] image, revision in await self?.receive(image, revision: revision) }
     func orient(_ value: CameraFrameOrientation) {
         guard value != orientation else { return }
@@ -56,10 +59,24 @@ import OfflineCore
         translation.$complete.filter { $0 }.sink { [weak self] _ in
             Task { @MainActor [weak self] in self?.archiveResultIfNeeded() }
         }.store(in: &observers)
-        translation.$translated.sink { [weak self] blocks in
-            guard let self, let frame = self.frame else { return }
-            self.overlay = blocks.isEmpty ? nil : CameraOverlay.render(size: CGSize(width: frame.width, height: frame.height), blocks: blocks)
-        }.store(in: &observers)
+        translation.$translated.sink { [weak self] blocks in self?.scheduleOverlay(blocks) }.store(in: &observers)
+    }
+    /// A frame-sized raster with text fitting for every block took the main actor on each block update.
+    /// Render off it, one at a time; only the newest blocks of the current scene are shown (audit 22.10, iOS C2).
+    private func scheduleOverlay(_ blocks: [TranslatedImageBlock]) {
+        guard let frame else { return }
+        overlayRevision += 1
+        guard !blocks.isEmpty else { overlay = nil; return }
+        pendingOverlay = (blocks, CGSize(width: frame.width, height: frame.height), overlayRevision, scene)
+        guard overlayTask == nil else { return }
+        overlayTask = Task {
+            while let job = pendingOverlay {
+                pendingOverlay = nil
+                let image = await Task.detached(priority: .userInitiated) { CameraOverlay.render(size: job.size, blocks: job.blocks) }.value
+                if job.revision == overlayRevision && job.scene == scene { overlay = image }
+            }
+            overlayTask = nil
+        }
     }
     var needsOpenModel: Bool { !automaticSource && ((forceOpenOCR && packages.ocr(source) != nil) || !HybridOCR.supports(source)) }
     var canSave: Bool { frozen != nil && translation.complete && !recognizing && error == nil && overlay != nil }
