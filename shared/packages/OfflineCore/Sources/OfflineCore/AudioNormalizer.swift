@@ -40,6 +40,8 @@ public final class AudioNormalizer {
         if inputFormat != buffer.format {
             inputFormat = buffer.format
             converter = AVAudioConverter(from: buffer.format, to: target)
+            // Mix every input channel: interfaces and aggregate devices may carry the microphone on any channel.
+            converter?.downmix = true
         }
         guard let converter else { throw AudioError.invalidFormat }
         let capacity = AVAudioFrameCount(ceil(Double(buffer.frameLength) * 16000 / buffer.format.sampleRate)) + 64

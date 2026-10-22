@@ -73,33 +73,50 @@ public actor TranslationHistory: TranslationArchive {
     private func load() throws {
         guard !loaded else { return }
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        var recovery: URL?
         if FileManager.default.fileExists(atPath: index.path) {
-            do { entries = try JSONDecoder().decode([HistoryEntry].self, from: Data(contentsOf: index)) }
-            catch { throw HistoryError.corrupt }
+            // A read failure (for example a protected file while the device is locked) is not corruption.
+            let data = try Data(contentsOf: index)
+            if let decoded = try? JSONDecoder().decode([HistoryEntry].self, from: data) { entries = decoded }
+            else {
+                // An unreadable index (damage, or entries written by a newer build) must not block saving
+                // or clearing forever. Keep its exact bytes, then continue with every readable entry.
+                let stamp = "\(Int(Date().timeIntervalSince1970))-\(UUID().uuidString.prefix(8))"
+                try writeProtected(data, to: root.appendingPathComponent("history.unreadable-\(stamp).json"))
+                entries = (try? JSONDecoder().decode([LenientHistoryEntry].self, from: data))?.compactMap(\.entry) ?? []
+                recovery = root.appendingPathComponent("Recovered-\(stamp)", isDirectory: true)
+            }
         }
         // A killed writer never becomes a finished recording. Remove only files owned by this store.
+        // After recovering an unreadable index, unowned media may belong to skipped entries: keep it aside.
+        func discard(_ url: URL) throws {
+            guard let recovery else { try? FileManager.default.removeItem(at: url); return }
+            try FileManager.default.createDirectory(at: recovery, withIntermediateDirectories: true)
+            try FileManager.default.moveItem(at: url, to: recovery.appendingPathComponent(url.lastPathComponent))
+        }
         let owned = Set(entries.filter(\.hasAudio).map { $0.id.uuidString + ".m4a" })
         for url in try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil) {
-            if url.pathExtension == "m4a", !owned.contains(url.lastPathComponent) { try? FileManager.default.removeItem(at: url) }
+            if url.pathExtension == "m4a", !owned.contains(url.lastPathComponent) { try discard(url) }
         }
         let ownedImages = Set(entries.filter(\.hasImage).map { $0.id.uuidString + ".png" })
         for url in try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil)
             where url.pathExtension == "png" && UUID(uuidString: url.deletingPathExtension().lastPathComponent) != nil && !ownedImages.contains(url.lastPathComponent) {
-            try? FileManager.default.removeItem(at: url)
+            try discard(url)
         }
         for i in entries.indices where entries[i].hasImage && !FileManager.default.fileExists(atPath: imageURL(entries[i].id).path) { entries[i].hasImage = false }
         for i in entries.indices where entries[i].hasAudio && !FileManager.default.fileExists(atPath: audioURL(entries[i].id).path) { entries[i].hasAudio = false }
         loaded = true
     }
+    private func writeProtected(_ data: Data, to url: URL) throws {
+        #if os(iOS)
+        try data.write(to: url, options: [.atomic, .completeFileProtection])
+        #else
+        try data.write(to: url, options: [.atomic])
+        #endif
+    }
     private func persist(_ next: [HistoryEntry]) throws {
         let data = try JSONEncoder().encode(next)
-        if let indexWriter { try indexWriter(data, index) } else {
-        #if os(iOS)
-        try data.write(to: index, options: [.atomic, .completeFileProtection])
-        #else
-        try data.write(to: index, options: [.atomic])
-        #endif
-        }
+        if let indexWriter { try indexWriter(data, index) } else { try writeProtected(data, to: index) }
         entries = next
     }
     public func setRecording(text: Bool, audio: Bool, images: Bool = true) {
@@ -224,8 +241,7 @@ public actor TranslationHistory: TranslationArchive {
         guard recordAudio else { return }
         try load()
         guard entries.contains(where: { $0.id == id }) else { throw HistoryError.missing }
-        guard pcm.sampleRate > 0, !pcm.samples.isEmpty, pcm.samples.count <= pcm.sampleRate * 60,
-              pcm.samples.allSatisfy(\.isFinite) else { throw HistoryError.invalidAudio }
+        guard SpeechAudioWriter.valid(pcm) else { throw HistoryError.invalidAudio }
         if drafts[id] == nil {
             let settings: [String: Any] = [AVFormatIDKey: kAudioFormatMPEG4AAC, AVSampleRateKey: pcm.sampleRate,
                 AVNumberOfChannelsKey: 1]
@@ -234,12 +250,8 @@ public actor TranslationHistory: TranslationArchive {
             try? FileManager.default.setAttributes([.protectionKey: FileProtectionType.complete], ofItemAtPath: draftURL(id).path)
             #endif
         }
-        guard let file = drafts[id], file.processingFormat.sampleRate == Double(pcm.sampleRate),
-              let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(pcm.samples.count)),
-              let samples = buffer.floatChannelData?[0] else { throw HistoryError.invalidAudio }
-        buffer.frameLength = buffer.frameCapacity
-        pcm.samples.withUnsafeBufferPointer { samples.update(from: $0.baseAddress!, count: $0.count) }
-        try file.write(from: buffer)
+        guard let file = drafts[id] else { throw HistoryError.invalidAudio }
+        try SpeechAudioWriter.write(pcm, to: file)
     }
     public func finishAudio(_ id: UUID) throws {
         guard recordAudio else { abortAudio(id); return }
@@ -272,6 +284,13 @@ public actor TranslationHistory: TranslationArchive {
             let id = stem.hasSuffix(".partial") ? String(stem.dropLast(8)) : stem
             if UUID(uuidString: id) != nil { try FileManager.default.removeItem(at: url) }
         }
+        // Clearing history also clears copies kept aside while recovering an unreadable index.
+        for url in try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil) {
+            let name = url.lastPathComponent
+            if (name.hasPrefix("history.unreadable-") && url.pathExtension == "json") || name.hasPrefix("Recovered-") {
+                try FileManager.default.removeItem(at: url)
+            }
+        }
     }
     /// A private copy stays valid even if retention removes the original while the share sheet is open.
     public func copyAudio(_ id: UUID, into directory: URL) throws -> URL {
@@ -281,5 +300,33 @@ public actor TranslationHistory: TranslationArchive {
         let prefix = entry.kind == .originalRecording ? "Original-recording-" : entry.kind == .originalSpeech ? "Original-speech-" : "Translation-"
         let url = directory.appendingPathComponent(prefix + UUID().uuidString + ".m4a")
         try FileManager.default.copyItem(at: audioURL(id), to: url); return url
+    }
+}
+
+/// Decodes one index entry without failing the whole index (for example an unknown newer kind).
+private struct LenientHistoryEntry: Decodable {
+    let entry: HistoryEntry?
+    init(from decoder: Decoder) throws { entry = try? HistoryEntry(from: decoder) }
+}
+/// Shared mono AAC writer for history and share copies. Long speech is written in one-minute slices,
+/// so a complete streamed translation is never rejected because of its length.
+enum SpeechAudioWriter {
+    static let maximumSeconds = 3600
+    static func valid(_ pcm: SpeechPCM) -> Bool {
+        pcm.sampleRate > 0 && !pcm.samples.isEmpty && pcm.samples.count <= pcm.sampleRate * maximumSeconds && pcm.samples.allSatisfy(\.isFinite)
+    }
+    static func write(_ pcm: SpeechPCM, to file: AVAudioFile) throws {
+        guard valid(pcm), file.processingFormat.sampleRate == Double(pcm.sampleRate) else { throw HistoryError.invalidAudio }
+        let slice = pcm.sampleRate * 60
+        var offset = 0
+        while offset < pcm.samples.count {
+            let count = min(slice, pcm.samples.count - offset)
+            guard let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(count)),
+                  let samples = buffer.floatChannelData?[0] else { throw HistoryError.invalidAudio }
+            buffer.frameLength = buffer.frameCapacity
+            pcm.samples.withUnsafeBufferPointer { samples.update(from: $0.baseAddress! + offset, count: count) }
+            try file.write(from: buffer)
+            offset += count
+        }
     }
 }

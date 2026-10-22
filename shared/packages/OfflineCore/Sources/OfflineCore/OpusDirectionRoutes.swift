@@ -38,15 +38,15 @@ public enum OpusDirectionRoutes {
     }
 }
 
-/// Automatic translation: a powerful device prefers Index 9B; otherwise OPUS for the pair
-/// (English package, then a direction package), then Index 2B, then Index 9B.
+/// Automatic translation: a powerful device prefers Index 9B, then Index 2B, then any installed OPUS
+/// route; otherwise OPUS for the pair (English package, then a direction package), then Index 2B, then Index 9B.
 public enum AutoTranslation {
     public static let preferenceKey = "translationAuto"
     public static func resolve(source: SpeechLanguage, target: SpeechLanguage, strongDevice: Bool,
                                installed: (TranslationModel) -> Bool, directionInstalled: (String, String) -> Bool) -> TranslationModel? {
         let opusPair = installed(.opusBig) && TranslationModel.opusBig.supports(source: source, target: target)
         let direction = directionInstalled(source.rawValue, target.rawValue)
-        let order: [TranslationModel] = strongDevice ? [.index9B, .index2B] : [.opusBig, .opusDirections, .index2B, .index9B]
+        let order: [TranslationModel] = strongDevice ? [.index9B, .index2B, .opusBig, .opusDirections] : [.opusBig, .opusDirections, .index2B, .index9B]
         return order.first {
             switch $0 {
             case .opusBig: return opusPair

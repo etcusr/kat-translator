@@ -17,20 +17,15 @@ import AVFoundation
     }
     func append(_ pcm: SpeechPCM) throws {
         guard let pending else { return }
-        guard pcm.sampleRate > 0, !pcm.samples.isEmpty, pcm.samples.count <= pcm.sampleRate * 60,
-              pcm.samples.allSatisfy(\.isFinite) else { throw HistoryError.invalidAudio }
+        guard SpeechAudioWriter.valid(pcm) else { throw HistoryError.invalidAudio }
         if writer == nil {
             writer = try AVAudioFile(forWriting: pending.url, settings: [AVFormatIDKey: kAudioFormatMPEG4AAC, AVSampleRateKey: pcm.sampleRate, AVNumberOfChannelsKey: 1], commonFormat: .pcmFormatFloat32, interleaved: false)
             #if os(iOS)
             try? FileManager.default.setAttributes([.protectionKey: FileProtectionType.complete], ofItemAtPath: pending.url.path)
             #endif
         }
-        guard let writer, writer.processingFormat.sampleRate == Double(pcm.sampleRate),
-              let buffer = AVAudioPCMBuffer(pcmFormat: writer.processingFormat, frameCapacity: AVAudioFrameCount(pcm.samples.count)),
-              let samples = buffer.floatChannelData?[0] else { throw HistoryError.invalidAudio }
-        buffer.frameLength = buffer.frameCapacity
-        pcm.samples.withUnsafeBufferPointer { samples.update(from: $0.baseAddress!, count: $0.count) }
-        try writer.write(from: buffer)
+        guard let writer else { throw HistoryError.invalidAudio }
+        try SpeechAudioWriter.write(pcm, to: writer)
     }
     func finish() {
         guard let pending, writer != nil else { abort(); return }
