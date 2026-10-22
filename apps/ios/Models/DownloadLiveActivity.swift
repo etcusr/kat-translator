@@ -15,8 +15,16 @@ import OfflineCore
         if #available(iOS 26.0, *) { return DownloadContinuedTask.ownsPresentation }
         return false
     }
+    /// Reuse an activity left by an earlier launch and end any duplicates, which otherwise stay on the
+    /// Lock Screen without updates (audit 22.10, iOS M8).
+    private static func adoptExisting() {
+        guard activity == nil else { return }
+        let live = Activity<DownloadActivityAttributes>.activities.filter { $0.activityState == .active || $0.activityState == .stale }
+        activity = live.first
+        for duplicate in live.dropFirst() { Task { await duplicate.end(nil, dismissalPolicy: .immediate) } }
+    }
     static func started(_ id: String) {
-        if activity == nil { activity = Activity<DownloadActivityAttributes>.activities.first { $0.activityState == .active || $0.activityState == .stale } }
+        adoptExisting()
         if activity == nil && !systemPresentation { ids.removeAll() }
         ids.insert(id)
         UserDefaults.standard.set(Array(ids), forKey: "liveDownloadIDs")
@@ -52,7 +60,7 @@ import OfflineCore
                 DownloadContinuedTask.publish(progress, title: state.title, detail: state.bytes)
                 return
             }
-            if activity == nil { activity = Activity<DownloadActivityAttributes>.activities.first { $0.activityState == .active || $0.activityState == .stale } }
+            adoptExisting()
             guard let current = activity, !ids.isEmpty else { return }
             let state = snapshot()
             lastUpdate = Date()

@@ -53,7 +53,9 @@ import OfflineCore
         let files = Dictionary(uniqueKeysWithValues: zip(route.parts, downloaders).map { ($0.0.path, $0.1.installedURL!) })
         installing = true; error = nil
         let task = Task {
-            defer { installing = false; assembly = nil }
+            // Like OpusPackage: keep background time for hashing and publish the finished state (audit 22.10, iOS M8).
+            let background = DownloadBackgroundWork()
+            defer { background.end(); installing = false; assembly = nil; DownloadLiveActivity.changed() }
             do { directory = try await store.install(files: files, package: manifest) }
             catch is CancellationError {} catch { self.error = error.localizedDescription }
         }
