@@ -4,7 +4,7 @@
 
 - After a finished change and an appropriate check, create a separate local commit with a short description of the result. Do not accumulate several releases in an uncommitted tree.
 - Keep fixes, features and documentation updates separate when they are independent. State the check performed and its limits in the description.
-- For a release, use a message with platform, version and build number, for example `release(ios): 0.5.6 (36) — …`. The commit itself does not mean installation or publication.
+- For a release, use a message with platform, version and build number, for example `release(ios): 0.5.6 (36) — …`. The commit itself does not mean installation or publication. Do not make separate "installed on Mac/iPhone" commits: record a local install in the local logs (`HANDOVER.md`, `GPT_HANDOFF.md`) and update the release table in `docs/CURRENT_STATE` in the release commit itself.
 - Keep a mixed historical state as a snapshot; do not invent intermediate versions. The 12 October 2026 snapshot includes the accumulated move to apps/shared, Android, Apple and documentation.
 - Before `git add`, check the file list, sizes, secrets, models and artifacts. Repeat the check after staging. Keep sources, catalogs/lock files, small shipped resources and test evidence.
 - Do not commit downloaded weights, dist, vendor/build outputs, local signing settings or user imports. `.gitignore` does not delete files from disk and does not automatically untrack files that are already tracked.
