@@ -8,6 +8,7 @@ import os
 /// picker is not used: the host writes Documents/AudioTests/trigger.txt and the lab acts on it:
 /// - "<name>": import Documents/AudioTests/<name> through the ordinary audio-file path;
 /// - "image:<name>": the camera's former in-memory Gallery path; "imagefile:<name>": the file path (camera open);
+/// - "rec:<name>": start recording and play <name> without stopping (background/interruption checks);
 /// - "tail:<name>:<ms>[:<AVAudioSession mode>]": record from the microphone while the iPhone speaker plays <name>, and stop the
 ///   recording <ms> after playback ends (recording-tail check, audit O14).
 /// Memory is sampled every 0.5 s to Documents/lab-memory.jsonl together with memory warnings and events.
@@ -58,6 +59,8 @@ import os
                         }
                     } else if parts.first == "play", parts.count == 2 { // playback alone, no recording
                         Task { await play(parts[1]) }
+                    } else if parts.first == "rec", parts.count == 2 { // start recording and play <name>; no Stop (I2/I4)
+                        Task { await record(model, file: parts[1]) }
                     } else if parts.first == "tail", parts.count >= 3 {
                         Task { await tail(model, file: parts[1], delay: Double(parts[2]) ?? 0, mode: parts.count > 3 ? parts[3] : "") }
                     } else {
@@ -78,6 +81,17 @@ import os
         let started = player.play()
         write(["event": "play", "started": started, "outputVolume": audio.outputVolume,
                "route": audio.currentRoute.outputs.map(\.portType.rawValue).joined(separator: ",")])
+    }
+    private static func record(_ model: AppModel, file: String) async {
+        await model.beginRecording()
+        for _ in 0..<100 where !model.recorder.isRecording { try? await Task.sleep(nanoseconds: 50_000_000) }
+        guard model.recorder.isRecording else { write(["event": "rec.error", "reason": "not recording"]); return }
+        try? await Task.sleep(nanoseconds: 500_000_000)
+        let audio = AVAudioSession.sharedInstance()
+        try? audio.setMode(.videoRecording); try? audio.overrideOutputAudioPort(.speaker)
+        guard let player = try? AVAudioPlayer(contentsOf: documents.appendingPathComponent("AudioTests/" + file)) else { return }
+        lastPlayer = player; player.play()
+        write(["event": "rec.play", "file": file])
     }
     private static func tail(_ model: AppModel, file: String, delay: Double, mode: String) async {
         await model.beginRecording()
