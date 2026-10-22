@@ -14,16 +14,31 @@ import OfflineCore
     private var generation = 0
     private var prepared = false
     private let temporary = FileManager.default.temporaryDirectory.appendingPathComponent("HistoryExports")
-    init(store: TranslationHistory) { self.store = store; super.init() }
-    static var policy: HistoryPolicy {
-        let d = UserDefaults.standard
-        return HistoryPolicy(textCount: d.object(forKey: "historyTextCount") == nil ? 100 : d.integer(forKey: "historyTextCount"),
+    private let defaults: UserDefaults
+    init(store: TranslationHistory, defaults: UserDefaults = .standard) { self.store = store; self.defaults = defaults; super.init() }
+    /// Limits as currently edited; settings persist every slider step immediately.
+    static func policy(in d: UserDefaults) -> HistoryPolicy {
+        HistoryPolicy(textCount: d.object(forKey: "historyTextCount") == nil ? 100 : d.integer(forKey: "historyTextCount"),
             audioCount: d.object(forKey: "historyAudioCount") == nil ? 10 : d.integer(forKey: "historyAudioCount"),
             textDays: d.object(forKey: "historyTextDays") == nil ? 30 : d.integer(forKey: "historyTextDays"),
             audioDays: d.object(forKey: "historyAudioDays") == nil ? 30 : d.integer(forKey: "historyAudioDays"),
             imageCount: d.object(forKey: "historyImageCount") == nil ? 20 : d.integer(forKey: "historyImageCount"),
             imageDays: d.object(forKey: "historyImageDays") == nil ? 30 : d.integer(forKey: "historyImageDays"))
     }
+    static let appliedPolicyKey = "historyAppliedPolicy"
+    /// Pruning uses the limits confirmed by closing the settings: a scene activation while the
+    /// slider passes "1 day" must not delete older history (audit 22.10, iOS M1).
+    /// The first refresh (also after an update from a build without this key) confirms the limits then in effect.
+    var appliedPolicy: HistoryPolicy {
+        if let policy = defaults.data(forKey: Self.appliedPolicyKey).flatMap({ try? JSONDecoder().decode(HistoryPolicy.self, from: $0) }) { return policy }
+        return confirmCurrentPolicy()
+    }
+    @discardableResult private func confirmCurrentPolicy() -> HistoryPolicy {
+        let policy = Self.policy(in: defaults)
+        if let data = try? JSONEncoder().encode(policy) { defaults.set(data, forKey: Self.appliedPolicyKey) }
+        return policy
+    }
+    func confirmPolicy() async { confirmCurrentPolicy(); await refresh() }
     func applyRecordingSettings() async {
         let d = UserDefaults.standard
         await store.setRecording(text: d.object(forKey: "historyRecordText") as? Bool ?? true,
@@ -34,7 +49,7 @@ import OfflineCore
         await applyRecordingSettings()
         do {
             if !prepared { try? FileManager.default.removeItem(at: temporary); prepared = true }
-            try await store.setPolicy(Self.policy); entries = try await store.list(); error = nil
+            try await store.setPolicy(appliedPolicy); entries = try await store.list(); error = nil
         } catch { self.error = error.localizedDescription }
     }
     func clear() async {

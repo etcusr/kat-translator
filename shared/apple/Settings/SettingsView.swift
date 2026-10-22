@@ -264,6 +264,7 @@ struct SettingsView: View {
                 .katDoneToolbar { saveRetention(); dismiss() }
         }.environment(\.locale, L10n.locale)
             .katSheetClose(identifier: "settings.close", maxWidth: 860) { saveRetention(); dismiss() }
+            .onDisappear { saveRetention() } // swipe-dismissed sheet; Mac Settings window closed from its title bar
     }
     private var appVersion: String { Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "—" }
     private var appBuild: String { Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "—" }
@@ -328,7 +329,7 @@ struct SettingsView: View {
     private func saveRetention() {
         // AppStorage persists edits immediately. Defer pruning until editing ends
         // so an intermediate number entered in a text field cannot delete history.
-        Task { await model.history.refresh() }
+        Task { await model.history.confirmPolicy() }
     }
 }
 

@@ -487,6 +487,26 @@ import SwiftUI
         await backend.unload()
         XCTAssertNil(backend.workerProcessIdentifier)
     }
+    // Audit 22.10 (iOS M1): a scene activation while the retention slider passes "1 day" must not prune;
+    // only limits confirmed by closing the settings apply.
+    @MainActor func testHistoryRetentionAppliesOnlyConfirmedLimits() async throws {
+        let suite = "history-retention-" + UUID().uuidString
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: suite)); defer { defaults.removePersistentDomain(forName: suite) }
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent(suite)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let store = TranslationHistory(root: root)
+        _ = try await store.save(original: "Two days old", translation: "Два дня назад", source: .english,
+                                 now: Date().addingTimeInterval(-2 * 86_400), target: .russian)
+        let history = HistoryModel(store: store, defaults: defaults)
+        await history.refresh(); XCTAssertEqual(history.entries.count, 1)
+        defaults.set(1.0, forKey: "historyTextDays")
+        await history.refresh()
+        XCTAssertEqual(history.entries.count, 1, "An intermediate slider value pruned history")
+        defaults.set(30.0, forKey: "historyTextDays"); await history.confirmPolicy()
+        XCTAssertEqual(history.entries.count, 1)
+        defaults.set(1.0, forKey: "historyTextDays"); await history.confirmPolicy()
+        XCTAssertEqual(history.entries.count, 0)
+    }
     // Audit 22.10 (B20): pasting an image file copied in Finder translates the file, not its icon.
     func testPastedFinderImageUsesFileInsteadOfIcon() throws {
         let board = NSPasteboard.withUniqueName(); defer { board.releaseGlobally() }
