@@ -32,6 +32,9 @@ info = src / "apps/ios/Info.plist"
 d = plistlib.loads(info.read_bytes())
 d["CFBundleDisplayName"] = "Kat Audit Lab"
 d["CFBundleURLTypes"] = []
+# Expose the lab's Documents in the Files picker: test audio is imported, never played from the Mac.
+d["UIFileSharingEnabled"] = True
+d["LSSupportsOpeningDocumentsInPlace"] = True
 info.write_bytes(plistlib.dumps(d))
 generator = src / "scripts/generate-project.py"
 s = generator.read_text()
@@ -47,5 +50,12 @@ replace("objects[target]['buildPhases'].append(widget_embed)\n", "")
 generator.write_text(s)
 # The UI test target becomes a remote control for the running lab (see LabDriverUITests.swift).
 shutil.copy2(Path(__file__).with_name("LabDriverUITests.swift"), src / "apps/ios/tests/ui/TranslatorUITests.swift")
+# Audio import by trigger file plus memory sampling (see LabAudioTrigger.swift); lab only.
+shutil.copy2(Path(__file__).with_name("LabAudioTrigger.swift"), src / "apps/ios/LabAudioTrigger.swift")
+app_entry = src / "apps/ios/OfflineTranslatorApp.swift"
+entry = app_entry.read_text()
+hook = ".task { delegate.model = model; await model.prepare() }"
+assert entry.count(hook) == 1
+app_entry.write_text(entry.replace(hook, ".task { delegate.model = model; LabAudioTrigger.start(model); await model.prepare() }"))
 subprocess.run([sys.executable, str(generator)], cwd=src, check=True)
 print("Prepared", src, "from", commit)

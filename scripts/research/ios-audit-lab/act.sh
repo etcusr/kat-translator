@@ -1,5 +1,6 @@
 #!/bin/bash
-# Run LAB_ACTIONS on the running Kat Audit Lab, then save a screenshot. Usage: act.sh <work> <device> "<actions>" [screenshot.png]
+# Run LAB_ACTIONS on the running Kat Audit Lab, then save a screenshot. It does not reliably install a rebuilt
+# lab app: after a rebuild install it with `devicectl device install app` first. Usage: act.sh <work> <device> "<actions>" [screenshot.png]
 set -uo pipefail
 w=$(cd "$1" && pwd); device=$2; actions=$3; shot=${4:-$w/screen.png}
 TEST_RUNNER_LAB_ACTIONS="$actions" xcodebuild test-without-building -project "$w/source/apps/ios/OfflineTranslator.xcodeproj" \
