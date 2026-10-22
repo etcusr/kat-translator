@@ -250,8 +250,10 @@ struct CameraView: View {
                     Button(L10n.text("Отмена")) { Task { await model.cancelTranslation() } }
                         .accessibilityIdentifier("image.translation.cancel")
                 }
+                // Preparation and per-block progress share one height. The image must not
+                // rescale when a partial resets or the detailed progress first appears.
+                .frame(height: 86)
             }
-            if translation.partialTranslation != nil { Text(L10n.text("Перевод ещё не завершён")).font(.caption).foregroundStyle(.secondary) }
             GeometryReader { geometry in
                 let available = max(1, geometry.size.width - 16)
                 let minimum = min(240 / available, 0.4)
