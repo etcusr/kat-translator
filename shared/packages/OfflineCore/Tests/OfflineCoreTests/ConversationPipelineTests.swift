@@ -2030,3 +2030,20 @@ private actor StreamingMT: TranslationBackend {
     }
 
 }
+
+// Audit 22.10 (B6): silence must fail before Auto swaps the warm translation model.
+extension ConversationPipelineTests {
+    func testAuditEmptySpeechDoesNotUnloadWarmModelInAuto() async throws {
+        let calls = Calls(); let asr = TestASR(calls); let mt = TestMT(calls)
+        await asr.detect(.german); await asr.setText("")
+        let pipeline = ConversationPipeline(asr: asr, translator: mt, speech: TestTTS(calls), player: TestPlayer(calls))
+        let automatic = PipelineFiles(asr: files.asr, translation: files.translation, voices: [:], translationModel: .opusBig,
+            translationResolver: { _, _ in TranslationInstallation(model: .index2B, url: URL(fileURLWithPath: "/compact")) })
+        await pipeline.prepare(automatic, memorySaving: false)
+        await calls.reset()
+        await pipeline.run(audio: CapturedAudio(samples: [0.1]), source: nil, target: .english, speakResult: false, inputMode: "voice", thermal: "nominal")
+        XCTAssertEqual(pipeline.error, PipelineError.noSpeech.localizedDescription)
+        let events = await calls.items
+        XCTAssertFalse(events.contains("unloadMT"), "silence unloaded the warm model: \(events)")
+    }
+}

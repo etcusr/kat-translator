@@ -405,16 +405,18 @@ public struct ConversationFields: Sendable {
                 guard requestedTarget != nil || [SpeechLanguage.russian, .english].contains(source) else { throw PipelineError.textNeedsLanguage }
                 let target = requestedTarget ?? source.opposite
                 resolvedTarget = target; metric.target = target
-                files = try await resolveTranslation(files, source: source, target: target, generation: id)
-                metric.translationModelID = files.translationModel.rawValue
-                guard source == target || files.translationModel.supports(source: source, target: target) else { throw PipelineError.modelLanguageUnavailable }
-                metric.voiceModelID = files.voiceModelIDs[target] ?? files.voice(target)?.lastPathComponent
+                // Silence must fail before Auto can swap (unload) the warm model, and a recognized recording is
+                // archived even when no installed model covers the detected pair.
                 guard !sourceText.isEmpty else { throw PipelineError.noSpeech }
                 if activeMode == .voice, let recording = voiceRecording.url, let archive {
                     do { _ = try await archive.saveOriginalRecording(recording, text: sourceText, language: source) }
                     catch { archiveWarning = L10n.text("Не удалось сохранить запись оригинала: ") + error.localizedDescription }
                     try check(id)
                 }
+                files = try await resolveTranslation(files, source: source, target: target, generation: id)
+                metric.translationModelID = files.translationModel.rawValue
+                guard source == target || files.translationModel.supports(source: source, target: target) else { throw PipelineError.modelLanguageUnavailable }
+                metric.voiceModelID = files.voiceModelIDs[target] ?? files.voice(target)?.lastPathComponent
                 await releaseRecognitionIfRequested()
                 if memorySaving, asrLoaded { await asr.unload(); asrLoaded = false }
                 try check(id)
