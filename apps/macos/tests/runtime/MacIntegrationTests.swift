@@ -514,6 +514,19 @@ import SwiftUI
         XCTAssertTrue(DeviceProbe.shouldSave(cpuGbps: 60, gpuGbps: 100, hasGPU: true))
         XCTAssertTrue(DeviceProbe.shouldSave(cpuGbps: 60, gpuGbps: -1, hasGPU: false))
     }
+    // Audit 22.10 (iOS M12): OPUS direction routing now runs on the backend queue; keep its outcomes.
+    func testOpusDirectionRoutingOnQueue() async throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("kat-opus-routes-" + UUID().uuidString)
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let backend = OpusTranslationBackend()
+        try await backend.load(modelURL: root, model: .opusDirections)
+        let same = try await backend.translate(text: "Hello.", source: .english, target: .english)
+        XCTAssertEqual(same.text, "Hello.")
+        do { _ = try await backend.translate(text: "Hello.", source: .english, target: .russian); XCTFail("No installed direction") }
+        catch PipelineError.modelLanguageUnavailable {} catch { XCTFail("Wrong error: \(error)") }
+        await backend.unload()
+    }
     // Audit 22.10 (B20): pasting an image file copied in Finder translates the file, not its icon.
     func testPastedFinderImageUsesFileInsteadOfIcon() throws {
         let board = NSPasteboard.withUniqueName(); defer { board.releaseGlobally() }

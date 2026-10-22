@@ -6,20 +6,29 @@ final class RoutedASRBackend: ASRBackend, @unchecked Sendable {
     private let whisper = WhisperBackend()
     private let omni = OmnilingualBackend()
     private let coreML = CoreMLRecognitionBackend()
-    private var useCoreML = false
-    private var useOmni = false
+    private enum Route { case whisper, omni, coreML }
+    private let lock = NSLock()
+    private var current = Route.whisper
+    private var route: Route {
+        get { lock.lock(); defer { lock.unlock() }; return current }
+        set { lock.lock(); current = newValue; lock.unlock() }
+    }
     func load(modelURL: URL) async throws {
         await unload()
-        useCoreML = modelURL.lastPathComponent == RecognitionCatalog.ultraID
-        useOmni = modelURL.hasDirectoryPath && !useCoreML
-        if useCoreML { try await coreML.load(modelURL: modelURL) }
-        else if useOmni { try await omni.load(modelURL: modelURL) }
-        else { try await whisper.load(modelURL: modelURL) }
+        let next: Route = modelURL.lastPathComponent == RecognitionCatalog.ultraID ? .coreML : modelURL.hasDirectoryPath ? .omni : .whisper
+        route = next
+        switch next {
+        case .coreML: try await coreML.load(modelURL: modelURL)
+        case .omni: try await omni.load(modelURL: modelURL)
+        case .whisper: try await whisper.load(modelURL: modelURL)
+        }
     }
     func transcribe(_ audio: CapturedAudio, language: SpeechLanguage?) async throws -> ASRResult {
-        if useCoreML { return try await coreML.transcribe(audio, language: language) }
-        if useOmni { return try await omni.transcribe(audio, language: language) }
-        return try await whisper.transcribe(audio, language: language)
+        switch route {
+        case .coreML: return try await coreML.transcribe(audio, language: language)
+        case .omni: return try await omni.transcribe(audio, language: language)
+        case .whisper: return try await whisper.transcribe(audio, language: language)
+        }
     }
     func cancel() { whisper.cancel(); omni.cancel(); coreML.cancel() }
     func unload() async { cancel(); await whisper.unload(); await omni.unload(); await coreML.unload() }

@@ -60,12 +60,14 @@ final class LlamaTranslationBackend: TranslationBackend, @unchecked Sendable {
     private func translate(text: String, source: SpeechLanguage, target: SpeechLanguage, progress: @escaping @Sendable (TranslationProgress) -> Void,
                            partial: (@Sendable (String) -> Void)?) async throws -> TranslationResult {
         try Task.checkCancellation()
-        guard TranslationLanguage.details(source).connected(to: model), TranslationLanguage.details(target).connected(to: model) else { throw PipelineError.modelLanguageUnavailable }
-        try TranslationPrompt.validate(text)
         let flag = try TranslationFlag(); setFlag(flag); defer { setFlag(nil) }
         return try await withTaskCancellationHandler {
             try await withCheckedThrowingContinuation { continuation in self.queue.async {
                 do {
+                    // `model` is written by load() on this queue; checking it here sees the model a
+                    // concurrent "Auto" switch has just loaded (audit 22.10, iOS M12).
+                    guard TranslationLanguage.details(source).connected(to: self.model), TranslationLanguage.details(target).connected(to: self.model) else { throw PipelineError.modelLanguageUnavailable }
+                    try TranslationPrompt.validate(text)
                     guard let context = self.context else { throw PipelineError.modelLoad }
                     let started = ProcessInfo.processInfo.systemUptime
                     let pieces = try TextSegments.split(text) { part in

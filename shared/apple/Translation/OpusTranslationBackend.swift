@@ -40,18 +40,20 @@ final class OpusTranslationBackend: TranslationBackend, @unchecked Sendable {
     func translate(text: String, source: SpeechLanguage, target: SpeechLanguage,
                    progress: @escaping @Sendable (TranslationProgress) -> Void) async throws -> TranslationResult {
         try Task.checkCancellation()
-        let route = directionsRoot == nil ? nil : OpusDirectionRoutes.route(source.rawValue, target.rawValue, available: { route in
-            guard let root = self.directionsRoot else { return false }
-            return FileManager.default.fileExists(atPath: root.appendingPathComponent(route.packageID).appendingPathComponent("receipt.json").path)
-        })
-        guard directionsRoot == nil ? TranslationModel.opusBig.supports(source: source, target: target) : (route != nil || source == target) else { throw PipelineError.modelLanguageUnavailable }
-        try TranslationPrompt.validate(text)
-        if source == target { return TranslationResult(text: text, firstTokenSeconds: nil, processingSeconds: 0, fragments: 1) }
         let cancellation = try OpusCancellation(); setFlag(cancellation); defer { setFlag(nil) }
         return try await withTaskCancellationHandler {
             try await withCheckedThrowingContinuation { continuation in self.queue.async {
                 do {
-                    if let route, let root = self.directionsRoot, self.loadedPackage != route.packageID {
+                    // Route from the state load() writes on this queue: a route planned before a
+                    // concurrent model switch could run a direction request on the opusBig context (audit 22.10, iOS M12).
+                    let directionsRoot = self.directionsRoot
+                    let route = directionsRoot.flatMap { root in OpusDirectionRoutes.route(source.rawValue, target.rawValue, available: { route in
+                        FileManager.default.fileExists(atPath: root.appendingPathComponent(route.packageID).appendingPathComponent("receipt.json").path)
+                    }) }
+                    guard directionsRoot == nil ? TranslationModel.opusBig.supports(source: source, target: target) : (route != nil || source == target) else { throw PipelineError.modelLanguageUnavailable }
+                    try TranslationPrompt.validate(text)
+                    if source == target { return continuation.resume(returning: TranslationResult(text: text, firstTokenSeconds: nil, processingSeconds: 0, fragments: 1)) }
+                    if let route, let root = directionsRoot, self.loadedPackage != route.packageID {
                         if let previous = self.context { ot_opus_free(previous); self.context = nil }
                         self.context = ot_opus_load(root.appendingPathComponent(route.packageID).path)
                         self.loadedPackage = self.context == nil ? nil : route.packageID
