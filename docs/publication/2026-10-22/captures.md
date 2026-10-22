@@ -1,0 +1,11 @@
+# Interface captures — 22 October 2026
+
+24 simulator screenshots: `python3 scripts/simulator/run.py --screenshots --headless`, exact iPhone 17 Pro / iOS 27.0, development app 1.1.0 (73). Four tests passed, zero failures/skips. Same neutral Russian directions question, actually translated to English by Index 2B CPU. EN/RU/ES/TR interface. No downloads, live audio or fabricated result fields. Status bar is the actual capture state, not composited.
+
+16 Mac previews: opt-in `PublicationPreviewTests` with `TEST_RUNNER_KAT_PUBLICATION_PREVIEW_DIR`; own NSHostingView cached to PNG, no desktop capture. One test passed, zero skips/failures after correcting test-runner environment propagation and using the actual Settings navigation for Voices. Earlier skipped run is not acceptance. Volatile launch defaults restored; no inference, model deletion or settings interaction. No full-screen/window screenshot claim.
+
+Collector: `scripts/publication/collect-interface-captures.py --ios <xcresult-exported-attachments> --mac <preview-root> --date 2026-10-22`. It copies PNG bytes unchanged, excludes raw XCTest device identifiers and writes dimensions, hashes, version and capture method. 40 PNG files total, 5,761,927 bytes. Mac preview sizes are not Store sizes.
+
+Visual inspection covered representative iOS text/settings and Mac settings/models/voices states, including localized labels. Full matrix is available for owner review; no claim of exhaustive pixel-level inspection. Browser checks exercised all eight platform/language gallery selections. Android was not connected. iPad, Voice/Image scenes, full Mac captures and real-device demo remain pending.
+
+Memory constraint added after owner reported concurrent native Kat/simulator memory exhaustion: run each platform separately and shut down the simulator before Mac work. Do not repeat simultaneous inference to reproduce it. The dedicated simulator is left shut down; all seeded model clones and Duo are retained.

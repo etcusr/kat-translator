@@ -78,9 +78,12 @@ def validate():
 
 
 def main():
+    global COPY
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--report', type=Path, help='Write validation counts and source hashes as JSON')
+    parser.add_argument('--copy-root', type=Path, default=COPY, help='Prepared metadata directory')
     args = parser.parse_args()
+    COPY = args.copy_root.resolve()
     result = validate()
     if args.report:
         args.report.parent.mkdir(parents=True, exist_ok=True)

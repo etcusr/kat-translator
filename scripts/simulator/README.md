@@ -61,3 +61,7 @@ Simulator Whisper and Index use CPU because the current MTLSimDevice mapped-buff
 The simulator uses the Mac's CPU, memory and graphics environment. Its timing, memory pressure and thermal behavior cannot be reported as iPhone measurements. Camera hardware is absent; entering/leaving the camera screen does not prove capture or OCR quality. Microphone routes, interruptions, phone background suspension, Live Activities and background download behavior still need physical-device acceptance. iPad, accessibility sizes and all locale layouts require additional explicit scenarios.
 
 No App Store upload, device installation, model copying or cleanup is part of this command.
+
+## Memory: one platform at a time
+
+Quit native Kat and its model workers before booting the iPhone simulator. The runner refuses to start while they are running. After simulator tests, shut down the dedicated simulator before running Mac Kat or hosted Mac tests. On the development Mac, concurrent native Kat and simulator use exhausted memory; do not overlap inference or large builds across platforms. Duo stays installed but shut down.

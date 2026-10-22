@@ -13,7 +13,7 @@ Kat translator uses on-device AI models to translate speech, typed text and text
 - Language search, favourites and quick direction switching.
 - Text copying, translation history and sharing of generated audio.
 - A choice of models and voices, with voice previews.
-- Package downloads with progress, pause and resume support.
+- Categorized Apple settings with models, voices and Quick setup; package downloads with pause, resume and scoped Cancel all.
 - Russian, English, Spanish and Turkish interface languages.
 
 Speech, text, photos and translations are processed on your device and are not sent to the developer. Internet access is needed to download models and voices; download servers receive technical connection data. History is stored locally and can be disabled or cleared.
@@ -24,7 +24,7 @@ Recognition, translation, speech output and camera support depend on the languag
 
 Current releases, platform differences and verification limits: [CURRENT_STATE](docs/CURRENT_STATE.md). This product description is not a claim of complete feature or language parity across platforms.
 
-This document is included in the Xcode navigator under **Kat translator — Project Info**. The App Store Connect record exists for iOS and macOS; localized store copy lives in `docs/publication/2026-10-14/`. iOS 1.0 (55) is released; the 1.0.1 update is being prepared. See CURRENT_STATE for release evidence.
+This document is included in the Xcode navigator under **Kat translator — Project Info**. The App Store Connect record exists for iOS and macOS; localized store copy lives in `docs/publication/2026-10-22/`. iOS 1.0.1 was reported released; 1.1.0 is being prepared locally, without a new upload. See CURRENT_STATE for release evidence.
 
 - Display name: `Kat translator` (same in RU and EN).
 - iOS project/scheme: `OfflineTranslator`; macOS: `KatTranslatorMac`; Android: Gradle `app`/`inference`.

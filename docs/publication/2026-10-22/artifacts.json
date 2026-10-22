@@ -1,0 +1,32 @@
+[
+  {
+    "path": "dist/store/ios-1.1.0-73-final/OfflineTranslator.ipa",
+    "bytes": 67221106,
+    "sha256": "54cf88cd08f2105b86e4d0749d4f6ffa43ff6d3db199f12eb49f5ce3dc89e668",
+    "bundle": {
+      "CFBundleShortVersionString": "1.1.0",
+      "CFBundleVersion": "73"
+    },
+    "buildIdentity": "ios-a8da9e52e60a398e"
+  },
+  {
+    "path": "dist/macos/Kat-translator-0.7.0-build68-mac-arm64.zip",
+    "bytes": 509163420,
+    "sha256": "93451084c6dbae936474f4189b5d081c919c7baea23c5790cdf26d07af92214d",
+    "bundle": {
+      "CFBundleShortVersionString": "0.7.0",
+      "CFBundleVersion": "68"
+    },
+    "buildIdentity": "mac-06cf706059e5153a"
+  },
+  {
+    "path": "dist/macos/Kat-translator-0.7.0-build68-mac-arm64.dmg",
+    "bytes": 793692634,
+    "sha256": "7f29ed50bdfb6cfabd4db0ded500031dd2b5e6232b65ace6b4cd655c20997a29",
+    "bundle": {
+      "CFBundleShortVersionString": "0.7.0",
+      "CFBundleVersion": "68"
+    },
+    "buildIdentity": "mac-06cf706059e5153a"
+  }
+]

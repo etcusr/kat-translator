@@ -2,41 +2,27 @@
 
 **English** | [Русский](README.ru.md)
 
-**Experimental Apple update (22 October):** phrase translation during recording remains in Settings → Experimental on iOS and macOS. The shared RU/EN/ES/TR description now explicitly describes partial text and possible recognition errors; the algorithm and saved preferences are unchanged. WhisperKit is not integrated. Mac **0.6.9 (62)** / `mac-2e41108d45ec2d69` is installed and launches normally, preserving its signing identity, all 1,647 model/package entries, 22 history entries and 105 preferences. iPhone **1.0.1 (67)** is retained without reinstalling. The iOS background-progress/scoped-cancellation fix is included in the source history; its system task is iOS 26+ only, with a limited URLSession/ActivityKit fallback. Mac project generation now excludes that iOS-only task. Store and compatibility builds remain unchanged; no Store upload/review. [Checks and remaining limits](docs/publication/apple-experimental-2026-10-22.md).
+Offline AI translation for **iPhone, Apple Silicon Mac and ARM64 Android**. Translate speech, text and words in images using models on your device. Download the required models and voices before going offline.
 
-**Development download update (iOS 1.0.1 (59), not published):** iOS 26+ uses system continued processing for foreground-started model downloads, with the existing Live Activity fallback. **Cancel all** deletes only the current batch's completed and incomplete files after confirmation; earlier models and voices are retained. [Device checks and limits](docs/publication/ios-continued-download-2026-10-22.md).
+[App Store](https://apps.apple.com/app/kat-translator/id6822496243) · [Website](https://etcusr.github.io/kat-translator/) · [Current versions](docs/CURRENT_STATE.md) · [Documentation](docs/README.md)
 
-**iOS 1.0.1 (58), 20 October:** the package with Whisper Q8, diagnostic audio import and updated recording defaults is verified and uploaded to Apple. Four release-note localizations were saved and reread exactly; manually revised keywords were preserved and synchronized to the documentation. Build 58 was processed, selected and submitted: **Waiting for Review**, confirmed at 23:23 Moscow time. Manual release remains selected. Sources, including completed Mac changes, were pushed to GitHub (`f24ddb0`). [Evidence](docs/publication/ios-q8-store-2026-10-20.md).
+Apple settings bring models, voices and **Quick setup** together. Choose languages, install the packages you need and manage downloads in one place. Voice recording shows microphone activity behind the record button; original recordings and translated speech can be played and shared separately.
 
-**iOS recording defaults:** Whisper date/time repair is enabled and automatic stop uses 3 seconds of silence when no saved preference exists. Explicit saved choices are preserved. macOS/Android defaults are unchanged.
+**Next release:** 1.1.0 is being prepared locally. New screenshots, release notes and validation status are tracked in the [release package](docs/publication/2026-10-22/README.md). This is not an upload or publication announcement. The experimental phrase-by-phrase voice mode is optional and may miss or change words.
 
-**Earlier iOS Store update, 20 October (superseded by build 58):** **1.0.1 (57)** was verified and uploaded, with progressive Index 9B Text/Voice output and improved download Live Activity updates. 144 repository checks and distribution-package validation passed; prior device retention/partial-text acceptance is documented separately. Build 57 is processed and selected for version 1.0.1 in App Store Connect, with saved AI descriptions and release notes in EN/RU/ES/TR. Review cancelled on 20 October for metadata revisions: Developer Rejected; build 57 retained, manual release unchanged. No new macOS Store upload; Mac metadata changes are deferred in BACKLOG. [Release evidence](docs/publication/ios-store-update-2026-10-20.md).
+**Privacy:** processing and history stay on your device; model downloads require an internet connection. Recognition, translation and speech availability depend on the language, model and hardware. Check important numbers, names and conditions against the original.
 
-**iOS 1.0 (55) was verified and uploaded to App Store Connect** with the original-recording volume fix. The owner checked development 54 and reported that it appears correct; that was the installed build at that earlier checkpoint. Signatures, IPA contents and 143 project checks passed. Apple processing and Store 55 installation through TestFlight are unconfirmed; the owner selects the App Review build. Local Store 53/54/55 distributions are retained. [Checks and upload](docs/publication/ios-original-volume-2026-10-18.md).
+**GPL-3.0-or-later.** [License](LICENSE) · [Third-party licenses](docs/LICENSING.md) · [Repository privacy](docs/REPOSITORY_PRIVACY.md).
 
-Local DMG/ZIP packages are updated to **0.6.8 (61)** for macOS 27+ and separately macOS 15–26. Both include the current recognition/speech and Image fixes, including paragraphs and diagnostic timings. Extracted contents, signatures, checksums and library deployment limits passed verification. Keep at most three releases per line: modern 59/60/61, compatible 53/61 (only two exist). The corrected installed copy remains 0.6.7 (60). [Package checks](docs/publication/mac-direct-2026-10-18.md).
+## Interface preview
 
-**iOS 1.0 (54) and Mac App Store 1.0 (76)** were verified and uploaded to App Store Connect. They include recognition preparation before the microphone, recognition release on Text/Camera, and the off-by-default date/time correction setting. iPhone AudioQueue capture reduces first-buffer latency from about 1.40 to 0.28 seconds in development-device measurements. During-recording processing and prior streamed-speech fixes are preserved. Mac also reconstructs OCR paragraphs and shows recognition/translation timings when diagnostics is enabled. Signatures, entitlements, resources and all 143 project checks passed. Apple processing and TestFlight installation are not yet confirmed; the owner selects builds for App Review. [Verification and upload](docs/publication/apple-capture-store-2026-10-18.md).
+Upcoming Apple update; iPhone simulator captures. [All languages and capture details](docs/publication/2026-10-22/README.md).
 
-**Previous upload, 17 October:** **iOS 1.0 (53) and Mac App Store 1.0 (71)** were built from the corrected sources, verified and uploaded to App Store Connect. They include complete streamed speech, exact whitespace handling to avoid replay, contextual Russian ordinals and Mac MLX partial output. Both packages contain the current 13 loading clips. Project validation: 143 PASS. Apple processing, TestFlight installation and build selection for review are not yet confirmed. [Checks and upload result](docs/publication/apple-speech-store-2026-10-17.md).
-
-The microphone defaults to tap to start / tap to stop on iOS, macOS and Android. On iOS, first-run language setup recommends Whisper large-v3-turbo Q8 (874.2 MB) for Whisper-supported languages. Updating requires a one-time download of this new asset; previous F16 weights, other models, settings and history are retained. With technical information enabled, Voice offers **Open audio file** for diagnostic recognition/translation, respecting the automatic speech switch. Native Whisper uses Metal without Core ML. A saved recording-mode choice is preserved; hold to record remains available in Settings. The current iOS54/Mac76 store packages and refreshed direct Mac build include this default.
-
-**GPL-3.0-or-later.** Copyright (c) 2026 the respective copyright holders of Kat translator. Kat's own code may be used, modified and redistributed under GNU GPL version 3 or any later version, without warranty. Third-party components and models retain their own licenses. [GPL text](LICENSE) · [License scope and distribution terms](docs/LICENSING.md).
-
-An offline AI translator for voice, text and image text for **iPhone, Apple Silicon Mac and ARM64 Android**. Processing runs on the device after the required models have been downloaded. Speech recognition, translation and speech synthesis are separate stages; availability and quality depend on the language, model and device.
-
-**Start here:** [current status](docs/CURRENT_STATE.md) · [RU/EN product description](PROJECT_DESCRIPTION.md). This overview was checked against the working tree on October 14, 2026. Dated reports describe the build tested at that time, not necessarily today's code. Living documentation is in English with Russian versions (`*.ru.md`); dated reports stay in their original language. [Documentation index](docs/README.md).
-
-iOS **1.0 (52)** packages the microphone and memory-pressure fixes, tap recording defaults and the current 13 loading clips. Package validation and upload passed; TestFlight acceptance is tracked in the [release report](docs/publication/ios-store-build52-2026-10-17.md).
-
-Earlier iOS **1.0 (51)** and Mac **1.0 (70)** passed package verification and were uploaded to App Store Connect, with the playback fix, signed SDK distributions, nine manifests and 46 license documents. 138 validation tests passed. Build selection, TestFlight and review submission remain with the owner. [Verification and remaining work](docs/publication/signed-sdks-release-2026-10-14.md).
-
-The iPhone playback fix passed six device regressions and two repeated voice cases; the shared Mac player also passed. Release 51/70 includes this fix. [Evidence and limits](docs/publication/ios-playback-fix-2026-10-14.md).
-
-Local runtime checks now include sandboxed Mac inference with network access denied. iPhone downloads and final voice repeats passed, but intermittent playback failures and a Thai pipeline timeout remain unresolved. [Runtime results and limits](docs/publication/runtime-acceptance-2026-10-14.md).
-
-**Repository privacy:** personal recordings, transcripts and diagnostic media are excluded from the published history. [Scope and handling of local data](docs/REPOSITORY_PRIVACY.md).
+<p>
+<a href="site/assets/screenshots/2026-10-22/ios/en/01-text.png"><img src="site/assets/screenshots/2026-10-22/ios/en/01-text.png" width="240" alt="Text translation"></a>
+<a href="site/assets/screenshots/2026-10-22/ios/en/03-settings.png"><img src="site/assets/screenshots/2026-10-22/ios/en/03-settings.png" width="240" alt="Settings"></a>
+<a href="site/assets/screenshots/2026-10-22/ios/en/04-models-and-voices.png"><img src="site/assets/screenshots/2026-10-22/ios/en/04-models-and-voices.png" width="240" alt="Models and voices"></a>
+</p>
 
 ## Features
 
@@ -59,7 +45,7 @@ The experimental Apple phrase-preview path uses speech pauses, timestamped sente
 | Index-Translate 2B | llama.cpp / Metal, Q4_K_M | separate llama.cpp / Metal, Q4_K_M | llama.cpp / Vulkan, Q4_K_M, no MTP |
 | OPUS Big, EN↔RU/UK/BE | CTranslate2 CPU INT8 | separate Python / PyTorch Metal FP16 worker, beam5 | CTranslate2 CPU INT8 |
 | OPUS directions from the catalog | CTranslate2 CPU INT8 | CTranslate2 CPU INT8 | CTranslate2 CPU INT8 |
-| Auto ASR | Whisper Q8 / Metal; Meta for additional languages | Whisper F16 / Metal; Meta for additional languages | RU → GigaAM v3; other Parakeet-supported languages → Parakeet TDT v3; separate existing paths for others |
+| Auto ASR | Whisper Q8 / Metal; Meta for additional languages | Whisper F16 / Metal; Meta for additional languages | RU → GigaAM v3; EN → Parakeet TDT v2; other supported languages → Whisper Q8 |
 | OCR | Apple Vision + local OCR routing | Apple Vision + local OCR routing | bundled ML Kit for supported scripts; PP-OCR for Russian |
 | Initial MT selection | Auto | Auto | Auto |
 
@@ -116,10 +102,6 @@ Hardware tests are separate from unit tests and compilation. Do not run instrume
 - [Publication queue](docs/publication/OPEN_QUESTIONS.md) — what remains before App Store / Google Play publication.
 - [Architecture](docs/ARCHITECTURE.md) — components, key files and builds.
 - [Android](docs/android/README.md), [Mac](docs/macos/README.md), [iPhone testing](DEVICE_TESTING.md).
-- [Publication preparation](docs/publication/2026-10-14/README.md) — dated preparation materials, not a published app.
+- [Publication preparation](docs/publication/2026-10-22/README.md) — dated preparation materials, not a published app.
 - [Animations](docs/branding/loading-animations/README.md), [branding](docs/branding/README.md).
 - [Previous README](docs/history/README-before-2026-10-12-sync.md) — archived details of earlier iterations.
-
-Dependency source delivery and SDK provenance are documented [here](docs/licensing/2026-10-14/publication-and-sdk.md). The source tree now includes 46 notice documents; the newly rebuilt/signed Opus SDK is a separate candidate for the next release.
-
-Release 51/70: three verified upstream speech SDK distributions now carry Kat signatures, with unchanged payloads and corrected embedded-commit/source mapping. The release includes the audio-session fix and 46 notices. [Build, validation and upload status](docs/publication/signed-sdks-release-2026-10-14.md).

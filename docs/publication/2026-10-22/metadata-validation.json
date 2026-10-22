@@ -1,0 +1,729 @@
+{
+  "localizations": 8,
+  "fields": [
+    {
+      "path": "docs/publication/2026-10-22/ios/ru/name.txt",
+      "app_store_locale": "ru",
+      "characters": 14,
+      "utf16_units": 14,
+      "utf8_bytes": 14,
+      "limit": 30,
+      "limit_unit": "characters",
+      "sha256": "d0b0583c6025703d5dbcf51a570c4f9fb869947f24199c8f9c020c4691c6782b"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/ru/subtitle.txt",
+      "app_store_locale": "ru",
+      "characters": 25,
+      "utf16_units": 25,
+      "utf8_bytes": 45,
+      "limit": 30,
+      "limit_unit": "characters",
+      "sha256": "17c8c85503480e205d7b8cf780bf975d20b76411432c1fc3e702a92a6653aa9e"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/ru/promotional_text.txt",
+      "app_store_locale": "ru",
+      "characters": 132,
+      "utf16_units": 132,
+      "utf8_bytes": 242,
+      "limit": 170,
+      "limit_unit": "characters",
+      "sha256": "0a2e9b617c56a45a90366642084d9c0e07cfbefdd966d09b8b1605546d6a214b"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/ru/description.txt",
+      "app_store_locale": "ru",
+      "characters": 1834,
+      "utf16_units": 1834,
+      "utf8_bytes": 3357,
+      "limit": 4000,
+      "limit_unit": "characters",
+      "sha256": "ce76af454fb7c5c689d712c5bb6b2b18a05579997721428fbc990802d4cc0e3e"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/ru/keywords.txt",
+      "app_store_locale": "ru",
+      "characters": 99,
+      "utf16_units": 99,
+      "utf8_bytes": 186,
+      "limit": 100,
+      "limit_unit": "characters",
+      "sha256": "e9a313e6a2226833a6ab311e4f86cac76d5f32ec4f89b03845dafc97934dccd3"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/ru/support_url.txt",
+      "app_store_locale": "ru",
+      "characters": 40,
+      "utf16_units": 40,
+      "utf8_bytes": 40,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "a533718ffc997edd91219a37f750f0c718bee01eb2833ec1c70ac55dec97fd16"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/ru/marketing_url.txt",
+      "app_store_locale": "ru",
+      "characters": 40,
+      "utf16_units": 40,
+      "utf8_bytes": 40,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "a533718ffc997edd91219a37f750f0c718bee01eb2833ec1c70ac55dec97fd16"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/ru/privacy_policy_url.txt",
+      "app_store_locale": "ru",
+      "characters": 48,
+      "utf16_units": 48,
+      "utf8_bytes": 48,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "ebe44af1c49d2ce0ee0b49e5dd281347061c4238c2829b830d12f7716f6e9700"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/ru/whats-new.txt",
+      "app_store_locale": "ru",
+      "characters": 475,
+      "utf16_units": 475,
+      "utf8_bytes": 875,
+      "limit": 4000,
+      "limit_unit": "characters",
+      "sha256": "2b7dabf069570db672fafbef601022a999b8a4d924106c2eb318502282c33e9b"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/en/name.txt",
+      "app_store_locale": "en-US",
+      "characters": 14,
+      "utf16_units": 14,
+      "utf8_bytes": 14,
+      "limit": 30,
+      "limit_unit": "characters",
+      "sha256": "d0b0583c6025703d5dbcf51a570c4f9fb869947f24199c8f9c020c4691c6782b"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/en/subtitle.txt",
+      "app_store_locale": "en-US",
+      "characters": 30,
+      "utf16_units": 30,
+      "utf8_bytes": 30,
+      "limit": 30,
+      "limit_unit": "characters",
+      "sha256": "84ff18f93bba091a0b1ae72db45701d3ae372085d6ffaa847c2dafc37edd2bc9"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/en/promotional_text.txt",
+      "app_store_locale": "en-US",
+      "characters": 151,
+      "utf16_units": 151,
+      "utf8_bytes": 151,
+      "limit": 170,
+      "limit_unit": "characters",
+      "sha256": "100f1486a8418ba4c8cd34fbd6657cfbe99d9e52660ed9893caa80cdb5fbd024"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/en/description.txt",
+      "app_store_locale": "en-US",
+      "characters": 1877,
+      "utf16_units": 1877,
+      "utf8_bytes": 1877,
+      "limit": 4000,
+      "limit_unit": "characters",
+      "sha256": "34439e333ab111d43066e9e82e37a693e33922f0dfb0eea35d4b527bdb53a7a9"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/en/keywords.txt",
+      "app_store_locale": "en-US",
+      "characters": 100,
+      "utf16_units": 100,
+      "utf8_bytes": 100,
+      "limit": 100,
+      "limit_unit": "characters",
+      "sha256": "d78d84d0c86872b55c3a2811ab8e99cf4f27f069e968e824057893d502a61d15"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/en/support_url.txt",
+      "app_store_locale": "en-US",
+      "characters": 40,
+      "utf16_units": 40,
+      "utf8_bytes": 40,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "a533718ffc997edd91219a37f750f0c718bee01eb2833ec1c70ac55dec97fd16"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/en/marketing_url.txt",
+      "app_store_locale": "en-US",
+      "characters": 40,
+      "utf16_units": 40,
+      "utf8_bytes": 40,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "a533718ffc997edd91219a37f750f0c718bee01eb2833ec1c70ac55dec97fd16"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/en/privacy_policy_url.txt",
+      "app_store_locale": "en-US",
+      "characters": 48,
+      "utf16_units": 48,
+      "utf8_bytes": 48,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "ebe44af1c49d2ce0ee0b49e5dd281347061c4238c2829b830d12f7716f6e9700"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/en/whats-new.txt",
+      "app_store_locale": "en-US",
+      "characters": 536,
+      "utf16_units": 536,
+      "utf8_bytes": 536,
+      "limit": 4000,
+      "limit_unit": "characters",
+      "sha256": "8532fc9388e249e3c969100afceaffdf63972c1ef3750fbcced7a31aed45c03f"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/es/name.txt",
+      "app_store_locale": "es-ES",
+      "characters": 14,
+      "utf16_units": 14,
+      "utf8_bytes": 14,
+      "limit": 30,
+      "limit_unit": "characters",
+      "sha256": "d0b0583c6025703d5dbcf51a570c4f9fb869947f24199c8f9c020c4691c6782b"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/es/subtitle.txt",
+      "app_store_locale": "es-ES",
+      "characters": 24,
+      "utf16_units": 24,
+      "utf8_bytes": 25,
+      "limit": 30,
+      "limit_unit": "characters",
+      "sha256": "0ea45d035a9c57ae7fe26bcd72b774f8538dd505bc2667ea05145d7051629caa"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/es/promotional_text.txt",
+      "app_store_locale": "es-ES",
+      "characters": 117,
+      "utf16_units": 117,
+      "utf8_bytes": 120,
+      "limit": 170,
+      "limit_unit": "characters",
+      "sha256": "5dae52fa3ee9328462719e050b8e5b8793ab8e0bfdd9582bd16d10557870188d"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/es/description.txt",
+      "app_store_locale": "es-ES",
+      "characters": 2025,
+      "utf16_units": 2025,
+      "utf8_bytes": 2059,
+      "limit": 4000,
+      "limit_unit": "characters",
+      "sha256": "b7a7820a4165e8f148abf565d09aab0f1566c11008e973320318c91b92247d54"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/es/keywords.txt",
+      "app_store_locale": "es-ES",
+      "characters": 100,
+      "utf16_units": 100,
+      "utf8_bytes": 103,
+      "limit": 100,
+      "limit_unit": "characters",
+      "sha256": "5a05bf2101d12625698b37d02478f5c65f9d556e96f0ff9497a9fccff6f46055"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/es/support_url.txt",
+      "app_store_locale": "es-ES",
+      "characters": 40,
+      "utf16_units": 40,
+      "utf8_bytes": 40,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "a533718ffc997edd91219a37f750f0c718bee01eb2833ec1c70ac55dec97fd16"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/es/marketing_url.txt",
+      "app_store_locale": "es-ES",
+      "characters": 40,
+      "utf16_units": 40,
+      "utf8_bytes": 40,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "a533718ffc997edd91219a37f750f0c718bee01eb2833ec1c70ac55dec97fd16"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/es/privacy_policy_url.txt",
+      "app_store_locale": "es-ES",
+      "characters": 48,
+      "utf16_units": 48,
+      "utf8_bytes": 48,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "ebe44af1c49d2ce0ee0b49e5dd281347061c4238c2829b830d12f7716f6e9700"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/es/whats-new.txt",
+      "app_store_locale": "es-ES",
+      "characters": 582,
+      "utf16_units": 582,
+      "utf8_bytes": 595,
+      "limit": 4000,
+      "limit_unit": "characters",
+      "sha256": "47a283e278719e8f609ff4374aa30b8e76e426d89b9a1f17ce0cc98901cc568b"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/tr/name.txt",
+      "app_store_locale": "tr",
+      "characters": 14,
+      "utf16_units": 14,
+      "utf8_bytes": 14,
+      "limit": 30,
+      "limit_unit": "characters",
+      "sha256": "d0b0583c6025703d5dbcf51a570c4f9fb869947f24199c8f9c020c4691c6782b"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/tr/subtitle.txt",
+      "app_store_locale": "tr",
+      "characters": 29,
+      "utf16_units": 29,
+      "utf8_bytes": 33,
+      "limit": 30,
+      "limit_unit": "characters",
+      "sha256": "a36db71623db2fd031a5d83979c02dd84ec4f0250eaa0f58549e9a34f14a8cc3"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/tr/promotional_text.txt",
+      "app_store_locale": "tr",
+      "characters": 127,
+      "utf16_units": 127,
+      "utf8_bytes": 137,
+      "limit": 170,
+      "limit_unit": "characters",
+      "sha256": "240519f2638e8c757956c7a808e83903b0d6339f086549b324be5d730bfda235"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/tr/description.txt",
+      "app_store_locale": "tr",
+      "characters": 1910,
+      "utf16_units": 1910,
+      "utf8_bytes": 2078,
+      "limit": 4000,
+      "limit_unit": "characters",
+      "sha256": "0892499dc3aefcac2c76534a3790c1c73fe8027356fbf193325778f3ef74db40"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/tr/keywords.txt",
+      "app_store_locale": "tr",
+      "characters": 100,
+      "utf16_units": 100,
+      "utf8_bytes": 108,
+      "limit": 100,
+      "limit_unit": "characters",
+      "sha256": "1fe39c36950729f73f85f1538e5643439463e9e2b131b9081763e814fa0354d7"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/tr/support_url.txt",
+      "app_store_locale": "tr",
+      "characters": 40,
+      "utf16_units": 40,
+      "utf8_bytes": 40,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "a533718ffc997edd91219a37f750f0c718bee01eb2833ec1c70ac55dec97fd16"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/tr/marketing_url.txt",
+      "app_store_locale": "tr",
+      "characters": 40,
+      "utf16_units": 40,
+      "utf8_bytes": 40,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "a533718ffc997edd91219a37f750f0c718bee01eb2833ec1c70ac55dec97fd16"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/tr/privacy_policy_url.txt",
+      "app_store_locale": "tr",
+      "characters": 48,
+      "utf16_units": 48,
+      "utf8_bytes": 48,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "ebe44af1c49d2ce0ee0b49e5dd281347061c4238c2829b830d12f7716f6e9700"
+    },
+    {
+      "path": "docs/publication/2026-10-22/ios/tr/whats-new.txt",
+      "app_store_locale": "tr",
+      "characters": 475,
+      "utf16_units": 475,
+      "utf8_bytes": 517,
+      "limit": 4000,
+      "limit_unit": "characters",
+      "sha256": "fbd6ac681dbea0171d2c1ec83dd3fa8030a64bc9b46d47124c20a61bd66720dc"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/ru/name.txt",
+      "app_store_locale": "ru",
+      "characters": 14,
+      "utf16_units": 14,
+      "utf8_bytes": 14,
+      "limit": 30,
+      "limit_unit": "characters",
+      "sha256": "d0b0583c6025703d5dbcf51a570c4f9fb869947f24199c8f9c020c4691c6782b"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/ru/subtitle.txt",
+      "app_store_locale": "ru",
+      "characters": 25,
+      "utf16_units": 25,
+      "utf8_bytes": 45,
+      "limit": 30,
+      "limit_unit": "characters",
+      "sha256": "17c8c85503480e205d7b8cf780bf975d20b76411432c1fc3e702a92a6653aa9e"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/ru/promotional_text.txt",
+      "app_store_locale": "ru",
+      "characters": 132,
+      "utf16_units": 132,
+      "utf8_bytes": 242,
+      "limit": 170,
+      "limit_unit": "characters",
+      "sha256": "0a2e9b617c56a45a90366642084d9c0e07cfbefdd966d09b8b1605546d6a214b"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/ru/description.txt",
+      "app_store_locale": "ru",
+      "characters": 2282,
+      "utf16_units": 2282,
+      "utf8_bytes": 4149,
+      "limit": 4000,
+      "limit_unit": "characters",
+      "sha256": "672fb8c3c77bf826f6c8a6be48690e55d2dd17c8a05463326a4fe636a4187506"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/ru/keywords.txt",
+      "app_store_locale": "ru",
+      "characters": 52,
+      "utf16_units": 52,
+      "utf8_bytes": 94,
+      "limit": 100,
+      "limit_unit": "characters",
+      "sha256": "3c59cb6778ad8f115018486615392441db32b9de7fcea28f81ae55aaf04aa823"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/ru/support_url.txt",
+      "app_store_locale": "ru",
+      "characters": 40,
+      "utf16_units": 40,
+      "utf8_bytes": 40,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "a533718ffc997edd91219a37f750f0c718bee01eb2833ec1c70ac55dec97fd16"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/ru/marketing_url.txt",
+      "app_store_locale": "ru",
+      "characters": 40,
+      "utf16_units": 40,
+      "utf8_bytes": 40,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "a533718ffc997edd91219a37f750f0c718bee01eb2833ec1c70ac55dec97fd16"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/ru/privacy_policy_url.txt",
+      "app_store_locale": "ru",
+      "characters": 48,
+      "utf16_units": 48,
+      "utf8_bytes": 48,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "ebe44af1c49d2ce0ee0b49e5dd281347061c4238c2829b830d12f7716f6e9700"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/ru/whats-new.txt",
+      "app_store_locale": "ru",
+      "characters": 383,
+      "utf16_units": 383,
+      "utf8_bytes": 711,
+      "limit": 4000,
+      "limit_unit": "characters",
+      "sha256": "df78b75b793d381bd7a00884fdea492bedbe03261e9fee2524a9cb4c20514ea0"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/en/name.txt",
+      "app_store_locale": "en-US",
+      "characters": 14,
+      "utf16_units": 14,
+      "utf8_bytes": 14,
+      "limit": 30,
+      "limit_unit": "characters",
+      "sha256": "d0b0583c6025703d5dbcf51a570c4f9fb869947f24199c8f9c020c4691c6782b"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/en/subtitle.txt",
+      "app_store_locale": "en-US",
+      "characters": 30,
+      "utf16_units": 30,
+      "utf8_bytes": 30,
+      "limit": 30,
+      "limit_unit": "characters",
+      "sha256": "84ff18f93bba091a0b1ae72db45701d3ae372085d6ffaa847c2dafc37edd2bc9"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/en/promotional_text.txt",
+      "app_store_locale": "en-US",
+      "characters": 151,
+      "utf16_units": 151,
+      "utf8_bytes": 151,
+      "limit": 170,
+      "limit_unit": "characters",
+      "sha256": "100f1486a8418ba4c8cd34fbd6657cfbe99d9e52660ed9893caa80cdb5fbd024"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/en/description.txt",
+      "app_store_locale": "en-US",
+      "characters": 2202,
+      "utf16_units": 2202,
+      "utf8_bytes": 2202,
+      "limit": 4000,
+      "limit_unit": "characters",
+      "sha256": "04c8416b09b95d02f6c31e93d9455263fc4c54d703d22570452517dcc140a797"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/en/keywords.txt",
+      "app_store_locale": "en-US",
+      "characters": 65,
+      "utf16_units": 65,
+      "utf8_bytes": 65,
+      "limit": 100,
+      "limit_unit": "characters",
+      "sha256": "ba23214b3f6f8e2c8e915fa99de74778e5689534de4e23de589e28cd1e2ce142"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/en/support_url.txt",
+      "app_store_locale": "en-US",
+      "characters": 40,
+      "utf16_units": 40,
+      "utf8_bytes": 40,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "a533718ffc997edd91219a37f750f0c718bee01eb2833ec1c70ac55dec97fd16"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/en/marketing_url.txt",
+      "app_store_locale": "en-US",
+      "characters": 40,
+      "utf16_units": 40,
+      "utf8_bytes": 40,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "a533718ffc997edd91219a37f750f0c718bee01eb2833ec1c70ac55dec97fd16"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/en/privacy_policy_url.txt",
+      "app_store_locale": "en-US",
+      "characters": 48,
+      "utf16_units": 48,
+      "utf8_bytes": 48,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "ebe44af1c49d2ce0ee0b49e5dd281347061c4238c2829b830d12f7716f6e9700"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/en/whats-new.txt",
+      "app_store_locale": "en-US",
+      "characters": 429,
+      "utf16_units": 429,
+      "utf8_bytes": 429,
+      "limit": 4000,
+      "limit_unit": "characters",
+      "sha256": "d5319e3e1eb3be718e628db0906496a5aaf72c124a09a1def86c6bae728f6b57"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/es/name.txt",
+      "app_store_locale": "es-ES",
+      "characters": 14,
+      "utf16_units": 14,
+      "utf8_bytes": 14,
+      "limit": 30,
+      "limit_unit": "characters",
+      "sha256": "d0b0583c6025703d5dbcf51a570c4f9fb869947f24199c8f9c020c4691c6782b"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/es/subtitle.txt",
+      "app_store_locale": "es-ES",
+      "characters": 24,
+      "utf16_units": 24,
+      "utf8_bytes": 25,
+      "limit": 30,
+      "limit_unit": "characters",
+      "sha256": "0ea45d035a9c57ae7fe26bcd72b774f8538dd505bc2667ea05145d7051629caa"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/es/promotional_text.txt",
+      "app_store_locale": "es-ES",
+      "characters": 117,
+      "utf16_units": 117,
+      "utf8_bytes": 120,
+      "limit": 170,
+      "limit_unit": "characters",
+      "sha256": "5dae52fa3ee9328462719e050b8e5b8793ab8e0bfdd9582bd16d10557870188d"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/es/description.txt",
+      "app_store_locale": "es-ES",
+      "characters": 1980,
+      "utf16_units": 1980,
+      "utf8_bytes": 2001,
+      "limit": 4000,
+      "limit_unit": "characters",
+      "sha256": "3df2d6288035624ae0b677248e0f66549dce4cad058a86540442ebdf7b5ea342"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/es/keywords.txt",
+      "app_store_locale": "es-ES",
+      "characters": 57,
+      "utf16_units": 57,
+      "utf8_bytes": 57,
+      "limit": 100,
+      "limit_unit": "characters",
+      "sha256": "6436a36e9be4ebcdb2b3b75874c38de15d4a62a12b199edf2b80d00944841586"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/es/support_url.txt",
+      "app_store_locale": "es-ES",
+      "characters": 40,
+      "utf16_units": 40,
+      "utf8_bytes": 40,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "a533718ffc997edd91219a37f750f0c718bee01eb2833ec1c70ac55dec97fd16"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/es/marketing_url.txt",
+      "app_store_locale": "es-ES",
+      "characters": 40,
+      "utf16_units": 40,
+      "utf8_bytes": 40,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "a533718ffc997edd91219a37f750f0c718bee01eb2833ec1c70ac55dec97fd16"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/es/privacy_policy_url.txt",
+      "app_store_locale": "es-ES",
+      "characters": 48,
+      "utf16_units": 48,
+      "utf8_bytes": 48,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "ebe44af1c49d2ce0ee0b49e5dd281347061c4238c2829b830d12f7716f6e9700"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/es/whats-new.txt",
+      "app_store_locale": "es-ES",
+      "characters": 495,
+      "utf16_units": 495,
+      "utf8_bytes": 508,
+      "limit": 4000,
+      "limit_unit": "characters",
+      "sha256": "ab4fbcbeb150910e6f8901bd9ea7602a2434b59b5f96c6267866ea75695127ae"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/tr/name.txt",
+      "app_store_locale": "tr",
+      "characters": 14,
+      "utf16_units": 14,
+      "utf8_bytes": 14,
+      "limit": 30,
+      "limit_unit": "characters",
+      "sha256": "d0b0583c6025703d5dbcf51a570c4f9fb869947f24199c8f9c020c4691c6782b"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/tr/subtitle.txt",
+      "app_store_locale": "tr",
+      "characters": 29,
+      "utf16_units": 29,
+      "utf8_bytes": 33,
+      "limit": 30,
+      "limit_unit": "characters",
+      "sha256": "a36db71623db2fd031a5d83979c02dd84ec4f0250eaa0f58549e9a34f14a8cc3"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/tr/promotional_text.txt",
+      "app_store_locale": "tr",
+      "characters": 127,
+      "utf16_units": 127,
+      "utf8_bytes": 137,
+      "limit": 170,
+      "limit_unit": "characters",
+      "sha256": "240519f2638e8c757956c7a808e83903b0d6339f086549b324be5d730bfda235"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/tr/description.txt",
+      "app_store_locale": "tr",
+      "characters": 1811,
+      "utf16_units": 1811,
+      "utf8_bytes": 1965,
+      "limit": 4000,
+      "limit_unit": "characters",
+      "sha256": "575760b4252d53ac669d1a0c0efc3723701436d68ff983a96b8191dbe68b7e6f"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/tr/keywords.txt",
+      "app_store_locale": "tr",
+      "characters": 57,
+      "utf16_units": 57,
+      "utf8_bytes": 63,
+      "limit": 100,
+      "limit_unit": "characters",
+      "sha256": "9ce28713d143196b7f59c189639c9c4542cf77f5ed47d1018a06c658eb900bb3"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/tr/support_url.txt",
+      "app_store_locale": "tr",
+      "characters": 40,
+      "utf16_units": 40,
+      "utf8_bytes": 40,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "a533718ffc997edd91219a37f750f0c718bee01eb2833ec1c70ac55dec97fd16"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/tr/marketing_url.txt",
+      "app_store_locale": "tr",
+      "characters": 40,
+      "utf16_units": 40,
+      "utf8_bytes": 40,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "a533718ffc997edd91219a37f750f0c718bee01eb2833ec1c70ac55dec97fd16"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/tr/privacy_policy_url.txt",
+      "app_store_locale": "tr",
+      "characters": 48,
+      "utf16_units": 48,
+      "utf8_bytes": 48,
+      "limit": 255,
+      "limit_unit": "characters",
+      "sha256": "ebe44af1c49d2ce0ee0b49e5dd281347061c4238c2829b830d12f7716f6e9700"
+    },
+    {
+      "path": "docs/publication/2026-10-22/macos/tr/whats-new.txt",
+      "app_store_locale": "tr",
+      "characters": 367,
+      "utf16_units": 367,
+      "utf8_bytes": 405,
+      "limit": 4000,
+      "limit_unit": "characters",
+      "sha256": "3cfeba19d29301e378341f10eb9f4cf140d71922c69407f31e07a650ef6e37c7"
+    }
+  ],
+  "review_notes_checked": 2,
+  "checks": "Required fields, interface-language parity, character limits with UTF-8 byte counts, HTTPS URL syntax and reviewer-note copies",
+  "limitations": "No App Store upload, URL availability test or native-speaker review is implied.",
+  "errors": []
+}

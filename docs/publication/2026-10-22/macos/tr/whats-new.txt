@@ -1,0 +1,1 @@
+Ayarlar artık kategorilere ayrıldı; modeller, sesler ve Hızlı kurulum aynı yerde. Yeni mikrofon göstergesi kayıt sırasında gelen sesi gösterir. Görüntü çevirisinde ilerleme alanı daha kararlı; kayıt kurtarma ve ses paylaşımı da iyileştirildi. Deneysel özellikler bölümünde cümle cümle sesli çeviri modu bulunur; konuşma tanıma ve cümle sınırları hâlâ hatalı olabilir.

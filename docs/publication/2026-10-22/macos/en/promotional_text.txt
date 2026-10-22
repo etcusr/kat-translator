@@ -1,0 +1,1 @@
+Offline AI translation for speech, text and images, processed on your device. Download the models first, then translate without an internet connection.

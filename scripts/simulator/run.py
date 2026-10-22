@@ -21,6 +21,13 @@ BUNDLE = "app.kattranslator"
 DEVICE_NAME = "Kat iPhone 17 Pro"
 
 
+def require_mac_kat_closed() -> None:
+    """Never overlap native Kat/model workers with the memory-heavy iOS simulator."""
+    processes = capture("ps", "-axo", "comm=").splitlines()
+    if any("Kat translator.app/Contents/MacOS/" in item for item in processes):
+        raise SystemExit("Quit Kat on Mac before starting the iPhone simulator. Run one platform at a time to avoid memory exhaustion.")
+
+
 def capture(*args: str) -> str:
     return subprocess.check_output(args, cwd=ROOT, text=True).strip()
 
@@ -34,7 +41,7 @@ def run(log: Path, *args: str) -> None:
         raise SystemExit(result.returncode)
 
 
-def prepare_runner(model_check: bool = False) -> Path:
+def prepare_runner(model_check: bool = False, screenshots: bool = False) -> Path:
     """Generate an independent XCTest runner, with no app build target dependency."""
     project = WORK / "Control.xcodeproj"
     (project / "xcshareddata/xcschemes").mkdir(parents=True, exist_ok=True)
@@ -54,7 +61,7 @@ def prepare_runner(model_check: bool = False) -> Path:
 
     refs, builds = [], []
     for source in [ROOT / "scripts/validation/apple-settings-ui.swift",
-                   ROOT / ("scripts/simulator/ModelSmokeTests.swift" if model_check else "scripts/simulator/SimulatorNavigationTests.swift")]:
+                   ROOT / ("scripts/simulator/PublicationScreenshots.swift" if screenshots else "scripts/simulator/ModelSmokeTests.swift" if model_check else "scripts/simulator/SimulatorNavigationTests.swift")]:
         ref = add(str(source), "PBXFileReference", lastKnownFileType="sourcecode.swift",
                   path=str(source), sourceTree="<absolute>")
         refs.append(ref)
@@ -125,11 +132,15 @@ def main() -> None:
     parser.add_argument("--prepare-only", action="store_true", help="generate the UI-test project without booting a device")
     parser.add_argument("--headless", action="store_true", help="do not open Simulator.app")
     parser.add_argument("--model-check", action="store_true", help="check seeded models and one short translation instead of mode navigation")
+    parser.add_argument("--screenshots", action="store_true", help="capture localized real UI on the dedicated simulator; requires seeded Index 2B")
     args = parser.parse_args()
-    project = prepare_runner(args.model_check)
+    if args.model_check and args.screenshots:
+        parser.error("Choose either model checks or publication screenshots")
+    project = prepare_runner(args.model_check, args.screenshots)
     if args.prepare_only:
         print(project)
         return
+    require_mac_kat_closed()
     logs = WORK / "runs" / datetime.now().strftime("%Y%m%d-%H%M%S")
     logs.mkdir(parents=True)
     device = simulator()
@@ -162,15 +173,16 @@ def main() -> None:
         "-destination", f"platform=iOS Simulator,id={device}", "-derivedDataPath", str(WORK / "Derived"),
         "-resultBundlePath", str(logs / "Navigation.xcresult"), "-parallel-testing-enabled", "NO",
         "ARCHS=arm64", "ONLY_ACTIVE_ARCH=YES", "CODE_SIGNING_ALLOWED=NO",
-        *(["-only-testing:SimulatorUITests/ModelSmokeTests"] if args.model_check else []))
+        *(["-only-testing:SimulatorUITests/PublicationScreenshots"] if args.screenshots else ["-only-testing:SimulatorUITests/ModelSmokeTests"] if args.model_check else []))
     run(logs / "result-summary.log", "xcrun", "xcresulttool", "get", "test-results", "summary",
         "--path", str(logs / "Navigation.xcresult"))
     summary = json.loads((logs / "result-summary.log").read_text())
-    if summary.get("passedTests", 0) < 2 or summary.get("failedTests", 0) or summary.get("skippedTests", 0):
-        raise SystemExit("Expected both navigation tests to pass without skips; inspect the result bundle.")
+    expected = 4 if args.screenshots else 2
+    if summary.get("passedTests", 0) != expected or summary.get("failedTests", 0) or summary.get("skippedTests", 0):
+        raise SystemExit(f"Expected {expected} selected tests to pass without skips; inspect the result bundle.")
     run(logs / "screenshots.log", "xcrun", "xcresulttool", "export", "attachments",
         "--path", str(logs / "Navigation.xcresult"), "--output-path", str(logs / "screenshots"))
-    print(f"PASS: both selected UI tests. Results: {logs.relative_to(ROOT)}")
+    print(f"PASS: {expected} selected UI tests. Results: {logs.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

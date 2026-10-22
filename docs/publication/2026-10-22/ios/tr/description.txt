@@ -1,0 +1,25 @@
+Kat translator konuşmaları, metinleri ve fotoğraflardaki yazıları çevrimdışı çevirir. İhtiyacınız olan modelleri önceden indirin; seyahatte, işte veya internet bağlantısı olmayan yerlerde çeviri yapın. Yapay zekâ modelleri çeviriyi doğrudan cihazınızda gerçekleştirir.
+
+SESLİ ÇEVİRİ
+Bir cümle kaydedin, kaydı durdurun ve çevirisini alın. Desteklenen dillerde sonucu dinlemek için bir ses paketi indirin.
+
+METİN ÇEVİRİSİ
+Bir mesaj yazın veya yapıştırın, hedef dili seçin ve sonucu kopyalayın. Dil araması ve favoriler, istediğiniz dil çiftini bulmanıza yardımcı olur.
+
+KAMERA VE FOTOĞRAF ÇEVİRİSİ
+Kamerayı kullanın veya galerinizden bir görsel seçin. Kat menülerdeki, tabelalardaki ve diğer görsellerdeki yazıları tanır ve çeviriyi görselin üzerinde gösterir.
+
+İHTİYACINIZA UYGUN MODELLER
+Daha az yer kaplayan kompakt modelleri veya farklı yeteneklere ve bellek gereksinimlerine sahip daha büyük modelleri seçin. Kullanılabilen diller, modeller ve sesler uygulamada listelenir. Otomatik mod, cihazınıza ve dil çiftine uygun yüklü bir model seçer.
+
+YEREL GEÇMİŞ
+İhtiyacınız olan çevirileri cihazınızda saklamak için geçmişi etkinleştirin. Metin, ses veya görsellerden hangilerini saklayacağınızı seçin. Sonuçları kopyalayın ve sistemin paylaşım menüsüyle paylaşın.
+
+Modelleri ve sesleri indirmek için internet gerekir. Gerekli paketler indirildikten sonra desteklenen özellikler çevrimdışı çalışır. Tanıma ve sesli okuma desteği dile, modele ve cihaza bağlıdır. Paketler birkaç gigabayt yer kaplayabilir.
+
+Arayüz Türkçe, İngilizce, Rusça ve İspanyolca olarak kullanılabilir.
+
+Çeviriler hata içerebilir. Önemli sayıları, adları ve koşulları orijinal metinle karşılaştırın.
+
+TEK YERDEN KURULUM
+Çeviri modellerini, konuşma tanımayı ve sesleri Ayarlar bölümünde bulun. Hızlı kurulum, dilleri ve önerilen indirmeleri seçmenize yardımcı olur. Yüklü paketleri aynı menüden inceleyebilir ve indirmeleri yönetebilirsiniz.

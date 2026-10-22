@@ -2,6 +2,8 @@
 
 **English** | [Русский](next-apple-release-plan.ru.md)
 
+**Progress, 23 October:** [local 1.1.0 preparation](2026-10-22/README.md): iOS archive/export, direct Mac packages, four-language copy, 24 iPhone screenshots and 16 labelled Mac view previews, README/site gallery. No upload or review action. Mac Store export is blocked by the pinned Python runtime containing embedded OpenSSL. Full Mac/Android/Voice/Image captures, iPad assessment, real-device demo and candidate upgrade acceptance remain open. Keep the checklist below incomplete until its full criteria are met.
+
 Requested on 22 October 2026. **Planned work, not completed publication.** The current task does not upload builds, change App Store Connect or submit a review. Choose the new public versions when preparing the release; increasing only the build number is not a new public version.
 
 ## 1. Freeze the release scope

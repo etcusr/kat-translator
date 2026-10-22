@@ -2,6 +2,8 @@
 
 **English** | [Русский](ARCHITECTURE.ru.md)
 
+**Simulator validation:** dedicated iPhone 17 Pro UI runner uses CPU ASR/translation, APFS model clones and no physical-device container. Native Kat must be closed before simulator startup; shut down the simulator before Mac tests. Publication captures are separate from device performance acceptance. [Workflow](../scripts/simulator/README.md).
+
 ## Microphone activity
 
 Apple microphone metering and background bars share the existing recording pipeline.

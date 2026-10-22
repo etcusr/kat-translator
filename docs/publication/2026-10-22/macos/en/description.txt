@@ -1,0 +1,29 @@
+Kat translator uses on-device AI models to translate speech, text and words in images. Choose your languages, download the models you need and translate without an internet connection.
+
+SPEAK AND LISTEN
+Record a phrase, stop recording and get a translation. Download a voice to hear the result in supported languages. Your original recording and the spoken translation are available separately.
+
+TRANSLATE TEXT
+Type or paste text, choose a direction and copy the result. Language search and favourites keep your preferred pairs close at hand. Longer text is processed in sections.
+
+READ WORDS IN IMAGES
+Open an image file, paste an image from the clipboard or select an area of your screen. Kat recognises supported text and displays the translation on the image.
+
+CHOOSE MODELS AND VOICES
+Auto mode chooses an installed model for your device and translation direction. Compact OPUS packages serve specific translation directions; Index 2B and 9B offer a broader selection of text languages with different memory requirements. Available downloads are listed in the app. Download voices separately and listen to a sample before choosing.
+
+KEEP USEFUL RESULTS
+Save translations in local history. Manage retention for text, audio and images, copy results and share them through your device's share menu.
+
+ON-DEVICE PROCESSING
+Offline translation using local models on your device. Internet access is needed for the initial download and for downloading additional models.
+
+Voice input, speech output and image recognition depend on the language, model and device. Packages can take several gigabytes of storage, and Index needs substantial memory. Translations may contain errors. Check important numbers, names and conditions against the original.
+
+Russian, English, Spanish and Turkish interface languages.
+
+ON MAC
+Translate selected text and clipboard content with keyboard shortcuts, and open Kat from the menu bar. Requires a Mac with Apple silicon and macOS 27 or later.
+
+SET UP IN ONE PLACE
+Find translation models, speech recognition and voices in Settings. Quick setup helps you choose languages and recommended downloads. You can review installed packages and manage downloads from the same menu.

@@ -1,0 +1,25 @@
+Kat translator is an offline voice and text translator that also translates text in photos. Download the models you need in advance and translate while travelling, at work or without a connection. AI models run the translation directly on your device.
+
+VOICE TRANSLATION
+Record a phrase, stop recording and get a translation. Download a voice to hear the result in supported languages.
+
+TEXT TRANSLATION
+Type or paste a message, choose a target language and copy the result. Language search and favourites help you find your preferred translation direction.
+
+CAMERA AND PHOTO TRANSLATION
+Use the camera or choose an image from your library. Kat recognises text on menus, signs and other images and displays the translation on the image.
+
+MODELS FOR YOUR NEEDS
+Choose compact models that take less storage or larger models with different capabilities and memory requirements. Available languages, models and voices are listed in the app. Auto mode chooses a suitable installed model for your device and translation direction.
+
+LOCAL HISTORY
+Enable history to keep useful translations on your device. Choose whether to save text, audio or images. Copy results and share them through your device's share menu.
+
+Internet access is needed to download models and voices. Once the required packages are downloaded, supported features work offline. Recognition and speech playback availability depend on the language, model and device. Packages can take several gigabytes of storage.
+
+The interface is available in English, Russian, Spanish and Turkish.
+
+Translations may contain errors. Check important numbers, names and conditions against the original.
+
+SET UP IN ONE PLACE
+Find translation models, speech recognition and voices in Settings. Quick setup helps you choose languages and recommended downloads. You can review installed packages and manage downloads from the same menu.

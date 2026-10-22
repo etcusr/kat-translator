@@ -1,0 +1,17 @@
+Kat translator performs speech recognition, translation and speech synthesis on the device. No account or sign-in is required.
+
+An internet connection is required to download the selected language models and voices before first use. Downloads may require several gigabytes of free storage. Available downloads are shown in the app; language coverage differs between translation, speech recognition and voices.
+
+Suggested review steps:
+1. Select English and Russian and download the required translation, speech recognition and voice packages.
+2. Open Text, enter a short sentence and translate it.
+3. Open Voice, allow microphone access, record a short phrase and stop recording to translate it.
+4. Use Camera to translate clearly printed text.
+5. After the required packages are downloaded, disable the network and repeat text and voice translation.
+
+Larger translation models require more device memory. Microphone and photo access are requested for the relevant input features. Speech recordings and translation input are processed locally.
+
+Live Activities and Widget Gallery:
+Kat does not include a Home Screen or Lock Screen widget that users add from the Widget Gallery. The embedded DownloadActivityExtension is used exclusively for an ActivityKit Live Activity showing model-download progress. It is not a gallery widget.
+
+To exercise this feature, allow Live Activities for Kat in system settings, open Kat while connected to the internet, and start downloading a model that is not installed. While the download remains in progress, view the Lock Screen or Notification Center. The activity is requested when the download starts in the foreground; it is not shown just by installing the app, and it ends after the download completes. Tapping the activity opens the Models screen. Updates can be delayed while iOS suspends the app.

@@ -1,0 +1,25 @@
+Kat translator traduce voz, texto y palabras en fotografías sin conexión. Descarga los modelos que necesitas antes de salir y traduce de viaje, en el trabajo o donde no haya internet. Los modelos de IA realizan la traducción directamente en tu dispositivo.
+
+TRADUCCIÓN DE VOZ
+Graba una frase, detén la grabación y obtén la traducción. Descarga una voz para escuchar el resultado en los idiomas compatibles.
+
+TRADUCCIÓN DE TEXTO
+Escribe o pega un mensaje, elige el idioma de destino y copia el resultado. La búsqueda de idiomas y los favoritos te ayudan a encontrar la combinación que necesitas.
+
+TRADUCCIÓN CON CÁMARA Y FOTOS
+Usa la cámara o elige una imagen de tu galería. Kat reconoce el texto de menús, carteles y otras imágenes y muestra la traducción sobre la imagen.
+
+MODELOS SEGÚN TUS NECESIDADES
+Elige modelos compactos que ocupan menos espacio o modelos más grandes con distintas capacidades y requisitos de memoria. Los idiomas, modelos y voces disponibles se indican en la app. El modo Auto elige un modelo instalado adecuado para tu dispositivo y la combinación de idiomas.
+
+HISTORIAL LOCAL
+Activa el historial para guardar las traducciones que necesitas en tu dispositivo. Elige si quieres conservar texto, audio o imágenes. Copia los resultados y compártelos con el menú del sistema.
+
+Necesitas internet para descargar modelos y voces. Una vez descargados los paquetes necesarios, las funciones compatibles trabajan sin conexión. El reconocimiento y la reproducción de voz dependen del idioma, el modelo y el dispositivo. Los paquetes pueden ocupar varios gigabytes.
+
+La interfaz está disponible en español, inglés, ruso y turco.
+
+Las traducciones pueden contener errores. Comprueba los números, nombres y condiciones importantes con el original.
+
+TODO EN UN MISMO LUGAR
+Encuentra los modelos de traducción, el reconocimiento de voz y las voces en Ajustes. La configuración rápida te ayuda a elegir idiomas y descargas recomendadas. Consulta los paquetes instalados y gestiona las descargas desde el mismo menú.

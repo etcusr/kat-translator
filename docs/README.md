@@ -2,6 +2,8 @@
 
 **English** | [Русский](README.ru.md)
 
+- [Apple 1.1.0 local release preparation](publication/2026-10-22/README.md) — copy, gallery, artifacts and remaining gates.
+
 Living documentation exists in two languages: `NAME.md` is English and is the default, `NAME.ru.md` is Russian. Both versions state the same facts and are updated together ([rule](GIT_WORKFLOW.md#documentation-languages)). Dated reports, benchmarks and research notes are evidence of a specific run; they stay in their original language and are not the current specification.
 
 ## Start here

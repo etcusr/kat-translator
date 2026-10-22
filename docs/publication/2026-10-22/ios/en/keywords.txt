@@ -1,0 +1,1 @@
+translator,offline,AI,voice,speech,photo,camera,text,travel,assistant,conversation,speak,audio,image
