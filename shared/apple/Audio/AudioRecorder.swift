@@ -2,11 +2,14 @@ import AVFoundation
 import Combine
 import OfflineCore
 
-private final class RecordingSink: @unchecked Sendable {
-    private let queue = DispatchQueue(label: "org.openoffline.audio-conversion")
+final class RecordingSink: @unchecked Sendable {
+    /// Conversion may fall behind while Whisper preview and translation share the CPU. Eight buffers
+    /// (~340 ms at 48 kHz) failed the whole recording; allow seconds of audio instead (audit 22.10, iOS M7).
+    static let maxPendingSeconds = 3.0
+    private let queue = DispatchQueue(label: "org.openoffline.audio-conversion", qos: .userInteractive)
     private let lock = NSLock()
     private var paused = false
-    private var pending = 0
+    private var pendingSeconds = 0.0
     private var tracedFirstBuffer = false
     private var failed = false
     private var buffer: BoundedRecordingBuffer
@@ -25,19 +28,20 @@ private final class RecordingSink: @unchecked Sendable {
     func append(_ buffer: AVAudioPCMBuffer) {
         lock.lock()
         guard !paused else { lock.unlock(); return }
-        guard pending < 8, !failed else {
+        let seconds = Double(buffer.frameLength) / max(1, buffer.format.sampleRate)
+        guard pendingSeconds + seconds <= Self.maxPendingSeconds, !failed else {
             let first = !failed; failed = true; lock.unlock()
             if first { onFailure() }; return
         }
         let traceFirst = RecordingStopTrace.enabled && !tracedFirstBuffer
         tracedFirstBuffer = true
-        pending += 1; lock.unlock()
+        pendingSeconds += seconds; lock.unlock()
         if traceFirst {
             let time = ProcessInfo.processInfo.systemUptime
             Task { @MainActor in RecordingStopTrace.mark("start.firstPCM", at: time) }
         }
         guard let copy = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameLength) else {
-            lock.lock(); pending -= 1; failed = true; lock.unlock(); onFailure(); return
+            lock.lock(); pendingSeconds -= seconds; failed = true; lock.unlock(); onFailure(); return
         }
         copy.frameLength = buffer.frameLength
         let source = UnsafeMutableAudioBufferListPointer(buffer.mutableAudioBufferList)
@@ -46,7 +50,7 @@ private final class RecordingSink: @unchecked Sendable {
             if let s = src.mData, let d = dst.mData { memcpy(d, s, Int(src.mDataByteSize)) }
         }
         queue.async {
-            defer { self.lock.lock(); self.pending -= 1; self.lock.unlock() }
+            defer { self.lock.lock(); self.pendingSeconds -= seconds; self.lock.unlock() }
             do {
                 let converted = try self.normalizer.convert(copy)
                 let silence = self.detector.append(converted)

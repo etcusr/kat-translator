@@ -527,6 +527,29 @@ import SwiftUI
         catch PipelineError.modelLanguageUnavailable {} catch { XCTFail("Wrong error: \(error)") }
         await backend.unload()
     }
+    // Audit 22.10 (iOS M7): conversion falling ~0.9 s behind (preview Whisper and MT on the CPU) must not fail the recording.
+    func testRecordingSinkToleratesConversionBacklog() async throws {
+        final class Flag: @unchecked Sendable {
+            private let lock = NSLock(); private var value = false
+            func set() { lock.lock(); value = true; lock.unlock() }
+            var isSet: Bool { lock.lock(); defer { lock.unlock() }; return value }
+        }
+        let vad = try XCTUnwrap(Bundle.main.url(forResource: "silero_vad", withExtension: "onnx"))
+        let detector = try SpeechActivityDetector(modelURL: vad, silenceSeconds: 30)
+        let gate = DispatchSemaphore(value: 0), failed = Flag()
+        // Reaching the 1 s limit blocks the conversion queue, so the remaining buffers queue up.
+        let sink = RecordingSink(detector: detector, maxSeconds: 1, onLimit: { gate.wait() }, onFailure: { failed.set() })
+        let format = try XCTUnwrap(AVAudioFormat(standardFormatWithSampleRate: 48_000, channels: 1))
+        for _ in 0..<44 {
+            let buffer = try XCTUnwrap(AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 2048)); buffer.frameLength = 2048
+            for index in 0..<2048 { buffer.floatChannelData![0][index] = 0 }
+            sink.append(buffer)
+        }
+        XCTAssertFalse(failed.isSet, "About 20 queued buffers failed the recording")
+        gate.signal()
+        // Silent input completes as "no speech"; a backlog failure would throw the conversion error instead.
+        do { _ = try await sink.finish(); XCTFail("Silence reported as speech") } catch PipelineError.noSpeech {}
+    }
     // Audit 22.10 (B20): pasting an image file copied in Finder translates the file, not its icon.
     func testPastedFinderImageUsesFileInsteadOfIcon() throws {
         let board = NSPasteboard.withUniqueName(); defer { board.releaseGlobally() }
