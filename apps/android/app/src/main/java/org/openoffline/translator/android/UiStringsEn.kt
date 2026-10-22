@@ -49,6 +49,7 @@ internal object UiStringsEn {
         "Index 2B — 150 языков, быстрый. Index 9B — максимальное качество, медленнее. OPUS Big — компактные модели для отдельных направлений (русский ↔ европейские языки, английский ↔ ~30 языков); каждое направление скачивается отдельно." to "Index 2B: 150 languages, fast. Index 9B: maximum quality, slower. OPUS Big: compact models for separate directions (Russian ↔ European languages, English ↔ ~30 languages); each direction downloads separately.",
         "Index 2B — быстрая модель для 150 языков. Для максимального качества выберите Index 9B. Модель перевода общая для нескольких языков." to "Index 2B is a fast model for 150 languages. Select Index 9B for maximum quality. One translation model serves several languages.",
         "Index 9B — максимальное качество. Index 2B примерно в 3 раза быстрее. Модель перевода общая для нескольких языков." to "Index 9B gives maximum quality. Index 2B is about 3× faster. One translation model serves several languages.",
+        "Mac не успевает обработать запись. Попробуйте снова." to "The Mac could not process the recording in time. Try again.",
         "Meta Omnilingual · дополнительная речь" to "Meta Omnilingual · additional speech recognition",
         "Meta Omnilingual добавляет голосовой ввод для 39 языков и вариантов из нашего списка, включая балийский. Для остальных остаётся Whisper. Новые направления экспериментальные; язык выбирается вручную." to "Meta Omnilingual adds voice input for 39 languages and variants in our list, including Balinese. Other languages keep using Whisper. New languages are experimental; select the language manually.",
         "Meta Omnilingual добавляет голосовой ввод для дополнительных языков. Новые направления экспериментальные; язык выбирается вручную." to "Meta Omnilingual adds voice input for additional languages. These directions are experimental; select the language manually.",
@@ -104,6 +105,7 @@ internal object UiStringsEn {
         "Более лёгкий вариант, если 9B не помещается или работает медленно. В наших пробах компактные модели допускали смысловые ошибки; меньший расход памяти не означает то же качество." to "A lighter option if 9B does not fit or runs slowly. Compact models made meaning errors in our trials; lower memory use does not mean equal quality.",
         "Будет скачано до " to "Download up to ",
         "Будет скачано до %@." to "Up to %@ will be downloaded.",
+        "Будут удалены готовые и незавершённые файлы этой загрузки. Ранее установленные модели и голоса сохранятся." to "Completed and incomplete files from this download batch will be deleted. Previously installed models and voices will be kept.",
         "Быстрый перевод" to "Quick translation",
         "В RAM, включая файлы" to "Resident RAM, including files",
         "В буфере обмена нет изображения." to "The clipboard contains no image.",
@@ -112,10 +114,10 @@ internal object UiStringsEn {
         "В меню приложения пока %@ языков. Список зависит от выбранной модели. Для Qwen новые направления доступны для пробного перевода. Для речи нужны отдельные модели распознавания и голоса; для камеры — распознавание текста." to "The app currently lists %@ languages for this model. Availability depends on the selected model. New Qwen languages are available for trial translations. Voice mode needs separate recognition and voice models; camera mode needs text recognition.",
         "В открывшемся мессенджере выберите чат и вставьте текст сочетанием ⌘V." to "Choose a chat in the messenger, then paste the text with ⌘V.",
         "В открывшемся мессенджере выберите чат и вставьте файл сочетанием ⌘V." to "Choose a chat in the messenger, then paste the file with ⌘V.",
-        "В отчёте только показатели и версии, без голоса и текста." to "The report includes only metrics and versions, without voice recordings or text.",
-        "В очереди" to "Queued",
     )
     private fun part1() = mapOf(
+        "В отчёте только показатели и версии, без голоса и текста." to "The report includes only metrics and versions, without voice recordings or text.",
+        "В очереди" to "Queued",
         "В пакете отсутствует нужный файл." to "Required file is missing from the package.",
         "В приложениях с поддержкой служб: выделите текст → правый клик → Службы → Перевести в Kat translator." to "In apps that support Services: select text → right-click → Services → Translate in Kat translator.",
         "Ваши языки" to "Your languages",
@@ -174,7 +176,6 @@ internal object UiStringsEn {
         "Готов" to "Ready",
         "Готов к переводу" to "Ready to translate",
         "Готовить перевод законченных фраз заранее. Озвучка начнётся после остановки. На Android пока для Whisper с Index без экономии памяти; возможны ошибки на стыках фраз." to "Prepare translations of completed phrases. Speech starts after recording stops. On Android this requires Whisper and Index with memory saving off; phrase boundaries may contain errors.",
-        "Готовить перевод законченных фраз заранее. Озвучка начнётся после остановки. Пока для Whisper с Index или Qwen без экономии памяти; возможны ошибки на стыках фраз." to "Prepare translations of completed phrases in advance. Playback starts after recording stops. Currently for Whisper with Index or Qwen, without memory saving; phrase boundaries may introduce errors.",
         "Готовлю озвучку…" to "Preparing speech…",
         "Готовлю перевод с камеры…" to "Preparing camera translation…",
         "Готовлю следующую часть…" to "Preparing the next part…",
@@ -215,9 +216,9 @@ internal object UiStringsEn {
         "Женский · зрелый низкий" to "Female · mature, low",
         "Женский · молодой" to "Female · young",
         "Женский · мягкий" to "Female · soft",
-        "Женский · нейтральный" to "Female · neutral",
     )
     private fun part2() = mapOf(
+        "Женский · нейтральный" to "Female · neutral",
         "Женский · тёплый" to "Female · warm",
         "Женский · яркий" to "Female · bright",
         "Завершаю запись…" to "Finishing recording…",
@@ -317,9 +318,9 @@ internal object UiStringsEn {
         "Много памяти · для поддерживаемых пар можно выбрать OPUS Big" to "High memory use · consider OPUS Big for supported pairs",
         "Много памяти · лучше начать с 4B" to "Memory intensive · start with 4B",
         "Мобильный интернет для OCR" to "Cellular data for OCR",
-        "Модели" to "Models",
     )
     private fun part3() = mapOf(
+        "Модели" to "Models",
         "Модели выгружены для освобождения памяти. Включите экономию памяти в настройках и подготовьте перевод снова." to "Models were unloaded to free up memory. Enable memory-saving mode in Settings and prepare translation again.",
         "Модели выполняют перевод на Android. После скачивания сеть для перевода не нужна." to "Models translate on Android. Translation needs no network after downloading.",
         "Модели выполняют перевод на Mac. После скачивания сеть для перевода не нужна." to "Models translate on your Mac. Once downloaded, no internet connection is required.",
@@ -419,9 +420,9 @@ internal object UiStringsEn {
         "Недостаточно памяти." to "Not enough memory.",
         "Недостаточно свободного места для модели." to "Not enough free storage for the model.",
         "Недостаточно свободного места. Нужно ещё %@ МБ" to "Not enough free space. Need another %@ MB",
-        "Недоступно" to "Unavailable",
     )
     private fun part4() = mapOf(
+        "Недоступно" to "Unavailable",
         "Неизвестный файл в архиве" to "Unknown archive file",
         "Некорректный идентификатор модели." to "Invalid model identifier.",
         "Неполный пакет" to "Incomplete package",
@@ -437,7 +438,6 @@ internal object UiStringsEn {
         "О значках и поддержке языков" to "Icons and language support",
         "О модели и лицензии" to "Model and license",
         "О приложении" to "About",
-        "Обрабатывать во время записи" to "Process while recording",
         "Обрабатываю фразу…" to "Processing phrase…",
         "Обработано %@ из %@ символов оригинала" to "Processed %@ of %@ source characters",
         "Обработка на устройстве" to "On-device processing",
@@ -469,6 +469,7 @@ internal object UiStringsEn {
         "Определение языка — лицензии" to "Language identification — licenses",
         "Определяю язык и распознаю…" to "Detecting language and recognizing speech…",
         "Оригинал" to "Original",
+        "Оригинал и перевод законченных фраз появляются во время записи. Озвучка начнётся после остановки. Для Whisper с Index без экономии памяти. Экспериментальный режим: возможны пропуски, повторы и ошибки распознавания." to "Original text and translations of completed phrases appear during recording. Playback starts after recording stops. For Whisper with Index, without memory saving. Experimental mode: words may be omitted, repeated or recognized incorrectly.",
         "Освободить память" to "Free memory",
         "Освобождаю память…" to "Freeing memory…",
         "Основной язык" to "Your main language",
@@ -501,7 +502,9 @@ internal object UiStringsEn {
         "Отмена / закрыть всплывающее окно" to "Cancel / close a popup",
         "Отменено" to "Cancelled",
         "Отменить" to "Cancel",
+        "Отменить всё" to "Cancel all",
         "Отменить скачивание" to "Cancel download",
+        "Отменить текущую загрузку?" to "Cancel this download batch?",
         "Отменяю…" to "Cancelling…",
         "Отметьте нужные направления. Каждое направление — отдельная модель OPUS около 240 МБ; одна модель может обслуживать несколько пар." to "Select the directions you need. Each direction is a separate OPUS model of about 240 MB; one model can serve several pairs.",
         "Отчёт и измерения" to "Report and measurements",
@@ -519,11 +522,11 @@ internal object UiStringsEn {
         "Ошибка обработки записи. Попробуйте снова." to "Could not process the recording. Try again.",
         "Ошибка перевода OPUS." to "OPUS translation failed.",
         "Пакет Core ML предназначен для Apple. На Android используйте Whisper" to "This Core ML package requires Apple. Use Whisper on Android",
+    )
+    private fun part5() = mapOf(
         "Пакет изменяется" to "Package is being changed",
         "Пакет не установлен" to "Package is not installed",
         "Пакет проверен и установлен" to "Package verified and installed",
-    )
-    private fun part5() = mapOf(
         "Пакетов: " to "Packages: ",
         "Пакеты для перевода готовы" to "Translation packages are ready",
         "Память" to "Memory",
@@ -548,6 +551,7 @@ internal object UiStringsEn {
         "Перевод снимка" to "Photo translation",
         "Перевод снимка готов" to "Photo translation is ready",
         "Перевод: %@" to "Translation: %@",
+        "Переводить во время записи" to "Translate during recording",
         "Переводить по частям" to "Translate in parts",
         "Перевожу" to "Translating",
         "Перевожу надписи…" to "Translating text…",
@@ -620,12 +624,12 @@ internal object UiStringsEn {
         "Приостановить скачивание голосов" to "Pause voice downloads",
         "Приостановленную загрузку можно продолжить, если сервер сохранил данные. Изменение мобильной сети применяется только к новой загрузке. Выбор, скачивание и удаление голосов доступны в настройках → Голоса и образцы." to "Paused downloads can resume if the server still has the data. Changes to cellular access apply only to new downloads. To choose, download or delete voices, open Settings → Voices and samples.",
         "Проверить снова" to "Check again",
+    )
+    private fun part6() = mapOf(
         "Проверка" to "Verifying",
         "Проверка Index не пройдена. Установите модель заново." to "Index verification failed. Reinstall the model.",
         "Проверка SHA-256" to "Verifying SHA-256",
         "Проверка SHA-256 не пройдена. Скачайте файл заново" to "SHA-256 verification failed. Download the file again",
-    )
-    private fun part6() = mapOf(
         "Проверка моделей" to "Checking models",
         "Проверка моделей обычно занимает около 30 секунд. При следующих запусках неизменённые файлы будут проверяться быстрее." to "Checking the models usually takes about 30 seconds. Unchanged files will be checked faster on future launches.",
         "Проверка модели…" to "Checking model…",
@@ -647,6 +651,7 @@ internal object UiStringsEn {
         "Прогресс обновится, когда iOS передаст новые данные." to "Progress will refresh when iOS delivers an update.",
         "Прогресс перевода" to "Translation progress",
         "Продолжить" to "Resume",
+        "Продолжить загрузку" to "Keep downloading",
         "Продолжить запись" to "Resume recording",
         "Продолжить озвучку" to "Resume playback",
         "Продолжить скачивание" to "Resume download",
@@ -665,6 +670,7 @@ internal object UiStringsEn {
         "Разрешите «Универсальный доступ», чтобы читать выделенный текст. Можно также скопировать текст и нажать «Перевести из буфера»." to "Allow Accessibility to read selected text. You can also copy text and click “Translate from clipboard”.",
         "Разрешите добавление снимков в Фото в настройках iPhone." to "Allow adding photos in iPhone Settings.",
         "Разрешите доступ к микрофону в настройках iPhone." to "Allow microphone access in iPhone Settings.",
+        "Разрешите доступ к микрофону в настройках macOS." to "Allow microphone access in macOS settings.",
         "Разрешите камеру в настройках iPhone. Можно также выбрать изображение из галереи." to "Allow camera access in iPhone Settings. You can also choose an image from Photos.",
         "Разрешите мобильный интернет или подключитесь к обычному Wi-Fi" to "Allow mobile data or connect to unmetered Wi-Fi",
         "Разрешить доступ к выделенному тексту…" to "Allow access to selected text…",
@@ -720,14 +726,14 @@ internal object UiStringsEn {
         "Сервер вернул другой файл" to "Server returned a different file",
         "Сервер вернул неверный диапазон" to "Server returned an invalid byte range",
         "Символов: %@" to "Characters: %@",
+    )
+    private fun part7() = mapOf(
         "Скачайте OCR-пакет в настройках распознавания" to "Download the OCR package in recognition settings",
         "Скачайте голос в настройках, чтобы озвучить перевод." to "Download a voice in Settings to hear the translation.",
         "Скачайте голос для этого языка в настройках. Текстовый перевод доступен." to "Download a voice for this language in Settings. Text translation is available.",
         "Скачайте дополнительное распознавание Meta в разделе «Модели»." to "Download additional Meta speech recognition from Models.",
         "Скачайте распознавание для выбранного языка в разделе «Модели»." to "Download speech recognition for the selected language in Models.",
         "Скачан и проверен" to "Downloaded and verified",
-    )
-    private fun part7() = mapOf(
         "Скачано и проверено" to "Downloaded and verified",
         "Скачать" to "Download",
         "Скачать OCR-пакет" to "Download OCR package",
@@ -812,6 +818,7 @@ internal object UiStringsEn {
         "Удалить запись?" to "Delete entry?",
         "Удалить пакет?" to "Delete package?",
         "Удалить текст и аудио этой записи?" to "Delete this entry's text and audio?",
+        "Удалить файлы этой загрузки" to "Delete this batch’s files",
         "Удалить эту запись и сохранённые файлы?" to "Delete this entry and its saved files?",
         "Удаляю историю…" to "Deleting history…",
         "Удерживайте и говорите" to "Hold to speak",
@@ -821,6 +828,8 @@ internal object UiStringsEn {
         "Управление записью" to "Recording controls",
         "Установите %@ в разделе «Модели»." to "Install %@ in Models.",
         "Установите Index 2B в разделе «Модели»." to "Install Index 2B in Models.",
+    )
+    private fun part8() = mapOf(
         "Установите Index в разделе «Модели»." to "Install Index in Models.",
         "Установите OCR-пакет в разделе «Модели»." to "Install an OCR package in Models.",
         "Установите выбранную модель в разделе «Модели» или выберите другую." to "Install the selected model in Models or choose another one.",
@@ -828,8 +837,6 @@ internal object UiStringsEn {
         "Установка" to "Installing",
         "Установленные пакеты не скачиваются повторно. При продолжении прерванной загрузки может потребоваться скачать файл заново." to "Installed packages are not downloaded again. An interrupted download may need to restart from the beginning.",
         "Установлено" to "Installed",
-    )
-    private fun part8() = mapOf(
         "Установлено %@ из %@" to "Installed %@ of %@",
         "Установлено %@ из %@ направлений. Выберите нужные языки и скачайте их одной кнопкой." to "%@ of %@ directions installed. Choose languages and download them with one button.",
         "Устройство среднего класса%@: перевод — компактные модели OPUS для каждой пары; для пар без OPUS — Index 2B." to "Mid-range device%@: compact OPUS models per pair; Index 2B for pairs OPUS does not cover.",

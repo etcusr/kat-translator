@@ -771,6 +771,36 @@
         }
       }
     },
+    "Mac не успевает обработать запись. Попробуйте снова.": {
+      "comment": "UI. App/Audio/AudioRecorder.swift (macOS)",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The Mac could not process the recording in time. Try again."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mac не успевает обработать запись. Попробуйте снова."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El Mac no ha podido procesar la grabación a tiempo. Inténtelo de nuevo."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mac kaydı zamanında işleyemedi. Yeniden deneyin."
+          }
+        }
+      }
+    },
     "Meta Omnilingual · дополнительная речь": {
       "comment": "UI. App/Models/ModelCatalog.swift",
       "extractionState": "manual",
@@ -13765,6 +13795,36 @@
           "stringUnit": {
             "state": "translated",
             "value": "iPhone Ayarlar'ında mikrofon erişimine izin verin."
+          }
+        }
+      }
+    },
+    "Разрешите доступ к микрофону в настройках macOS.": {
+      "comment": "UI. App/Audio/AudioRecorder.swift (macOS)",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allow microphone access in macOS settings."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешите доступ к микрофону в настройках macOS."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permita el acceso al micrófono en los ajustes de macOS."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS ayarlarından mikrofon erişimine izin verin."
           }
         }
       }

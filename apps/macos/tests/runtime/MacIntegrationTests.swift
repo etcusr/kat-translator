@@ -568,6 +568,12 @@ import SwiftUI
         XCTAssertEqual(try excluded(keyed), true)
         XCTAssertEqual(try excluded(root), false)
     }
+    // Audit 22.10 (macOS B13): Mac recording errors no longer name the phone.
+    func testMacRecordingErrorsDoNotNameThePhone() {
+        XCTAssertEqual(RecordingSink.backlogMessage, L10n.text("Mac не успевает обработать запись. Попробуйте снова."))
+        XCTAssertFalse(RecordingSink.backlogMessage.contains("Телефон"))
+        XCTAssertFalse(RecordingSink.backlogMessage.lowercased().contains("phone"))
+    }
     // Audit 22.10 (B20): pasting an image file copied in Finder translates the file, not its icon.
     func testPastedFinderImageUsesFileInsteadOfIcon() throws {
         let board = NSPasteboard.withUniqueName(); defer { board.releaseGlobally() }

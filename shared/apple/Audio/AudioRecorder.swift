@@ -6,6 +6,12 @@ final class RecordingSink: @unchecked Sendable {
     /// Conversion may fall behind while Whisper preview and translation share the CPU. Eight buffers
     /// (~340 ms at 48 kHz) failed the whole recording; allow seconds of audio instead (audit 22.10, iOS M7).
     static let maxPendingSeconds = 3.0
+    // The shared recorder named the phone in Mac errors (audit 22.10, macOS B13).
+    #if os(macOS)
+    static var backlogMessage: String { L10n.text("Mac не успевает обработать запись. Попробуйте снова.") }
+    #else
+    static var backlogMessage: String { L10n.text("Телефон не успевает обработать запись. Попробуйте снова.") }
+    #endif
     private let queue = DispatchQueue(label: "org.openoffline.audio-conversion", qos: .userInteractive)
     private let lock = NSLock()
     private var paused = false
@@ -82,7 +88,7 @@ final class RecordingSink: @unchecked Sendable {
                 if let error = self.conversionError { continuation.resume(throwing: error) }
                 else if failed {
                     continuation.resume(throwing: NSError(domain: "Audio", code: 1,
-                        userInfo: [NSLocalizedDescriptionKey: L10n.text("Телефон не успевает обработать запись. Попробуйте снова.")]))
+                        userInfo: [NSLocalizedDescriptionKey: RecordingSink.backlogMessage]))
                 } else if !self.detector.heardSpeech { continuation.resume(throwing: PipelineError.noSpeech) }
                 else { continuation.resume(returning: CapturedAudio(samples: self.buffer.samples)) }
 
@@ -193,7 +199,11 @@ private struct RecordingEngineStartup: @unchecked Sendable {
         RecordingStopTrace.mark("start.permissionReady")
         guard generation == operation, !Task.isCancelled else { throw CancellationError() }
         guard permitted else {
+            #if os(macOS)
+            throw NSError(domain: "Audio", code: 2, userInfo: [NSLocalizedDescriptionKey: L10n.text("Разрешите доступ к микрофону в настройках macOS.")])
+            #else
             throw NSError(domain: "Audio", code: 2, userInfo: [NSLocalizedDescriptionKey: L10n.text("Разрешите доступ к микрофону в настройках iPhone.")])
+            #endif
         }
         guard generation == operation, !Task.isCancelled else { throw CancellationError() }
         guard let vadURL = Bundle.main.url(forResource: "silero_vad", withExtension: "onnx") else { throw PipelineError.modelLoad }
