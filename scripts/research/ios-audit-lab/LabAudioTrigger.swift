@@ -44,6 +44,8 @@ import os
                         if let data = try? Data(contentsOf: documents.appendingPathComponent("AudioTests/" + parts[1])) {
                             Task { await model.camera.importData(data) }
                         }
+                    } else if parts.first == "play", parts.count == 2 { // playback alone, no recording
+                        Task { await play(parts[1]) }
                     } else if parts.first == "tail", parts.count == 3 {
                         Task { await tail(model, file: parts[1], delay: Double(parts[2]) ?? 0) }
                     } else {
@@ -53,6 +55,17 @@ import os
                 try? await Task.sleep(nanoseconds: 500_000_000)
             }
         }
+    }
+    private static var lastPlayer: AVAudioPlayer?
+    private static func play(_ file: String) async {
+        let audio = AVAudioSession.sharedInstance()
+        do { try audio.setCategory(.playback, mode: .default); try audio.setActive(true) }
+        catch { write(["event": "play.error", "reason": error.localizedDescription]); return }
+        guard let player = try? AVAudioPlayer(contentsOf: documents.appendingPathComponent("AudioTests/" + file)) else { return }
+        lastPlayer = player; player.volume = 1
+        let started = player.play()
+        write(["event": "play", "started": started, "outputVolume": audio.outputVolume,
+               "route": audio.currentRoute.outputs.map(\.portType.rawValue).joined(separator: ",")])
     }
     private static func tail(_ model: AppModel, file: String, delay: Double) async {
         await model.beginRecording()
