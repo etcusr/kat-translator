@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 import AVFoundation
 import OfflineCore
 @MainActor final class AppModel: ObservableObject {
@@ -116,6 +117,10 @@ import OfflineCore
     private var peakRecordingFootprint: UInt64 = 0, peakRecordingResident: UInt64 = 0
     private var interactionID = 0
     private var observers: [NSObjectProtocol] = []
+    #if os(iOS)
+    /// Auto-lock moves the app to the background, which cancels a recording or translation in progress.
+    private var keepAwake: AnyCancellable?
+    #endif
     init(session: ConversationPipeline? = nil) {
         TemporarySpeechFiles.prepareForLaunch()
         let store = TranslationHistory(root: ModelDownloader.root.appendingPathComponent("History"))
@@ -127,6 +132,11 @@ import OfflineCore
         self.session.showsTranslationPartials = true
         #endif
         recorder.onLimit = { [weak self] in Task { await self?.finishRecording() } }
+        #if os(iOS)
+        keepAwake = Publishers.CombineLatest3(recorder.$isRecording, recorder.$starting, self.session.$isBusy)
+            .map { $0 || $1 || $2 }.removeDuplicates()
+            .sink { UIApplication.shared.isIdleTimerDisabled = $0 }
+        #endif
         recorder.onBoundary = { [weak self] end, quiet in
             guard let self else { return }
             RecordingStopTrace.mark("preview.offer.end=\(end).quiet=\(quiet).thermal=\(Self.thermalState)")
@@ -559,12 +569,16 @@ import OfflineCore
         await unload(); await packages.remove(item)
     }
     func memoryWarning() async {
-        if recorder.isRecording, session.isRecordingPreview {
-            session.suspendRecordingPreview(reason: "memory-warning")
+        // Never discard a recording in progress: release what the pipeline can and keep capturing.
+        if recorder.isRecording || recorder.starting {
+            if session.isRecordingPreview { session.suspendRecordingPreview(reason: "memory-warning") }
+            _ = await session.relieveMemoryPressure()
             message = L10n.text("Предварительная обработка приостановлена. Запись продолжается.")
             return
         }
         if !usingCamera, await session.relieveMemoryPressure() { return }
+        // Nothing loaded (for example during a download): there is nothing to unload or report.
+        guard session.isReady || usingCamera else { return }
         message = L10n.text("Модели выгружены для освобождения памяти. Включите экономию памяти в настройках и подготовьте перевод снова.")
         await closeCamera(); await unload()
     }
