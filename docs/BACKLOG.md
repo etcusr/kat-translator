@@ -4,6 +4,14 @@
 
 Deferred tasks, not completed changes or release promises.
 
+## iOS history: collapsible long text
+
+Planned 22 October 2026. **Backlog only; not implemented on iOS yet.**
+
+- [ ] Show a shortened preview of long originals and translations in iPhone/iPad history. Add a clearly labelled tap action to expand the entry in place and collapse it again; short entries should not have an unnecessary expand control.
+- [ ] Match the existing macOS history behaviour (`HistoryView.desktopEntry` and `HistoryPreview`) where appropriate. Keep full text in storage and in copy actions; truncation is presentation only.
+- [ ] Check both original and translation, independent expansion of entries, long paragraphs/line breaks, Dynamic Type and VoiceOver. Preserve access to audio/image actions and deletion, and prevent scrolling jumps when entries expand or collapse.
+
 ## Unified settings and model management
 
 Planned 22 October 2026. **Backlog only; no interface changes yet.** Applies to iOS/iPadOS, macOS and Android.
