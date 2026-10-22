@@ -5,8 +5,11 @@ import Combine
 import OfflineCore
 
 /// Photos hands the picked image over as a file copy instead of one Data blob (audit 22.10, iOS C5).
-struct PickedImageFile: Transferable {
+final class PickedImageFile: Transferable, Sendable {
     let url: URL
+    init(url: URL) { self.url = url }
+    // Photos can discard a transferred result when its caller is cancelled before load returns.
+    deinit { try? FileManager.default.removeItem(at: url) }
     static var transferRepresentation: some TransferRepresentation {
         FileRepresentation(importedContentType: .image) { received in
             let copy = FileManager.default.temporaryDirectory.appendingPathComponent("PickedImage-" + UUID().uuidString)
@@ -165,7 +168,9 @@ struct CameraView: View, Equatable {
         .onChange(of:selectedPhoto) { _,item in
             importError = nil
             guard let item else { importer.cancel(); return }
-            importer.start(load: { try await item.loadTransferable(type: PickedImageFile.self) }, consume: { await model.importFile($0.url) })
+            importer.start(load: { try await item.loadTransferable(type: PickedImageFile.self) },
+                cleanup: { try? FileManager.default.removeItem(at: $0.url) },
+                consume: { await model.importFile($0.url) })
         }
         .onChange(of:scenePhase) { _,phase in
             if phase == .background { importer.cancel(); Task { await app.closeCamera() } }

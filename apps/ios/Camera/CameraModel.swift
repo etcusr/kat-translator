@@ -81,7 +81,7 @@ import OfflineCore
         }
     }
     var needsOpenModel: Bool { !automaticSource && ((forceOpenOCR && packages.ocr(source) != nil) || !HybridOCR.supports(source)) }
-    var canSave: Bool { frozen != nil && translation.complete && !recognizing && error == nil && overlay != nil }
+    var canSave: Bool { frozen != nil && translation.complete && !recognizing && error == nil && !translation.translated.isEmpty }
     var canCapture: Bool { active && frame != nil && frozen == nil && !takingPhoto }
     var status: String {
         if (!automaticSource && !packages.selectedTranslation.supports(source: source, target: target)) || !TranslationLanguage.details(target).connected(to: packages.selectedTranslation) { return PipelineError.modelLanguageUnavailable.localizedDescription }
@@ -110,6 +110,8 @@ import OfflineCore
             // A failed preparation keeps its error but leaves the camera inactive, so the shutter offers
             // "Start" again instead of staying disabled until the camera is closed (audit 22.10, iOS C4).
             guard translation.ready else { active = false; return }
+            // Closing invalidates any pending raster. Rebuild a retained photo's overlay on return.
+            if frozen != nil { scheduleOverlay(translation.translated) }
             do { if frozen == nil { try await capture.start() }; if id != generation || Task.isCancelled { await capture.stop() } }
             catch { if id == generation { self.error = error.localizedDescription } }
         }
@@ -217,10 +219,14 @@ import OfflineCore
             catch { if scene == id { self.error = error.localizedDescription } }
         }
     }
-    /// The picture as shown, composited off the main actor (audit 22.10, iOS C1).
+    /// Export the completed blocks, independently of a preview raster that may still be rendering.
     func renderedPicture() async throws -> UIImage {
-        guard canSave, let frame, let overlay else { throw CameraError.image }
-        return await Task.detached(priority: .userInitiated) { CameraOverlay.composite(frame, overlay: overlay) }.value
+        guard canSave, let frame else { throw CameraError.image }
+        let blocks = translation.translated
+        return await Task.detached(priority: .userInitiated) {
+            let overlay = CameraOverlay.render(size: CGSize(width: frame.width, height: frame.height), blocks: blocks)
+            return CameraOverlay.composite(frame, overlay: overlay)
+        }.value
     }
     func savePicture() async {
         do {
@@ -232,9 +238,9 @@ import OfflineCore
         } catch { self.error = error.localizedDescription }
     }
     func sharePicture() async throws -> URL {
-        guard canSave, let frame, let overlay else { throw CameraError.image }
+        let image = try await renderedPicture()
         return try await Task.detached(priority: .userInitiated) {
-            guard let data = CameraOverlay.composite(frame, overlay: overlay).jpegData(compressionQuality: CameraOverlay.photoQuality) else { throw CameraError.image }
+            guard let data = image.jpegData(compressionQuality: CameraOverlay.photoQuality) else { throw CameraError.image }
             let url = FileManager.default.temporaryDirectory.appendingPathComponent("Translated-"+UUID().uuidString+".jpg")
             try data.write(to:url,options:[.atomic,.completeFileProtection]); return url
         }.value

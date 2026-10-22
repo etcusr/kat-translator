@@ -20,12 +20,14 @@ import Combine
     private var generation = 0
     private var job: Task<Void,Never>?
     public init() {}
-    public func start<Payload>(load: @escaping @MainActor () async throws -> Payload?, consume: @escaping @MainActor (Payload) async -> Void) {
+    /// Cleanup owns resources returned by load, including a result arriving after cancellation.
+    public func start<Payload>(load: @escaping @MainActor () async throws -> Payload?, cleanup: @escaping @MainActor (Payload) -> Void = { _ in }, consume: @escaping @MainActor (Payload) async -> Void) {
         cancel(); let id = generation; busy = true; error = nil
         job = Task {
             defer { if id == generation { busy = false; job = nil } }
             do {
                 let data = try await load()
+                defer { if let data { cleanup(data) } }
                 try Task.checkCancellation()
                 guard id == generation else { return }
                 guard let data else { error = L10n.text("Не удалось открыть изображение. Выберите другое фото."); return }
