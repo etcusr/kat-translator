@@ -47,8 +47,17 @@ import OfflineCore
         }
     }
     nonisolated static func decode(_ data: Data, maximumSize: Int = 3072) throws -> CGImage {
-        guard data.count <= 50*1024*1024, let source = CGImageSourceCreateWithData(data as CFData,nil),
-              let image = CGImageSourceCreateThumbnailAtIndex(source,0,[kCGImageSourceCreateThumbnailFromImageAlways:true,kCGImageSourceCreateThumbnailWithTransform:true,kCGImageSourceThumbnailMaxPixelSize:maximumSize] as CFDictionary) else { throw CameraError.image }
+        guard data.count <= 50*1024*1024, let source = CGImageSourceCreateWithData(data as CFData,nil) else { throw CameraError.image }
+        return try downsample(source, maximumSize: maximumSize)
+    }
+    /// A picked photo is read from its file, so panoramas and ProRAW files above the 50 MB in-memory limit
+    /// are only downsampled, never loaded whole (audit 22.10, iOS C5).
+    nonisolated static func decode(file: URL, maximumSize: Int = 3072) throws -> CGImage {
+        guard let source = CGImageSourceCreateWithURL(file as CFURL, [kCGImageSourceShouldCache: false] as CFDictionary) else { throw CameraError.image }
+        return try downsample(source, maximumSize: maximumSize)
+    }
+    nonisolated private static func downsample(_ source: CGImageSource, maximumSize: Int) throws -> CGImage {
+        guard let image = CGImageSourceCreateThumbnailAtIndex(source,0,[kCGImageSourceCreateThumbnailFromImageAlways:true,kCGImageSourceCreateThumbnailWithTransform:true,kCGImageSourceThumbnailMaxPixelSize:maximumSize,kCGImageSourceShouldCacheImmediately:true] as CFDictionary) else { throw CameraError.image }
         return image
     }
     nonisolated static func signature(_ image: CGImage) -> [UInt8] {

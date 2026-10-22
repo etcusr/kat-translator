@@ -20,7 +20,7 @@ import Combine
     private var generation = 0
     private var job: Task<Void,Never>?
     public init() {}
-    public func start(load: @escaping @MainActor () async throws -> Data?, consume: @escaping @MainActor (Data) async -> Void) {
+    public func start<Payload>(load: @escaping @MainActor () async throws -> Payload?, consume: @escaping @MainActor (Payload) async -> Void) {
         cancel(); let id = generation; busy = true; error = nil
         job = Task {
             defer { if id == generation { busy = false; job = nil } }

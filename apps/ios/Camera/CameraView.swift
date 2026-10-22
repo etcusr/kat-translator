@@ -3,6 +3,19 @@ import AVFoundation
 import PhotosUI
 import OfflineCore
 
+/// Photos hands the picked image over as a file copy instead of one Data blob (audit 22.10, iOS C5).
+struct PickedImageFile: Transferable {
+    let url: URL
+    static var transferRepresentation: some TransferRepresentation {
+        FileRepresentation(importedContentType: .image) { received in
+            let copy = FileManager.default.temporaryDirectory.appendingPathComponent("PickedImage-" + UUID().uuidString)
+                .appendingPathExtension(received.file.pathExtension)
+            try FileManager.default.copyItem(at: received.file, to: copy)
+            return PickedImageFile(url: copy)
+        }
+    }
+}
+
 struct CameraView: View {
     @ObservedObject var app: AppModel
     @ObservedObject var model: CameraModel
@@ -123,7 +136,7 @@ struct CameraView: View {
         .onChange(of:selectedPhoto) { _,item in
             importError = nil
             guard let item else { importer.cancel(); return }
-            importer.start(load: { try await item.loadTransferable(type: Data.self) }, consume: { await model.importData($0) })
+            importer.start(load: { try await item.loadTransferable(type: PickedImageFile.self) }, consume: { await model.importFile($0.url) })
         }
         .onChange(of:scenePhase) { _,phase in
             if phase == .background { importer.cancel(); Task { await app.closeCamera() } }

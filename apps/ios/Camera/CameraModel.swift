@@ -162,6 +162,15 @@ import OfflineCore
             await usePicture(image)
         } catch { self.error = error.localizedDescription }
     }
+    /// Imports a picked photo from its temporary file and removes the file (audit 22.10, iOS C5).
+    func importFile(_ file: URL) async {
+        defer { try? FileManager.default.removeItem(at: file) }
+        do {
+            let image = try await Task.detached(priority: .userInitiated) { try CameraOverlay.decode(file: file) }.value
+            guard active, !Task.isCancelled else { return }
+            await usePicture(image)
+        } catch { self.error = error.localizedDescription }
+    }
     private func usePicture(_ image: CGImage) async {
         guard active else { return }
         scene += 1; let sceneID = scene; frozen = UIImage(cgImage: image); frame = image; frameSignature = []; overlay = nil; message = nil; translation.clearScene()
