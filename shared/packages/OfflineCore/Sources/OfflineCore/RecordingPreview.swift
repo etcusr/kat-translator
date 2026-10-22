@@ -91,7 +91,10 @@ public struct RecordingPreviewResult: Sendable {
         // This does not retranslate or replace already committed blocks.
         if let end, usesTimestamps, !cancelled, !suspended,
            (speechEnd ?? end) > result.committedSamples, end > result.committedSamples {
-            await process(end: end, quiet: true, final: true)
+            // Tracked like queued work, so cancel() stops it and waitForIdle() waits for it (audit 22.10, iOS M6).
+            let tail = Task { await process(end: end, quiet: true, final: true) }
+            job = tail; await tail.value
+            if job == tail { job = nil }
         }
         return result
     }
@@ -190,7 +193,13 @@ public struct RecordingPreviewResult: Sendable {
             await process(end: end, quiet: request.quiet, final: false)
         }
     }
+    /// Without a confirmed sentence every pause re-recognized everything since the last commit, up to the whole
+    /// recording, copying it each time. Past this window the preview stops and Stop processes the rest (audit 22.10, iOS M5).
+    static let maxWindowSamples = 90 * 16_000
     private func process(end: Int, quiet: Bool, final: Bool) async {
+        guard end - recognitionStart <= Self.maxWindowSamples else {
+            trace("preview.suspend.window-limit"); result.fallbackReason = "window-limit"; suspended = true; pendingEnd = nil; return
+        }
         let start = ProcessInfo.processInfo.systemUptime
         defer { result.processingSeconds += ProcessInfo.processInfo.systemUptime - start }
         do {

@@ -19,6 +19,45 @@ import XCTest
         XCTAssertEqual(result.target, .french); XCTAssertEqual(result.source, .lang_uk)
         XCTAssertEqual(result.translatedText, "Bonjour.")
     }
+    // Audit 22.10 (iOS M5): without a confirmed sentence every pause re-recognized everything since the last
+    // commit, up to the whole recording. Past the limit the preview stops; Stop processes the recording as usual.
+    func testUnconfirmedPreviewWindowIsBounded() async {
+        var longest = 0, recognitions = 0
+        let worker = RecordingPreviewCoordinator(source: .russian, target: .english, snapshot: { range in
+            longest = max(longest, range.count); return CapturedAudio(samples: Array(repeating: 0.1, count: range.count))
+        }, recognize: { _, _ in
+            recognitions += 1; return ASRResult(text: "и потом мы пошли дальше", language: .russian, processingSeconds: 0.1)
+        }, translate: { _, _, _ in XCTFail("Nothing was confirmed"); throw PipelineError.inference }, prepareSpeech: nil, publish: { _ in })
+        for second in stride(from: 5, through: 600, by: 5) { worker.offer(end: second * 16_000); await worker.waitForIdle() }
+        let result = await worker.finish()
+        XCTAssertLessThanOrEqual(longest, 90 * 16_000)
+        XCTAssertEqual(recognitions, 18)
+        XCTAssertEqual(result.fallbackReason, "window-limit")
+        XCTAssertEqual(result.committedSamples, 0)
+    }
+    // Audit 22.10 (iOS M6): the final tail pass is tracked work, so cancel() stops it and waitForIdle() waits for it
+    // instead of letting it finish outside the pipeline's view.
+    func testCancelledFinalPassIsAwaited() async {
+        var calls = 0, finalDone = false, translations = 0
+        let worker = RecordingPreviewCoordinator(source: .english, target: .russian, snapshot: { range in
+            CapturedAudio(samples: Array(repeating: 0.1, count: range.count))
+        }, recognize: { _, _ in
+            calls += 1
+            if calls == 1 { return ASRResult(text: "First", language: .english, processingSeconds: 0, segments: [ASRSegment(text: "First", endSample: 32_000)]) }
+            defer { finalDone = true }
+            try await Task.sleep(nanoseconds: 2_000_000_000)
+            return ASRResult(text: "First second.", language: .english, processingSeconds: 0, segments: [ASRSegment(text: "First second.", endSample: 64_000)])
+        }, translate: { text, _, _ in
+            translations += 1; return TranslationResult(text: text, firstTokenSeconds: nil, processingSeconds: 0, fragments: 1)
+        }, prepareSpeech: nil, publish: { _ in })
+        worker.offer(end: 32_000); await worker.waitForIdle()
+        let finishing = Task { await worker.finish(end: 64_000, speechEnd: 64_000) }
+        while calls < 2 { await Task.yield() }
+        worker.cancel(); await worker.waitForIdle()
+        XCTAssertTrue(finalDone, "waitForIdle returned while the final pass was still running")
+        _ = await finishing.value
+        XCTAssertEqual(translations, 0)
+    }
     func testSameLanguagePreviewSkipsTranslation() async {
         let worker = RecordingPreviewCoordinator(source: nil, target: .english,
             snapshot: { _ in CapturedAudio(samples: [0.1]) },

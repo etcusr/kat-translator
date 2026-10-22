@@ -469,7 +469,8 @@ public struct ConversationFields: Sendable {
                         streaming.offer(text, prepare: { sentence in
                             guard let voice = files.voice(target) else { return nil }
                             try self.check(id)
-                            if self.voiceLoaded != target { self.voiceLoaded = nil; try await self.speech.load(directory: voice, language: target); self.voiceLoaded = target }
+                            // A cancelled operation must not mark the voice loaded for a newer one (audit 22.10, iOS M6).
+                            if self.voiceLoaded != target { self.voiceLoaded = nil; try await self.speech.load(directory: voice, language: target); try self.check(id); self.voiceLoaded = target }
                             try self.check(id)
                             let producer = try SpeechPreparation(text: sentence, speech: self.speech)
                             var samples: [Float] = [], rate = 0, seconds = 0.0
@@ -816,7 +817,7 @@ public extension ConversationPipeline {
         if speakResult { prepareAudio = { [weak self] text, target in
                 guard let self, let voice = files.voice(target) else { return nil }
                 try self.check(id)
-                if self.voiceLoaded != target { self.voiceLoaded = nil; try await self.speech.load(directory: voice, language: target); self.voiceLoaded = target }
+                if self.voiceLoaded != target { self.voiceLoaded = nil; try await self.speech.load(directory: voice, language: target); try self.check(id); self.voiceLoaded = target }
                 try self.check(id)
                 let producer = try SpeechPreparation(text: text, speech: self.speech)
                 guard let part = try await producer.next() else { return nil }
