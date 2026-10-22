@@ -288,7 +288,7 @@ public actor TranslationHistory: TranslationArchive {
         try persist([])
         drafts.removeAll() // Close partial writers before deleting their files.
         // Include orphaned files from an interrupted clear; never remove unrelated files/subdirectories.
-        for url in try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil) where ["m4a", "png"].contains(url.pathExtension) {
+        for url in try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil) where (Self.imageExtensions + ["m4a"]).contains(url.pathExtension) {
             let stem = url.deletingPathExtension().lastPathComponent
             let id = stem.hasSuffix(".partial") ? String(stem.dropLast(8)) : stem
             if UUID(uuidString: id) != nil { try FileManager.default.removeItem(at: url) }

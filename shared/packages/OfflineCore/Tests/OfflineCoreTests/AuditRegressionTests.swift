@@ -276,5 +276,10 @@ final class AuditHistoryImageFormatTests: XCTestCase {
         let orphan = root.appendingPathComponent(UUID().uuidString + ".jpg"); try jpeg.write(to: orphan)
         _ = try await TranslationHistory(root: root).list()
         XCTAssertFalse(FileManager.default.fileExists(atPath: orphan.path), "An unowned JPEG was kept")
+        let cleared = TranslationHistory(root: root)
+        _ = try await cleared.saveImage(jpeg, original: "e", translation: "ё", source: .english, target: .russian)
+        try await cleared.removeAll()
+        let left = try FileManager.default.contentsOfDirectory(atPath: root.path).filter { $0.hasSuffix(".jpg") || $0.hasSuffix(".png") }
+        XCTAssertEqual(left, [], "Clear history kept images")
     }
 }
