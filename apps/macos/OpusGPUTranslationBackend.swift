@@ -69,6 +69,7 @@ final class OpusGPUTranslationBackend: TranslationBackend, @unchecked Sendable {
             "PYTHONPATH": resources.appendingPathComponent("OpusPython").path,
             "PYTHONNOUSERSITE": "1", "PYTHONDONTWRITEBYTECODE": "1"]
         process.standardInput = stdin; process.standardOutput = stdout; process.standardError = FileHandle.standardError
+        _ = fcntl(stdin.fileHandleForWriting.fileDescriptor, F_SETNOSIGPIPE, 1) // EPIPE becomes a thrown write error
         self.process = process; input = stdin.fileHandleForWriting; output = stdout.fileHandleForReading
         try job.check(); try process.run()
         try? stdin.fileHandleForReading.close(); try? stdout.fileHandleForWriting.close()

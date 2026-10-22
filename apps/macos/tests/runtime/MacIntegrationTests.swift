@@ -1,6 +1,8 @@
 import XCTest
 import AppKit
 import Carbon
+import Combine
+import AVFoundation
 import OfflineCore
 import SwiftUI
 @testable import Kat_translator
@@ -385,6 +387,27 @@ import SwiftUI
         XCTAssertTrue(key.matches(try event(36, .capsLock)))
         XCTAssertTrue(key.matches(try event(76, .numericPad)))
         XCTAssertFalse(key.matches(try event(36, .shift)))
+    }
+    // Audit 22.10 (B9): the 1 Hz permission poll must not republish unchanged state.
+    func testUnchangedPermissionPollDoesNotRedrawWindow() {
+        let model = AppModel(session: ConversationPipeline(asr: IntegrationASR(), translator: IntegrationMT(), speech: IntegrationSpeech(), player: IntegrationPlayer()))
+        let integration = model.integration
+        defer { integration.cancel() }
+        integration.applyPermissionStatus(accessibility: true, screenCapture: true)
+        var changes = 0
+        let token = integration.objectWillChange.sink { _ in changes += 1 }
+        for _ in 0..<5 { integration.applyPermissionStatus(accessibility: true, screenCapture: true) }
+        token.cancel()
+        XCTAssertEqual(changes, 0, "an idle permission poll redraws observers every second")
+    }
+    // Audit 22.10 (B7): only the running capture engine may finish a recording.
+    func testUnrelatedEngineConfigurationChangeDoesNotFinishRecording() {
+        let recorder = AudioRecorder()
+        var finished = 0
+        recorder.onLimit = { finished += 1 }
+        XCTAssertFalse(recorder.engineConfigurationChanged(AVAudioEngine()))
+        XCTAssertFalse(recorder.engineConfigurationChanged(nil))
+        XCTAssertEqual(finished, 0)
     }
 }
 

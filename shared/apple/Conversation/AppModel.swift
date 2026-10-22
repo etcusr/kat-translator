@@ -532,6 +532,8 @@ import OfflineCore
             await camera.close()
             usingCamera = false
             await session.unload()
+            // The download queue may be awaiting package installation (hashing gigabytes).
+            await packages.indexMLX.cancelAssembly()
             await packages.pauseAll()
             clearTemporaryAudio()
         }

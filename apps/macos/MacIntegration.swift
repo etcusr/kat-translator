@@ -157,8 +157,8 @@ enum QuickTranslationLanguage {
     }
     /// Preserve unrelated errors and drafts when a permission warning becomes obsolete.
     func applyPermissionStatus(accessibility: Bool, screenCapture: Bool) {
-        if accessibility { needsAccessibility = false }
-        if screenCapture { needsScreenCapture = false }
+        if accessibility && needsAccessibility { needsAccessibility = false }
+        if screenCapture && needsScreenCapture { needsScreenCapture = false }
         if showingPermissionMessage && !needsAccessibility && !needsScreenCapture {
             message = nil; showingPermissionMessage = false
         }
@@ -216,6 +216,9 @@ enum QuickTranslationLanguage {
     static func read(from app: NSRunningApplication) async -> String? {
         guard !IsSecureEventInputEnabled() else { return nil }
         let root = AXUIElementCreateApplication(app.processIdentifier)
+        // A timeout set on one element applies only to it; the system-wide element sets the
+        // default for every element, so a hung target app cannot freeze Kat for seconds.
+        AXUIElementSetMessagingTimeout(AXUIElementCreateSystemWide(), 0.2)
         AXUIElementSetMessagingTimeout(root, 0.2)
         var focused: CFTypeRef?
         if AXUIElementCopyAttributeValue(root, kAXFocusedUIElementAttribute as CFString, &focused) == .success,

@@ -151,8 +151,24 @@ private struct RecordingEngineStartup: @unchecked Sendable {
                 }
             })
         }
+        #else
+        // AVAudioEngine stops itself when input/output hardware changes (AirPods, USB microphone).
+        // Without this the timer kept "recording" silence; finish with everything captured so far.
+        observers.append(NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange, object: nil, queue: .main) { [weak self] notification in
+            let source = notification.object as AnyObject?
+            MainActor.assumeIsolated { self?.engineConfigurationChanged(source) }
+        })
         #endif
     }
+    #if os(macOS)
+    /// Internal for tests: true when the change belongs to the running capture and finished it.
+    @discardableResult func engineConfigurationChanged(_ source: AnyObject?) -> Bool {
+        guard isRecording, let engine, source === engine else { return false }
+        RecordingStopTrace.mark("recorder.engineConfigurationChange")
+        onLimit?()
+        return true
+    }
+    #endif
     func start(silenceSeconds: Double = SilenceMonitor.defaultTimeout, limitMinutes: Double = RecordingPolicy.defaultMinutes) async throws {
         try Task.checkCancellation()
         guard !isRecording, !starting else { return }

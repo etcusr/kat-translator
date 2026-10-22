@@ -3,7 +3,10 @@ import OfflineCore
 private final class MLXTranslationFlag: @unchecked Sendable {
     let pointer: UnsafeMutableRawPointer
     init() throws { guard let p = kat_mlx_flag_create() else { throw PipelineError.modelLoad }; pointer = p }
-    func cancel() { kat_mlx_flag_cancel(pointer) }
+    private let lock = NSLock()
+    private var cancelledValue = false
+    var isCancelled: Bool { lock.lock(); defer { lock.unlock() }; return cancelledValue }
+    func cancel() { lock.lock(); cancelledValue = true; lock.unlock(); kat_mlx_flag_cancel(pointer) }
     deinit { kat_mlx_flag_free(pointer) }
 }
 private final class MLXPartialReporter {
@@ -97,7 +100,7 @@ final class MLXTranslationBackend: TranslationBackend, @unchecked Sendable {
                     if prepared == 2 { throw CancellationError() }
                     guard prepared == 0 else { throw MacGlossaryError.preparation }
                     let planned = useSmallChunks
-                        ? try TranslationChunks.plan(text, count: { Int(kat_mlx_count(context, "", $0, "")) }) : [text]
+                        ? try TranslationChunks.plan(text, count: { Int(kat_mlx_count(context, "", $0, "")) }, cancelled: { flag.isCancelled }) : [text]
                     let pieces = try planned.flatMap { sourcePiece in try TextSegments.split(sourcePiece) { part in
                         let request = self.model.request(text: part.trimmingCharacters(in: .whitespacesAndNewlines), source: source, target: target)
                         let count = kat_mlx_count(context, request.prefix, request.text, request.suffix)

@@ -83,6 +83,8 @@ import OfflineCore
     func pause() async {
         for item in downloaders where item.state.phase == .downloading { await item.pause() }
     }
+    /// Quit only: stop installing verified parts. The parts stay, and restore() assembles them next launch.
+    func cancelAssembly() async { assembly?.cancel(); await assembly?.value }
     func cancel() async {
         assembly?.cancel(); await assembly?.value
         for item in downloaders { await item.cancel() }
