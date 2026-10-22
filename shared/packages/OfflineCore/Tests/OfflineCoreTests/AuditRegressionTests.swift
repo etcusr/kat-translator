@@ -1,5 +1,6 @@
 import XCTest
 import AVFoundation
+import ImageIO
 @testable import OfflineCore
 
 /// Regressions from the 22 October 2026 code audit (docs/maintenance/audit-fix-plan-2026-10-22.md).
@@ -239,5 +240,41 @@ final class AuditDownloadTests: XCTestCase {
         XCTAssertFalse(FileManager.default.fileExists(atPath: stale.path))
         XCTAssertFalse(FileManager.default.fileExists(atPath: piper.path))
         XCTAssertTrue(FileManager.default.fileExists(atPath: fresh.path), "A folder of a running assembly was removed")
+    }
+}
+
+final class AuditHistoryImageFormatTests: XCTestCase {
+    private func image(_ type: CFString) throws -> Data {
+        let context = try XCTUnwrap(CGContext(data: nil, width: 8, height: 8, bitsPerComponent: 8, bytesPerRow: 0,
+            space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue))
+        context.setFillColor(red: 1, green: 0.5, blue: 0, alpha: 1); context.fill(CGRect(x: 0, y: 0, width: 8, height: 8))
+        let data = NSMutableData()
+        let destination = try XCTUnwrap(CGImageDestinationCreateWithData(data, type, 1, nil))
+        CGImageDestinationAddImage(destination, try XCTUnwrap(context.makeImage()), nil); XCTAssertTrue(CGImageDestinationFinalize(destination))
+        return data as Data
+    }
+    // Audit 22.10 (iOS C1, owner O18): camera photos are kept as JPEG (PNG photos were 10+ MB and slow to encode);
+    // PNG entries, such as Mac screen captures and older history, keep working.
+    func testHistoryKeepsJPEGAndPNGImages() async throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("audit-images-" + UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let history = TranslationHistory(root: root)
+        let jpeg = try image("public.jpeg" as CFString), png = try image("public.png" as CFString)
+        let savedPhoto = try await history.saveImage(jpeg, original: "a", translation: "б", source: .english, target: .russian)
+        let savedCapture = try await history.saveImage(png, original: "c", translation: "д", source: .english, target: .russian)
+        let photo = try XCTUnwrap(savedPhoto), capture = try XCTUnwrap(savedCapture)
+        let reopened = TranslationHistory(root: root)
+        let photoData = try await reopened.imageData(photo), captureData = try await reopened.imageData(capture)
+        XCTAssertEqual(photoData, jpeg); XCTAssertEqual(captureData, png)
+        let exports = root.appendingPathComponent("exports")
+        let photoCopy = try await reopened.copyImage(photo, into: exports), captureCopy = try await reopened.copyImage(capture, into: exports)
+        XCTAssertEqual(photoCopy.pathExtension, "jpg"); XCTAssertEqual(captureCopy.pathExtension, "png")
+        let entries = try await reopened.list()
+        XCTAssertTrue(entries.allSatisfy(\.hasImage))
+        try await reopened.remove(photo)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: root.appendingPathComponent(photo.uuidString + ".jpg").path))
+        let orphan = root.appendingPathComponent(UUID().uuidString + ".jpg"); try jpeg.write(to: orphan)
+        _ = try await TranslationHistory(root: root).list()
+        XCTAssertFalse(FileManager.default.fileExists(atPath: orphan.path), "An unowned JPEG was kept")
     }
 }

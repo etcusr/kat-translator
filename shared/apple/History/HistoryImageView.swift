@@ -35,7 +35,7 @@ struct HistoryImageReader: View {
                 Button { zoom = min(4, zoom + 0.5) } label: { Image(systemName: "plus.magnifyingglass").frame(width: 44, height: 44) }
                     .disabled(zoom >= 4).accessibilityLabel(L10n.text("Увеличить"))
                 Button {
-                    let copy = FileManager.default.temporaryDirectory.appendingPathComponent("Translated-image-" + UUID().uuidString + ".png")
+                    let copy = FileManager.default.temporaryDirectory.appendingPathComponent("Translated-image-" + UUID().uuidString + "." + url.pathExtension)
                     do { try FileManager.default.copyItem(at: url, to: copy); sharedImage = SharedAudio(url: copy) }
                     catch { self.error = error.localizedDescription }
                 } label: { Image(systemName: "square.and.arrow.up").frame(width: 44, height: 44) }

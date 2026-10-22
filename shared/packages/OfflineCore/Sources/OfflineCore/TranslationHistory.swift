@@ -68,7 +68,13 @@ public actor TranslationHistory: TranslationArchive {
     }
     private var index: URL { root.appendingPathComponent("history.json") }
     private func audioURL(_ id: UUID) -> URL { root.appendingPathComponent(id.uuidString + ".m4a") }
-    private func imageURL(_ id: UUID) -> URL { root.appendingPathComponent(id.uuidString + ".png") }
+    /// Camera photos are stored as JPEG, screen captures and older entries as PNG (audit 22.10, iOS C1 / O18).
+    private static let imageExtensions = ["jpg", "png"]
+    private func imageURL(_ id: UUID, extension type: String? = nil) -> URL {
+        if let type { return root.appendingPathComponent(id.uuidString + "." + type) }
+        return Self.imageExtensions.map { root.appendingPathComponent(id.uuidString + "." + $0) }
+            .first { FileManager.default.fileExists(atPath: $0.path) } ?? root.appendingPathComponent(id.uuidString + ".png")
+    }
     private func draftURL(_ id: UUID) -> URL { root.appendingPathComponent(id.uuidString + ".partial.m4a") }
     private func load() throws {
         guard !loaded else { return }
@@ -98,9 +104,10 @@ public actor TranslationHistory: TranslationArchive {
         for url in try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil) {
             if url.pathExtension == "m4a", !owned.contains(url.lastPathComponent) { try discard(url) }
         }
-        let ownedImages = Set(entries.filter(\.hasImage).map { $0.id.uuidString + ".png" })
+        let ownedImages = Set(entries.filter(\.hasImage).map { $0.id.uuidString })
         for url in try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil)
-            where url.pathExtension == "png" && UUID(uuidString: url.deletingPathExtension().lastPathComponent) != nil && !ownedImages.contains(url.lastPathComponent) {
+            where Self.imageExtensions.contains(url.pathExtension) && UUID(uuidString: url.deletingPathExtension().lastPathComponent) != nil
+                && !ownedImages.contains(url.deletingPathExtension().lastPathComponent) {
             try discard(url)
         }
         for i in entries.indices where entries[i].hasImage && !FileManager.default.fileExists(atPath: imageURL(entries[i].id).path) { entries[i].hasImage = false }
@@ -131,12 +138,13 @@ public actor TranslationHistory: TranslationArchive {
     public func saveImage(_ png: Data, original: String, translation: String, source: SpeechLanguage, target: SpeechLanguage) throws -> UUID? {
         guard recordImages || recordText else { return nil }
         try load()
-        let id = UUID(), url = imageURL(id)
+        let id = UUID()
+        let decoded = CGImageSourceCreateWithData(png as CFData, nil)
+        let type = decoded.flatMap { CGImageSourceGetType($0) as String? }
+        let url = imageURL(id, extension: type == "public.jpeg" ? "jpg" : "png")
         if recordImages {
-            guard png.count <= 50 * 1024 * 1024,
-                  let image = CGImageSourceCreateWithData(png as CFData, nil),
-                  CGImageSourceGetType(image) as String? == "public.png",
-                  CGImageSourceCreateImageAtIndex(image, 0, nil) != nil else { throw HistoryError.corrupt }
+            guard png.count <= 50 * 1024 * 1024, let decoded, type == "public.png" || type == "public.jpeg",
+                  CGImageSourceCreateImageAtIndex(decoded, 0, nil) != nil else { throw HistoryError.corrupt }
             #if os(iOS)
             try png.write(to: url, options: [.atomic, .completeFileProtection])
             #else
@@ -160,8 +168,9 @@ public actor TranslationHistory: TranslationArchive {
         try load()
         guard entries.contains(where: { $0.id == id && $0.hasImage }) else { throw HistoryError.missing }
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-        let url = directory.appendingPathComponent("Translated-image-" + UUID().uuidString + ".png")
-        try FileManager.default.copyItem(at: imageURL(id), to: url)
+        let stored = imageURL(id)
+        let url = directory.appendingPathComponent("Translated-image-" + UUID().uuidString + "." + stored.pathExtension)
+        try FileManager.default.copyItem(at: stored, to: url)
         return url
     }
     public func saveOriginalSpeech(text: String, language: SpeechLanguage) throws -> UUID? {

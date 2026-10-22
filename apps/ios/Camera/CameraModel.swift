@@ -197,7 +197,7 @@ import OfflineCore
             // Render from the final blocks (the shown overlay may still be rendering) and keep archive order (audit 22.10, iOS C1).
             await previous?.value
             let png = await Task.detached(priority: .utility) {
-                CameraOverlay.composite(frame, overlay: CameraOverlay.render(size: CGSize(width: frame.width, height: frame.height), blocks: blocks)).pngData()
+                CameraOverlay.composite(frame, overlay: CameraOverlay.render(size: CGSize(width: frame.width, height: frame.height), blocks: blocks)).jpegData(compressionQuality: CameraOverlay.photoQuality)
             }.value
             guard let png else { return }
             do { try await history.saveImage(png, blocks: blocks, source: source, target: target) }
@@ -221,8 +221,8 @@ import OfflineCore
     func sharePicture() async throws -> URL {
         guard canSave, let frame, let overlay else { throw CameraError.image }
         return try await Task.detached(priority: .userInitiated) {
-            guard let data = CameraOverlay.composite(frame, overlay: overlay).pngData() else { throw CameraError.image }
-            let url = FileManager.default.temporaryDirectory.appendingPathComponent("Translated-"+UUID().uuidString+".png")
+            guard let data = CameraOverlay.composite(frame, overlay: overlay).jpegData(compressionQuality: CameraOverlay.photoQuality) else { throw CameraError.image }
+            let url = FileManager.default.temporaryDirectory.appendingPathComponent("Translated-"+UUID().uuidString+".jpg")
             try data.write(to:url,options:[.atomic,.completeFileProtection]); return url
         }.value
     }

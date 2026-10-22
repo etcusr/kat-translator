@@ -3,6 +3,9 @@ import ImageIO
 import OfflineCore
 
 @MainActor enum CameraOverlay {
+    /// Photos with an overlay are saved and shared as JPEG: PNG of a 3072 px photo was 10+ MB and slow to encode.
+    /// 0.9 keeps overlay text sharp; Mac screen captures stay PNG (audit 22.10, owner decision O18).
+    nonisolated static let photoQuality: CGFloat = 0.9
     /// This exact raster is used over the preview and composited into saved images.
     /// Renderers, fonts and string drawing are thread-safe; callers render off the main actor (audit 22.10, iOS C2).
     nonisolated static func render(size: CGSize, blocks: [TranslatedImageBlock]) -> UIImage {
