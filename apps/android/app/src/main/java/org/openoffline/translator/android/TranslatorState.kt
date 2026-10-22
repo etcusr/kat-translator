@@ -162,6 +162,8 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
     var streamingOutput by mutableStateOf(false); private set
     var error by mutableStateOf<String?>(null); private set
     var missingVoice by mutableStateOf<MissingVoice?>(null);private set
+    /** Survives the download it starts, so its notice can show progress until the package is installed. */
+    var missingPackage by mutableStateOf<MissingPackage?>(null);private set
     private val timings=mutableStateMapOf<String,ProcessingTiming>()
     val timing get()=timings[mode]
     val seconds get()=timing?.translation
@@ -326,25 +328,26 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
     }
     fun swap() { if(mode=="camera")stopLiveCamera();val old=if(mode!="text")cameraSource else if(source=="auto")detectedSource ?: manualSource else source;source=target;manualSource=source;target=old;saveLanguages() }
     private fun saveLanguages() {
-        invalidateRecognition();missingVoice=null;stopPlayback();translatedAudio.clear();audioRevision++
+        invalidateRecognition();missingVoice=null;missingPackage=null;stopPlayback();translatedAudio.clear();audioRevision++
         prefs.edit().putString("source",source).putString("target",target).putString("manualSource",manualSource).apply()
         if(mode=="camera" && image!=null && !busy) {
             cameraNotice=null;ocrBlocks=emptyList();translatedBlocks=emptyList();inputs["camera"]="";outputs["camera"]=""
             recognizeImage()
         }
     }
-    fun clear() { if(busy)cancel();stopPlayback();input="";output="";error=null;missingVoice=null;timings.remove(mode);firstToken=null;translatedAudio.remove(mode);audioRevision++;if(mode=="voice") { originalAudio=null };if(mode=="camera") { image=null;ocrBlocks=emptyList();translatedBlocks=emptyList() } }
+    fun clear() { if(busy)cancel();stopPlayback();input="";output="";error=null;missingVoice=null;missingPackage=null;timings.remove(mode);firstToken=null;translatedAudio.remove(mode);audioRevision++;if(mode=="voice") { originalAudio=null };if(mode=="camera") { image=null;ocrBlocks=emptyList();translatedBlocks=emptyList() } }
     fun clearOutput() { stopPlayback();output="";timings.remove(mode);firstToken=null;translatedAudio.remove(mode);audioRevision++ }
     fun reportError(message:String) { error=message }
     private fun ui(block:()->Unit) { main.post { if(!closed.get())block() } }
     private fun showFailure(error:Exception) {
         if(error is MissingVoiceException) { missingVoice=error.request;this.error=null }
+        else if(error is MissingPackageException) { missingPackage=MissingPackage(error.message.orEmpty(),error.ids,mode);this.error=null }
         else this.error=error.message ?: text("Ошибка обработки","Processing failed")
     }
     private fun checkCancelled() { check(!cancelled.get() && !closed.get()) { text("Отменено","Cancelled") } }
     private fun work(initial:String,timedWorkspace:String?=null,continueTiming:Boolean=false,keepPreparedRecognition:Boolean=false,block:()->Unit) {
         if(busy || recording)return
-        busy=true;error=null;missingVoice=null;status=initial;segmentCount=0;segmentIndex=0;cancelled.set(false)
+        busy=true;error=null;missingVoice=null;missingPackage=null;status=initial;segmentCount=0;segmentIndex=0;cancelled.set(false)
         val previous=if(continueTiming && timedWorkspace!=null)timings[timedWorkspace] ?: ProcessingTiming() else ProcessingTiming()
         if(timedWorkspace!=null && !continueTiming) { timings.remove(timedWorkspace);firstTokens.remove(timedWorkspace) }
         worker.execute {
@@ -370,7 +373,8 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         return (0 until rows.length()).map { rows.getJSONObject(it) }.first { it.getString("symbol")=="indexTranslation" }
     }
     private fun verify(file:File) {
-        val spec=descriptor();check(file.length()==spec.getLong("byteCount")) { text("Установите Index в разделе «Модели».","Install Index in Models.") }
+        val spec=descriptor()
+        if(file.length()!=spec.getLong("byteCount"))throw MissingPackageException(text("Установите Index в разделе «Модели».","Install Index in Models."),listOf(PackageCatalog.INDEX_ID))
         val stamp="${file.length()}:${file.lastModified()}:${spec.getString("sha256")}"
         if(file==modelFile && prefs.getString("verifiedModel",null)==stamp)return
         ui { verificationProgress=0f };var received=0L;var previousPercent=-1
@@ -391,7 +395,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             modelFile
         } else {
             // Receipt-verified package; no legacy unverified file path exists for Index 2B.
-            val installedPath=packages.installedPath(translationPackageId) ?: error(text("Установите Index 2B в разделе «Модели».","Install Index 2B in Models."))
+            val installedPath=requirePackagePath(translationPackageId,packages.installedPath(translationPackageId)) { text("Установите Index 2B в разделе «Модели».","Install Index 2B in Models.") }
             if(indexLease==null)indexLease=packages.acquire(translationPackageId)
             installedPath
         }
@@ -411,7 +415,8 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
             val start=System.nanoTime()
             try {
                 val model=effectiveModel
-                check(modelInstalled(model)) { text("Установите выбранную модель в разделе «Модели» или выберите другую.","Install the selected model in Models or choose another one.") }
+                if(!modelInstalled(model))throw MissingPackageException(text("Установите выбранную модель в разделе «Модели» или выберите другую.","Install the selected model in Models or choose another one."),
+                    listOfNotNull(translationPackageFor(model,PackageCatalog.opusRoute(packages.catalog,pairSource,target)?.first?.id)))
                 if(voice && memorySaving)releaseTranslation()
                 else if(model=="opus")ensureOpus(pairSource,target,preparing=true) else ensureEngine(model)
                 if(voice) {
@@ -440,7 +445,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         var runtime=opus?.takeIf { it.packageId==packageId }
         if(runtime==null) {
             val title=packages.catalog.firstOrNull { it.id==packageId }?.title ?: "OPUS"
-            val path=packages.installedPath(packageId) ?: error(text("Установите %@ в разделе «Модели».", "Install %@ in Models.", (title)))
+            val path=requirePackagePath(packageId,packages.installedPath(packageId)) { text("Установите %@ в разделе «Модели».", "Install %@ in Models.", (title)) }
             releaseTranslation();checkCancelled()
             ui { preparingModel=true;verificationProgress=null;status=text("Загрузка модели…","Loading model…") }
             val lease=packages.acquire(packageId)
@@ -615,9 +620,9 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
         val selected=if(preferred!=null)candidates.firstOrNull { it.id==preferred }
             else if(category==PackageCategory.RECOGNITION)candidates.firstOrNull { it.backend=="whisper" } ?: candidates.firstOrNull()
             else candidates.firstOrNull()
-        val path=selected?.let { packages.installedPath(it.id) }
-        if(selected==null || path==null)error(text("Установите выбранную модель в разделе «Модели» или выберите другую.","Install the selected model in Models or choose another one."))
-        return selected to path
+        val message=text("Установите выбранную модель в разделе «Модели» или выберите другую.","Install the selected model in Models or choose another one.")
+        if(selected==null)error(message)
+        return selected to requirePackagePath(selected.id,packages.installedPath(selected.id)) { message }
     }
     private fun findFile(root:File,predicate:(File)->Boolean):File=root.walkTopDown().firstOrNull { it.isFile && predicate(it) } ?: error(text("В пакете отсутствует нужный файл.","Required file is missing from the package."))
     private fun preloadVoice(language:String):java.util.concurrent.Future<*> {
@@ -1090,7 +1095,7 @@ class TranslatorState(app:Application):AndroidViewModel(app) {
     }
     private fun recognizeOpenBlocks(bitmap:Bitmap,from:String):List<OcrBlock> {
         val detectorId=if(packages.installedPath("ppocr-v5-mobile-det")!=null)"ppocr-v5-mobile-det" else "ppocr-v5-det"
-        val detector=packages.installedPath(detectorId) ?: error(text("Установите модель поиска текста OCR в разделе «Модели».","Install the OCR text detector in Models."))
+        val detector=requirePackagePath(OCR_DETECTOR_DOWNLOAD,packages.installedPath(detectorId)) { text("Установите модель поиска текста OCR в разделе «Модели».","Install the OCR text detector in Models.") }
         val choices=listOf(installedPackage(PackageCategory.OCR,from).first)
         check(choices.isNotEmpty()) { text("Установите OCR-пакет в разделе «Модели».","Install an OCR package in Models.") }
         val leases=mutableListOf<AutoCloseable>()

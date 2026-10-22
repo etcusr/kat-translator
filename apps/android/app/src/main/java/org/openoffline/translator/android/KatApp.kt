@@ -357,7 +357,25 @@ internal fun shareFile(context:Context,file:File,mime:String) {
         val download=rememberPackageDownload(state)
         VoiceDownloadNotice(languageName(request.language),(states[request.packageId] ?: PackageStatus()).let { if(it.phase==PackagePhase.INSTALLED && state.packages.installedPath(request.packageId)==null)PackageStatus() else it },!state.busy) { download(listOf(request.packageId)) }
     }
+    state.missingPackage?.takeIf { it.workspace==state.mode }?.let { request ->
+        val states by state.packages.states.collectAsState()
+        val missing=request.ids.filter { state.packages.installedPath(it)==null }
+        if(missing.isNotEmpty()) {
+            val download=rememberPackageDownload(state)
+            MissingPackageNotice(request.message,state.packages.catalog.firstOrNull { it.id==missing.first() }?.title ?: missing.first(),states[missing.first()] ?: PackageStatus(),!state.busy) { download(missing) }
+        }
+    }
     state.error?.let { Text(it,color=Color(0xFFFFB65C),fontSize=14.sp,modifier=Modifier.testTag("translation.error")) }
+}
+/** "Install … in Models" errors download the named package in place and show its progress. */
+@Composable internal fun MissingPackageNotice(message:String,title:String,status:PackageStatus,enabled:Boolean=true,download:()->Unit) {
+    val action=when {
+        status.busy -> tr("Скачиваю %@ · %@%", "Downloading %@ · %@%", (title), ((status.progress*100).toInt()))
+        status.phase==PackagePhase.ERROR -> tr("Не удалось скачать %@. Нажмите, чтобы повторить.", "Could not download %@. Tap to retry.", (title))
+        else -> tr("Скачать")
+    }
+    Text(message+"\n"+action,color=KatAccent,fontSize=15.sp,modifier=Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(Panel)
+        .clickable(enabled=enabled && !status.busy,onClick=download).padding(14.dp).testTag("package.download.notice"))
 }
 @Composable internal fun RecognitionDownloadNotice(model:String,status:PackageStatus,enabled:Boolean=true,download:()->Unit) {
     val message=when {
