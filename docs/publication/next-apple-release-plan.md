@@ -2,7 +2,7 @@
 
 **English** | [Русский](next-apple-release-plan.ru.md)
 
-**Progress, 23 October:** [local 1.1.0 preparation](2026-10-22/README.md): iOS archive/export, direct Mac packages, four-language copy, 24 iPhone screenshots and 12 full Mac window screenshots and 4 Quick setup previews, README/site gallery. No upload or review action. Mac Store 79 export now passes with a separate no-TLS Python runtime. Remaining iOS Voice/Image and Android captures, iPad assessment, real-device demo and candidate upgrade acceptance remain open. Keep the checklist below incomplete until its full criteria are met.
+**Progress, 23 October:** [local 1.1.0 preparation](2026-10-22/README.md): iOS archive/export, direct Mac packages, four-language copy, 32 iPhone screenshots and 12 full Mac window screenshots and 4 Quick setup previews, README/site gallery. No upload or review action. Mac Store 79 export now passes with a separate no-TLS Python runtime. Voice/Image presentation scenes are ready in four languages. The target declares iPhone only; native iPad captures are outside this candidate. Android captures, real-device demo and candidate upgrade acceptance remain open. Keep the checklist below incomplete until its full criteria are met.
 
 Requested on 22 October 2026. **Planned work, not completed publication.** The current task does not upload builds, change App Store Connect or submit a review. Choose the new public versions when preparing the release; increasing only the build number is not a new public version.
 
