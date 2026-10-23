@@ -24,3 +24,7 @@ The live page uses no analytics, external fonts or new dependencies. It remains 
 This is a visual preview for approval, not completed release preparation. A real-device iOS demonstration is still unrecorded, so there is no video player or artificial substitute presented as a recording. Add the genuine compact video/poster after capture. Android screenshots, refreshed final Apple artifacts, candidate upgrade acceptance and separately authorized publication remain open in the release plan.
 
 Local preview: serve `site/` over HTTP and open `/?language=ru` (or en/es/tr). Browser evidence is retained locally under `.build/landing-2026-10-23/` and is not a release screenshot.
+
+## Native language-menu follow-up
+
+The owner accepted the overall design and supplied a screenshot of unreadable native menu options. DOM inspection showed near-white inherited option text on a transparent option background, while the native popup used a white surface. Shared option rules now set dark text and an explicit white background/light scheme; the closed dark selectors retain their design. Browser-computed styles confirmed all four options use RGB(22,24,22) on white, and all four locale selections still work. Native popup pixels are excluded from the browser screenshot API on this host, so the visual popup check remains for the owner. This is a CSS change only, not a custom menu replacement or deployment.
