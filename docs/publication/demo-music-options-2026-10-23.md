@@ -25,3 +25,22 @@ Export metadata:
   }
 ]
 ```
+
+## Two further styles and muted playback
+
+Added **funk** (syncopated electric keys, active bass, swung hi-hat and fills) and **electronic** (warm downtempo synths, restrained pulse, open middle section). Both retain the 33.478 s picture; MP3 previews are beside the MP4 alternatives. Current soundtrack selection is unchanged. Generator supports `--styles funk electronic`; no external music assets.
+
+Both exports and audio previews decode fully; compressed video hashes equal the selected original. The website now declares `muted` without autoplay. Browser check: initial `muted=true`, playback starts muted, native speaker-button click changes it to false while playback continues. Page notes are updated in four languages. Documentation parity and JavaScript syntax pass. No push/deployment/Store action.
+
+[
+  {
+    "name": "funk",
+    "bytes": 1328461,
+    "sha256": "a9def134b1b3accd60eaab488d5175629493ff6fbb9d90cca7a2c745a3f5d49e"
+  },
+  {
+    "name": "electronic",
+    "bytes": 1349165,
+    "sha256": "ada7530697e77fe38d5a1a57034216b307655f108d5c2a56437da49cf025769b"
+  }
+]

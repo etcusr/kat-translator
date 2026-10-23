@@ -17,3 +17,5 @@ The website has no subtitle tracks. Embedded English titles remain part of the p
 ## Alternative music
 
 `music_options.py --video <selected-mp4> --work <ignored-directory> --output <preview-directory>` creates `playful` and `airy` MP3/MP4 previews. It uses NumPy/FFmpeg, synthesizes original arrangements and copies the existing compressed picture unchanged. It does not replace the selected landing-page video. See the [comparison record](../../../docs/publication/demo-music-options-2026-10-23.md).
+
+Additional styles: `--styles funk electronic` generates syncopated electric keys/bass/drums and warm downtempo synth/pulse arrangements. `--styles` selects exports without overwriting the other alternatives. The landing-page player starts muted; its native controls let viewers enable sound.
