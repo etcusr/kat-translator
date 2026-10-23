@@ -37,8 +37,15 @@
   },
   "pending": [
     "Android captures",
-    "Owner review of simulator iOS demonstration and website publication",
     "Final candidate device upgrade acceptance",
     "Store upload, processing, review and release"
-  ]
+  ],
+  "website": {
+    "status": "published",
+    "url": "https://etcusr.github.io/kat-translator/",
+    "commit": "d81de6554b9f5c4fdf69736ebfffbe8e4882d67e",
+    "run": 39887016558,
+    "soundtrack": "funk",
+    "mutedByDefault": true
+  }
 }
