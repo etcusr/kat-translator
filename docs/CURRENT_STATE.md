@@ -2,6 +2,8 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
+**Website preview (23 October):** a local landing-page redesign now uses the Kat logo, dark/lime palette, four interface languages and switchable Voice/Text/Settings screenshots. It is not deployed; the real-device video and visual approval remain pending. [Checks](publication/landing-preview-2026-10-23.md).
+
 **Language picker (23 October, development source):** long names use the full row width when needed; capability/favorite actions move below instead of forcing single-letter wrapping. Shared iOS/macOS change. Four localized simulator capture tests and one native Mac language-sheet render test passed. Gallery refreshed; previously exported iOS 73/direct Mac 68 packages predate this UI fix. [Checks and scope](publication/language-picker-layout-2026-10-23.md).
 
 **Release preparation (22–23 October):** iOS 1.1.0 (73) exported locally; direct Mac 0.7.0 (68) packaged locally. Neither candidate is installed or uploaded. Installed apps remain iPhone 72 / Mac 67. Mac Store 1.1.0 (79) archive/export and packaged engine checks passed with a separate no-TLS Python runtime; existing review remains untouched. [Runtime fix](publication/mac-store-python-2026-10-23.md). EN/RU/ES/TR copy, 28 iPhone simulator screenshots (including four prepared Voice scenes), 12 full Mac window screenshots (Voice/Text/language picker) plus 4 Quick setup previews, README and website gallery prepared. Run simulator and native Kat separately to avoid memory exhaustion. [Status and remaining work](publication/2026-10-22/README.md).

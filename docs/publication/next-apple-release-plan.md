@@ -38,7 +38,7 @@ Requested on 22 October 2026. **Planned work, not completed publication.** The c
 - [ ] Redesign the GitHub Pages home page with a more distinctive composition, the Kat logo, and the app’s dark/charcoal and lime palette.
 - [ ] Show current screenshots of real translation workflows and a short playable video demonstrating navigation and core functions; connect this with the demonstration in section 4.
 - [ ] Keep download links, source code, support and privacy easy to find. Check mobile and desktop layout, contrast, loading size and all supported page languages.
-- [ ] Acceptance: approved visual preview with logo, screenshots and playable video, no private content, no misleading speed claims, and explicit authorization before publishing. Planning only; redesign has not started.
+- [ ] Acceptance: approved visual preview with logo, screenshots and playable video, no private content, no misleading speed claims, and explicit authorization before publishing. Local preview implemented on 23 October: logo, dark/lime palette, EN/RU/ES/TR, switchable screenshots and responsive layouts. Video, visual approval and publication remain open. [Checks](landing-preview-2026-10-23.md).
 
 ## Completion evidence
 
