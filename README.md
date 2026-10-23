@@ -25,6 +25,10 @@ Upcoming Apple update; iPhone simulator captures. [All languages and capture det
 
 Voice previews use prepared example text; they show interface layout, not an inference test.
 
+[![Watch Kat in action](site/assets/video/kat-ios-demo-poster.jpg)](site/assets/video/kat-ios-demo.mp4)
+
+[38-second demonstration](site/assets/video/kat-ios-demo.mp4): actual translation and Settings in iPhone Simulator, with animated titles. Edited sequence; not a physical-iPhone speed test. [Capture details](docs/publication/ios-demo-2026-10-23.md).
+
 ## Features
 
 - Voice input, audio import, text translation, phone cameras and images on Mac.

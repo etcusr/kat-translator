@@ -2,7 +2,7 @@
 
 **English** | [Русский](CURRENT_STATE.ru.md)
 
-**Website preview (23 October):** a local landing-page redesign now uses the Kat logo, dark/lime palette, four interface languages and switchable Voice/Text/Settings screenshots. The owner accepted the overall design; native language-menu contrast was corrected. It is not deployed; the real-device video remains pending. [Checks](publication/landing-preview-2026-10-23.md).
+**Website preview (23 October):** a local landing-page redesign now uses the Kat logo, dark/lime palette, four interface languages and switchable Voice/Text/Settings screenshots. The owner accepted the overall design; native language-menu contrast was corrected. A 38.5-second simulator demonstration with actual translation, animated branding and four-language subtitles is now embedded locally. The owner requested simulator capture; this is not a physical-device speed test. Video review and deployment remain pending. [Video evidence](publication/ios-demo-2026-10-23.md). [Checks](publication/landing-preview-2026-10-23.md).
 
 **Language picker (23 October, development source):** long names use the full row width when needed; capability/favorite actions move below instead of forcing single-letter wrapping. Shared iOS/macOS change. Four localized simulator capture tests and one native Mac language-sheet render test passed. Gallery refreshed; previously exported iOS 73/direct Mac 68 packages predate this UI fix. [Checks and scope](publication/language-picker-layout-2026-10-23.md).
 

@@ -1,0 +1,6 @@
+{"source":"raw2.mov","sourceType":"iPhone 17 Pro Simulator; normal app; real Index 2B CPU inference","scenes":[
+{"start":40,"end":47,"label":"SAY IT YOUR WAY","title":"Two coffees.\nOne window seat.","body":"A small request.\nIn another language.","note":"Type a phrase. Kat takes it from here."},
+{"start":47,"end":54.8,"label":"CAT AT WORK","title":"A little thinking.\nA lot less guessing.","body":"The translation model runs\non this device.","note":"Simulator recording · not an iPhone speed test"},
+{"start":54.8,"end":61,"label":"THERE IT IS","title":"Coffee, translated.","body":"Original and translation,\nright next to each other.","note":"Real output. No prepared translation."},
+{"start":61,"end":73.3,"label":"MAKE YOURSELF AT HOME","title":"Your models.\nYour voices.","body":"Quick setup and downloads,\nall in one place.","note":"Download what you need before going offline."}
+]}

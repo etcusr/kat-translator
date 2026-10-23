@@ -21,7 +21,7 @@ The live page uses no analytics, external fonts or new dependencies. It remains 
 
 ## Remaining work
 
-This is a visual preview for approval, not completed release preparation. A real-device iOS demonstration is still unrecorded, so there is no video player or artificial substitute presented as a recording. Add the genuine compact video/poster after capture. Android screenshots, refreshed final Apple artifacts, candidate upgrade acceptance and separately authorized publication remain open in the release plan.
+This is a visual preview for approval, not completed release preparation. Follow-up: the owner chose simulator capture. A [38.5-second actual-app demonstration](ios-demo-2026-10-23.md), poster and localized subtitles are now embedded in the local player; video approval and deployment remain pending. Android screenshots, refreshed final Apple artifacts, candidate upgrade acceptance and separately authorized publication remain open in the release plan.
 
 Local preview: serve `site/` over HTTP and open `/?language=ru` (or en/es/tr). Browser evidence is retained locally under `.build/landing-2026-10-23/` and is not a release screenshot.
 
