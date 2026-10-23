@@ -1,6 +1,6 @@
 # Interface captures — 22 October 2026
 
-**Refresh, 23 October:** the 24 iOS images were recaptured after the adaptive language-row fix (four passing tests); the 16 Mac settings previews below are unchanged. Current gallery total: 5,748,395 bytes. Four additional native Mac language-sheet renders passed separately and remain local. Existing iOS 73/direct Mac 68 exports predate the UI fix. [Scope and evidence](../language-picker-layout-2026-10-23.md). The details below describe the original 22 October capture run.
+**Refresh, 23 October:** the 24 iOS images were recaptured after the adaptive language-row fix. Three Mac previews per language have now been replaced by full-window Voice/Text/language-picker screenshots with diagnostics off; the fourth Quick setup preview remains. [Mac capture method/results](../mac-window-captures-2026-10-23.md). Use `--mac-windows <final-xcresult-attachments>` in the collector to reproduce this selection. The manifest records current bytes/hashes. Existing iOS73/directMac68 exports predate the UI fix; Store79 includes it. The details below describe the historical 22 October run.
 
 24 simulator screenshots: `python3 scripts/simulator/run.py --screenshots --headless`, exact iPhone 17 Pro / iOS 27.0, development app 1.1.0 (73). Four tests passed, zero failures/skips. Same neutral Russian directions question, actually translated to English by Index 2B CPU. EN/RU/ES/TR interface. No downloads, live audio or fabricated result fields. Status bar is the actual capture state, not composited.
 

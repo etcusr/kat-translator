@@ -1,5 +1,6 @@
 {
   "date": "2026-10-22",
+  "updatedAt": "2026-10-23",
   "pixelEdits": "none",
   "captures": [
     {
@@ -13,8 +14,8 @@
       "height": 2622,
       "bytes": 207517,
       "sha256": "8d6cfc84d2990b40076657fc63b35ea7b3d3b386727979a8733ce796a7ead3b7",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/en/05-voices.png",
@@ -27,8 +28,8 @@
       "height": 2622,
       "bytes": 234844,
       "sha256": "58ca882e0188815c24ec2ce1805727776241c733803bd5bb2d4c11a812fb65f2",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/en/04-models-and-voices.png",
@@ -41,8 +42,8 @@
       "height": 2622,
       "bytes": 149909,
       "sha256": "d484cc0f3970a7a74af73c9256c25746e59b52478783657fc515aea2f1638a4f",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/en/03-settings.png",
@@ -55,8 +56,8 @@
       "height": 2622,
       "bytes": 166613,
       "sha256": "84fb57cb9bf764f1fa4c1118766afcb64bd19ec4be806fdf291860d9ad2d176e",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/en/02-languages.png",
@@ -69,8 +70,8 @@
       "height": 2622,
       "bytes": 243938,
       "sha256": "95d06bfe58da4039f022c21f21d3451a54344fa2012daa698a285ab2149fa328",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/en/01-text.png",
@@ -83,8 +84,8 @@
       "height": 2622,
       "bytes": 199144,
       "sha256": "78fca1c7f85299d81379c5492c012b1e0fa2607df1b29a729273b8b966f7d2bc",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/ru/06-quick-setup.png",
@@ -97,8 +98,8 @@
       "height": 2622,
       "bytes": 218851,
       "sha256": "becdd3a338076da0c8bd5efbc8df84234aff5f541ba92bb25106a29136d4e8b9",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/ru/05-voices.png",
@@ -111,8 +112,8 @@
       "height": 2622,
       "bytes": 241004,
       "sha256": "d35db295082350bcd9b5ccf8e000786e62bcb71b467b49f8b9e35ce9c4767ee1",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/ru/04-models-and-voices.png",
@@ -125,8 +126,8 @@
       "height": 2622,
       "bytes": 144036,
       "sha256": "861550b843b6b0908cf2abd6eac770314dbd2a16e6ee725d8862d76da0d35fc7",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/ru/03-settings.png",
@@ -139,8 +140,8 @@
       "height": 2622,
       "bytes": 169549,
       "sha256": "296c5e3c0748f82db5667ac7f5df755d2bcc1a40144f1d85e9dec012baa8d743",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/ru/02-languages.png",
@@ -153,8 +154,8 @@
       "height": 2622,
       "bytes": 249424,
       "sha256": "b6a39ca66bee1d0f15641ac5ffd6604a383dfd0e6dad5bc427f44eadbc29c9f5",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/ru/01-text.png",
@@ -167,8 +168,8 @@
       "height": 2622,
       "bytes": 202536,
       "sha256": "82d94249e17fa5e512eb89557992e8c50b3144e00d39db4edcfaea6b629fcf85",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/es/06-quick-setup.png",
@@ -181,8 +182,8 @@
       "height": 2622,
       "bytes": 221958,
       "sha256": "8cc9576eb85ac72afa231345d2c0d08a71caeed632a8dff54b3a805ec82c8c5c",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/es/05-voices.png",
@@ -195,8 +196,8 @@
       "height": 2622,
       "bytes": 235174,
       "sha256": "852474d3b02c2aec5e54e2fe4addc5e6412d04faee6c121a13f9565bd527c0f8",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/es/04-models-and-voices.png",
@@ -209,8 +210,8 @@
       "height": 2622,
       "bytes": 150161,
       "sha256": "dc4637c81c8e51d0ec5736c67a2e44b523fbcb0587797759b18b92c8f6b17938",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/es/03-settings.png",
@@ -223,8 +224,8 @@
       "height": 2622,
       "bytes": 169942,
       "sha256": "5500c37303535c033dfe0fbf21c7f0ba4e45ad2d4bf1c6c11eeb1609b4f1128d",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/es/02-languages.png",
@@ -237,8 +238,8 @@
       "height": 2622,
       "bytes": 242281,
       "sha256": "1df128e733361095a451c68b123e2e56caeb38b30d7072ef3d2e040fba5b393c",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/es/01-text.png",
@@ -251,8 +252,8 @@
       "height": 2622,
       "bytes": 196455,
       "sha256": "37e84a69f7164d5427ab1890b632e0e241f14b80e0c06af12547079110f36ad4",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/tr/06-quick-setup.png",
@@ -265,8 +266,8 @@
       "height": 2622,
       "bytes": 198298,
       "sha256": "02e57824920603325402ec83b79e4c317b8cd71dee1fda4ee936ca85f6beae92",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/tr/05-voices.png",
@@ -279,8 +280,8 @@
       "height": 2622,
       "bytes": 220185,
       "sha256": "bb77a46ec63b18b9ba4bad169923b926c7e6079a042915ebb74dd841f51b34b0",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/tr/04-models-and-voices.png",
@@ -293,8 +294,8 @@
       "height": 2622,
       "bytes": 138421,
       "sha256": "9ee41a1c77e3f56fb64a81043dba430e207336c9881c711cb8dc78ee5c6ee2a4",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/tr/03-settings.png",
@@ -307,8 +308,8 @@
       "height": 2622,
       "bytes": 155311,
       "sha256": "8546fca773e304ae0564c67edbb4fb57dcdd7d99cae5fac3d2f15d658be7f742",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/tr/02-languages.png",
@@ -321,8 +322,8 @@
       "height": 2622,
       "bytes": 243780,
       "sha256": "106fa237546bfef8a0a472a67735ba00fbc66896083738294d3e60903185cac7",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/tr/01-text.png",
@@ -335,44 +336,8 @@
       "height": 2622,
       "bytes": 200556,
       "sha256": "7141acf1eddbaca15a12126c7f49b9dcb2022ba2ba45c1a9c59ee4a36fbce50a",
-      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
-      "captureDate": "2026-10-23"
-    },
-    {
-      "path": "assets/screenshots/2026-10-22/macos-preview/en/01-settings.png",
-      "platform": "macos-preview",
-      "language": "en",
-      "screen": "01-settings",
-      "kind": "native view preview; not a desktop screenshot",
-      "version": "0.7.0 (68)",
-      "width": 1000,
-      "height": 800,
-      "bytes": 44471,
-      "sha256": "c182aa0b055b55dc7cab6f4fb71a80dd8468aa11ce5fa2a18eddc98c065af3e0"
-    },
-    {
-      "path": "assets/screenshots/2026-10-22/macos-preview/en/02-models-and-voices.png",
-      "platform": "macos-preview",
-      "language": "en",
-      "screen": "02-models-and-voices",
-      "kind": "native view preview; not a desktop screenshot",
-      "version": "0.7.0 (68)",
-      "width": 1000,
-      "height": 800,
-      "bytes": 34179,
-      "sha256": "e10d59f9f3a553b256e067ab7ef7dc1a2934ad3f01274b81eb28af63868be5af"
-    },
-    {
-      "path": "assets/screenshots/2026-10-22/macos-preview/en/03-voices.png",
-      "platform": "macos-preview",
-      "language": "en",
-      "screen": "03-voices",
-      "kind": "native view preview; not a desktop screenshot",
-      "version": "0.7.0 (68)",
-      "width": 1000,
-      "height": 800,
-      "bytes": 78353,
-      "sha256": "d15aa3ad8b912db9d8a64320743ea75dce6f50349bc95636c25de64e1795646c"
+      "captureDate": "2026-10-23",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change"
     },
     {
       "path": "assets/screenshots/2026-10-22/macos-preview/en/04-quick-setup.png",
@@ -387,42 +352,6 @@
       "sha256": "b2dc815d68f20e1a1ee69f6157a29fc20e1af2b5b33635b2385cf347263c52cf"
     },
     {
-      "path": "assets/screenshots/2026-10-22/macos-preview/es/01-settings.png",
-      "platform": "macos-preview",
-      "language": "es",
-      "screen": "01-settings",
-      "kind": "native view preview; not a desktop screenshot",
-      "version": "0.7.0 (68)",
-      "width": 1000,
-      "height": 800,
-      "bytes": 46119,
-      "sha256": "5ca081ca019cf111171d7168ee626c6db2c6f7300794891e9fc11d2ac863d82c"
-    },
-    {
-      "path": "assets/screenshots/2026-10-22/macos-preview/es/02-models-and-voices.png",
-      "platform": "macos-preview",
-      "language": "es",
-      "screen": "02-models-and-voices",
-      "kind": "native view preview; not a desktop screenshot",
-      "version": "0.7.0 (68)",
-      "width": 1000,
-      "height": 800,
-      "bytes": 34718,
-      "sha256": "7e6556d75f7d3f86c5e3247f24fd8d5c6902713cfb482ab0b74f04981b7fe067"
-    },
-    {
-      "path": "assets/screenshots/2026-10-22/macos-preview/es/03-voices.png",
-      "platform": "macos-preview",
-      "language": "es",
-      "screen": "03-voices",
-      "kind": "native view preview; not a desktop screenshot",
-      "version": "0.7.0 (68)",
-      "width": 1000,
-      "height": 800,
-      "bytes": 78182,
-      "sha256": "14beecaa3127a66da39221e087a3ecba0f5582e4e394b2646be067ef25630f4c"
-    },
-    {
       "path": "assets/screenshots/2026-10-22/macos-preview/es/04-quick-setup.png",
       "platform": "macos-preview",
       "language": "es",
@@ -433,42 +362,6 @@
       "height": 800,
       "bytes": 83078,
       "sha256": "f9efcf8025e45d12ef6a0ef5433e04f2874b07e20016f666935ff50b4dbef715"
-    },
-    {
-      "path": "assets/screenshots/2026-10-22/macos-preview/ru/01-settings.png",
-      "platform": "macos-preview",
-      "language": "ru",
-      "screen": "01-settings",
-      "kind": "native view preview; not a desktop screenshot",
-      "version": "0.7.0 (68)",
-      "width": 1000,
-      "height": 800,
-      "bytes": 45078,
-      "sha256": "90c5a3c3f6fab599882935252c4922e88d3300eb27a81e930e0a31615a74bb88"
-    },
-    {
-      "path": "assets/screenshots/2026-10-22/macos-preview/ru/02-models-and-voices.png",
-      "platform": "macos-preview",
-      "language": "ru",
-      "screen": "02-models-and-voices",
-      "kind": "native view preview; not a desktop screenshot",
-      "version": "0.7.0 (68)",
-      "width": 1000,
-      "height": 800,
-      "bytes": 34288,
-      "sha256": "5f561633a63352cef236c8eb9d7c8184f15b2d6ea435ef4eb412bd8e83c0ebb6"
-    },
-    {
-      "path": "assets/screenshots/2026-10-22/macos-preview/ru/03-voices.png",
-      "platform": "macos-preview",
-      "language": "ru",
-      "screen": "03-voices",
-      "kind": "native view preview; not a desktop screenshot",
-      "version": "0.7.0 (68)",
-      "width": 1000,
-      "height": 800,
-      "bytes": 84369,
-      "sha256": "6501feb38d1370aa9adb21b9670abb0f213e97305c5525a8e1ebfa06a604170d"
     },
     {
       "path": "assets/screenshots/2026-10-22/macos-preview/ru/04-quick-setup.png",
@@ -483,42 +376,6 @@
       "sha256": "1a42a9f21c65764982444e71b7a142f9bde17b75848a727552b42373388702d4"
     },
     {
-      "path": "assets/screenshots/2026-10-22/macos-preview/tr/01-settings.png",
-      "platform": "macos-preview",
-      "language": "tr",
-      "screen": "01-settings",
-      "kind": "native view preview; not a desktop screenshot",
-      "version": "0.7.0 (68)",
-      "width": 1000,
-      "height": 800,
-      "bytes": 42203,
-      "sha256": "8177ed1f53899d1c1c209cf00da3df6df0714240776c92c8c6c9afd932b0b14c"
-    },
-    {
-      "path": "assets/screenshots/2026-10-22/macos-preview/tr/02-models-and-voices.png",
-      "platform": "macos-preview",
-      "language": "tr",
-      "screen": "02-models-and-voices",
-      "kind": "native view preview; not a desktop screenshot",
-      "version": "0.7.0 (68)",
-      "width": 1000,
-      "height": 800,
-      "bytes": 32294,
-      "sha256": "5f8602280be02e8537cc1f17ae5206d63e4e68d6c47dfcf77d005621c43e8e9c"
-    },
-    {
-      "path": "assets/screenshots/2026-10-22/macos-preview/tr/03-voices.png",
-      "platform": "macos-preview",
-      "language": "tr",
-      "screen": "03-voices",
-      "kind": "native view preview; not a desktop screenshot",
-      "version": "0.7.0 (68)",
-      "width": 1000,
-      "height": 800,
-      "bytes": 76144,
-      "sha256": "48733c377693d1514895ef768157143f6997b3aa99350a958677ec074d7deda4"
-    },
-    {
       "path": "assets/screenshots/2026-10-22/macos-preview/tr/04-quick-setup.png",
       "platform": "macos-preview",
       "language": "tr",
@@ -529,7 +386,174 @@
       "height": 800,
       "bytes": 73687,
       "sha256": "cf61d358718b28bd004ab2618284a3e505670e5bbdbda58bd87c0f0af00abc04"
+    },
+    {
+      "path": "assets/screenshots/2026-10-22/macos-preview/tr/03-languages.png",
+      "platform": "macos-preview",
+      "language": "tr",
+      "screen": "03-languages",
+      "kind": "full app window screenshot; real translation; diagnostics off",
+      "version": "0.7.0 (68), updated development source",
+      "width": 1440,
+      "height": 900,
+      "bytes": 150964,
+      "sha256": "b1bf500cb6f6081fa1fc1f36b65af70fe44322722825dbc30aef69d74c582eb1",
+      "captureDate": "2026-10-23",
+      "sourceState": "UI source shared with Store 1.1.0 (79); file-import audio fixture, not live microphone"
+    },
+    {
+      "path": "assets/screenshots/2026-10-22/macos-preview/tr/01-voice.png",
+      "platform": "macos-preview",
+      "language": "tr",
+      "screen": "01-voice",
+      "kind": "full app window screenshot; real translation; diagnostics off",
+      "version": "0.7.0 (68), updated development source",
+      "width": 1440,
+      "height": 900,
+      "bytes": 122433,
+      "sha256": "a73968a8485be20ecc4e31051dc1d76470ae92ae1db1b0fc4691a4f64a80e96f",
+      "captureDate": "2026-10-23",
+      "sourceState": "UI source shared with Store 1.1.0 (79); file-import audio fixture, not live microphone"
+    },
+    {
+      "path": "assets/screenshots/2026-10-22/macos-preview/tr/02-text.png",
+      "platform": "macos-preview",
+      "language": "tr",
+      "screen": "02-text",
+      "kind": "full app window screenshot; real translation; diagnostics off",
+      "version": "0.7.0 (68), updated development source",
+      "width": 1440,
+      "height": 900,
+      "bytes": 113916,
+      "sha256": "de795d3e1f434802b9ae4e81ae4c8059e7554e37f30b6e256e117a3caa31b258",
+      "captureDate": "2026-10-23",
+      "sourceState": "UI source shared with Store 1.1.0 (79); file-import audio fixture, not live microphone"
+    },
+    {
+      "path": "assets/screenshots/2026-10-22/macos-preview/es/03-languages.png",
+      "platform": "macos-preview",
+      "language": "es",
+      "screen": "03-languages",
+      "kind": "full app window screenshot; real translation; diagnostics off",
+      "version": "0.7.0 (68), updated development source",
+      "width": 1440,
+      "height": 900,
+      "bytes": 152996,
+      "sha256": "c4bb2a4ce060585606234842d68f50b9f514c0143caaa01054ebcb4196203c7d",
+      "captureDate": "2026-10-23",
+      "sourceState": "UI source shared with Store 1.1.0 (79); file-import audio fixture, not live microphone"
+    },
+    {
+      "path": "assets/screenshots/2026-10-22/macos-preview/es/01-voice.png",
+      "platform": "macos-preview",
+      "language": "es",
+      "screen": "01-voice",
+      "kind": "full app window screenshot; real translation; diagnostics off",
+      "version": "0.7.0 (68), updated development source",
+      "width": 1440,
+      "height": 900,
+      "bytes": 120886,
+      "sha256": "1e3608af6252e0f7600e8f22923fd2bb06ee399ecdf4196aee9216adbba62c8e",
+      "captureDate": "2026-10-23",
+      "sourceState": "UI source shared with Store 1.1.0 (79); file-import audio fixture, not live microphone"
+    },
+    {
+      "path": "assets/screenshots/2026-10-22/macos-preview/es/02-text.png",
+      "platform": "macos-preview",
+      "language": "es",
+      "screen": "02-text",
+      "kind": "full app window screenshot; real translation; diagnostics off",
+      "version": "0.7.0 (68), updated development source",
+      "width": 1440,
+      "height": 900,
+      "bytes": 112454,
+      "sha256": "38dfb8195c57acf79b76107cb79e66a3c9340cb90419667710b77ff6c74070fa",
+      "captureDate": "2026-10-23",
+      "sourceState": "UI source shared with Store 1.1.0 (79); file-import audio fixture, not live microphone"
+    },
+    {
+      "path": "assets/screenshots/2026-10-22/macos-preview/en/03-languages.png",
+      "platform": "macos-preview",
+      "language": "en",
+      "screen": "03-languages",
+      "kind": "full app window screenshot; real translation; diagnostics off",
+      "version": "0.7.0 (68), updated development source",
+      "width": 1440,
+      "height": 900,
+      "bytes": 150566,
+      "sha256": "d177cbad2c569accd7c6ad14b02e57751f4edb5f74f3b3b72e1270b479ac5c50",
+      "captureDate": "2026-10-23",
+      "sourceState": "UI source shared with Store 1.1.0 (79); file-import audio fixture, not live microphone"
+    },
+    {
+      "path": "assets/screenshots/2026-10-22/macos-preview/en/01-voice.png",
+      "platform": "macos-preview",
+      "language": "en",
+      "screen": "01-voice",
+      "kind": "full app window screenshot; real translation; diagnostics off",
+      "version": "0.7.0 (68), updated development source",
+      "width": 1440,
+      "height": 900,
+      "bytes": 121454,
+      "sha256": "61d383d6a3f6e2522bda25bd5f74cd80ccd65e2258013c744acf6ab33a31cab7",
+      "captureDate": "2026-10-23",
+      "sourceState": "UI source shared with Store 1.1.0 (79); file-import audio fixture, not live microphone"
+    },
+    {
+      "path": "assets/screenshots/2026-10-22/macos-preview/en/02-text.png",
+      "platform": "macos-preview",
+      "language": "en",
+      "screen": "02-text",
+      "kind": "full app window screenshot; real translation; diagnostics off",
+      "version": "0.7.0 (68), updated development source",
+      "width": 1440,
+      "height": 900,
+      "bytes": 113261,
+      "sha256": "d28543eea583d94b70138de095f27d01b5b5dadf092642da6ded40d79e4c44a3",
+      "captureDate": "2026-10-23",
+      "sourceState": "UI source shared with Store 1.1.0 (79); file-import audio fixture, not live microphone"
+    },
+    {
+      "path": "assets/screenshots/2026-10-22/macos-preview/ru/03-languages.png",
+      "platform": "macos-preview",
+      "language": "ru",
+      "screen": "03-languages",
+      "kind": "full app window screenshot; real translation; diagnostics off",
+      "version": "0.7.0 (68), updated development source",
+      "width": 1440,
+      "height": 900,
+      "bytes": 165522,
+      "sha256": "40dcd849e1e7e5e147e9a59d2ca95471cefe97bbe7aaed3ce6f8b7e2f57e1b2b",
+      "captureDate": "2026-10-23",
+      "sourceState": "UI source shared with Store 1.1.0 (79); file-import audio fixture, not live microphone"
+    },
+    {
+      "path": "assets/screenshots/2026-10-22/macos-preview/ru/01-voice.png",
+      "platform": "macos-preview",
+      "language": "ru",
+      "screen": "01-voice",
+      "kind": "full app window screenshot; real translation; diagnostics off",
+      "version": "0.7.0 (68), updated development source",
+      "width": 1440,
+      "height": 900,
+      "bytes": 123805,
+      "sha256": "efe1620c877df9678de7a00534cebce5462a2ee6b44702da292601d2ec10954c",
+      "captureDate": "2026-10-23",
+      "sourceState": "UI source shared with Store 1.1.0 (79); file-import audio fixture, not live microphone"
+    },
+    {
+      "path": "assets/screenshots/2026-10-22/macos-preview/ru/02-text.png",
+      "platform": "macos-preview",
+      "language": "ru",
+      "screen": "02-text",
+      "kind": "full app window screenshot; real translation; diagnostics off",
+      "version": "0.7.0 (68), updated development source",
+      "width": 1440,
+      "height": 900,
+      "bytes": 116906,
+      "sha256": "0963bee65ea1a0d99de44e2343a2eccc6861d97aeb4d680d2722ad4879e0b3cd",
+      "captureDate": "2026-10-23",
+      "sourceState": "UI source shared with Store 1.1.0 (79); file-import audio fixture, not live microphone"
     }
-  ],
-  "updatedAt": "2026-10-23"
+  ]
 }

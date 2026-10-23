@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Assemble local Store copy and iPhone screenshots; never upload or replace an existing folder."""
+"""Assemble local Store copy and validated platform screenshots; never upload or replace an existing folder."""
 import argparse,json,shutil
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
@@ -13,8 +13,11 @@ release=json.loads((source/'release.json').read_text())
 manifest=ROOT/'site/assets/screenshots'/source.name/'manifest.json'
 rows=json.loads(manifest.read_text())['captures']
 # Validate the entire set before reserving a new destination.
-images=[r for r in rows if r['platform']=='ios']
-if len(images)!=24:raise SystemExit('Expected 24 iPhone screenshots')
+images=[r for r in rows if r['platform']=='ios' or r['kind'].startswith('full app window')]
+if len([r for r in images if r['platform']=='ios'])!=24:raise SystemExit('Expected 24 iPhone screenshots')
+for row in images:
+ if row['platform']!='ios' and (row['width'],row['height']) not in ((1440,900),(2880,1800)):
+  raise SystemExit('Unexpected Mac screenshot dimensions')
 for row in images:
  path=(ROOT/'site'/row['path']).resolve()
  if not path.is_relative_to(ROOT/'site/assets/screenshots') or not path.is_file():raise SystemExit('Invalid screenshot path')
@@ -28,9 +31,9 @@ for platform in ('ios','macos'):
  blocks.append(f'\n=== {platform} / Review notes ===\n'+(source/platform/'review_notes.txt').read_text())
 (out/'APP-STORE-TEXTS.txt').write_text(''.join(blocks))
 for row in images:
- dest=out/'screenshots/iPhone'/row['language']/Path(row['path']).name;dest.parent.mkdir(parents=True,exist_ok=True)
+ dest=out/'screenshots'/('iPhone' if row['platform']=='ios' else 'Mac')/row['language']/Path(row['path']).name;dest.parent.mkdir(parents=True,exist_ok=True)
  shutil.copyfile(ROOT/'site'/row['path'],dest)
 shutil.copyfile(source/'release.json',out/'release.json')
 (out/'STATUS.ru.md').write_text('Актуальный статус подготовки и ограничения: [отчёт в репозитории](' + str(source/'README.ru.md') + ').\n')
-(out/'README.txt').write_text('Local preparation only. iPhone screenshots are raw 1206x2622 simulator captures. Native Mac view previews are intentionally excluded from Store screenshots. Build/export status and pending work are listed in release.json and the linked repository report. Consult docs/publication/'+source.name+'/README.md in the repository for current status. No upload, review or publication performed.\n')
+(out/'README.txt').write_text('Local preparation only. iPhone screenshots are raw 1206x2622 simulator captures. Full Mac window captures are included when present; native Quick setup view previews are excluded from Store screenshots. Build/export status and pending work are listed in release.json and the linked repository report. Consult docs/publication/'+source.name+'/README.md in the repository for current status. No upload, review or publication performed.\n')
 print(out.relative_to(ROOT))
