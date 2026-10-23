@@ -11,3 +11,5 @@ Build the copied `source/apps/ios/OfflineTranslator.xcodeproj` with `-sdk iphone
 Install the fixture only in that simulator, run the four `PublicationScreenshots` tests, and export XCTest attachments. Require four passes, no failures/skips and eight named PNGs. Inspect the images. Pass the attachment directory as `--ios-presentation` to `collect-interface-captures.py`; the manifest and gallery identify prepared scenes separately from actual inference captures. Never use fixture timings or controls as performance/behavior evidence.
 
 After capture, reinstall the ordinary app from `.build/SimulatorDerivedData/Build/Products/Debug-iphonesimulator/OfflineTranslator.app` over the fixture (no uninstall/data deletion), restore the ordinary test runner, and shut down the simulator. Keep the provenance JSON and local test result. Do not distribute or upload this fixture build.
+
+The collector keeps only Voice captures in the current presentation set; camera screenshots were excluded by the owner on 23 October.

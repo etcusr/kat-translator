@@ -21,10 +21,9 @@ Upcoming Apple update; iPhone simulator captures. [All languages and capture det
 <p>
 <a href="site/assets/screenshots/2026-10-22/ios/en/01-text.png"><img src="site/assets/screenshots/2026-10-22/ios/en/01-text.png" width="240" alt="Text translation"></a>
 <a href="site/assets/screenshots/2026-10-22/ios/en/07-voice.png"><img src="site/assets/screenshots/2026-10-22/ios/en/07-voice.png" width="240" alt="Voice translation"></a>
-<a href="site/assets/screenshots/2026-10-22/ios/en/08-image.png"><img src="site/assets/screenshots/2026-10-22/ios/en/08-image.png" width="240" alt="Image translation"></a>
 </p>
 
-Voice/Image previews use prepared example text; they show interface layout, not an inference test.
+Voice previews use prepared example text; they show interface layout, not an inference test.
 
 ## Features
 

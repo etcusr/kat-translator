@@ -7,7 +7,7 @@ p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('--ios',type=Path,required=True,help='xcresult exported attachments directory')
 p.add_argument('--mac',type=Path,required=True,help='native preview directory')
 p.add_argument('--mac-windows', type=Path, help='XCTest attachments from full-window Voice/Text/Language captures')
-p.add_argument('--ios-presentation', type=Path, help='Simulator presentation-state attachments (Voice/Image; no inference)')
+p.add_argument('--ios-presentation', type=Path, help='Simulator presentation-state attachments (Voice only; no inference)')
 p.add_argument('--date',required=True)
 a=p.parse_args()
 if not re.fullmatch(r'\d{4}-\d{2}-\d{2}',a.date):p.error('Expected YYYY-MM-DD')
@@ -52,16 +52,19 @@ if a.ios_presentation:
     count = 0
     for case in json.loads((a.ios_presentation/'manifest.json').read_text()):
         for item in case['attachments']:
-            match = re.match(r'publication-ios-(en|ru|es|tr)-(0[78]-(?:voice|image))_', item['suggestedHumanReadableName'])
+            match = re.match(r'publication-ios-(en|ru|es|tr)-(07-voice)_', item['suggestedHumanReadableName'])
             if match and not item.get('isAssociatedWithFailure'):
                 save(a.ios_presentation/item['exportedFileName'], 'ios', *match.groups(),
                      'presentation fixture rendered by app UI; no inference', '1.1.0 (73), presentation-only simulator build')
                 rows[-1]['captureDate'] = '2026-10-23'
                 rows[-1]['sourceState'] = 'Isolated source snapshot; prepared original and translation; no ASR/MT/camera/playback acceptance'
                 count += 1
-    if count != 8: raise SystemExit(f'Expected 8 presentation captures, got {count}')
-expected = 48 if a.ios_presentation else 40
+    if count != 4: raise SystemExit(f'Expected 4 presentation captures, got {count}')
+expected = 44 if a.ios_presentation else 40
 if len(rows)!=expected:raise SystemExit(f'Expected {expected} captures, got {len(rows)}')
 if len({r['path'] for r in rows}) != len(rows): raise SystemExit('Duplicate capture paths')
+# Explicitly retired presentation assets must not reappear in a reused output directory.
+for language in ('en', 'ru', 'es', 'tr'):
+    (out/'ios'/language/'08-image.png').unlink(missing_ok=True)
 (out/'manifest.json').write_text(json.dumps({'date':a.date,'updatedAt':prior.get('updatedAt',a.date),'pixelEdits':'none','captures':rows},ensure_ascii=False,indent=2)+'\n')
 print(f'{len(rows)} images, {sum(r["bytes"] for r in rows):,} bytes; manifest {out.relative_to(ROOT)}/manifest.json')

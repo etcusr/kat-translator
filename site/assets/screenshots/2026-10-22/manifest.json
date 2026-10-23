@@ -556,20 +556,6 @@
       "sourceState": "UI source shared with Store 1.1.0 (79); file-import audio fixture, not live microphone"
     },
     {
-      "path": "assets/screenshots/2026-10-22/ios/en/08-image.png",
-      "platform": "ios",
-      "language": "en",
-      "screen": "08-image",
-      "kind": "presentation fixture rendered by app UI; no inference",
-      "version": "1.1.0 (73), presentation-only simulator build",
-      "width": 1206,
-      "height": 2622,
-      "bytes": 237315,
-      "sha256": "8964c7114cd02f201649b88b5706184a1ad08c98d92d3b58ff6891c3800be8d2",
-      "captureDate": "2026-10-23",
-      "sourceState": "Isolated source snapshot; prepared original and translation; no ASR/MT/camera/playback acceptance"
-    },
-    {
       "path": "assets/screenshots/2026-10-22/ios/en/07-voice.png",
       "platform": "ios",
       "language": "en",
@@ -580,20 +566,6 @@
       "height": 2622,
       "bytes": 230798,
       "sha256": "038e3ad16f3989f119dbfc2ee3458faae8087c6e02790f61b68a3d8d8ea05aed",
-      "captureDate": "2026-10-23",
-      "sourceState": "Isolated source snapshot; prepared original and translation; no ASR/MT/camera/playback acceptance"
-    },
-    {
-      "path": "assets/screenshots/2026-10-22/ios/ru/08-image.png",
-      "platform": "ios",
-      "language": "ru",
-      "screen": "08-image",
-      "kind": "presentation fixture rendered by app UI; no inference",
-      "version": "1.1.0 (73), presentation-only simulator build",
-      "width": 1206,
-      "height": 2622,
-      "bytes": 246427,
-      "sha256": "12fa7debc7aa70e5974784bea9707150ab4abf7e6b4bbc4604c8b21e9419010c",
       "captureDate": "2026-10-23",
       "sourceState": "Isolated source snapshot; prepared original and translation; no ASR/MT/camera/playback acceptance"
     },
@@ -612,20 +584,6 @@
       "sourceState": "Isolated source snapshot; prepared original and translation; no ASR/MT/camera/playback acceptance"
     },
     {
-      "path": "assets/screenshots/2026-10-22/ios/es/08-image.png",
-      "platform": "ios",
-      "language": "es",
-      "screen": "08-image",
-      "kind": "presentation fixture rendered by app UI; no inference",
-      "version": "1.1.0 (73), presentation-only simulator build",
-      "width": 1206,
-      "height": 2622,
-      "bytes": 238256,
-      "sha256": "a7e9ea534294686aa35ed9ab3ad3724c47c68fe410ca49513ef3f67ea64016b9",
-      "captureDate": "2026-10-23",
-      "sourceState": "Isolated source snapshot; prepared original and translation; no ASR/MT/camera/playback acceptance"
-    },
-    {
       "path": "assets/screenshots/2026-10-22/ios/es/07-voice.png",
       "platform": "ios",
       "language": "es",
@@ -636,20 +594,6 @@
       "height": 2622,
       "bytes": 229600,
       "sha256": "7aa9c4c583d53a4990a23a5365a906d2a47ffbe0235c57e24a334d81109b2ff3",
-      "captureDate": "2026-10-23",
-      "sourceState": "Isolated source snapshot; prepared original and translation; no ASR/MT/camera/playback acceptance"
-    },
-    {
-      "path": "assets/screenshots/2026-10-22/ios/tr/08-image.png",
-      "platform": "ios",
-      "language": "tr",
-      "screen": "08-image",
-      "kind": "presentation fixture rendered by app UI; no inference",
-      "version": "1.1.0 (73), presentation-only simulator build",
-      "width": 1206,
-      "height": 2622,
-      "bytes": 250210,
-      "sha256": "b4eb5abfbf4c6749cc7ba46529d08f5ebe1cd300feef5ff2f87b1aa341385506",
       "captureDate": "2026-10-23",
       "sourceState": "Isolated source snapshot; prepared original and translation; no ASR/MT/camera/playback acceptance"
     },

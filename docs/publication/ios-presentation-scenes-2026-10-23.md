@@ -1,5 +1,7 @@
 # iPhone presentation scenes — 23 October 2026
 
+**Selection update, 23 October:** the four iPhone Image screenshots were subsequently removed at the owner’s request. The active gallery now has 28 iPhone screenshots (four prepared Voice examples) and 16 Mac entries. The selected Store folder is `dist/store/apple-1.1.0-preparation-2026-10-23-selected/`, with 28 iPhone + 12 Mac images. Counts and checks below describe the original capture run.
+
 ## Result
 
 Added eight 1206 × 2622 screenshots: Voice and Image in EN/RU/ES/TR. The gallery now contains **32 iPhone images, 12 full Mac window images and four Mac Quick setup view previews**: 48 PNGs / 8,582,886 bytes. The local Store-copy folder includes 32 iPhone and 12 Mac images; Quick setup previews are excluded.

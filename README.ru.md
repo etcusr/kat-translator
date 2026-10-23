@@ -21,10 +21,9 @@
 <p>
 <a href="site/assets/screenshots/2026-10-22/ios/ru/01-text.png"><img src="site/assets/screenshots/2026-10-22/ios/ru/01-text.png" width="240" alt="Перевод текста"></a>
 <a href="site/assets/screenshots/2026-10-22/ios/ru/07-voice.png"><img src="site/assets/screenshots/2026-10-22/ios/ru/07-voice.png" width="240" alt="Перевод голоса"></a>
-<a href="site/assets/screenshots/2026-10-22/ios/ru/08-image.png"><img src="site/assets/screenshots/2026-10-22/ios/ru/08-image.png" width="240" alt="Перевод изображения"></a>
 </p>
 
-В кадрах Голос/Изображение использован подготовленный пример: это показ интерфейса, а не проверка моделей.
+В кадрах Голос использован подготовленный пример: это показ интерфейса, а не проверка моделей.
 
 ## Возможности
 

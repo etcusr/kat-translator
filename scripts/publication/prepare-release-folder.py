@@ -15,8 +15,8 @@ rows=json.loads(manifest.read_text())['captures']
 # Validate the entire set before reserving a new destination.
 images=[r for r in rows if r['platform']=='ios' or r['kind'].startswith('full app window')]
 ios_counts = {language: sum(r['platform']=='ios' and r['language']==language for r in images) for language in ('en','ru','es','tr')}
-if len(set(ios_counts.values())) != 1 or next(iter(ios_counts.values())) not in (6,8):
- raise SystemExit('Expected six or eight iPhone screenshots in each of four languages')
+if len(set(ios_counts.values())) != 1 or next(iter(ios_counts.values())) not in (6,7):
+ raise SystemExit('Expected six or seven iPhone screenshots in each of four languages')
 for row in images:
  if row['platform']!='ios' and (row['width'],row['height']) not in ((1440,900),(2880,1800)):
   raise SystemExit('Unexpected Mac screenshot dimensions')
@@ -38,5 +38,5 @@ for row in images:
 shutil.copyfile(source/'release.json',out/'release.json')
 shutil.copyfile(manifest,out/'screenshot-manifest.json')
 (out/'STATUS.ru.md').write_text('Актуальный статус подготовки и ограничения: [отчёт в репозитории](' + str(source/'README.ru.md') + ').\n')
-(out/'README.txt').write_text('Local preparation only. iPhone screenshots are raw 1206x2622 simulator captures. Voice/Image iPhone scenes may use prepared presentation state, as recorded in the screenshot manifest; they are not engine acceptance tests. Full Mac window captures are included when present; native Quick setup view previews are excluded from Store screenshots. Build/export status and pending work are listed in release.json and the linked repository report. Consult docs/publication/'+source.name+'/README.md in the repository for current status. No upload, review or publication performed.\n')
+(out/'README.txt').write_text('Local preparation only. iPhone screenshots are raw 1206x2622 simulator captures. Voice iPhone scenes may use prepared presentation state, as recorded in the screenshot manifest; they are not engine acceptance tests. Full Mac window captures are included when present; native Quick setup view previews are excluded from Store screenshots. Build/export status and pending work are listed in release.json and the linked repository report. Consult docs/publication/'+source.name+'/README.md in the repository for current status. No upload, review or publication performed.\n')
 print(out.relative_to(ROOT))
