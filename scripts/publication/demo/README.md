@@ -13,3 +13,7 @@ Record the ordinary app with actual inference in the dedicated simulator. Close 
 The website export uses `finish.py` after `build.py`: pass the original silent `--master`, `--work`, `--output` and optional `--speed` (default 1.15). This needs NumPy. It synthesizes an original soft keys/plucked-note instrumental with an opening, theme, contrasting arpeggios, varied return and cadence without external samples, adds AAC stereo with fade-in/out, encodes a 30 fps video. Preserve the master in ignored storage; never process an already accelerated export again. Label the speed on the page. The music composition and synthesis source are part of this repository under its license.
 
 The website has no subtitle tracks. Embedded English titles remain part of the picture.
+
+## Alternative music
+
+`music_options.py --video <selected-mp4> --work <ignored-directory> --output <preview-directory>` creates `playful` and `airy` MP3/MP4 previews. It uses NumPy/FFmpeg, synthesizes original arrangements and copies the existing compressed picture unchanged. It does not replace the selected landing-page video. See the [comparison record](../../../docs/publication/demo-music-options-2026-10-23.md).
