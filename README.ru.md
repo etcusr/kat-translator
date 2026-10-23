@@ -27,7 +27,7 @@
 
 [![Посмотреть Kat в работе](site/assets/video/kat-ios-demo-poster.jpg)](site/assets/video/kat-ios-demo.mp4)
 
-[Ролик на 38 секунд](site/assets/video/kat-ios-demo.mp4): настоящий перевод и настройки в симуляторе iPhone, с анимированными титрами. Монтаж; не тест скорости настоящего iPhone. [Подробности записи](docs/publication/ios-demo-2026-10-23.md).
+[Ролик на 33 секунды](site/assets/video/kat-ios-demo.mp4): настоящий перевод и настройки в симуляторе iPhone, с анимированными титрами. Монтаж с ускорением 1,15× и фоновой музыкой; не тест скорости настоящего iPhone. [Подробности записи](docs/publication/ios-demo-2026-10-23.md).
 
 ## Возможности
 
