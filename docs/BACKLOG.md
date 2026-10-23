@@ -7,6 +7,7 @@ Deferred tasks, not completed changes or release promises.
 ## Next release: screenshots, GitHub and App Store Connect
 
 - [ ] Follow the [release presentation and publication plan](publication/next-apple-release-plan.md): refresh screenshots for every OS/interface language, synchronize documentation and descriptions, present galleries in the repository/site, prepare localized release notes and new iOS/macOS versions/builds, then record a short iOS demonstration. This is planned work; no upload or review submission has started.
+- [ ] Redesign the GitHub Pages landing page in Kat branding, with the logo, real screenshots and a playable interface/features demonstration; see section 5 of the release plan. Planning only.
 
 ## iOS history: collapsible long text
 
