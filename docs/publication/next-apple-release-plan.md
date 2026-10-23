@@ -29,7 +29,7 @@ Requested on 22 October 2026. **Planned work, not completed publication.** The c
 
 ## 4. Record a short iOS demonstration
 
-- [x] At the owner’s revised request, record navigation and actual translation in the simulator. The 33.5 s montage, poster and EN/RU/ES/TR captions are ready locally. [Checks](ios-demo-2026-10-23.md).
+- [x] At the owner’s revised request, record navigation and actual translation in the simulator. The 33.5 s montage and poster are ready locally; subtitles were removed at the owner’s request. [Checks](ios-demo-2026-10-23.md).
 - [ ] Use non-private sample text/audio. Keep actual app behavior and timing clear; label any cuts or accelerated sequences rather than implying instantaneous processing.
 - [ ] Export a compact web-compatible video with a poster image and short captions. Publish on the GitHub-based website and link/embed an appropriate preview from the repository README; keep the source/hosting location documented.
 

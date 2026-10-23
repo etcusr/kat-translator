@@ -20,8 +20,7 @@ function renderMode(){
  document.querySelector('#detail-link').href=img.src;
  document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===mode)));
 }
-function videoLanguage(){const video=document.querySelector('#kat-demo');if(!video)return;for(const track of video.textTracks)track.mode=track.language===lang&&lang!=='en'?'showing':'disabled';video.setAttribute('aria-label',copy[lang].demoTitle);}
-document.querySelector('#kat-demo').addEventListener('loadedmetadata',videoLanguage);
+function videoLanguage(){const video=document.querySelector('#kat-demo');if(!video)return;video.setAttribute('aria-label',copy[lang].demoTitle);}
 function render(){
  document.documentElement.lang=lang;selector.value=lang;
  nodes.forEach(n=>{n.innerHTML=copy[lang][n.dataset.copy];});
