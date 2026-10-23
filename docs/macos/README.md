@@ -45,6 +45,8 @@ Auto is the first row of the source-language menu in Voice, Text and Image. Choo
 
 ## Mac App Store build
 
+Prepare the Store-only interpreter once with `python3 scripts/prepare-macos-store-python.py`. It verifies the official CPython 3.11.17 source SHA-256 and builds with SSL/hashlib extensions disabled; ordinary direct builds keep their separate pinned runtime. The archive/export does not download Python. Use `KAT_MAC_STORE_VERSION=1.1.0 KAT_MAC_STORE_BUILD=<fresh-number> bash scripts/archive-macos-appstore.sh export` for local preparation only. Do not change `export` to `upload` without publication authorization. A failed crypto guard must be fixed, never bypassed.
+
 The store variant is produced by `scripts/archive-macos-appstore.sh` (`KAT_MAC_STORE_BUILD=<n> scripts/archive-macos-appstore.sh export|upload`). It generates a separate, ignored Xcode project in `.build/macos-store-project/` in which only the app target gets the store bundle ID, the store `Info.plist` (version 1.0, `ITSAppUsesNonExemptEncryption = NO`), `apps/macos/KatMacStore.entitlements` (App Sandbox, microphone, user-selected files, outgoing network) and automatic signing. SwiftPM resource bundles keep their own identifiers. The regular project and the direct build are unchanged.
 
 Store-only packaging rules (in `scripts/bundle-macos-runtimes.py`, active when `ENABLE_APP_SANDBOX=YES`):

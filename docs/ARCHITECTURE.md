@@ -212,6 +212,8 @@ The Apple project generators include `assets/bundled/ThirdPartyNotices.txt`, ass
 
 The Mac App Store variant is built by `scripts/archive-macos-appstore.sh`: `generate-macos-project.py` with `KAT_MAC_STORE_PROJECT` creates the ignored project `.build/macos-store-project`, where the bundle ID `app.kattranslator`, the store Info.plist, `KatMacStore.entitlements` and the sandbox are set only on the app target. With `ENABLE_APP_SANDBOX=YES`, `bundle-macos-runtimes.py` signs the helpers with inherit, excludes `protoc` and OpenSSL/rustls, and removes separate signatures from SwiftPM resource bundles. [Mac README](macos/README.md) · [history of builds 61–66](publication/macos-appstore-build-2026-10-14.md).
 
+The Store profile now uses source-built CPython 3.11.17 without `_ssl`, `_hashlib` or `_tkinter` (`scripts/prepare-macos-store-python.py`, pinned official source SHA-256). Direct Mac profiles retain python-build-standalone. Hashing remains available through standard-library implementations; downloads use the OS networking stack. The existing archive crypto guard remains mandatory. Offline Index/OPUS/Wayu are validated against the packaged runtime before export acceptance.
+
 `archive-macos-appstore.sh` reserves a separate directory for each attempt and stops on archive/log errors; an existing archive is never reused. Regressions are checked by `scripts/validation/test_macos_store_archive.py`. In `MacRuntimeTests`, the opt-in seeding/reset is guarded by the exact address of the store container and a check of the deletion result; ordinary tests use temporary fixtures. UI results are written to `KAT_RUNTIME_REPORT_DIR` or the app's temporary directory. [Check and limits](publication/release-check-fixes-2026-10-14.md).
 
 ## License resources

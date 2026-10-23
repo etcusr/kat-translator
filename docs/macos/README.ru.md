@@ -45,6 +45,8 @@
 
 ## Сборка для Mac App Store
 
+Один раз подготовьте Store-интерпретатор: `python3 scripts/prepare-macos-store-python.py`. Скрипт проверяет SHA-256 официальных исходников CPython 3.11.17 и собирает Python без расширений SSL/hashlib; обычные прямые сборки сохраняют отдельный закреплённый runtime. Архивирование/экспорт не скачивает Python. Для локальной подготовки: `KAT_MAC_STORE_VERSION=1.1.0 KAT_MAC_STORE_BUILD=<новый-номер> bash scripts/archive-macos-appstore.sh export`. Не заменяйте `export` на `upload` без поручения на публикацию. Ошибку проверки криптобиблиотек нужно исправлять, не обходить.
+
 Магазинный вариант собирает `scripts/archive-macos-appstore.sh` (`KAT_MAC_STORE_BUILD=<n> scripts/archive-macos-appstore.sh export|upload`). Скрипт генерирует отдельный игнорируемый Xcode-проект в `.build/macos-store-project/`, где только target приложения получает магазинный Bundle ID, магазинный `Info.plist` (версия 1.0, `ITSAppUsesNonExemptEncryption = NO`), `apps/macos/KatMacStore.entitlements` (App Sandbox, микрофон, выбранные пользователем файлы, исходящая сеть) и автоматическую подпись. Ресурсные бандлы SwiftPM сохраняют собственные идентификаторы. Обычный проект и прямая сборка не меняются.
 
 Правила упаковки только для магазина (в `scripts/bundle-macos-runtimes.py`, действуют при `ENABLE_APP_SANDBOX=YES`):

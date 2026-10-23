@@ -15,7 +15,7 @@ project_dir=os.environ.get('KAT_MAC_PROJECT_DIR')
 # so an interrupted compatibility build cannot leave apps/macos modified.
 if profile_name != 'modern' and not store_project and not project_dir:
     raise SystemExit('KAT_MAC_PROFILE='+profile_name+' requires KAT_MAC_PROJECT_DIR (for example .build/macos15-project)')
-mac_profile=runpy.run_path(str(root/'scripts/mac-build-profile.py'))['profile'](profile_name)
+mac_profile=runpy.run_path(str(root/'scripts/mac-build-profile.py'))['profile'](profile_name, store=bool(store_project))
 mac_info='$(KAT_REPO_ROOT)/apps/macos/Info.plist'
 if profile_name != 'modern':
     generated=root/'.build/macos15-config/Info.plist'

@@ -1,5 +1,7 @@
 # Mac Store packaging investigation — 22 October 2026
 
+**Resolved on 23 October:** Store 1.1.0 (79) archived and exported with the separate no-TLS CPython runtime. See [resolution and validation](../mac-store-python-2026-10-23.md). The investigation below describes the earlier build 77 failure.
+
 Candidate 1.1.0 (77) archives successfully but the existing no-bundled-TLS guard stops export. This is a confirmed change in the packaged Python runtime, not a false match in an unrelated document.
 
 `mac-build-profile.py` now selects the pinned python-build-standalone 3.11.17 for every profile. `libpython3.11.dylib` exports `PyInit__ssl` and `PyInit__hashlib`; both the library and `Contents/MacOS/OpusPython` contain the OpenSSL version and initialization strings. `otool -L` lists system dependencies rather than a separately removable libssl. The library code is embedded. The existing Store bundler only removes `_ssl`/`_hashlib` extension files and separate crypto dylibs, so it cannot remove these built-ins.

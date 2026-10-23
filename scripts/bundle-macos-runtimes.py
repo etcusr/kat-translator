@@ -3,12 +3,12 @@
 from pathlib import Path
 import subprocess, shutil, sys, os, runpy
 root=Path(__file__).resolve().parent.parent
-mac_profile=runpy.run_path(str(root/'scripts/mac-build-profile.py'))['profile'](os.environ.get('KAT_MAC_PROFILE','modern'))
+store_sandbox=os.environ.get('ENABLE_APP_SANDBOX') == 'YES'
+mac_profile=runpy.run_path(str(root/'scripts/mac-build-profile.py'))['profile'](os.environ.get('KAT_MAC_PROFILE','modern'), store=store_sandbox)
 contents=Path(sys.argv[1]); fw=contents/'Frameworks';res=contents/'Resources'
 fw.mkdir(parents=True,exist_ok=True);res.mkdir(parents=True,exist_ok=True)
 # Mac App Store build (sandboxed): ship no TLS/crypto libraries. Downloads use URLSession,
 # Index/OPUS workers load local files only (index_mlx.py stubs ssl for import-time use).
-store_sandbox=os.environ.get('ENABLE_APP_SANDBOX') == 'YES'
 STORE_OMIT_DYNLOAD=('_ssl','_hashlib')
 STORE_OMIT_INDEX=('hf_xet',)
 def copyfile(a,b):
@@ -22,7 +22,8 @@ def copytree(a,b):
  subprocess.run(['rsync','-aL','--delete','--chmod=u+w',*[arg for item in excludes for arg in ('--exclude',item)],str(a)+'/',str(b)+'/'],check=True)
 py=root/mac_profile['python']
 py_library=py/'lib/libpython3.11.dylib'
-if not py_library.is_file(): raise RuntimeError('Prepare the pinned standalone Python: python3 scripts/prepare-macos15-runtime.py')
+if not py_library.is_file():
+ raise RuntimeError('Prepare Python: python3 scripts/'+('prepare-macos-store-python.py' if store_sandbox else 'prepare-macos15-runtime.py'))
 # Drop libraries/extensions retained by an earlier (host or standalone) build; inputs are copied again below.
 if (res/'python').exists(): shutil.rmtree(res/'python')
 for previous in fw.glob('*.dylib'): previous.unlink()

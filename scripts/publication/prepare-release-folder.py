@@ -31,6 +31,6 @@ for row in images:
  dest=out/'screenshots/iPhone'/row['language']/Path(row['path']).name;dest.parent.mkdir(parents=True,exist_ok=True)
  shutil.copyfile(ROOT/'site'/row['path'],dest)
 shutil.copyfile(source/'release.json',out/'release.json')
-shutil.copyfile(source/'README.ru.md',out/'STATUS.ru.md')
-(out/'README.txt').write_text('Local preparation only. iPhone screenshots are raw 1206x2622 simulator captures. Mac Store export and full Mac screenshots are pending; native view previews are intentionally excluded from Store screenshots. Consult docs/publication/'+source.name+'/README.md in the repository for current status. No upload, review or publication performed.\n')
+(out/'STATUS.ru.md').write_text('Актуальный статус подготовки и ограничения: [отчёт в репозитории](' + str(source/'README.ru.md') + ').\n')
+(out/'README.txt').write_text('Local preparation only. iPhone screenshots are raw 1206x2622 simulator captures. Native Mac view previews are intentionally excluded from Store screenshots. Build/export status and pending work are listed in release.json and the linked repository report. Consult docs/publication/'+source.name+'/README.md in the repository for current status. No upload, review or publication performed.\n')
 print(out.relative_to(ROOT))

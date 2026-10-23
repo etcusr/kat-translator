@@ -1,1 +1,3 @@
 Los ajustes ahora se organizan por categorías, con los modelos, las voces y la configuración rápida en un mismo lugar. Un nuevo indicador muestra la actividad del micrófono durante la grabación. La traducción de imágenes tiene una interfaz de progreso más estable; también se han mejorado la recuperación de grabaciones y el uso compartido de audio. El modo de voz por frases está disponible en Funciones experimentales; el reconocimiento y los límites de las frases aún pueden contener errores.
+
+Los nombres largos de los idiomas ahora se leen mejor en el selector.

@@ -212,6 +212,8 @@ Android использует тот же каталог и дополнител�
 
 Магазинный Mac-вариант собирается `scripts/archive-macos-appstore.sh`: `generate-macos-project.py` с `KAT_MAC_STORE_PROJECT` создаёт ignored-проект `.build/macos-store-project`, где Bundle ID `app.kattranslator`, store Info.plist, `KatMacStore.entitlements` и sandbox заданы только target приложения. При `ENABLE_APP_SANDBOX=YES` `bundle-macos-runtimes.py` подписывает helpers с inherit, исключает `protoc`, OpenSSL/rustls и снимает отдельные подписи ресурсных бандлов SwiftPM. [Mac README](macos/README.ru.md) · [история сборок 61–66](publication/macos-appstore-build-2026-10-14.md).
 
+Профиль Store использует собранный из исходников CPython 3.11.17 без `_ssl`, `_hashlib` и `_tkinter` (`scripts/prepare-macos-store-python.py`, закреплённый SHA-256 официального архива). Прямые Mac-сборки сохраняют python-build-standalone. Хеширование доступно через реализации стандартной библиотеки; загрузки используют системный сетевой стек. Существующая проверка архива на криптобиблиотеки остаётся обязательной. До приёмки экспорта проверяются офлайн Index/OPUS/Wayu с упакованным runtime.
+
 `archive-macos-appstore.sh` резервирует отдельный каталог попытки и прекращает выполнение при ошибке архивирования/журнала; существующий архив не переиспользуется. Регрессии проверяет `scripts/validation/test_macos_store_archive.py`. В `MacRuntimeTests` opt-in засев/сброс защищён точным адресом store-контейнера и проверкой результата удаления; обычные тесты используют временные фикстуры. Результаты UI пишутся в `KAT_RUNTIME_REPORT_DIR` или временный каталог приложения. [Проверка и ограничения](publication/release-check-fixes-2026-10-14.md).
 
 ## Лицензионные ресурсы

@@ -28,5 +28,15 @@
       "CFBundleVersion": "68"
     },
     "buildIdentity": "mac-06cf706059e5153a"
+  },
+  {
+    "path": "dist/store/macos-1.1.0-79/Kat translator.pkg",
+    "bytes": 451433607,
+    "sha256": "411ffc438558e6cbb10ff502c14c6fc36058ba28a1747bd3e8bcbd929efc5b36",
+    "bundle": {
+      "CFBundleShortVersionString": "1.1.0",
+      "CFBundleVersion": "79"
+    },
+    "buildIdentity": "mac-0b53fa1c8be39790"
   }
 ]

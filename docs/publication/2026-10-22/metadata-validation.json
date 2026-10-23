@@ -444,12 +444,12 @@
     {
       "path": "docs/publication/2026-10-22/macos/ru/whats-new.txt",
       "app_store_locale": "ru",
-      "characters": 383,
-      "utf16_units": 383,
-      "utf8_bytes": 711,
+      "characters": 445,
+      "utf16_units": 445,
+      "utf8_bytes": 824,
       "limit": 4000,
       "limit_unit": "characters",
-      "sha256": "df78b75b793d381bd7a00884fdea492bedbe03261e9fee2524a9cb4c20514ea0"
+      "sha256": "a5dffb970281a90e11f9859bbd3d81608773e965de52a04c402a9e129ffa2c13"
     },
     {
       "path": "docs/publication/2026-10-22/macos/en/name.txt",
@@ -534,12 +534,12 @@
     {
       "path": "docs/publication/2026-10-22/macos/en/whats-new.txt",
       "app_store_locale": "en-US",
-      "characters": 429,
-      "utf16_units": 429,
-      "utf8_bytes": 429,
+      "characters": 497,
+      "utf16_units": 497,
+      "utf8_bytes": 497,
       "limit": 4000,
       "limit_unit": "characters",
-      "sha256": "d5319e3e1eb3be718e628db0906496a5aaf72c124a09a1def86c6bae728f6b57"
+      "sha256": "99ff1c5a9f6cb2cf09fa1f0cb2d244222126494bf40e58e510dd85d0a4314849"
     },
     {
       "path": "docs/publication/2026-10-22/macos/es/name.txt",
@@ -624,12 +624,12 @@
     {
       "path": "docs/publication/2026-10-22/macos/es/whats-new.txt",
       "app_store_locale": "es-ES",
-      "characters": 495,
-      "utf16_units": 495,
-      "utf8_bytes": 508,
+      "characters": 566,
+      "utf16_units": 566,
+      "utf8_bytes": 579,
       "limit": 4000,
       "limit_unit": "characters",
-      "sha256": "ab4fbcbeb150910e6f8901bd9ea7602a2434b59b5f96c6267866ea75695127ae"
+      "sha256": "6226a105bfad28c8f787a618e67b17ecaefdd2d57165bc0b275b27a9972827bd"
     },
     {
       "path": "docs/publication/2026-10-22/macos/tr/name.txt",
@@ -714,12 +714,12 @@
     {
       "path": "docs/publication/2026-10-22/macos/tr/whats-new.txt",
       "app_store_locale": "tr",
-      "characters": 367,
-      "utf16_units": 367,
-      "utf8_bytes": 405,
+      "characters": 429,
+      "utf16_units": 429,
+      "utf8_bytes": 470,
       "limit": 4000,
       "limit_unit": "characters",
-      "sha256": "3cfeba19d29301e378341f10eb9f4cf140d71922c69407f31e07a650ef6e37c7"
+      "sha256": "7afc90ff290cb449b03bb460ba4e6655c3e218d159db7ac0da904bc872d8c223"
     }
   ],
   "review_notes_checked": 2,

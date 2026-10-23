@@ -7,7 +7,7 @@
     },
     "macos": {
       "version": "1.1.0",
-      "build": "77"
+      "build": "79"
     }
   },
   "direct_mac": {
@@ -29,14 +29,13 @@
   "mac_review": "Existing submission left untouched; status provided by owner, not freshly queried",
   "validation": {
     "screenshots": "24 iOS simulator captures passed; 16 Mac native view previews, not Store screenshots",
-    "archives": "iOS 73 archive/export passed; direct Mac 68 DMG/ZIP passed; Mac Store 77 export BLOCKED by embedded OpenSSL",
+    "archives": "iOS 73 archive/export passed; direct Mac 68 DMG/ZIP passed; Mac Store 79 archive/export, 142-Mach-O audit, packaged Index/OPUS/Wayu smoke passed",
     "metadata": "8 localizations / 72 fields / 2 review notes passed",
     "ui": "4 iOS capture tests, 1 Mac native preview test, zero failures/skips; 8 gallery selector combinations checked",
     "deviceUpgrade": "not tested for candidates; latest physical retention check is 72/67",
     "memory": "one platform at a time; simulator shut down; native Kat must be closed before simulator startup"
   },
   "pending": [
-    "Mac Store Python runtime packaging",
     "Full Mac Store screenshots",
     "Voice/Image and Android captures; iPad requirements",
     "Real-device iOS demonstration",

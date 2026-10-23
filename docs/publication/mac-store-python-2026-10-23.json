@@ -1,0 +1,36 @@
+{
+  "scope": "engine-only; temporary helper signature, archive unchanged",
+  "results": {
+    "wayu": {
+      "tokens": 19,
+      "tlsExtension": false,
+      "secondsIncludingLoad": 1.1256475829868577
+    },
+    "index": {
+      "text": "I would like to book a room at the hotel.",
+      "firstTokenSeconds": 0.9121419169823639,
+      "partials": 11,
+      "mtp": 2,
+      "secondsIncludingLoad": 5.291642625001259
+    },
+    "opus": {
+      "outputs": [
+        {
+          "code": 0,
+          "text": "I'd like to book a hotel room.",
+          "device": "mps:0",
+          "precision": "float16"
+        },
+        {
+          "code": 0,
+          "text": "Я хотел бы забронировать номер в отеле.",
+          "device": "mps:0",
+          "precision": "float16"
+        }
+      ],
+      "secondsIncludingLoad": 7.488617833005264
+    }
+  },
+  "candidate": "Mac Store 1.1.0 (79)",
+  "buildIdentity": "mac-0b53fa1c8be39790"
+}

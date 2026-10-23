@@ -9,4 +9,10 @@ class ProfileTests(unittest.TestCase):
   x=m.profile("macos15");self.assertEqual(x["minimum"],"15.0");self.assertEqual(x["suffix"],"-macos15-26");self.assertEqual(x["runtime"],"index-mlx-macos15");self.assertEqual(x["modelPackage"],m.profile("modern")["modelPackage"])
  def test_unknown_profile_rejected(self):
   with self.assertRaises(ValueError):m.profile("macos14")
+ def test_store_runtime_is_separate_and_keeps_models(self):
+  for name in ('modern','macos15'):
+   direct=m.profile(name);store=m.profile(name,store=True)
+   self.assertNotEqual(direct['python'],store['python'])
+   self.assertIn('no-tls',store['python'])
+   self.assertEqual({k:v for k,v in direct.items() if k!='python'}, {k:v for k,v in store.items() if k!='python'})
 if __name__=="__main__":unittest.main()
