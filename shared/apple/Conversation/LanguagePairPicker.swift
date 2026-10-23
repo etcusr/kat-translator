@@ -48,12 +48,12 @@ struct LanguagePairPicker: View {
     }
 }
 
-private enum LanguageSide: String, Identifiable {
+enum LanguageSide: String, Identifiable {
     case source, target
     var id: String { rawValue }
 }
 
-private struct LanguageSearchSheet: View {
+struct LanguageSearchSheet: View {
     @Binding var selection: LanguageSelection
     let side: LanguageSide
     let mode: TranslationInput
@@ -257,45 +257,90 @@ private struct LanguageSearchSheet: View {
             .accessibilityLabel((voiceReady(language) ? L10n.text("Голоса: ") : L10n.text("Скачать голос: ")) + language.displayName)
             .accessibilityValue(!language.hasVoice ? L10n.text("Недоступно") : !packages.restored ? L10n.text("Проверка") : voiceReady(language) ? L10n.text("Готов") : L10n.text("Скачать"))
     }
-    private func languageRow(_ language: TranslationLanguage) -> some View {
-                HStack(spacing: 8) {
-                    Button {
-                        if side == .source { selection.selectSource(language.id) } else { selection.selectTarget(language.id) }
-                        dismiss()
-                    } label: {
-                        HStack(alignment: .center, spacing: 8) {
-                            #if os(macOS)
-                            LanguageFlagBadge(languageID: language.id).scaleEffect(1.15).frame(width: 34, height: 34)
-                            #else
-                            LanguageFlagBadge(languageID: language.id)
-                            #endif
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(language.displayName).font(rowTitleFont).foregroundStyle(.primary)
-                                Text(L10n.language == "ru" ? language.englishName : language.nativeName).font(AppPlatform.panelCaption).foregroundStyle(.secondary)
-                                if let reason = limitation(language) {
-                                    Text(reason).font(AppPlatform.panelCaption).foregroundStyle(.secondary)
-                                }
-                            }
-                            Spacer(minLength: 8)
-                            if currentID == language.id { Image(systemName: "checkmark").font(symbolFont).foregroundStyle(.tint) }
-                        }.frame(maxWidth: .infinity, alignment: .leading).contentShape(Rectangle())
-                    }.buttonStyle(.plain).disabled(limitation(language) != nil)
-                        .accessibilityIdentifier("language.option." + language.id)
-                        .accessibilityValue(capabilityDescription(language))
-                    Image(systemName: SpeechLanguage(rawValue: language.id)?.supportsRecognition == true ? "mic.fill" : "mic.slash")
-                        .foregroundStyle(SpeechLanguage(rawValue: language.id)?.supportsRecognition == true ? Color.accentColor : Color.secondary)
-                        .font(symbolFont).frame(width: 28, height: 44)
-                        .accessibilityLabel(L10n.text("Речь"))
-                        .accessibilityIdentifier("language.speech." + language.id)
-                    voiceButton(language)
-                    Button { toggleFavorite(language.id) } label: {
-                        Image(systemName: favorites.contains(language.id) ? "star.fill" : "star")
-                            .font(symbolFont)
-                            .frame(width: 44, height: 44)
-                    }.buttonStyle(.borderless)
-                        .accessibilityLabel((favorites.contains(language.id) ? L10n.text("Убрать из избранных: ") : L10n.text("В избранные: ")) + language.displayName)
-                        .accessibilityIdentifier("language.favorite." + language.id)
-                        .accessibilityValue(favorites.contains(language.id) ? L10n.text("Избранный") : L10n.text("Не избранный"))
+    private func languageSelectionButton(_ language: TranslationLanguage) -> some View {
+        Button {
+            if side == .source { selection.selectSource(language.id) } else { selection.selectTarget(language.id) }
+            dismiss()
+        } label: {
+            HStack(alignment: .center, spacing: 8) {
+                #if os(macOS)
+                LanguageFlagBadge(languageID: language.id).scaleEffect(1.15).frame(width: 34, height: 34)
+                #else
+                LanguageFlagBadge(languageID: language.id)
+                #endif
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(language.displayName).font(rowTitleFont).foregroundStyle(.primary)
+                    Text(L10n.language == "ru" ? language.englishName : language.nativeName).font(AppPlatform.panelCaption).foregroundStyle(.secondary)
+                    if let reason = limitation(language) {
+                        Text(reason).font(AppPlatform.panelCaption).foregroundStyle(.secondary)
+                    }
                 }
+                Spacer(minLength: 8)
+                if currentID == language.id { Image(systemName: "checkmark").font(symbolFont).foregroundStyle(.tint) }
+            }.frame(maxWidth: .infinity, alignment: .leading).contentShape(Rectangle())
+        }.buttonStyle(.plain).disabled(limitation(language) != nil)
+            .accessibilityIdentifier("language.option." + language.id)
+            .accessibilityValue(capabilityDescription(language))
+    }
+    private func languageActions(_ language: TranslationLanguage) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: SpeechLanguage(rawValue: language.id)?.supportsRecognition == true ? "mic.fill" : "mic.slash")
+                .foregroundStyle(SpeechLanguage(rawValue: language.id)?.supportsRecognition == true ? Color.accentColor : Color.secondary)
+                .font(symbolFont).frame(width: 28, height: 44)
+                .accessibilityLabel(L10n.text("Речь"))
+                .accessibilityIdentifier("language.speech." + language.id)
+            voiceButton(language)
+            Button { toggleFavorite(language.id) } label: {
+                Image(systemName: favorites.contains(language.id) ? "star.fill" : "star")
+                    .font(symbolFont)
+                    .frame(width: 44, height: 44)
+            }.buttonStyle(.borderless)
+                .accessibilityLabel((favorites.contains(language.id) ? L10n.text("Убрать из избранных: ") : L10n.text("В избранные: ")) + language.displayName)
+                .accessibilityIdentifier("language.favorite." + language.id)
+                .accessibilityValue(favorites.contains(language.id) ? L10n.text("Избранный") : L10n.text("Не избранный"))
+        }
+    }
+    private func languageRow(_ language: TranslationLanguage) -> some View {
+        LanguageRowLayout {
+            languageSelectionButton(language)
+            languageActions(language).fixedSize()
+        }
+    }
+}
+
+/// Keep the title readable; move actions below it when their intrinsic widths do not fit.
+/// A single set of controls also keeps accessibility and hit testing unambiguous.
+private struct LanguageRowLayout: Layout {
+    private struct Placement {
+        let width: CGFloat
+        let title: CGSize
+        let actions: CGSize
+        let inline: Bool
+        var height: CGFloat { inline ? max(title.height, actions.height) : title.height + actions.height }
+    }
+
+    private func placement(_ proposal: ProposedViewSize, _ subviews: Subviews) -> Placement {
+        let idealTitle = subviews[0].sizeThatFits(.unspecified)
+        let actions = subviews[1].sizeThatFits(.unspecified)
+        let proposedWidth = proposal.width.flatMap { $0.isFinite ? $0 : nil }
+        let width = max(0, proposedWidth ?? (idealTitle.width + actions.width + 8))
+        let inline = idealTitle.width + actions.width + 8 <= width
+        let titleWidth = inline ? max(0, width - actions.width - 8) : width
+        let title = subviews[0].sizeThatFits(ProposedViewSize(width: titleWidth, height: nil))
+        return Placement(width: width, title: title, actions: actions, inline: inline)
+    }
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let value = placement(proposal, subviews)
+        return CGSize(width: value.width, height: value.height)
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let value = placement(ProposedViewSize(width: bounds.width, height: nil), subviews)
+        subviews[0].place(at: CGPoint(x: bounds.minX, y: bounds.minY + (value.inline ? (value.height - value.title.height) / 2 : 0)),
+                          anchor: .topLeading, proposal: ProposedViewSize(value.title))
+        subviews[1].place(at: CGPoint(x: bounds.maxX - value.actions.width,
+                                    y: bounds.minY + (value.inline ? (value.height - value.actions.height) / 2 : value.title.height)),
+                          anchor: .topLeading, proposal: ProposedViewSize(value.actions))
     }
 }

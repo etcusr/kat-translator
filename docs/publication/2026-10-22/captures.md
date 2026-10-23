@@ -1,5 +1,7 @@
 # Interface captures — 22 October 2026
 
+**Refresh, 23 October:** the 24 iOS images were recaptured after the adaptive language-row fix (four passing tests); the 16 Mac settings previews below are unchanged. Current gallery total: 5,748,395 bytes. Four additional native Mac language-sheet renders passed separately and remain local. Existing iOS 73/direct Mac 68 exports predate the UI fix. [Scope and evidence](../language-picker-layout-2026-10-23.md). The details below describe the original 22 October capture run.
+
 24 simulator screenshots: `python3 scripts/simulator/run.py --screenshots --headless`, exact iPhone 17 Pro / iOS 27.0, development app 1.1.0 (73). Four tests passed, zero failures/skips. Same neutral Russian directions question, actually translated to English by Index 2B CPU. EN/RU/ES/TR interface. No downloads, live audio or fabricated result fields. Status bar is the actual capture state, not composited.
 
 16 Mac previews: opt-in `PublicationPreviewTests` with `TEST_RUNNER_KAT_PUBLICATION_PREVIEW_DIR`; own NSHostingView cached to PNG, no desktop capture. One test passed, zero skips/failures after correcting test-runner environment propagation and using the actual Settings navigation for Voices. Earlier skipped run is not acceptance. Volatile launch defaults restored; no inference, model deletion or settings interaction. No full-screen/window screenshot claim.

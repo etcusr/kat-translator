@@ -11,8 +11,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 207562,
-      "sha256": "12ecd76bb4359412c566675b0138b89529d7821f0cfb80b524747046963e2b22"
+      "bytes": 207517,
+      "sha256": "8d6cfc84d2990b40076657fc63b35ea7b3d3b386727979a8733ce796a7ead3b7",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/en/05-voices.png",
@@ -23,8 +25,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 234896,
-      "sha256": "6b613fbebb70080fd6f5aab88a0100e8a94827ed4186997c38b000ff45b2d3cb"
+      "bytes": 234844,
+      "sha256": "58ca882e0188815c24ec2ce1805727776241c733803bd5bb2d4c11a812fb65f2",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/en/04-models-and-voices.png",
@@ -35,8 +39,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 149945,
-      "sha256": "17b552d8234a957a34d434b8380b563c03e62ecb8786f0723f394bdf53293c1b"
+      "bytes": 149909,
+      "sha256": "d484cc0f3970a7a74af73c9256c25746e59b52478783657fc515aea2f1638a4f",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/en/03-settings.png",
@@ -47,8 +53,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 166651,
-      "sha256": "ccf78e5e123c4ef78e724035ff3efa75e9cf73a971a71c3ad6ef783bd25950fc"
+      "bytes": 166613,
+      "sha256": "84fb57cb9bf764f1fa4c1118766afcb64bd19ec4be806fdf291860d9ad2d176e",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/en/02-languages.png",
@@ -59,8 +67,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 243977,
-      "sha256": "c7e9b8cd90964dc450b53307b423e7b9a3e459155f5084789aae93d9cb953ab0"
+      "bytes": 243938,
+      "sha256": "95d06bfe58da4039f022c21f21d3451a54344fa2012daa698a285ab2149fa328",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/en/01-text.png",
@@ -71,8 +81,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 199172,
-      "sha256": "daecb89d630d62e16c8e38f11e2687df4e0c70371b2242a19f99b9a146a5b076"
+      "bytes": 199144,
+      "sha256": "78fca1c7f85299d81379c5492c012b1e0fa2607df1b29a729273b8b966f7d2bc",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/ru/06-quick-setup.png",
@@ -83,8 +95,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 219382,
-      "sha256": "7c1e172e6bf8d524b7a6dd163579b83ec920ad1b4f747a3b24b16055996a4604"
+      "bytes": 218851,
+      "sha256": "becdd3a338076da0c8bd5efbc8df84234aff5f541ba92bb25106a29136d4e8b9",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/ru/05-voices.png",
@@ -95,8 +109,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 241525,
-      "sha256": "693a8d16d836b835e20aa4b8028d5ceb73109ed6dd512d6389afbd7e603b4f4e"
+      "bytes": 241004,
+      "sha256": "d35db295082350bcd9b5ccf8e000786e62bcb71b467b49f8b9e35ce9c4767ee1",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/ru/04-models-and-voices.png",
@@ -107,8 +123,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 144579,
-      "sha256": "f10ad88ffbeef5b3f33b6634c36fd15e2512f7448dd44d89cb2416b89b7251e1"
+      "bytes": 144036,
+      "sha256": "861550b843b6b0908cf2abd6eac770314dbd2a16e6ee725d8862d76da0d35fc7",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/ru/03-settings.png",
@@ -119,8 +137,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 170008,
-      "sha256": "25dc279921ab713ba13ef3c80a262c20d9bb06be6f1b8d128dbe3fedf78e98ef"
+      "bytes": 169549,
+      "sha256": "296c5e3c0748f82db5667ac7f5df755d2bcc1a40144f1d85e9dec012baa8d743",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/ru/02-languages.png",
@@ -131,8 +151,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 253676,
-      "sha256": "cf6bc966f7b3b1349b2b94264dd146d6f87e18ec3e0d912e770c3bf85e9e7fe6"
+      "bytes": 249424,
+      "sha256": "b6a39ca66bee1d0f15641ac5ffd6604a383dfd0e6dad5bc427f44eadbc29c9f5",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/ru/01-text.png",
@@ -143,8 +165,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 203037,
-      "sha256": "8897badb7e49eb88a36ac315b20cdf1ec9809a6aad9ad5f052319337a63ddde4"
+      "bytes": 202536,
+      "sha256": "82d94249e17fa5e512eb89557992e8c50b3144e00d39db4edcfaea6b629fcf85",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/es/06-quick-setup.png",
@@ -155,8 +179,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 222761,
-      "sha256": "b1ebb8fa6a2bf3690efe36017c2d6ea0f65d8069dce85e6dc37ac7ad6c926650"
+      "bytes": 221958,
+      "sha256": "8cc9576eb85ac72afa231345d2c0d08a71caeed632a8dff54b3a805ec82c8c5c",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/es/05-voices.png",
@@ -167,8 +193,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 235950,
-      "sha256": "adbb8071ef44b1fc5b81262009c9131674a4b2b396aeabdf62c7a077e18f0a67"
+      "bytes": 235174,
+      "sha256": "852474d3b02c2aec5e54e2fe4addc5e6412d04faee6c121a13f9565bd527c0f8",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/es/04-models-and-voices.png",
@@ -179,8 +207,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 150884,
-      "sha256": "be14c258eeff3860fafbcdf07e404a5bf3ab8696bf8fbfdea1ba73d9e6a8e4cb"
+      "bytes": 150161,
+      "sha256": "dc4637c81c8e51d0ec5736c67a2e44b523fbcb0587797759b18b92c8f6b17938",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/es/03-settings.png",
@@ -191,8 +221,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 170660,
-      "sha256": "893513d41f1c48b11d34391a56f362a3e8ae46c6ef9b4fe47b0ddfca6ff6f297"
+      "bytes": 169942,
+      "sha256": "5500c37303535c033dfe0fbf21c7f0ba4e45ad2d4bf1c6c11eeb1609b4f1128d",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/es/02-languages.png",
@@ -203,8 +235,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 243030,
-      "sha256": "395b93fae7bb4a9fdf745d717bf74a3fad8b7e0373138569c3d731a57b5b92c7"
+      "bytes": 242281,
+      "sha256": "1df128e733361095a451c68b123e2e56caeb38b30d7072ef3d2e040fba5b393c",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/es/01-text.png",
@@ -215,8 +249,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 197237,
-      "sha256": "679274933f96c44aa0235ca5dc6be0df375b973980c8dc20ecd46f7950be2fcf"
+      "bytes": 196455,
+      "sha256": "37e84a69f7164d5427ab1890b632e0e241f14b80e0c06af12547079110f36ad4",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/tr/06-quick-setup.png",
@@ -227,8 +263,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 198593,
-      "sha256": "379f16ae27126c4b5382908e739bb40fab6045af7a34fbd30a700ff610386c04"
+      "bytes": 198298,
+      "sha256": "02e57824920603325402ec83b79e4c317b8cd71dee1fda4ee936ca85f6beae92",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/tr/05-voices.png",
@@ -239,8 +277,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 220525,
-      "sha256": "30d4c73f2017faccbbcf12f66a72bfe2c11e6406dcb654f55dffe31ee0372494"
+      "bytes": 220185,
+      "sha256": "bb77a46ec63b18b9ba4bad169923b926c7e6079a042915ebb74dd841f51b34b0",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/tr/04-models-and-voices.png",
@@ -251,8 +291,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 138767,
-      "sha256": "dd05e8d662618a7782b7cf86a89fca6caf837b0a3287727e6d4bd81c4e4d1bbb"
+      "bytes": 138421,
+      "sha256": "9ee41a1c77e3f56fb64a81043dba430e207336c9881c711cb8dc78ee5c6ee2a4",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/tr/03-settings.png",
@@ -263,8 +305,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 155619,
-      "sha256": "f3177d275aa2268b155c945e02b89aff5f2b2b09adf2d642e74b6205309e44f8"
+      "bytes": 155311,
+      "sha256": "8546fca773e304ae0564c67edbb4fb57dcdd7d99cae5fac3d2f15d658be7f742",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/tr/02-languages.png",
@@ -275,8 +319,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 244091,
-      "sha256": "8803b095f22766e95ca02c818b0cfb271b498b48711630ccb2e39465ecaf440a"
+      "bytes": 243780,
+      "sha256": "106fa237546bfef8a0a472a67735ba00fbc66896083738294d3e60903185cac7",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/ios/tr/01-text.png",
@@ -287,8 +333,10 @@
       "version": "1.1.0 (73)",
       "width": 1206,
       "height": 2622,
-      "bytes": 200892,
-      "sha256": "42621c0f51265431016ecc23e881240eeb973d9917a48cfad3253630cc400eb0"
+      "bytes": 200556,
+      "sha256": "7141acf1eddbaca15a12126c7f49b9dcb2022ba2ba45c1a9c59ee4a36fbce50a",
+      "sourceState": "Development source with adaptive language rows; exported IPA 73 predates this UI change",
+      "captureDate": "2026-10-23"
     },
     {
       "path": "assets/screenshots/2026-10-22/macos-preview/en/01-settings.png",
@@ -482,5 +530,6 @@
       "bytes": 73687,
       "sha256": "cf61d358718b28bd004ab2618284a3e505670e5bbdbda58bd87c0f0af00abc04"
     }
-  ]
+  ],
+  "updatedAt": "2026-10-23"
 }
